@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // English is the default language; the site has no page at the bare root.
+  async redirects() {
+    return [{ source: "/", destination: "/en", permanent: false }];
+  },
 };
 
 export default nextConfig;
