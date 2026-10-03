@@ -26,3 +26,8 @@ Local changes to vendored files: `seo-schema` points to its own copy of `referen
 The claude-seo skills mention the plugin's helper scripts (`${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo`); they are not vendored, so use the manual fallback each step describes.
 
 To update a skill, copy its folder again from the source repository and bump the commit above.
+
+## Plugins
+
+`.claude/settings.json` enables [Superpowers](https://github.com/obra/superpowers) (`superpowers@anthropic-plugin-directory`, MIT): brainstorming → plan → TDD → code review → verification workflow, systematic debugging, git worktrees.
+It is a plugin, not vendored skills, because its skills reference each other as `superpowers:<skill>` and it ships a SessionStart hook. Claude Code offers to install it when the project is opened.
