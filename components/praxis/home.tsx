@@ -11,7 +11,7 @@ import type {X} from './types';
 
 export function Hero({x}:{x:X}){
  const {s,c}=x;
- const proof=[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],['GE · EN · RU',c('языки, на которых работают решения','languages our solutions work in','ენები, რომლებზეც მუშაობს')]];
+ const proof=[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]];
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
