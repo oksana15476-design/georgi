@@ -1,4 +1,6 @@
 'use client';
+import {useState} from 'react';
+import {Currency,money,prices} from '@/lib/pricing';
 import {departments,industries,t} from '@/lib/content';
 import {base} from '@/lib/base';
 import {jobs} from '@/lib/jobs';
@@ -110,19 +112,31 @@ export function Formats({x,training}:{x:X;training:boolean}){
  const ctas=[c('Получить программу обучения','Get a training programme','მიიღეთ სასწავლო პროგრამა'),c('Подобрать инструменты','Find the right tools','შეარჩიეთ ინსტრუმენტები'),c('Запросить оценку проекта','Request a project estimate','მოითხოვეთ პროექტის შეფასება')];
  const ctx=[c('Обучение','Training','სწავლება'),c('Внедрение','Implementation','დანერგვა'),c('Разработка','Development','შემუშავება')];
  const stairs=stairsData(x);
+ const [cur,setCur]=useState<Currency>('gel');
+ const tiers=[prices.training,prices.implementation,prices.development];
+ const includes=training?null:[
+  [c('Воркшоп 4–8 часов для команды до 12 человек','4–8 hour workshop for a team of up to 12','4–8 საათიანი ვორქშოპი 12-მდე ადამიანისთვის'),c('Промпты и шаблоны под задачи отдела','Prompts and templates for your team’s tasks','პრომპტები და შაბლონები გუნდის ამოცანებისთვის'),c('Правила проверки результата','Rules for reviewing AI output','შედეგის შემოწმების წესები')],
+  [c('Один сценарий в ваших каналах','One workflow in your channels','ერთი სცენარი თქვენს არხებში'),c('Интеграция с CRM или таблицами','CRM or spreadsheet integration','ინტეგრაცია CRM-თან ან ცხრილებთან'),c('Обучение ответственного и 2 недели поддержки','Owner training and 2 weeks of support','პასუხისმგებლის სწავლება და 2 კვირის მხარდაჭერა')],
+  [c('ИИ-агент под ваш процесс','An AI agent built for your workflow','AI აგენტი თქვენი პროცესისთვის'),c('Интеграции с CRM, ERP и 1С','CRM, ERP and 1C integrations','ინტეგრაციები CRM-თან, ERP-სა და 1C-თან'),c('Тесты, документация и передача кода','Testing, documentation and code handover','ტესტები, დოკუმენტაცია და კოდის გადაცემა')]
+ ];
+ const from=c('от','from',''),popular=c('Чаще выбирают','Most popular','ყველაზე პოპულარული');
  return (
   <section id="solutions" className="band-white">
    <div className="wrap sec">
-    <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Нужная глубина внедрения.','The right level of implementation.','დანერგვის საჭირო დონე.')}</h2><p className="lead">{s.formatsP}</p></div></div>
+    <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Нужная глубина внедрения.','The right level of implementation.','დანერგვის საჭირო დონე.')}</h2><p className="lead">{s.formatsP}</p></div>
+     {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>setCur(k)} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
+    </div>
     <div className="formats-grid">
-     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className="format">
-      <h3>{title}</h3>
+     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(!training&&i===1?' is-popular':'')}>
+      <h3>{title}{!training&&i===1&&<span className="popular">{popular}</span>}</h3>
+      {!training&&<p className="price">{x.lang==='ka'?<>{money(tiers[i],cur)}<small>-დან</small></>:<><small>{from}</small> {money(tiers[i],cur)}</>}</p>}
       <p>{bodies[i]}</p>
+      {includes&&<ul className="includes">{includes[i].map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}</ul>}
       <p className="format-time"><span>{s.timelineT}: <b>{stairs[i].time}</b></span></p>
       <button type="button" onClick={()=>x.go(ctx[i])} className="ulink mt-auto">{ctas[i]}<Icon name="arrow-right" size={16}/></button>
      </article></div>)}
     </div>
-    <p className="formats-note">{s.timeline}</p>
+    <p className="formats-note">{training?s.timeline:c('Начинаем с бесплатного аудита — цену пилота фиксируем до старта работ. Сопровождение после запуска — от ','We start with a free audit and fix the pilot price before work begins. Support after launch — from ','ვიწყებთ უფასო აუდიტით და პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ. მხარდაჭერა გაშვების შემდეგ — ')+money(prices.support,cur)+c('/мес.','/month.','-დან თვეში.')}</p>
    </div>
   </section>
  );

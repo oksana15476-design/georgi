@@ -648,3 +648,17 @@ main{outline:none}
 }
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Pricing inside "Ways to work" */
+.formats-head{flex-direction:row;justify-content:space-between;align-items:flex-end;gap:20px 40px;flex-wrap:wrap}
+.seg-sm button{padding:8px 16px;font-size:13px}
+.format .price{margin:2px 0 14px;font-size:clamp(30px,2.6vw,38px);line-height:1.1;font-weight:600;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.format .price small{font-size:15px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.format.is-popular{border-top:2px solid var(--accent)}
+.format.is-popular .price{color:var(--accent)}
+.format h3{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.popular{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:var(--grad);color:#fff;font-size:12px;font-weight:600;letter-spacing:0;line-height:1.2}
+.includes{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.includes li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink)}
+.includes svg{color:var(--accent);margin-top:3px}
+@media(max-width:600px){.formats-head{flex-direction:column;align-items:flex-start}}
