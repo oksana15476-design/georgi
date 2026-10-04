@@ -1,5 +1,6 @@
 'use client';
-import {useState} from 'react';
+import {useRef,useState} from 'react';
+import {getAttribution,track} from '@/components/analytics';
 import {base} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {Icon} from './icon';
@@ -43,8 +44,10 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
  const {s,lang}=x;
  const [chosen,setChosen]=useState<number[]>([]),[method,setMethod]=useState<'telegram'|'phone'>('telegram'),[contact,setContactValue]=useState(''),[message,setMessage]=useState(''),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
+ const started=useRef(false);
+ const start=()=>{if(!started.current){started.current=true;track('form_start',{page:location.pathname})}};
  const change=(value:string)=>{
-  setStatus('');
+  start();setStatus('');
   if(method==='telegram'){setContactValue(value.replace(/\s/g,''));return}
   const d=value.replace(/\D/g,'').slice(0,15);
   if(d.startsWith('995')){const r=d.slice(3);setContactValue('+995'+(r?' '+r.slice(0,3):'')+(r.length>3?' '+r.slice(3,6):'')+(r.length>6?' '+r.slice(6,9):''))}
@@ -53,14 +56,14 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
   const plain=contact.replace(/\D/g,'');
-  if(method==='phone'&&(plain.length<7||plain.length>15)){setStatus('invalid');return}
-  if(method==='telegram'&&!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''))){setStatus('invalid');return}
+  if(method==='phone'&&(plain.length<7||plain.length>15)){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
+  if(method==='telegram'&&!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''))){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
   setSending(true);setStatus('');
   try{
-   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,website})});
+   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,source:getAttribution(),website})});
    if(!r.ok)throw new Error();
-   setDone(true);
-  }catch{setStatus('error')}
+   setDone(true);track('generate_lead',{method,options:chosen.length,page:location.pathname});
+  }catch{setStatus('error');track('form_error',{reason:'send_failed'})}
   finally{setSending(false)}
  };
  const invalid=status==='invalid',statusText=status==='invalid'?s.invalidText:status==='error'?s.errorText:'';
@@ -91,7 +94,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
      <form onSubmit={submit} noValidate data-lpignore="true" className="form">
       <fieldset>
        <legend><span className="step-badge">1</span>{s.whatTakes}</legend>
-       <div className="chips">{options.map((lb,i)=>{const on=chosen.includes(i);return <button key={lb} type="button" onClick={()=>setChosen(v=>v.includes(i)?v.filter(n=>n!==i):[...v,i])} aria-pressed={on} className={'chip'+(on?' is-on':'')}>{lb}</button>})}</div>
+       <div className="chips">{options.map((lb,i)=>{const on=chosen.includes(i);return <button key={lb} type="button" onClick={()=>{start();setChosen(v=>v.includes(i)?v.filter(n=>n!==i):[...v,i])}} aria-pressed={on} className={'chip'+(on?' is-on':'')}>{lb}</button>})}</div>
       </fieldset>
       {chosen.includes(options.length-1)&&<label className="field fade-in">{s.tellTask}<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)}/></label>}
       {context&&<div className="context-chip"><span><span className="muted">{s.contextLabel}</span> <b>{context}</b></span><button type="button" onClick={()=>setContext('')} aria-label={s.removeContext}><Icon name="x" size={15}/></button></div>}

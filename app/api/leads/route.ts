@@ -9,6 +9,6 @@ export async function POST(request:Request){
  if(!contact)return Response.json({error:'required'},{status:400});
  const secrets=env as unknown as {TELEGRAM_BOT_TOKEN?:string;TELEGRAM_CHAT_ID?:string};
  if(!secrets.TELEGRAM_BOT_TOKEN||!secrets.TELEGRAM_CHAT_ID)return Response.json({error:'unavailable'},{status:503});
- const text=['Praxis AI — новая заявка',...(name?['Имя: '+name]:[]),'Контакт: '+contact,'Задача: '+clean('message',2000),'Выбрано: '+(Array.isArray(body.tasks)?body.tasks.filter(v=>typeof v==='string').slice(0,10).map(v=>v.slice(0,120)).join(', '):''),'Контекст: '+clean('context',180),'Язык: '+clean('lang',5),'Страница: '+clean('page',220)].join('\n');
+ const text=['Praxis AI — новая заявка',...(name?['Имя: '+name]:[]),'Контакт: '+contact,'Задача: '+clean('message',2000),'Выбрано: '+(Array.isArray(body.tasks)?body.tasks.filter(v=>typeof v==='string').slice(0,10).map(v=>v.slice(0,120)).join(', '):''),'Контекст: '+clean('context',180),'Язык: '+clean('lang',5),'Страница: '+clean('page',220),'Источник: '+(clean('source',300)||'прямой заход')].join('\n');
  try{const response=await fetch('https://api.telegram.org/bot'+secrets.TELEGRAM_BOT_TOKEN+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:secrets.TELEGRAM_CHAT_ID,text}),signal:AbortSignal.timeout(10000)});const result=await response.json() as {ok?:boolean};if(!response.ok||!result.ok)throw new Error();return Response.json({ok:true})}catch{return Response.json({error:'delivery'},{status:502})}
 }

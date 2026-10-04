@@ -15,6 +15,17 @@ type Props={lang:Lang;c:C;s:SiteCopy;page:string;rest:string;toContact:(e?:React
 export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
  const [drop,setDrop]=useState('');const [scrolled,setScrolled]=useState(false);
  const leave=useRef<ReturnType<typeof setTimeout>>(undefined);
+ // Long labels (Georgian especially) can outgrow the row before the 1240px breakpoint; switch to the burger then.
+ const row=useRef<HTMLDivElement>(null),need=useRef(0);const [compact,setCompact]=useState(false);
+ useEffect(()=>{
+  const el=row.current;if(!el)return;
+  const check=()=>{
+   if(!el.classList.contains('is-compact')&&el.scrollWidth>el.clientWidth+1){need.current=el.scrollWidth;setCompact(true)}
+   else if(el.classList.contains('is-compact')&&el.clientWidth>=need.current)setCompact(false);
+  };
+  const ro=new ResizeObserver(check);ro.observe(el);document.fonts?.ready.then(check);
+  return()=>ro.disconnect();
+ },[]);
  const root=base+'/'+lang,link=(x:string)=>root+'/'+x;
  useEffect(()=>{
   const onScroll=()=>setScrolled(window.scrollY>8);onScroll();
@@ -29,7 +40,7 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
  const action=s.actionHeader;
  return (
   <header className={'site-header'+(scrolled||menu?' is-scrolled':'')+(drop?' has-drop':'')} onMouseLeave={()=>{clearTimeout(leave.current);leave.current=setTimeout(()=>setDrop(''),160)}}>
-   <div className="wrap header-row">
+   <div ref={row} className={'wrap header-row'+(compact?' is-compact':'')}>
     <a href={root} aria-label="Praxis AI" className="brand">
      <Wordmark/>
     </a>

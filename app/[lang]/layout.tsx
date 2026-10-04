@@ -2,7 +2,8 @@ import type {Metadata,Viewport} from 'next';
 import '../globals.css';
 import {t} from '@/lib/content';
 import {base} from '@/lib/base';
-import {siteUrl,defaultLang,siteTitle,isLang,description} from '@/lib/seo';
+import {siteUrl,defaultLang,siteTitle,isLang,description,organizationJsonLd} from '@/lib/seo';
+import {Analytics} from '@/components/analytics';
 
 export async function generateMetadata({params}:{params:Promise<{lang:string}>}):Promise<Metadata>{
   const {lang:raw}=await params;const lang=isLang(raw)?raw:defaultLang;
@@ -32,7 +33,11 @@ export default async function RootLayout({children,params}:Readonly<{children:Re
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- loaded once in the root layout */}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600&display=swap"/>
       </head>
-      <body>{children}</body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(organizationJsonLd(isLang(lang)?lang:defaultLang)).replace(/</g,'\\u003c')}}/>
+        {children}
+        <Analytics/>
+      </body>
     </html>
   );
 }

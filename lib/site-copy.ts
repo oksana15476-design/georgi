@@ -8,7 +8,7 @@ export const sectionLabel=(c:C,n:string)=>({industries:c('Отрасли','Indus
 
 // Department pages get their own call to action; everything else uses the free audit.
 export const actionFor=(c:C,slug?:string)=>{
- const map:Record<string,string>={sales:c('Аудит отдела продаж','Audit my sales process','გაყიდვების აუდიტი'),support:c('Аудит поддержки','Audit my helpdesk','მხარდაჭერის აუდიტი'),hr:c('Аудит онбординга','Audit our onboarding','ონბორდინგის აუდიტი'),marketing:c('Аудит маркетинга','Audit our marketing','მარკეტინგის აუდიტი'),procurement:c('Автоматизировать сравнение КП','Automate quote comparison','შეთავაზებების შედარების ავტომატიზაცია'),finance:c('Аудит учёта','Audit our accounting','აღრიცხვის აუდიტი'),operations:c('Аудит бэк-офиса','Audit our back office','ბექ-ოფისის აუდიტი'),leadership:c('Стратегический аудит','Book a strategy audit','სტრატეგიული აუდიტი')};
+ const map:Record<string,string>={sales:c('Аудит отдела продаж','Audit my sales process','გაყიდვების აუდიტი'),support:c('Аудит поддержки','Audit my helpdesk','მხარდაჭერის აუდიტი'),hr:c('Аудит онбординга','Audit our onboarding','ონბორდინგის აუდიტი'),marketing:c('Аудит маркетинга','Audit our marketing','მარკეტინგის აუდიტი'),procurement:c('Автоматизировать сравнение КП','Automate quote comparison','შეთავაზებების შედარების ავტომატიზაცია'),finance:c('Аудит учёта','Audit our accounting','აღრიცხვის აუდიტი'),operations:c('Аудит бэк-офиса','Audit our back office','ბექ‑ოფისის აუდიტი'),leadership:c('Стратегический аудит','Book a strategy audit','სტრატეგიული აუდიტი')};
  return (slug&&map[slug])||c('Бесплатный аудит процесса','Get a free AI audit','უფასო AI აუდიტი');
 };
 
@@ -22,7 +22,7 @@ export function siteCopy(c:C,slug?:string){
   viewAll:c('Смотреть всё','View all','ყველას ნახვა'),
   openMenu:c('Открыть меню','Open menu','მენიუს გახსნა'),closeMenu:c('Закрыть меню','Close menu','მენიუს დახურვა'),
   heroEyebrow:c('Практический ИИ для бизнеса в Грузии','Practical AI for business in Georgia','პრაქტიკული AI ბიზნესისთვის საქართველოში'),
-  heroH1a:c('Внедряем ИИ','We bring AI','ვნერგავთ AI-ს'),heroH1b:c('в бизнес-процессы.','into your workflows.','ბიზნესპროცესებში.'),heroH1c:c('Рутины — в 2–3 раза меньше.','2–3× less routine work.','2–3-ჯერ ნაკლები რუტინა.'),
+  heroH1a:c('Внедряем ИИ','We bring AI','ვნერგავთ AI‑ს'),heroH1b:c('в бизнес-процессы.','into your workflows.','ბიზნესპროცესებში.'),heroH1c:c('Рутины — в 2–3 раза меньше.','2–3× less routine work.','2–3‑ჯერ ნაკლები რუტინა.'),
   heroIntro:c('Разрабатываем ИИ-помощников, автоматизируем клиентский сервис и обучаем команды. Практические решения для компаний в Грузии.','We build AI assistants, automate customer service and train teams. Practical solutions for companies in Georgia.','ვქმნით AI ასისტენტებს, ვავტომატიზებთ მომსახურებას და ვასწავლით გუნდებს საქართველოში.'),
   heroSecondary:c('Посмотреть, как это работает','See it in action','ნახეთ, როგორ მუშაობს'),
   demoTitle:c('ЗАЯВКА → ПРЕДЛОЖЕНИЕ','ENQUIRY → PROPOSAL','მოთხოვნა → შეთავაზება'),
@@ -68,7 +68,7 @@ export function siteCopy(c:C,slug?:string){
   sources:c('Источники и интеграции','Sources and integrations','წყაროები და ინტეგრაციები'),
   sourcesNote:c('Проверим доступы и совместимость до оценки проекта.','We check access and compatibility before estimating the project.','პროექტის შეფასებამდე ვამოწმებთ წვდომასა და თავსებადობას.'),
   measureNote:c('Сравниваем с исходным процессом, включая время проверки человеком.','Compare with your baseline, including human review time.','ვადარებთ საწყის პროცესს, ადამიანის შემოწმების დროის ჩათვლით.'),
-  dataGuarantee:c('Работаем через корпоративные Enterprise API: ваши данные не используются для обучения публичных моделей. При необходимости разворачиваем решение в вашем контуре — включая поставку GPU-серверов.','We use enterprise APIs: your data is never used to train public models. If needed, we deploy inside your infrastructure — including GPU server supply.','ვმუშაობთ კორპორატიული Enterprise API-ით: თქვენი მონაცემები არ გამოიყენება საჯარო მოდელების სასწავლად. საჭიროებისას ვნერგავთ თქვენს ინფრასტრუქტურაში — GPU სერვერების მიწოდების ჩათვლით.'),
+  dataGuarantee:c('Работаем через корпоративные Enterprise API: ваши данные не используются для обучения публичных моделей. При необходимости разворачиваем решение в вашем контуре — включая поставку GPU-серверов.','We use enterprise APIs: your data is never used to train public models. If needed, we deploy inside your infrastructure — including GPU server supply.','ვმუშაობთ კორპორატიული Enterprise API‑ით: თქვენი მონაცემები არ გამოიყენება საჯარო მოდელების სასწავლად. საჭიროებისას ვნერგავთ თქვენს ინფრასტრუქტურაში — GPU სერვერების მიწოდების ჩათვლით.'),
   oneRole:c('Одна роль. Разные процессы.','One role. Different workflows.','ერთი როლი. სხვადასხვა პროცესი.'),
   industryWorkflows:c('Сценарии для отрасли','Industry workflows','ინდუსტრიის სცენარები'),
   synergyH2:c('Одна система для всех отделов.','One system for every department.','ერთი სისტემა ყველა განყოფილებისთვის.'),
@@ -79,9 +79,9 @@ export function siteCopy(c:C,slug?:string){
   faqAskBody:c('Задайте вопрос напрямую — ответим в течение рабочего дня.','Ask us directly — we reply within one business day.','მოგვწერეთ პირდაპირ — გიპასუხებთ სამუშაო დღის განმავლობაში.'),
   faqAskForm:c('Оставить заявку','Send an enquiry','მოთხოვნა'),
   contactH2:c('Снимите рутину с вашей команды.','Take routine work off your team’s hands.','შეამცირეთ რუტინა თქვენი გუნდისთვის.'),
-  contactP:c('Выберите, что отнимает больше всего времени. Покажем, как можно изменить процесс с помощью ИИ.','Choose what takes up the most time. We’ll explore how AI could improve the process.','აირჩიეთ, რა გართმევთ დროს. განვიხილავთ პროცესის გაუმჯობესებას AI-ით.'),
+  contactP:c('Выберите, что отнимает больше всего времени. Покажем, как можно изменить процесс с помощью ИИ.','Choose what takes up the most time. We’ll explore how AI could improve the process.','აირჩიეთ, რა გართმევთ დროს. განვიხილავთ პროცესის გაუმჯობესებას AI‑ით.'),
   contactSteps:[c('Отвечаем по выбранному контакту и уточняем процесс.','We reply via your chosen contact and clarify the workflow.','გიპასუხებთ არჩეული არხით და დავაზუსტებთ პროცესს.'),c('Выбираем одну задачу и критерии пилота.','We pick one task and agree pilot criteria.','ვირჩევთ ერთ ამოცანას და პილოტის კრიტერიუმებს.'),c('Готовим объём работ и расчёт.','We prepare scope and an estimate.','ვამზადებთ სამუშაოს მოცულობასა და შეფასებას.')],
-  telegram:c('Написать в Telegram','Message on Telegram','მოგვწერეთ Telegram-ში'),
+  telegram:c('Написать в Telegram','Message on Telegram','მოგვწერეთ Telegram‑ში'),
   location:c('Грузия · RU / EN / GE','Georgia · EN / GE / RU','საქართველო · GE / EN / RU'),
   whatTakes:c('Где больше всего рутины?','Where is the most routine work?','სად არის ყველაზე მეტი რუტინა?'),
   tellTask:c('Расскажите о задаче','Tell us about your task','მოგვიყევით ამოცანაზე'),
@@ -93,7 +93,7 @@ export function siteCopy(c:C,slug?:string){
   formNote:c('Свяжемся по указанному контакту, уточним процесс и подготовим оценку. Контакт используем только для ответа по заявке.','We’ll contact you, clarify the workflow and prepare an estimate. Your contact is used only to reply to this enquiry.','დაგიკავშირდებით, დავაზუსტებთ პროცესს და მოვამზადებთ შეფასებას. კონტაქტს ვიყენებთ მხოლოდ პასუხისთვის.'),
   submit:c('Получить расчёт проекта','Get a project estimate','მიიღეთ პროექტის შეფასება'),sending:c('Отправляем…','Sending…','იგზავნება…'),
   errorText:c('Не удалось отправить. Попробуйте позже — поля сохранены.','Could not send. Please try later; your entries are preserved.','ვერ გაიგზავნა. სცადეთ მოგვიანებით — მონაცემები შენარჩუნებულია.'),
-  invalidText:c('Проверьте контакт: укажите номер с кодом страны или корректное @имя Telegram.','Check your contact: include the country code or a valid Telegram username.','შეამოწმეთ ნომერი ქვეყნის კოდით ან Telegram-ის სახელი.'),
+  invalidText:c('Проверьте контакт: укажите номер с кодом страны или корректное @имя Telegram.','Check your contact: include the country code or a valid Telegram username.','შეამოწმეთ ნომერი ქვეყნის კოდით ან Telegram‑ის სახელი.'),
   successTitle:c('Спасибо! Заявка получена.','Thank you! Enquiry received.','გმადლობთ! მოთხოვნა მიღებულია.'),
   successBody:c('Свяжемся по указанному контакту, уточним процесс и подготовим оценку.','We’ll contact you, clarify the workflow and prepare an estimate.','დაგიკავშირდებით, დავაზუსტებთ პროცესს და მოვამზადებთ შეფასებას.'),
   sendAnother:c('Отправить ещё одну заявку','Send another enquiry','კიდევ ერთი მოთხოვნა'),
