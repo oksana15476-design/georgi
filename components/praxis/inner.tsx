@@ -217,14 +217,15 @@ export function Trust({x}:{x:X}){
  return (
   <section className="band-white bordered">
    <div className="wrap sec trust">
-    <div data-reveal="" className="trust-head"><h2 className="h2 mw560">{s.trustH2}</h2>
-     <div aria-hidden="true" className="log">
-      <div className="log-title"><Icon name="shield-check" size={15}/>{s.logTitle}</div>
-      <ul>{log.map(([icon,bg,fg,title,sub,time],i)=><li key={title} style={{animationDelay:(0.1+i*0.12)+'s'}}><span className="log-icon" style={{background:bg,color:fg}}><Icon name={icon} size={13}/></span><span className="min0 grow"><b>{title}</b><span>{sub}</span></span><small>{time}</small></li>)}</ul>
+    <div className="trust-copy">
+     <div data-reveal=""><h2 className="h2 mw560">{s.trustH2}</h2><p className="lead">{c('ИИ работает по вашим правилам: каждое действие видно в журнале, а важные решения остаются за сотрудником.','AI follows your rules: every action is logged, and key decisions stay with your people.','AI მუშაობს თქვენი წესებით: ყველა მოქმედება ჩანს ჟურნალში, მნიშვნელოვან გადაწყვეტილებებს კი თანამშრომელი იღებს.')}</p></div>
+     <div className="trust-grid">
+      {items.map(([title,body],i)=><div key={title} data-reveal="" style={rd(i*90)} className="trust-point"><span className="tile-icon"><Icon name={['shield-check','layers','graduation-cap','lock'][i]} size={19}/></span><div><h3>{title}</h3><p>{body}</p></div></div>)}
      </div>
     </div>
-    <div className="grid-c4">
-     {items.map(([title,body],i)=><div key={title} data-reveal="" style={rd(i*100)}><article className="trust-item"><h3>{title}</h3><p>{body}</p></article></div>)}
+    <div data-reveal="" style={rd(120)} aria-hidden="true" className="log">
+     <div className="log-title"><Icon name="shield-check" size={15}/>{s.logTitle}</div>
+     <ul>{log.map(([icon,bg,fg,title,sub,time],i)=><li key={title} style={{animationDelay:(0.1+i*0.12)+'s'}}><span className="log-icon" style={{background:bg,color:fg}}><Icon name={icon} size={13}/></span><span className="min0 grow"><b>{title}</b><span>{sub}</span></span><small>{time}</small></li>)}</ul>
     </div>
    </div>
   </section>
