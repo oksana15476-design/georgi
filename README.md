@@ -35,11 +35,31 @@ npm run start
 - lib/contacts.ts — контактные ссылки.
 - public/ — статические ресурсы.
 
-## Заявки в Telegram
+## Заявки: Telegram, почта и amoCRM
 
-Прямая ссылка настроена на @zheniazikinzik. Для автоматической отправки формы нужно задать серверные переменные TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID. Названия указаны в .env.example; настоящих значений в репозитории нет.
+API `app/api/leads/route.ts` отправляет каждую заявку во все настроенные каналы параллельно. Заявка считается принятой, если дошла хотя бы в один. В сообщении есть источник перехода (UTM-метки и сайт, с которого пришёл посетитель).
 
-API app/api/leads/route.ts читает переменные из Cloudflare Worker environment. На хостинге задайте их как секреты; для локального Worker можно использовать игнорируемый файл .dev.vars. До настройки API возвращает 503, а форма показывает ошибку без ложного подтверждения отправки.
+Секреты задаются в Cloudflare Worker (для локального запуска — в игнорируемом `.dev.vars`). Названия переменных — в `.env.example`:
+
+- Telegram: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+- Почта через [Resend](https://resend.com): `RESEND_API_KEY`, `LEAD_EMAIL_TO` (можно несколько адресов через запятую), `LEAD_EMAIL_FROM` (адрес на подтверждённом домене).
+- amoCRM: `AMO_DOMAIN` (например, `company.amocrm.ru`), `AMO_TOKEN` (долгосрочный токен интеграции), при желании `AMO_PIPELINE_ID`. Создаётся сделка с контактом, полный текст заявки — в примечании.
+
+Если не настроен ни один канал, API возвращает 503, и форма показывает ошибку с кнопками WhatsApp, Telegram и телефона. На GitHub Pages сервера нет, поэтому форма там не отправляет заявки.
+
+## Аналитика, реклама и запись на аудит
+
+Публичные настройки встраиваются при сборке и необязательны:
+
+- `NEXT_PUBLIC_GA_ID` — Google Analytics 4 (`G-…`).
+- `NEXT_PUBLIC_META_PIXEL_ID` — пиксель Meta.
+- `NEXT_PUBLIC_ADS_ID` и `NEXT_PUBLIC_ADS_LEAD_LABEL` — конверсия Google Ads (`AW-…` и метка действия «заявка»).
+- `NEXT_PUBLIC_BOOKING_URL` — ссылка Cal.com или Calendly; с ней появляется кнопка записи на аудит.
+- `NEXT_PUBLIC_SITE_URL` — адрес сайта для canonical, hreflang, Open Graph и sitemap.
+
+Счётчики загружаются только после согласия посетителя в cookie-баннере; баннер показывается, когда задан хотя бы один ID. События: `cta_click`, `phone_click`, `telegram_click`, `whatsapp_click`, `form_start`, `form_error`, `generate_lead` (в Meta — `Lead`, в Google Ads — конверсия), `calculator_use`, `currency_switch`.
+
+Политика конфиденциальности — страница `/{язык}/privacy` (`components/praxis/privacy.tsx`). Перед запуском рекламы добавьте реквизиты юрлица и согласуйте текст с юристом.
 
 ## Публикация
 

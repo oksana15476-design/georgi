@@ -67,6 +67,7 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
    {menu&&<nav aria-label={s.mainNav} className="mobile-menu">
     {nav.map(k=><a key={k} href={link(k)} className={page===k?'is-active':''}>{sectionLabel(c,k)}<Icon name="arrow-up-right" size={20}/></a>)}
     <a href={'tel:'+contacts.phone} className="mobile-phone"><Icon name="phone" size={18}/>{contacts.phoneLabel}</a>
+    <a href={contacts.whatsapp} target="_blank" rel="noopener" className="mobile-phone"><Icon name="whatsapp" size={18}/>WhatsApp</a>
     <a href="#contact" onClick={toContact} className="btn btn-primary btn-block">{s.action}</a>
    </nav>}
 

@@ -23,7 +23,7 @@ export function pageMeta(lang:Lang,path:string,title:string,desc:string):Metadat
 }
 
 // Every public page, for the sitemap.
-export const allPaths=['',...['industries','departments','training','solutions','cases'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
+export const allPaths=['',...['industries','departments','training','solutions','cases','partners','privacy'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
 
 export function organizationJsonLd(lang:Lang){
  return {'@context':'https://schema.org','@type':'ProfessionalService','@id':absolute('/#organization'),name:'Praxis AI',url:absolute('/'+lang),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,

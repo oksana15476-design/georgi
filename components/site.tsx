@@ -12,6 +12,9 @@ import {CaseExamples,DepartmentsGrid,Formats,IndustriesGrid,InnerHero,Process,So
 import {DetailHero,Related,Scenarios,Tested} from '@/components/praxis/detail';
 import {Contact,Faq} from '@/components/praxis/contact';
 import {Icon} from '@/components/praxis/icon';
+import {AuditReport,Calculator,Partners} from '@/components/praxis/growth';
+import {Privacy} from '@/components/praxis/privacy';
+import {Team} from '@/components/praxis/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxis/ui';
 import type {X} from '@/components/praxis/types';
 
@@ -21,7 +24,7 @@ export default function Site({lang='en',section='home',slug}:Props){
  const c=copyFn(lang);
  const profile=slug?profiles[slug]:undefined;
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
- const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail;
+ const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners;
  const s=siteCopy(c,isDetail?slug:undefined);
  const root=base+'/'+lang,link=(p:string)=>root+'/'+p;
  const rest=(section==='home'?'':'/'+section)+(slug?'/'+slug:'');
@@ -45,19 +48,21 @@ export default function Site({lang='en',section='home',slug}:Props){
   [c('Сколько стоит внедрение?','How much does implementation cost?','რა ღირს დანერგვა?'),costAnswer],
   [c('Кто поддерживает решение после запуска?','Who supports the solution after launch?','ვინ უჭერს მხარს გაშვების შემდეგ?'),c('Передаём инструкции и обучаем ответственных. По желанию берём сопровождение: мониторинг качества и обновление базы знаний.','We hand over instructions and train owners. Optionally we provide ongoing support: quality monitoring and knowledge base updates.','გადავცემთ ინსტრუქციებს და ვასწავლით პასუხისმგებლებს. სურვილისამებრ — მხარდაჭერა და ცოდნის ბაზის განახლება.')]
  ];
- const faqItems:[string,string][]=isDetail?(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])):section==='departments'?deptFaq:genFaq;
- const faqTitle=isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
+ const partnerFaq:[string,string][]=[[c('Сколько я получу?','How much will I earn?','რამდენს მივიღებ?'),c('Процент с оплаченного проекта и сопровождения. Размер зависит от вашей роли в сделке — от рекомендации до совместных продаж — и фиксируется в договоре.','A share of each paid project and support plan. The rate depends on your role, from a referral to joint selling, and is fixed in a contract.','პროცენტი გადახდილი პროექტიდან და მხარდაჭერიდან. ოდენობა დამოკიდებულია თქვენს როლზე და ხელშეკრულებით ფიქსირდება.')],[c('Нужно ли разбираться в ИИ?','Do I need to know AI?','AI-ში უნდა ვერკვეოდე?'),c('Нет. Достаточно знать задачи клиента. Аудит, расчёт и внедрение берём на себя, а вам даём демо и материалы.','No. Knowing the client’s needs is enough. We handle the audit, estimate and delivery and give you demos and materials.','არა. საკმარისია კლიენტის ამოცანების ცოდნა. აუდიტს, გათვლასა და დანერგვას ჩვენ ვაკეთებთ.')],[c('Можно работать под нашим брендом?','Can you deliver under our brand?','შეიძლება ჩვენი ბრენდით?'),c('Да, для агентств и интеграторов делаем внедрения под вашим брендом. Условия обсуждаем отдельно.','Yes, for agencies and integrators we deliver under your brand. Terms are agreed separately.','დიახ, სააგენტოებისა და ინტეგრატორებისთვის ვმუშაობთ თქვენი ბრენდით.')],[c('Когда выплачивается вознаграждение?','When am I paid?','როდის ხდება ანაზღაურება?'),c('После оплаты клиентом каждого этапа — пилота, внедрения или месяца сопровождения.','After the client pays for each stage — pilot, implementation or a month of support.','კლიენტის მიერ თითოეული ეტაპის გადახდის შემდეგ.')]];
+ const faqItems:[string,string][]=isPartners?partnerFaq:isDetail?(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])):section==='departments'?deptFaq:genFaq;
+ const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
   ?(ov?ov.chips:[...profile!.scenarios.map(q=>t(q.title,lang)),...profile!.extra.map(v=>t(v,lang))])
   :section==='solutions'?solutionChoices.map(v=>t(v,lang))
   :section==='training'?[7,0,1,4].map(i=>departments[i]).filter(Boolean).map(d=>t(d.name,lang))
+  :isPartners?[c('Интегратор 1С / CRM','1C / CRM integrator','1C / CRM ინტეგრატორი'),c('Агентство','Agency','სააგენტო'),c('Бухгалтерия или юристы','Accounting or legal','ბუღალტერია ან იურისტები'),c('Консультант','Consultant','კონსულტანტი')]
   :section==='departments'?[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Бэк-офис','Back office','ბექ‑ოფისი'),'HR',c('Маркетинг','Marketing','მარკეტინგი'),c('Финансы','Finance','ფინანსები'),c('Закупки','Procurement','შესყიდვები')]
   :defaultOptions),s.other];
 
  const footerCols=[
-  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:'#contact',label:s.action,contact:true}]},
+  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:'#contact',label:s.action,contact:true}]},
   {title:sectionLabel(c,'departments'),links:departments.slice(0,4).map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
   {title:sectionLabel(c,'industries'),links:[...industries.slice(0,4).map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
  ];
@@ -70,18 +75,23 @@ export default function Site({lang='en',section='home',slug}:Props){
    <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} toContact={toContact} menu={menu} setMenu={setMenu}/>
    <main id="main" tabIndex={-1}>
     {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><FindWorkflow x={x}/></>}
-    {!isHome&&!isDetail&&<InnerHero x={x} page={section}/>}
+    {isPrivacy&&<Privacy x={x}/>}
+    {isPartners&&<Partners x={x}/>}
+    {isList&&<InnerHero x={x} page={section}/>}
     {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
     {section==='industries'&&!isDetail&&<IndustriesGrid x={x}/>}
     {section==='departments'&&!isDetail&&<DepartmentsGrid x={x}/>}
     {['home','solutions','training'].includes(section)&&!isDetail&&<Formats x={x} training={section==='training'}/>}
+    {['home','solutions'].includes(section)&&!isDetail&&<Calculator x={x}/>}
     {section==='solutions'&&<SolutionExamples x={x}/>}
     {section==='cases'&&<><CaseExamples x={x}/><Results x={x} count={false}/></>}
-    {!isHome&&!isDetail&&<Process x={x}/>}
-    {!isDetail&&<Trust x={x}/>}
+    {isList&&<Process x={x}/>}
+    {(isHome||isList)&&<Trust x={x}/>}
+    {['home','solutions'].includes(section)&&!isDetail&&<AuditReport x={x}/>}
+    {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
     {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/></>}
-    <Faq x={x} items={faqItems} title={faqTitle}/>
-    <Contact x={x} options={options} context={context} setContext={setContext}/>
+    {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle}/>
+    <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>
 
    <footer className="footer">
@@ -90,7 +100,7 @@ export default function Site({lang='en',section='home',slug}:Props){
       <div className="footer-brand">
        <a href={root} aria-label="Praxis AI" className="brand brand-dark"><Wordmark dark/></a>
        <p className="footer-tag">{s.footerTag}</p>
-       <div><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a></div>
+       <div className="footer-contacts"><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a><a href={contacts.whatsapp} target="_blank" rel="noopener" className="footer-phone"><Icon name="whatsapp" size={16}/>WhatsApp</a></div>
        <a href="#contact" onClick={toContact} className="btn btn-white">{s.action}<Icon name="arrow-right" size={16}/></a>
       </div>
       {footerCols.map(col=><div key={col.title}>
@@ -99,7 +109,7 @@ export default function Site({lang='en',section='home',slug}:Props){
       </div>)}
      </div>
      <div className="footer-bottom">
-      <span>© 2026 Praxis AI · {s.location}</span><span>{s.footerServices}</span>
+      <span>© 2026 Praxis AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a></span><span>{s.footerServices}</span>
       <div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>
      </div>
     </div>
@@ -107,6 +117,7 @@ export default function Site({lang='en',section='home',slug}:Props){
 
    <div className={'sticky-cta'+(sticky?' is-shown':'')}>
     <a href="#contact" onClick={toContact} className="btn btn-primary">{s.action}</a>
+    <a href={contacts.whatsapp} target="_blank" rel="noopener" aria-label="WhatsApp" className="sticky-icon sticky-wa"><Icon name="whatsapp" size={20}/></a>
     <a href={'tel:'+contacts.phone} aria-label={contacts.phoneLabel} className="sticky-icon"><Icon name="phone" size={19}/></a>
     <a href={contacts.telegram} target="_blank" rel="noopener" aria-label={s.telegram} className="sticky-icon"><Icon name="send" size={19}/></a>
    </div>

@@ -36,7 +36,7 @@ export default async function RootLayout({children,params}:Readonly<{children:Re
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(organizationJsonLd(isLang(lang)?lang:defaultLang)).replace(/</g,'\\u003c')}}/>
         {children}
-        <Analytics/>
+        <Analytics lang={isLang(lang)?lang:defaultLang}/>
       </body>
     </html>
   );

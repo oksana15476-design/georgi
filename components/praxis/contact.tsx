@@ -31,7 +31,8 @@ export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
    <div data-reveal="" style={rd(80)} className="faq-ask">
     <div><h3>{s.faqAskTitle}</h3><p>{s.faqAskBody}</p></div>
     <div className="faq-ask-btns">
-     <a href={contacts.telegram} target="_blank" rel="noopener" className="ask-dark"><Icon name="send" size={15}/>Telegram</a>
+     <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ask-dark ask-wa"><Icon name="whatsapp" size={16}/>WhatsApp</a>
+     <a href={contacts.telegram} target="_blank" rel="noopener" className="ask-light"><Icon name="send" size={15}/>Telegram</a>
      <a href={'tel:'+contacts.phone} className="ask-light tnum"><Icon name="phone" size={15}/>{contacts.phoneLabel}</a>
      <a href="#contact" onClick={x.toContact} className="ask-light">{s.faqAskForm}</a>
     </div>
@@ -74,8 +75,10 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
     <div>
      <div data-reveal=""><h2 className="h2">{s.contactH2}</h2><p className="lead mw460">{s.contactP}</p></div>
      <ol className="contact-steps">{s.contactSteps.map((st,i)=><li key={st}><span>{i+1}</span>{st}</li>)}</ol>
+     {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" className="booking"><span className="tile-icon"><Icon name="calendar" size={19}/></span><span><b>{x.c('Записаться на аудит','Book an audit','აუდიტზე ჩაწერა')}</b><small>{x.c('Выберите удобные 30 минут в календаре — без ожидания звонка.','Pick a convenient 30-minute slot — no waiting for a call.','აირჩიეთ 30 წუთი კალენდარში — ზარის მოლოდინის გარეშე.')}</small></span><Icon name="arrow-up-right" size={18}/></a>}
      <div className="contact-links">
       <a href={'tel:'+contacts.phone}><Icon name="phone" size={16}/>{contacts.phoneLabel}</a>
+      <a href={contacts.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" size={16}/>WhatsApp</a>
       <a href={contacts.telegram} target="_blank" rel="noopener"><Icon name="send" size={16}/>{s.telegram}</a>
       <span><Icon name="map-pin" size={16}/>{s.location}</span>
      </div>
@@ -87,6 +90,8 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
       <p>{s.successBody}</p>
       <p className="done-summary">{(method==='telegram'?'Telegram: ':s.phoneMethod+': ')+contact}</p>
       <div className="done-links">
+       {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" className="btn btn-primary">{x.c('Выбрать время аудита','Pick an audit time','აირჩიეთ აუდიტის დრო')}<Icon name="calendar" size={16}/></a>}
+       <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ulink">WhatsApp<Icon name="arrow-right" size={16}/></a>
        <a href={contacts.telegram} target="_blank" rel="noopener" className="ulink">{s.telegram}<Icon name="arrow-right" size={16}/></a>
        <button type="button" onClick={()=>{setDone(false);setStatus('');setChosen([]);setMessage('');setContactValue('')}} className="ulink ulink-muted">{s.sendAnother}</button>
       </div>
