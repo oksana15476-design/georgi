@@ -1,5 +1,6 @@
 'use client';
 import {useState} from 'react';
+import {base} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {Icon} from './icon';
 import type {X} from './types';
@@ -56,7 +57,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
   if(method==='telegram'&&!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''))){setStatus('invalid');return}
   setSending(true);setStatus('');
   try{
-   const r=await fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,website})});
+   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,website})});
    if(!r.ok)throw new Error();
    setDone(true);
   }catch{setStatus('error')}

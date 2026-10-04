@@ -1,5 +1,6 @@
 'use client';
 import {departments,industries,t} from '@/lib/content';
+import {base} from '@/lib/base';
 import {jobs} from '@/lib/jobs';
 import {profiles} from '@/lib/page-profiles';
 import {sectionLabel} from '@/lib/site-copy';
@@ -37,7 +38,7 @@ export function InnerHero({x,page}:{x:X;page:string}){
  return (
   <section data-screen-label="Inner hero" className="inner-hero">
    <div className="wrap inner-pad">
-    <nav aria-label="Breadcrumb" className="crumbs"><a href={'/'+x.lang}>{s.home}</a><span aria-hidden="true">/</span><span aria-current="page">{label}</span></nav>
+    <nav aria-label="Breadcrumb" className="crumbs"><a href={base+'/'+x.lang}>{s.home}</a><span aria-hidden="true">/</span><span aria-current="page">{label}</span></nav>
     <div className="inner-grid">
      <div className="min0 mw860">
       <h1 data-reveal="" className="inner-h1">{title}</h1>

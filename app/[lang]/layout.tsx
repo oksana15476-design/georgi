@@ -1,6 +1,7 @@
 import type {Metadata,Viewport} from 'next';
 import '../globals.css';
 import {t} from '@/lib/content';
+import {base} from '@/lib/base';
 import {siteUrl,defaultLang,siteTitle,isLang,description} from '@/lib/seo';
 
 export async function generateMetadata({params}:{params:Promise<{lang:string}>}):Promise<Metadata>{
@@ -11,7 +12,7 @@ export async function generateMetadata({params}:{params:Promise<{lang:string}>})
     description:description(lang),
     other:{'codex-preview':'development'},
     formatDetection:{telephone:true},
-    icons:{icon:'/favicon.svg',shortcut:'/favicon.svg'},
+    icons:{icon:base+'/favicon.svg',shortcut:base+'/favicon.svg'},
   };
 }
 

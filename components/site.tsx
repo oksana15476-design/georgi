@@ -1,5 +1,6 @@
 'use client';
 import {useCallback,useEffect,useState} from 'react';
+import {base} from '@/lib/base';
 import {departments,industries,t,Lang} from '@/lib/content';
 import {profiles,solutionChoices} from '@/lib/page-profiles';
 import {pageCopy} from '@/lib/page-copy';
@@ -22,7 +23,7 @@ export default function Site({lang='en',section='home',slug}:Props){
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
  const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail;
  const s=siteCopy(c,isDetail?slug:undefined);
- const root='/'+lang,link=(p:string)=>root+'/'+p;
+ const root=base+'/'+lang,link=(p:string)=>root+'/'+p;
  const rest=(section==='home'?'':'/'+section)+(slug?'/'+slug:'');
  const [context,setContext]=useState(ent?t(ent.name,lang):'');
  const [menu,setMenu]=useState(false),[sticky,setSticky]=useState(false);
@@ -98,7 +99,7 @@ export default function Site({lang='en',section='home',slug}:Props){
      </div>
      <div className="footer-bottom">
       <span>© 2026 Praxis AI · {s.location}</span><span>{s.footerServices}</span>
-      <div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={'/'+code+rest} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>
+      <div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>
      </div>
     </div>
    </footer>

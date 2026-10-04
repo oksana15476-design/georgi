@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useState} from 'react';
+import {base} from '@/lib/base';
 import {departments,industries,t} from '@/lib/content';
 import {headlines,profiles} from '@/lib/page-profiles';
 import {pageCopy} from '@/lib/page-copy';
@@ -36,7 +37,7 @@ export function DetailHero({x,slug,page}:{x:X;slug:string;page:string}){
   <section data-screen-label="Detail hero" className="inner-hero">
    <div className="wrap inner-pad detail-grid">
     <div className="min0">
-     <nav aria-label="Breadcrumb" className="crumbs wrapflex"><a href={'/'+lang}>{s.home}</a><span aria-hidden="true">/</span><a href={link(page)}>{sectionLabel(c,page)}</a><span aria-hidden="true">/</span><span aria-current="page">{t(ent.name,lang)}</span></nav>
+     <nav aria-label="Breadcrumb" className="crumbs wrapflex"><a href={base+'/'+lang}>{s.home}</a><span aria-hidden="true">/</span><a href={link(page)}>{sectionLabel(c,page)}</a><span aria-hidden="true">/</span><span aria-current="page">{t(ent.name,lang)}</span></nav>
      <h1 data-reveal="" className="deep-h1">{ov?ov.h1:t(headlines[slug],lang)}</h1>
      <div data-reveal="" style={rd(120)}><p className="detail-intro">{ov?ov.sub:t(profile.scenarios[0].body,lang)}</p>
       <div className="detail-cta"><button type="button" onClick={()=>x.go(t(ent.name,lang))} className="btn btn-primary">{s.action}<Icon name="arrow-right" size={16}/></button><span>{s.detailNote}</span></div></div>

@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
+import {base} from '@/lib/base';
 import {departments,industries,t,Lang} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
 import {C,sectionLabel,SiteCopy} from '@/lib/site-copy';
@@ -14,7 +15,7 @@ type Props={lang:Lang;c:C;s:SiteCopy;page:string;rest:string;toContact:(e?:React
 export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
  const [drop,setDrop]=useState('');const [scrolled,setScrolled]=useState(false);
  const leave=useRef<ReturnType<typeof setTimeout>>(undefined);
- const root='/'+lang,link=(x:string)=>root+'/'+x;
+ const root=base+'/'+lang,link=(x:string)=>root+'/'+x;
  useEffect(()=>{
   const onScroll=()=>setScrolled(window.scrollY>8);onScroll();
   const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape'){setDrop('');setMenu(false)}};
@@ -45,7 +46,7 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
     <div className="header-actions">
      <a href={'tel:'+contacts.phone} aria-label={contacts.phoneLabel} className="header-phone"><Icon name="phone" size={17}/></a>
      <div role="group" aria-label={s.langLabel} className="langs">
-      {langs.map(([code,lb])=><a key={code} href={'/'+code+rest} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
+      {langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
      </div>
      <a href="#contact" onClick={toContact} className="btn btn-primary btn-sm header-cta">{action}</a>
      <button type="button" onClick={()=>{setMenu(m=>!m);setDrop('')}} aria-expanded={menu} aria-label={menu?s.closeMenu:s.openMenu} className="burger"><Icon name={menu?'x':'menu'} size={22}/></button>

@@ -1,3 +1,4 @@
+import {base} from './base';
 // Service logos: a bundled brand SVG (Simple Icons, CC0) when one exists, otherwise the vendor's
 // favicon; if neither loads, a coloured tile with the vendor's initials. Names do not imply partnerships.
 const local:Record<string,string>={Claude:'claude',HubSpot:'hubspot',Zendesk:'zendesk',Intercom:'intercom',Notion:'notion',Telegram:'telegram',WhatsApp:'whatsapp',SAP:'sap',Meta:'meta','Google Analytics':'googleanalytics',WordPress:'wordpress',Mailchimp:'mailchimp',Figma:'figma',Moodle:'moodle',Shopify:'shopify',WooCommerce:'woocommerce',Instagram:'instagram','Booking.com':'bookingdotcom','Google Sheets':'googlesheets',Jira:'jira',Asana:'asana',Gmail:'gmail',Buffer:'buffer'};
@@ -8,7 +9,7 @@ const initials:Record<string,string>={amoCRM:'amo',PDF:'PDF',Excel:'X',r_keeper:
 export type LogoInfo={name:string;srcs:string[];mono:string;monoFg:string;ini:string};
 export const logo=(name:string):LogoInfo=>{
  const domain=domains[name],mono=colors[name]||'#5d6779';
- return {name,srcs:[...(local[name]?['/logos/'+local[name]+'.svg']:[]),...(domain?['https://www.google.com/s2/favicons?sz=64&domain='+domain]:[])],mono,monoFg:mono==='#ffd400'?'#d4001a':'#ffffff',ini:initials[name]||name.replace(/[^A-Za-zА-Яа-я0-9]/g,'').slice(0,2)};
+ return {name,srcs:[...(local[name]?[base+'/logos/'+local[name]+'.svg']:[]),...(domain?['https://www.google.com/s2/favicons?sz=64&domain='+domain]:[])],mono,monoFg:mono==='#ffd400'?'#d4001a':'#ffffff',ini:initials[name]||name.replace(/[^A-Za-zА-Яа-я0-9]/g,'').slice(0,2)};
 };
 
 export const marqueeLogos=['OpenAI','Claude','Midjourney','amoCRM','Bitrix24','HubSpot','Salesforce','Zendesk','Intercom','Slack','Notion','Telegram','WhatsApp','Google Workspace','1C','SAP'];
