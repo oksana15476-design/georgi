@@ -48,7 +48,7 @@ export default function Site({lang='en',section='home',slug}:Props){
  const faqItems:[string,string][]=isDetail?(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])):section==='departments'?deptFaq:genFaq;
  const faqTitle=isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
- const defaultOptions=[c('Разбор входящих заявок','Incoming enquiries','შემოსული მოთხოვნები'),c('Ответы клиентам','Customer support','კლიენტების მხარდაჭერა'),c('КП и документы','Proposals & documents','შეთავაზებები და დოკუმენტები'),c('Обучение сотрудников','Team training','თანამშრომლების სწავლება')];
+ const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ-ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
   ?(ov?ov.chips:[...profile!.scenarios.map(q=>t(q.title,lang)),...profile!.extra.map(v=>t(v,lang))])
   :section==='solutions'?solutionChoices.map(v=>t(v,lang))

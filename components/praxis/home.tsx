@@ -4,6 +4,8 @@ import {departments,industries,t} from '@/lib/content';
 import {jobs} from '@/lib/jobs';
 import {logo,marqueeLogos} from '@/lib/logos';
 import {Icon} from './icon';
+import {industryIcon} from './header';
+import {deptCardIcon} from './inner';
 import {BrandLogo,CountUp,Mark,scrollToId,useReducedMotion} from './ui';
 import type {X} from './types';
 
@@ -195,7 +197,7 @@ export function FindWorkflow({x}:{x:X}){
    {audience==='departments'?
     <div id="departments" className="dept-layout">
      <div role="tablist" aria-label={c('Для отделов','For departments','განყოფილებებისთვის')} aria-orientation="vertical" className="dept-tabs" onKeyDown={onKey}>
-      {departments.map((dp,i)=><button key={dp.slug} ref={el=>{tabs.current[i]=el}} role="tab" id={'dept-'+i} aria-selected={dept===i} aria-controls="dept-panel" tabIndex={dept===i?0:-1} onClick={()=>setDept(i)} className={'dept-tab'+(dept===i?' is-on':'')}><i aria-hidden="true"/>{t(dp.name,lang)}</button>)}
+      {departments.map((dp,i)=><button key={dp.slug} ref={el=>{tabs.current[i]=el}} role="tab" id={'dept-'+i} aria-selected={dept===i} aria-controls="dept-panel" tabIndex={dept===i?0:-1} onClick={()=>setDept(i)} className={'dept-tab'+(dept===i?' is-on':'')}><i aria-hidden="true"/><span className="dept-tab-icon"><Icon name={deptCardIcon[dp.slug]||'layers'} size={17}/></span>{t(dp.name,lang)}</button>)}
      </div>
      <article id="dept-panel" role="tabpanel" aria-labelledby={'dept-'+dept} className="panel">
       <div key={dept} className="fade-in">
@@ -215,7 +217,7 @@ export function FindWorkflow({x}:{x:X}){
    :<>
     <div className="grid-c3" data-stagger="">
      {homeIndustries.map(ind=><a key={ind.slug} href={link('industries/'+ind.slug)} className="card ind-card">
-      <span className="ind-arrow"><Icon name="arrow-up-right" size={18}/></span>
+      <span className="ind-top"><span className="tile-icon"><Icon name={industryIcon[ind.slug]||'building'} size={20}/></span><Icon name="arrow-up-right" size={18}/></span>
       <h3>{t(ind.name,lang)}</h3>
       <p>{t(ind.promise,lang)}</p>
      </a>)}

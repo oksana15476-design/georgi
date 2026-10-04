@@ -83,7 +83,7 @@ export function siteCopy(c:C,slug?:string){
   contactSteps:[c('Отвечаем по выбранному контакту и уточняем процесс.','We reply via your chosen contact and clarify the workflow.','გიპასუხებთ არჩეული არხით და დავაზუსტებთ პროცესს.'),c('Выбираем одну задачу и критерии пилота.','We pick one task and agree pilot criteria.','ვირჩევთ ერთ ამოცანას და პილოტის კრიტერიუმებს.'),c('Готовим объём работ и расчёт.','We prepare scope and an estimate.','ვამზადებთ სამუშაოს მოცულობასა და შეფასებას.')],
   telegram:c('Написать в Telegram','Message on Telegram','მოგვწერეთ Telegram-ში'),
   location:c('Грузия · RU / EN / GE','Georgia · EN / GE / RU','საქართველო · GE / EN / RU'),
-  whatTakes:c('Что отнимает время?','What takes up your time?','რა გართმევთ დროს?'),
+  whatTakes:c('Где больше всего рутины?','Where is the most routine work?','სად არის ყველაზე მეტი რუტინა?'),
   tellTask:c('Расскажите о задаче','Tell us about your task','მოგვიყევით ამოცანაზე'),
   contextLabel:c('Тема:','Topic:','თემა:'),
   removeContext:c('Убрать контекст','Remove context','კონტექსტის წაშლა'),

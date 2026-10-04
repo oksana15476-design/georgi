@@ -662,3 +662,13 @@ main{outline:none}
 .includes li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--ink)}
 .includes svg{color:var(--accent);margin-top:3px}
 @media(max-width:600px){.formats-head{flex-direction:column;align-items:flex-start}}
+
+/* Department tab icons, form steps */
+.dept-tab{align-items:center}
+.dept-tab-icon{display:inline-flex;color:var(--faint);transition:color .35s}
+.dept-tab.is-on .dept-tab-icon,.dept-tab:hover .dept-tab-icon{color:var(--accent)}
+.ind-card .ind-top{margin-bottom:-8px}
+.step-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:10px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700;vertical-align:1px}
+.step-label{display:flex;align-items:center}
+.step-label .step-badge{margin-right:10px}
+@media(max-width:600px){.dept-tab{gap:10px;font-size:15px}}

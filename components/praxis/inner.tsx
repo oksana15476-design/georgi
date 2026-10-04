@@ -77,7 +77,7 @@ export function IndustriesGrid({x}:{x:X}){
  );
 }
 
-const deptCardIcon:Record<string,string>={sales:'trending-up',marketing:'megaphone',hr:'users',finance:'calculator',procurement:'truck',leadership:'briefcase',support:'headphones',operations:'settings-2'};
+export const deptCardIcon:Record<string,string>={sales:'trending-up',marketing:'megaphone',hr:'users',finance:'calculator',procurement:'truck',leadership:'briefcase',support:'headphones',operations:'settings-2'};
 
 export function DepartmentsGrid({x}:{x:X}){
  const {lang,link,s,c}=x;

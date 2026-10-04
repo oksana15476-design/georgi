@@ -90,13 +90,13 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
      </div>:
      <form onSubmit={submit} noValidate data-lpignore="true" className="form">
       <fieldset>
-       <legend>{s.whatTakes}</legend>
+       <legend><span className="step-badge">1</span>{s.whatTakes}</legend>
        <div className="chips">{options.map((lb,i)=>{const on=chosen.includes(i);return <button key={lb} type="button" onClick={()=>setChosen(v=>v.includes(i)?v.filter(n=>n!==i):[...v,i])} aria-pressed={on} className={'chip'+(on?' is-on':'')}>{lb}</button>})}</div>
       </fieldset>
       {chosen.includes(options.length-1)&&<label className="field fade-in">{s.tellTask}<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)}/></label>}
       {context&&<div className="context-chip"><span><span className="muted">{s.contextLabel}</span> <b>{context}</b></span><button type="button" onClick={()=>setContext('')} aria-label={s.removeContext}><Icon name="x" size={15}/></button></div>}
       <div className="field">
-       <span>{s.howContact}</span>
+       <span className="step-label"><span className="step-badge">2</span>{s.howContact}</span>
        <div role="radiogroup" aria-label={s.howContact} className="methods">{methods.map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContactValue('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       </div>
       <label className="field">{method==='telegram'?'Telegram':s.phoneLabel}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username / +995…':'+995 5XX XXX XXX'} inputMode={method==='phone'?'tel':'text'} autoComplete={method==='phone'?'tel':'off'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={invalid?'is-invalid':''}/></label>
