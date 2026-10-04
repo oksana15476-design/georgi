@@ -17,7 +17,7 @@ export function stairsData(x:X){
  const {c}=x;
  return [
   {level:c('Легко','Easy','მარტივი'),title:c('Обучение команды','Team training','გუნდის სწავლება'),time:c('от 1 недели','from 1 week','1 კვირიდან'),h:'46%',cls:'stair-1'},
-  {level:c('Средне','Medium','საშუალო'),title:c('Внедрение инструментов','Tool implementation','ინსტრუმენტების დანერგვა'),time:c('2–4 недели','2–4 weeks','2–4 კვირა'),h:'72%',cls:'stair-2'},
+  {level:c('Средне','Medium','საშუალო'),title:c('Внедрение инструментов','Tool implementation','ინსტრუმენტების დანერგვა'),time:c('2⁠–⁠4 недели','2⁠–⁠4 weeks','2⁠–⁠4 კვირა'),h:'72%',cls:'stair-2'},
   {level:c('Сложно','Advanced','რთული'),title:c('Разработка решения','Custom development','ინდივიდუალური შემუშავება'),time:c('от 4 недель','from 4 weeks','4 კვირიდან'),h:'100%',cls:'stair-3'}
  ];
 }
@@ -33,7 +33,7 @@ export function InnerHero({x,page}:{x:X;page:string}){
   solutions:c('Обучение, настройка готовых сервисов или собственная разработка — начинаем с бесплатного аудита и выбираем нужную глубину.','Training, configured tools or a custom build — we start with a free audit and choose the right depth.','სწავლება, მზა სერვისები ან ინდივიდუალური შემუშავება — ვიწყებთ უფასო აუდიტით.')
  } as Record<string,string>)[page]||'';
  const facts=({
-  industries:[['layers',c('3–5 сценариев на отрасль','3–5 workflows per industry','3–5 სცენარი ინდუსტრიაზე')],['plug',c('Интеграции с отраслевыми системами','Industry system integrations','დარგობრივი სისტემების ინტეგრაცია')],['languages',c('Диалоги на GE / EN / RU','Conversations in GE / EN / RU','დიალოგები GE / EN / RU')]],
+  industries:[['layers',c('3⁠–⁠5 сценариев на отрасль','3⁠–⁠5 workflows per industry','3⁠–⁠5 სცენარი ინდუსტრიაზე')],['plug',c('Интеграции с отраслевыми системами','Industry system integrations','დარგობრივი სისტემების ინტეგრაცია')],['languages',c('Диалоги на GE / EN / RU','Conversations in GE / EN / RU','დიალოგები GE / EN / RU')]],
   departments:[['users',c('8 отделов','8 departments','8 განყოფილება')],['bar-chart-3',c('Метрика результата для каждого','A success metric for each','შედეგის მეტრიკა თითოეულისთვის')],['shield-check',c('Человек проверяет важные решения','People review key decisions','მნიშვნელოვან გადაწყვეტილებებს ადამიანი ამოწმებს')]],
   training:[['calendar',c('От 1 недели','From 1 week','1 კვირიდან')],['file-text',c('Шаблоны и инструкции остаются у вас','Templates and guides stay with you','შაბლონები და ინსტრუქციები თქვენთან რჩება')],['globe-2',c('Онлайн или в офисе · RU / EN','Online or on-site · RU / EN','ონლაინ ან ოფისში · RU / EN')]],
   cases:[['clipboard-list',c('Ситуация → решение → метрика','Situation → solution → metric','სიტუაცია → გადაწყვეტა → მეტრიკა')],['shield-check',c('Контроль сотрудника на каждом шаге','Staff control at each step','თანამშრომლის კონტროლი')],['rocket',c('Старт с одного процесса','Start with one workflow','დაწყება ერთი პროცესით')]]
@@ -116,10 +116,11 @@ export function Formats({x,training}:{x:X;training:boolean}){
  const [cur,setCur]=useState<Currency>('gel');
  const tiers=[prices.training,prices.implementation,prices.development];
  const includes=training?null:[
-  [c('Воркшоп 4–8 часов для команды до 12 человек','4–8 hour workshop for a team of up to 12','4–8 საათიანი ვორქშოპი 12‑მდე ადამიანისთვის'),c('Промпты и шаблоны под задачи отдела','Prompts and templates for your team’s tasks','პრომპტები და შაბლონები გუნდის ამოცანებისთვის'),c('Правила проверки результата','Rules for reviewing AI output','შედეგის შემოწმების წესები')],
+  [c('Воркшоп 4⁠–⁠8 часов для команды до 12 человек','4⁠–⁠8 hour workshop for a team of up to 12','4⁠–⁠8 საათიანი ვორქშოპი 12‑მდე ადამიანისთვის'),c('Промпты и шаблоны под задачи отдела','Prompts and templates for your team’s tasks','პრომპტები და შაბლონები გუნდის ამოცანებისთვის'),c('Правила проверки результата','Rules for reviewing AI output','შედეგის შემოწმების წესები')],
   [c('Один сценарий в ваших каналах','One workflow in your channels','ერთი სცენარი თქვენს არხებში'),c('Интеграция с CRM или таблицами','CRM or spreadsheet integration','ინტეგრაცია CRM‑თან ან ცხრილებთან'),c('Обучение ответственного и 2 недели поддержки','Owner training and 2 weeks of support','პასუხისმგებლის სწავლება და 2 კვირის მხარდაჭერა')],
   [c('ИИ-агент под ваш процесс','An AI agent built for your workflow','AI აგენტი თქვენი პროცესისთვის'),c('Интеграции с CRM, ERP и 1С','CRM, ERP and 1C integrations','ინტეგრაციები CRM‑თან, ERP‑სა და 1C‑თან'),c('Тесты, документация и передача кода','Testing, documentation and code handover','ტესტები, დოკუმენტაცია და კოდის გადაცემა')]
  ];
+ const pilots=[c('один воркшоп для одной команды','one workshop for one team','ერთი ვორქშოპი ერთი გუნდისთვის'),c('один сценарий на реальных обращениях за 2 недели','one workflow on real requests in 2 weeks','ერთი სცენარი რეალურ მოთხოვნებზე 2 კვირაში'),c('прототип агента на ваших данных','an agent prototype on your data','აგენტის პროტოტიპი თქვენს მონაცემებზე')],pilotT=c('Пилот','Pilot','პილოტი');
  const from=c('от','from',''),popular=c('Чаще выбирают','Most popular','ყველაზე პოპულარული');
  return (
   <section id="solutions" className="band-white">
@@ -128,11 +129,11 @@ export function Formats({x,training}:{x:X;training:boolean}){
      {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>{setCur(k);track('currency_switch',{currency:k})}} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
     </div>
     <div className="formats-grid">
-     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(!training&&i===1?' is-popular':'')}>
+     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(training?'':' format-card')+(!training&&i===1?' is-popular':'')}>
       <h3>{title}{!training&&i===1&&<span className="popular">{popular}</span>}</h3>
       {!training&&<p className="price">{x.lang==='ka'?<>{money(tiers[i],cur)}<small>-დან</small></>:<><small>{from}</small> {money(tiers[i],cur)}</>}</p>}
       <p>{bodies[i]}</p>
-      {includes&&<ul className="includes">{includes[i].map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}</ul>}
+      {includes&&<ul className="includes">{includes[i].map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}<li className="pilot"><Icon name="rocket" size={15}/><span><b>{pilotT}:</b> {pilots[i]}</span></li></ul>}
       <p className="format-time"><span>{s.timelineT}: <b>{stairs[i].time}</b></span></p>
       <button type="button" onClick={()=>x.go(ctx[i])} className="ulink mt-auto">{ctas[i]}<Icon name="arrow-right" size={16}/></button>
      </article></div>)}
@@ -223,6 +224,7 @@ export function Trust({x}:{x:X}){
      <div className="trust-grid">
       {items.map(([title,body],i)=><div key={title} data-reveal="" style={rd(i*90)} className="trust-point"><span className="tile-icon"><Icon name={['shield-check','layers','graduation-cap','lock'][i]} size={19}/></span><div><h3>{title}</h3><p>{body}</p></div></div>)}
      </div>
+     <ul data-reveal="" style={rd(200)} className="sec-badges">{[['shield-check',c('SOC 2 Type II у API-провайдеров (OpenAI, Anthropic)','SOC 2 Type II API providers (OpenAI, Anthropic)','SOC 2 Type II API პროვაიდერები (OpenAI, Anthropic)')],['key',c('Enterprise API без обучения на ваших данных','Enterprise APIs, no training on your data','Enterprise API, თქვენს მონაცემებზე სწავლების გარეშე')],['building-2',c('Развёртывание в вашем контуре','On-premise deployment available','განთავსება თქვენს ინფრასტრუქტურაში')]].map(([icon,text])=><li key={text}><Icon name={icon} size={14}/>{text}</li>)}</ul>
     </div>
     <div data-reveal="" style={rd(120)} aria-hidden="true" className="log">
      <div className="log-title"><Icon name="shield-check" size={15}/>{s.logTitle}</div>

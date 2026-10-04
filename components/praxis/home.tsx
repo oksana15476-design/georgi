@@ -24,7 +24,7 @@ export function Hero({x}:{x:X}){
        <p>{s.heroIntro}</p>
        <div className="btn-row">
         <a href="#contact" onClick={x.toContact} className="btn btn-primary">{s.action}<Icon name="arrow-right" size={16}/></a>
-        <a href="#demo" onClick={e=>{e.preventDefault();scrollToId('demo')}} className="btn btn-ghost">{s.heroSecondary}</a>
+        <a href="#demo" onClick={e=>{e.preventDefault();scrollToId('demo');window.dispatchEvent(new Event('praxis:demo-replay'))}} className="btn btn-ghost">{s.heroSecondary}</a>
        </div>
       </div>
      </div>
@@ -57,12 +57,18 @@ function HeroDemo({x}:{x:X}){
  },[reduced]);
  const playing=!paused&&!reduced;
  const select=(f:0|2)=>{setFrame(f);setPaused(true);setTyping(false)};
+ // "See it in action" restarts the demo from the incoming message and briefly highlights it.
+ const [flash,setFlash]=useState(0);
+ useEffect(()=>{
+  const replay=()=>{setFrame(0);setPaused(false);setFlash(n=>n+1);if(!reduced){setTyping(true);clearTimeout(typingT.current);typingT.current=setTimeout(()=>setTyping(false),1100)}};
+  window.addEventListener('praxis:demo-replay',replay);return()=>window.removeEventListener('praxis:demo-replay',replay);
+ },[reduced]);
  const showTyping=frame===0&&playing&&typing;
  const fill=(i:0|2)=>{const on=frame===i;return {transform:on?(playing?'none':'scaleX(1)'):(i<frame?'scaleX(1)':'scaleX(0)'),animation:on&&playing?'px-progress 2.8s linear both':'none'}};
  const crmRows=[[c('Товар','Item','პროდუქტი'),c('Стулья','Chairs','სკამები')],[c('Кол-во','Qty','რაოდ.'),'30'],[c('Город','City','ქალაქი'),c('Батуми','Batumi','ბათუმი')],[c('Срок','When','ვადა'),c('Завтра','Tomorrow','ხვალ')]];
  const steps:[0|2,string][]=[[0,s.demoRequest],[2,s.demoResult]];
  return (
-  <div id="demo" className="demo">
+  <div id="demo" key={'demo'+flash} className={'demo'+(flash?' is-flash':'')}>
    <div className="demo-bar">
     <span className="demo-brand"><Mark size={.5}/>Praxis Workspace</span>
     <span className="demo-title">{s.demoTitle}</span>
@@ -101,8 +107,8 @@ function HeroDemo({x}:{x:X}){
      <div className="demo-body">
       <div key={'crm'+frame} className="crm-card" style={{animation:frame===2&&!reduced?'px-bubble .5s cubic-bezier(.22,1,.36,1) both':'none'}}>
        <div className="crm-head"><span className="amo-tile">amo</span><span className="crm-who"><b>amoCRM</b><small>{c('Новая сделка · из WhatsApp','New deal · from WhatsApp','ახალი გარიგება · WhatsApp‑დან')}</small></span><span className="crm-stage">{c('Квалифицирован','Qualified','კვალიფიცირებული')}</span></div>
-       <div className="crm-grid">{crmRows.map(([k,v])=><div key={k}><small>{k}</small><span>{v}</span></div>)}</div>
-       <div className="crm-next"><Icon name="file-text" size={14}/>{c('Черновик КП готов к проверке менеджером','Draft proposal ready for manager review','შეთავაზების მონახაზი მზადაა')}</div>
+       <div className="crm-grid">{crmRows.map(([k,v],i)=><div key={k}><small>{k}</small><span style={reduced?undefined:{animation:'px-fill .4s ease-out '+(.35+i*.18)+'s both'}}>{v}</span></div>)}</div>
+       <div className="crm-next" style={reduced?undefined:{animation:'px-fade .4s ease-out 1.1s both'}}><Icon name="file-text" size={14}/>{c('Черновик КП готов к проверке менеджером','Draft proposal ready for manager review','შეთავაზების მონახაზი მზადაა')}</div>
       </div>
       <p className="demo-cap">{c('Менеджер получает готовую карточку вместо переписки.','Your manager gets a ready deal card instead of a chat thread.','მენეჯერი იღებს მზა ბარათს მიმოწერის ნაცვლად.')}</p>
      </div>

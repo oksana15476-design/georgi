@@ -692,3 +692,17 @@ main{outline:none}
  .btn{white-space:normal;text-align:center;padding:12px 22px;line-height:1.3}
 }
 @media(max-width:420px){.langs .flag{display:none}.langs a{gap:0}}
+
+/* Demo replay, field fill, pricing cards, security badges */
+@keyframes px-fill{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+@keyframes px-flash{0%{box-shadow:0 0 0 0 #315bf566,0 40px 80px -48px #121a2b40}100%{box-shadow:0 0 0 14px #315bf500,0 40px 80px -48px #121a2b40}}
+.demo.is-flash{animation:px-flash 1.1s ease-out}
+.crm-grid span{display:block}
+.format.format-card{padding:26px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.format.format-card.is-popular{border:2px solid var(--accent);background:#f5f8ff;box-shadow:0 30px 60px -36px #2755ec66}
+@media(min-width:901px){.format.format-card.is-popular{transform:translateY(-12px)}.formats-grid{padding-top:12px}}
+.includes .pilot{margin-top:4px;padding-top:12px;border-top:1px dashed var(--line2)}
+.includes .pilot b{font-weight:700}
+.sec-badges{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.sec-badges li{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:13px;font-weight:600;color:var(--body)}
+.sec-badges svg{color:var(--accent)}
