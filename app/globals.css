@@ -818,3 +818,4 @@ main{outline:none}
 .formats-grid+.formats-note+.formats-sub{margin-top:48px}
 .format .price-setup{margin:-8px 0 14px;font-size:14px;color:var(--muted)}
 .includes-pack{margin-bottom:24px}
+@media(min-width:901px){.formats-grid-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}}

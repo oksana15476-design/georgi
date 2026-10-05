@@ -6,7 +6,6 @@ export const prices={training:{gel:1900,usd:700},implementation:{gel:3200,usd:12
 export const packages={
  start:{setup:{gel:490,usd:180},monthly:{gel:290,usd:110}},
  business:{setup:{gel:1500,usd:550},monthly:{gel:590,usd:220}},
- voice:{setup:{gel:1900,usd:700},monthly:{gel:890,usd:330}},
 };
 const group=(n:number)=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 export const money=(p:{gel:number;usd:number},cur:Currency)=>cur==='gel'?group(p.gel)+' ₾':'$'+group(p.usd);

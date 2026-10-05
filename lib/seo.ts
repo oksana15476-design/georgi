@@ -38,7 +38,6 @@ const offers:[Copy,keyof typeof prices,string?][]=[
 const packageOffers:[Copy,keyof typeof packages][]=[
  [['Чат-бот в мессенджерах под ключ: Старт','Turnkey messenger chatbot: Start','ჩატბოტი მესენჯერებში გასაღებით: სტარტი'],'start'],
  [['Чат-бот в мессенджерах под ключ: Бизнес','Turnkey messenger chatbot: Business','ჩატბოტი მესენჯერებში გასაღებით: ბიზნესი'],'business'],
- [['Голосовой ассистент и чат-бот','Voice assistant and chatbot','ხმოვანი ასისტენტი და ჩატბოტი'],'voice'],
 ];
 
 // Site-wide graph: the business with its services and starting prices, the founder and the website.

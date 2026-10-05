@@ -10,7 +10,7 @@
 - **What it does:** Builds AI assistants (WhatsApp, Telegram, website, voice), automates CRM and document workflows, and trains teams. Every project starts with a free process audit and a fixed-price pilot.
 - **Category / how people search:** AI implementation agency, AI chatbot / assistant development, business process automation, AI training for teams (Georgia, Tbilisi, Batumi).
 - **Type:** B2B service (implementation + training + optional monthly support).
-- **Turnkey messenger assistant (monthly, min. 3 months):** Start 290 ₾/mo + 490 ₾ setup · Business 590 ₾/mo + 1,500 ₾ setup · Voice + chat 890 ₾/mo + 1,900 ₾ setup (phone minutes at cost). WhatsApp Business setup done by us; paid Meta messages billed separately.
+- **Turnkey messenger assistant (monthly, min. 3 months):** Start 290 ₾/mo + 490 ₾ setup · Business 590 ₾/mo + 1,500 ₾ setup. Voice assistant not offered for now (no proven Georgian voice). WhatsApp Business setup done by us; paid Meta messages billed separately.
 - **Pricing (public, GEL / USD):** Team training from 1,900 ₾ / $700 · Tool implementation from 3,200 ₾ / $1,200 · Custom development from 6,700 ₾ / $2,500 · Support from 550 ₾ / $200 per month. Free audit; pilot price fixed before work starts.
 - **Languages:** Georgian, English, Russian (site and solutions).
 

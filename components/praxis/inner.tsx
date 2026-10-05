@@ -128,8 +128,6 @@ export function Formats({x,training}:{x:X;training:boolean}){
    items:[c('WhatsApp, Instagram или Telegram — один канал','WhatsApp, Instagram or Telegram — one channel','WhatsApp, Instagram ან Telegram — ერთი არხი'),c('База знаний на грузинском, английском и русском','Knowledge base in Georgian, English and Russian','ცოდნის ბაზა ქართულად, ინგლისურად და რუსულად'),c('До 3 000 ответов в месяц, передача администратору','Up to 3,000 replies a month, hand-off to staff','თვეში 3 000‑მდე პასუხი, ადმინისტრატორზე გადაცემა'),c('Подключение WhatsApp Business делаем мы','We set up WhatsApp Business for you','WhatsApp Business‑ს ჩვენ ვაკავშირებთ')]},
   {key:'business' as const,title:c('Бизнес','Business','ბიზნესი'),body:c('Несколько каналов и запись прямо в вашу систему.','Several channels and bookings straight into your system.','რამდენიმე არხი და ჩაწერა პირდაპირ თქვენს სისტემაში.'),
    items:[c('До 3 каналов и чат на сайте','Up to 3 channels plus website chat','3‑მდე არხი და საიტის ჩატი'),c('Запись, бронь или заявка в CRM: amoCRM, Bitrix24, Google Sheets','Bookings or leads in your CRM: amoCRM, Bitrix24, Google Sheets','ჯავშანი ან მოთხოვნა CRM‑ში: amoCRM, Bitrix24, Google Sheets'),c('До 8 000 ответов в месяц','Up to 8,000 replies a month','თვეში 8 000‑მდე პასუხი'),c('Ежемесячный отчёт и правки базы знаний','Monthly report and knowledge base updates','ყოველთვიური ანგარიში და ცოდნის ბაზის განახლება')]},
-  {key:'voice' as const,title:c('Голос + чат','Voice + chat','ხმა + ჩატი'),body:c('Ассистент отвечает и на звонки, и в мессенджерах.','The assistant answers calls as well as messages.','ასისტენტი პასუხობს ზარებსაც და შეტყობინებებსაც.'),
-   items:[c('Голосовой ассистент на входящие звонки на трёх языках','Voice assistant for incoming calls in three languages','ხმოვანი ასისტენტი შემომავალ ზარებზე სამ ენაზე'),c('Чат-бот в мессенджерах с общей базой знаний','Messenger chatbot sharing one knowledge base','ჩატბოტი მესენჯერებში საერთო ცოდნის ბაზით'),c('Запись в CRM и передача сложных звонков человеку','CRM records and complex calls handed to a person','CRM‑ში ჩაწერა და რთული ზარების ადამიანზე გადაცემა'),c('Минуты телефонии — по себестоимости','Phone minutes at cost','სატელეფონო წუთები თვითღირებულებით')]},
  ];
  return (
   <section id="solutions" className="band-white">
@@ -138,7 +136,7 @@ export function Formats({x,training}:{x:X;training:boolean}){
      {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>{setCur(k);track('currency_switch',{currency:k})}} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
     </div>
     {!training&&<><h3 className="formats-sub">{c('Ассистент в мессенджерах под ключ','Turnkey messenger assistant','ასისტენტი მესენჯერებში გასაღებით')}</h3>
-    <div className="formats-grid">
+    <div className="formats-grid formats-grid-2">
      {packs.map((pk,i)=><div key={pk.key} data-reveal="" style={rd(i*100)}><article className={'format format-card'+(i===0?' is-popular':'')}>
       <h3>{pk.title}{i===0&&<span className="popular">{c('С чего начать','Best to start','დასაწყისისთვის')}</span>}</h3>
       <p className="price">{money(packages[pk.key].monthly,cur)}<small>{perMonth}</small></p>

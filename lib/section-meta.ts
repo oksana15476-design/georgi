@@ -12,7 +12,7 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  },
  departments:{
   title:['ИИ-агенты для отделов: продажи, поддержка, финансы, HR — Praxis AI','AI agents for business: sales, support, finance and HR — Praxis AI','AI აგენტები განყოფილებებისთვის: გაყიდვები, მხარდაჭერა — Praxis AI'],
-  description:['ИИ-агенты для продаж, поддержки, бухгалтерии, HR, маркетинга и закупок: квалификация лидов, голосовые ассистенты, разбор документов. Начните с одного отдела.','AI agents for sales, support, accounting, HR, marketing and procurement: lead qualification, voice assistants and document processing. Start with one team.','AI აგენტები გაყიდვებისთვის, მხარდაჭერისთვის, ბუღალტერიისთვის, HR-ისთვის და მარკეტინგისთვის: ლიდების კვალიფიკაცია, ხმოვანი ასისტენტები, დოკუმენტები.'],
+  description:['ИИ-агенты для продаж, поддержки, бухгалтерии, HR, маркетинга и закупок: квалификация лидов, чат-боты в мессенджерах, разбор документов. Начните с одного отдела.','AI agents for sales, support, accounting, HR, marketing and procurement: lead qualification, messenger chatbots and document processing. Start with one team.','AI აგენტები გაყიდვებისთვის, მხარდაჭერისთვის, ბუღალტერიისთვის, HR-ისთვის და მარკეტინგისთვის: ლიდების კვალიფიკაცია, ჩატბოტები მესენჯერებში, დოკუმენტები.'],
  },
  training:{
   title:['Обучение ИИ и нейросетям для сотрудников в Грузии — Praxis AI','AI training and workshops for teams in Georgia — Praxis AI','AI ტრენინგი და ვორქშოპები გუნდებისთვის საქართველოში — Praxis AI'],
