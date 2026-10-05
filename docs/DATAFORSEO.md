@@ -1,6 +1,6 @@
 # DataForSEO для Praxis AI: что полезно и что уже проверено
 
-**Дата:** 2026-10-05. Каждое направление проверено одним реальным запросом. Всего потрачено около $0.27 из тестового $1.
+**Дата:** 2026-10-05. Каждое направление проверено одним реальным запросом. Всего потрачено около $0.41 из тестового $1.
 **Доступ:** логин и пароль в репозиторий не кладём. Скрипт `scripts/seo/dataforseo.mjs` берёт их из переменной `DATAFORSEO_AUTH` (base64 от `login:password`).
 
 ```sh
@@ -24,10 +24,26 @@ node scripts/seo/dataforseo.mjs balance
 | **SERP → Google Maps** | да | $0.002 | Конкуренты с Google Business Profile и отзывами |
 | **Backlinks → Summary** | да | $0.024 | Ссылочный профиль конкурента |
 | **AI Optimization → ChatGPT LLM Responses** | да (поиск из GE) | ~$0.015 | Кого ChatGPT называет и на какие источники ссылается |
+| **SERP → Google Autocomplete** | да (KA, RU, EN) | $0.002 | Подсказки Google. Для KA это единственный источник реальных формулировок |
+| **AI Optimization → Perplexity (sonar)** | да | ~$0.006 | Кого называет Perplexity и откуда берёт |
+| **AI Optimization → Gemini (с поиском)** | да | ~$0.037 | Кого называет Gemini |
+| Keywords Data → Google Ads: Keywords for Site | формально да | $0.09 | Для маленьких сайтов бесполезно: по ainow.ge один ключ |
 | **OnPage → Instant Pages / Lighthouse** | да | $0.00015 | Проверка страниц. Сейчас наш адрес отдаёт **401**, сайт закрыт; аудит заработает после публикации на домене |
 | DataForSEO Labs (ranked keywords, keyword difficulty, конкуренты) | **нет**: Грузия не поддерживается (`Invalid Field: location_code`) | — | — |
 
-Ещё есть, но нам пока не нужно: Merchant/Amazon, App Data, Content Analysis (упоминания бренда — понадобится, когда о нас начнут писать), Domain Analytics (технологии и whois), LLM Mentions (обычно отдельная подписка).
+### Остальные функции и когда они пригодятся
+| API | Зачем нам | Когда |
+|---|---|---|
+| SERP → Bing Organic | Bing питает Copilot и поиск ChatGPT, позиции там проверять дешевле, чем гадать | после индексации |
+| SERP → YouTube | Кто в выдаче по «AI chatbot WhatsApp demo», если снимем видео-демо | при запуске YouTube |
+| Business Data → Google My Business Info / Reviews | Отзывы и категории конкурентов в Картах, мониторинг собственных отзывов | после создания GBP |
+| Content Analysis → Search / Summary / Sentiment | Упоминания «Praxis AI» в сети и их тон: метрика бренда для GEO | когда появятся публикации |
+| OnPage → Crawl (task) | Полный технический краул всех 84 страниц, битые ссылки, дубли | после публикации на домене |
+| Backlinks → Referring Domains / Domain Intersection | Где ссылаются на конкурентов, но не на нас: готовый список площадок | сразу (~$0.02–0.05) |
+| AI Optimization → LLM Mentions | Частота упоминаний бренда в ответах ИИ | обычно отдельная подписка |
+| AI Optimization → Claude LLM Responses | Ещё одна модель для ежемесячного замера | по желанию |
+| Domain Analytics → Technologies / Whois | На чём сделаны сайты конкурентов | не нужно |
+| Merchant, App Data, Amazon | — | не нужно |
 
 ---
 
@@ -57,18 +73,30 @@ ainow.ge: 80 ссылающихся доменов (52 основных), сай
 ### 5. Что отвечает ChatGPT (gpt-5-mini с веб-поиском, страна GE)
 На «Какие компании в Грузии занимаются внедрением ИИ и чат-ботов?» называет: **AI NOW (ainow.ge)**, BotLab, Bonteco, Chatty, aichatbot.ge, ISsoft. Ссылается на **Clutch** («Top Chatbot Companies in Georgia») и **The Manifest**. Praxis AI не упоминается. Это точка отсчёта.
 
+### 6. Подсказки Google (Autocomplete)
+- KA: «ჩატბოტის შექმნა», «ჩატბოტის დაყენება», «**ქართული ჩატბოტი**», «ai ჩატბოტი», «ხელოვნური ინტელექტი **ქართულად**», «ხელოვნური ინტელექტის გამოყენება», «ხელოვნური ინტელექტი საქართველოში». Грузины ищут бота, который говорит по-грузински. Это добавлено в грузинские title главной и поддержки.
+- RU «чат бот»: подсказки про госуслуги и банки (Аэрофлот, МВД, ГАИ), коммерческих нет.
+
+### 7. Perplexity и Gemini
+- **Perplexity** называет Gegidze, Mzia, Optio, Fresh Lime Soft, WeGotCode и другие. Источники — каталоги **TechBehemoths (раздел Tbilisi)**, **Sortlist**, **DesignRush**, **F6S**, inven.ai, а также страницы услуг конкурентов.
+- **Gemini** называет MaxinAI, Fresh Lime Soft, RCG Solutions, Anronix, XISLABS.
+- Ни одна модель не называет Praxis AI. Даже ainow.ge есть только у ChatGPT. У каждой модели свои источники, поэтому присутствие в каталогах важнее одного сайта.
+
 ---
 
 ## Что делать с этим дальше
 
-**Сделано в коде (этот шаг):**
-- Посадочная «WhatsApp-чат-бот для бизнеса» на трёх языках: `/solutions/whatsapp-chatbot`.
-- В title и H1 главной, отделов и обучения добавлены подтверждённые данными слова: чат-бот, ИИ-агенты, WhatsApp-бот, AI workshop / course.
-- В FAQ добавлены вопросы из «Похожих вопросов» Google.
+**Сделано в коде (на существующих страницах, без новых):**
+- Title и description главной, отделов, обучения, решений и поддержки переписаны под подтверждённые запросы: чат-бот, ИИ-агенты, WhatsApp / Telegram-бот, AI training / workshop, «ქართული ჩატბოტი».
+- H1 разделов «Отделы» и «Обучение», вводный абзац hero, ответ «Что такое Praxis AI?».
+- FAQ: «Сколько стоит чат-бот для WhatsApp?», «Как внедрить ИИ-агента в бизнес?» (из «Похожих вопросов» Google), WhatsApp Business API на продажах, сравнение с конструкторами на поддержке.
+- Разметка Service и llms.txt: чат-бот для WhatsApp и Telegram от 3 200 ₾.
+
+Полный план «как забрать выдачу»: `docs/SEO-ACTION-PLAN.md`.
 
 **Без кода (по приоритету):**
 1. **Google Business Profile** в Тбилиси, категория «Software company» / «Business management consultant». Ниша в Картах пустая.
-2. **Профили на Clutch и The Manifest**: ChatGPT берёт из них списки компаний. Попросить 2–3 отзыва от первых клиентов.
+2. **Профили в каталогах:** Clutch и The Manifest (их цитирует ChatGPT), TechBehemoths, Sortlist, DesignRush, F6S (их цитирует Perplexity). Попросить 2–3 отзыва от первых клиентов.
 3. Попасть в подборки вроде softaims «Best AI Development Companies in Georgia».
 4. Опубликовать сайт на домене и прогнать страницы через OnPage API (instant pages, около $0.0002 за страницу).
 5. **Раз в месяц:** `llm` с тремя вопросами (RU/EN/KA) и `volume` по ядру. Сравнивать, появился ли Praxis в ответах ChatGPT.

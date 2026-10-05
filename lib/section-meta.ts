@@ -4,7 +4,7 @@ import type {Copy} from './content';
 export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  home:{
   title:['Внедрение ИИ в бизнес в Грузии: чат-боты, ИИ-агенты, автоматизация — Praxis AI','AI for business in Georgia: AI chatbots, AI agents, automation — Praxis AI','ხელოვნური ინტელექტი ბიზნესისთვის: AI ჩატბოტები და AI აგენტები — Praxis AI'],
-  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, цены от 1 900 ₾.','AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, prices from 1,900 ₾.','ხელოვნური ინტელექტის დანერგვა: AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისა და დოკუმენტებისთვის, გუნდის სწავლება. თბილისი და მთელი საქართველო, უფასო აუდიტი, 1 900 ₾-დან.'],
+  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, цены от 1 900 ₾.','AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, prices from 1,900 ₾.','ხელოვნური ინტელექტის დანერგვა საქართველოში: ქართულად მოსაუბრე AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისთვის, გუნდის სწავლება. უფასო აუდიტი, 1 900 ₾-დან.'],
  },
  industries:{
   title:['ИИ и чат-боты для бизнеса по отраслям в Грузии — Praxis AI','AI and chatbots for every industry in Georgia — Praxis AI','AI და ჩატბოტები ინდუსტრიებისთვის საქართველოში — Praxis AI'],

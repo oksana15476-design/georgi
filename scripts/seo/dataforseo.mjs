@@ -3,7 +3,8 @@
 //
 //   node scripts/seo/dataforseo.mjs volume docs/seo-data/keywords.txt   Google Ads volumes, Georgia
 //   node scripts/seo/dataforseo.mjs serp "WhatsApp chatbot" en           top 20 Google results, Georgia
-//   node scripts/seo/dataforseo.mjs llm "Какие компании в Грузии внедряют ИИ?"   ChatGPT answer with sources
+//   node scripts/seo/dataforseo.mjs llm "Какие компании в Грузии внедряют ИИ?" [chat_gpt|perplexity|gemini]
+//                                                                  AI answer with sources
 //   node scripts/seo/dataforseo.mjs balance
 //
 // Output is JSON on stdout; the request cost is printed to stderr.
@@ -34,7 +35,10 @@ if(cmd==='volume'){
  out({features:r.item_types,organic:r.items.filter(i=>i.type==='organic').map(i=>({rank:i.rank_absolute,domain:i.domain,title:i.title,url:i.url})),
   questions:r.items.filter(i=>i.type==='people_also_ask').flatMap(i=>i.items.map(q=>q.title))});
 }else if(cmd==='llm'){
- const [r]=await call('ai_optimization/chat_gpt/llm_responses/live',[{user_prompt:arg,model_name:'gpt-5-mini',web_search:true,web_search_country_iso_code:'GE',max_output_tokens:1200}]);
+ const engine=process.argv[4]||'chat_gpt';
+ const models={chat_gpt:{model_name:'gpt-5-mini',web_search:true,web_search_country_iso_code:'GE'},perplexity:{model_name:'sonar'},gemini:{model_name:'gemini-2.5-flash',web_search:true}};
+ if(!models[engine])throw new Error('Engines: '+Object.keys(models).join(', '));
+ const [r]=await call('ai_optimization/'+engine+'/llm_responses/live',[{user_prompt:arg,max_output_tokens:1200,...models[engine]}]);
  const sections=(r.items||[]).flatMap(i=>i.sections||[]);
  out({answer:sections.map(s=>s.text).join('\n'),sources:[...new Set(sections.flatMap(s=>(s.annotations||[]).map(a=>a.url.replace(/\?utm_source=openai$/,''))))],
   mentionsPraxis:/praxis/i.test(sections.map(s=>s.text).join(' '))});
@@ -42,5 +46,5 @@ if(cmd==='volume'){
  const [r]=await call('appendix/user_data');
  out({login:r.login,balance:r.money?.balance});
 }else{
- console.error('Commands: volume <file> | serp <keyword> [lang] | llm <prompt> | balance');process.exit(1);
+ console.error('Commands: volume <file> | serp <keyword> [lang] | llm <prompt> [engine] | balance');process.exit(1);
 }
