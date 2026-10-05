@@ -10,11 +10,13 @@ const publicEnv = {
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL ?? "",
 };
 
-// GITHUB_PAGES=1 builds a static copy of the site for GitHub Pages, served under /georgi.
-// vinext's prerenderer does not apply Next's basePath, so links use NEXT_PUBLIC_BASE_PATH and
-// scripts/pages-postbuild.mjs prefixes asset URLs. The lead form needs the server API and is
-// unavailable on Pages (it shows the error state with the Telegram/phone alternatives).
-const pages = process.env.GITHUB_PAGES === "1";
+// Static export modes (vinext's prerenderer does not apply Next's basePath, so links use
+// NEXT_PUBLIC_BASE_PATH and scripts/pages-postbuild.mjs prefixes asset URLs):
+// - GITHUB_PAGES=1: copy for GitHub Pages under /georgi; no lead API there.
+// - STATIC_EXPORT=1: site root build for the Docker image, where server/index.mjs serves the
+//   pages and the lead API. Set NEXT_PUBLIC_SITE_URL to the public domain.
+const githubPages = process.env.GITHUB_PAGES === "1";
+const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = pages
   ? {
@@ -22,8 +24,8 @@ const nextConfig: NextConfig = pages
       images: { unoptimized: true },
       env: {
         ...publicEnv,
-        NEXT_PUBLIC_BASE_PATH: process.env.PAGES_BASE_PATH ?? "/georgi",
-        NEXT_PUBLIC_SITE_URL: process.env.PAGES_SITE_URL ?? "https://oksana15476-design.github.io/georgi",
+        NEXT_PUBLIC_BASE_PATH: process.env.PAGES_BASE_PATH ?? (githubPages ? "/georgi" : ""),
+        NEXT_PUBLIC_SITE_URL: process.env.PAGES_SITE_URL ?? (githubPages ? "https://oksana15476-design.github.io/georgi" : publicEnv.NEXT_PUBLIC_SITE_URL),
       },
     }
   : {

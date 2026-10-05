@@ -1,11 +1,10 @@
-# Builds a static copy of the site and deploys it to GitHub Pages
+# Builds a static copy of the site for GitHub Pages (manual runs only)
 # (https://oksana15476-design.github.io/georgi/). The lead form needs the server API,
 # so on Pages it falls back to the Telegram and phone links.
 name: Deploy site to GitHub Pages
 
+# GitHub Pages is closed; the site moves to Docker hosting. Run manually only if needed.
 on:
-  push:
-    branches: ["main", "claude/relaxed-hypatia-goz0ki"]
   workflow_dispatch:
 
 permissions:

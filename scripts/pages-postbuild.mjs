@@ -3,7 +3,7 @@
 import {cpSync,existsSync,readdirSync,readFileSync,rmSync,statSync,writeFileSync} from 'node:fs';
 import {join} from 'node:path';
 
-const base=process.env.PAGES_BASE_PATH??'/georgi';
+const base=process.env.PAGES_BASE_PATH??(process.env.GITHUB_PAGES==='1'?'/georgi':'');
 const src='dist/client',out='out';
 if(!existsSync(join(src,'en.html')))throw new Error('Run GITHUB_PAGES=1 vinext build first');
 rmSync(out,{recursive:true,force:true});
@@ -44,6 +44,7 @@ writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\n\nSitemap: ${site
 writeFileSync(join(out,'index.html'),`<!doctype html><meta charset="utf-8"><title>Praxis AI</title><meta http-equiv="refresh" content="0;url=${base}/en"><link rel="canonical" href="${base}/en"><script>location.replace('${base}/en')</script><a href="${base}/en">Praxis AI</a>`);
 // Without this file GitHub Pages runs Jekyll, which drops the _next directory.
 writeFileSync(join(out,'.nojekyll'),'');
-if(!preload)console.warn('Warning: Vite preload helper not found; chunk preloads may 404');
+if(siteUrl.includes('chatgpt.site'))console.warn('Warning: canonical URLs point to the old chatgpt.site address; set NEXT_PUBLIC_SITE_URL to the real domain');
+if(base&&!preload)console.warn('Warning: Vite preload helper not found; chunk preloads may 404');
 console.log(`Sitemap: ${entries.length} URLs`);
 console.log(`Pages site written to ${out}/ (${files} pages and ${preload} scripts rewritten for ${base})`);

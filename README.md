@@ -25,15 +25,17 @@ npm run start
 
 ## Структура
 
-- app/ — маршруты, стили и API формы заявки.
-- components/site.tsx — общая структура сайта и главная.
-- components/deep-page.tsx — отраслевые страницы, сценарии и демо.
-- components/conversion.tsx — форма, кейсы, контакты и интерактивные блоки.
-- lib/content.ts — основной контент; тексты хранятся как [ru, en, ka].
-- lib/seo.ts — адрес сайта для canonical/hreflang, язык по умолчанию, заголовок и описание сайта.
-- lib/page-profiles.ts — сценарии, FAQ и заголовки для 20 направлений.
-- lib/contacts.ts — контактные ссылки.
-- public/ — статические ресурсы.
+- app/ — маршруты, стили, sitemap, robots и API формы заявки.
+- components/site.tsx — каркас страниц и порядок блоков.
+- components/praxis/ — разделы сайта: шапка, главная, списки, страницы отделов и отраслей, тарифы, калькулятор, команда, партнёры, политика, форма.
+- components/analytics.tsx — согласие на cookie, GA4, пиксель Meta, конверсии Google Ads, UTM-метки.
+- lib/content.ts, lib/page-profiles.ts, lib/page-copy.ts, lib/jobs.ts — тексты на трёх языках ([ru, en, ka]).
+- lib/pricing.ts — цены в лари и долларах.
+- lib/contacts.ts — телефон, Telegram, WhatsApp, ссылка на запись.
+- lib/lead-delivery.mjs — проверка и доставка заявок (общая для Docker и Cloudflare).
+- lib/seo.ts — адрес сайта, canonical, hreflang, Open Graph, разметка Organization.
+- server/index.mjs — сервер для Docker-образа.
+- public/ — логотипы, фото, картинки для превью ссылок.
 
 ## Заявки: Telegram, почта и amoCRM
 
@@ -61,10 +63,34 @@ API `app/api/leads/route.ts` отправляет каждую заявку во
 
 Политика конфиденциальности — страница `/{язык}/privacy` (`components/praxis/privacy.tsx`). Перед запуском рекламы добавьте реквизиты юрлица и согласуйте текст с юристом.
 
+## Развёртывание в Docker (Timeweb App Platform)
+
+`Dockerfile` собирает все страницы в статический HTML и кладёт их в лёгкий образ с Node-сервером `server/index.mjs`. Сервер раздаёт страницы (gzip, кэш статики на год, заголовки безопасности) и принимает заявки на `POST /api/leads`: до 5 заявок с одного IP за 10 минут, проверка Origin, ловушка для ботов. Проверка работоспособности — `GET /healthz`.
+
+Шаги в панели Timeweb Cloud:
+
+1. **App Platform → Создать → Docker → Dockerfile.** Подключите GitHub-репозиторий и ветку (лучше `main` после слияния).
+2. **Регион:** Нидерланды или Польша. Ближе к Грузии и без ограничений для Google, Meta и почтовых сервисов.
+3. **Переменные окружения.**
+   - Обязательно: `NEXT_PUBLIC_SITE_URL=https://ваш-домен`, иначе canonical-ссылки и sitemap будут указывать на старый адрес.
+   - По желанию: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_ADS_ID`, `NEXT_PUBLIC_ADS_LEAD_LABEL`, `NEXT_PUBLIC_BOOKING_URL`. Эти значения встраиваются в страницы при сборке: после изменения нужен новый деплой.
+   - Секреты для заявок: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `RESEND_API_KEY`, `LEAD_EMAIL_TO`, `LEAD_EMAIL_FROM`, `AMO_DOMAIN`, `AMO_TOKEN`, `AMO_PIPELINE_ID`. Читаются при работе сервера и в образ не попадают.
+4. **Порт:** 3000 (указан в `EXPOSE`).
+5. **Домен:** привяжите домен к приложению и включите бесплатный SSL. Корень `/` перенаправляет на `/en`.
+6. **Автодеплой** при пуше в ветку включается в настройках приложения.
+
+Проверка образа локально:
+
+```sh
+docker compose -f compose.local.yml up --build   # затем http://localhost:3000
+```
+
+Без Docker: `NEXT_PUBLIC_SITE_URL=https://ваш-домен npm run build:static && npm run serve:static`.
+
 ## Публикация
 
-Текущий сайт: https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site
+Основной способ — Docker (см. выше). Копию для GitHub Pages можно собрать командой `npm run build:pages`; её workflow запускается только вручную, публикация на Pages закрыта.
 
-Конфигурация .openai/hosting.json сохраняет связь с проектом Sites. Публикация через Sites выполняется отдельно от загрузки исходников в GitHub. GitHub Pages для серверной формы не подходит без отдельного серверного размещения.
+Старый сайт: https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site. Конфигурация `.openai/hosting.json` сохраняет связь с проектом Sites.
 
 Подробности исходного окружения: [docs/SITES-STARTER.md](docs/SITES-STARTER.md).
