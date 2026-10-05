@@ -15,7 +15,8 @@ export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
   const on=open===i;
   return <div key={q} className={'faq-card'+(on?' is-open':'')} style={{order:i}}>
    <h3><button type="button" onClick={()=>setOpen(on?-1:i)} aria-expanded={on} aria-controls={'faq-'+i}>{q}<span className="faq-ring"><Icon name="plus" size={15}/></span></button></h3>
-   {on&&<p id={'faq-'+i} className="faq-a">{a}</p>}
+   {/* Every answer stays in the HTML so crawlers and assistants can read it; closed ones are hidden. */}
+   <p id={'faq-'+i} className="faq-a" hidden={!on}>{a}</p>
   </div>;
  };
  return (

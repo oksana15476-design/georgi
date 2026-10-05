@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import {languages,Lang,t,Copy,departments,industries} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
 import {pageCopy} from '@/lib/page-copy';
+import {prices} from '@/lib/pricing';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // Set NEXT_PUBLIC_SITE_URL when the site moves to its own domain.
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site').replace(/\/$/,'');
@@ -26,11 +27,37 @@ export function pageMeta(lang:Lang,path:string,title:string,desc:string):Metadat
 // Every public page, for the sitemap.
 export const allPaths=['',...['industries','departments','training','solutions','cases','partners','privacy'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
 
+const offers:[Copy,keyof typeof prices,string?][]=[
+ [['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],'training','/training'],
+ [['Внедрение ИИ-инструментов','AI tool implementation','AI ინსტრუმენტების დანერგვა'],'implementation','/solutions'],
+ [['Разработка ИИ-решений','Custom AI development','AI გადაწყვეტილებების შემუშავება'],'development','/solutions'],
+ [['Сопровождение ИИ-решений','AI support and maintenance','AI გადაწყვეტილებების მხარდაჭერა'],'support','/solutions'],
+];
+
+// Site-wide graph: the business with its services and starting prices, the founder and the website.
 export function organizationJsonLd(lang:Lang){
- return {'@context':'https://schema.org','@type':'ProfessionalService','@id':absolute('/#organization'),name:'Praxis AI',url:absolute('/'+lang),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,
-  address:{'@type':'PostalAddress',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
-  contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
-  makesOffer:[['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],['Внедрение ИИ-инструментов','AI tool implementation','AI ინსტრუმენტების დანერგვა'],['Разработка ИИ-решений','Custom AI development','AI გადაწყვეტილებების შემუშავება']].map(n=>({'@type':'Offer',itemOffered:{'@type':'Service',name:t(n as Copy,lang)}}))};
+ const org=absolute('/#organization');
+ return {'@context':'https://schema.org','@graph':[
+  {'@type':'ProfessionalService','@id':org,name:'Praxis AI',url:absolute('/'+lang),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,
+   address:{'@type':'PostalAddress',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
+   founder:{'@id':absolute('/#founder')},
+   contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
+   hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxis AI','Praxis AI services','Praxis AI-ის მომსახურება'],lang),itemListElement:offers.map(([name,key,path])=>({'@type':'Offer',url:absolute('/'+lang+(path||'')),
+    priceSpecification:{'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL',...(key==='support'?{unitText:'MONTH'}:{})},
+    itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}}))}},
+  {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg')},
+  {'@type':'WebSite','@id':absolute('/#website'),url:absolute('/'+lang),name:'Praxis AI',inLanguage:lang,publisher:{'@id':org}},
+ ]};
+}
+
+// Per-page graph: breadcrumbs, the FAQ shown on the page and, on department and industry pages,
+// the service the page describes.
+export function pageJsonLd({lang,crumbs,faq,service}:{lang:Lang;crumbs:[string,string][];faq:[string,string][];service?:{name:string;description:string;path:string}}){
+ const graph:Record<string,unknown>[]=[];
+ if(crumbs.length>1)graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map(([name,path],i)=>({'@type':'ListItem',position:i+1,name,item:absolute('/'+lang+path)}))});
+ if(faq.length)graph.push({'@type':'FAQPage',inLanguage:lang,mainEntity:faq.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))});
+ if(service)graph.push({'@type':'Service',name:service.name,description:service.description,url:absolute('/'+lang+service.path),serviceType:service.name,provider:{'@id':absolute('/#organization')},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru']});
+ return {'@context':'https://schema.org','@graph':graph};
 }
 
 // Department and industry pages: "AI for sales in Georgia — Praxis AI" from the start of the page

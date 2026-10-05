@@ -17,6 +17,7 @@ import {Privacy} from '@/components/praxis/privacy';
 import {Team} from '@/components/praxis/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxis/ui';
 import type {X} from '@/components/praxis/types';
+import {pageJsonLd} from '@/lib/seo';
 
 type Props={lang?:Lang;section?:string;slug?:string};
 
@@ -52,6 +53,10 @@ export default function Site({lang='en',section='home',slug}:Props){
  const faqItems:[string,string][]=isPartners?partnerFaq:isDetail?(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])):section==='departments'?deptFaq:genFaq;
  const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
+ const sectionName=isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
+ const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
+  crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[])],
+  service:isDetail?{name:pageCopy[slug!]?.[lang]?.h1.split(':')[0].trim()||t(ent!.name,lang),description:pageCopy[slug!]?.[lang]?.sub||'',path:rest}:undefined});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
   ?(ov?ov.chips:[...profile!.scenarios.map(q=>t(q.title,lang)),...profile!.extra.map(v=>t(v,lang))])
@@ -73,6 +78,7 @@ export default function Site({lang='en',section='home',slug}:Props){
    <MotionRoot/>
    <a href="#main" onClick={e=>{e.preventDefault();document.getElementById('main')?.focus()}} className="skip">{s.skip}</a>
    <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} toContact={toContact} menu={menu} setMenu={setMenu}/>
+   <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,'\\u003c')}}/>
    <main id="main" tabIndex={-1}>
     {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><FindWorkflow x={x}/></>}
     {isPrivacy&&<Privacy x={x}/>}
