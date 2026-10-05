@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {languages,Lang,t,Copy,departments,industries} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
+import {pageCopy} from '@/lib/page-copy';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // Set NEXT_PUBLIC_SITE_URL when the site moves to its own domain.
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site').replace(/\/$/,'');
@@ -30,4 +31,15 @@ export function organizationJsonLd(lang:Lang){
   address:{'@type':'PostalAddress',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
   contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
   makesOffer:[['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],['Внедрение ИИ-инструментов','AI tool implementation','AI ინსტრუმენტების დანერგვა'],['Разработка ИИ-решений','Custom AI development','AI გადაწყვეტილებების შემუშავება']].map(n=>({'@type':'Offer',itemOffered:{'@type':'Service',name:t(n as Copy,lang)}}))};
+}
+
+// Department and industry pages: "AI for sales in Georgia — Praxis AI" from the start of the page
+// headline, and the page subheading as the description.
+export function detailTitle(slug:string,lang:Lang,fallback:string){
+ const h1=pageCopy[slug]?.[lang]?.h1;
+ const head=h1?h1.split(':')[0].trim():fallback;
+ return head+' '+t(['в Грузии','in Georgia','საქართველოში'],lang)+' — Praxis AI';
+}
+export function detailDescription(slug:string,lang:Lang,fallback:string){
+ return pageCopy[slug]?.[lang]?.sub||fallback;
 }

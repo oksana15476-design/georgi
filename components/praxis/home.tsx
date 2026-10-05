@@ -205,7 +205,7 @@ export function FindWorkflow({x}:{x:X}){
      <div role="tablist" aria-label={c('Для отделов','For departments','განყოფილებებისთვის')} aria-orientation="vertical" className="dept-tabs" onKeyDown={onKey}>
       {departments.map((dp,i)=><button key={dp.slug} ref={el=>{tabs.current[i]=el}} role="tab" id={'dept-'+i} aria-selected={dept===i} aria-controls="dept-panel" tabIndex={dept===i?0:-1} onClick={()=>setDept(i)} className={'dept-tab'+(dept===i?' is-on':'')}><i aria-hidden="true"/><span className="dept-tab-icon"><Icon name={deptCardIcon[dp.slug]||'layers'} size={17}/></span>{t(dp.name,lang)}</button>)}
      </div>
-     <article id="dept-panel" role="tabpanel" aria-labelledby={'dept-'+dept} className="panel">
+     <div id="dept-panel" role="tabpanel" aria-labelledby={'dept-'+dept} className="panel">
       <div key={dept} className="fade-in">
        <div className="panel-head">
         <h3 className="panel-h3">{t(d.job,lang)}</h3>
@@ -218,7 +218,7 @@ export function FindWorkflow({x}:{x:X}){
         </div>)}
        </div>
       </div>
-     </article>
+     </div>
     </div>
    :<>
     <div className="grid-c3" data-stagger="">

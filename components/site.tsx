@@ -98,13 +98,13 @@ export default function Site({lang='en',section='home',slug}:Props){
     <div className="wrap footer-in">
      <div className="footer-grid">
       <div className="footer-brand">
-       <a href={root} aria-label="Praxis AI" className="brand brand-dark"><Wordmark dark/></a>
+       <a href={root} className="brand brand-dark"><Wordmark dark/></a>
        <p className="footer-tag">{s.footerTag}</p>
        <div className="footer-contacts"><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a><a href={contacts.whatsapp} target="_blank" rel="noopener" className="footer-phone"><Icon name="whatsapp" size={16}/>WhatsApp</a></div>
        <a href="#contact" onClick={toContact} className="btn btn-white">{s.action}<Icon name="arrow-right" size={16}/></a>
       </div>
       {footerCols.map(col=><div key={col.title}>
-       <h4>{col.title}</h4>
+       <h2 className="footer-h">{col.title}</h2>
        {col.links.map(l=><a key={l.href} href={l.href} onClick={l.contact?toContact:undefined} className="footer-link">{l.label}</a>)}
       </div>)}
      </div>

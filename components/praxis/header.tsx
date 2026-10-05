@@ -41,7 +41,7 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
  return (
   <header className={'site-header'+(scrolled||menu?' is-scrolled':'')+(drop?' has-drop':'')} onMouseLeave={()=>{clearTimeout(leave.current);leave.current=setTimeout(()=>setDrop(''),160)}}>
    <div ref={row} className={'wrap header-row'+(compact?' is-compact':'')}>
-    <a href={root} aria-label="Praxis AI" className="brand">
+    <a href={root} className="brand">
      <Wordmark/>
     </a>
     <nav aria-label={s.mainNav} className="desktop-nav">

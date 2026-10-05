@@ -33,7 +33,7 @@ export function BrandLogo({info,size,tile,variant='inline'}:{info:LogoInfo;size:
  const ref=useRef<HTMLImageElement>(null);
  const src=info.srcs[idx];
  useEffect(()=>{const im=ref.current;if(im&&im.complete&&im.naturalWidth===0&&src)setIdx(i=>i+1)},[src]);
- if(!src)return <span className={'logo-mono '+variant} style={{width:tile,height:tile,background:info.mono,color:info.monoFg}}>{info.ini}</span>;
+ if(!src)return <span aria-hidden="true" className={'logo-mono '+variant} style={{width:tile,height:tile,background:info.mono,color:info.monoFg}}>{info.ini}</span>;
  // eslint-disable-next-line @next/next/no-img-element
  return <img key={src} ref={ref} src={src} alt="" width={size} height={size} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={()=>setIdx(i=>i+1)} style={{display:'block',width:size,height:size}}/>;
 }
