@@ -19,11 +19,20 @@ Claude Code loads them automatically from `.claude/skills/`.
 | `visual-design-foundations` | Typography, color, spacing, iconography | wshobson/agents @ `156b7a5` | MIT |
 | `accessibility` | WCAG 2.2 audit and fixes | [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) @ `afa8da9` | MIT |
 | `seo` | Meta tags, sitemap, robots, structured data basics | addyosmani/web-quality-skills @ `afa8da9` | MIT |
-| `seo-hreflang` | hreflang for the RU / EN / KA versions | [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) @ `ff87fce` | MIT |
-| `seo-schema` | Schema.org JSON-LD (Organization, Service, FAQ…) | AgriciDaniel/claude-seo @ `ff87fce` | MIT |
+| `seo-hreflang`, `seo-schema` | hreflang for RU / EN / KA; Schema.org JSON-LD | [AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo) @ `4b99de2` | MIT |
+| `seo-audit`, `seo-technical`, `seo-page`, `seo-content`, `seo-sitemap` | Site-wide, technical, single-page and content audits; sitemaps | AgriciDaniel/claude-seo @ `4b99de2` | MIT |
+| `seo-plan`, `seo-cluster`, `seo-content-brief`, `seo-programmatic`, `seo-competitor-pages` | SEO strategy, keyword clustering, content briefs, pages at scale, comparison pages | AgriciDaniel/claude-seo @ `4b99de2` | MIT |
+| `seo-dataforseo`, `seo-google` | Live keyword volumes, SERPs (DataForSEO MCP); Search Console, PageSpeed, CrUX, GA4 | AgriciDaniel/claude-seo @ `4b99de2` | MIT |
+| `seo-geo`, `seo-agentic`, `seo-local`, `seo-sxo`, `seo-backlinks` | AI Overviews / answer engines, agent readiness, local SEO, search intent, links | AgriciDaniel/claude-seo @ `4b99de2` | MIT |
+| `geo` (+ `scripts/`, `templates/`, `schema/`), `geo-audit`, `geo-citability`, `geo-crawlers`, `geo-llmstxt`, `geo-platform-optimizer`, `geo-brand-mentions`, `geo-content`, `geo-schema`, `geo-technical` | GEO: visibility in ChatGPT, Claude, Perplexity, Gemini, AI Overviews | [zubair-trabzada/geo-seo-claude](https://github.com/zubair-trabzada/geo-seo-claude) @ `ea29bd2` | MIT |
+| `product-marketing`, `ai-seo`, `content-strategy`, `site-architecture`, `programmatic-seo`, `copywriting`, `cro`, `lead-magnets`, `cold-email`, `ads`, `ad-creative`, `competitor-profiling`, `customer-research` | Positioning, AI SEO, content plan, site structure, copy, conversion, outreach, paid ads, competitor and customer research | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) @ `dda3841` | MIT |
 
-Local changes to vendored files: `seo-schema` points to its own copy of `references/schema-types.md` (taken from claude-seo's `seo` skill) instead of `../seo/references/`.
-The claude-seo skills mention the plugin's helper scripts (`${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo`); they are not vendored, so use the manual fallback each step describes.
+Local changes to vendored files:
+- `seo-schema` points to its own copy of `references/schema-types.md` instead of `../seo/references/`.
+- The claude-seo orchestrator skill is not vendored (its name clashes with `seo`); its `references/` files were copied into `seo/references/` so the `../seo/references/...` links in the claude-seo skills resolve.
+- claude-seo helper scripts, sub-agents and its PostToolUse hook are not vendored; skills that mention `${CLAUDE_PLUGIN_ROOT}/scripts/...` fall back to the manual steps they describe.
+- `geo` paths were changed from `~/.claude/skills/` to `.claude/skills/`. Its Python helpers need `pip install -r .claude/skills/geo/requirements.txt`. The agency tools (CRM dashboard, proposal, prospecting, PDF reports) were left out.
+- Marketing skills read shared product context. It lives at `.claude/product-marketing.md` because `/.agents/` is git-ignored here; keep it there if a skill offers to move it. It is a draft filled from the site; items marked ⚠ need confirmation.
 
 To update a skill, copy its folder again from the source repository and bump the commit above.
 
