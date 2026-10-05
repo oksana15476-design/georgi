@@ -4,7 +4,7 @@ import type {Copy} from './content';
 export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  home:{
   title:['Внедрение ИИ в бизнес в Грузии: чат-боты, ИИ-агенты, автоматизация — Praxis AI','AI for business in Georgia: AI chatbots, AI agents, automation — Praxis AI','ხელოვნური ინტელექტი ბიზნესისთვის: AI ჩატბოტები და AI აგენტები — Praxis AI'],
-  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, цены от 1 900 ₾.','AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, prices from 1,900 ₾.','ხელოვნური ინტელექტის დანერგვა საქართველოში: ქართულად მოსაუბრე AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისთვის, გუნდის სწავლება. უფასო აუდიტი, 1 900 ₾-დან.'],
+  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, чат-бот от 290 ₾ в месяц.','AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, chatbots from 290 ₾ a month.','ხელოვნური ინტელექტის დანერგვა საქართველოში: ქართულად მოსაუბრე AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისთვის, გუნდის სწავლება. უფასო აუდიტი, ჩატბოტი 290 ₾-დან თვეში.'],
  },
  industries:{
   title:['ИИ и чат-боты для бизнеса по отраслям в Грузии — Praxis AI','AI and chatbots for every industry in Georgia — Praxis AI','AI და ჩატბოტები ინდუსტრიებისთვის საქართველოში — Praxis AI'],
@@ -19,8 +19,8 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
   description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Tbilisi, from 1,900 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
  },
  solutions:{
-  title:['Стоимость внедрения ИИ в Грузии: цены от 1 900 ₾ — Praxis AI','AI implementation cost in Georgia: prices from 1,900 ₾ — Praxis AI','AI-ს დანერგვის ფასი საქართველოში: 1 900 ₾-დან — Praxis AI'],
-  description:['Обучение от 1 900 ₾, чат-бот для WhatsApp и внедрение готовых инструментов от 3 200 ₾, собственная разработка от 6 700 ₾. Калькулятор экономии и бесплатный аудит.','Training from 1,900 ₾, a WhatsApp chatbot or tool implementation from 3,200 ₾, custom development from 6,700 ₾. A savings calculator and a free process audit.','სწავლება 1 900 ₾-დან, WhatsApp ჩატბოტი და ინსტრუმენტების დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
+  title:['Стоимость внедрения ИИ и чат-бота в Грузии: от 290 ₾ в месяц — Praxis AI','AI implementation and chatbot cost in Georgia: from 290 ₾ a month — Praxis AI','AI-სა და ჩატბოტის ფასი საქართველოში: 290 ₾-დან თვეში — Praxis AI'],
+  description:['Чат-бот для WhatsApp под ключ от 290 ₾ в месяц, обучение от 1 900 ₾, внедрение под процесс от 3 200 ₾, разработка от 6 700 ₾. Калькулятор экономии и бесплатный аудит.','A turnkey WhatsApp chatbot from 290 ₾ a month, training from 1,900 ₾, implementation from 3,200 ₾, custom development from 6,700 ₾. A savings calculator and a free audit.','WhatsApp ჩატბოტი გასაღებით 290 ₾-დან თვეში, სწავლება 1 900 ₾-დან, დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
  },
  cases:{
   title:['Примеры внедрения ИИ в бизнес в Грузии — Praxis AI','AI implementation examples for businesses in Georgia — Praxis AI','AI-ს დანერგვის მაგალითები ბიზნესში — Praxis AI'],

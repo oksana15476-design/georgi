@@ -1,6 +1,6 @@
 'use client';
 import {useState} from 'react';
-import {Currency,money,prices} from '@/lib/pricing';
+import {Currency,money,packages,prices} from '@/lib/pricing';
 import {track} from '@/components/analytics';
 import {departments,industries,t} from '@/lib/content';
 import {base} from '@/lib/base';
@@ -121,16 +121,38 @@ export function Formats({x,training}:{x:X;training:boolean}){
   [c('ИИ-агент под ваш процесс','An AI agent built for your workflow','AI აგენტი თქვენი პროცესისთვის'),c('Интеграции с CRM, ERP и 1С','CRM, ERP and 1C integrations','ინტეგრაციები CRM‑თან, ERP‑სა და 1C‑თან'),c('Тесты, документация и передача кода','Testing, documentation and code handover','ტესტები, დოკუმენტაცია და კოდის გადაცემა')]
  ];
  const pilots=[c('один воркшоп для одной команды','one workshop for one team','ერთი ვორქშოპი ერთი გუნდისთვის'),c('один сценарий на реальных обращениях за 2 недели','one workflow on real requests in 2 weeks','ერთი სცენარი რეალურ მოთხოვნებზე 2 კვირაში'),c('прототип агента на ваших данных','an agent prototype on your data','აგენტის პროტოტიპი თქვენს მონაცემებზე')],pilotT=c('Пилот','Pilot','პილოტი');
- const from=c('от','from',''),popular=c('Чаще выбирают','Most popular','ყველაზე პოპულარული');
+ const from=c('от','from','');
+ const perMonth=c('/мес','/mo','/თვე'),setupT=c('подключение','setup','დაკავშირება');
+ const packs=[
+  {key:'start' as const,title:c('Старт','Start','სტარტი'),body:c('Ассистент в одном мессенджере для небольшого бизнеса.','An assistant in one messenger for a small business.','ასისტენტი ერთ მესენჯერში მცირე ბიზნესისთვის.'),
+   items:[c('WhatsApp, Instagram или Telegram — один канал','WhatsApp, Instagram or Telegram — one channel','WhatsApp, Instagram ან Telegram — ერთი არხი'),c('База знаний на грузинском, английском и русском','Knowledge base in Georgian, English and Russian','ცოდნის ბაზა ქართულად, ინგლისურად და რუსულად'),c('До 3 000 ответов в месяц, передача администратору','Up to 3,000 replies a month, hand-off to staff','თვეში 3 000‑მდე პასუხი, ადმინისტრატორზე გადაცემა'),c('Подключение WhatsApp Business делаем мы','We set up WhatsApp Business for you','WhatsApp Business‑ს ჩვენ ვაკავშირებთ')]},
+  {key:'business' as const,title:c('Бизнес','Business','ბიზნესი'),body:c('Несколько каналов и запись прямо в вашу систему.','Several channels and bookings straight into your system.','რამდენიმე არხი და ჩაწერა პირდაპირ თქვენს სისტემაში.'),
+   items:[c('До 3 каналов и чат на сайте','Up to 3 channels plus website chat','3‑მდე არხი და საიტის ჩატი'),c('Запись, бронь или заявка в CRM: amoCRM, Bitrix24, Google Sheets','Bookings or leads in your CRM: amoCRM, Bitrix24, Google Sheets','ჯავშანი ან მოთხოვნა CRM‑ში: amoCRM, Bitrix24, Google Sheets'),c('До 8 000 ответов в месяц','Up to 8,000 replies a month','თვეში 8 000‑მდე პასუხი'),c('Ежемесячный отчёт и правки базы знаний','Monthly report and knowledge base updates','ყოველთვიური ანგარიში და ცოდნის ბაზის განახლება')]},
+  {key:'voice' as const,title:c('Голос + чат','Voice + chat','ხმა + ჩატი'),body:c('Ассистент отвечает и на звонки, и в мессенджерах.','The assistant answers calls as well as messages.','ასისტენტი პასუხობს ზარებსაც და შეტყობინებებსაც.'),
+   items:[c('Голосовой ассистент на входящие звонки на трёх языках','Voice assistant for incoming calls in three languages','ხმოვანი ასისტენტი შემომავალ ზარებზე სამ ენაზე'),c('Чат-бот в мессенджерах с общей базой знаний','Messenger chatbot sharing one knowledge base','ჩატბოტი მესენჯერებში საერთო ცოდნის ბაზით'),c('Запись в CRM и передача сложных звонков человеку','CRM records and complex calls handed to a person','CRM‑ში ჩაწერა და რთული ზარების ადამიანზე გადაცემა'),c('Минуты телефонии — по себестоимости','Phone minutes at cost','სატელეფონო წუთები თვითღირებულებით')]},
+ ];
  return (
   <section id="solutions" className="band-white">
    <div className="wrap sec">
     <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Нужная глубина внедрения.','The right level of implementation.','დანერგვის საჭირო დონე.')}</h2><p className="lead">{s.formatsP}</p></div>
      {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>{setCur(k);track('currency_switch',{currency:k})}} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
     </div>
+    {!training&&<><h3 className="formats-sub">{c('Ассистент в мессенджерах под ключ','Turnkey messenger assistant','ასისტენტი მესენჯერებში გასაღებით')}</h3>
     <div className="formats-grid">
-     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(training?'':' format-card')+(!training&&i===1?' is-popular':'')}>
-      <h3>{title}{!training&&i===1&&<span className="popular">{popular}</span>}</h3>
+     {packs.map((pk,i)=><div key={pk.key} data-reveal="" style={rd(i*100)}><article className={'format format-card'+(i===0?' is-popular':'')}>
+      <h3>{pk.title}{i===0&&<span className="popular">{c('С чего начать','Best to start','დასაწყისისთვის')}</span>}</h3>
+      <p className="price">{money(packages[pk.key].monthly,cur)}<small>{perMonth}</small></p>
+      <p className="price-setup">+ {money(packages[pk.key].setup,cur)} {setupT}</p>
+      <p>{pk.body}</p>
+      <ul className="includes includes-pack">{pk.items.map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}</ul>
+      <button type="button" onClick={()=>x.go(c('Пакет','Package','პაკეტი')+' '+pk.title)} className="ulink mt-auto">{c('Выбрать пакет','Choose this package','პაკეტის არჩევა')}<Icon name="arrow-right" size={16}/></button>
+     </article></div>)}
+    </div>
+    <p className="formats-note">{c('Минимальный срок — 3 месяца. Платные сообщения Meta, например шаблонные рассылки, оплачиваются отдельно по тарифам Meta.','Minimum term 3 months. Paid Meta messages, such as template broadcasts, are billed separately at Meta’s rates.','მინიმალური ვადა — 3 თვე. Meta‑ს ფასიანი შეტყობინებები, მაგალითად შაბლონური გზავნილები, ცალკე იხდება Meta‑ს ტარიფებით.')}</p>
+    <h3 className="formats-sub">{c('Проекты под ваш процесс','Projects built around your process','პროექტები თქვენს პროცესზე')}</h3></>}
+    <div className="formats-grid">
+     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(training?'':' format-card')}>
+      <h3>{title}</h3>
       {!training&&<p className="price">{x.lang==='ka'?<>{money(tiers[i],cur)}<small>-დან</small></>:<><small>{from}</small> {money(tiers[i],cur)}</>}</p>}
       <p>{bodies[i]}</p>
       {includes&&<ul className="includes">{includes[i].map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}<li className="pilot"><Icon name="rocket" size={15}/><span><b>{pilotT}:</b> {pilots[i]}</span></li></ul>}

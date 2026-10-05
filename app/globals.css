@@ -813,3 +813,8 @@ main{outline:none}
 .founder-points span:not(.tile-icon){font-size:14px;line-height:1.55;color:var(--body)}
 .founder-foot{justify-content:flex-start}
 @media(max-width:1100px){.founder-points{grid-template-columns:1fr}.founder-points li{flex-direction:row}}
+/* Turnkey packages above the project formats */
+.formats-sub{margin:8px 0 18px;font-size:15px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.formats-grid+.formats-note+.formats-sub{margin-top:48px}
+.format .price-setup{margin:-8px 0 14px;font-size:14px;color:var(--muted)}
+.includes-pack{margin-bottom:24px}
