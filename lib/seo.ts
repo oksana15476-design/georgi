@@ -9,7 +9,7 @@ import {detailMeta} from '@/lib/detail-meta';
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site').replace(/\/$/,'');
 export const defaultLang:Lang='en';
 export const siteTitle:Copy=['Praxis AI — ИИ для бизнеса в Грузии','Praxis AI — AI for businesses in Georgia','Praxis AI — AI ბიზნესისთვის საქართველოში'];
-export const siteDescription:Copy=['Разрабатываем ИИ-помощников, автоматизируем клиентский сервис и обучаем команды. Практические решения для компаний в Грузии.','We build AI assistants, automate customer service and train teams. Practical solutions for companies in Georgia.','ვქმნით AI ასისტენტებს, ვავტომატიზებთ მომსახურებას და ვასწავლით გუნდებს საქართველოში.'];
+export const siteDescription:Copy=['Разрабатываем чат-боты и ИИ-агентов, автоматизируем клиентский сервис и обучаем команды. Практические решения для компаний в Грузии.','We build AI chatbots and AI agents, automate customer service and train teams. Practical solutions for companies in Georgia.','ვქმნით AI ჩატბოტებსა და AI აგენტებს, ვავტომატიზებთ მომსახურებას და ვასწავლით გუნდებს საქართველოში.'];
 export const isLang=(v:string):v is Lang=>languages.includes(v as Lang);
 export const absolute=(path:string)=>siteUrl+path;
 // path is the part after the language prefix: '' for home, '/industries/retail' for a detail page.
@@ -31,6 +31,7 @@ export const allPaths=['',...['industries','departments','training','solutions',
 const offers:[Copy,keyof typeof prices,string?][]=[
  [['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],'training','/training'],
  [['Внедрение ИИ-инструментов','AI tool implementation','AI ინსტრუმენტების დანერგვა'],'implementation','/solutions'],
+ [['Чат-бот для WhatsApp и Telegram','WhatsApp and Telegram chatbot','WhatsApp და Telegram ჩატბოტი'],'implementation','/departments/support'],
  [['Разработка ИИ-решений','Custom AI development','AI გადაწყვეტილებების შემუშავება'],'development','/solutions'],
  [['Сопровождение ИИ-решений','AI support and maintenance','AI გადაწყვეტილებების მხარდაჭერა'],'support','/solutions'],
 ];

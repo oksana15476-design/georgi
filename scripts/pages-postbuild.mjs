@@ -53,10 +53,10 @@ const page=path=>{const u=siteUrl+'/en'+path,i=info.get(u);return i?`- [${i.titl
 const group=prefix=>entries.map(e=>e[0]).filter(u=>u.startsWith(siteUrl+'/en'+prefix+'/')).map(u=>page(u.slice((siteUrl+'/en').length))).filter(Boolean);
 const llms=`# Praxis AI
 
-> Praxis AI is an AI implementation company in Georgia. It builds AI assistants for WhatsApp, Telegram and websites, automates CRM and document workflows, and trains teams to use AI. Solutions work in Georgian, English and Russian.
+> Praxis AI is an AI implementation company in Georgia. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
 
 Key facts:
-- Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of ready AI tools from 3,200 GEL ($1,200); custom AI development from 6,700 GEL ($2,500); support from 550 GEL ($200) per month.
+- Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of ready AI tools, including a WhatsApp or Telegram chatbot, from 3,200 GEL ($1,200); custom AI development from 6,700 GEL ($2,500); support from 550 GEL ($200) per month.
 - Every project starts with a free process audit; the pilot price is fixed before work begins. A typical pilot covers one workflow on real requests in about 2 weeks.
 - Integrations via API where available, for example amoCRM, Bitrix24, HubSpot, 1C, Google Workspace, hotel PMS (Opera, Cloudbeds, Bnovo, TravelLine), WhatsApp and Telegram.
 - Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; on-premise deployment is available.

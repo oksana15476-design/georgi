@@ -5,7 +5,7 @@ import type {Copy} from './content';
 export const detailMeta:Record<string,Copy>={
  sales:['ИИ для отдела продаж: чат-бот в WhatsApp и CRM','AI for sales teams: WhatsApp chatbot and CRM automation','AI გაყიდვებისთვის: WhatsApp ჩატბოტი და CRM'],
  marketing:['ИИ для маркетинга: контент на трёх языках и отчёты','AI for marketing: content in three languages and reports','AI მარკეტინგისთვის: კონტენტი სამ ენაზე და ანგარიშები'],
- support:['ИИ-бот для поддержки клиентов 24/7 на трёх языках','AI customer support chatbot 24/7 in three languages','AI ჩატბოტი მომხმარებელთა მხარდაჭერისთვის 24/7'],
+ support:['Чат-бот для WhatsApp и Telegram: поддержка клиентов 24/7','WhatsApp and Telegram chatbot for customer support 24/7','WhatsApp და Telegram ჩატბოტი მომხმარებლების მხარდაჭერისთვის 24/7'],
  operations:['Автоматизация документов и бэк-офиса с ИИ','AI document processing and back-office automation','დოკუმენტებისა და ბექ‑ოფისის AI ავტომატიზაცია'],
  hr:['ИИ для HR: онбординг и ответы по регламентам','AI for HR: onboarding and internal policy assistant','AI HR‑ისთვის: ონბორდინგი და შიდა ასისტენტი'],
  finance:['ИИ для бухгалтерии: распознавание счетов и выписок','AI for accounting: invoice and statement processing','AI ბუღალტერიისთვის: ინვოისებისა და ამონაწერების დამუშავება'],

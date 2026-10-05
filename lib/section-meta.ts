@@ -3,24 +3,24 @@ import type {Copy} from './content';
 // Search titles and descriptions for the home page and section pages, per language [ru, en, ka].
 export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  home:{
-  title:['Внедрение ИИ в бизнес в Грузии: чат-боты и автоматизация — Praxis AI','AI implementation in Georgia: chatbots and automation — Praxis AI','ხელოვნური ინტელექტის დანერგვა ბიზნესში: ჩატბოტები და ავტომატიზაცია — Praxis AI'],
-  description:['ИИ-ассистенты и чат-боты для WhatsApp и Telegram, автоматизация CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, цены от 1 900 ₾.','AI assistants and chatbots for WhatsApp and Telegram, CRM and document automation, team training. Tbilisi and all of Georgia, free audit, prices from 1,900 ₾.','AI ასისტენტები და ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, CRM-ისა და დოკუმენტების ავტომატიზაცია, გუნდის სწავლება. თბილისი და მთელი საქართველო, უფასო აუდიტი, ფასი 1 900 ₾-დან.'],
+  title:['Внедрение ИИ в бизнес в Грузии: чат-боты, ИИ-агенты, автоматизация — Praxis AI','AI for business in Georgia: AI chatbots, AI agents, automation — Praxis AI','ხელოვნური ინტელექტი ბიზნესისთვის: AI ჩატბოტები და AI აგენტები — Praxis AI'],
+  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, цены от 1 900 ₾.','AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, prices from 1,900 ₾.','ხელოვნური ინტელექტის დანერგვა: AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისა და დოკუმენტებისთვის, გუნდის სწავლება. თბილისი და მთელი საქართველო, უფასო აუდიტი, 1 900 ₾-დან.'],
  },
  industries:{
   title:['ИИ и чат-боты для бизнеса по отраслям в Грузии — Praxis AI','AI and chatbots for every industry in Georgia — Praxis AI','AI და ჩატბოტები ინდუსტრიებისთვის საქართველოში — Praxis AI'],
   description:['Готовые сценарии ИИ для 12 отраслей: отели, клиники, рестораны, ритейл, логистика, производство. Выберите свою и узнайте, где ИИ окупится быстрее всего.','Ready AI workflows for 12 industries: hotels, clinics, restaurants, retail, logistics and manufacturing. Pick yours and see where AI pays off first.','მზა AI სცენარები 12 ინდუსტრიისთვის: სასტუმროები, კლინიკები, რესტორნები, რითეილი, ლოჯისტიკა, წარმოება.'],
  },
  departments:{
-  title:['ИИ-ассистенты для отделов: продажи, поддержка, финансы — Praxis AI','AI assistants for sales, support, finance and HR — Praxis AI','AI ასისტენტები განყოფილებებისთვის: გაყიდვები, მხარდაჭერა — Praxis AI'],
+  title:['ИИ-агенты для отделов: продажи, поддержка, финансы, HR — Praxis AI','AI agents for business: sales, support, finance and HR — Praxis AI','AI აგენტები განყოფილებებისთვის: გაყიდვები, მხარდაჭერა — Praxis AI'],
   description:['ИИ-агенты для продаж, поддержки, бухгалтерии, HR, маркетинга и закупок: квалификация лидов, голосовые ассистенты, разбор документов. Начните с одного отдела.','AI agents for sales, support, accounting, HR, marketing and procurement: lead qualification, voice assistants and document processing. Start with one team.','AI აგენტები გაყიდვებისთვის, მხარდაჭერისთვის, ბუღალტერიისთვის, HR-ისთვის და მარკეტინგისთვის: ლიდების კვალიფიკაცია, ხმოვანი ასისტენტები, დოკუმენტები.'],
  },
  training:{
-  title:['Обучение сотрудников ИИ и нейросетям в Грузии — Praxis AI','Corporate AI training for teams in Georgia — Praxis AI','ხელოვნური ინტელექტის კორპორატიული სწავლება საქართველოში — Praxis AI'],
-  description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops built on your team’s real tasks: templates, prompts and review rules. Online or on-site, from 1 week, from 1,900 ₾.','პრაქტიკული AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
+  title:['Обучение ИИ и нейросетям для сотрудников в Грузии — Praxis AI','AI training and workshops for teams in Georgia — Praxis AI','AI ტრენინგი და ვორქშოპები გუნდებისთვის საქართველოში — Praxis AI'],
+  description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Tbilisi, from 1,900 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
  },
  solutions:{
   title:['Стоимость внедрения ИИ в Грузии: цены от 1 900 ₾ — Praxis AI','AI implementation cost in Georgia: prices from 1,900 ₾ — Praxis AI','AI-ს დანერგვის ფასი საქართველოში: 1 900 ₾-დან — Praxis AI'],
-  description:['Обучение от 1 900 ₾, внедрение готовых инструментов от 3 200 ₾, собственная разработка от 6 700 ₾. Калькулятор экономии и бесплатный аудит процессов.','Training from 1,900 ₾, tool implementation from 3,200 ₾, custom development from 6,700 ₾. A savings calculator and a free process audit.','სწავლება 1 900 ₾-დან, ინსტრუმენტების დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
+  description:['Обучение от 1 900 ₾, чат-бот для WhatsApp и внедрение готовых инструментов от 3 200 ₾, собственная разработка от 6 700 ₾. Калькулятор экономии и бесплатный аудит.','Training from 1,900 ₾, a WhatsApp chatbot or tool implementation from 3,200 ₾, custom development from 6,700 ₾. A savings calculator and a free process audit.','სწავლება 1 900 ₾-დან, WhatsApp ჩატბოტი და ინსტრუმენტების დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
  },
  cases:{
   title:['Примеры внедрения ИИ в бизнес в Грузии — Praxis AI','AI implementation examples for businesses in Georgia — Praxis AI','AI-ს დანერგვის მაგალითები ბიზნესში — Praxis AI'],
