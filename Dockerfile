@@ -6,9 +6,11 @@
 FROM node:22-bookworm-slim AS build
 WORKDIR /app
 COPY package.json package-lock.json .npmrc ./
-RUN npm ci --no-audit --no-fund
+# Retries ride out a flaky network on the build machine.
+RUN npm ci --no-audit --no-fund --fetch-retries=5 --fetch-retry-mintimeout=20000 --fetch-retry-maxtimeout=120000
 COPY . .
-# Public settings are baked into the pages at build time.
+# Public settings are baked into the pages at build time. Build arguments win; empty ones fall
+# back to deploy/public.env.sh, so the build does not depend on how the hosting passes variables.
 ARG NEXT_PUBLIC_SITE_URL=""
 ARG NEXT_PUBLIC_GA_ID=""
 ARG NEXT_PUBLIC_META_PIXEL_ID=""
@@ -22,7 +24,7 @@ ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
     NEXT_PUBLIC_ADS_LEAD_LABEL=$NEXT_PUBLIC_ADS_LEAD_LABEL \
     NEXT_PUBLIC_BOOKING_URL=$NEXT_PUBLIC_BOOKING_URL \
     WRANGLER_SEND_METRICS=false
-RUN npm run build:static
+RUN . ./deploy/public.env.sh && npm run build:static
 
 # --- runtime: Node only, no node_modules ---
 FROM node:22-alpine

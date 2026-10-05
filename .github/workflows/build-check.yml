@@ -1,0 +1,58 @@
+# Catches a broken build before the hosting tries to deploy it: typecheck and lint, then the
+# production Docker image is built, started and smoke-tested (pages, health check, lead API).
+name: Build check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npx tsc --noEmit -p .
+      - run: npm run lint
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the production image
+        run: docker build -t praxis-site .
+      - name: Start the container
+        run: docker run -d --name site -p 3000:3000 praxis-site
+      - name: Smoke test
+        run: |
+          for i in $(seq 1 30); do curl -fs http://localhost:3000/healthz && break; sleep 1; done
+          for p in /en /ka /ru /ru/solutions /ka/industries/hotels /en/departments/support /sitemap.xml /robots.txt /llms.txt; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:3000$p")
+            echo "$p $code"
+            [ "$code" = 200 ] || exit 1
+          done
+          # No lead channel is configured here, so the API must answer 503 (the form then shows
+          # the WhatsApp and Telegram buttons), and a foreign origin must be rejected.
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:3000/api/leads \
+            -H 'Origin: http://localhost:3000' -H 'Content-Type: application/json' -d '{"contact":"+995555000000"}')
+          echo "lead $code"; [ "$code" = 503 ] || exit 1
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:3000/api/leads \
+            -H 'Origin: https://example.com' -H 'Content-Type: application/json' -d '{"contact":"x"}')
+          echo "foreign origin $code"; [ "$code" = 403 ] || exit 1
+      - name: Container logs
+        if: always()
+        run: docker logs site || true
