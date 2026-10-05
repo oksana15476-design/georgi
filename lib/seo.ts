@@ -3,6 +3,7 @@ import {languages,Lang,t,Copy,departments,industries} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
 import {pageCopy} from '@/lib/page-copy';
 import {prices} from '@/lib/pricing';
+import {detailMeta} from '@/lib/detail-meta';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // Set NEXT_PUBLIC_SITE_URL when the site moves to its own domain.
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site').replace(/\/$/,'');
@@ -60,9 +61,10 @@ export function pageJsonLd({lang,crumbs,faq,service}:{lang:Lang;crumbs:[string,s
  return {'@context':'https://schema.org','@graph':graph};
 }
 
-// Department and industry pages: "AI for sales in Georgia — Praxis AI" from the start of the page
-// headline, and the page subheading as the description.
+// Department and industry pages: the search title from detail-meta (or the start of the page
+// headline), and the page subheading as the description.
 export function detailTitle(slug:string,lang:Lang,fallback:string){
+ if(detailMeta[slug])return t(detailMeta[slug],lang)+' — Praxis AI';
  const h1=pageCopy[slug]?.[lang]?.h1;
  const head=h1?h1.split(':')[0].trim():fallback;
  return head+' '+t(['в Грузии','in Georgia','საქართველოში'],lang)+' — Praxis AI';

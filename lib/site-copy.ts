@@ -99,6 +99,7 @@ export function siteCopy(c:C,slug?:string){
   sendAnother:c('Отправить ещё одну заявку','Send another enquiry','კიდევ ერთი მოთხოვნა'),
   other:c('Другое','Something else','სხვა'),
   footerTag:c('Практический ИИ для реальной работы.','Practical AI for real work.','პრაქტიკული AI რეალური სამუშაოსთვის.'),
+  footerAbout:c('Внедрение ИИ в бизнес в Грузии: чат-боты и ИИ-ассистенты для WhatsApp и Telegram, автоматизация CRM и документов, обучение сотрудников.','AI implementation for businesses in Georgia: chatbots and AI assistants for WhatsApp and Telegram, CRM and document automation, team training.','ხელოვნური ინტელექტის დანერგვა ბიზნესში საქართველოში: ჩატბოტები და AI ასისტენტები WhatsApp‑ისა და Telegram‑ისთვის, CRM‑ისა და დოკუმენტების ავტომატიზაცია, გუნდის სწავლება.'),
   footerServices:c('Обучение · внедрение · разработка','Training · implementation · development','სწავლება · დანერგვა · შემუშავება'),
   footerExplore:c('Направления','Explore','მიმართულებები'),
   allIndustries:c('Все отрасли','All industries','ყველა ინდუსტრია'),
