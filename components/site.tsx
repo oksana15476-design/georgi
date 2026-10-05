@@ -9,7 +9,8 @@ import {copyFn,sectionLabel,siteCopy} from '@/lib/site-copy';
 import {Header} from '@/components/praxis/header';
 import {FindWorkflow,Hero,Marquee,Results} from '@/components/praxis/home';
 import {CaseExamples,DepartmentsGrid,Formats,IndustriesGrid,InnerHero,Process,SolutionExamples,Trust} from '@/components/praxis/inner';
-import {DetailHero,Related,Scenarios,Tested} from '@/components/praxis/detail';
+import {DetailAnswer,DetailHero,Related,Scenarios,Tested} from '@/components/praxis/detail';
+import {detailAnswers} from '@/lib/detail-answers';
 import {Contact,Faq} from '@/components/praxis/contact';
 import {Icon} from '@/components/praxis/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxis/growth';
@@ -63,7 +64,7 @@ export default function Site({lang='en',section='home',slug}:Props){
  const sectionName=isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
   crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[])],
-  service:isDetail?{name:pageCopy[slug!]?.[lang]?.h1.split(':')[0].trim()||t(ent!.name,lang),description:pageCopy[slug!]?.[lang]?.sub||'',path:rest}:undefined});
+  service:isDetail?{name:pageCopy[slug!]?.[lang]?.h1.split(':')[0].trim()||t(ent!.name,lang),description:detailAnswers[slug!]?t(detailAnswers[slug!].a,lang):pageCopy[slug!]?.[lang]?.sub||'',path:rest}:undefined,path:rest});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
   ?(ov?ov.chips:[...profile!.scenarios.map(q=>t(q.title,lang)),...profile!.extra.map(v=>t(v,lang))])
@@ -91,7 +92,7 @@ export default function Site({lang='en',section='home',slug}:Props){
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
     {isList&&<InnerHero x={x} page={section}/>}
-    {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
+    {isDetail&&<><DetailHero x={x} slug={slug!} page={section}/><DetailAnswer x={x} slug={slug!}/></>}
     {section==='industries'&&!isDetail&&<IndustriesGrid x={x}/>}
     {section==='departments'&&!isDetail&&<DepartmentsGrid x={x}/>}
     {['home','solutions','training'].includes(section)&&!isDetail&&<Formats x={x} training={section==='training'}/>}

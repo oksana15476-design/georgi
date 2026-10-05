@@ -819,3 +819,11 @@ main{outline:none}
 .format .price-setup{margin:-8px 0 14px;font-size:14px;color:var(--muted)}
 .includes-pack{margin-bottom:24px}
 @media(min-width:901px){.formats-grid-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:880px}}
+/* Answer passage under the hero on department and industry pages */
+.detail-answer{padding-top:48px;padding-bottom:8px}
+.detail-answer .h2{font-size:clamp(26px,2.6vw,34px)}
+.answer-p{margin-top:16px;font-size:17px;line-height:1.7;color:var(--body)}
+.answer-meta{margin-top:14px;font-size:13px;color:var(--muted)}
+.result-example{align-self:flex-start;margin:6px 0 2px}
+.sec-sources{margin-top:16px;font-size:13px;line-height:1.6;color:var(--muted)}
+.sec-sources a{color:var(--body);text-decoration:underline;text-underline-offset:2px}

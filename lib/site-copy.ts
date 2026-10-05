@@ -1,4 +1,5 @@
 import {Lang,t} from './content';
+import {casesVerified} from './proof';
 
 export type C=(ru:string,en:string,ka:string)=>string;
 export const copyFn=(lang:Lang):C=>(ru,en,ka)=>t([ru,en,ka],lang);
@@ -39,7 +40,7 @@ export function siteCopy(c:C,slug?:string){
   mockDisclaimer:c('Иллюстрация сценария. Данные условные.','Illustrative workflow. Sample data.','სცენარის ილუსტრაცია. მონაცემები პირობითია.'),
   mockTabs:[c('Входящий запрос','Incoming request','შემოსული მოთხოვნა'),c('Результат обработки','Processed result','დამუშავების შედეგი')],
   resultsH2:c('Польза в рабочем дне.','Value in everyday work.','სარგებელი ყოველდღიურ სამუშაოში.'),
-  resultsP:c('Два проекта с разными задачами. Результаты относятся к указанным процессам.','Two projects, different goals. Results apply to the workflows described.','ორი პროექტი, განსხვავებული ამოცანები. შედეგები ეხება აღწერილ პროცესებს.'),
+  resultsP:casesVerified?c('Два проекта с разными задачами. Результаты относятся к указанным процессам.','Two projects, different goals. Results apply to the workflows described.','ორი პროექტი, განსხვავებული ამოცანები. შედეგები ეხება აღწერილ პროცესებს.'):c('Два типовых сценария: что делает ассистент и какие показатели мы измеряем. Цифры — ориентиры, реальные значения фиксируем на вашем пилоте.','Two typical scenarios: what the assistant does and which metrics we track. Figures are benchmarks; we record your real numbers in the pilot.','ორი ტიპური სცენარი: რას აკეთებს ასისტენტი და რომელ მაჩვენებლებს ვზომავთ. რიცხვები ორიენტირებია, რეალურ მნიშვნელობებს თქვენს პილოტზე ვაფიქსირებთ.'),
   findWorkflow:c('Найдите свой сценарий.','Find your workflow.','იპოვეთ თქვენი სცენარი.'),
   howEvaluate:c('Как оцениваем результат','How we evaluate results','როგორ ვაფასებთ შედეგს'),
   exploreDept:c('Подробнее для отдела','Explore this department','მეტი განყოფილების შესახებ'),

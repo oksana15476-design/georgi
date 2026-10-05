@@ -10,6 +10,7 @@ import {sectionLabel} from '@/lib/site-copy';
 import {industryIcon} from './header';
 import {Icon} from './icon';
 import type {X} from './types';
+import {casesVerified} from '@/lib/proof';
 
 const rd=(ms:number|string)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
@@ -29,7 +30,7 @@ export function InnerHero({x,page}:{x:X;page:string}){
   industries:c('12 отраслей с готовыми сценариями: от отелей и клиник до логистики и производства. Выберите свою — покажем, где ИИ даст эффект быстрее всего.','12 industries with ready-made workflows — from hotels and clinics to logistics and manufacturing. Pick yours and see where AI pays off first.','12 ინდუსტრია მზა სცენარებით — სასტუმროებიდან და კლინიკებიდან ლოჯისტიკამდე. აირჩიეთ თქვენი და ნახეთ, სად მოიტანს AI შედეგს ყველაზე სწრაფად.'),
   departments:c('Продажи, поддержка, бухгалтерия, HR и ещё четыре отдела. Для каждого — востребованные задачи, которые ИИ закрывает уже сегодня.','Sales, support, finance, HR and four more teams — each with the tasks AI already handles well today.','გაყიდვები, მხარდაჭერა, ფინანსები, HR და კიდევ ოთხი განყოფილება — თითოეულისთვის ამოცანები, რომლებსაც AI დღესვე წყვეტს.'),
   training:c('Практические воркшопы на задачах вашей команды: сотрудники уходят с рабочими шаблонами и понятными правилами проверки результата.','Hands-on workshops built on your team’s real tasks. People leave with working templates and clear review rules.','პრაქტიკული ვორქშოპები თქვენი გუნდის რეალურ ამოცანებზე: თანამშრომლები სამუშაო შაბლონებითა და შემოწმების წესებით გადიან.'),
-  cases:c('Три сценария из практики: ситуация, решение и то, как измеряем результат. Без обещаний — с понятными критериями.','Three real-world scenarios: the situation, the solution and how we measure the result — clear criteria, no hype.','სამი სცენარი პრაქტიკიდან: სიტუაცია, გადაწყვეტილება და შედეგის გაზომვა — მკაფიო კრიტერიუმებით.'),
+  cases:casesVerified?c('Три сценария из практики: ситуация, решение и то, как измеряем результат. Без обещаний — с понятными критериями.','Three real-world scenarios: the situation, the solution and how we measure the result — clear criteria, no hype.','სამი სცენარი პრაქტიკიდან: სიტუაცია, გადაწყვეტილება და შედეგის გაზომვა — მკაფიო კრიტერიუმებით.'):c('Три типовых сценария: ситуация, решение и то, как измеряем результат. Без обещаний — с понятными критериями.','Three typical scenarios: the situation, the solution and how we measure the result — clear criteria, no hype.','სამი ტიპური სცენარი: სიტუაცია, გადაწყვეტილება და შედეგის გაზომვა — მკაფიო კრიტერიუმებით.'),
   solutions:c('Обучение, настройка готовых сервисов или собственная разработка — начинаем с бесплатного аудита и выбираем нужную глубину.','Training, configured tools or a custom build — we start with a free audit and choose the right depth.','სწავლება, მზა სერვისები ან ინდივიდუალური შემუშავება — ვიწყებთ უფასო აუდიტით.')
  } as Record<string,string>)[page]||'';
  const facts=({
@@ -245,6 +246,7 @@ export function Trust({x}:{x:X}){
       {items.map(([title,body],i)=><div key={title} data-reveal="" style={rd(i*90)} className="trust-point"><span className="tile-icon"><Icon name={['shield-check','layers','graduation-cap','lock'][i]} size={19}/></span><div><h3>{title}</h3><p>{body}</p></div></div>)}
      </div>
      <ul data-reveal="" style={rd(200)} className="sec-badges">{[['shield-check',c('SOC 2 Type II у API-провайдеров (OpenAI, Anthropic)','SOC 2 Type II API providers (OpenAI, Anthropic)','SOC 2 Type II API პროვაიდერები (OpenAI, Anthropic)')],['key',c('Enterprise API без обучения на ваших данных','Enterprise APIs, no training on your data','Enterprise API, თქვენს მონაცემებზე სწავლების გარეშე')],['building-2',c('Развёртывание в вашем контуре','On-premise deployment available','განთავსება თქვენს ინფრასტრუქტურაში')]].map(([icon,text])=><li key={text}><Icon name={icon} size={14}/>{text}</li>)}</ul>
+     <p data-reveal="" style={rd(240)} className="sec-sources">{c('Источники: ','Sources: ','წყაროები: ')}<a href="https://matsne.gov.ge/en/document/view/5827307" target="_blank" rel="noopener">{c('Закон Грузии «О защите персональных данных»','Law of Georgia on Personal Data Protection','საქართველოს კანონი „პერსონალურ მონაცემთა დაცვის შესახებ“')}</a> · <a href="https://openai.com/enterprise-privacy/" target="_blank" rel="noopener">{c('OpenAI: данные бизнес-клиентов','OpenAI enterprise privacy','OpenAI: ბიზნეს‑მონაცემების კონფიდენციალურობა')}</a> · <a href="https://www.anthropic.com/legal/commercial-terms" target="_blank" rel="noopener">{c('Anthropic: коммерческие условия','Anthropic commercial terms','Anthropic: კომერციული პირობები')}</a></p>
     </div>
     <div data-reveal="" style={rd(120)} aria-hidden="true" className="log">
      <div className="log-title"><Icon name="shield-check" size={15}/>{s.logTitle}</div>

@@ -4,6 +4,7 @@ import {contacts} from '@/lib/contacts';
 import {pageCopy} from '@/lib/page-copy';
 import {packages,prices} from '@/lib/pricing';
 import {detailMeta} from '@/lib/detail-meta';
+import {contentUpdated} from '@/lib/proof';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // Set NEXT_PUBLIC_SITE_URL when the site moves to its own domain.
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site').replace(/\/$/,'');
@@ -61,8 +62,8 @@ export function organizationJsonLd(lang:Lang){
 
 // Per-page graph: breadcrumbs, the FAQ shown on the page and, on department and industry pages,
 // the service the page describes.
-export function pageJsonLd({lang,crumbs,faq,service}:{lang:Lang;crumbs:[string,string][];faq:[string,string][];service?:{name:string;description:string;path:string}}){
- const graph:Record<string,unknown>[]=[];
+export function pageJsonLd({lang,crumbs,faq,service,path}:{lang:Lang;crumbs:[string,string][];faq:[string,string][];service?:{name:string;description:string;path:string};path:string}){
+ const graph:Record<string,unknown>[]=[{'@type':'WebPage','@id':absolute('/'+lang+path),url:absolute('/'+lang+path),inLanguage:lang,isPartOf:{'@id':absolute('/#website')},about:{'@id':absolute('/#organization')},dateModified:contentUpdated}];
  if(crumbs.length>1)graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map(([name,path],i)=>({'@type':'ListItem',position:i+1,name,item:absolute('/'+lang+path)}))});
  if(faq.length)graph.push({'@type':'FAQPage',inLanguage:lang,mainEntity:faq.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))});
  if(service)graph.push({'@type':'Service',name:service.name,description:service.description,url:absolute('/'+lang+service.path),serviceType:service.name,provider:{'@id':absolute('/#organization')},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru']});

@@ -8,10 +8,12 @@ import {industryIcon} from './header';
 import {deptCardIcon} from './inner';
 import {BrandLogo,CountUp,Mark,scrollToId,useReducedMotion} from './ui';
 import type {X} from './types';
+import {casesVerified} from '@/lib/proof';
 
 export function Hero({x}:{x:X}){
  const {s,c}=x;
- const proof=[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]];
+ const proof=casesVerified?[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]]
+  :[['24/7',c('ответы клиентам в WhatsApp, Instagram и Telegram','replies to customers on WhatsApp, Instagram and Telegram','პასუხები კლიენტებს WhatsApp‑ში, Instagram‑სა და Telegram‑ში')],[c('2⁠–⁠4 нед.','2⁠–⁠4 wks','2⁠–⁠4 კვ.'),c('пилот на ваших реальных данных','pilot on your real data','პილოტი თქვენს რეალურ მონაცემებზე')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]];
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
@@ -160,9 +162,10 @@ export function Results({x,count}:{x:X;count:boolean}){
     <div className="results-grid" data-stagger="">
      {resultsData(x).map(r=><article key={r.href} className="card result-card">
       <span className="over">{r.over}</span>
+      {!casesVerified&&<span className="pill result-example">{x.c('Пример сценария','Example scenario','სცენარის მაგალითი')}</span>}
       <h3 className="result-h3">{r.title}</h3>
       <p className="result-body">{r.body}</p>
-      <figure className="quote"><span className="quote-mark"><Icon name="quote" size={20}/></span><div><blockquote>{r.quote}</blockquote><figcaption><span className="avatar">{r.initials}</span><span><b>{r.who}</b>{r.org}</span></figcaption></div></figure>
+      {casesVerified&&<figure className="quote"><span className="quote-mark"><Icon name="quote" size={20}/></span><div><blockquote>{r.quote}</blockquote><figcaption><span className="avatar">{r.initials}</span><span><b>{r.who}</b>{r.org}</span></figcaption></div></figure>}
       <div className="result-nums">
        {r.nums.map(nm=>{const mt=count?/^(\d+)(%|\s\D+)$/.exec(nm.n):null;return <div key={nm.l}>
         {mt?<div className="num-big"><CountUp to={+mt[1]} suffix={mt[2]}/></div>:<div className="num-s">{nm.n}</div>}

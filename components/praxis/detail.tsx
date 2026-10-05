@@ -10,6 +10,8 @@ import {sectionLabel} from '@/lib/site-copy';
 import {Icon} from './icon';
 import {BrandLogo,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
+import {detailAnswers} from '@/lib/detail-answers';
+import {contentUpdated} from '@/lib/proof';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
@@ -43,6 +45,22 @@ export function DetailHero({x,slug,page}:{x:X;slug:string;page:string}){
       <div className="detail-cta"><button type="button" onClick={()=>x.go(t(ent.name,lang))} className="btn btn-primary">{s.action}<Icon name="arrow-right" size={16}/></button><span>{s.detailNote}</span></div></div>
     </div>
     <div data-reveal="" style={rd(200)} className="min0"><Mock x={x} slug={slug}/></div>
+   </div>
+  </section>
+ );
+}
+
+// Self-contained answer under the hero: the passage AI search quotes for "AI for <team> in Georgia".
+export function DetailAnswer({x,slug}:{x:X;slug:string}){
+ const {c,lang}=x;const qa=detailAnswers[slug];
+ if(!qa)return null;
+ const [y,m,d]=contentUpdated.split('-');
+ return (
+  <section className="wrap sec detail-answer" aria-labelledby="answer-h">
+   <div data-reveal="" className="mw820">
+    <h2 id="answer-h" className="h2">{t(qa.q,lang)}</h2>
+    <p className="answer-p">{t(qa.a,lang)}</p>
+    <p className="answer-meta">{c('Обновлено','Updated','განახლდა')} <time dateTime={contentUpdated}>{d+'.'+m+'.'+y}</time></p>
    </div>
   </section>
  );
