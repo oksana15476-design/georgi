@@ -56,8 +56,8 @@ const llms=`# Praxen AI
 > Praxen AI is an AI implementation company in Georgia. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
 
 Key facts:
-- Turnkey messenger chatbot packages (WhatsApp, Instagram, Telegram; setup of WhatsApp Business included; minimum term 3 months): Start 290 GEL ($110) per month + 490 GEL setup, one channel, up to 3,000 replies; Business 590 GEL ($220) per month + 1,500 GEL setup, up to 3 channels with CRM bookings.
-- Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of AI tools for a specific process from 3,200 GEL ($1,200); custom AI development from 6,700 GEL ($2,500); support from 550 GEL ($200) per month.
+- Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of AI tools for a specific process from 3,200 GEL ($1,200), a 2–4 week pilot; custom AI development from 6,700 GEL ($2,500); additional ongoing maintenance from 550 GEL ($200) per month.
+- Solutions run on the client's own accounts and servers; AI tokens and infrastructure are paid directly to the providers.
 - Every project starts with a free process audit; the pilot price is fixed before work begins. A typical pilot covers one workflow on real requests in about 2 weeks.
 - Integrations via API where available, for example amoCRM, Bitrix24, HubSpot, 1C, Google Workspace, hotel PMS (Opera, Cloudbeds, Bnovo, TravelLine), WhatsApp and Telegram.
 - Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; on-premise deployment is available.
@@ -81,6 +81,8 @@ ${[page('/industries'),...group('/industries')].filter(Boolean).join('\n')}
 - [Privacy policy](${siteUrl}/en/privacy)
 `;
 writeFileSync(join(out,'llms.txt'),llms);
+// The Cloudflare Worker build serves public/ as is and does not run this script, so keep a copy there.
+if(!base)writeFileSync('public/llms.txt',llms);
 
 // The bare root has no page; send visitors to the default language.
 writeFileSync(join(out,'index.html'),`<!doctype html><meta charset="utf-8"><title>Praxen AI</title><meta http-equiv="refresh" content="0;url=${base}/en"><link rel="canonical" href="${base}/en"><script>location.replace('${base}/en')</script><a href="${base}/en">Praxen AI</a>`);

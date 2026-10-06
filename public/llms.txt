@@ -1,0 +1,52 @@
+# Praxen AI
+
+> Praxen AI is an AI implementation company in Georgia. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
+
+Key facts:
+- Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of AI tools for a specific process from 3,200 GEL ($1,200), a 2–4 week pilot; custom AI development from 6,700 GEL ($2,500); additional ongoing maintenance from 550 GEL ($200) per month.
+- Solutions run on the client's own accounts and servers; AI tokens and infrastructure are paid directly to the providers.
+- Every project starts with a free process audit; the pilot price is fixed before work begins. A typical pilot covers one workflow on real requests in about 2 weeks.
+- Integrations via API where available, for example amoCRM, Bitrix24, HubSpot, 1C, Google Workspace, hotel PMS (Opera, Cloudbeds, Bnovo, TravelLine), WhatsApp and Telegram.
+- Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; on-premise deployment is available.
+- AI does not make final decisions: review points and escalation to staff are agreed for every workflow.
+- Contact: phone and WhatsApp +995 557 125 497, Telegram https://t.me/zheniazikinzik, form at https://praxenai.ge/en#contact
+
+## Main pages
+- [AI for business in Georgia: AI chatbots, AI agents, automation](https://praxenai.ge/en): AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, implementation from 3,200 ₾.
+- [AI implementation cost in Georgia: training, implementation, development](https://praxenai.ge/en/solutions): Training from 1,900 ₾, implementation from 3,200 ₾, custom development from 6,700 ₾, ongoing maintenance from 550 ₾ a month. A savings calculator and a free audit.
+- [AI training and workshops for teams in Georgia](https://praxenai.ge/en/training): Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Tbilisi, from 1,900 ₾.
+- [AI implementation examples for businesses in Georgia](https://praxenai.ge/en/cases): How AI works in hotels, wholesale and real estate: the situation, the solution and how we measure the result. Scenarios for companies in Georgia.
+- [AI implementation partner programme](https://praxenai.ge/en/partners): For 1C and CRM integrators, agencies, accounting firms and consultants in Georgia: refer clients, we implement AI, you earn a reward.
+
+## AI by department
+- [AI agents for business: sales, support, finance and HR](https://praxenai.ge/en/departments): AI agents for sales, support, accounting, HR, marketing and procurement: lead qualification, messenger chatbots and document processing. Start with one team.
+- [AI for accounting: invoice and statement processing](https://praxenai.ge/en/departments/finance): We extract details and amounts from invoices, statements and receipts and draft entries in your system. An accountant posts them.
+- [AI for HR: onboarding and internal policy assistant](https://praxenai.ge/en/departments/hr): A company assistant answers from internal policies and prepares role-specific onboarding materials.
+- [AI strategy for business owners: where AI pays off](https://praxenai.ge/en/departments/leadership): We help owners and executives pick processes with clear economics, run a pilot and scale without growing headcount.
+- [AI for marketing: content in three languages and reports](https://praxenai.ge/en/departments/marketing): Drafts in your tone of voice, adaptation for channels and RU / EN / GE, and a morning summary of campaign results.
+- [AI document processing and back-office automation](https://praxenai.ge/en/departments/operations): We extract data from PDFs, scans and emails into your ERP/CRM. A person reviews uncertain fields.
+- [AI for procurement: supplier quote comparison](https://praxenai.ge/en/departments/procurement): We extract prices, lead times and terms from PDFs, spreadsheets and emails, normalise units and build the comparison.
+- [AI for sales teams: WhatsApp chatbot and CRM automation](https://praxenai.ge/en/departments/sales): The assistant replies to WhatsApp, Telegram and website enquiries in seconds, qualifies leads with your questions and drafts proposals from your catalogue. Your team runs the deal.
+- [AI customer support chatbot 24/7 in three languages](https://praxenai.ge/en/departments/support): The chatbot answers on WhatsApp, Telegram and your website from your knowledge base in three languages and hands complex cases to an agent with full context.
+
+## AI by industry
+- [AI and chatbots for every industry in Georgia](https://praxenai.ge/en/industries): Ready AI workflows for 12 industries: hotels, clinics, restaurants, retail, logistics and manufacturing. Pick yours and see where AI pays off first.
+- [AI for clinics: 24/7 patient booking chatbot](https://praxenai.ge/en/industries/clinics): The bot explains services and preparation, books free slots in your clinic system and sends visit reminders.
+- [AI for property developers: 24/7 lead qualification](https://praxenai.ge/en/industries/developers): AI replies at night, clarifies budget and purpose, sends current floor plans and passes warm buyers to sales.
+- [AI for schools and courses: admissions and student chatbot](https://praxenai.ge/en/industries/education): The bot helps choose a programme and plan, answers schedule questions and removes routine from curators.
+- [AI concierge and chatbot for hotels: WhatsApp 24/7](https://praxenai.ge/en/industries/hotels): The assistant answers about breakfast, transfers and house rules, checks availability in your PMS and replies in the guest’s language.
+- [AI for logistics: CMRs, invoices and shipment status](https://praxenai.ge/en/industries/logistics): We extract data from CMRs, invoices and driver photos into your TMS/ERP and answer status questions from your tracking system.
+- [AI for manufacturing: assistant for procedures and maintenance](https://praxenai.ge/en/industries/manufacturing): We load manuals, specs and archives. Engineers and supervisors get precise answers on the shop floor.
+- [AI for real estate agencies: leads and property matching](https://praxenai.ge/en/industries/real-estate): AI takes enquiries from every channel, clarifies budget and area, matches listings from your base and books viewings.
+- [AI for restaurants: table bookings on WhatsApp](https://praxenai.ge/en/industries/restaurants): The bot takes table requests, checks seating in your system and collects a full event brief for the manager.
+- [AI for e-commerce: 24/7 shopping assistant chatbot](https://praxenai.ge/en/industries/retail): Connected to your catalogue and stock, the assistant recommends products, suggests add-ons and answers “where is my order”.
+- [AI for agencies and consulting: briefs, proposals, meeting notes](https://praxenai.ge/en/industries/services): A client call becomes a brief, a draft proposal and team tasks — reviewed by the owner.
+- [AI for travel agencies: itinerary and quote in minutes](https://praxenai.ge/en/industries/tourism): The assistant collects a brief, picks hotels, guides and transport from your base and drafts an itinerary with a cost estimate.
+- [AI for wholesale: orders from PDF and WhatsApp to invoices](https://praxenai.ge/en/industries/wholesale): AI parses orders from PDFs, spreadsheets, email and WhatsApp, matches your item master and drafts an invoice for review.
+
+## Other languages
+- [Georgian version](https://praxenai.ge/ka)
+- [Russian version](https://praxenai.ge/ru)
+
+## Optional
+- [Privacy policy](https://praxenai.ge/en/privacy)
