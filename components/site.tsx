@@ -15,6 +15,7 @@ import {Icon} from '@/components/praxen/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
 import {LeadPopup} from '@/components/praxen/lead-popup';
 import {Privacy} from '@/components/praxen/privacy';
+import {Quiz} from '@/components/praxen/quiz';
 import {Team} from '@/components/praxen/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
 import type {X} from '@/components/praxen/types';
@@ -99,6 +100,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {section==='cases'&&<><CaseExamples x={x}/><Results x={x} count={false}/></>}
     {isList&&<Process x={x}/>}
     {(isHome||isList)&&<Trust x={x}/>}
+    {isHome&&<Quiz x={x}/>}
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}

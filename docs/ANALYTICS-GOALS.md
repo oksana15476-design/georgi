@@ -12,6 +12,9 @@
 | Нажал телефон | `phone_click` | Звонок (`contact_phone`) | Contact |
 | Нажал «Бесплатный аудит» / основную кнопку | `cta_click` | Клик «Бесплатный аудит» (`cta`) | Contact |
 | Двигал калькулятор | `calculator_use` | Калькулятор (`calculator`) | — |
+| Начал квиз «Мини-аудит» | `quiz_start` | Квиз: начал (`quiz_start`) | — |
+| Дошёл до результата квиза | `quiz_complete` | Квиз: получил результат (`quiz_complete`) | — |
+| Оставил контакт в квизе | `generate_lead` (параметр `form: quiz`) | Заявка (`lead`) | Lead |
 | Увидел / закрыл попап | `popup_view` / `popup_close` (параметр `type`: `exit` или `idle`) | — | — |
 
 Клики внутри попапа считаются обычными целями (WhatsApp, запись, CTA); в параметре `section` — `Popup exit` или `Popup idle`.

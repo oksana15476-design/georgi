@@ -68,8 +68,8 @@ export function LeadPopup({x,menu}:{x:X;menu:boolean}){
  const exit=kind==='exit';
  const title=exit?c('Уже уходите?','Leaving already?','უკვე მიდიხართ?'):c('Остались вопросы?','Any questions?','გაქვთ კითხვები?');
  const text=exit
-  ?c('За 30 минут бесплатного аудита покажем, какие 2–3 процесса в вашей компании можно передать ИИ и сколько это сэкономит.','In a free 30-minute audit we will show which 2–3 processes in your company AI can take over and what that saves.','30-წუთიან უფასო აუდიტზე გაჩვენებთ, რომელი 2–3 პროცესი შეიძლება გადაეცეს AI-ს თქვენს კომპანიაში და რამდენს დაზოგავს ეს.')
-  :c('Напишите в WhatsApp: подскажем, с чего начать внедрение ИИ в вашей компании, и ответим на вопросы о цене и сроках.','Message us on WhatsApp: we will suggest where to start with AI in your company and answer questions about price and timing.','მოგვწერეთ WhatsApp-ში: გეტყვით, საიდან დაიწყოთ AI-ს დანერგვა თქვენს კომპანიაში, და ვუპასუხებთ კითხვებს ფასსა და ვადებზე.');
+  ?c('Бесплатный аудит за 30 минут: покажем, что передать ИИ и сколько это сэкономит.','A free 30-minute audit: what to hand over to AI and what it saves.','უფასო აუდიტი 30 წუთში: რა გადავცეთ AI-ს და რამდენს დაზოგავს.')
+  :c('Напишите в WhatsApp — подскажем, с чего начать.','Message us on WhatsApp and we will suggest where to start.','მოგვწერეთ WhatsApp-ში — გეტყვით, საიდან დაიწყოთ.');
  return (
   <div className="popup-layer" onMouseDown={e=>{if(e.target===e.currentTarget)close()}}>
    <div ref={box} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="popup-title" className="popup" data-screen-label={'Popup '+kind}>
@@ -79,9 +79,9 @@ export function LeadPopup({x,menu}:{x:X;menu:boolean}){
     <p>{text}</p>
     <div className="popup-actions">
      <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" onClick={hide} className="btn btn-primary"><Icon name="whatsapp" size={17}/>{c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')}</a>
-     {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" onClick={hide} className="btn btn-ghost"><Icon name="calendar" size={17}/>{c('Выбрать время для звонка','Pick a time for a call','აირჩიეთ ზარის დრო')}</a>}
+     {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" onClick={hide} className="btn btn-ghost"><Icon name="calendar" size={17}/>{c('Выбрать время звонка','Pick a call time','ზარის დროის არჩევა')}</a>}
     </div>
-    <a href="#contact" onClick={e=>{hide();x.toContact(e)}} className="popup-link">{c('Или оставьте заявку на сайте','Or leave a request on the site','ან დატოვეთ მოთხოვნა საიტზე')}</a>
+    <a href="#contact" onClick={e=>{hide();x.toContact(e)}} className="popup-link">{c('Или оставьте заявку','Or leave a request','ან დატოვეთ მოთხოვნა')}</a>
    </div>
   </div>
  );
