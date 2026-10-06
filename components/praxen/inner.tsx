@@ -1,6 +1,6 @@
 'use client';
 import {useState} from 'react';
-import {Currency,money,packages,prices} from '@/lib/pricing';
+import {Currency,money,prices} from '@/lib/pricing';
 import {track} from '@/components/analytics';
 import {departments,industries,t} from '@/lib/content';
 import {base} from '@/lib/base';
@@ -115,50 +115,39 @@ export function Formats({x,training}:{x:X;training:boolean}){
  const stairs=stairsData(x);
  const [cur,setCur]=useState<Currency>('gel');
  const tiers=[prices.training,prices.implementation,prices.development];
- const includes=training?null:[
-  [c('Воркшоп 4⁠–⁠8 часов для команды до 12 человек','4⁠–⁠8 hour workshop for a team of up to 12','4⁠–⁠8 საათიანი ვორქშოპი 12‑მდე ადამიანისთვის'),c('Промпты и шаблоны под задачи отдела','Prompts and templates for your team’s tasks','პრომპტები და შაბლონები გუნდის ამოცანებისთვის'),c('Правила проверки результата','Rules for reviewing AI output','შედეგის შემოწმების წესები')],
-  [c('Один сценарий в ваших каналах','One workflow in your channels','ერთი სცენარი თქვენს არხებში'),c('Интеграция с CRM или таблицами','CRM or spreadsheet integration','ინტეგრაცია CRM‑თან ან ცხრილებთან'),c('Обучение ответственного и 2 недели поддержки','Owner training and 2 weeks of support','პასუხისმგებლის სწავლება და 2 კვირის მხარდაჭერა')],
-  [c('ИИ-агент под ваш процесс','An AI agent built for your workflow','AI აგენტი თქვენი პროცესისთვის'),c('Интеграции с CRM, ERP и 1С','CRM, ERP and 1C integrations','ინტეგრაციები CRM‑თან, ERP‑სა და 1C‑თან'),c('Тесты, документация и передача кода','Testing, documentation and code handover','ტესტები, დოკუმენტაცია და კოდის გადაცემა')]
- ];
- const pilots=[c('один воркшоп для одной команды','one workshop for one team','ერთი ვორქშოპი ერთი გუნდისთვის'),c('один сценарий на реальных обращениях за 2 недели','one workflow on real requests in 2 weeks','ერთი სცენარი რეალურ მოთხოვნებზე 2 კვირაში'),c('прототип агента на ваших данных','an agent prototype on your data','აგენტის პროტოტიპი თქვენს მონაცემებზე')],pilotT=c('Пилот','Pilot','პილოტი');
  const from=c('от','from','');
- const perMonth=c('/мес','/mo','/თვე'),setupT=c('подключение','setup','დაკავშირება');
- const packs=[
-  {key:'start' as const,title:c('Старт','Start','სტარტი'),body:c('Ассистент в одном мессенджере для небольшого бизнеса.','An assistant in one messenger for a small business.','ასისტენტი ერთ მესენჯერში მცირე ბიზნესისთვის.'),
-   items:[c('WhatsApp, Instagram или Telegram — один канал','WhatsApp, Instagram or Telegram — one channel','WhatsApp, Instagram ან Telegram — ერთი არხი'),c('База знаний на грузинском, английском и русском','Knowledge base in Georgian, English and Russian','ცოდნის ბაზა ქართულად, ინგლისურად და რუსულად'),c('До 3 000 ответов в месяц, передача администратору','Up to 3,000 replies a month, hand-off to staff','თვეში 3 000‑მდე პასუხი, ადმინისტრატორზე გადაცემა'),c('Подключение WhatsApp Business делаем мы','We set up WhatsApp Business for you','WhatsApp Business‑ს ჩვენ ვაკავშირებთ')]},
-  {key:'business' as const,title:c('Бизнес','Business','ბიზნესი'),body:c('Несколько каналов и запись прямо в вашу систему.','Several channels and bookings straight into your system.','რამდენიმე არხი და ჩაწერა პირდაპირ თქვენს სისტემაში.'),
-   items:[c('До 3 каналов и чат на сайте','Up to 3 channels plus website chat','3‑მდე არხი და საიტის ჩატი'),c('Запись, бронь или заявка в CRM: amoCRM, Bitrix24, Google Sheets','Bookings or leads in your CRM: amoCRM, Bitrix24, Google Sheets','ჯავშანი ან მოთხოვნა CRM‑ში: amoCRM, Bitrix24, Google Sheets'),c('До 8 000 ответов в месяц','Up to 8,000 replies a month','თვეში 8 000‑მდე პასუხი'),c('Ежемесячный отчёт и правки базы знаний','Monthly report and knowledge base updates','ყოველთვიური ანგარიში და ცოდნის ბაზის განახლება')]},
- ];
+ const perMonth=c('/мес','/mo','/თვე');
  return (
   <section id="solutions" className="band-white">
    <div className="wrap sec">
     <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Нужная глубина внедрения.','The right level of implementation.','დანერგვის საჭირო დონე.')}</h2><p className="lead">{s.formatsP}</p></div>
      {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>{setCur(k);track('currency_switch',{currency:k})}} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
     </div>
-    {!training&&<><h3 className="formats-sub">{c('Ассистент в мессенджерах под ключ','Turnkey messenger assistant','ასისტენტი მესენჯერებში გასაღებით')}</h3>
-    <div className="formats-grid formats-grid-2">
-     {packs.map((pk,i)=><div key={pk.key} data-reveal="" style={rd(i*100)}><article className={'format format-card'+(i===0?' is-popular':'')}>
-      <h3>{pk.title}{i===0&&<span className="popular">{c('С чего начать','Best to start','დასაწყისისთვის')}</span>}</h3>
-      <p className="price">{money(packages[pk.key].monthly,cur)}<small>{perMonth}</small></p>
-      <p className="price-setup">+ {money(packages[pk.key].setup,cur)} {setupT}</p>
-      <p>{pk.body}</p>
-      <ul className="includes includes-pack">{pk.items.map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}</ul>
-      <button type="button" onClick={()=>x.go(c('Пакет','Package','პაკეტი')+' '+pk.title)} className="ulink mt-auto">{c('Выбрать пакет','Choose this package','პაკეტის არჩევა')}<Icon name="arrow-right" size={16}/></button>
-     </article></div>)}
-    </div>
-    <p className="formats-note">{c('Минимальный срок — 3 месяца. Платные сообщения Meta, например шаблонные рассылки, оплачиваются отдельно по тарифам Meta.','Minimum term 3 months. Paid Meta messages, such as template broadcasts, are billed separately at Meta’s rates.','მინიმალური ვადა — 3 თვე. Meta‑ს ფასიანი შეტყობინებები, მაგალითად შაბლონური გზავნილები, ცალკე იხდება Meta‑ს ტარიფებით.')}</p>
-    <h3 className="formats-sub">{c('Проекты под ваш процесс','Projects built around your process','პროექტები თქვენს პროცესზე')}</h3></>}
+    {training?<>
     <div className="formats-grid">
-     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(training?'':' format-card')}>
+     {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className="format">
       <h3>{title}</h3>
-      {!training&&<p className="price">{x.lang==='ka'?<>{money(tiers[i],cur)}<small>-დან</small></>:<><small>{from}</small> {money(tiers[i],cur)}</>}</p>}
       <p>{bodies[i]}</p>
-      {includes&&<ul className="includes">{includes[i].map(it=><li key={it}><Icon name="check" size={15}/>{it}</li>)}<li className="pilot"><Icon name="rocket" size={15}/><span><b>{pilotT}:</b> {pilots[i]}</span></li></ul>}
       <p className="format-time"><span>{s.timelineT}: <b>{stairs[i].time}</b></span></p>
       <button type="button" onClick={()=>x.go(ctx[i])} className="ulink mt-auto">{ctas[i]}<Icon name="arrow-right" size={16}/></button>
      </article></div>)}
     </div>
-    <p className="formats-note">{training?s.timeline:c('Начинаем с бесплатного аудита — цену пилота фиксируем до старта работ. Сопровождение после запуска — от ','We start with a free audit and fix the pilot price before work begins. Support after launch — from ','ვიწყებთ უფასო აუდიტით და პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ. მხარდაჭერა გაშვების შემდეგ — ')+money(prices.support,cur)+c('/мес.','/month.','-დან თვეში.')}</p>
+    <p className="formats-note">{s.timeline}</p>
+    </>:<>
+    <div className="tariffs">
+     {[...titles.map((title,i)=>({title,price:tiers[i],body:bodies[i],meta:<>{s.timelineT}: <b>{stairs[i].time}</b></>,kind:c('Разово','One-off','ერთჯერადი'),cta:ctas[i],ctx:ctx[i],monthly:false})),
+       {title:c('Сопровождение','Support','მხარდაჭერა'),price:prices.support,body:c('Мониторинг качества и обновление базы знаний после запуска.','Quality monitoring and knowledge base updates after launch.','ხარისხის მონიტორინგი და ცოდნის ბაზის განახლება გაშვების შემდეგ.'),meta:c('После запуска','After launch','გაშვების შემდეგ'),kind:c('Ежемесячно','Monthly','ყოველთვიური'),cta:c('Обсудить сопровождение','Discuss support','მხარდაჭერის განხილვა'),ctx:c('Сопровождение','Support','მხარდაჭერა'),monthly:true}]
+      .map((tf,i)=><article key={tf.title} data-reveal="" style={rd(i*80)} className={'tariff'+(tf.monthly?' tariff-monthly':'')+(i===1?' is-popular':'')}>
+       <span className="tariff-kind">{tf.kind}{i===1&&<span className="popular">{c('Пилот 2–4 недели','2–4 week pilot','პილოტი 2–4 კვირა')}</span>}</span>
+       <h3>{tf.title}</h3>
+       <p className="tariff-price">{x.lang==='ka'?<>{money(tf.price,cur)}<small>{tf.monthly?perMonth:''}-დან</small></>:<><small className="from">{from}</small>{money(tf.price,cur)}{tf.monthly&&<small>{perMonth}</small>}</>}</p>
+       <p className="tariff-body">{tf.body}</p>
+       <p className="tariff-meta">{tf.meta}</p>
+       <button type="button" onClick={()=>x.go(tf.ctx)} className="ulink tariff-cta">{tf.cta}<Icon name="arrow-right" size={16}/></button>
+      </article>)}
+    </div>
+    <p className="formats-note">{c('Начинаем с бесплатного аудита — цену пилота фиксируем до старта работ.','We start with a free audit and fix the pilot price before work begins.','ვიწყებთ უფასო აუდიტით და პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.')}</p>
+    </>}
    </div>
   </section>
  );
