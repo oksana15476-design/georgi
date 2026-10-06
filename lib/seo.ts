@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import {languages,Lang,t,Copy,departments,industries} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
 import {pageCopy} from '@/lib/page-copy';
-import {packages,prices} from '@/lib/pricing';
+import {prices} from '@/lib/pricing';
 import {detailMeta} from '@/lib/detail-meta';
 import {contentUpdated} from '@/lib/proof';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
@@ -36,11 +36,6 @@ const offers:[Copy,keyof typeof prices,string?][]=[
  [['Сопровождение ИИ-решений','AI support and maintenance','AI გადაწყვეტილებების მხარდაჭერა'],'support','/solutions'],
 ];
 
-const packageOffers:[Copy,keyof typeof packages][]=[
- [['Чат-бот в мессенджерах под ключ: Старт','Turnkey messenger chatbot: Start','ჩატბოტი მესენჯერებში გასაღებით: სტარტი'],'start'],
- [['Чат-бот в мессенджерах под ключ: Бизнес','Turnkey messenger chatbot: Business','ჩატბოტი მესენჯერებში გასაღებით: ბიზნესი'],'business'],
-];
-
 // Site-wide graph: the business with its services and starting prices, the founder and the website.
 export function organizationJsonLd(lang:Lang){
  const org=absolute('/#organization');
@@ -51,10 +46,7 @@ export function organizationJsonLd(lang:Lang){
    contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
    hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:absolute('/'+lang+(path||'')),
     priceSpecification:{'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL',...(key==='support'?{unitText:'MONTH'}:{})},
-    itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),
-   ...packageOffers.map(([name,key])=>({'@type':'Offer',url:absolute('/'+lang+'/solutions'),
-    priceSpecification:[{'@type':'UnitPriceSpecification',price:packages[key].monthly.gel,priceCurrency:'GEL',unitText:'MONTH'},{'@type':'PriceSpecification',name:t(['Подключение','Setup','დაკავშირება'],lang),price:packages[key].setup.gel,priceCurrency:'GEL'}],
-    itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}}))]}},
+    itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),]}},
   {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg')},
   {'@type':'WebSite','@id':absolute('/#website'),url:absolute('/'+lang),name:'Praxen AI',inLanguage:lang,publisher:{'@id':org}},
  ]};
