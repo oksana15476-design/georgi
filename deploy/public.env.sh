@@ -10,6 +10,6 @@
 : "${NEXT_PUBLIC_YM_ID:=113476399}"    # Yandex Metrica counter of praxenai.ge
 : "${NEXT_PUBLIC_ADS_ID:=}"            # AW-XXXXXXXXX
 : "${NEXT_PUBLIC_ADS_LEAD_LABEL:=}"    # label of the Google Ads "lead" conversion
-: "${NEXT_PUBLIC_BOOKING_URL:=}"       # Cal.com or Calendly link for the free audit
+: "${NEXT_PUBLIC_BOOKING_URL:=https://cal.com/praxenai/audit}"       # Cal.com or Calendly link for the free audit
 
 export NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_GA_ID NEXT_PUBLIC_META_PIXEL_ID NEXT_PUBLIC_YM_ID NEXT_PUBLIC_ADS_ID NEXT_PUBLIC_ADS_LEAD_LABEL NEXT_PUBLIC_BOOKING_URL

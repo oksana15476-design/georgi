@@ -31,7 +31,7 @@
 | 1.3 | Timeweb App Platform → Docker → репозиторий; регион Нидерланды или Польша; порт 3000 (шаги в README) | вы, я проверю | ☐ |
 | 1.4 | Переменные: `NEXT_PUBLIC_SITE_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`; по желанию почта (Resend) и amoCRM | вы | ☐ |
 | 1.5 | Google Analytics 4 (`NEXT_PUBLIC_GA_ID`) и пиксель Meta (`NEXT_PUBLIC_META_PIXEL_ID`) | вы создаёте, я проверяю события | ☐ |
-| 1.6 | Ссылка записи на аудит Cal.com / Calendly (`NEXT_PUBLIC_BOOKING_URL`) — на сайте появится кнопка записи | вы | ☐ |
+| 1.6 | Ссылка записи на аудит Cal.com / Calendly (`NEXT_PUBLIC_BOOKING_URL`) — на сайте появится кнопка записи | вы | ☑ `https://cal.com/praxenai/audit` |
 | 1.7 | Реквизиты в футере и политике, пометка или замена отзывов | я, по вашим данным | ☐ |
 | 1.8 | Проверка после деплоя: все 84 страницы отвечают 200, форма доходит в Telegram, canonical на новом домене, sitemap, robots, llms.txt | я | ☐ |
 | 1.9 | Google Search Console + Bing Webmaster: подтвердить домен, отправить sitemap | вы (доступ), я подскажу | ☐ |
