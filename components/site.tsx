@@ -7,7 +7,7 @@ import type {PageData} from '@/lib/page-data';
 import {contacts} from '@/lib/contacts';
 import {copyFn,sectionLabel,siteCopy} from '@/lib/site-copy';
 import {Header} from '@/components/praxen/header';
-import {Hero,Marquee,Results} from '@/components/praxen/home';
+import {FindWorkflow,Hero,Marquee,Results} from '@/components/praxen/home';
 import {CaseExamples,DepartmentsGrid,Formats,IndustriesGrid,InnerHero,Process,SolutionExamples,Trust} from '@/components/praxen/inner';
 import {DetailAnswer,DetailHero,Related,Scenarios,Tested} from '@/components/praxen/detail';
 import {Contact,Faq} from '@/components/praxen/contact';
@@ -85,7 +85,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
    <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} toContact={toContact} menu={menu} setMenu={setMenu}/>
    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,'\\u003c')}}/>
    <main id="main" tabIndex={-1}>
-    {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/></>}
+    {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><div className="desktop-only"><FindWorkflow x={x}/></div></>}
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
     {isList&&<InnerHero x={x} page={section}/>}
@@ -101,7 +101,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
     {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/></>}
-    {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle} ask={!isHome}/>
+    {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle} askDesktopOnly={isHome}/>
     <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>
 

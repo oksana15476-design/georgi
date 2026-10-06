@@ -868,3 +868,6 @@ main{outline:none}
  .tariffs .tariff:nth-of-type(4){order:4}
 }
 
+/* Home blocks kept on desktop and hidden on phones */
+.desktop-only{display:contents}
+@media(max-width:760px){.desktop-only,.hide-mobile{display:none!important}}
