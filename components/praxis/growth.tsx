@@ -1,6 +1,6 @@
 'use client';
 import {useState} from 'react';
-import {prices} from '@/lib/pricing';
+import {packages,prices} from '@/lib/pricing';
 import {track} from '@/components/analytics';
 import {Icon} from './icon';
 import type {X} from './types';
@@ -13,8 +13,9 @@ const usdPerGel=prices.implementation.usd/prices.implementation.gel;
 export function Calculator({x}:{x:X}){
  const {c}=x;
  const [req,setReq]=useState(1500),[min,setMin]=useState(8),[cost,setCost]=useState(20),[share,setShare]=useState(60);
- const hours=req*min/60*share/100,money=hours*cost,net=money-prices.support.gel;
- const payback=net>0?prices.implementation.gel/net:0;
+ // Payback of the Business package: setup paid back from savings net of the monthly fee.
+ const hours=req*min/60*share/100,money=hours*cost,net=money-packages.business.monthly.gel;
+ const payback=net>0?packages.business.setup.gel/net:0;
  const touched=(set:(n:number)=>void)=>(e:React.ChangeEvent<HTMLInputElement>)=>set(+e.target.value);
  const fields:[string,number,(n:number)=>void,number,number,number,string][]=[
   [c('Обращений или документов в месяц','Requests or documents per month','მოთხოვნები ან დოკუმენტები თვეში'),req,setReq,50,5000,50,''],
@@ -22,7 +23,7 @@ export function Calculator({x}:{x:X}){
   [c('Стоимость часа сотрудника','Cost of one staff hour','თანამშრომლის საათის ღირებულება'),cost,setCost,5,60,1,' ₾'],
   [c('Доля, которую берёт ИИ','Share handled by AI','AI-ს წილი'),share,setShare,20,80,5,'%'],
  ];
- const paybackText=payback<=0?c('при таком объёме выгоднее начать с обучения команды','at this volume, start with team training','ასეთი მოცულობით უმჯობესია გუნდის სწავლებით დაწყება'):payback<1?c('меньше месяца','under a month','თვეზე ნაკლები'):c('≈ '+payback.toFixed(1).replace('.',',')+' мес.','≈ '+payback.toFixed(1)+' months','≈ '+payback.toFixed(1)+' თვე');
+ const paybackText=payback<=0?c('при таком объёме начните с пакета «Старт» или обучения команды','at this volume, start with the Start package or team training','ასეთი მოცულობით დაიწყეთ პაკეტით „სტარტი“ ან გუნდის სწავლებით'):payback<1?c('меньше месяца','under a month','თვეზე ნაკლები'):c('≈ '+payback.toFixed(1).replace('.',',')+' мес.','≈ '+payback.toFixed(1)+' months','≈ '+payback.toFixed(1)+' თვე');
  return (
   <section id="calculator" className="wrap sec" data-screen-label="Calculator">
    <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{c('Сколько вы сэкономите?','How much could you save?','რამდენს დაზოგავთ?')}</h2><p className="lead">{c('Подставьте свои цифры — увидите часы и лари, которые освободит ИИ, и срок окупаемости внедрения.','Enter your numbers to see the hours and lari AI could free up and how fast implementation pays back.','შეიყვანეთ თქვენი რიცხვები და ნახეთ, რამდენ საათსა და ლარს გაათავისუფლებს AI და როდის ანაზღაურდება დანერგვა.')}</p></div></div>
@@ -36,7 +37,7 @@ export function Calculator({x}:{x:X}){
     <div className="calc-result" aria-live="polite">
      <div><small>{c('Освобождается в месяц','Freed up per month','თავისუფლდება თვეში')}</small><b className="calc-big">{fmt(hours)} {c('ч','h','სთ')}</b></div>
      <div><small>{c('Экономия в месяц','Savings per month','დანაზოგი თვეში')}</small><b className="calc-big">{fmt(money)} ₾</b><span className="calc-usd">≈ ${fmt(money*usdPerGel)}</span></div>
-     <div className="calc-payback"><Icon name="trending-up" size={18}/><span>{c('Окупаемость внедрения от ','Implementation from ','დანერგვა ')+fmt(prices.implementation.gel)+' ₾'+c(' с учётом сопровождения: ',' pays back, including support, in: ','-დან, მხარდაჭერის ჩათვლით, ანაზღაურდება: ')}<b>{paybackText}</b></span></div>
+     <div className="calc-payback"><Icon name="trending-up" size={18}/><span>{c('Пакет «Бизнес» (','The Business package (','პაკეტი „ბიზნესი“ (')+fmt(packages.business.monthly.gel)+c(' ₾/мес + ',' ₾/mo + ',' ₾/თვე + ')+fmt(packages.business.setup.gel)+c(' ₾ подключение) окупается: ',' ₾ setup) pays back in: ',' ₾ დაკავშირება) ანაზღაურდება: ')}<b>{paybackText}</b></span></div>
      <button type="button" onClick={()=>x.go(c('Расчёт: ','Estimate: ','გათვლა: ')+fmt(req)+' × '+min+c(' мин, ИИ ',' min, AI ',' წთ, AI ')+share+'% ≈ '+fmt(money)+' ₾')} className="btn btn-primary">{c('Обсудить мой расчёт','Discuss my estimate','ჩემი გათვლის განხილვა')}<Icon name="arrow-right" size={16}/></button>
      <p className="calc-note">{c('Оценка по вашим вводным. Реальный эффект измеряем на пилоте.','An estimate based on your inputs. We measure the real effect in a pilot.','შეფასება თქვენი მონაცემებით. რეალურ ეფექტს პილოტზე ვზომავთ.')}</p>
     </div>
