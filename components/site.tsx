@@ -13,6 +13,7 @@ import {DetailAnswer,DetailHero,Related,Scenarios,Tested} from '@/components/pra
 import {Contact,Faq} from '@/components/praxen/contact';
 import {Icon} from '@/components/praxen/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
+import {LeadPopup} from '@/components/praxen/lead-popup';
 import {Privacy} from '@/components/praxen/privacy';
 import {Team} from '@/components/praxen/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
@@ -134,6 +135,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     <a href={'tel:'+contacts.phone} aria-label={contacts.phoneLabel} className="sticky-icon"><Icon name="phone" size={19}/></a>
     <a href={contacts.telegram} target="_blank" rel="noopener" aria-label={s.telegram} className="sticky-icon"><Icon name="send" size={19}/></a>
    </div>
+   {!isPrivacy&&<LeadPopup x={x} menu={menu}/>}
   </div>
  );
 }

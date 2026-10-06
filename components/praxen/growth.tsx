@@ -1,5 +1,6 @@
 'use client';
 import {useState} from 'react';
+import {contacts} from '@/lib/contacts';
 import {prices} from '@/lib/pricing';
 import {track} from '@/components/analytics';
 import {Icon} from './icon';
@@ -41,7 +42,10 @@ export function Calculator({x}:{x:X}){
      <div><small>{c('Экономия в месяц','Savings per month','დანაზოგი თვეში')}</small><b className="calc-big">{fmt(money)} ₾</b><span className="calc-usd">≈ ${fmt(money*usdPerGel)}</span></div>
      <div><small>{c('Выручка с потерянных заявок','Revenue from lost leads','შემოსავალი დაკარგული მოთხოვნებიდან')}</small><b className="calc-big">+{fmt(revenue)} ₾</b><span className="calc-usd">{c('если каждая пятая станет клиентом','if one in five becomes a customer','თუ ყოველი მეხუთე კლიენტად იქცევა')}</span></div>
      <div className="calc-payback"><Icon name="trending-up" size={18}/><span>{c('Окупаемость внедрения от ','Implementation from ','დანერგვა ')+fmt(prices.implementation.gel)+' ₾'+c(' даже с дополнительным ведением: ',' pays back, even with ongoing maintenance, in: ','-დან, დამატებითი მომსახურების ჩათვლითაც, ანაზღაურდება: ')}<b>{paybackText}</b></span></div>
-     <button type="button" onClick={()=>x.go(c('Расчёт: ','Estimate: ','გათვლა: ')+fmt(req)+' × '+min+c(' мин, ИИ ',' min, AI ',' წთ, AI ')+share+'% ≈ '+fmt(money)+' ₾; '+lost+c(' заявок × ',' leads × ',' მოთხოვნა × ')+fmt(check)+' ₾')} className="btn btn-primary">{c('Обсудить мой расчёт','Discuss my estimate','ჩემი გათვლის განხილვა')}<Icon name="arrow-right" size={16}/></button>
+     <div className="btn-row calc-actions">
+      <button type="button" onClick={()=>x.go(c('Расчёт: ','Estimate: ','გათვლა: ')+fmt(req)+' × '+min+c(' мин, ИИ ',' min, AI ',' წთ, AI ')+share+'% ≈ '+fmt(money)+' ₾; '+lost+c(' заявок × ',' leads × ',' მოთხოვნა × ')+fmt(check)+' ₾')} className="btn btn-primary">{c('Обсудить мой расчёт','Discuss my estimate','ჩემი გათვლის განხილვა')}<Icon name="arrow-right" size={16}/></button>
+      <a href={contacts.whatsapp+'?text='+encodeURIComponent(c('Здравствуйте! Мой расчёт на сайте Praxen AI: ','Hello! My estimate on the Praxen AI site: ','გამარჯობა! ჩემი გათვლა Praxen AI-ს საიტზე: ')+fmt(req)+c(' обращений в месяц × ',' requests a month × ',' მოთხოვნა თვეში × ')+min+c(' мин, ИИ берёт ',' min, AI handles ',' წთ, AI იღებს ')+share+c('% — освобождается ','% — frees up ','% — თავისუფლდება ')+fmt(hours)+c(' ч и ≈',' h and ≈',' სთ და ≈')+fmt(money)+c(' ₾ в месяц; теряется ',' ₾ a month; ',' ₾ თვეში; იკარგება ')+lost+c(' заявок по ',' leads lost at ',' მოთხოვნა, ')+fmt(check)+c(' ₾. Хочу обсудить аудит.',' ₾ each. I would like to discuss an audit.',' ₾ თითო. მინდა აუდიტის განხილვა.'))} target="_blank" rel="noopener" className="btn btn-ghost"><Icon name="whatsapp" size={17}/>{c('Отправить в WhatsApp','Send to WhatsApp','გაგზავნა WhatsApp-ში')}</a>
+     </div>
      <p className="calc-note">{c('Оценка по вашим вводным. Реальный эффект измеряем на пилоте.','An estimate based on your inputs. We measure the real effect in a pilot.','შეფასება თქვენი მონაცემებით. რეალურ ეფექტს პილოტზე ვზომავთ.')}</p>
     </div>
    </div>
