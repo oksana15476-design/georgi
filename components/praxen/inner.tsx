@@ -120,7 +120,7 @@ export function Formats({x,training}:{x:X;training:boolean}){
  return (
   <section id="solutions" className="band-white">
    <div className="wrap sec">
-    <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Сколько стоит внедрение ИИ.','What AI implementation costs.','რა ღირს AI‑ს დანერგვა.')}</h2><p className="lead">{training?s.formatsP:c('Платите один раз за запуск и каждый месяц — за работу решения. Цену фиксируем до старта.','Pay once for the launch and monthly for running the solution. The price is fixed before we start.','ერთხელ იხდით გაშვებაში და ყოველთვიურად — გადაწყვეტის მუშაობაში. ფასს დაწყებამდე ვაფიქსირებთ.')}</p></div>
+    <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Сколько стоит внедрение ИИ.','What AI implementation costs.','რა ღირს AI‑ს დანერგვა.')}</h2><p className="lead">{training?s.formatsP:c('Платите один раз за запуск, цену фиксируем до старта. Платформа и сопровождение — по желанию, помесячно.','Pay once for the launch, at a price fixed before we start. Platform and support are optional, billed monthly.','ერთხელ იხდით გაშვებაში, ფასს დაწყებამდე ვაფიქსირებთ. პლატფორმა და მხარდაჭერა — სურვილისამებრ, ყოველთვიურად.')}</p></div>
      {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>{setCur(k);track('currency_switch',{currency:k})}} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
     </div>
     {training?<>
@@ -136,11 +136,12 @@ export function Formats({x,training}:{x:X;training:boolean}){
     </>:<>
     <div className="tariffs">
      <div className="tariff-group tariff-group-once" data-reveal=""><span className="tariff-step">1</span><div><h3>{c('Запуск — разово','Launch — one-off','გაშვება — ერთჯერადად')}</h3><p>{c('Обучаем команду, внедряем готовые инструменты или разрабатываем решение. Цену фиксируем до старта.','We train your team, implement ready-made tools or build a custom solution. The price is fixed before we start.','ვასწავლით გუნდს, ვნერგავთ მზა ინსტრუმენტებს ან ვქმნით გადაწყვეტას. ფასს დაწყებამდე ვაფიქსირებთ.')}</p></div></div>
-     <div className="tariff-group tariff-group-monthly" data-reveal="" style={rd(240)}><span className="tariff-step">2</span><div><h3>{c('Работа — каждый месяц','Running — monthly','მუშაობა — ყოველთვიურად')}</h3><p>{c('Решение работает и улучшается после запуска.','The solution keeps running and improving after launch.','გადაწყვეტა მუშაობს და უმჯობესდება გაშვების შემდეგ.')}</p></div></div>
+     <div className="tariff-group tariff-group-monthly" data-reveal="" style={rd(240)}><span className="tariff-step">2</span><div><h3>{c('По желанию — помесячно','Optional — monthly','სურვილისამებრ — ყოველთვიურად')}</h3><p>{c('Если хотите, чтобы решение работало у нас и улучшалось после запуска.','If you want the solution to run on our side and keep improving.','თუ გსურთ, რომ გადაწყვეტა ჩვენთან იმუშაოს და განვითარდეს.')}</p></div></div>
      <span className="tariff-plus" aria-hidden="true"><Icon name="plus" size={18}/></span>
      {[...titles.map((title,i)=>({title,price:tiers[i],body:bodies[i],meta:<>{s.timelineT}: <b>{stairs[i].time}</b></>,cta:ctas[i],ctx:ctx[i],monthly:false})),
        {title:c('Платформа и сопровождение','Platform and support','პლატფორმა და მხარდაჭერა'),price:prices.support,body:c('Решение работает на нашей платформе: модели ИИ, хостинг, мониторинг и обновление базы знаний включены.','Your solution runs on our platform: AI models, hosting, monitoring and knowledge base updates included.','გადაწყვეტა ჩვენს პლატფორმაზე მუშაობს: AI მოდელები, ჰოსტინგი, მონიტორინგი და ცოდნის ბაზის განახლება შედის.'),meta:c('Или поддержка решения на ваших серверах','Or support for a solution on your own servers','ან მხარდაჭერა თქვენს სერვერებზე'),cta:c('Обсудить платформу','Discuss the platform','პლატფორმის განხილვა'),ctx:c('Платформа','Platform','პლატფორმა'),monthly:true}]
       .map((tf,i)=><article key={tf.title} data-reveal="" style={rd(i*80)} className={'tariff'+(tf.monthly?' tariff-monthly':'')+(i===1?' is-popular':'')}>
+       {tf.monthly&&<span className="popular tariff-badge tariff-badge-soft">{c('По желанию','Optional','სურვილისამებრ')}</span>}
        {i===1&&<span className="popular tariff-badge">{c('Пилот 2–4 недели','2–4 week pilot','პილოტი 2–4 კვირა')}</span>}
        <h4>{tf.title}</h4>
        <p className="tariff-price">{x.lang==='ka'?<>{money(tf.price,cur)}<small>-დან{tf.monthly?perMonth:''}</small></>:<><small className="from">{from}</small>{money(tf.price,cur)}{tf.monthly&&<small>{perMonth}</small>}</>}</p>
@@ -149,7 +150,7 @@ export function Formats({x,training}:{x:X;training:boolean}){
        <button type="button" onClick={()=>x.go(tf.ctx)} className="ulink tariff-cta">{tf.cta}<Icon name="arrow-right" size={16}/></button>
       </article>)}
     </div>
-    <p className="tariff-example"><Icon name="calculator" size={16}/><span>{c('Например: внедрение ','For example: implementation ','მაგალითად: დანერგვა ')}<b>{money(prices.implementation,cur)}</b>{c(' разово + платформа ',' one-off + platform ',' ერთჯერადად + პლატფორმა ')}<b>{money(prices.support,cur)}{perMonth}</b>{c('. Аудит бесплатный, цену пилота фиксируем до старта работ.','. The audit is free, and we fix the pilot price before work begins.','. აუდიტი უფასოა, პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.')}</span></p>
+    <p className="tariff-example"><Icon name="calculator" size={16}/><span>{c('Например: внедрение ','For example: implementation ','მაგალითად: დანერგვა ')}<b>{money(prices.implementation,cur)}</b>{c(' один раз. По желанию — платформа ',' once. Optional platform: ',' ერთხელ. სურვილისამებრ — პლატფორმა ')}<b>{money(prices.support,cur)}{perMonth}</b>{c('. Аудит бесплатный.','. The audit is free.','. აუდიტი უფასოა.')}</span></p>
     </>}
    </div>
   </section>

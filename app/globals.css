@@ -651,8 +651,8 @@ main{outline:none}
 @media(max-width:600px){
  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#f6f8fbf2;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
  .sticky-cta.is-shown{transform:none}
- .sticky-cta .btn{flex:1;min-height:48px}
- .sticky-icon{display:flex;align-items:center;justify-content:center;width:48px;min-height:48px;border-radius:8px;border:1px solid var(--line2);background:#fff;color:var(--ink)}
+ .sticky-cta .btn{flex:1;min-width:0;min-height:48px;padding:0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+ .sticky-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:48px;min-height:48px;border-radius:8px;border:1px solid var(--line2);background:#fff;color:var(--ink)}
 }
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
@@ -832,6 +832,7 @@ main{outline:none}
 .tariffs .tariff.is-popular{border:1.5px solid var(--ink)}
 .tariffs .tariff-monthly{border:1.5px solid var(--accent);background:radial-gradient(ellipse at 100% 0%,#dfe7ff,transparent 65%),var(--soft);box-shadow:0 24px 48px -32px #2755ec66}
 .tariff-badge{position:absolute;top:-12px;left:20px;background:var(--ink)}
+.tariff-badge-soft{background:#fff;color:var(--accent-dark);border:1px solid var(--accent)}
 .tariff h4{margin-top:2px;font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
 .tariff-price{margin-top:10px;font-size:clamp(26px,2.2vw,32px);font-weight:600;line-height:1.1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
 .tariff-monthly .tariff-price{color:var(--accent)}
