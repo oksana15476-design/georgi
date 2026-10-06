@@ -1,5 +1,9 @@
 import Site from '@/components/site';
+import {pageData} from '@/lib/page-data';
 import {notFound} from 'next/navigation';
-import {languages,Lang} from '@/lib/content';
-export async function generateMetadata({params}:{params:Promise<{lang:string;section?:string[]}>}){const {lang,section}=await params;const names:Record<string,string[]>= {industries:['Отрасли','Industries','ინდუსტრიები'],departments:['Решения для отделов','Departments','განყოფილებები'],training:['Обучение ИИ','AI training','AI სწავლება'],solutions:['Внедрение ИИ','AI solutions','AI გადაწყვეტილებები'],cases:['Примеры решений','Solution examples','გადაწყვეტილებების მაგალითები']};return {title:(section?.[0]?(names[section[0]]?.[lang==='ka'?2:lang==='en'?1:0]||'')+' — ':'')+'Praxis AI',description:lang==='ru'?'Обучение, внедрение ИИ и разработка решений для бизнеса в Грузии.':'AI training, implementation and custom solutions for businesses in Georgia.'}}
-export default async function Page({params}:{params:Promise<{lang:string;section?:string[]}>}){const {lang,section}=await params;if(!languages.includes(lang as Lang)||section&& (section.length>1||!['industries','departments','training','solutions','cases'].includes(section[0])))notFound();return <Site lang={lang as Lang} section={section?.[0]||'home'}/>}
+import {languages,Lang,t} from '@/lib/content';
+import {isLang,pageMeta} from '@/lib/seo';
+import {sectionMeta} from '@/lib/section-meta';
+export function generateStaticParams(){return languages.flatMap(lang=>[{lang,section:[]},...['industries','departments','training','solutions','cases','partners','privacy'].map(x=>({lang,section:[x]}))])}
+export async function generateMetadata({params}:{params:Promise<{lang:string;section?:string[]}>}){const {lang,section}=await params;if(!isLang(lang))return {};const key=section?.[0]||'home',m=sectionMeta[key]||sectionMeta.home;return pageMeta(lang,section?.[0]?'/'+section[0]:'',t(m.title,lang),t(m.description,lang))}
+export default async function Page({params}:{params:Promise<{lang:string;section?:string[]}>}){const {lang,section}=await params;if(!languages.includes(lang as Lang)||section&& (section.length>1||!['industries','departments','training','solutions','cases','partners','privacy'].includes(section[0])))notFound();return <Site lang={lang as Lang} section={section?.[0]||'home'} data={pageData(lang as Lang,section?.[0]||'home')}/>}
