@@ -5,7 +5,7 @@
 # in the hosting panel and are read by the server at run time.
 
 : "${NEXT_PUBLIC_SITE_URL:=https://praxenai.ge}"  # bought 2026-10-06 at INWX (no trailing slash)
-: "${NEXT_PUBLIC_GA_ID:=}"             # G-XXXXXXXXXX
+: "${NEXT_PUBLIC_GA_ID:=G-JPD37TCM27}"  # GA4 stream of praxenai.ge
 : "${NEXT_PUBLIC_META_PIXEL_ID:=}"     # 15–16 digits from Meta Events Manager
 : "${NEXT_PUBLIC_YM_ID:=}"             # Yandex Metrica counter number
 : "${NEXT_PUBLIC_ADS_ID:=}"            # AW-XXXXXXXXX

@@ -1,6 +1,7 @@
 // Analytics and ad platform IDs. Each one is optional; nothing loads until the visitor accepts cookies.
 export const tracking = {
- ga: process.env.NEXT_PUBLIC_GA_ID || '',
+ // Public IDs of the live site; an environment variable overrides them.
+ ga: process.env.NEXT_PUBLIC_GA_ID || 'G-JPD37TCM27',
  metaPixel: process.env.NEXT_PUBLIC_META_PIXEL_ID || '',
  // Yandex Metrica counter number (digits only).
  ym: process.env.NEXT_PUBLIC_YM_ID || '',
