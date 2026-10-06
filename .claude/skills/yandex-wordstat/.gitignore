@@ -1,0 +1,5 @@
+config/.env
+config/config.json
+config/service_account_key.json
+cache/*
+!cache/.gitkeep

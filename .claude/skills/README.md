@@ -26,6 +26,7 @@ Claude Code loads them automatically from `.claude/skills/`.
 | `seo-geo`, `seo-agentic`, `seo-local`, `seo-sxo`, `seo-backlinks` | AI Overviews / answer engines, agent readiness, local SEO, search intent, links | AgriciDaniel/claude-seo @ `4b99de2` | MIT |
 | `geo` (+ `scripts/`, `templates/`, `schema/`), `geo-audit`, `geo-citability`, `geo-crawlers`, `geo-llmstxt`, `geo-platform-optimizer`, `geo-brand-mentions`, `geo-content`, `geo-schema`, `geo-technical` | GEO: visibility in ChatGPT, Claude, Perplexity, Gemini, AI Overviews | [zubair-trabzada/geo-seo-claude](https://github.com/zubair-trabzada/geo-seo-claude) @ `ea29bd2` | MIT |
 | `product-marketing`, `ai-seo`, `content-strategy`, `site-architecture`, `programmatic-seo`, `copywriting`, `cro`, `lead-magnets`, `cold-email`, `ads`, `ad-creative`, `competitor-profiling`, `customer-research` | Positioning, AI SEO, content plan, site structure, copy, conversion, outreach, paid ads, competitor and customer research | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) @ `dda3841` | MIT |
+| `yandex-metrika`, `yandex-wordstat`, `yandex-webmaster` | Yandex Metrica reports (counter 113476399), Wordstat demand / keyword research, Yandex Webmaster indexing, queries, sitemaps, recrawl | [artwist-polyakov/polyakov-claude-skills](https://github.com/artwist-polyakov/polyakov-claude-skills), copied from the Saldo repo | see upstream |
 
 Local changes to vendored files:
 - `seo-schema` points to its own copy of `references/schema-types.md` instead of `../seo/references/`.
@@ -33,6 +34,7 @@ Local changes to vendored files:
 - claude-seo helper scripts, sub-agents and its PostToolUse hook are not vendored; skills that mention `${CLAUDE_PLUGIN_ROOT}/scripts/...` fall back to the manual steps they describe.
 - `geo` paths were changed from `~/.claude/skills/` to `.claude/skills/`. Its Python helpers need `pip install -r .claude/skills/geo/requirements.txt`. The agency tools (CRM dashboard, proposal, prospecting, PDF reports) were left out.
 - Marketing skills read shared product context. It lives at `.claude/product-marketing.md` because `/.agents/` is git-ignored here; keep it there if a skill offers to move it. It is a draft filled from the site; items marked ⚠ need confirmation.
+- Yandex skills need credentials in each skill's `config/` (see its `config/README.md`): `YANDEX_METRIKA_TOKEN`, `YANDEX_WORDSTAT_TOKEN` or a Yandex Cloud service account, `YANDEX_WEBMASTER_TOKEN`. These files are git-ignored; never commit tokens. `yandex-wordstat` got its own `.gitignore` for `config/.env`, `config/config.json` and `config/service_account_key.json`.
 
 To update a skill, copy its folder again from the source repository and bump the commit above.
 
