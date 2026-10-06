@@ -17,8 +17,9 @@ declare global{interface Window{dataLayer?:unknown[];gtag?:Fn;ym?:Fn&{a?:unknown
 export function track(event:string,params:Record<string,string|number|undefined>={}){
  if(typeof window==='undefined')return;
  window.gtag?.('event',event,params);
- // Metrica goals: create "lead" and "contact" as JavaScript-event goals in the counter settings.
- if(tracking.ym&&(event==='generate_lead'||event.endsWith('_click')))window.ym?.(Number(tracking.ym),'reachGoal',event==='generate_lead'?'lead':'contact',params);
+ // Metrica JavaScript-event goals: lead, form_start, calculator, cta and contact_* (the "contact" goal matches every contact_* id).
+ const goal=event==='generate_lead'?'lead':event==='form_start'?'form_start':event==='calculator_use'?'calculator':event==='cta_click'?'cta':event.endsWith('_click')?'contact_'+event.slice(0,-6):'';
+ if(tracking.ym&&goal)window.ym?.(Number(tracking.ym),'reachGoal',goal,params);
  if(event==='generate_lead'){
   window.fbq?.('track','Lead');
   if(tracking.ads&&tracking.adsLeadLabel)window.gtag?.('event','conversion',{send_to:tracking.ads+'/'+tracking.adsLeadLabel});
