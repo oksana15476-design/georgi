@@ -41,7 +41,7 @@ if(cmd==='volume'){
  const [r]=await call('ai_optimization/'+engine+'/llm_responses/live',[{user_prompt:arg,max_output_tokens:1200,...models[engine]}]);
  const sections=(r.items||[]).flatMap(i=>i.sections||[]);
  out({answer:sections.map(s=>s.text).join('\n'),sources:[...new Set(sections.flatMap(s=>(s.annotations||[]).map(a=>a.url.replace(/\?utm_source=openai$/,''))))],
-  mentionsPraxis:/praxis/i.test(sections.map(s=>s.text).join(' '))});
+  mentionsPraxen:/praxen/i.test(sections.map(s=>s.text).join(' '))});
 }else if(cmd==='balance'){
  const [r]=await call('appendix/user_data');
  out({login:r.login,balance:r.money?.balance});

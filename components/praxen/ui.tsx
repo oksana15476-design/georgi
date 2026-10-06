@@ -17,7 +17,7 @@ export function Mark({size=1,dark=false}:{size?:number;dark?:boolean}){
 }
 
 export function Wordmark({dark=false}:{dark?:boolean}){
- return <><Mark dark={dark}/><span className="wordmark">praxis<span>ai</span></span></>;
+ return <><Mark dark={dark}/><span className="wordmark">praxen<span>ai</span></span></>;
 }
 
 export function Flag({code}:{code:'en'|'ka'|'ru'}){

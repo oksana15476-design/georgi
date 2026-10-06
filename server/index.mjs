@@ -103,5 +103,5 @@ const server=createServer(async(req,res)=>{
 // Slow clients cannot hold connections open: headers within 15 s, the whole request within 30 s.
 server.headersTimeout=15000;
 server.requestTimeout=30000;
-server.listen(port,()=>console.log('Praxis AI site on :'+port+' (static: '+root+')'));
+server.listen(port,()=>console.log('Praxen AI site on :'+port+' (static: '+root+')'));
 for(const sig of ['SIGTERM','SIGINT'])process.on(sig,()=>server.close(()=>process.exit(0)));

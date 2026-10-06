@@ -8,7 +8,7 @@ import {tracking} from '@/lib/tracking';
 // that are configured. UTM tags and the referrer are kept for the session so outreach sources reach
 // both analytics and the lead message.
 const utmKeys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-const storeKey='praxis_attribution',consentKey='praxis_consent',consentEvent='praxis:consent';
+const storeKey='praxen_attribution',consentKey='praxen_consent',consentEvent='praxen:consent';
 const anyTracking=!!(tracking.ga||tracking.metaPixel||tracking.ads);
 
 type Fn=(...args:unknown[])=>void;

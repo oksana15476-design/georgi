@@ -34,9 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build the production image
-        run: docker build -t praxis-site .
+        run: docker build -t praxen-site .
       - name: Start the container
-        run: docker run -d --name site -p 3000:3000 praxis-site
+        run: docker run -d --name site -p 3000:3000 praxen-site
       - name: Smoke test
         run: |
           for i in $(seq 1 30); do curl -fs http://localhost:3000/healthz && break; sleep 1; done
