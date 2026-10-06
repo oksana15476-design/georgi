@@ -69,11 +69,6 @@ async function handleLead(req,res){
  return json(res,result.status==='unavailable'?503:502,{error:result.status==='unavailable'?'unavailable':'delivery'});
 }
 
-function preferredLang(header=''){
- const ranked=String(header).split(',').map((part,i)=>{const [tag,...params]=part.trim().toLowerCase().split(';');const q=params.find(p=>p.trim().startsWith('q='));return {lang:tag.split('-')[0],q:q?Number(q.trim().slice(2))||0:1,i}}).sort((a,b)=>b.q-a.q||a.i-b.i);
- return ranked.find(r=>['ka','ru','en'].includes(r.lang))?.lang||'en';
-}
-
 const server=createServer(async(req,res)=>{
  try{
   const url=new URL(req.url||'/','http://localhost');
@@ -83,8 +78,7 @@ const server=createServer(async(req,res)=>{
   }
   if(url.pathname==='/healthz')return json(res,200,{ok:true});
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405,security);return res.end()}
-  // The root sends visitors to their browser language: Georgian or Russian, English otherwise.
-  if(url.pathname==='/'){res.writeHead(302,{...security,Location:'/'+preferredLang(req.headers['accept-language']),Vary:'Accept-Language','Cache-Control':'no-store'});return res.end()}
+  if(url.pathname==='/'){res.writeHead(302,{...security,Location:'/en'});return res.end()}
   // Trailing slashes redirect to the clean address.
   if(url.pathname.length>1&&url.pathname.endsWith('/')){res.writeHead(301,{...security,Location:url.pathname.slice(0,-1)+url.search});return res.end()}
   const file=resolveFile(url.pathname);

@@ -827,3 +827,5 @@ main{outline:none}
 .result-example{align-self:flex-start;margin:6px 0 2px}
 .sec-sources{margin-top:16px;font-size:13px;line-height:1.6;color:var(--muted)}
 .sec-sources a{color:var(--body);text-decoration:underline;text-underline-offset:2px}
+/* The pilot line under the hero headline: same h1, smaller size so the buttons stay above the fold */
+.hero .h1 .accent-line{display:block;margin-top:.35em;font-size:.58em;line-height:1.15}

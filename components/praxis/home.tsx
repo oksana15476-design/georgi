@@ -6,9 +6,10 @@ import {logo,marqueeLogos} from '@/lib/logos';
 import {Icon} from './icon';
 import {industryIcon} from './header';
 import {deptCardIcon} from './inner';
-import {BrandLogo,CountUp,Mark,scrollToId,useReducedMotion} from './ui';
+import {BrandLogo,CountUp,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
 import {casesVerified} from '@/lib/proof';
+import {contacts} from '@/lib/contacts';
 
 export function Hero({x}:{x:X}){
  const {s,c}=x;
@@ -25,8 +26,8 @@ export function Hero({x}:{x:X}){
       <div data-reveal="" style={{'--rd':'180ms'} as React.CSSProperties} className="hero-lead">
        <p>{s.heroIntro}</p>
        <div className="btn-row">
-        <a href="#contact" onClick={x.toContact} className="btn btn-primary">{s.action}<Icon name="arrow-right" size={16}/></a>
-        <a href="#demo" onClick={e=>{e.preventDefault();scrollToId('demo');window.dispatchEvent(new Event('praxis:demo-replay'))}} className="btn btn-ghost">{s.heroSecondary}</a>
+        <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" className="btn btn-primary"><Icon name="whatsapp" size={17}/>{s.heroWhatsApp}</a>
+        <a href="#contact" onClick={x.toContact} className="btn btn-ghost">{s.action}<Icon name="arrow-right" size={16}/></a>
        </div>
       </div>
      </div>
