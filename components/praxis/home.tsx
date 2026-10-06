@@ -6,15 +6,14 @@ import {logo,marqueeLogos} from '@/lib/logos';
 import {Icon} from './icon';
 import {industryIcon} from './header';
 import {deptCardIcon} from './inner';
-import {BrandLogo,CountUp,Mark,useReducedMotion} from './ui';
+import {BrandLogo,CountUp,Mark,scrollToId,useReducedMotion} from './ui';
 import type {X} from './types';
 import {casesVerified} from '@/lib/proof';
-import {contacts} from '@/lib/contacts';
 
 export function Hero({x}:{x:X}){
  const {s,c}=x;
  const proof=casesVerified?[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]]
-  :[[c('от 290 ₾','from 290 ₾','290 ₾‑დან'),c('в месяц · WhatsApp Business подключаем сами','a month · we set up WhatsApp Business','თვეში · WhatsApp Business‑ს ჩვენ ვაკავშირებთ')],[c('2⁠–⁠4 нед.','2⁠–⁠4 wks','2⁠–⁠4 კვ.'),c('до запуска на ваших реальных данных','to go live on your real data','გაშვებამდე თქვენს რეალურ მონაცემებზე')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]];
+  :[['24/7',c('ответы клиентам в WhatsApp, Instagram и Telegram','replies to customers on WhatsApp, Instagram and Telegram','პასუხები კლიენტებს WhatsApp‑ში, Instagram‑სა და Telegram‑ში')],[c('2⁠–⁠4 нед.','2⁠–⁠4 wks','2⁠–⁠4 კვ.'),c('пилот на ваших реальных данных','pilot on your real data','პილოტი თქვენს რეალურ მონაცემებზე')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]];
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
@@ -26,8 +25,8 @@ export function Hero({x}:{x:X}){
       <div data-reveal="" style={{'--rd':'180ms'} as React.CSSProperties} className="hero-lead">
        <p>{s.heroIntro}</p>
        <div className="btn-row">
-        <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" className="btn btn-primary"><Icon name="whatsapp" size={17}/>{s.heroWhatsApp}</a>
-        <a href="#contact" onClick={x.toContact} className="btn btn-ghost">{s.action}<Icon name="arrow-right" size={16}/></a>
+        <a href="#contact" onClick={x.toContact} className="btn btn-primary">{s.action}<Icon name="arrow-right" size={16}/></a>
+        <a href="#demo" onClick={e=>{e.preventDefault();scrollToId('demo');window.dispatchEvent(new Event('praxis:demo-replay'))}} className="btn btn-ghost">{s.heroSecondary}</a>
        </div>
       </div>
      </div>

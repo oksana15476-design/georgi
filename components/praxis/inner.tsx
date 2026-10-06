@@ -147,7 +147,7 @@ export function Formats({x,training}:{x:X;training:boolean}){
       <button type="button" onClick={()=>x.go(c('Пакет','Package','პაკეტი')+' '+pk.title)} className="ulink mt-auto">{c('Выбрать пакет','Choose this package','პაკეტის არჩევა')}<Icon name="arrow-right" size={16}/></button>
      </article></div>)}
     </div>
-    <p className="formats-note">{c('Минимальный срок — 3 месяца. Если ответов стабильно больше лимита, предложим следующий пакет, а не доплату за каждое сообщение. Платные сообщения Meta, например шаблонные рассылки, оплачиваются отдельно по тарифам Meta.','Minimum term 3 months. If you regularly exceed the reply limit, we move you to the next package rather than charging per message. Paid Meta messages, such as template broadcasts, are billed separately at Meta’s rates.','მინიმალური ვადა — 3 თვე. თუ პასუხები რეგულარულად ლიმიტს აჭარბებს, შემდეგ პაკეტს შემოგთავაზებთ და არა თითოეულ შეტყობინებაზე დამატებით გადასახადს. Meta‑ს ფასიანი შეტყობინებები, მაგალითად შაბლონური გზავნილები, ცალკე იხდება Meta‑ს ტარიფებით.')}</p>
+    <p className="formats-note">{c('Минимальный срок — 3 месяца. Платные сообщения Meta, например шаблонные рассылки, оплачиваются отдельно по тарифам Meta.','Minimum term 3 months. Paid Meta messages, such as template broadcasts, are billed separately at Meta’s rates.','მინიმალური ვადა — 3 თვე. Meta‑ს ფასიანი შეტყობინებები, მაგალითად შაბლონური გზავნილები, ცალკე იხდება Meta‑ს ტარიფებით.')}</p>
     <h3 className="formats-sub">{c('Проекты под ваш процесс','Projects built around your process','პროექტები თქვენს პროცესზე')}</h3></>}
     <div className="formats-grid">
      {titles.map((title,i)=><div key={title} data-reveal="" style={rd(i*100)}><article className={'format'+(training?'':' format-card')}>
