@@ -41,7 +41,7 @@ export function organizationJsonLd(lang:Lang){
  const org=absolute('/#organization');
  return {'@context':'https://schema.org','@graph':[
   {'@type':'ProfessionalService','@id':org,name:'Praxen AI',url:absolute('/'+lang),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,
-   address:{'@type':'PostalAddress',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
+   address:{'@type':'PostalAddress',addressLocality:'Batumi',addressRegion:'Adjara',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
    founder:{'@id':absolute('/#founder')},
    contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
    hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:absolute('/'+lang+(path||'')),

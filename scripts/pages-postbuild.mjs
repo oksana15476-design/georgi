@@ -53,7 +53,7 @@ const page=path=>{const u=siteUrl+'/en'+path,i=info.get(u);return i?`- [${i.titl
 const group=prefix=>entries.map(e=>e[0]).filter(u=>u.startsWith(siteUrl+'/en'+prefix+'/')).map(u=>page(u.slice((siteUrl+'/en').length))).filter(Boolean);
 const llms=`# Praxen AI
 
-> Praxen AI is an AI implementation company in Georgia. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
+> Praxen AI is an AI implementation company based in Batumi, Georgia, working with businesses in Tbilisi and across the country. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
 
 Key facts:
 - Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of AI tools for a specific process from 3,200 GEL ($1,200), a 2–4 week pilot; custom AI development from 6,700 GEL ($2,500); additional ongoing maintenance from 550 GEL ($200) per month.

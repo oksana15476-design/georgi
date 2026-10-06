@@ -4,7 +4,7 @@ import type {Copy} from './content';
 export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  home:{
   title:['Внедрение ИИ в бизнес в Грузии: чат-боты, ИИ-агенты, автоматизация — Praxen AI','AI for business in Georgia: AI chatbots, AI agents, automation — Praxen AI','ხელოვნური ინტელექტი ბიზნესისთვის: AI ჩატბოტები და AI აგენტები — Praxen AI'],
-  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Тбилиси и вся Грузия, бесплатный аудит, внедрение от 3 200 ₾.','AI automation agency in Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, implementation from 3,200 ₾.','ხელოვნური ინტელექტის დანერგვა საქართველოში: ქართულად მოსაუბრე AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისთვის, გუნდის სწავლება. უფასო აუდიტი, დანერგვა 3 200 ₾-დან.'],
+  description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Батуми, Тбилиси и вся Грузия, бесплатный аудит, внедрение от 3 200 ₾.','AI automation agency in Batumi and Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, implementation from 3,200 ₾.','ხელოვნური ინტელექტის დანერგვა საქართველოში: ქართულად მოსაუბრე AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისთვის, გუნდის სწავლება. უფასო აუდიტი, დანერგვა 3 200 ₾-დან.'],
  },
  industries:{
   title:['ИИ и чат-боты для бизнеса по отраслям в Грузии — Praxen AI','AI and chatbots for every industry in Georgia — Praxen AI','AI და ჩატბოტები ინდუსტრიებისთვის საქართველოში — Praxen AI'],
@@ -16,7 +16,7 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  },
  training:{
   title:['Обучение ИИ и нейросетям для сотрудников в Грузии — Praxen AI','AI training and workshops for teams in Georgia — Praxen AI','AI ტრენინგი და ვორქშოპები გუნდებისთვის საქართველოში — Praxen AI'],
-  description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Tbilisi, from 1,900 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
+  description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Batumi and Tbilisi, from 1,900 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
  },
  solutions:{
   title:['Стоимость внедрения ИИ в Грузии: обучение, внедрение, разработка — Praxen AI','AI implementation cost in Georgia: training, implementation, development — Praxen AI','AI-ს დანერგვის ფასი საქართველოში: სწავლება, დანერგვა, შემუშავება — Praxen AI'],
