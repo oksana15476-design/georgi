@@ -84,6 +84,23 @@ writeFileSync(join(out,'llms.txt'),llms);
 
 // The bare root has no page; send visitors to the default language.
 writeFileSync(join(out,'index.html'),`<!doctype html><meta charset="utf-8"><title>Praxen AI</title><meta http-equiv="refresh" content="0;url=${base}/en"><link rel="canonical" href="${base}/en"><script>location.replace('${base}/en')</script><a href="${base}/en">Praxen AI</a>`);
+// Cloudflare Pages (CF_PAGES is set in its build): the security and cache headers the Docker
+// server sends, and a real redirect from the bare root to the default language.
+if(process.env.CF_PAGES){
+ writeFileSync(join(out,'_headers'),`/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+`);
+ writeFileSync(join(out,'_redirects'),'/ /en 302\n');
+ // vinext also writes a redirected Wrangler config for the Workers build; Pages must not pick it up.
+ rmSync('.wrangler/deploy/config.json',{force:true});
+}
 // Without this file GitHub Pages runs Jekyll, which drops the _next directory.
 writeFileSync(join(out,'.nojekyll'),'');
 if(!process.env.NEXT_PUBLIC_SITE_URL)console.warn('Note: NEXT_PUBLIC_SITE_URL is not set; canonical URLs use the default '+siteUrl);

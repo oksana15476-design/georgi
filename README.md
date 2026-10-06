@@ -39,9 +39,9 @@ npm run start
 
 ## Заявки: Telegram, почта и amoCRM
 
-API `app/api/leads/route.ts` отправляет каждую заявку во все настроенные каналы параллельно. Заявка считается принятой, если дошла хотя бы в один. В сообщении есть источник перехода (UTM-метки и сайт, с которого пришёл посетитель).
+Заявку принимает `functions/api/leads.js` (Cloudflare Pages) или `server/index.mjs` (Docker); оба вызывают `lib/lead-delivery.mjs`, который отправляет заявку во все настроенные каналы параллельно. Заявка считается принятой, если дошла хотя бы в один. В сообщении есть источник перехода (UTM-метки и сайт, с которого пришёл посетитель).
 
-Секреты задаются в Cloudflare Worker (для локального запуска — в игнорируемом `.dev.vars`). Названия переменных — в `.env.example`:
+Секреты задаются в настройках проекта Cloudflare Pages или в панели хостинга Docker. Названия переменных — в `.env.example`:
 
 - Telegram: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 - Почта через [Resend](https://resend.com): `RESEND_API_KEY`, `LEAD_EMAIL_TO` (можно несколько адресов через запятую), `LEAD_EMAIL_FROM` (адрес на подтверждённом домене).
@@ -91,9 +91,23 @@ docker compose -f compose.local.yml up --build   # затем http://localhost:3
 
 Без Docker: `NEXT_PUBLIC_SITE_URL=https://ваш-домен npm run build:static && npm run serve:static`.
 
+## Развёртывание в Cloudflare Pages
+
+1. Cloudflare → Workers & Pages → Create → Pages → Connect to Git → репозиторий, ветка `main`.
+2. Framework preset: None. Build command: `npm run build:static`. Build output directory: `out`.
+3. Settings → Variables and Secrets (Production):
+   - сборка: `NODE_VERSION=22`, `NEXT_PUBLIC_SITE_URL=https://praxenai.ge` (по умолчанию и так `.ge`); по готовности `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_ADS_ID`, `NEXT_PUBLIC_ADS_LEAD_LABEL`, `NEXT_PUBLIC_BOOKING_URL`. Они встраиваются в страницы при сборке: после изменения — Retry deployment;
+   - секреты (тип Secret): `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, по желанию почта и amoCRM. Читаются функцией при каждом запросе, пересборка не нужна.
+4. Custom domains → `praxenai.ge` и `www.praxenai.ge` (для корня домена DNS-зона должна быть в Cloudflare: сменить NS у регистратора).
+5. Security → WAF → Rate limiting rules: правило для пути `/api/leads`. Ограничение частоты в функции работает в памяти отдельного экземпляра и не заменяет правило.
+
+Cloudflare Pages задаёт `CF_PAGES`, и `scripts/pages-postbuild.mjs` добавляет в `out/` файлы `_headers` (заголовки безопасности и кэш) и `_redirects` (`/` → `/en`), а также удаляет `.wrangler/deploy/config.json` от Workers-сборки vinext. Форма — `functions/api/leads.js`: проверка Origin, размера и ловушки для ботов, лимиты по IP.
+
+Проверка локально: `CF_PAGES=1 npm run build:static && npx wrangler pages dev out` (секреты — флагами `--binding NAME=value`).
+
 ## Публикация
 
-Основной способ — Docker (см. выше). Копию для GitHub Pages можно собрать командой `npm run build:pages`; её workflow запускается только вручную, публикация на Pages закрыта.
+Основной способ — Cloudflare Pages или Docker (см. выше). Копию для GitHub Pages можно собрать командой `npm run build:pages`; её workflow запускается только вручную, публикация на Pages закрыта.
 
 Конфигурация `.openai/hosting.json` осталась от исходного шаблона Sites и для деплоя не нужна.
 

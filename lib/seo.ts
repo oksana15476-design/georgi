@@ -7,7 +7,7 @@ import {detailMeta} from '@/lib/detail-meta';
 import {contentUpdated} from '@/lib/proof';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // NEXT_PUBLIC_SITE_URL overrides it, e.g. for the Georgian domain or a staging address.
-export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxenai.com').replace(/\/$/,'');
+export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxenai.ge').replace(/\/$/,'');
 export const defaultLang:Lang='en';
 export const siteTitle:Copy=['Praxen AI — ИИ для бизнеса в Грузии','Praxen AI — AI for businesses in Georgia','Praxen AI — AI ბიზნესისთვის საქართველოში'];
 export const siteDescription:Copy=['Разрабатываем чат-боты и ИИ-агентов, автоматизируем клиентский сервис и обучаем команды. Практические решения для компаний в Грузии.','We build AI chatbots and AI agents, automate customer service and train teams. Practical solutions for companies in Georgia.','ვქმნით AI ჩატბოტებსა და AI აგენტებს, ვავტომატიზებთ მომსახურებას და ვასწავლით გუნდებს საქართველოში.'];
