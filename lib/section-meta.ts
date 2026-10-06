@@ -20,7 +20,7 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  },
  solutions:{
   title:['Стоимость внедрения ИИ в Грузии: обучение, внедрение, разработка — Praxen AI','AI implementation cost in Georgia: training, implementation, development — Praxen AI','AI-ს დანერგვის ფასი საქართველოში: სწავლება, დანერგვა, შემუშავება — Praxen AI'],
-  description:['Обучение от 1 900 ₾, внедрение под процесс от 3 200 ₾, разработка от 6 700 ₾, платформа и сопровождение по желанию от 550 ₾ в месяц. Калькулятор экономии и бесплатный аудит.','Training from 1,900 ₾, implementation from 3,200 ₾, custom development from 6,700 ₾, optional platform and support from 550 ₾ a month. A savings calculator and a free audit.','სწავლება 1 900 ₾-დან, დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან, პლატფორმა და მხარდაჭერა სურვილისამებრ 550 ₾-დან თვეში. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
+  description:['Обучение от 1 900 ₾, внедрение под процесс от 3 200 ₾, разработка от 6 700 ₾, сопровождение по желанию от 550 ₾ в месяц. Калькулятор экономии и бесплатный аудит.','Training from 1,900 ₾, implementation from 3,200 ₾, custom development from 6,700 ₾, optional support from 550 ₾ a month. A savings calculator and a free audit.','სწავლება 1 900 ₾-დან, დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან, მხარდაჭერა სურვილისამებრ 550 ₾-დან თვეში. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
  },
  cases:{
   title:['Примеры внедрения ИИ в бизнес в Грузии — Praxen AI','AI implementation examples for businesses in Georgia — Praxen AI','AI-ს დანერგვის მაგალითები ბიზნესში — Praxen AI'],
