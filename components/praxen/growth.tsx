@@ -9,11 +9,12 @@ const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 const fmt=(n:number)=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 const usdPerGel=prices.implementation.usd/prices.implementation.gel;
 
-// Savings calculator: hours and lari freed per month and payback of the implementation tier.
+// Savings calculator: hours and lari freed per month, revenue from leads that are lost today
+// (one in five assumed to convert, stated on screen) and payback of the implementation tier.
 export function Calculator({x}:{x:X}){
  const {c}=x;
- const [req,setReq]=useState(1500),[min,setMin]=useState(8),[cost,setCost]=useState(20),[share,setShare]=useState(60);
- const hours=req*min/60*share/100,money=hours*cost,net=money-prices.support.gel;
+ const [req,setReq]=useState(1500),[min,setMin]=useState(8),[cost,setCost]=useState(12),[share,setShare]=useState(60),[lost,setLost]=useState(10),[check,setCheck]=useState(300);
+ const hours=req*min/60*share/100,money=hours*cost,revenue=lost*check*0.2,net=money+revenue-prices.support.gel;
  const payback=net>0?prices.implementation.gel/net:0;
  const touched=(set:(n:number)=>void)=>(e:React.ChangeEvent<HTMLInputElement>)=>set(+e.target.value);
  const fields:[string,number,(n:number)=>void,number,number,number,string][]=[
@@ -21,14 +22,16 @@ export function Calculator({x}:{x:X}){
   [c('Минут сотрудника на одно','Staff minutes per item','თანამშრომლის წუთები ერთზე'),min,setMin,1,30,1,c(' мин',' min',' წთ')],
   [c('Стоимость часа сотрудника','Cost of one staff hour','თანამშრომლის საათის ღირებულება'),cost,setCost,5,60,1,' ₾'],
   [c('Доля, которую берёт ИИ','Share handled by AI','AI-ს წილი'),share,setShare,20,80,5,'%'],
+  [c('Заявок теряется в месяц','Leads lost per month','დაკარგული მოთხოვნები თვეში'),lost,setLost,0,100,1,''],
+  [c('Средний чек клиента','Average deal value','საშუალო ჩეკი'),check,setCheck,50,5000,50,' ₾'],
  ];
  const paybackText=payback<=0?c('при таком объёме выгоднее начать с обучения команды','at this volume, start with team training','ასეთი მოცულობით უმჯობესია გუნდის სწავლებით დაწყება'):payback<1?c('меньше месяца','under a month','თვეზე ნაკლები'):c('≈ '+payback.toFixed(1).replace('.',',')+' мес.','≈ '+payback.toFixed(1)+' months','≈ '+payback.toFixed(1)+' თვე');
  return (
   <section id="calculator" className="wrap sec" data-screen-label="Calculator">
-   <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{c('Сколько вы сэкономите?','How much could you save?','რამდენს დაზოგავთ?')}</h2><p className="lead">{c('Подставьте свои цифры — увидите часы и лари, которые освободит ИИ, и срок окупаемости внедрения.','Enter your numbers to see the hours and lari AI could free up and how fast implementation pays back.','შეიყვანეთ თქვენი რიცხვები და ნახეთ, რამდენ საათსა და ლარს გაათავისუფლებს AI და როდის ანაზღაურდება დანერგვა.')}</p></div></div>
+   <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{c('Сколько вы сэкономите и заработаете?','How much could you save and earn?','რამდენს დაზოგავთ და გამოიმუშავებთ?')}</h2><p className="lead">{c('Подставьте свои цифры — увидите часы и лари, которые освободит ИИ, выручку с заявок, которые сейчас теряются, и срок окупаемости.','Enter your numbers to see the hours and lari AI could free up, the revenue from leads you lose today and how fast it pays back.','შეიყვანეთ თქვენი რიცხვები და ნახეთ, რამდენ საათსა და ლარს გაათავისუფლებს AI, შემოსავალს დღეს დაკარგული მოთხოვნებიდან და ანაზღაურების ვადას.')}</p></div></div>
    <div data-reveal="" className="calc">
     <div className="calc-inputs">
-     {fields.map(([lb,v,set,mn,mx,st,unit])=><label key={lb} className="calc-field">
+     {fields.map(([lb,v,set,mn,mx,st,unit],i)=><label key={lb} className={'calc-field'+(i===4?' calc-field-sep':'')}>
       <span className="calc-label"><span>{lb}</span><b>{fmt(v)}{unit}</b></span>
       <input type="range" min={mn} max={mx} step={st} value={v} onChange={touched(set)} onPointerUp={()=>track('calculator_use')} style={{'--p':((v-mn)/(mx-mn)*100)+'%'} as React.CSSProperties}/>
      </label>)}
@@ -36,8 +39,9 @@ export function Calculator({x}:{x:X}){
     <div className="calc-result" aria-live="polite">
      <div><small>{c('Освобождается в месяц','Freed up per month','თავისუფლდება თვეში')}</small><b className="calc-big">{fmt(hours)} {c('ч','h','სთ')}</b></div>
      <div><small>{c('Экономия в месяц','Savings per month','დანაზოგი თვეში')}</small><b className="calc-big">{fmt(money)} ₾</b><span className="calc-usd">≈ ${fmt(money*usdPerGel)}</span></div>
-     <div className="calc-payback"><Icon name="trending-up" size={18}/><span>{c('Окупаемость внедрения от ','Implementation from ','დანერგვა ')+fmt(prices.implementation.gel)+' ₾'+c(' с учётом сопровождения: ',' pays back, including support, in: ','-დან, მხარდაჭერის ჩათვლით, ანაზღაურდება: ')}<b>{paybackText}</b></span></div>
-     <button type="button" onClick={()=>x.go(c('Расчёт: ','Estimate: ','გათვლა: ')+fmt(req)+' × '+min+c(' мин, ИИ ',' min, AI ',' წთ, AI ')+share+'% ≈ '+fmt(money)+' ₾')} className="btn btn-primary">{c('Обсудить мой расчёт','Discuss my estimate','ჩემი გათვლის განხილვა')}<Icon name="arrow-right" size={16}/></button>
+     <div><small>{c('Выручка с потерянных заявок','Revenue from lost leads','შემოსავალი დაკარგული მოთხოვნებიდან')}</small><b className="calc-big">+{fmt(revenue)} ₾</b><span className="calc-usd">{c('если каждая пятая станет клиентом','if one in five becomes a customer','თუ ყოველი მეხუთე კლიენტად იქცევა')}</span></div>
+     <div className="calc-payback"><Icon name="trending-up" size={18}/><span>{c('Окупаемость внедрения от ','Implementation from ','დანერგვა ')+fmt(prices.implementation.gel)+' ₾'+c(' даже с платформой и сопровождением: ',' pays back, even with platform and support, in: ','-დან, პლატფორმისა და მხარდაჭერის ჩათვლითაც, ანაზღაურდება: ')}<b>{paybackText}</b></span></div>
+     <button type="button" onClick={()=>x.go(c('Расчёт: ','Estimate: ','გათვლა: ')+fmt(req)+' × '+min+c(' мин, ИИ ',' min, AI ',' წთ, AI ')+share+'% ≈ '+fmt(money)+' ₾; '+lost+c(' заявок × ',' leads × ',' მოთხოვნა × ')+fmt(check)+' ₾')} className="btn btn-primary">{c('Обсудить мой расчёт','Discuss my estimate','ჩემი გათვლის განხილვა')}<Icon name="arrow-right" size={16}/></button>
      <p className="calc-note">{c('Оценка по вашим вводным. Реальный эффект измеряем на пилоте.','An estimate based on your inputs. We measure the real effect in a pilot.','შეფასება თქვენი მონაცემებით. რეალურ ეფექტს პილოტზე ვზომავთ.')}</p>
     </div>
    </div>
