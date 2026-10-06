@@ -7,7 +7,7 @@
 : "${NEXT_PUBLIC_SITE_URL:=https://praxenai.ge}"  # bought 2026-10-06 at INWX (no trailing slash)
 : "${NEXT_PUBLIC_GA_ID:=G-JPD37TCM27}"  # GA4 stream of praxenai.ge
 : "${NEXT_PUBLIC_META_PIXEL_ID:=}"     # 15–16 digits from Meta Events Manager
-: "${NEXT_PUBLIC_YM_ID:=}"             # Yandex Metrica counter number
+: "${NEXT_PUBLIC_YM_ID:=113476399}"    # Yandex Metrica counter of praxenai.ge
 : "${NEXT_PUBLIC_ADS_ID:=}"            # AW-XXXXXXXXX
 : "${NEXT_PUBLIC_ADS_LEAD_LABEL:=}"    # label of the Google Ads "lead" conversion
 : "${NEXT_PUBLIC_BOOKING_URL:=}"       # Cal.com or Calendly link for the free audit

@@ -4,7 +4,7 @@ export const tracking = {
  ga: process.env.NEXT_PUBLIC_GA_ID || 'G-JPD37TCM27',
  metaPixel: process.env.NEXT_PUBLIC_META_PIXEL_ID || '',
  // Yandex Metrica counter number (digits only).
- ym: process.env.NEXT_PUBLIC_YM_ID || '',
+ ym: process.env.NEXT_PUBLIC_YM_ID || '113476399',
  // Google Ads conversion: AW-XXXXXXXXX and the label of the "lead" conversion action.
  ads: process.env.NEXT_PUBLIC_ADS_ID || '',
  adsLeadLabel: process.env.NEXT_PUBLIC_ADS_LEAD_LABEL || '',
