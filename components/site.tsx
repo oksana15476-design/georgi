@@ -99,6 +99,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {isList&&<Process x={x}/>}
     {(isHome||isList)&&<Trust x={x}/>}
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
+    {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
     {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/></>}
     {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle} askDesktopOnly={isHome}/>
