@@ -655,6 +655,14 @@ main{outline:none}
  .sticky-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:48px;min-height:48px;border-radius:8px;border:1px solid var(--line2);background:#fff;color:var(--ink)}
 }
 
+/* Desktop floating WhatsApp button; phones use the sticky bar above. */
+.wa-float{position:fixed;right:24px;bottom:24px;z-index:44;display:flex;align-items:center;gap:0;height:56px;padding:0 15px;border-radius:28px;background:#25d366;color:#fff;box-shadow:0 12px 28px -10px #128c7e99;opacity:0;visibility:hidden;transform:translateY(16px);transition:opacity .3s,transform .35s var(--spring),visibility .3s}
+.wa-float.is-shown{opacity:1;visibility:visible;transform:none}
+.wa-float:hover{color:#fff;background:#1fbe5b}
+.wa-float span{max-width:0;overflow:hidden;white-space:nowrap;font-size:15px;font-weight:600;transition:max-width .35s ease,margin .35s ease}
+.wa-float:hover span,.wa-float:focus-visible span{max-width:220px;margin-left:10px}
+@media(max-width:600px){.wa-float{display:none}}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 
 /* Pricing inside "Ways to work" */

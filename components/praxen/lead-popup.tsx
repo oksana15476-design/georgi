@@ -14,7 +14,7 @@ const set=(store:'local'|'session',k:string,v:string)=>{try{(store==='local'?loc
 
 // One offer per session: on desktop when the cursor leaves through the top of the window,
 // anywhere after 40 s without scrolling, typing or touching. Never for visitors who already
-// started the form or clicked a contact, never over the contact section, and paused for
+// started the form or clicked WhatsApp, Telegram, phone or booking, never over the contact section, and paused for
 // three days after it is closed.
 export function LeadPopup({x,menu}:{x:X;menu:boolean}){
  const {c,s}=x;
@@ -34,8 +34,12 @@ export function LeadPopup({x,menu}:{x:X;menu:boolean}){
    if(form&&form.top<window.innerHeight&&form.bottom>0)return false;
    return !document.querySelector('[role="dialog"][aria-modal="true"]');
   };
-  const open=(k:Kind)=>{if(!allowed())return;set('session',shownKey,k);shown.current=k;back.current=document.activeElement;setKind(k);track('popup_view',{type:k})};
-  const onOut=(e:MouseEvent)=>{if(!e.relatedTarget&&e.clientY<=0)open('exit')};
+  // ?popup=exit or ?popup=idle shows the popup at once, to check how it looks.
+  const forced=new URLSearchParams(location.search).get('popup');
+  const open=(k:Kind,force=false)=>{if(!force&&!allowed())return;set('session',shownKey,k);shown.current=k;back.current=document.activeElement;setKind(k);track('popup_view',{type:k})};
+  // Fast cursor moves report the last position inside the page, so anything near the top edge counts.
+  const onOut=(e:MouseEvent)=>{if(!e.relatedTarget&&e.clientY<40)open('exit')};
+  if(forced==='exit'||forced==='idle'){const t=setTimeout(()=>open(forced,true),300);return()=>clearTimeout(t)}
   let timer=setTimeout(()=>open('idle'),idleAfter);
   const onActive=()=>{clearTimeout(timer);timer=setTimeout(()=>open('idle'),idleAfter)};
   const events=['scroll','mousemove','pointerdown','keydown','touchstart','wheel'] as const;
