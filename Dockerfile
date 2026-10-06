@@ -1,6 +1,6 @@
-# Praxis AI site: static pages + lead API in one small Node container.
-# Build:  docker build -t praxis-site --build-arg NEXT_PUBLIC_SITE_URL=https://example.ge .
-# Run:    docker run -p 3000:3000 --env-file .env praxis-site
+# Praxen AI site: static pages + lead API in one small Node container.
+# Build:  docker build -t praxen-site --build-arg NEXT_PUBLIC_SITE_URL=https://example.ge .
+# Run:    docker run -p 3000:3000 --env-file .env praxen-site
 
 # --- build: render all pages to static HTML (Debian: the Cloudflare/Vite toolchain needs glibc) ---
 FROM node:22-bookworm-slim AS build

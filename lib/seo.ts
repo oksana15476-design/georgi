@@ -6,10 +6,10 @@ import {packages,prices} from '@/lib/pricing';
 import {detailMeta} from '@/lib/detail-meta';
 import {contentUpdated} from '@/lib/proof';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
-// Set NEXT_PUBLIC_SITE_URL when the site moves to its own domain.
-export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site').replace(/\/$/,'');
+// NEXT_PUBLIC_SITE_URL overrides it, e.g. for the Georgian domain or a staging address.
+export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||'https://praxenai.com').replace(/\/$/,'');
 export const defaultLang:Lang='en';
-export const siteTitle:Copy=['Praxis AI — ИИ для бизнеса в Грузии','Praxis AI — AI for businesses in Georgia','Praxis AI — AI ბიზნესისთვის საქართველოში'];
+export const siteTitle:Copy=['Praxen AI — ИИ для бизнеса в Грузии','Praxen AI — AI for businesses in Georgia','Praxen AI — AI ბიზნესისთვის საქართველოში'];
 export const siteDescription:Copy=['Разрабатываем чат-боты и ИИ-агентов, автоматизируем клиентский сервис и обучаем команды. Практические решения для компаний в Грузии.','We build AI chatbots and AI agents, automate customer service and train teams. Practical solutions for companies in Georgia.','ვქმნით AI ჩატბოტებსა და AI აგენტებს, ვავტომატიზებთ მომსახურებას და ვასწავლით გუნდებს საქართველოში.'];
 export const isLang=(v:string):v is Lang=>languages.includes(v as Lang);
 export const absolute=(path:string)=>siteUrl+path;
@@ -22,7 +22,7 @@ const locales:Record<Lang,string>={en:'en_US',ka:'ka_GE',ru:'ru_RU'};
 export function pageMeta(lang:Lang,path:string,title:string,desc:string):Metadata{
  const image={url:absolute('/og/og-'+lang+'.png'),width:1200,height:630,alt:t(siteTitle,lang)};
  return {title,description:desc,alternates:alternates(lang,path),
-  openGraph:{type:'website',url:absolute('/'+lang+path),siteName:'Praxis AI',title,description:desc,locale:locales[lang],alternateLocale:languages.filter(l=>l!==lang).map(l=>locales[l]),images:[image]},
+  openGraph:{type:'website',url:absolute('/'+lang+path),siteName:'Praxen AI',title,description:desc,locale:locales[lang],alternateLocale:languages.filter(l=>l!==lang).map(l=>locales[l]),images:[image]},
   twitter:{card:'summary_large_image',title,description:desc,images:[image.url]}};
 }
 
@@ -45,18 +45,18 @@ const packageOffers:[Copy,keyof typeof packages][]=[
 export function organizationJsonLd(lang:Lang){
  const org=absolute('/#organization');
  return {'@context':'https://schema.org','@graph':[
-  {'@type':'ProfessionalService','@id':org,name:'Praxis AI',url:absolute('/'+lang),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,
+  {'@type':'ProfessionalService','@id':org,name:'Praxen AI',url:absolute('/'+lang),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,
    address:{'@type':'PostalAddress',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
    founder:{'@id':absolute('/#founder')},
    contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
-   hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxis AI','Praxis AI services','Praxis AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:absolute('/'+lang+(path||'')),
+   hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:absolute('/'+lang+(path||'')),
     priceSpecification:{'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL',...(key==='support'?{unitText:'MONTH'}:{})},
     itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),
    ...packageOffers.map(([name,key])=>({'@type':'Offer',url:absolute('/'+lang+'/solutions'),
     priceSpecification:[{'@type':'UnitPriceSpecification',price:packages[key].monthly.gel,priceCurrency:'GEL',unitText:'MONTH'},{'@type':'PriceSpecification',name:t(['Подключение','Setup','დაკავშირება'],lang),price:packages[key].setup.gel,priceCurrency:'GEL'}],
     itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}}))]}},
   {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg')},
-  {'@type':'WebSite','@id':absolute('/#website'),url:absolute('/'+lang),name:'Praxis AI',inLanguage:lang,publisher:{'@id':org}},
+  {'@type':'WebSite','@id':absolute('/#website'),url:absolute('/'+lang),name:'Praxen AI',inLanguage:lang,publisher:{'@id':org}},
  ]};
 }
 
@@ -73,10 +73,10 @@ export function pageJsonLd({lang,crumbs,faq,service,path}:{lang:Lang;crumbs:[str
 // Department and industry pages: the search title from detail-meta (or the start of the page
 // headline), and the page subheading as the description.
 export function detailTitle(slug:string,lang:Lang,fallback:string){
- if(detailMeta[slug])return t(detailMeta[slug],lang)+' — Praxis AI';
+ if(detailMeta[slug])return t(detailMeta[slug],lang)+' — Praxen AI';
  const h1=pageCopy[slug]?.[lang]?.h1;
  const head=h1?h1.split(':')[0].trim():fallback;
- return head+' '+t(['в Грузии','in Georgia','საქართველოში'],lang)+' — Praxis AI';
+ return head+' '+t(['в Грузии','in Georgia','საქართველოში'],lang)+' — Praxen AI';
 }
 export function detailDescription(slug:string,lang:Lang,fallback:string){
  return pageCopy[slug]?.[lang]?.sub||fallback;

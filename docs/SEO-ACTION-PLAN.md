@@ -1,11 +1,11 @@
-# Как забрать выдачу: план для Praxis AI
+# Как забрать выдачу: план для Praxen AI
 
 **Дата:** 2026-10-05. Основа — данные DataForSEO (`docs/DATAFORSEO.md`), семантическое ядро (`SEMANTIC-CORE.md`) и GEO-аудит (`GEO-AUDIT-REPORT.md`).
 
 **Что значит «10/10».** Гарантировать первое место никто не может. Но рынок маленький, а конкуренты слабее, чем выглядят. Реалистичная цель на 90 дней:
 - топ-3 в Google по длинному хвосту: «AI automation agency Tbilisi», «чат-бот для WhatsApp Грузия», «ქართული ჩატბოტი ბიზნესისთვის», «внедрение ИИ в бизнес Грузия»;
 - место в local pack (карта) по «AI agency / automation Tbilisi»;
-- Praxis AI упоминается хотя бы в одном из трёх ИИ-ассистентов (ChatGPT, Perplexity, Gemini) на вопрос «кто внедряет ИИ в Грузии»;
+- Praxen AI упоминается хотя бы в одном из трёх ИИ-ассистентов (ChatGPT, Perplexity, Gemini) на вопрос «кто внедряет ИИ в Грузии»;
 - GEO-балл с 34 до 70+. Пересчитываем после публикации.
 
 **Почему это реально.** Главный конкурент ainow.ge набрал авторитет в основном за счёт сети собственных доменов (aistaff.ge, aichats.ge, aicontent.ge, aidocs.ge и т. п.) и спама. Настоящих внешних ссылок у него единицы: top.ge, forum.ge, ai-news.ge. В Google Maps по «AI agency» в Грузии — агентства из Азербайджана и Турции с 0–35 отзывами. Perplexity и Gemini не называют даже ainow.ge.
@@ -16,7 +16,7 @@
 
 | # | Что | Кто | Почему |
 |---|---|---|---|
-| 0.1 | **Купить домен** (лучше `.ge`, например praxis.ge / praxisai.ge) и опубликовать сайт в Timeweb | вы | Сейчас адрес сайта отдаёт **401** (закрыт паролем). Google и ИИ-краулеры его не видят |
+| 0.1 | **Купить домен** (**решено 2026-10-06: Praxen AI, домены praxenai** — .com, .ge, .co.uk, .eu, .ai) и опубликовать сайт в Timeweb | вы | Сейчас адрес сайта отдаёт **401** (закрыт паролем). Google и ИИ-краулеры его не видят |
 | 0.2 | Собрать сборку с `NEXT_PUBLIC_SITE_URL=https://<домен>` | я, после 0.1 | canonical, hreflang, sitemap и llms.txt пока ведут на старый адрес |
 | 0.3 | Google Search Console и Bing Webmaster Tools, отправить `sitemap.xml` | вы (доступ к аккаунту), я подскажу | Bing питает Copilot и поиск ChatGPT |
 | 0.4 | Прогнать сайт через DataForSEO OnPage (все 84 страницы) | я | Технический аудит на живом домене, около $0.02 |
@@ -63,7 +63,7 @@ node scripts/seo/dataforseo.mjs llm "Which companies in Georgia implement AI cha
 node scripts/seo/dataforseo.mjs llm "Which companies in Georgia implement AI chatbots for businesses?" gemini
 ```
 
-Смотрим: позиции по целевым запросам, появилось ли `"mentionsPraxis": true` в ответах ИИ, какие новые источники цитируют модели (их добавляем в раздел 2).
+Смотрим: позиции по целевым запросам, появилось ли `"mentionsPraxen": true` в ответах ИИ, какие новые источники цитируют модели (их добавляем в раздел 2).
 
 ## Порядок на ближайшие 2 недели
 

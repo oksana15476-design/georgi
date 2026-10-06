@@ -1,4 +1,4 @@
-# DataForSEO для Praxis AI: что полезно и что уже проверено
+# DataForSEO для Praxen AI: что полезно и что уже проверено
 
 **Дата:** 2026-10-05. Каждое направление проверено одним реальным запросом. Всего потрачено около $0.41 из тестового $1.
 **Доступ:** логин и пароль в репозиторий не кладём. Скрипт `scripts/seo/dataforseo.mjs` берёт их из переменной `DATAFORSEO_AUTH` (base64 от `login:password`).
@@ -37,7 +37,7 @@ node scripts/seo/dataforseo.mjs balance
 | SERP → Bing Organic | Bing питает Copilot и поиск ChatGPT, позиции там проверять дешевле, чем гадать | после индексации |
 | SERP → YouTube | Кто в выдаче по «AI chatbot WhatsApp demo», если снимем видео-демо | при запуске YouTube |
 | Business Data → Google My Business Info / Reviews | Отзывы и категории конкурентов в Картах, мониторинг собственных отзывов | после создания GBP |
-| Content Analysis → Search / Summary / Sentiment | Упоминания «Praxis AI» в сети и их тон: метрика бренда для GEO | когда появятся публикации |
+| Content Analysis → Search / Summary / Sentiment | Упоминания «Praxen AI» в сети и их тон: метрика бренда для GEO | когда появятся публикации |
 | OnPage → Crawl (task) | Полный технический краул всех 84 страниц, битые ссылки, дубли | после публикации на домене |
 | Backlinks → Referring Domains / Domain Intersection | Где ссылаются на конкурентов, но не на нас: готовый список площадок | сразу (~$0.02–0.05) |
 | AI Optimization → LLM Mentions | Частота упоминаний бренда в ответах ИИ | обычно отдельная подписка |
@@ -71,7 +71,7 @@ node scripts/seo/dataforseo.mjs balance
 ainow.ge: 80 ссылающихся доменов (52 основных), сайт виден с февраля 2026 года, spam score 5. Это ориентир: 50+ доменов за полгода.
 
 ### 5. Что отвечает ChatGPT (gpt-5-mini с веб-поиском, страна GE)
-На «Какие компании в Грузии занимаются внедрением ИИ и чат-ботов?» называет: **AI NOW (ainow.ge)**, BotLab, Bonteco, Chatty, aichatbot.ge, ISsoft. Ссылается на **Clutch** («Top Chatbot Companies in Georgia») и **The Manifest**. Praxis AI не упоминается. Это точка отсчёта.
+На «Какие компании в Грузии занимаются внедрением ИИ и чат-ботов?» называет: **AI NOW (ainow.ge)**, BotLab, Bonteco, Chatty, aichatbot.ge, ISsoft. Ссылается на **Clutch** («Top Chatbot Companies in Georgia») и **The Manifest**. Praxen AI не упоминается. Это точка отсчёта.
 
 ### 6. Подсказки Google (Autocomplete)
 - KA: «ჩატბოტის შექმნა», «ჩატბოტის დაყენება», «**ქართული ჩატბოტი**», «ai ჩატბოტი», «ხელოვნური ინტელექტი **ქართულად**», «ხელოვნური ინტელექტის გამოყენება», «ხელოვნური ინტელექტი საქართველოში». Грузины ищут бота, который говорит по-грузински. Это добавлено в грузинские title главной и поддержки.
@@ -80,7 +80,7 @@ ainow.ge: 80 ссылающихся доменов (52 основных), сай
 ### 7. Perplexity и Gemini
 - **Perplexity** называет Gegidze, Mzia, Optio, Fresh Lime Soft, WeGotCode и другие. Источники — каталоги **TechBehemoths (раздел Tbilisi)**, **Sortlist**, **DesignRush**, **F6S**, inven.ai, а также страницы услуг конкурентов.
 - **Gemini** называет MaxinAI, Fresh Lime Soft, RCG Solutions, Anronix, XISLABS.
-- Ни одна модель не называет Praxis AI. Даже ainow.ge есть только у ChatGPT. У каждой модели свои источники, поэтому присутствие в каталогах важнее одного сайта.
+- Ни одна модель не называет Praxen AI. Даже ainow.ge есть только у ChatGPT. У каждой модели свои источники, поэтому присутствие в каталогах важнее одного сайта.
 
 ---
 
@@ -88,7 +88,7 @@ ainow.ge: 80 ссылающихся доменов (52 основных), сай
 
 **Сделано в коде (на существующих страницах, без новых):**
 - Title и description главной, отделов, обучения, решений и поддержки переписаны под подтверждённые запросы: чат-бот, ИИ-агенты, WhatsApp / Telegram-бот, AI training / workshop, «ქართული ჩატბოტი».
-- H1 разделов «Отделы» и «Обучение», вводный абзац hero, ответ «Что такое Praxis AI?».
+- H1 разделов «Отделы» и «Обучение», вводный абзац hero, ответ «Что такое Praxen AI?».
 - FAQ: «Как внедрить ИИ-агента в бизнес?» (вопрос про цену WhatsApp-бота убран по решению владельца 2026-10-06) (из «Похожих вопросов» Google), WhatsApp Business API на продажах, сравнение с конструкторами на поддержке.
 - Разметка Service и llms.txt: чат-бот для WhatsApp и Telegram от 3 200 ₾.
 
@@ -99,5 +99,5 @@ ainow.ge: 80 ссылающихся доменов (52 основных), сай
 2. **Профили в каталогах:** Clutch и The Manifest (их цитирует ChatGPT), TechBehemoths, Sortlist, DesignRush, F6S (их цитирует Perplexity). Попросить 2–3 отзыва от первых клиентов.
 3. Попасть в подборки вроде softaims «Best AI Development Companies in Georgia».
 4. Опубликовать сайт на домене и прогнать страницы через OnPage API (instant pages, около $0.0002 за страницу).
-5. **Раз в месяц:** `llm` с тремя вопросами (RU/EN/KA) и `volume` по ядру. Сравнивать, появился ли Praxis в ответах ChatGPT.
+5. **Раз в месяц:** `llm` с тремя вопросами (RU/EN/KA) и `volume` по ядру. Сравнивать, появился ли Praxen в ответах ChatGPT.
 6. Баланс: ежемесячный замер (частотности + 3 вопроса ChatGPT + 5 выдач) стоит около $0.15–0.2.

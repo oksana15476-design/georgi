@@ -17,7 +17,7 @@ export function Team({x}:{x:X}){
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img src={base+'/team/evgeny.jpg'} alt={c('Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი')} width={400} height={400} loading="lazy" decoding="async" className="founder-photo"/>
     <div className="founder-body">
-     <span className="over">{c('Основатель Praxis AI','Founder, Praxis AI','Praxis AI-ის დამფუძნებელი')}</span>
+     <span className="over">{c('Основатель Praxen AI','Founder, Praxen AI','Praxen AI-ის დამფუძნებელი')}</span>
      <h3>{c('Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი')}</h3>
      <p className="founder-bio">{c('Отвечает за то, чтобы ИИ приносил бизнесу измеримый результат: разбирает процессы, считает эффект и ведёт внедрение от аудита до запуска.','Makes sure AI brings measurable results: maps your processes, estimates the impact and leads implementation from audit to launch.','პასუხობს იმაზე, რომ AI-მ ბიზნესს გაზომვადი შედეგი მოუტანოს: აანალიზებს პროცესებს, ითვლის ეფექტს და უძღვება დანერგვას აუდიტიდან გაშვებამდე.')}</p>
      <ul className="founder-points">{points.map(([icon,t,d])=><li key={t}><span className="tile-icon"><Icon name={icon} size={18}/></span><div><b>{t}</b><span>{d}</span></div></li>)}</ul>

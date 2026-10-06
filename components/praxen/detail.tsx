@@ -107,7 +107,7 @@ function Mock({x,slug}:{x:X;slug:string}){
  return (
   <div className="mock">
    <div className="mock-bar">
-    <span className="demo-brand"><Mark size={.5}/>Praxis Workspace</span>
+    <span className="demo-brand"><Mark size={.5}/>Praxen Workspace</span>
     <div role="group" className="mock-tabs">
      {s.mockTabs.map((lb,i)=><button key={lb} type="button" onClick={()=>setStage(i)} aria-pressed={cur===i} className={cur===i?'is-on':''}>{lb}</button>)}
     </div>
@@ -154,7 +154,7 @@ function Mock({x,slug}:{x:X;slug:string}){
        <div className="slack-head"><Icon name={ch[0]} size={14}/>{ch[1]}</div>
        <div className="slack-body">
         <div className="slack-msg"><span className="avatar-sq grey">{c('СТ','EM','EM')}</span><div className="min0"><b>{c('Сотрудник','Employee','თანამშრომელი')} <small>10:42</small></b><p>{input}</p></div></div>
-        <div className="slack-msg"><span className="avatar-sq grad">P</span><div className="min0"><b className="slack-bot">Praxis <span className="badge">{c('ассистент','assistant','ასისტენტი')}</span> <small>10:42</small></b><ul>{rows.map(r=><li key={r.k}><Icon name="check" size={13}/><span><span className="muted">{r.k}:</span> {r.v}</span></li>)}</ul></div></div>
+        <div className="slack-msg"><span className="avatar-sq grad">P</span><div className="min0"><b className="slack-bot">Praxen <span className="badge">{c('ассистент','assistant','ასისტენტი')}</span> <small>10:42</small></b><ul>{rows.map(r=><li key={r.k}><Icon name="check" size={13}/><span><span className="muted">{r.k}:</span> {r.v}</span></li>)}</ul></div></div>
        </div>
       </div>}
       {kind==='plan'&&<div className="plan">

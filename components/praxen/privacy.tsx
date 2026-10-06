@@ -12,7 +12,7 @@ export function Privacy({x}:{x:X}){
  const {c,s}=x;
  const blocks:Block[]=[
   [c('Кто обрабатывает данные','Who processes your data','ვინ ამუშავებს მონაცემებს'),[
-   c('Оператор данных — Praxis AI (Грузия). По вопросам о данных пишите в Telegram или звоните: ','The data controller is Praxis AI (Georgia). For any data question, message us on Telegram or call: ','მონაცემთა დამმუშავებელია Praxis AI (საქართველო). მონაცემებთან დაკავშირებით მოგვწერეთ Telegram-ში ან დაგვირეკეთ: ')+contacts.phoneLabel+'.',
+   c('Оператор данных — Praxen AI (Грузия). По вопросам о данных пишите в Telegram или звоните: ','The data controller is Praxen AI (Georgia). For any data question, message us on Telegram or call: ','მონაცემთა დამმუშავებელია Praxen AI (საქართველო). მონაცემებთან დაკავშირებით მოგვწერეთ Telegram-ში ან დაგვირეკეთ: ')+contacts.phoneLabel+'.',
    c('Мы соблюдаем Закон Грузии «О защите персональных данных».','We comply with the Law of Georgia on Personal Data Protection.','ვიცავთ საქართველოს კანონს „პერსონალურ მონაცემთა დაცვის შესახებ“.')]],
   [c('Какие данные мы получаем','What data we collect','რა მონაცემებს ვიღებთ'),[
    c('Из формы заявки: контакт (Telegram или телефон), выбранные варианты, текст задачи, страница, с которой отправлена заявка, и источник перехода (например, метки UTM).','From the enquiry form: your contact (Telegram or phone), the options you chose, your message, the page you sent it from and the traffic source (such as UTM tags).','განაცხადის ფორმიდან: კონტაქტი (Telegram ან ტელეფონი), არჩეული ვარიანტები, ამოცანის ტექსტი, გვერდი, საიდანაც გაიგზავნა, და გადმოსვლის წყარო (მაგალითად, UTM ნიშნები).'),

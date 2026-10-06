@@ -1,4 +1,4 @@
-# Praxis AI — ИИ для бизнеса в Грузии
+# Praxen AI — ИИ для бизнеса в Грузии
 
 Многоязычный сайт: основные языки — английский (по умолчанию) и грузинский, дополнительно русский. Главная страница, 12 отраслевых страниц, 8 страниц отделов, решения, обучение и примеры внедрения.
 
@@ -27,7 +27,7 @@ npm run start
 
 - app/ — маршруты, стили, sitemap, robots и API формы заявки.
 - components/site.tsx — каркас страниц и порядок блоков.
-- components/praxis/ — разделы сайта: шапка, главная, списки, страницы отделов и отраслей, тарифы, калькулятор, команда, партнёры, политика, форма.
+- components/praxen/ — разделы сайта: шапка, главная, списки, страницы отделов и отраслей, тарифы, калькулятор, команда, партнёры, политика, форма.
 - components/analytics.tsx — согласие на cookie, GA4, пиксель Meta, конверсии Google Ads, UTM-метки.
 - lib/content.ts, lib/page-profiles.ts, lib/page-copy.ts, lib/jobs.ts — тексты на трёх языках ([ru, en, ka]).
 - lib/pricing.ts — цены в лари и долларах.
@@ -61,7 +61,7 @@ API `app/api/leads/route.ts` отправляет каждую заявку во
 
 Счётчики загружаются только после согласия посетителя в cookie-баннере; баннер показывается, когда задан хотя бы один ID. События: `cta_click`, `phone_click`, `telegram_click`, `whatsapp_click`, `form_start`, `form_error`, `generate_lead` (в Meta — `Lead`, в Google Ads — конверсия), `calculator_use`, `currency_switch`.
 
-Политика конфиденциальности — страница `/{язык}/privacy` (`components/praxis/privacy.tsx`). Перед запуском рекламы добавьте реквизиты юрлица и согласуйте текст с юристом.
+Политика конфиденциальности — страница `/{язык}/privacy` (`components/praxen/privacy.tsx`). Перед запуском рекламы добавьте реквизиты юрлица и согласуйте текст с юристом.
 
 ## Развёртывание в Docker (Timeweb App Platform)
 
@@ -95,6 +95,6 @@ docker compose -f compose.local.yml up --build   # затем http://localhost:3
 
 Основной способ — Docker (см. выше). Копию для GitHub Pages можно собрать командой `npm run build:pages`; её workflow запускается только вручную, публикация на Pages закрыта.
 
-Старый сайт: https://praxis-ai-georgia.evgenijbudnikov44.chatgpt.site. Конфигурация `.openai/hosting.json` сохраняет связь с проектом Sites.
+Конфигурация `.openai/hosting.json` осталась от исходного шаблона Sites и для деплоя не нужна.
 
 Подробности исходного окружения: [docs/SITES-STARTER.md](docs/SITES-STARTER.md).

@@ -1,4 +1,4 @@
-# Product marketing context — Praxis AI
+# Product marketing context — Praxen AI
 
 **Document version:** 0.1 (draft from the website copy; items marked ⚠ need the founder's confirmation)
 

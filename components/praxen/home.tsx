@@ -64,7 +64,7 @@ function HeroDemo({x}:{x:X}){
  const [flash,setFlash]=useState(0);
  useEffect(()=>{
   const replay=()=>{setFrame(0);setPaused(false);setFlash(n=>n+1);if(!reduced){setTyping(true);clearTimeout(typingT.current);typingT.current=setTimeout(()=>setTyping(false),1100)}};
-  window.addEventListener('praxis:demo-replay',replay);return()=>window.removeEventListener('praxis:demo-replay',replay);
+  window.addEventListener('praxen:demo-replay',replay);return()=>window.removeEventListener('praxen:demo-replay',replay);
  },[reduced]);
  const showTyping=frame===0&&playing&&typing;
  const fill=(i:0|2)=>{const on=frame===i;return {transform:on?(playing?'none':'scaleX(1)'):(i<frame?'scaleX(1)':'scaleX(0)'),animation:on&&playing?'px-progress 2.8s linear both':'none'}};
@@ -73,7 +73,7 @@ function HeroDemo({x}:{x:X}){
  return (
   <div id="demo" key={'demo'+flash} className={'demo'+(flash?' is-flash':'')}>
    <div className="demo-bar">
-    <span className="demo-brand"><Mark size={.5}/>Praxis Workspace</span>
+    <span className="demo-brand"><Mark size={.5}/>Praxen Workspace</span>
     <span className="demo-title">{s.demoTitle}</span>
     <span className="spacer"/>
     <button type="button" onClick={()=>setPaused(p=>!p)} aria-label={paused?s.play:s.pause} className="icon-btn"><Icon name={paused?'play':'pause'} size={14}/></button>
