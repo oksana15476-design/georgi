@@ -8,7 +8,7 @@ import type {X} from './types';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
-export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
+export function Faq({x,items,title,ask=true}:{x:X;items:[string,string][];title:string;ask?:boolean}){
  const {s}=x;
  const [open,setOpen]=useState(0);
  const card=(q:string,a:string,i:number)=>{
@@ -29,7 +29,7 @@ export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
     <div className="faq-col">{items.map(([q,a],i)=>i%2===0&&card(q,a,i))}</div>
     <div className="faq-col">{items.map(([q,a],i)=>i%2===1&&card(q,a,i))}</div>
    </div>
-   <div data-reveal="" style={rd(80)} className="faq-ask">
+   {ask&&<div data-reveal="" style={rd(80)} className="faq-ask">
     <div><h3>{s.faqAskTitle}</h3><p>{s.faqAskBody}</p></div>
     <div className="faq-ask-btns">
      <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ask-dark ask-wa"><Icon name="whatsapp" size={16}/>WhatsApp</a>
@@ -37,7 +37,7 @@ export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
      <a href={'tel:'+contacts.phone} className="ask-light tnum"><Icon name="phone" size={15}/>{contacts.phoneLabel}</a>
      <a href="#contact" onClick={x.toContact} className="ask-light">{s.faqAskForm}</a>
     </div>
-   </div>
+   </div>}
   </section>
  );
 }
