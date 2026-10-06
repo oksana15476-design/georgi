@@ -4,19 +4,21 @@ import {base} from '@/lib/base';
 import type {Lang} from '@/lib/content';
 import {tracking} from '@/lib/tracking';
 
-// GA4, Meta Pixel and Google Ads load only after the visitor accepts cookies, and only for the IDs
+// GA4, Yandex Metrica, Meta Pixel and Google Ads load only after the visitor accepts cookies, and only for the IDs
 // that are configured. UTM tags and the referrer are kept for the session so outreach sources reach
 // both analytics and the lead message.
 const utmKeys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
 const storeKey='praxen_attribution',consentKey='praxen_consent',consentEvent='praxen:consent';
-const anyTracking=!!(tracking.ga||tracking.metaPixel||tracking.ads);
+const anyTracking=!!(tracking.ga||tracking.ym||tracking.metaPixel||tracking.ads);
 
 type Fn=(...args:unknown[])=>void;
-declare global{interface Window{dataLayer?:unknown[];gtag?:Fn;fbq?:Fn&{queue?:unknown[];loaded?:boolean;version?:string;callMethod?:Fn;push?:Fn}}}
+declare global{interface Window{dataLayer?:unknown[];gtag?:Fn;ym?:Fn&{a?:unknown[];l?:number};fbq?:Fn&{queue?:unknown[];loaded?:boolean;version?:string;callMethod?:Fn;push?:Fn}}}
 
 export function track(event:string,params:Record<string,string|number|undefined>={}){
  if(typeof window==='undefined')return;
  window.gtag?.('event',event,params);
+ // Metrica goals: create "lead" and "contact" as JavaScript-event goals in the counter settings.
+ if(tracking.ym&&(event==='generate_lead'||event.endsWith('_click')))window.ym?.(Number(tracking.ym),'reachGoal',event==='generate_lead'?'lead':'contact',params);
  if(event==='generate_lead'){
   window.fbq?.('track','Lead');
   if(tracking.ads&&tracking.adsLeadLabel)window.gtag?.('event','conversion',{send_to:tracking.ads+'/'+tracking.adsLeadLabel});
@@ -60,6 +62,14 @@ function loadTrackers(){
   if(tracking.ga)window.gtag('config',tracking.ga);
   if(tracking.ads)window.gtag('config',tracking.ads);
   loadScript('https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(tracking.ga||tracking.ads));
+ }
+ if(tracking.ym&&!window.ym){
+  // Standard Metrica bootstrap: queue calls until tag.js loads.
+  // eslint-disable-next-line prefer-rest-params
+  const ym=Object.assign(function(){(ym.a=ym.a||[]).push(arguments)},{l:Date.now()}) as NonNullable<Window['ym']>;
+  window.ym=ym;
+  loadScript('https://mc.yandex.ru/metrika/tag.js');
+  ym(Number(tracking.ym),'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
  }
  if(tracking.metaPixel&&!window.fbq){
   // Standard Meta Pixel bootstrap: queue calls until fbevents.js loads.

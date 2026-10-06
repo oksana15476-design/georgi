@@ -7,8 +7,9 @@
 : "${NEXT_PUBLIC_SITE_URL:=https://praxenai.ge}"  # bought 2026-10-06 at INWX (no trailing slash)
 : "${NEXT_PUBLIC_GA_ID:=}"             # G-XXXXXXXXXX
 : "${NEXT_PUBLIC_META_PIXEL_ID:=}"     # 15–16 digits from Meta Events Manager
+: "${NEXT_PUBLIC_YM_ID:=}"             # Yandex Metrica counter number
 : "${NEXT_PUBLIC_ADS_ID:=}"            # AW-XXXXXXXXX
 : "${NEXT_PUBLIC_ADS_LEAD_LABEL:=}"    # label of the Google Ads "lead" conversion
 : "${NEXT_PUBLIC_BOOKING_URL:=}"       # Cal.com or Calendly link for the free audit
 
-export NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_GA_ID NEXT_PUBLIC_META_PIXEL_ID NEXT_PUBLIC_ADS_ID NEXT_PUBLIC_ADS_LEAD_LABEL NEXT_PUBLIC_BOOKING_URL
+export NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_GA_ID NEXT_PUBLIC_META_PIXEL_ID NEXT_PUBLIC_YM_ID NEXT_PUBLIC_ADS_ID NEXT_PUBLIC_ADS_LEAD_LABEL NEXT_PUBLIC_BOOKING_URL

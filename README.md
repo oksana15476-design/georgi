@@ -55,6 +55,7 @@ npm run start
 
 - `NEXT_PUBLIC_GA_ID` — Google Analytics 4 (`G-…`).
 - `NEXT_PUBLIC_META_PIXEL_ID` — пиксель Meta.
+- `NEXT_PUBLIC_YM_ID` — номер счётчика Яндекс Метрики. Цели в счётчике: JavaScript-события `lead` (отправленная заявка) и `contact` (клики по WhatsApp, Telegram, телефону и кнопкам).
 - `NEXT_PUBLIC_ADS_ID` и `NEXT_PUBLIC_ADS_LEAD_LABEL` — конверсия Google Ads (`AW-…` и метка действия «заявка»).
 - `NEXT_PUBLIC_BOOKING_URL` — ссылка Cal.com или Calendly; с ней появляется кнопка записи на аудит.
 - `NEXT_PUBLIC_SITE_URL` — адрес сайта для canonical, hreflang, Open Graph и sitemap.
@@ -73,7 +74,7 @@ npm run start
 2. **Регион:** Нидерланды или Польша. Ближе к Грузии и без ограничений для Google, Meta и почтовых сервисов.
 3. **Переменные окружения.**
    - Обязательно: `NEXT_PUBLIC_SITE_URL=https://ваш-домен`, иначе canonical-ссылки и sitemap будут указывать на старый адрес.
-   - По желанию: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_ADS_ID`, `NEXT_PUBLIC_ADS_LEAD_LABEL`, `NEXT_PUBLIC_BOOKING_URL`. Эти значения встраиваются в страницы при сборке: после изменения нужен новый деплой.
+   - По желанию: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_YM_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_ADS_ID`, `NEXT_PUBLIC_ADS_LEAD_LABEL`, `NEXT_PUBLIC_BOOKING_URL`. Эти значения встраиваются в страницы при сборке: после изменения нужен новый деплой.
    - Надёжнее всего вписать публичные значения (домен, ID счётчиков, ссылку записи) в `deploy/public.env.sh` и закоммитить: тогда сборка не зависит от того, передаёт ли хостинг переменные на этапе сборки. Непустая переменная из панели всё равно важнее файла. Секреты в этот файл не кладутся.
    - Секреты для заявок: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `RESEND_API_KEY`, `LEAD_EMAIL_TO`, `LEAD_EMAIL_FROM`, `AMO_DOMAIN`, `AMO_TOKEN`, `AMO_PIPELINE_ID`. Читаются при работе сервера и в образ не попадают.
 4. **Порт:** 3000 (указан в `EXPOSE`).
@@ -96,7 +97,7 @@ docker compose -f compose.local.yml up --build   # затем http://localhost:3
 1. Cloudflare → Workers & Pages → Create → Pages → Connect to Git → репозиторий, ветка `main`.
 2. Framework preset: None. Build command: `npm run build:static`. Build output directory: `out`.
 3. Settings → Variables and Secrets (Production):
-   - сборка: `NODE_VERSION=22`, `NEXT_PUBLIC_SITE_URL=https://praxenai.ge` (по умолчанию и так `.ge`); по готовности `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_ADS_ID`, `NEXT_PUBLIC_ADS_LEAD_LABEL`, `NEXT_PUBLIC_BOOKING_URL`. Они встраиваются в страницы при сборке: после изменения — Retry deployment;
+   - сборка: `NODE_VERSION=22`, `NEXT_PUBLIC_SITE_URL=https://praxenai.ge` (по умолчанию и так `.ge`); по готовности `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_YM_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_ADS_ID`, `NEXT_PUBLIC_ADS_LEAD_LABEL`, `NEXT_PUBLIC_BOOKING_URL`. Они встраиваются в страницы при сборке: после изменения — Retry deployment;
    - секреты (тип Secret): `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, по желанию почта и amoCRM. Читаются функцией при каждом запросе, пересборка не нужна.
 4. Custom domains → `praxenai.ge` и `www.praxenai.ge` (для корня домена DNS-зона должна быть в Cloudflare: сменить NS у регистратора).
 5. Security → WAF → Rate limiting rules: правило для пути `/api/leads`. Ограничение частоты в функции работает в памяти отдельного экземпляра и не заменяет правило.
