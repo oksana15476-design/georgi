@@ -8,6 +8,7 @@ import {MAX_BODY,deliverLead,parseLead} from '../lib/lead-delivery.mjs';
 
 const root=resolve(process.env.STATIC_DIR||new URL('../out',import.meta.url).pathname);
 const port=Number(process.env.PORT||3000);
+const proxyHops=Math.max(1,Number(process.env.TRUSTED_PROXY_HOPS||1));
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.ico':'image/x-icon','.txt':'text/plain; charset=utf-8','.xml':'application/xml; charset=utf-8','.rsc':'text/x-component','.woff2':'font/woff2'};
 const compressible=new Set(['.html','.js','.css','.json','.svg','.txt','.xml','.rsc']);
 const security={'X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin','X-Frame-Options':'SAMEORIGIN','Permissions-Policy':'camera=(), microphone=(), geolocation=()','Strict-Transport-Security':'max-age=31536000'};
@@ -44,8 +45,11 @@ function sendFile(req,res,file,status=200){
 
 function json(res,status,body){res.writeHead(status,{...security,'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(body))}
 
-// At most 5 lead submissions per IP in 10 minutes.
+// At most 5 lead submissions per IP in 10 minutes, and 30 per minute for the whole site so a spam
+// run from many addresses cannot flood Telegram or the CRM.
 const hits=new Map();
+let globalHits=[];
+function globallyLimited(){const now=Date.now();globalHits=globalHits.filter(t=>now-t<60000);globalHits.push(now);return globalHits.length>30}
 function limited(ip){
  const now=Date.now(),list=(hits.get(ip)||[]).filter(t=>now-t<600000);
  list.push(now);hits.set(ip,list);
@@ -57,8 +61,12 @@ async function handleLead(req,res){
  const host=req.headers['x-forwarded-host']||req.headers.host;
  const origin=req.headers.origin;
  if(!origin||new URL(origin).host!==host)return json(res,403,{error:'origin'});
- const ip=String(req.headers['x-forwarded-for']||req.socket.remoteAddress||'').split(',')[0].trim();
- if(limited(ip))return json(res,429,{error:'rate'});
+ // Each trusted proxy in front of the app appends the address it saw to X-Forwarded-For, so the
+ // client is TRUSTED_PROXY_HOPS entries from the end (1 for a single hosting proxy). Entries
+ // before that come from the client and can be forged.
+ const forwarded=String(req.headers['x-forwarded-for']||'').split(',').map(v=>v.trim()).filter(Boolean);
+ const ip=forwarded[forwarded.length-proxyHops]||forwarded[0]||req.socket.remoteAddress||'';
+ if(limited(ip)||globallyLimited())return json(res,429,{error:'rate'});
  let raw='';
  for await(const chunk of req){raw+=chunk;if(raw.length>MAX_BODY)return json(res,413,{error:'size'})}
  const {lead,error}=parseLead(raw);
@@ -92,5 +100,8 @@ const server=createServer(async(req,res)=>{
  }
 });
 
+// Slow clients cannot hold connections open: headers within 15 s, the whole request within 30 s.
+server.headersTimeout=15000;
+server.requestTimeout=30000;
 server.listen(port,()=>console.log('Praxis AI site on :'+port+' (static: '+root+')'));
 for(const sig of ['SIGTERM','SIGINT'])process.on(sig,()=>server.close(()=>process.exit(0)));

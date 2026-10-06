@@ -5,7 +5,6 @@ import {track} from '@/components/analytics';
 import {departments,industries,t} from '@/lib/content';
 import {base} from '@/lib/base';
 import {jobs} from '@/lib/jobs';
-import {profiles} from '@/lib/page-profiles';
 import {sectionLabel} from '@/lib/site-copy';
 import {industryIcon} from './header';
 import {Icon} from './icon';
@@ -176,7 +175,7 @@ export function SolutionExamples({x}:{x:X}){
   <section className="wrap sec pt0">
    <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{s.whatBuildH2}</h2></div></div>
    <div className="grid-c3w" data-stagger="">
-    {['sales','support','operations'].filter(k=>profiles[k]).map(k=>{const v=vis[k],sc=profiles[k].scenarios[0];return <article key={k} className="card se-card">
+    {['sales','support','operations'].filter(k=>x.data.examples?.[k]).map(k=>{const v=vis[k],sc=x.data.examples![k];return <article key={k} className="card se-card">
      <div aria-hidden="true" className="se-visual">
       {v.kind==='chat'&&<><span className="se-in">{v.a}</span><span className="se-arrow"><Icon name="arrow-right" size={16}/></span><span className="se-out">{v.b}<small><Icon name="book-open" size={11}/>{v.src}</small></span></>}
       {v.kind==='crm'&&<><span className="se-in">{v.a}</span><span className="se-arrow"><Icon name="arrow-right" size={16}/></span><span className="se-rows">{v.rows!.map(([kk,vv])=><span key={kk}>{kk}<b>{vv}</b></span>)}<em>{v.stage}</em></span></>}

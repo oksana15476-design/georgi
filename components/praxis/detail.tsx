@@ -2,15 +2,12 @@
 import {useEffect,useState} from 'react';
 import {base} from '@/lib/base';
 import {departments,industries,t} from '@/lib/content';
-import {headlines,profiles} from '@/lib/page-profiles';
-import {pageCopy} from '@/lib/page-copy';
 import {jobs} from '@/lib/jobs';
 import {logo,pageLogos,LogoInfo} from '@/lib/logos';
 import {sectionLabel} from '@/lib/site-copy';
 import {Icon} from './icon';
 import {BrandLogo,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
-import {detailAnswers} from '@/lib/detail-answers';
 import {contentUpdated} from '@/lib/proof';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
@@ -27,20 +24,20 @@ const scenarioIcons:Record<string,string[]>={sales:['moon-star','file-text','pho
 
 type App=LogoInfo&{label:string;sub:string;bg:string;fg:string;line:string;canvas:string;bubble:string;tile:string;outBubble:string;outFg:string};
 
-function getEntity(slug:string){
+function getEntity(slug:string,data:X['data']){
  const industry=industries.find(i=>i.slug===slug),department=departments.find(i=>i.slug===slug);
- return {industry,department,ent:(industry||department)!,profile:profiles[slug]};
+ return {industry,department,ent:(industry||department)!,profile:data.profile!};
 }
 
 export function DetailHero({x,slug,page}:{x:X;slug:string;page:string}){
- const {c,s,lang,link}=x;const {ent,profile}=getEntity(slug);
- const ov=pageCopy[slug]?.[lang];
+ const {c,s,lang,link}=x;const {ent,profile}=getEntity(slug,x.data);
+ const ov=x.data.ov;
  return (
   <section data-screen-label="Detail hero" className="inner-hero">
    <div className="wrap inner-pad detail-grid">
     <div className="min0">
      <nav aria-label="Breadcrumb" className="crumbs wrapflex"><a href={base+'/'+lang}>{s.home}</a><span aria-hidden="true">/</span><a href={link(page)}>{sectionLabel(c,page)}</a><span aria-hidden="true">/</span><span aria-current="page">{t(ent.name,lang)}</span></nav>
-     <h1 data-reveal="" className="deep-h1">{ov?ov.h1:t(headlines[slug],lang)}</h1>
+     <h1 data-reveal="" className="deep-h1">{ov?ov.h1:t(x.data.headline!,lang)}</h1>
      <div data-reveal="" style={rd(120)}><p className="detail-intro">{ov?ov.sub:t(profile.scenarios[0].body,lang)}</p>
       <div className="detail-cta"><button type="button" onClick={()=>x.go(t(ent.name,lang))} className="btn btn-primary">{s.action}<Icon name="arrow-right" size={16}/></button><span>{s.detailNote}</span></div></div>
     </div>
@@ -52,7 +49,7 @@ export function DetailHero({x,slug,page}:{x:X;slug:string;page:string}){
 
 // Self-contained answer under the hero: the passage AI search quotes for "AI for <team> in Georgia".
 export function DetailAnswer({x,slug}:{x:X;slug:string}){
- const {c,lang}=x;const qa=detailAnswers[slug];
+ const {c,lang}=x;const qa=x.data.answer;
  if(!qa)return null;
  const [y,m,d]=contentUpdated.split('-');
  return (
@@ -75,7 +72,7 @@ function AppHead({app}:{app:App}){
 }
 
 function Mock({x,slug}:{x:X;slug:string}){
- const {c,s,lang}=x;const {profile}=getEntity(slug);
+ const {c,s,lang}=x;const {profile}=getEntity(slug,x.data);
  const [stage,setStage]=useState<number|null>(null);const reduced=useReducedMotion();
  useEffect(()=>{if(reduced)return;const tm=setTimeout(()=>setStage(v=>v==null?1:v),3600);return()=>clearTimeout(tm)},[reduced]);
  const cur=stage??0;
@@ -186,8 +183,8 @@ function Mock({x,slug}:{x:X;slug:string}){
 }
 
 export function Scenarios({x,slug}:{x:X;slug:string}){
- const {s,lang}=x;const {department,profile}=getEntity(slug);
- const ov=pageCopy[slug]?.[lang];
+ const {s,lang}=x;const {department,profile}=getEntity(slug,x.data);
+ const ov=x.data.ov;
  const deptJobs=department&&jobs[slug];
  const items=deptJobs
   ?deptJobs.map(j=>({icon:j.i,title:t(j.t,lang),lead:t(j.d,lang),accent:''}))
@@ -208,8 +205,8 @@ export function Scenarios({x,slug}:{x:X;slug:string}){
 }
 
 export function Tested({x,slug}:{x:X;slug:string}){
- const {s,lang}=x;const {ent,profile}=getEntity(slug);
- const ov=pageCopy[slug]?.[lang];
+ const {s,lang}=x;const {ent,profile}=getEntity(slug,x.data);
+ const ov=x.data.ov;
  return (
   <section className="band-white bordered">
    <div className="wrap sec split">
@@ -228,7 +225,7 @@ export function Tested({x,slug}:{x:X;slug:string}){
 }
 
 export function Related({x,slug}:{x:X;slug:string}){
- const {s,c,lang,link}=x;const {department}=getEntity(slug);
+ const {s,c,lang,link}=x;const {department}=getEntity(slug,x.data);
  const [idx,setIdx]=useState(0);
  if(!department)return null;
  const relevant=industries.filter(i=>i.departments.includes(slug));
@@ -237,8 +234,8 @@ export function Related({x,slug}:{x:X;slug:string}){
  const map:Record<string,Record<string,number>>={retail:{sales:0,marketing:1,support:2,operations:2},wholesale:{sales:2,operations:0,procurement:1,finance:1},hotels:{support:0,sales:1,marketing:2},tourism:{sales:1,operations:0,support:2,marketing:1},'real-estate':{sales:0,marketing:1,operations:2,finance:2},developers:{sales:0,marketing:1,support:2},restaurants:{support:0,sales:1,operations:2,marketing:1},clinics:{support:0,operations:1,marketing:2},logistics:{operations:0,finance:0,support:1,hr:2,procurement:0},manufacturing:{operations:0,hr:1,procurement:2},services:{operations:0,leadership:0,sales:1,hr:2},education:{sales:0,marketing:0,support:1,hr:2,operations:2}};
  const special:Record<string,[string,string]>={'marketing/retail':[c('500 SEO-описаний для новой коллекции','500 SEO descriptions for a new collection','500 SEO აღწერა ახალი კოლექციისთვის'),c('ИИ пишет уникальные описания товаров в тоне вашего бренда на трёх языках. Редактор проверяет выборку и публикует.','AI writes unique product descriptions in your brand voice in three languages. An editor reviews a sample and publishes.','AI წერს უნიკალურ აღწერებს თქვენი ბრენდის ტონით სამ ენაზე. რედაქტორი ამოწმებს და აქვეყნებს.')],'procurement/manufacturing':[c('Сверка спецификаций с ГОСТ и ТУ','Checking specs against standards','სპეციფიკაციების შემოწმება სტანდარტებთან'),c('ИИ сравнивает характеристики из КП поставщиков с требованиями ГОСТ, ТУ и вашими спецификациями и подсвечивает отклонения. Решение принимает инженер.','AI compares supplier specs with standards and your requirements and flags deviations. An engineer makes the call.','AI ადარებს მომწოდებლის სპეციფიკაციებს სტანდარტებს და აჩვენებს გადახრებს. გადაწყვეტილებას ინჟინერი იღებს.')]};
  const k=map[rel.slug]?.[slug]??0;
- const sp=special[slug+'/'+rel.slug],ovr=pageCopy[rel.slug]?.[lang],relProfile=profiles[rel.slug];
- const sc=sp?{title:sp[0],body:sp[1]}:ovr?{title:ovr.sc[k][0],body:ovr.sc[k][1]}:relProfile?{title:t(relProfile.scenarios[k].title,lang),body:t(relProfile.scenarios[k].body,lang)}:{title:t(rel.promise,lang),body:t(rel.solution,lang)};
+ const sp=special[slug+'/'+rel.slug],relSc=x.data.related?.[rel.slug]?.[k];
+ const sc=sp?{title:sp[0],body:sp[1]}:relSc?{title:relSc[0],body:relSc[1]}:{title:t(rel.promise,lang),body:t(rel.solution,lang)};
  return (
   <section className="wrap sec">
    <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{s.oneRole}</h2></div></div>

@@ -2,15 +2,14 @@
 import {useCallback,useEffect,useState} from 'react';
 import {base} from '@/lib/base';
 import {departments,industries,t,Lang} from '@/lib/content';
-import {profiles,solutionChoices} from '@/lib/page-profiles';
-import {pageCopy} from '@/lib/page-copy';
+import {solutionChoices} from '@/lib/solution-choices';
+import type {PageData} from '@/lib/page-data';
 import {contacts} from '@/lib/contacts';
 import {copyFn,sectionLabel,siteCopy} from '@/lib/site-copy';
 import {Header} from '@/components/praxis/header';
 import {FindWorkflow,Hero,Marquee,Results} from '@/components/praxis/home';
 import {CaseExamples,DepartmentsGrid,Formats,IndustriesGrid,InnerHero,Process,SolutionExamples,Trust} from '@/components/praxis/inner';
 import {DetailAnswer,DetailHero,Related,Scenarios,Tested} from '@/components/praxis/detail';
-import {detailAnswers} from '@/lib/detail-answers';
 import {Contact,Faq} from '@/components/praxis/contact';
 import {Icon} from '@/components/praxis/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxis/growth';
@@ -20,11 +19,11 @@ import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxis/ui';
 import type {X} from '@/components/praxis/types';
 import {pageJsonLd} from '@/lib/seo';
 
-type Props={lang?:Lang;section?:string;slug?:string};
+type Props={lang?:Lang;section?:string;slug?:string;data?:PageData};
 
-export default function Site({lang='en',section='home',slug}:Props){
+export default function Site({lang='en',section='home',slug,data={}}:Props){
  const c=copyFn(lang);
- const profile=slug?profiles[slug]:undefined;
+ const profile=data.profile;
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
  const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners;
  const s=siteCopy(c,isDetail?slug:undefined);
@@ -38,9 +37,9 @@ export default function Site({lang='en',section='home',slug}:Props){
  },[]);
  const toContact=useCallback((e?:React.MouseEvent)=>{e?.preventDefault();setMenu(false);setTimeout(()=>scrollToId('contact'),20)},[]);
  const go=(value:string)=>{setContext(value);setMenu(false);setTimeout(()=>scrollToId('contact'),30)};
- const x:X={lang,c,s,link,go,toContact};
+ const x:X={lang,c,s,link,go,toContact,data};
 
- const ov=slug?pageCopy[slug]?.[lang]:undefined;
+ const ov=data.ov;
  const costAnswer=c('Ассистент в мессенджерах под ключ — от 290 ₾ ($110) в месяц и 490 ₾ за подключение. Обучение команды — от 1 900 ₾ ($700), внедрение готовых инструментов под ваш процесс — от 3 200 ₾ ($1 200), разработка решения — от 6 700 ₾ ($2 500). Аудит бесплатный, цену пилота фиксируем до старта работ.','A turnkey messenger assistant starts at 290 ₾ ($110) a month plus 490 ₾ setup. Team training from 1,900 ₾ ($700), tool implementation for your process from 3,200 ₾ ($1,200), custom development from 6,700 ₾ ($2,500). The audit is free, and we fix the pilot price before work begins.','ასისტენტი მესენჯერებში გასაღებით — 290 ₾‑დან ($110) თვეში და 490 ₾ დაკავშირება. გუნდის სწავლება — 1 900 ₾‑დან ($700), ინსტრუმენტების დანერგვა თქვენს პროცესზე — 3 200 ₾‑დან ($1 200), ინდივიდუალური შემუშავება — 6 700 ₾‑დან ($2 500). აუდიტი უფასოა, პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.');
  const aboutFaq:[string,string]=[c('Что такое Praxis AI?','What is Praxis AI?','რა არის Praxis AI?'),c('Praxis AI — компания по внедрению искусственного интеллекта в бизнес в Грузии. Мы делаем ИИ-ассистентов и чат-ботов для WhatsApp, Telegram и сайта, внедряем ИИ-агентов, которые заполняют CRM и обрабатывают документы, и обучаем сотрудников работе с нейросетями. Работаем с компаниями в Тбилиси и по всей Грузии, очно и удалённо, на грузинском, английском и русском. Начинаем с бесплатного аудита. Чат-бот под ключ — от 290 ₾ в месяц, внедрение под процесс — от 3 200 ₾, пилот на одном процессе — от 2 недель.','Praxis AI is an AI implementation company in Georgia. We build AI assistants and chatbots for WhatsApp, Telegram and websites, deploy AI agents that update your CRM and process documents, and train teams to use AI. We work with companies in Tbilisi and across Georgia, on site and remotely, in Georgian, English and Russian. Every project starts with a free audit. A turnkey chatbot starts at 290 ₾ a month, implementation for your process at 3,200 ₾, and a pilot on one workflow takes from 2 weeks.','Praxis AI არის ხელოვნური ინტელექტის ბიზნესში დანერგვის კომპანია საქართველოში. ვქმნით AI ასისტენტებსა და ჩატბოტებს WhatsApp‑ისთვის, Telegram‑ისთვის და საიტისთვის, ვნერგავთ AI აგენტებს, რომლებიც ავსებენ CRM‑ს და ამუშავებენ დოკუმენტებს, და ვასწავლით თანამშრომლებს AI‑ით მუშაობას. ვმუშაობთ კომპანიებთან თბილისსა და მთელ საქართველოში, ადგილზე და დისტანციურად, ქართულ, ინგლისურ და რუსულ ენებზე. ვიწყებთ უფასო აუდიტით. ჩატბოტი გასაღებით — 290 ₾‑დან თვეში, დანერგვა თქვენს პროცესზე — 3 200 ₾‑დან, პილოტი ერთ პროცესზე — 2 კვირიდან.')];
  // A question people ask in Google ("People also ask"), see SEMANTIC-CORE.md.
@@ -54,7 +53,7 @@ export default function Site({lang='en',section='home',slug}:Props){
   [c('Кто поддерживает решение после запуска?','Who supports the solution after launch?','ვინ უჭერს მხარს გაშვების შემდეგ?'),c('Передаём инструкции и обучаем ответственных. По желанию берём сопровождение: мониторинг качества и обновление базы знаний.','We hand over instructions and train owners. Optionally we provide ongoing support: quality monitoring and knowledge base updates.','გადავცემთ ინსტრუქციებს და ვასწავლით პასუხისმგებლებს. სურვილისამებრ — მხარდაჭერა და ცოდნის ბაზის განახლება.')]
  ];
  const partnerFaq:[string,string][]=[[c('Сколько я получу?','How much will I earn?','რამდენს მივიღებ?'),c('Процент с оплаченного проекта и сопровождения. Размер зависит от вашей роли в сделке — от рекомендации до совместных продаж — и фиксируется в договоре.','A share of each paid project and support plan. The rate depends on your role, from a referral to joint selling, and is fixed in a contract.','პროცენტი გადახდილი პროექტიდან და მხარდაჭერიდან. ოდენობა დამოკიდებულია თქვენს როლზე და ხელშეკრულებით ფიქსირდება.')],[c('Нужно ли разбираться в ИИ?','Do I need to know AI?','AI‑ში უნდა ვერკვეოდე?'),c('Нет. Достаточно знать задачи клиента. Аудит, расчёт и внедрение берём на себя, а вам даём демо и материалы.','No. Knowing the client’s needs is enough. We handle the audit, estimate and delivery and give you demos and materials.','არა. საკმარისია კლიენტის ამოცანების ცოდნა. აუდიტს, გათვლასა და დანერგვას ჩვენ ვაკეთებთ.')],[c('Можно работать под нашим брендом?','Can you deliver under our brand?','შეიძლება ჩვენი ბრენდით?'),c('Да, для агентств и интеграторов делаем внедрения под вашим брендом. Условия обсуждаем отдельно.','Yes, for agencies and integrators we deliver under your brand. Terms are agreed separately.','დიახ, სააგენტოებისა და ინტეგრატორებისთვის ვმუშაობთ თქვენი ბრენდით.')],[c('Когда выплачивается вознаграждение?','When am I paid?','როდის ხდება ანაზღაურება?'),c('После оплаты клиентом каждого этапа — пилота, внедрения или месяца сопровождения.','After the client pays for each stage — pilot, implementation or a month of support.','კლიენტის მიერ თითოეული ეტაპის გადახდის შემდეგ.')]];
- const detailHead=slug==='leadership'?c('ИИ-стратегия','an AI strategy','AI სტრატეგია'):isDetail?(pageCopy[slug!]?.[lang]?.h1.split(':')[0].trim()||t(ent!.name,lang)):'';
+ const detailHead=slug==='leadership'?c('ИИ-стратегия','an AI strategy','AI სტრატეგია'):isDetail?(ov?.h1.split(':')[0].trim()||t(ent!.name,lang)):'';
  const detailCost:[string,string]=[c('Сколько стоит '+detailHead+'?','How much does '+detailHead+' cost?','რა ღირს '+detailHead+'?'),c('Внедрение готовых инструментов — от 3 200 ₾ ($1 200): пилот на одном процессе за 2–4 недели на ваших реальных данных. Если нужна разработка под ваши системы — от 6 700 ₾ ($2 500), сопровождение — от 550 ₾ в месяц. Аудит бесплатный, цену пилота фиксируем до старта.','Implementing ready tools starts at 3,200 ₾ ($1,200): a pilot on one workflow in 2–4 weeks on your real data. Custom development for your systems starts at 6,700 ₾ ($2,500), support from 550 ₾ a month. The audit is free and the pilot price is fixed before work begins.','მზა ინსტრუმენტების დანერგვა — 3 200 ₾‑დან ($1 200): პილოტი ერთ პროცესზე 2–4 კვირაში თქვენს რეალურ მონაცემებზე. თქვენს სისტემებზე მორგებული შემუშავება — 6 700 ₾‑დან ($2 500), მხარდაჭერა — 550 ₾‑დან თვეში. აუდიტი უფასოა, პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.')];
  const faqItems:[string,string][]=isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:section==='departments'?[aboutFaq,agentFaq,...deptFaq]:genFaq;
  const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
@@ -62,7 +61,7 @@ export default function Site({lang='en',section='home',slug}:Props){
  const sectionName=isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
   crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[])],
-  service:isDetail?{name:pageCopy[slug!]?.[lang]?.h1.split(':')[0].trim()||t(ent!.name,lang),description:detailAnswers[slug!]?t(detailAnswers[slug!].a,lang):pageCopy[slug!]?.[lang]?.sub||'',path:rest}:undefined,path:rest});
+  service:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
   ?(ov?ov.chips:[...profile!.scenarios.map(q=>t(q.title,lang)),...profile!.extra.map(v=>t(v,lang))])
@@ -90,18 +89,18 @@ export default function Site({lang='en',section='home',slug}:Props){
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
     {isList&&<InnerHero x={x} page={section}/>}
-    {isDetail&&<><DetailHero x={x} slug={slug!} page={section}/><DetailAnswer x={x} slug={slug!}/></>}
+    {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
     {section==='industries'&&!isDetail&&<IndustriesGrid x={x}/>}
     {section==='departments'&&!isDetail&&<DepartmentsGrid x={x}/>}
     {['home','solutions','training'].includes(section)&&!isDetail&&<Formats x={x} training={section==='training'}/>}
-    {['home','solutions'].includes(section)&&!isDetail&&<Calculator x={x}/>}
+    {section==='solutions'&&!isDetail&&<Calculator x={x}/>}
     {section==='solutions'&&<SolutionExamples x={x}/>}
     {section==='cases'&&<><CaseExamples x={x}/><Results x={x} count={false}/></>}
     {isList&&<Process x={x}/>}
     {(isHome||isList)&&<Trust x={x}/>}
-    {['home','solutions'].includes(section)&&!isDetail&&<AuditReport x={x}/>}
+    {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
-    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/></>}
+    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/></>}
     {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle}/>
     <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>
