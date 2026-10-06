@@ -833,7 +833,6 @@ main{outline:none}
 .tariffs .tariff.is-popular{border:1.5px solid var(--ink)}
 .tariffs .tariff-monthly{border:1.5px solid var(--accent);background:radial-gradient(ellipse at 100% 0%,#dfe7ff,transparent 65%),var(--soft);box-shadow:0 24px 48px -32px #2755ec66}
 .tariff-badge{position:absolute;top:-12px;left:20px;background:var(--ink)}
-.tariff-badge-soft{background:#fff;color:var(--accent-dark);border:1px solid var(--accent)}
 .tariff h4{margin-top:2px;font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
 .tariff-price{margin-top:10px;font-size:clamp(26px,2.2vw,32px);font-weight:600;line-height:1.1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
 .tariff-monthly .tariff-price{color:var(--accent)}

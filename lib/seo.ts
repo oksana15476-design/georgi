@@ -33,7 +33,7 @@ const offers:[Copy,keyof typeof prices,string?][]=[
  [['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],'training','/training'],
  [['Внедрение ИИ-инструментов','AI tool implementation','AI ინსტრუმენტების დანერგვა'],'implementation','/solutions'],
  [['Разработка ИИ-решений','Custom AI development','AI გადაწყვეტილებების შემუშავება'],'development','/solutions'],
- [['Сопровождение ИИ-решений','AI support and maintenance','AI გადაწყვეტილებების მხარდაჭერა'],'support','/solutions'],
+ [['Дополнительное ведение ИИ-решений','Ongoing AI maintenance','AI გადაწყვეტილებების დამატებითი მომსახურება'],'support','/solutions'],
 ];
 
 // Site-wide graph: the business with its services and starting prices, the founder and the website.
