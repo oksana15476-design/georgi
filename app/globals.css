@@ -47,6 +47,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 html.js:not(.motion-off) [data-reveal]:not(.in){opacity:0;transform:translateY(18px);animation:px-failsafe 0s 4s forwards}
 html.js:not(.motion-off) [data-reveal=line]:not(.in){opacity:1;transform:scaleX(0)}
 html.js:not(.motion-off) [data-stagger]:not(.in)>*{opacity:0;translate:0 22px;animation:px-failsafe 0s 4s forwards}
+/* The first screen is visible at once: hiding it until JS runs delayed the largest paint by seconds. */
+html.js:not(.motion-off) main>:first-child [data-reveal]:not(.in){opacity:1;transform:none;animation:none}
+html.js:not(.motion-off) main>:first-child [data-stagger]:not(.in)>*{opacity:1;translate:none;animation:none}
 [data-stagger]>*{transition:transform .45s var(--spring),box-shadow .45s,border-color .3s,opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
 
 .site{min-height:100vh;background:var(--bg);color:var(--ink);overflow-x:clip}
