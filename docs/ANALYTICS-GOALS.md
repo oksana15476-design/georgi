@@ -6,7 +6,8 @@
 |---|---|---|---|
 | Отправил форму | `generate_lead` | Заявка (`lead`) | Lead |
 | Начал заполнять форму | `form_start` | Начало заполнения формы (`form_start`) | — |
-| Нажал «Записаться на аудит» (Cal.com) | `booking_click` | Запись на аудит (`contact_booking`) | Contact |
+| Нажал «Записаться на аудит» (открыл календарь) | `booking_click` | Запись на аудит (`contact_booking`) | Contact |
+| Забронировал время в Cal.com | `booking_complete` + `generate_lead` (параметр `method: booking`) | Запись в Cal.com (`booking_done`) + Заявка (`lead`) | Lead |
 | Нажал WhatsApp | `whatsapp_click` | WhatsApp (`contact_whatsapp`) | Contact |
 | Нажал Telegram | `telegram_click` | Telegram (`contact_telegram`) | Contact |
 | Нажал телефон | `phone_click` | Звонок (`contact_phone`) | Contact |
@@ -23,6 +24,6 @@
 
 Цель Метрики «Контакт» (условие «содержит `contact`») суммирует все `contact_*`: WhatsApp, Telegram, звонок, запись.
 
-**Ключевые события GA4** (Администратор → Отображение данных → Ключевые события): `generate_lead`, `booking_click`, `whatsapp_click`, `telegram_click`, `phone_click`. `cta_click`, `form_start` и `calculator_use` — не ключевые, это шаги воронки.
+**Ключевые события GA4** (Администратор → Отображение данных → Ключевые события): `generate_lead` (форма, квиз и брони Cal.com), `whatsapp_click`, `telegram_click`, `phone_click`. `booking_click` (только открыл календарь), `cta_click`, `form_start`, `calculator_use` и `quiz_*` — не ключевые, это шаги воронки.
 
-Клик по записи — ещё не запись: сама бронь происходит на cal.com и в аналитику не попадает.
+Календарь Cal.com открывается окном на сайте (`components/booking.tsx`), поэтому сама бронь засчитывается как заявка. Если скрипт Cal.com заблокирован или посетитель открыл ссылку с Ctrl/Cmd, откроется обычная страница cal.com — такие брони в аналитику не попадут.

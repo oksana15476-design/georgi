@@ -13,6 +13,7 @@ import {DetailAnswer,DetailHero,Related,Scenarios,Tested} from '@/components/pra
 import {Contact,Faq} from '@/components/praxen/contact';
 import {Icon} from '@/components/praxen/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
+import {BookingEmbed} from '@/components/booking';
 import {LeadPopup} from '@/components/praxen/lead-popup';
 import {Privacy} from '@/components/praxen/privacy';
 import {Quiz} from '@/components/praxen/quiz';
@@ -139,6 +140,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
    </div>
    <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" aria-label={c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')} className={'wa-float'+(sticky?' is-shown':'')}><Icon name="whatsapp" size={26}/><span>{c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')}</span></a>
    {!isPrivacy&&<LeadPopup x={x} menu={menu}/>}
+   <BookingEmbed/>
   </div>
  );
 }
