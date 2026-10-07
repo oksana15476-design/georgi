@@ -26,7 +26,7 @@ function Cta({label,className='btn btn-primary'}:{label?:string;className?:strin
  return <a href="#contact" onClick={toContact} className={className}>{label||cta}<Icon name="arrow-right" size={16}/></a>;
 }
 // The launch offer is a plain line of text under the call to action, not a badge.
-function Offer(){return <p className="ix-offer">Launch offer: 30% off for our first clients.</p>}
+function Offer(){return <p className="ix-offer">Launch offer: 30% off all prices.</p>}
 function Logo({name,size=22}:{name:string;size?:number}){
  const f=logos.find(l=>l[0]===name)?.[1];
  const [bad,setBad]=useState(!f);

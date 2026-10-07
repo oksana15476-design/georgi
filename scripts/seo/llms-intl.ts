@@ -13,7 +13,7 @@ const out=`# Praxen AI
 > Praxen AI is an AI implementation company for small businesses in the UK, US and EU. It sets up AI receptionists that answer calls 24/7, chatbots for websites and WhatsApp, automation for CRM, documents and invoices, and AI agents with approvals and logs, and it trains teams to use AI safely. The team works remotely in UK business hours.
 
 Key facts:
-- Prices with the launch offer (30% off for the first clients): AI receptionist ${P('rcSetup')} setup + ${P('rcMonth')} a month; team training ${P('training')} for a half-day session for up to 12 people; implementation pilot ${P('pilot')} for one workflow in 2–4 weeks; custom AI solution from ${P('custom')}; ongoing care ${P('care')} a month. Prices are also available in USD and EUR.
+- Prices with the launch offer (30% off): AI receptionist ${P('rcSetup')} setup + ${P('rcMonth')} a month; team training ${P('training')} for a half-day session for up to 12 people; implementation pilot ${P('pilot')} for one workflow in 2–4 weeks; custom AI solution from ${P('custom')}; ongoing care ${P('care')} a month. Prices are also available in USD and EUR.
 - ${vatNote}
 - Call minutes and AI usage are billed at provider cost on the client's own accounts — typically 6–15p per minute of calls.
 - Every project starts with a free 30-minute audit; the pilot price is fixed before work begins.
