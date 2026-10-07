@@ -9,7 +9,7 @@ import {readFileSync,writeFileSync} from 'node:fs';
 
 const auth=process.env.DATAFORSEO_AUTH;
 if(!auth){console.error('Set DATAFORSEO_AUTH');process.exit(1)}
-const countries={RU:2643,KZ:2398,BY:2112,UZ:2860,AM:2051,GE:2268,UK:2826};
+const countries={RU:2643,KZ:2398,BY:2112,UZ:2860,AM:2051,GE:2268,UK:2826,US:2840,AE:2784,IL:2376};
 const [,,,,langArg='ru',ccArg='RU,KZ,BY,UZ,AM,GE']=process.argv;
 const picked=Object.fromEntries(ccArg.split(',').map(c=>[c,countries[c]]));
 const day=new Date().toISOString().slice(0,10);
