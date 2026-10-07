@@ -64,8 +64,17 @@ export function Quiz({x}:{x:X}){
  };
 
  return (
-  <section id="quiz" className="wrap sec" data-screen-label="Quiz">
-   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Мини-аудит за 2 минуты.','A 2-minute mini audit.','მინი-აუდიტი 2 წუთში.')}</h2><p className="lead">{c('4 вопроса — и вы увидите, с чего начать и сколько это стоит.','4 questions to see where to start and what it costs.','4 კითხვა — და ნახავთ, საიდან დაიწყოთ და რა ღირს.')}</p></div></div>
+  <section id="quiz" className="band-white quiz-band" data-screen-label="Quiz">
+  <div className="wrap sec quiz-layout">
+   <div data-reveal="" className="quiz-intro">
+    <h2 className="h2">{c('С чего начать внедрение ИИ у вас?','Where should your company start with AI?','საიდან დაიწყოს თქვენმა კომპანიამ AI?')}</h2>
+    <p className="lead">{c('Ответьте на 4 вопроса — покажем первый сценарий, формат и цену. Это займёт 2 минуты.','Answer 4 questions to see your first scenario, format and price. It takes 2 minutes.','უპასუხეთ 4 კითხვას — გაჩვენებთ პირველ სცენარს, ფორმატსა და ფასს. 2 წუთი.')}</p>
+    <ul className="quiz-gets">
+     <li><Icon name="target" size={18}/>{c('Сценарий под вашу сферу','A scenario for your industry','სცენარი თქვენი სფეროსთვის')}</li>
+     <li><Icon name="wallet" size={18}/>{c('Формат и стоимость по тарифам','Format and price from our tariffs','ფორმატი და ფასი ტარიფებით')}</li>
+     <li><Icon name="check" size={18}/>{c('Результат сразу, контакт — по желанию','Instant result, contact only if you want','შედეგი მაშინვე, კონტაქტი — სურვილისამებრ')}</li>
+    </ul>
+   </div>
    <div data-reveal="" className="quiz">
     {!finished?<div className="quiz-step" key={step}>
      <div className="quiz-progress" aria-hidden="true"><i style={{width:((step+1)/total*100)+'%'}}/></div>
@@ -95,6 +104,7 @@ export function Quiz({x}:{x:X}){
      </form>}
     </div>}
    </div>
+  </div>
   </section>
  );
 }

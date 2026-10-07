@@ -778,7 +778,13 @@ main{outline:none}
 
 /* Cookie banner */
 /* Mini-audit quiz */
-.quiz{max-width:760px;padding:32px;border:1px solid #d6e0f5;border-radius:16px;background:radial-gradient(ellipse at 100% 0%,#dfe7ff,transparent 55%),var(--soft)}
+.quiz-band{border-bottom:1px solid var(--line)}
+.quiz-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:start}
+.quiz-intro .lead{margin-top:16px}
+.quiz-gets{display:grid;gap:12px;margin-top:28px;padding:0;list-style:none}
+.quiz-gets li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;color:var(--ink)}
+.quiz-gets svg{flex-shrink:0;color:var(--accent)}
+.quiz{min-height:356px;padding:32px;border:1px solid #d6e0f5;border-radius:16px;background:radial-gradient(ellipse at 100% 0%,#dfe7ff,transparent 55%),var(--soft)}
 .quiz-progress{height:4px;margin-bottom:22px;border-radius:2px;background:#d6e0f5;overflow:hidden}
 .quiz-progress i{display:block;height:100%;background:var(--grad);transition:width .4s var(--spring)}
 .quiz-head{outline:none}
@@ -807,6 +813,7 @@ main{outline:none}
 .quiz-done b{font-size:16px;color:var(--ink)}
 .quiz-done p{margin-top:2px;font-size:14px;color:var(--body)}
 .quiz-done .done-icon{flex-shrink:0}
+@media(max-width:900px){.quiz-layout{grid-template-columns:1fr;gap:28px}.quiz{min-height:0}}
 @media(max-width:600px){.quiz{padding:22px 18px}.quiz-options{grid-template-columns:1fr}.quiz-row{flex-direction:column}.quiz-row input{flex:none}.quiz-row .btn{width:100%}.quiz-head h3{font-size:20px}}
 
 /* Lead popup: centred on desktop, bottom sheet on phones. */

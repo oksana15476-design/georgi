@@ -88,7 +88,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
    <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} toContact={toContact} menu={menu} setMenu={setMenu}/>
    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,'\\u003c')}}/>
    <main id="main" tabIndex={-1}>
-    {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/></>}
+    {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><Quiz x={x}/></>}
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
     {isList&&<InnerHero x={x} page={section}/>}
@@ -101,7 +101,6 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {section==='cases'&&<><CaseExamples x={x}/><Results x={x} count={false}/></>}
     {isList&&<Process x={x}/>}
     {(isHome||isList)&&<Trust x={x}/>}
-    {isHome&&<Quiz x={x}/>}
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
