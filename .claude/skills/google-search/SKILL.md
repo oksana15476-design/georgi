@@ -1,7 +1,7 @@
 ---
 name: google-search
 description: |
-  Google Search Console и Google Analytics 4 для praxenai.ge через сервисный аккаунт:
+  Google Search Console и Google Analytics 4 для praxenai.ge через ваш аккаунт Google (OAuth) или сервисный аккаунт:
   поисковые запросы, страницы, страны и устройства из поиска Google, sitemap, проверка
   индексации URL; трафик, источники, страницы и события GA4.
   Triggers: search console, gsc, google поиск, индексация google, ga4, google analytics,
@@ -10,14 +10,14 @@ description: |
 
 # google-search
 
-Скрипт без зависимостей: `node scripts/google.mjs <command>`. Настройка доступа — `config/README.md`.
+Скрипт без зависимостей: `node scripts/google.mjs <command>`. Настройка доступа — `config/README.md` (основной способ — OAuth: `auth-url`, затем `auth-exchange --code …`).
 
 ## Перед работой
 
 ```bash
 node scripts/google.mjs check
 ```
-Покажет сервисный аккаунт и есть ли доступ к Search Console и GA4. Если доступа нет — `config/README.md`.
+Покажет, через что выполнен вход и есть ли доступ к Search Console и GA4. Если доступа нет — `config/README.md`.
 
 ## Команды
 
