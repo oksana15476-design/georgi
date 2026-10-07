@@ -407,6 +407,44 @@ export function OneSystem(){
  );
 }
 
+export function TrainingPrice(){
+ const {cur,cta,go}=useIx();
+ const tr=offers.find(o=>o.key==='training')!;
+ return (
+  <section data-screen-label="Price" className="wrap sec pb0">
+   <div data-reveal="" className="ix-rc ix-split">
+    <div>
+     <h2 className="ix-h3">Team training price</h2>
+     <p className="ix-offer ix-offer-top">Launch offer: 30% off.</p>
+     <div className="ix-rc-prices"><div><small>Half-day session, up to 12 people</small><div><s>{fmt(price('training',cur),cur)}</s><b>{fmt(promo(price('training',cur)),cur)}</b></div></div></div>
+     <p className="ix-rc-note">Larger teams run as several sessions. Travel for on-site sessions is charged at cost. All prices exclude VAT.</p>
+     <div className="btn-row"><a href="#contact" onClick={e=>{e.preventDefault();go('Team training')}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a><CurSwitch/></div>
+    </div>
+    <ul className="ix-checks">{tr.includes.map(t=><li key={t}><Icon name="check" size={17}/>{t}</li>)}<li className="is-muted"><Icon name="clock" size={17}/>From 1 week to the session date</li></ul>
+   </div>
+  </section>
+ );
+}
+
+export function CaseDetails(){
+ return (
+  <section data-screen-label="Cases" className="wrap sec">
+   <div className="grid-c3w" data-stagger="">{examples.map(x=><article key={x.href} className="card ex-card">
+    <span className="over">{x.over} · Example</span>
+    <h3>{x.title}</h3>
+    <p>{x.body}</p>
+    <dl>
+     <dt>Situation</dt><dd>{x.situation}</dd>
+     <dt>Solution</dt><dd>{x.solution}</dd>
+     <dt>How we measure it</dt><dd className="dd-strong">{x.measure}</dd>
+    </dl>
+    <div className="ix-nums">{x.nums.map(([n,l])=><div key={l}><b>{n}</b><span>{l}</span></div>)}</div>
+    <a href={link(x.href)} className="ulink mt-auto">See the industry page<Icon name="arrow-right" size={16}/></a>
+   </article>)}</div>
+  </section>
+ );
+}
+
 export function ReceptionistPrice(){
  const {cur,cta,go}=useIx();
  const rc=offers.find(o=>o.key==='receptionist')!;
@@ -431,7 +469,7 @@ export function ReceptionistPrice(){
 
 export function Scenarios({entity,group}:{entity:Entity;group:string}){
  const {go}=useIx();
- const title=group==='services'?'What it handles.':group==='industries'?'Where AI helps '+entity.name.toLowerCase()+'.':'Where AI helps your '+entity.name.toLowerCase()+' team.';
+ const title=entity.slug==='ai-training'?'What the session covers.':entity.slug==='ai-consultancy'?'What you get.':group==='services'?'What it handles.':group==='industries'?'Where AI helps '+entity.name.toLowerCase()+'.':'Where AI helps your '+entity.name.toLowerCase()+' team.';
  return (
   <section data-screen-label="Scenarios" className="wrap sec">
    <h2 data-reveal="" className="h2 mw820">{title}</h2>
@@ -473,7 +511,6 @@ export function Tested({entity}:{entity:Entity}){
    <h2 data-reveal="" className="h2">What we test before launch.</h2>
    <div>
     <ol className="ix-tested">{items.map((t,i)=><li key={t}><span>0{i+1}</span>{t}</li>)}</ol>
-    <p className="ix-lock"><Icon name="lock" size={17}/>We use enterprise APIs. Your data never trains public models.</p>
     <div className="ix-logos">{(logoSets[entity.slug]||defaultLogoSet).map(n=><span key={n}><Logo name={n} size={16}/>{n}</span>)}</div>
    </div>
   </section>
