@@ -1,6 +1,6 @@
 'use client';
 import {useCallback,useEffect,useState} from 'react';
-import {base} from '@/lib/base';
+import {base,homeHref,pageHref} from '@/lib/base';
 import {departments,industries,languages,t,Lang} from '@/lib/content';
 import {solutionChoices} from '@/lib/solution-choices';
 import type {PageData} from '@/lib/page-data';
@@ -30,7 +30,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
  const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners;
  const s=siteCopy(c,isDetail?slug:undefined);
- const root=base+'/'+lang,link=(p:string)=>root+'/'+p;
+ const root=homeHref(lang),link=(p:string)=>pageHref(lang,p);
  const rest=(section==='home'?'':'/'+section)+(slug?'/'+slug:'');
  const [context,setContext]=useState(ent?t(ent.name,lang):'');
  const [menu,setMenu]=useState(false),[sticky,setSticky]=useState(false);

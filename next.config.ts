@@ -18,6 +18,9 @@ const publicEnv = {
 // - STATIC_EXPORT=1: site root build for the Docker image, where server/index.mjs serves the
 //   pages and the lead API. Set NEXT_PUBLIC_SITE_URL to the public domain.
 const githubPages = process.env.GITHUB_PAGES === "1";
+const intl = process.env.NEXT_PUBLIC_MARKET === "intl";
+// Top-level pages under app/[lang]; keep in sync with app/[lang]/[[...section]]/page.tsx.
+const sections = ["industries", "departments", "training", "solutions", "cases", "partners", "privacy"];
 const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = pages
@@ -32,9 +35,26 @@ const nextConfig: NextConfig = pages
     }
   : {
       env: publicEnv,
-      // English is the default language; the site has no page at the bare root.
+      // praxenai.ge: English is the default language; the site has no page at the bare root.
+      // praxenai.com (intl): English only, served without the /en prefix.
       async redirects() {
-        return [{ source: "/", destination: "/en", permanent: false }];
+        if (!intl) return [{ source: "/", destination: "/en", permanent: false }];
+        return [
+          { source: "/en", destination: "/", permanent: true },
+          { source: "/en/:path*", destination: "/:path*", permanent: true },
+        ];
+      },
+      async rewrites() {
+        if (!intl) return { beforeFiles: [] };
+        return {
+          beforeFiles: [
+            { source: "/", destination: "/en" },
+            ...sections.flatMap((s) => [
+              { source: `/${s}`, destination: `/en/${s}` },
+              { source: `/${s}/:slug`, destination: `/en/${s}/:slug` },
+            ]),
+          ],
+        };
       },
     };
 

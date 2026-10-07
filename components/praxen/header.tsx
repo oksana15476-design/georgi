@@ -1,6 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
-import {base} from '@/lib/base';
+import {base,homeHref,pageHref} from '@/lib/base';
 import {departments,industries,languages,t,Lang} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
 import {C,sectionLabel,SiteCopy} from '@/lib/site-copy';
@@ -26,7 +26,7 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
   const ro=new ResizeObserver(check);ro.observe(el);document.fonts?.ready.then(check);
   return()=>ro.disconnect();
  },[]);
- const root=base+'/'+lang,link=(x:string)=>root+'/'+x;
+ const root=homeHref(lang),link=(p:string)=>pageHref(lang,p);
  useEffect(()=>{
   const onScroll=()=>setScrolled(window.scrollY>8);onScroll();
   const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape'){setDrop('');setMenu(false)}};

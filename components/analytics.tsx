@@ -1,6 +1,6 @@
 'use client';
 import {useEffect,useSyncExternalStore} from 'react';
-import {base} from '@/lib/base';
+import {pageHref} from '@/lib/base';
 import type {Lang} from '@/lib/content';
 import {tracking} from '@/lib/tracking';
 
@@ -116,7 +116,7 @@ export function Analytics({lang}:{lang:Lang}){
  const [text,more,yes,no]=bannerCopy[lang];
  return (
   <div role="dialog" aria-live="polite" aria-label="Cookie" className="cookie">
-   <p>{text} <a href={base+'/'+lang+'/privacy'}>{more}</a></p>
+   <p>{text} <a href={pageHref(lang,'privacy')}>{more}</a></p>
    <div className="cookie-btns"><button type="button" onClick={()=>setConsent('denied')} className="cookie-no">{no}</button><button type="button" onClick={()=>setConsent('granted')} className="cookie-yes">{yes}</button></div>
   </div>
  );

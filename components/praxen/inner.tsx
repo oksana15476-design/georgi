@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {Currency,money,prices} from '@/lib/pricing';
 import {track} from '@/components/analytics';
 import {departments,industries,t} from '@/lib/content';
-import {base} from '@/lib/base';
+import {homeHref} from '@/lib/base';
 import {jobs} from '@/lib/jobs';
 import {sectionLabel} from '@/lib/site-copy';
 import {industryIcon} from './header';
@@ -41,7 +41,7 @@ export function InnerHero({x,page}:{x:X;page:string}){
  return (
   <section data-screen-label="Inner hero" className="inner-hero">
    <div className="wrap inner-pad">
-    <nav aria-label="Breadcrumb" className="crumbs"><a href={base+'/'+x.lang}>{s.home}</a><span aria-hidden="true">/</span><span aria-current="page">{label}</span></nav>
+    <nav aria-label="Breadcrumb" className="crumbs"><a href={homeHref(x.lang)}>{s.home}</a><span aria-hidden="true">/</span><span aria-current="page">{label}</span></nav>
     <div className="inner-grid">
      <div className="min0 mw860">
       <h1 data-reveal="" className="inner-h1">{title}</h1>
