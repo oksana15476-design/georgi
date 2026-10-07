@@ -1,11 +1,7 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
-import {departments,industries,t} from '@/lib/content';
-import {jobs} from '@/lib/jobs';
 import {logo,marqueeLogos} from '@/lib/logos';
 import {Icon} from './icon';
-import {industryIcon} from './header';
-import {deptCardIcon} from './inner';
 import {BrandLogo,CountUp,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
 import {casesVerified} from '@/lib/proof';
@@ -181,59 +177,3 @@ export function Results({x,count}:{x:X;count:boolean}){
  );
 }
 
-export function FindWorkflow({x}:{x:X}){
- const {s,c,lang,link}=x;
- const [audience,setAudience]=useState<'departments'|'industries'>('departments'),[dept,setDept]=useState(0);
- const tabs=useRef<(HTMLButtonElement|null)[]>([]);
- const d=departments[dept];
- const onKey=(e:React.KeyboardEvent)=>{
-  const n=departments.length;let k=-1;
-  if(e.key==='ArrowDown'||e.key==='ArrowRight')k=(dept+1)%n;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')k=(dept-1+n)%n;else if(e.key==='Home')k=0;else if(e.key==='End')k=n-1;
-  if(k<0)return;e.preventDefault();setDept(k);tabs.current[k]?.focus();
- };
- const homeIndustries=[0,2,4,1,7,8].map(n=>industries[n]).filter(Boolean);
- const labels:[typeof audience,string][]=[['departments',c('Для отделов','For departments','განყოფილებებისთვის')],['industries',c('Отрасли','Industries','ინდუსტრიები')]];
- return (
-  <section className="wrap sec">
-   <div className="sec-head">
-    <div data-reveal="" style={{'--rd':'80ms'} as React.CSSProperties} className="switch-head">
-     <h2 className="h2">{s.findWorkflow}</h2>
-     <div role="group" className="seg">
-      <i aria-hidden="true" style={{transform:audience==='industries'?'translateX(100%)':'translateX(0)'}}/>
-      {labels.map(([a,lb])=><button key={a} type="button" onClick={()=>setAudience(a)} aria-pressed={audience===a} className={audience===a?'is-on':''}>{lb}</button>)}
-     </div>
-    </div>
-   </div>
-   {audience==='departments'?
-    <div id="departments" className="dept-layout">
-     <div role="tablist" aria-label={c('Для отделов','For departments','განყოფილებებისთვის')} aria-orientation="vertical" className="dept-tabs" onKeyDown={onKey}>
-      {departments.map((dp,i)=><button key={dp.slug} ref={el=>{tabs.current[i]=el}} role="tab" id={'dept-'+i} aria-selected={dept===i} aria-controls="dept-panel" tabIndex={dept===i?0:-1} onClick={()=>setDept(i)} className={'dept-tab'+(dept===i?' is-on':'')}><i aria-hidden="true"/><span className="dept-tab-icon"><Icon name={deptCardIcon[dp.slug]||'layers'} size={17}/></span>{t(dp.name,lang)}</button>)}
-     </div>
-     <div id="dept-panel" role="tabpanel" aria-labelledby={'dept-'+dept} className="panel">
-      <div key={dept} className="fade-in">
-       <div className="panel-head">
-        <h3 className="panel-h3">{t(d.job,lang)}</h3>
-        <a href={link('departments/'+d.slug)} className="ulink nowrap">{s.exploreDept}<Icon name="arrow-right" size={16}/></a>
-       </div>
-       <div className="jobs-grid">
-        {(jobs[d.slug]||[]).map(j=><div key={j.t[1]} className="job">
-         <span className="tile-icon"><Icon name={j.i} size={20}/></span>
-         <span className="min0"><b>{t(j.t,lang)}</b><span>{t(j.d,lang)}</span></span>
-        </div>)}
-       </div>
-      </div>
-     </div>
-    </div>
-   :<>
-    <div className="grid-c3" data-stagger="">
-     {homeIndustries.map(ind=><a key={ind.slug} href={link('industries/'+ind.slug)} className="card ind-card">
-      <span className="ind-top"><span className="tile-icon"><Icon name={industryIcon[ind.slug]||'building'} size={20}/></span><Icon name="arrow-up-right" size={18}/></span>
-      <h3>{t(ind.name,lang)}</h3>
-      <p>{t(ind.promise,lang)}</p>
-     </a>)}
-    </div>
-    <a href={link('industries')} className="ulink mt28">{s.all12}<Icon name="arrow-right" size={16}/></a>
-   </>}
-  </section>
- );
-}

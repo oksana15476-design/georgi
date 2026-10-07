@@ -8,7 +8,7 @@ import type {X} from './types';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
-export function Faq({x,items,title,askDesktopOnly=false}:{x:X;items:[string,string][];title:string;askDesktopOnly?:boolean}){
+export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
  const {s}=x;
  const [open,setOpen]=useState(0);
  const card=(q:string,a:string,i:number)=>{
@@ -28,15 +28,6 @@ export function Faq({x,items,title,askDesktopOnly=false}:{x:X;items:[string,stri
    <div className="faq-grid">
     <div className="faq-col">{items.map(([q,a],i)=>i%2===0&&card(q,a,i))}</div>
     <div className="faq-col">{items.map(([q,a],i)=>i%2===1&&card(q,a,i))}</div>
-   </div>
-   <div data-reveal="" style={rd(80)} className={'faq-ask'+(askDesktopOnly?' hide-mobile':'')}>
-    <div><h3>{s.faqAskTitle}</h3><p>{s.faqAskBody}</p></div>
-    <div className="faq-ask-btns">
-     <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ask-dark ask-wa"><Icon name="whatsapp" size={16}/>WhatsApp</a>
-     <a href={contacts.telegram} target="_blank" rel="noopener" className="ask-light"><Icon name="send" size={15}/>Telegram</a>
-     <a href={'tel:'+contacts.phone} className="ask-light tnum"><Icon name="phone" size={15}/>{contacts.phoneLabel}</a>
-     <a href="#contact" onClick={x.toContact} className="ask-light">{s.faqAskForm}</a>
-    </div>
    </div>
   </section>
  );
@@ -75,7 +66,6 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
    <div className="wrap sec contact-grid">
     <div>
      <div data-reveal=""><h2 className="h2">{s.contactH2}</h2><p className="lead mw460">{s.contactP}</p></div>
-     <ol className="contact-steps">{s.contactSteps.map((st,i)=><li key={st}><span>{i+1}</span>{st}</li>)}</ol>
      {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" className="booking"><span className="tile-icon"><Icon name="calendar" size={19}/></span><span><b>{x.c('Записаться на аудит','Book an audit','აუდიტზე ჩაწერა')}</b><small>{x.c('Выберите удобные 30 минут в календаре — без ожидания звонка.','Pick a convenient 30-minute slot — no waiting for a call.','აირჩიეთ 30 წუთი კალენდარში — ზარის მოლოდინის გარეშე.')}</small></span><Icon name="arrow-up-right" size={18}/></a>}
      <div className="contact-links">
       <a href={'tel:'+contacts.phone}><Icon name="phone" size={16}/>{contacts.phoneLabel}</a>

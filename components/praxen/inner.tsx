@@ -113,7 +113,7 @@ export function Formats({x,training}:{x:X;training:boolean}){
  const ctas=[c('Получить программу обучения','Get a training programme','მიიღეთ სასწავლო პროგრამა'),c('Подобрать инструменты','Find the right tools','შეარჩიეთ ინსტრუმენტები'),c('Запросить оценку проекта','Request a project estimate','მოითხოვეთ პროექტის შეფასება')];
  const ctx=[c('Обучение','Training','სწავლება'),c('Внедрение','Implementation','დანერგვა'),c('Разработка','Development','შემუშავება')];
  const stairs=stairsData(x);
- const [cur,setCur]=useState<Currency>('gel');
+ const [cur,setCur]=useState<Currency>('gel'),[openTariff,setOpenTariff]=useState(-1);
  const tiers=[prices.training,prices.implementation,prices.development];
  const from=c('от','from','');
  const perMonth=c('/мес','/mo','/თვე');
@@ -140,11 +140,13 @@ export function Formats({x,training}:{x:X;training:boolean}){
      <span className="tariff-plus" aria-hidden="true"><Icon name="plus" size={18}/></span>
      {[...titles.map((title,i)=>({title,price:tiers[i],body:bodies[i],meta:<>{s.timelineT}: <b>{stairs[i].time}</b></>,cta:ctas[i],ctx:ctx[i],monthly:false})),
        {title:c('Дополнительное ведение','Ongoing maintenance','დამატებითი მომსახურება'),price:prices.support,body:c('Обновляем базу знаний, проверяем ответы, исправляем ошибки и дорабатываем сценарии.','We update the knowledge base, review answers, fix errors and improve workflows.','ვაახლებთ ცოდნის ბაზას, ვამოწმებთ პასუხებს, ვასწორებთ შეცდომებს და ვხვეწთ სცენარებს.'),meta:c('Токены ИИ и серверы — на вашем аккаунте, оплачиваете напрямую','AI tokens and servers stay on your account, paid directly','AI ტოკენები და სერვერები თქვენს ანგარიშზეა, პირდაპირ იხდით'),cta:c('Обсудить ведение','Discuss maintenance','მომსახურების განხილვა'),ctx:c('Ведение','Maintenance','მომსახურება'),monthly:true}]
-      .map((tf,i)=><article key={tf.title} data-reveal="" style={rd(i*80)} className={'tariff'+(tf.monthly?' tariff-monthly':'')+(i===1?' is-popular':'')}>
+      .map((tf,i)=><article key={tf.title} data-reveal="" style={rd(i*80)} className={'tariff'+(tf.monthly?' tariff-monthly':'')+(i===1?' is-popular':'')+(openTariff===i?' is-open':'')}>
        {i===1&&<span className="popular tariff-badge">{c('Пилот 2–4 недели','2–4 week pilot','პილოტი 2–4 კვირა')}</span>}
        <h4>{tf.title}</h4>
        <p className="tariff-price">{x.lang==='ka'?<>{money(tf.price,cur)}<small>-დან{tf.monthly?perMonth:''}</small></>:<><small className="from">{from}</small>{money(tf.price,cur)}{tf.monthly&&<small>{perMonth}</small>}</>}</p>
-       <p className="tariff-body">{tf.body}</p>
+       {/* Phones show the description on demand to keep the four cards short. */}
+       <button type="button" onClick={()=>setOpenTariff(openTariff===i?-1:i)} aria-expanded={openTariff===i} aria-controls={'tariff-body-'+i} className="tariff-more">{c('Что входит','What is included','რა შედის')}<Icon name="chevron-down" size={16}/></button>
+       <p id={'tariff-body-'+i} className="tariff-body">{tf.body}</p>
        <p className="tariff-meta">{tf.meta}</p>
        <button type="button" onClick={()=>x.go(tf.ctx)} className="ulink tariff-cta">{tf.cta}<Icon name="arrow-right" size={16}/></button>
       </article>)}
