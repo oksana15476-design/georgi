@@ -547,9 +547,9 @@ export function AboutStory(){
    <h2 data-reveal="" className="h2">Why we exist.</h2>
    <div className="ix-story">
     <p>Most small businesses don’t need an “AI strategy”. They need the phone answered, the CRM filled in and the paperwork done without hiring.</p>
-    <p>We started Praxen AI in Georgia, building AI assistants for local businesses. The same problems exist everywhere, so we now work with small businesses in the UK, US and EU.</p>
+    <p>The problems are the same in every small business: missed calls, data typed twice and slow replies. We build AI assistants and automations for exactly those, and we measure the result.</p>
     <div className="grid-c2 mt14">
-     <div className="ix-mini"><Icon name="clock" size={20}/><b>Working hours</b><p>We are in Georgia (UTC+4), 3–4 hours ahead of the UK. Calls are in UK working hours; email and WhatsApp replies the same day.</p></div>
+     <div className="ix-mini"><Icon name="clock" size={20}/><b>Working hours</b><p>We work remotely and schedule calls in UK working hours. Email and WhatsApp replies come the same working day.</p></div>
      <div className="ix-mini"><Icon name="briefcase" size={20}/><b>Business customers</b><p>We work with businesses only. Contracts, DPA and invoices in English.</p></div>
     </div>
    </div>
@@ -587,7 +587,7 @@ export function Partners(){
 
 export function Doc({page}:{page:'privacy'|'terms'}){
  const docs:Record<string,[string,string[]][]>={
-  privacy:[['Who we are',['Praxen AI is an AI implementation company based in Georgia. For any question about your data, email '+contacts.email+'.']],
+  privacy:[['Who we are',['Praxen AI is an AI implementation company. For any question about your data, email '+contacts.email+'.']],
    ['What data we collect',['From the enquiry form: your contact details (email, phone or WhatsApp), the options you choose, your message, the page you sent it from and the traffic source (such as UTM tags).','When you book a call: your name, email and the time you choose, handled by Cal.com.','With your consent only: anonymous usage data (pages viewed, device and clicks) through Google Analytics and the Meta Pixel.']],
    ['Why and on what basis',['To reply to your enquiry and prepare a proposal: steps taken at your request before a contract (UK GDPR Art. 6(1)(b)).','To understand which pages and channels are useful: your consent (Art. 6(1)(a)), which you can withdraw at any time in the cookie settings.']],
    ['Who receives it',['Enquiries reach us by email and messenger and may be stored in our CRM. Call bookings are handled by Cal.com. Analytics providers (Google, Meta) receive data only after your consent. We never sell personal data.','Our team and some providers are outside the UK. Where data leaves the UK, we rely on the safeguards the UK GDPR provides, such as the International Data Transfer Agreement or adequacy regulations.']],

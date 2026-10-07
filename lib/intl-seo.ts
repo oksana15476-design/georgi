@@ -10,7 +10,6 @@ export function intlOrganizationJsonLd(){
  return {'@context':'https://schema.org','@graph':[
   {'@type':'ProfessionalService','@id':org(),name:'Praxen AI',url:absolute('/'),logo:absolute('/og/logo.png'),email:contacts.email,
    description:'AI implementation company for small businesses in the UK, US and EU: AI receptionists, chatbots for websites and WhatsApp, automation for CRM, documents and invoices, AI agents and team training.',
-   address:{'@type':'PostalAddress',addressLocality:'Batumi',addressCountry:'GE'},
    areaServed:[{'@type':'Country',name:'United Kingdom'},{'@type':'Country',name:'United States'},{'@type':'Place',name:'European Union'}],
    availableLanguage:['en'],knowsAbout:['AI receptionist','AI voice agent','AI chatbot','AI automation','AI agents','AI consultancy','AI training','UK GDPR'],
    founder:{'@id':absolute('/#founder')},contactPoint:{'@type':'ContactPoint',email:contacts.email,contactType:'sales',availableLanguage:['English']},
