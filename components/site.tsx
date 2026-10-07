@@ -9,7 +9,7 @@ import {copyFn,sectionLabel,siteCopy} from '@/lib/site-copy';
 import {Header} from '@/components/praxen/header';
 import {Hero,Marquee,Results} from '@/components/praxen/home';
 import {CaseExamples,DepartmentsGrid,Formats,IndustriesGrid,InnerHero,Process,SolutionExamples,Trust} from '@/components/praxen/inner';
-import {DetailAnswer,DetailHero,Related,Scenarios,Tested} from '@/components/praxen/detail';
+import {DetailAnswer,DetailHero,IndustryDepartments,Related,Scenarios,Tested} from '@/components/praxen/detail';
 import {Contact,Faq} from '@/components/praxen/contact';
 import {Icon} from '@/components/praxen/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
@@ -104,7 +104,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
-    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/></>}
+    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/>{section==='industries'&&<IndustryDepartments x={x} slug={slug!}/>}<Process x={x}/><DetailAnswer x={x} slug={slug!}/><Trust x={x}/></>}
     {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle}/>
     <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>

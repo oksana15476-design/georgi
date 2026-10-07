@@ -253,3 +253,30 @@ export function Related({x,slug}:{x:X;slug:string}){
   </section>
  );
 }
+
+// Industry pages: the departments this kind of business usually starts with, as tabs (the counterpart
+// of Related on department pages), so visitors move on to a concrete workflow instead of leaving.
+export function IndustryDepartments({x,slug}:{x:X;slug:string}){
+ const {c,lang,link}=x;
+ const ind=industries.find(i=>i.slug===slug);
+ const list=(ind?.departments||[]).map(d=>departments.find(x=>x.slug===d)).filter((d):d is typeof departments[number]=>!!d);
+ const [idx,setIdx]=useState(0);
+ if(!ind||!list.length)return null;
+ const dep=list[Math.min(idx,list.length-1)];
+ return (
+  <section className="wrap sec">
+   <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{c('С какого отдела начать.','Where to start.','რომელი განყოფილებით დავიწყოთ.')}</h2></div></div>
+   <div className="dept-layout">
+    <div role="tablist" className="dept-tabs rel-tabs">
+     {list.map((d,i)=><button key={d.slug} role="tab" aria-selected={dep===d} onClick={()=>setIdx(i)} className={'rel-tab'+(dep===d?' is-on':'')}>{t(d.name,lang)}</button>)}
+    </div>
+    <article key={dep.slug} role="tabpanel" className="panel fade-in">
+     <span className="rel-label">{t(ind.name,lang)+' × '+t(dep.name,lang)}</span>
+     <h3 className="panel-h3">{t(dep.job,lang)}</h3>
+     <ul className="ix-checks">{dep.tasks.slice(0,3).map(tk=><li key={t(tk,lang)}><Icon name="check" size={17}/>{t(tk,lang)}</li>)}</ul>
+     <a href={link('departments/'+dep.slug)} className="ulink mt24">{c('Подробнее о решении для отдела','More about this department','დაწვრილებით განყოფილებაზე')}<Icon name="arrow-right" size={16}/></a>
+    </article>
+   </div>
+  </section>
+ );
+}
