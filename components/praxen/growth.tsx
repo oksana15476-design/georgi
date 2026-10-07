@@ -20,7 +20,7 @@ export function Calculator({x}:{x:X}){
  const touched=(set:(n:number)=>void)=>(e:React.ChangeEvent<HTMLInputElement>)=>set(+e.target.value);
  const fields:[string,number,(n:number)=>void,number,number,number,string][]=[
   [c('Обращений или документов в месяц','Requests or documents per month','მოთხოვნები ან დოკუმენტები თვეში'),req,setReq,50,5000,50,''],
-  [c('Минут сотрудника на одно','Staff minutes per item','თანამშრომლის წუთები ერთზე'),min,setMin,1,30,1,c(' мин',' min',' წთ')],
+  [c('Минут сотрудника на одно обращение','Staff minutes per item','თანამშრომლის წუთები ერთ მოთხოვნაზე'),min,setMin,1,30,1,c(' мин',' min',' წთ')],
   [c('Стоимость часа сотрудника','Cost of one staff hour','თანამშრომლის საათის ღირებულება'),cost,setCost,5,60,1,' ₾'],
   [c('Доля, которую берёт ИИ','Share handled by AI','AI-ს წილი'),share,setShare,20,80,5,'%'],
   [c('Заявок теряется в месяц','Leads lost per month','დაკარგული მოთხოვნები თვეში'),lost,setLost,0,100,1,''],
@@ -63,7 +63,7 @@ export function AuditReport({x}:{x:X}){
   <section className="band-soft" data-screen-label="Audit report">
    <div className="wrap sec audit">
     <div>
-     <div data-reveal=""><h2 className="h2">{c('Что даёт бесплатный аудит.','What the free audit gives you.','რას გაძლევთ უფასო აუდიტი.')}</h2><p className="lead">{c('Не презентацию, а рабочий документ: что автоматизировать, сколько это даст и сколько стоит пилот.','Not a sales deck but a working document: what to automate, what it yields and what the pilot costs.','არა პრეზენტაცია, არამედ სამუშაო დოკუმენტი: რა ავტომატიზდეს, რას მოგცემთ და რა ღირს პილოტი.')}</p></div>
+     <div data-reveal=""><h2 className="h2">{c('Что даёт бесплатный аудит.','What the free audit gives you.','რას გაძლევთ უფასო აუდიტი.')}</h2><p className="lead">{c('Рабочий документ: что автоматизировать, сколько это даст и сколько стоит пилот.','A working document: what to automate, what it saves and what the pilot costs.','სამუშაო დოკუმენტი: რა ავტომატიზდეს, რას მოგცემთ და რა ღირს პილოტი.')}</p></div>
      <ul className="audit-gets">{gets.map(([icon,t,d],i)=><li key={t} data-reveal="" style={rd(i*90)}><span className="tile-icon"><Icon name={icon} size={19}/></span><div><b>{t}</b><span>{d}</span></div></li>)}</ul>
      <a href="#contact" onClick={x.toContact} className="btn btn-primary mt28">{x.s.action}<Icon name="arrow-right" size={16}/></a>
     </div>
