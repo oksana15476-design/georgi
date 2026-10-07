@@ -2,6 +2,7 @@
 // (WebPage with dateModified, BreadcrumbList, FAQPage with every answer, Service with GBP/USD/EUR offers).
 import {contacts} from '@/lib/contacts';
 import {absolute,pageUrl} from '@/lib/seo';
+import {posts} from '@/lib/intl-blog';
 import {curs,entityOf,faqFor,intlMeta,intlUpdated,offers,price,promo,routePath,sectionName,type IntlRoute} from '@/lib/intl';
 
 const org=()=>absolute('/#organization');
@@ -21,16 +22,24 @@ export function intlOrganizationJsonLd(){
  ]};
 }
 
+// Title and description of any page, blog posts included.
+export function intlPageMeta(r:IntlRoute){
+ const post=r.page==='blog'&&r.slug?posts.find(p=>p.slug===r.slug):undefined;
+ return post?{title:post.title+' | Praxen AI',description:post.description}:intlMeta(r);
+}
+
 export function intlPageJsonLd(r:IntlRoute){
- const path=routePath(r),url=pageUrl('en',path),e=entityOf(r),m=intlMeta(r);
+ const path=routePath(r),url=pageUrl('en',path),e=entityOf(r),m=intlPageMeta(r);
+ const post=r.page==='blog'&&r.slug?posts.find(p=>p.slug===r.slug):undefined;
  const graph:Record<string,unknown>[]=[{'@type':'WebPage','@id':url,url,name:m.title,description:m.description,inLanguage:'en-GB',isPartOf:{'@id':absolute('/#website')},about:{'@id':org()},dateModified:intlUpdated}];
  const crumbs:[string,string][]=[['Home','']];
  if(r.page!=='home'){
   if(r.page==='training'||!r.slug)crumbs.push([e&&r.page!=='training'?e.name:sectionName[r.page],path]);
-  else crumbs.push([sectionName[r.page],'/'+r.page],[e?.name||r.slug,path]);
+  else crumbs.push([sectionName[r.page],'/'+r.page],[post?.title||e?.name||r.slug,path]);
  }
  if(crumbs.length>1)graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map(([name,p],i)=>({'@type':'ListItem',position:i+1,name,item:pageUrl('en',p)}))});
- const faq=r.page==='privacy'||r.page==='terms'?[]:faqFor(r,e,'gbp').items;
+ const faq=post?post.faq:r.page==='privacy'||r.page==='terms'||r.page==='blog'?[]:faqFor(r,e,'gbp').items;
+ if(post)graph.push({'@type':'BlogPosting',headline:post.title,description:post.description,datePublished:post.date,dateModified:post.date,inLanguage:'en-GB',mainEntityOfPage:url,url,image:absolute('/og/og-intl.png'),author:{'@id':absolute('/#founder')},publisher:{'@id':org()}});
  if(faq.length)graph.push({'@type':'FAQPage',mainEntity:faq.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))});
  if(e){
   const rc=e.slug==='ai-receptionist';

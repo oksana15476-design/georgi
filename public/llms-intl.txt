@@ -14,7 +14,7 @@ Key facts:
 ## Main pages
 - [AI receptionist and automation for small businesses](https://praxenai.com): AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.
 - [AI implementation pricing in £, $ and €](https://praxenai.com/solutions): AI receptionist from £950 + £249/month, implementation pilot from £2,900, team training from £850. Launch offer: 30% off. Prices exclude VAT.
-- [AI for small businesses: start with one workflow](https://praxenai.com/ai-for-small-business): No big IT project: we find the job that eats the most hours (calls, enquiries or paperwork) and automate it in 2–4 weeks at a fixed price. Free 30-minute audit.
+- [AI for small businesses: start with one workflow](https://praxenai.com/ai-for-small-business): We find the job that eats the most hours, such as calls, enquiries or paperwork, and automate it in 2–4 weeks at a fixed price. Free 30-minute audit.
 - [AI implementation examples for small businesses](https://praxenai.com/cases): Example scenarios for dental practices, accounting firms and recruitment agencies, with the metrics we track. Real results are measured in your pilot.
 - [About Praxen AI: a small team that builds what it recommends](https://praxenai.com/about): Praxen AI implements practical AI for small businesses in the UK, US and EU. One accountable lead from audit to launch, calls in UK working hours.
 - [Security and UK GDPR: how Praxen AI handles your data](https://praxenai.com/security): Enterprise APIs that never train on your data, a DPA as standard, role-based access, full logs and retention you control. Subprocessors listed.
@@ -23,7 +23,7 @@ Key facts:
 - [AI receptionist for UK businesses: 24/7 answering](https://praxenai.com/services/ai-receptionist): An AI receptionist that answers calls 24/7, books appointments and sends call summaries. Live in 2 weeks, from £665 setup + £174/month with the launch offer.
 - [AI automation for invoices, documents and CRM](https://praxenai.com/services/ai-automation): Enquiries, PDFs, invoices and emails are read, checked and entered into your CRM, accounting software or spreadsheets. People approve, the system types.
 - [AI consultancy: from audit to a working pilot](https://praxenai.com/services/ai-consultancy): We map your workflows, estimate hours and money saved, and pick the one or two that pay back fastest. Then we build them.
-- [AI chatbot for your website and WhatsApp](https://praxenai.com/services/ai-chatbot): On your website and WhatsApp, it replies in seconds using your price list, policies and FAQs, cites the source and hands over to a person when it should.
+- [AI chatbot for your website and WhatsApp](https://praxenai.com/services/ai-chatbot): It replies on your website and WhatsApp in seconds, using your price list, policies and FAQs. Each answer cites its source, and a person takes over when needed.
 - [AI agents for business, with approvals and logs](https://praxenai.com/services/ai-agents): An agent reads, checks, drafts and waits for approval. Every action is logged, access is limited to what it needs, and a person signs off where it matters.
 - [AI training for teams: hands-on half-day workshops](https://praxenai.com/training): A half-day session on your own tasks. Everyone leaves with a playbook of prompts, templates and rules, and we follow up two weeks later.
 
@@ -45,3 +45,7 @@ Key facts:
 - [AI for finance: invoices in, chasers out](https://praxenai.com/departments/finance): Supplier invoices read and coded, payments reconciled and overdue clients chased, all with approval.
 - [AI for procurement: quotes compared in minutes](https://praxenai.com/departments/procurement): Supplier quotes and price lists read, compared and summarised for a buyer to decide.
 - [AI for leadership: a clear plan, then results](https://praxenai.com/departments/leadership): A ranked list of where AI pays back, a usage policy and a weekly briefing from your own numbers.
+
+## Blog
+- [How much does an AI receptionist cost for a UK small business?](https://praxenai.com/blog/ai-receptionist-cost-uk): Setup, monthly fee and call minutes explained, with a simple way to check whether an AI receptionist pays for itself in your business.
+- [How much does AI implementation cost for a small business?](https://praxenai.com/blog/ai-implementation-cost): Training, a pilot on one workflow, custom agents and ongoing care: what each costs, how long it takes and how to keep the first project small.

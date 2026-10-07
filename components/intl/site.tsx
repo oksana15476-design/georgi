@@ -4,6 +4,7 @@
 // visitor can switch the pricing block to $ or € (one currency per page, remembered on this device).
 import {useCallback,useEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {contacts} from '@/lib/contacts';
+import {posts} from '@/lib/intl-blog';
 import {ctaFor,departments,entityOf,faqFor,industries,services,servicePath,type Cur,type IntlRoute} from '@/lib/intl';
 import {BookingEmbed} from '@/components/booking';
 import {MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
@@ -11,7 +12,7 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
-import {AboutStory,AuditReport,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
+import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
 const nav:[string,string,Drop?][]=[['services','Services','services'],['industries','Industries','industries'],['departments','Departments','departments'],['solutions','Solutions & pricing'],['training','Training'],['cases','Cases'],['about','About']];
@@ -66,7 +67,7 @@ function Footer(){
  const cols:[string,[string,string][]][]=[
   ['Services',services.map(x=>[x.name,servicePath(x.slug)])],
   ['Industries',industries.map(x=>[x.name,'industries/'+x.slug])],
-  ['Company',[['Solutions & pricing','solutions'],['Departments','departments'],['Training','training'],['Cases','cases'],['About','about'],['Security','security'],['Partners','partners'],['AI for small businesses','ai-for-small-business']]],
+  ['Company',[['Solutions & pricing','solutions'],['Departments','departments'],['Training','training'],['Cases','cases'],['About','about'],['Security','security'],['Partners','partners'],['Blog','blog'],['AI for small businesses','ai-for-small-business']]],
  ];
  return (
   <footer className="footer">
@@ -98,6 +99,7 @@ function Page({route}:{route:IntlRoute}){
  if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/><AuditReport/></>;
  if(page==='about')return <><InnerHero/><AboutStory/><Team/><Process/></>;
  if(page==='security')return <><InnerHero/><Security/></>;
+ if(page==='blog'){const post=posts.find(p=>p.slug===route.slug);return post?<Article post={post}/>:<><InnerHero/><BlogList/></>}
  if(page==='partners')return <><InnerHero/><Partners/></>;
  if(page==='privacy'||page==='terms')return <><InnerHero/><Doc page={page}/></>;
  return null;
@@ -122,8 +124,9 @@ export default function IntlSite({route}:{route:IntlRoute}){
  const popupX={lang:'en',c:copyFn('en'),s:{heroWhatsAppText:waText} as SiteCopy,link,go,toContact,data:{}} as X;
  const key=e?.slug||route.page;
  const cta=ctaFor(key);
- const docPage=route.page==='privacy'||route.page==='terms';
- const faq=faqFor(route,e,cur);
+ const docPage=route.page==='privacy'||route.page==='terms'||(route.page==='blog'&&!route.slug);
+ const post=route.page==='blog'?posts.find(p=>p.slug===route.slug):undefined;
+ const faq=post?{items:post.faq,title:'Questions on this topic.'}:faqFor(route,e,cur);
  return (
   <IntlCtx.Provider value={{route,cur,setCur,cta,painsKey:key,toContact,go,context,setContext,waText}}>
    <div className="site ix">

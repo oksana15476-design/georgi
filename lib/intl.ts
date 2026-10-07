@@ -96,7 +96,7 @@ export const services:Entity[]=[
   faqs:[['How is this different from a big consultancy?','We are small, we build what we recommend, and the audit takes about a week.']]},
  {slug:'ai-chatbot',measure:'Reply time, share of questions answered without staff and leads captured outside working hours.',name:'AI chatbot',icon:'messages-square',desc:'Website chat and WhatsApp replies from your knowledge base',scene:'chat',
   title:'AI chatbot for your website and WhatsApp',question:'What does an AI chatbot do and what does it cost?',
-  h1:'An AI chatbot that answers from your own information.',sub:'On your website and WhatsApp, it replies in seconds using your price list, policies and FAQs, cites the source and hands over to a person when it should.',
+  h1:'An AI chatbot that answers from your own information.',sub:'It replies on your website and WhatsApp in seconds, using your price list, policies and FAQs. Each answer cites its source, and a person takes over when needed.',
   stats:[['< 10 sec','typical reply time'],['24/7','website and WhatsApp'],['1 click','handover to your team']],
   scenarios:[['globe','Website chat','Answers visitors and captures leads with name, email and need.'],['message-circle','WhatsApp Business','Replies, sends links and books appointments in WhatsApp.'],['book-open','Internal help desk','Staff ask questions about policies and get answers with sources.']],
   tested:['Answers come only from documents you approve.','It says “I don’t know” and hands over rather than guessing.','Weekly review of conversations in the first month.'],
@@ -141,7 +141,7 @@ export const industries:Entity[]=[
   stats:[['24/7','new-client intake'],['Triage','by practice area'],['No advice','legal advice stays with your lawyers']],
   scenarios:[['phone-call','Intake calls','Captures the matter type and books a first consultation.'],['file-search','Document review','Summaries of long documents with page references.'],['mail','Client updates','Drafts status emails for fee earners to check and send.']],
   tested:['The assistant never gives legal advice.','Conflict checks flagged before any booking is confirmed.','Data processed under a DPA with UK/EU hosting.'],
-  answer:'Law firms use AI receptionists to capture and triage new enquiries, and AI tools to summarise documents and draft client updates, with no legal advice given by the AI.'},
+  answer:'Law firms use AI receptionists to capture and triage new enquiries, and AI tools to summarise documents and draft client updates. The AI never gives legal advice.'},
  {slug:'hospitality',title:'AI for hotels and restaurants: answer every guest',measure:'Reply time to guest messages, share answered without staff and direct bookings from chats.',name:'Hotels & restaurants',icon:'bed-double',desc:'Bookings and guest questions in every channel',scene:'chat',
   sceneData:{channel:'WhatsApp',who:'The Harbour Inn',q:'Hi, is there parking, and can we check in early on Friday?',a:'Yes, free parking behind the inn. Early check-in from 12:00 is £20. Shall I add it?',src:'Guest info · house rules',hand:'Hand over to front desk'},
   h1:'AI for hotels and restaurants: every guest gets an answer.',sub:'Booking questions, table requests and “is there parking?” answered in seconds on WhatsApp, web chat and phone. Staff focus on the guests in front of them.',
@@ -270,14 +270,16 @@ export const homeFaq=(cur:Cur):Pair[]=>[
  ['Do we need to change our software?','No. We connect to what you use: HubSpot, Pipedrive, Xero, QuickBooks, Google Workspace, Microsoft 365, WhatsApp and more.'],
  ['How do you charge VAT?','All prices exclude VAT. We work with businesses only; UK and EU business customers account for VAT under the reverse charge.'],
 ];
-export const brandDef=(cur:Cur)=>'Praxen AI is an AI implementation company for small businesses in the UK, US and EU. We set up AI receptionists that answer calls 24/7, chatbots for websites and WhatsApp, and automations for CRM, documents and invoices, and we train teams to use AI safely. Every project starts with a free 30-minute audit; a pilot on one workflow takes 2–4 weeks from '+fmt(promo(price('pilot',cur)),cur)+' with the launch offer, and team training starts at '+fmt(promo(price('training',cur)),cur)+'. All prices exclude VAT.';
+export const brandDef=(cur:Cur)=>'Praxen AI is an AI implementation company for small businesses in the UK, US and EU. We set up AI receptionists that answer calls 24/7, chatbots for websites and WhatsApp, and automations for CRM, documents and invoices. We also train teams to use AI safely. Every project starts with a free 30-minute audit; a pilot on one workflow takes 2–4 weeks from '+fmt(promo(price('pilot',cur)),cur)+' with the launch offer, and team training starts at '+fmt(promo(price('training',cur)),cur)+'. All prices exclude VAT.';
 
 // ---- Routes ----
 export type ListPage='services'|'industries'|'departments'|'cases';
-export type IntlPage='home'|'ai-for-small-business'|ListPage|'solutions'|'training'|'about'|'security'|'partners'|'privacy'|'terms';
+export type IntlPage='home'|'ai-for-small-business'|ListPage|'solutions'|'training'|'about'|'security'|'partners'|'privacy'|'terms'|'blog';
 export type IntlRoute={page:IntlPage;slug?:string};
 export const groups:Record<'services'|'industries'|'departments',Entity[]>={services,industries,departments};
-const simplePages:IntlPage[]=['ai-for-small-business','services','industries','departments','solutions','training','cases','about','security','partners','privacy','terms'];
+const simplePages:IntlPage[]=['ai-for-small-business','services','industries','departments','solutions','training','cases','about','security','partners','privacy','terms','blog'];
+// Blog post slugs; the articles themselves are in lib/intl-blog.ts.
+export const blogSlugs=['ai-receptionist-cost-uk','ai-implementation-cost'];
 // Top-level sections served without the /en prefix (see next.config.ts).
 export const intlSections=simplePages;
 
@@ -286,6 +288,7 @@ export function resolveIntl(seg:string[]=[]):IntlRoute|null{
  const [p,slug,...rest]=seg;
  if(rest.length||!(simplePages as string[]).includes(p))return null;
  if(!slug)return {page:p as IntlPage};
+ if(p==='blog')return blogSlugs.includes(slug)?{page:'blog',slug}:null;
  if(p==='services'||p==='industries'||p==='departments'){
   if(p==='services'&&slug==='ai-training')return null;
   return groups[p].some(e=>e.slug===slug)?{page:p,slug}:null;
@@ -294,28 +297,29 @@ export function resolveIntl(seg:string[]=[]):IntlRoute|null{
 }
 export const routePath=(r:IntlRoute)=>r.page==='home'?'':'/'+r.page+(r.slug?'/'+r.slug:'');
 export const entityOf=(r:IntlRoute):Entity|undefined=>r.page==='training'?services.find(s=>s.slug==='ai-training'):r.slug&&(r.page==='services'||r.page==='industries'||r.page==='departments')?groups[r.page].find(e=>e.slug===r.slug):undefined;
-export const intlPaths:string[]=['',...simplePages.map(p=>'/'+p),...services.filter(s=>s.slug!=='ai-training').map(s=>'/services/'+s.slug),...industries.map(s=>'/industries/'+s.slug),...departments.map(s=>'/departments/'+s.slug)];
+export const intlPaths:string[]=['',...simplePages.map(p=>'/'+p),...services.filter(s=>s.slug!=='ai-training').map(s=>'/services/'+s.slug),...industries.map(s=>'/industries/'+s.slug),...departments.map(s=>'/departments/'+s.slug),...blogSlugs.map(s=>'/blog/'+s)];
 
 // ---- Inner page heroes ----
 export type Fact=[string,string,string];
 export const innerPages:Partial<Record<IntlPage,{eyebrow:string;h1:string;sub:string;badge?:boolean;showCur?:boolean;facts?:Fact[]}>>={
  services:{eyebrow:'Services',h1:'Six jobs AI can take off your team.',sub:'Pick the job you need done. Each one starts with a free audit and a fixed-price pilot on one workflow.',facts:[['search-check','Free audit first','A 30-minute call, then a named first workflow'],['receipt','Fixed price','Agreed before any work starts'],['shield-check','Control built in','Review points, logs and human handover']]},
- industries:{eyebrow:'Industries',h1:'AI for the businesses we know best.',sub:'Each page shows the routine work AI handles in that kind of business, and what we check before launch.',facts:[['layers','Same building blocks','Receptionist, chatbot, automation and agents'],['users','Your workflows','Set up on your real cases, not a template'],['clock','2–4 weeks','From audit to a working pilot']]},
+ industries:{eyebrow:'Industries',h1:'AI for the businesses we know best.',sub:'Each page shows the routine work AI handles in that kind of business, and what we check before launch.',facts:[['layers','Same building blocks','Receptionist, chatbot, automation and agents'],['users','Your workflows','Set up and tested on your real cases'],['clock','2–4 weeks','From audit to a working pilot']]},
  departments:{eyebrow:'Departments',h1:'Start with the team that’s most overloaded.',sub:'Support and sales usually feel it first. One knowledge base means every next department connects faster.',facts:[['headphones','Customer support','Routine answered, urgent escalated'],['trending-up','Sales','Every lead answered and logged in HubSpot'],['database','One system','Shared knowledge base and access rules']]},
  solutions:{eyebrow:'Solutions & pricing',h1:'What AI implementation costs.',sub:'Prices fixed before we start. Tools and AI usage run on your own accounts, billed at cost.',badge:true,showCur:true,facts:[['search-check','The audit is free','30 minutes, no obligation'],['receipt','Fixed launch price','Agreed in the pilot plan'],['calendar-x','Care is optional','Monthly, cancel anytime']]},
  cases:{eyebrow:'Cases',h1:'Example scenarios, honest numbers.',sub:'Typical scenarios with the metrics we track. We publish client names and results only with their permission; your own numbers are measured in the pilot.',facts:[['flag','Example','Every scenario below is marked as an example'],['bar-chart-3','Estimates','Real numbers are measured in your pilot'],['shield-check','With permission','Client names only when they agree']]},
  about:{eyebrow:'About',h1:'A small team that builds what it recommends.',sub:'Praxen AI implements practical AI for small businesses in the UK, US and EU. One person leads your project from the first call to launch.',facts:[['globe','Remote by design','Clients across the UK, US and EU'],['clock','UK working hours','Calls scheduled in your day'],['user-round','One accountable lead','From audit to launch']]},
  security:{eyebrow:'Security',h1:'Your data, your rules.',sub:'We use enterprise APIs. Your data never trains public models. Here is how we handle data, access and UK GDPR.',facts:[['lock','Enterprise APIs','No training on your data'],['file-signature','DPA as standard','We act as your processor'],['scroll-text','Full logs','Every AI action is recorded']]},
+ blog:{eyebrow:'Blog',h1:'Practical notes on AI for small businesses.',sub:'Costs, checklists and step-by-step guides from real projects.'},
  partners:{eyebrow:'Partner programme',h1:'Earn from AI with us.',sub:'For IT providers, accountants, agencies and consultants who already have small-business clients: you introduce a company, we implement AI, you earn a reward.',facts:[['wallet','A reward on every project','A share of each paid project and care plan'],['handshake','Joint sales','We meet clients together or deliver under your brand'],['book-open','Demos and materials','Case scenarios and decks for your sales']]},
  privacy:{eyebrow:'Legal',h1:'Privacy policy',sub:'How Praxen AI collects and uses personal data under UK GDPR. Last updated: '+intlUpdatedLabel+'.'},
  terms:{eyebrow:'Legal',h1:'Terms of service',sub:'The basics of how we work with business customers. Last updated: '+intlUpdatedLabel+'.'},
 };
-export const sectionName:Record<string,string>={services:'Services',industries:'Industries',departments:'Departments',training:'Training',solutions:'Solutions & pricing',cases:'Cases',about:'About',security:'Security',partners:'Partners',privacy:'Privacy policy',terms:'Terms of service','ai-for-small-business':'AI for small businesses'};
+export const sectionName:Record<string,string>={blog:'Blog',services:'Services',industries:'Industries',departments:'Departments',training:'Training',solutions:'Solutions & pricing',cases:'Cases',about:'About',security:'Security',partners:'Partners',privacy:'Privacy policy',terms:'Terms of service','ai-for-small-business':'AI for small businesses'};
 
 // ---- Search titles and descriptions ----
 const meta:Partial<Record<IntlPage,[string,string]>>={
  home:['AI receptionist and automation for small businesses | Praxen AI','AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.'],
- 'ai-for-small-business':['AI for small businesses: start with one workflow | Praxen AI','No big IT project: we find the job that eats the most hours (calls, enquiries or paperwork) and automate it in 2–4 weeks at a fixed price. Free 30-minute audit.'],
+ 'ai-for-small-business':['AI for small businesses: start with one workflow | Praxen AI','We find the job that eats the most hours, such as calls, enquiries or paperwork, and automate it in 2–4 weeks at a fixed price. Free 30-minute audit.'],
  services:['AI services: receptionist, chatbots, automation | Praxen AI','AI receptionist, AI automation, AI chatbots, AI agents, AI consultancy and team training. Every project starts with a free audit and a fixed-price pilot.'],
  industries:['AI for accounting, law, recruitment and clinics | Praxen AI','How AI handles routine work in accounting firms, recruitment agencies, law firms, hotels, estate agents, clinics and trades — and what we check before launch.'],
  departments:['AI for sales, customer support, finance and HR | Praxen AI','Start with the team that is most overloaded: customer support, sales, marketing, operations, HR, finance, procurement or leadership. One knowledge base for all.'],
@@ -325,6 +329,7 @@ const meta:Partial<Record<IntlPage,[string,string]>>={
  security:['Security and UK GDPR: how Praxen AI handles your data','Enterprise APIs that never train on your data, a DPA as standard, role-based access, full logs and retention you control. Subprocessors listed.'],
  partners:['Partner with Praxen AI: referral and delivery partners','For accountants, IT providers and agencies: refer clients for AI implementation or deliver larger projects with us.'],
  privacy:['Privacy policy | Praxen AI','How Praxen AI collects and uses personal data under UK GDPR: enquiries, call bookings, analytics with consent and your rights.'],
+ blog:['Blog: practical AI for small businesses | Praxen AI','Costs, checklists and how-tos for small businesses using AI: AI receptionists, automation, chatbots and team training, with real prices.'],
  terms:['Terms of service | Praxen AI','How Praxen AI works with business customers: prices excluding VAT, reverse charge for UK and EU businesses, usage costs and data processing.'],
 };
 export function intlMeta(r:IntlRoute):{title:string;description:string}{

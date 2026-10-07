@@ -20,8 +20,8 @@ const publicEnv = {
 const githubPages = process.env.GITHUB_PAGES === "1";
 const intl = process.env.NEXT_PUBLIC_MARKET === "intl";
 // praxenai.com top-level sections; keep in sync with intlSections in lib/intl.ts.
-const sections = ["ai-for-small-business", "services", "industries", "departments", "solutions", "training", "cases", "about", "security", "partners", "privacy", "terms"];
-const withSlugs = ["services", "industries", "departments"];
+const sections = ["ai-for-small-business", "services", "industries", "departments", "solutions", "training", "cases", "about", "security", "partners", "privacy", "terms", "blog"];
+const withSlugs = ["services", "industries", "departments", "blog"];
 const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = pages

@@ -2,8 +2,8 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {pageMeta} from '@/lib/seo';
-import {intlMeta,intlPaths,resolveIntl,routePath} from '@/lib/intl';
-import {intlPageJsonLd} from '@/lib/intl-seo';
+import {intlPaths,resolveIntl,routePath} from '@/lib/intl';
+import {intlPageJsonLd,intlPageMeta} from '@/lib/intl-seo';
 import IntlSite from './site';
 
 // Paths for one route folder: the catch-all takes everything except /industries/* and /departments/*.
@@ -16,8 +16,10 @@ export function intlParams(group?:'industries'|'departments'){
 export function intlMetadata(lang:string,seg:string[]):Metadata{
  const r=lang==='en'?resolveIntl(seg):null;
  if(!r)notFound();
- const m=intlMeta(r);
- return pageMeta('en',routePath(r),m.title,m.description);
+ const m=intlPageMeta(r);
+ const meta=pageMeta('en',routePath(r),m.title,m.description);
+ // Blog posts are articles for Open Graph.
+ return r.page==='blog'&&r.slug?{...meta,openGraph:{...meta.openGraph,type:'article'}}:meta;
 }
 
 export function IntlPage({lang,seg}:{lang:string;seg:string[]}){

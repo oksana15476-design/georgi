@@ -5,6 +5,7 @@ import {getAttribution,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {partnerSteps,partnerWho,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {posts,type Post} from '@/lib/intl-blog';
 import {Icon} from './icon';
 import {Scene} from './scene';
 
@@ -56,7 +57,7 @@ async function sendLead(body:Record<string,unknown>){
 export function Hero({small}:{small?:boolean}){
  const {cur}=useIx();
  const h=small
-  ?{eyebrow:'AI for small businesses',h1:'AI that fits a small team.',h1b:'Start with one workflow.',sub:'No big IT project. We find the one job that eats the most hours (calls, enquiries or paperwork) and automate it in 2–4 weeks at a fixed price.',proof:[['Free','30-minute audit call'],['2–4 wks','pilot on your real data'],['Fixed','price agreed before we start']]}
+  ?{eyebrow:'AI for small businesses',h1:'AI that fits a small team.',h1b:'Start with one workflow.',sub:'We find the one job that eats the most hours, such as calls, enquiries or paperwork, and automate it in 2–4 weeks at a fixed price.',proof:[['Free','30-minute audit call'],['2–4 wks','pilot on your real data'],['Fixed','price agreed before we start']]}
   :{eyebrow:'Practical AI for small businesses',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, AI receptionist']]};
  return (
   <section data-screen-label="Hero" className="wrap hero">
@@ -319,7 +320,7 @@ export function AuditReport(){
 }
 
 export function Team(){
- const pts=[['Revenue first, technology second','We work out where AI pays off in money and hours, then pick the tool.'],['One accountable lead','One person works with you from audit to launch and owns the result.'],['Direct line','Questions go straight to email or WhatsApp, no account managers.']];
+ const pts=[['Revenue first, technology second','We work out where AI pays off in money and hours, then pick the tool.'],['One accountable lead','One person works with you from audit to launch and owns the result.'],['Direct line','You write to Evgeny directly by email or WhatsApp.']];
  return (
   <section data-screen-label="Team" className="band-soft">
    <div className="wrap sec">
@@ -396,7 +397,7 @@ export function OneSystem(){
  return (
   <section data-screen-label="One system" className="band-white bordered">
    <div className="wrap sec ix-split ix-center">
-    <div data-reveal=""><p className="kicker">One system</p><h2 className="h2">Each next department connects faster.</h2><p className="lead">Your support assistant and your HR bot answer from <strong>one shared knowledge base</strong>. Access rules, logs and integrations are set up once, so the second department takes days, not weeks.</p></div>
+    <div data-reveal=""><p className="kicker">One system</p><h2 className="h2">Each next department connects faster.</h2><p className="lead">Your support assistant and your HR bot answer from <strong>one shared knowledge base</strong>. Access rules, logs and integrations are set up once, so the second department is connected in days.</p></div>
     <div data-reveal="" style={rd(100)} className="ix-sys">
      <div>{left.map(([ic,n])=><span key={n}><Icon name={ic} size={16}/>{n}</span>)}</div>
      <span className="ix-sys-arrow"><Icon name="arrow-right-left" size={20}/></span>
@@ -546,7 +547,7 @@ export function AboutStory(){
   <section data-screen-label="About story" className="wrap sec ix-split">
    <h2 data-reveal="" className="h2">Why we exist.</h2>
    <div className="ix-story">
-    <p>Most small businesses don’t need an “AI strategy”. They need the phone answered, the CRM filled in and the paperwork done without hiring.</p>
+    <p>Small businesses need the phone answered, the CRM filled in and the paperwork done, without hiring more people.</p>
     <p>The problems are the same in every small business: missed calls, data typed twice and slow replies. We build AI assistants and automations for exactly those, and we measure the result.</p>
     <div className="grid-c2 mt14">
      <div className="ix-mini"><Icon name="clock" size={20}/><b>Working hours</b><p>We work remotely and schedule calls in UK working hours. Email and WhatsApp replies come the same working day.</p></div>
@@ -680,5 +681,56 @@ export function Contact(){
     </div>
    </div>
   </section>
+ );
+}
+
+// ---------- Blog ----------
+export function BlogList(){
+ return (
+  <section data-screen-label="Blog list" className="wrap sec">
+   <div className="ix-cards" data-stagger="">{posts.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
+    <span className="ix-post-cat">{p.cat}</span>
+    <h2>{p.title}</h2>
+    <p>{p.excerpt}</p>
+    <small>{p.dateLabel} · {p.minutes} min read</small>
+   </a>)}</div>
+  </section>
+ );
+}
+
+const anchor=(h:string)=>h.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+export function Article({post}:{post:Post}){
+ return (
+  <article data-screen-label="Article" className="ix-article">
+   <header className="ix-inner"><div aria-hidden="true" className="ix-inner-glow"/>
+    <div className="wrap inner-pad">
+     <nav aria-label="Breadcrumb" className="crumbs wrapflex"><a href={link('')}>Home</a><span className="ix-crumb"><span aria-hidden="true">/</span><a href={link('blog')}>Blog</a></span><span className="ix-crumb"><span aria-hidden="true">/</span><span aria-current="page">{post.cat}</span></span></nav>
+     <div className="ix-article-head">
+      <p className="hero-eyebrow">{post.cat}</p>
+      <h1 className="h1 mt14">{post.title}</h1>
+      <p className="ix-hero-sub">{post.description}</p>
+      <div className="ix-author">
+       {/* eslint-disable-next-line @next/next/no-img-element */}
+       <img src={base+'/team/evgeny.jpg'} alt="" width={40} height={40}/>
+       <span><b>Evgeny Budnikov</b>Founder, Praxen AI · {post.dateLabel} · {post.minutes} min read</span>
+      </div>
+     </div>
+    </div>
+   </header>
+   <div className="wrap sec ix-article-grid">
+    <nav aria-label="Contents" className="ix-toc"><small>Contents</small>{post.blocks.map(b=><a key={b.h} href={'#'+anchor(b.h)}>{b.h}</a>)}</nav>
+    <div className="ix-article-body">
+     <div className="ix-answer-box"><b>Short answer</b><p>{post.answer}</p></div>
+     {post.blocks.map(b=><section key={b.h} id={anchor(b.h)}>
+      <h2>{b.h}</h2>
+      {b.p?.map(t=><p key={t}>{t}</p>)}
+      {b.list&&<ul>{b.list.map(t=><li key={t}>{t}</li>)}</ul>}
+      {b.table&&<div className="ix-article-table"><table><thead><tr>{b.table[0].map(c=><th key={c}>{c}</th>)}</tr></thead><tbody>{b.table.slice(1).map(r=><tr key={r[0]}>{r.map((c,i)=>i?<td key={i}>{c}</td>:<th key={i}>{c}</th>)}</tr>)}</tbody></table></div>}
+     </section>)}
+     <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>A free 30-minute audit gives you the hours saved and a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free call<Icon name="arrow-right" size={16}/></BookLink></aside>
+     <div className="ix-article-links"><b>Related pages</b>{post.links.map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
+    </div>
+   </div>
+  </article>
  );
 }

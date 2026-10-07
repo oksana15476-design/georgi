@@ -3,6 +3,7 @@
 import {writeFileSync} from 'node:fs';
 import {departments,fmt,industries,intlMeta,price,promo,services,servicePath,vatNote} from '../../lib/intl';
 import {contacts} from '../../lib/contacts';
+import {posts} from '../../lib/intl-blog';
 
 const site='https://praxenai.com';
 const url=(p:string)=>site+(p?'/'+p:'');
@@ -37,6 +38,9 @@ ${industries.map(s=>line('industries/'+s.slug,['industries',s.slug])).join('\n')
 
 ## Departments
 ${departments.map(s=>line('departments/'+s.slug,['departments',s.slug])).join('\n')}
+
+## Blog
+${posts.map(p=>`- [${p.title}](${url('blog/'+p.slug)}): ${p.description}`).join('\n')}
 `;
 writeFileSync(new URL('../../public/llms-intl.txt',import.meta.url),out);
 console.log(out.length+' bytes');
