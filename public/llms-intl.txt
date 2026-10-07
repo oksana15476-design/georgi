@@ -1,0 +1,47 @@
+# Praxen AI
+
+> Praxen AI is an AI implementation company for small businesses in the UK, US and EU. It sets up AI receptionists that answer calls 24/7, chatbots for websites and WhatsApp, automation for CRM, documents and invoices, and AI agents with approvals and logs, and it trains teams to use AI safely. The team is based in Georgia (UTC+4) and works in UK business hours.
+
+Key facts:
+- Prices with the launch offer (30% off for the first clients): AI receptionist £665 (standard £950) setup + £174 (standard £249) a month; team training £595 (standard £850) for a half-day session for up to 12 people; implementation pilot £2,030 (standard £2,900) for one workflow in 2–4 weeks; custom AI solution from £4,550 (standard £6,500); ongoing care £245 (standard £350) a month. Prices are also available in USD and EUR.
+- All prices exclude VAT. We work with businesses only. UK and EU business customers account for VAT under the reverse charge.
+- Call minutes and AI usage are billed at provider cost on the client's own accounts — typically 6–15p per minute of calls.
+- Every project starts with a free 30-minute audit; the pilot price is fixed before work begins.
+- Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; works as a processor under a data processing agreement (UK GDPR).
+- AI does not make final decisions: review points and handover to a person are agreed for every workflow.
+- Contact: hello@praxenai.ge, WhatsApp https://wa.me/995557125497, free call https://cal.com/praxenai/audit
+
+## Main pages
+- [AI receptionist & AI automation for small businesses](https://praxenai.com): AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free AI audit, fixed-price pilot. Launch offer: 30% off.
+- [AI implementation pricing: receptionist, pilot, training](https://praxenai.com/solutions): Clear prices in £, $ or €: AI receptionist from £950 + £249/month, implementation pilot from £2,900, team training from £850. Launch offer: 30% off. Prices exclude VAT.
+- [AI for small businesses: start with one workflow](https://praxenai.com/ai-for-small-business): No big IT project: we find the job that eats the most hours (calls, enquiries or paperwork) and automate it in 2–4 weeks at a fixed price. Free 30-minute audit.
+- [AI implementation examples for small businesses](https://praxenai.com/cases): Example scenarios for dental practices, accounting firms and recruitment agencies, with the metrics we track. Real results are measured in your pilot.
+- [About Praxen AI: a small team that builds what it recommends](https://praxenai.com/about): Praxen AI implements practical AI for small businesses in the UK, US and EU. One accountable lead from audit to launch, calls in UK working hours.
+- [Security and UK GDPR: how Praxen AI handles your data](https://praxenai.com/security): Enterprise APIs that never train on your data, a DPA as standard, role-based access, full logs and retention you control. Subprocessors listed.
+
+## Services
+- [AI receptionist for UK businesses: 24/7 call answering](https://praxenai.com/services/ai-receptionist): It picks up 24/7, books appointments into your calendar, takes messages and sends you a summary after each call. Urgent calls go straight to a person. From £665 setup + £174/month with the launch offer.
+- [AI automation for invoices, documents and CRM](https://praxenai.com/services/ai-automation): Enquiries, PDFs, invoices and emails are read, checked and entered into your CRM, accounting software or spreadsheets. People approve, the system types.
+- [AI consultancy for small businesses: from audit to a working pilot](https://praxenai.com/services/ai-consultancy): We map your workflows, estimate hours and money saved, and pick the one or two that pay back fastest. Then we build them.
+- [AI chatbot for your website and WhatsApp](https://praxenai.com/services/ai-chatbot): On your website and WhatsApp, it replies in seconds using your price list, policies and FAQs, cites the source and hands over to a person when it should.
+- [AI agents for business: built with approvals and logs](https://praxenai.com/services/ai-agents): An agent reads, checks, drafts and waits for approval. Every action is logged, access is limited to what it needs, and a person signs off where it matters.
+- [AI training for teams: hands-on half-day workshops](https://praxenai.com/training): A half-day session on your own tasks. Everyone leaves with a playbook of prompts, templates and rules, and we follow up two weeks later.
+
+## Industries
+- [AI for accounting firms: less data entry, fewer chasers](https://praxenai.com/industries/accounting): Client documents are read and coded, missing receipts are chased automatically, and deadline reminders go out on time. Your accountants review instead of retyping.
+- [AI for recruitment agencies: shortlist in minutes](https://praxenai.com/industries/recruitment): CVs are screened against the brief, candidates get a reply the same day and first calls are booked automatically. Consultants spend their time on people.
+- [AI for law firms: every enquiry captured and triaged](https://praxenai.com/industries/law-firms): New-client calls are answered and triaged by practice area, intake forms are filled in, and routine client updates are drafted for a fee earner to send.
+- [AI for hotels and restaurants: every guest gets an answer](https://praxenai.com/industries/hospitality): Booking questions, table requests and “is there parking?” answered in seconds on WhatsApp, web chat and phone. Staff focus on the guests in front of them.
+- [AI for estate agents: viewings booked while you’re out](https://praxenai.com/industries/estate-agents): Portal enquiries and calls are answered, applicants qualified and viewings booked into the diary, evenings and weekends included.
+- [AI for clinics and dentists: fewer missed calls, fewer no-shows](https://praxenai.com/industries/clinics): Patients book, move and cancel appointments by phone or chat at any hour. Reminders go out automatically and reception gets the calls that need a person.
+- [AI for trades: answer every call while you’re on the job](https://praxenai.com/industries/trades): Calls are answered while your hands are full, jobs are qualified and booked into the diary, and emergencies come straight through to you.
+
+## Departments
+- [AI for customer support: routine answered, people for the rest](https://praxenai.com/departments/customer-support): Order status, returns and “how do I…” questions are answered on chat, email and phone from your help centre. Your agents handle the conversations that need judgement.
+- [AI for sales teams: every lead answered, every deal logged](https://praxenai.com/departments/sales): Leads get a reply in minutes, calls are qualified, and HubSpot or Pipedrive is filled in automatically. Salespeople sell instead of typing notes.
+- [AI for marketing: drafts and reports, your voice](https://praxenai.com/departments/marketing): Content drafts, review replies and campaign reports prepared in your brand voice for your team to edit.
+- [AI for operations: routine steps run themselves](https://praxenai.com/departments/operations): Orders, scheduling and internal requests processed by agents with checks and logs.
+- [AI for HR: less admin, more time for people](https://praxenai.com/departments/hr): CV screening, onboarding checklists and policy questions handled with clear rules.
+- [AI for finance: invoices in, chasers out](https://praxenai.com/departments/finance): Supplier invoices read and coded, payments reconciled and overdue clients chased, all with approval.
+- [AI for procurement: quotes compared in minutes](https://praxenai.com/departments/procurement): Supplier quotes and price lists read, compared and summarised for a buyer to decide.
+- [AI for leadership: a clear plan, then results](https://praxenai.com/departments/leadership): A ranked list of where AI pays back, a usage policy and a weekly briefing from your own numbers.
