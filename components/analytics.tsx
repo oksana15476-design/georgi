@@ -25,7 +25,7 @@ export function track(event:string,params:Record<string,string|number|undefined>
  if(event==='generate_lead'){
   window.fbq?.('track','Lead');
   if(tracking.ads&&tracking.adsLeadLabel)window.gtag?.('event','conversion',{send_to:tracking.ads+'/'+tracking.adsLeadLabel});
- }else if(event==='cta_click'||event==='phone_click'||event==='telegram_click'||event==='whatsapp_click'||event==='booking_click')window.fbq?.('track','Contact');
+ }else if(event==='cta_click'||event==='phone_click'||event==='telegram_click'||event==='whatsapp_click'||event==='booking_click'||event==='email_click')window.fbq?.('track','Contact');
 }
 
 // "utm_source=linkedin; utm_campaign=hotels-oct; ref=google.com" or '' when the visit is direct.
@@ -106,6 +106,7 @@ export function Analytics({lang}:{lang:Lang}){
    else if(href.includes('t.me/'))track('telegram_click',{section});
    else if(href.includes('wa.me/'))track('whatsapp_click',{section});
    else if(href.includes('cal.com/'))track('booking_click',{section});
+   else if(href.startsWith('mailto:'))track('email_click',{section});
    else if(href==='#contact'||el.classList.contains('btn-primary'))track('cta_click',{label:label(el),section});
   };
   document.addEventListener('click',onClick,{capture:true});

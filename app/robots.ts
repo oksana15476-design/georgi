@@ -1,5 +1,6 @@
 import type {MetadataRoute} from 'next';
 import {absolute} from '@/lib/seo';
+import {indexable} from '@/lib/market';
 
 export const dynamic='force-static';
 
@@ -9,5 +10,6 @@ export const dynamic='force-static';
 const cleanParam=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','yclid','ysclid','popup'];
 
 export default function robots():MetadataRoute.Robots{
+ if(!indexable)return {rules:[{userAgent:'*',disallow:'/'}]};
  return {rules:[{userAgent:'*',allow:'/',disallow:'/api/',other:{'Clean-param':cleanParam}}],sitemap:absolute('/sitemap.xml')};
 }

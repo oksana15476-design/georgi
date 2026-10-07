@@ -35,13 +35,13 @@ export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
 
 export function Contact({x,options,context,setContext}:{x:X;options:string[];context:string;setContext:(v:string)=>void}){
  const {s,lang}=x;
- const [chosen,setChosen]=useState<number[]>([]),[method,setMethod]=useState<'whatsapp'|'telegram'|'phone'>('whatsapp'),[contact,setContactValue]=useState(''),[message,setMessage]=useState(''),[website,setWebsite]=useState('');
+ const [chosen,setChosen]=useState<number[]>([]),[method,setMethod]=useState<'whatsapp'|'telegram'|'phone'|'email'>('whatsapp'),[contact,setContactValue]=useState(''),[message,setMessage]=useState(''),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
  const started=useRef(false);
  const start=()=>{if(!started.current){started.current=true;track('form_start',{page:location.pathname})}};
  const change=(value:string)=>{
   start();setStatus('');
-  if(method==='telegram'){setContactValue(value.replace(/\s/g,''));return}
+  if(method==='telegram'||method==='email'){setContactValue(value.replace(/\s/g,''));return}
   const d=value.replace(/\D/g,'').slice(0,15);
   if(d.startsWith('995')){const r=d.slice(3);setContactValue('+995'+(r?' '+r.slice(0,3):'')+(r.length>3?' '+r.slice(3,6):'')+(r.length>6?' '+r.slice(6,9):''))}
   else setContactValue((value.startsWith('+')?'+':'')+d);
@@ -49,7 +49,8 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
   const plain=contact.replace(/\D/g,'');
-  if(method!=='telegram'&&(plain.length<7||plain.length>15)){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
+  if(method==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
+  if((method==='phone'||method==='whatsapp')&&(plain.length<7||plain.length>15)){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
   if(method==='telegram'&&!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''))){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
   setSending(true);setStatus('');
   try{
@@ -60,7 +61,8 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
   finally{setSending(false)}
  };
  const invalid=status==='invalid',statusText=status==='invalid'?s.invalidText:status==='error'?s.errorText:'';
- const methods:[typeof method,string][]=[['whatsapp','WhatsApp'],['telegram','Telegram'],['phone',s.phoneMethod]];
+ // The international site has no Telegram: email takes its place.
+ const methods:[typeof method,string][]=contacts.telegram?[['whatsapp','WhatsApp'],['telegram','Telegram'],['phone',s.phoneMethod]]:[['whatsapp','WhatsApp'],['email','Email'],['phone',s.phoneMethod]];
  return (
   <section id="contact" data-screen-label="Contact" className="contact-band">
    <div className="wrap sec contact-grid">
@@ -70,7 +72,8 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
      <div className="contact-links">
       <a href={'tel:'+contacts.phone}><Icon name="phone" size={16}/>{contacts.phoneLabel}</a>
       <a href={contacts.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" size={16}/>WhatsApp</a>
-      <a href={contacts.telegram} target="_blank" rel="noopener"><Icon name="send" size={16}/>{s.telegram}</a>
+      {contacts.telegram&&<a href={contacts.telegram} target="_blank" rel="noopener"><Icon name="send" size={16}/>{s.telegram}</a>}
+      <a href={'mailto:'+contacts.email}><Icon name="mail" size={16}/>{contacts.email}</a>
       <span><Icon name="map-pin" size={16}/>{s.location}</span>
      </div>
     </div>
@@ -79,11 +82,11 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
       <span className="done-icon"><Icon name="check" size={22}/></span>
       <h3>{s.successTitle}</h3>
       <p>{s.successBody}</p>
-      <p className="done-summary">{(method==='phone'?s.phoneMethod:method==='whatsapp'?'WhatsApp':'Telegram')+': '+contact}</p>
+      <p className="done-summary">{(method==='phone'?s.phoneMethod:method==='whatsapp'?'WhatsApp':method==='email'?'Email':'Telegram')+': '+contact}</p>
       <div className="done-links">
        {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" className="btn btn-primary">{x.c('Выбрать время аудита','Pick an audit time','აირჩიეთ აუდიტის დრო')}<Icon name="calendar" size={16}/></a>}
        <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ulink">WhatsApp<Icon name="arrow-right" size={16}/></a>
-       <a href={contacts.telegram} target="_blank" rel="noopener" className="ulink">{s.telegram}<Icon name="arrow-right" size={16}/></a>
+       {contacts.telegram&&<a href={contacts.telegram} target="_blank" rel="noopener" className="ulink">{s.telegram}<Icon name="arrow-right" size={16}/></a>}
        <button type="button" onClick={()=>{setDone(false);setStatus('');setChosen([]);setMessage('');setContactValue('')}} className="ulink ulink-muted">{s.sendAnother}</button>
       </div>
      </div>:
@@ -98,7 +101,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
        <span className="step-label"><span className="step-badge">2</span>{s.howContact}</span>
        <div role="radiogroup" aria-label={s.howContact} className="methods">{methods.map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContactValue('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       </div>
-      <label className="field">{method==='telegram'?'Telegram':method==='whatsapp'?'WhatsApp':s.phoneLabel}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username / +995…':'+995 5XX XXX XXX'} inputMode={method==='telegram'?'text':'tel'} autoComplete={method==='telegram'?'off':'tel'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={invalid?'is-invalid':''}/></label>
+      <label className="field">{method==='telegram'?'Telegram':method==='whatsapp'?'WhatsApp':method==='email'?'Email':s.phoneLabel}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username / +995…':method==='email'?'name@company.com':'+995 5XX XXX XXX'} inputMode={method==='telegram'?'text':method==='email'?'email':'tel'} autoComplete={method==='telegram'?'off':method==='email'?'email':'tel'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={invalid?'is-invalid':''}/></label>
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
       {statusText&&<p id="form-status" role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{statusText}</p>}
       <div className="submit-row">

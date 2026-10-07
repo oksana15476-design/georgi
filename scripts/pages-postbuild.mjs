@@ -47,7 +47,10 @@ const siteUrl=entries.length?entries[0][0].replace(/\/(en|ka|ru)(\/.*)?$/,''):''
 const aiBots=['OAI-SearchBot','ChatGPT-User','GPTBot','PerplexityBot','Perplexity-User','Claude-SearchBot','Claude-User','ClaudeBot','Google-Extended','Applebot-Extended','Bingbot'];
 // Same Clean-param as app/robots.ts.
 const cleanParam=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','yclid','ysclid','popup'];
-writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /api/\n${cleanParam.map(p=>`Clean-param: ${p}\n`).join('')}\n${aiBots.map(b=>`User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+// The international site (NEXT_PUBLIC_MARKET=intl) stays closed to robots until NEXT_PUBLIC_INTL_LIVE=1, as in app/robots.ts.
+const closed=process.env.NEXT_PUBLIC_MARKET==='intl'&&process.env.NEXT_PUBLIC_INTL_LIVE!=='1';
+if(closed)writeFileSync(join(out,'robots.txt'),'User-agent: *\nDisallow: /\n');
+else writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /api/\n${cleanParam.map(p=>`Clean-param: ${p}\n`).join('')}\n${aiBots.map(b=>`User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 
 // llms.txt: a short plain-text guide for language models, built from the English pages' titles
 // and descriptions, with links to the Georgian and Russian versions.
@@ -84,7 +87,8 @@ ${[page('/industries'),...group('/industries')].filter(Boolean).join('\n')}
 `;
 writeFileSync(join(out,'llms.txt'),llms);
 // The Cloudflare Worker build serves public/ as is and does not run this script, so keep a copy there.
-if(!base)writeFileSync('public/llms.txt',llms);
+// Only the Georgian build refreshes it; the international site will get its own.
+if(!base&&process.env.NEXT_PUBLIC_MARKET!=='intl')writeFileSync('public/llms.txt',llms);
 
 // The bare root has no page; send visitors to the default language.
 writeFileSync(join(out,'index.html'),`<!doctype html><meta charset="utf-8"><title>Praxen AI</title><meta http-equiv="refresh" content="0;url=${base}/en"><link rel="canonical" href="${base}/en"><script>location.replace('${base}/en')</script><a href="${base}/en">Praxen AI</a>`);

@@ -8,6 +8,8 @@ const publicEnv = {
   NEXT_PUBLIC_ADS_LEAD_LABEL: process.env.NEXT_PUBLIC_ADS_LEAD_LABEL ?? "",
   NEXT_PUBLIC_BOOKING_URL: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL ?? "",
+  NEXT_PUBLIC_MARKET: process.env.NEXT_PUBLIC_MARKET ?? "",
+  NEXT_PUBLIC_INTL_LIVE: process.env.NEXT_PUBLIC_INTL_LIVE ?? "",
 };
 
 // Static export modes (vinext's prerenderer does not apply Next's basePath, so links use

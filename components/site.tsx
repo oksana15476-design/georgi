@@ -1,7 +1,7 @@
 'use client';
 import {useCallback,useEffect,useState} from 'react';
 import {base} from '@/lib/base';
-import {departments,industries,t,Lang} from '@/lib/content';
+import {departments,industries,languages,t,Lang} from '@/lib/content';
 import {solutionChoices} from '@/lib/solution-choices';
 import type {PageData} from '@/lib/page-data';
 import {contacts} from '@/lib/contacts';
@@ -79,7 +79,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
   {title:sectionLabel(c,'departments'),links:departments.slice(0,4).map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
   {title:sectionLabel(c,'industries'),links:[...industries.slice(0,4).map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
  ];
- const langs:[Lang,string][]=[['en','EN'],['ka','GE'],['ru','RU']];
+ const langs=([['en','EN'],['ka','GE'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
 
  return (
   <div className="site">
@@ -116,7 +116,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
        <a href={root} className="brand brand-dark"><Wordmark dark/></a>
        <p className="footer-tag">{s.footerTag}</p>
        <p className="footer-about">{s.footerAbout}</p>
-       <div className="footer-contacts"><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a><a href={contacts.whatsapp} target="_blank" rel="noopener" className="footer-phone"><Icon name="whatsapp" size={16}/>WhatsApp</a></div>
+       <div className="footer-contacts"><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a><a href={contacts.whatsapp} target="_blank" rel="noopener" className="footer-phone"><Icon name="whatsapp" size={16}/>WhatsApp</a><a href={'mailto:'+contacts.email} className="footer-phone"><Icon name="mail" size={16}/>{contacts.email}</a></div>
        <a href="#contact" onClick={toContact} className="btn btn-white">{s.action}<Icon name="arrow-right" size={16}/></a>
       </div>
       {footerCols.map(col=><div key={col.title}>
@@ -126,7 +126,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
      </div>
      <div className="footer-bottom">
       <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a></span><span>{s.footerServices}</span>
-      <div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>
+      {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
      </div>
     </div>
    </footer>
@@ -135,7 +135,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     <a href="#contact" onClick={toContact} className="btn btn-primary">{c('Бесплатный аудит','Free audit','უფასო აუდიტი')}</a>
     <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" aria-label="WhatsApp" className="sticky-icon sticky-wa"><Icon name="whatsapp" size={20}/></a>
     <a href={'tel:'+contacts.phone} aria-label={contacts.phoneLabel} className="sticky-icon"><Icon name="phone" size={19}/></a>
-    <a href={contacts.telegram} target="_blank" rel="noopener" aria-label={s.telegram} className="sticky-icon"><Icon name="send" size={19}/></a>
+    {contacts.telegram?<a href={contacts.telegram} target="_blank" rel="noopener" aria-label={s.telegram} className="sticky-icon"><Icon name="send" size={19}/></a>:<a href={'mailto:'+contacts.email} aria-label={contacts.email} className="sticky-icon"><Icon name="mail" size={19}/></a>}
    </div>
    <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" aria-label={c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')} className={'wa-float'+(sticky?' is-shown':'')}><Icon name="whatsapp" size={26}/><span>{c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')}</span></a>
    {!isPrivacy&&<LeadPopup x={x} menu={menu}/>}

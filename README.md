@@ -113,3 +113,14 @@ Cloudflare Pages задаёт `CF_PAGES`, и `scripts/pages-postbuild.mjs` до�
 Конфигурация `.openai/hosting.json` осталась от исходного шаблона Sites и для деплоя не нужна.
 
 Подробности исходного окружения: [docs/SITES-STARTER.md](docs/SITES-STARTER.md).
+
+## Два сайта из одного кода
+
+`NEXT_PUBLIC_MARKET` задаётся при сборке (`lib/market.ts`):
+
+| Значение | Сайт | Что меняется |
+|---|---|---|
+| не задано / `ge` | praxenai.ge | грузинский, русский, английский; Telegram; Яндекс Метрика |
+| `intl` | praxenai.com | только английский; email вместо Telegram; без Яндекс Метрики; адрес praxenai.com |
+
+Международный сайт закрыт от поисковиков (`noindex` и `Disallow: /`), пока не задано `NEXT_PUBLIC_INTL_LIVE=1`: до запуска у него должны быть свои тексты, иначе он будет дублировать английскую версию praxenai.ge.

@@ -23,7 +23,7 @@ export function Team({x}:{x:X}){
      <ul className="founder-points">{points.map(([icon,t,d])=><li key={t}><span className="tile-icon"><Icon name={icon} size={18}/></span><div><b>{t}</b><span>{d}</span></div></li>)}</ul>
      <div className="founder-foot">
       <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ulink"><Icon name="whatsapp" size={15}/>WhatsApp</a>
-      <a href={contacts.telegram} target="_blank" rel="noopener" className="ulink"><Icon name="send" size={15}/>{c('Написать Евгению','Message Evgeny','მისწერეთ ევგენის')}</a>
+      {contacts.telegram?<a href={contacts.telegram} target="_blank" rel="noopener" className="ulink"><Icon name="send" size={15}/>{c('Написать Евгению','Message Evgeny','მისწერეთ ევგენის')}</a>:<a href={'mailto:'+contacts.email} className="ulink"><Icon name="mail" size={15}/>{c('Написать Евгению','Email Evgeny','მისწერეთ ევგენის')}</a>}
      </div>
     </div>
    </article>
