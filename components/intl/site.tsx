@@ -7,6 +7,9 @@ import {contacts} from '@/lib/contacts';
 import {ctaFor,departments,entityOf,faqFor,industries,services,servicePath,type Cur,type IntlRoute} from '@/lib/intl';
 import {BookingEmbed} from '@/components/booking';
 import {MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
+import {LeadPopup} from '@/components/praxen/lead-popup';
+import type {X} from '@/components/praxen/types';
+import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
 import {AboutStory,AuditReport,BookLink,Calculator,Cards,Contact,Doc,Faq,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
@@ -108,12 +111,19 @@ export default function IntlSite({route}:{route:IntlRoute}){
  useEffect(()=>{const on=()=>setSticky(window.scrollY>480);on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[]);
  const toContact=useCallback((e?:React.MouseEvent)=>{e?.preventDefault();setMenu(false);setTimeout(()=>scrollToId('contact'),20)},[]);
  const e=entityOf(route);
+ const [context,setContext]=useState('');
+ const go=(topic:string)=>{setContext(topic);setMenu(false);setTimeout(()=>scrollToId('contact'),30)};
+ // WhatsApp opens with a message that already names the page the visitor came from.
+ const waText='Hello! I’m on your '+(e?e.name:route.page==='home'?'home':route.page.replace(/-/g,' '))+' page and would like to talk about AI for my business.';
+ const wa=contacts.whatsapp+'?text='+encodeURIComponent(waText);
+ // The exit and idle popup of praxenai.ge, with the same rules (once a session, never after contact).
+ const popupX={lang:'en',c:copyFn('en'),s:{heroWhatsAppText:waText} as SiteCopy,link,go,toContact,data:{}} as X;
  const key=e?.slug||route.page;
  const cta=ctaFor(key);
  const docPage=route.page==='partners'||route.page==='privacy'||route.page==='terms';
  const faq=faqFor(route,e,cur);
  return (
-  <IntlCtx.Provider value={{route,cur,setCur,cta,painsKey:key,toContact}}>
+  <IntlCtx.Provider value={{route,cur,setCur,cta,painsKey:key,toContact,go,context,setContext,waText}}>
    <div className="site ix">
     <a href="#main" className="skip">Skip to content</a>
     <Header route={route} open={menu} setOpen={setMenu}/>
@@ -125,8 +135,11 @@ export default function IntlSite({route}:{route:IntlRoute}){
     <Footer/>
     <div className={'sticky-cta'+(sticky&&!menu?' is-shown':'')}>
      <a href="#contact" onClick={toContact} className="btn btn-primary">{cta}</a>
-     <a href={contacts.whatsapp} target="_blank" rel="noopener" aria-label="WhatsApp" className="sticky-icon sticky-wa"><Icon name="whatsapp" size={20}/></a>
+     <a href={wa} target="_blank" rel="noopener" aria-label="WhatsApp" className="sticky-icon sticky-wa"><Icon name="whatsapp" size={20}/></a>
+     <a href={'mailto:'+contacts.email} aria-label={contacts.email} className="sticky-icon"><Icon name="mail" size={19}/></a>
     </div>
+    <a href={wa} target="_blank" rel="noopener" aria-label="Message us on WhatsApp" className={'wa-float'+(sticky&&!menu?' is-shown':'')}><Icon name="whatsapp" size={26}/><span>Message us on WhatsApp</span></a>
+    <LeadPopup x={popupX} menu={menu}/>
     <MotionRoot/>
     <BookingEmbed/>
    </div>

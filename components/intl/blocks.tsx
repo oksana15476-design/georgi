@@ -9,7 +9,8 @@ import {Icon} from './icon';
 import {Scene} from './scene';
 
 // Page context: currency (switched in the pricing block, one currency per page), the page CTA and links.
-export type Ctx={route:IntlRoute;cur:Cur;setCur:(c:Cur)=>void;cta:string;painsKey:string;toContact:(e?:React.MouseEvent)=>void};
+// go(topic) scrolls to the form with the topic shown above it and sent with the enquiry; waText pre-fills WhatsApp.
+export type Ctx={route:IntlRoute;cur:Cur;setCur:(c:Cur)=>void;cta:string;painsKey:string;toContact:(e?:React.MouseEvent)=>void;go:(topic:string)=>void;context:string;setContext:(v:string)=>void;waText:string};
 export const IntlCtx=createContext<Ctx>(null!);
 export const useIx=()=>useContext(IntlCtx);
 export const link=(p:string)=>p?pageHref('en',p):homeHref('en');
@@ -35,6 +36,21 @@ function Logo({name,size=22}:{name:string;size?:number}){
 }
 // Card text with two sentences: the first (the key benefit) in bold, the rest plain.
 const splitB=(t:string)=>{const i=t.search(/[.:] /);return i>8&&i<t.length-6?[t.slice(0,i+1),t.slice(i+1)]:['',t];};
+
+
+// UK numbers: 07… becomes +44 7…, grouped as +44 7700 900 123; other countries keep their code.
+export const formatContact=(v:string,method:string)=>{
+ if(method==='email')return v.trim();
+ let d=v.replace(/\D/g,'');
+ if(d.startsWith('0'))d='44'+d.slice(1);
+ if(d.startsWith('44')){const r=d.slice(2,12);return '+44'+(r?' '+r.slice(0,4):'')+(r.length>4?' '+r.slice(4,7):'')+(r.length>7?' '+r.slice(7,10):'')}
+ return (v.trim().startsWith('+')||d.length>10?'+':'')+d.slice(0,15);
+};
+export const validContact=(v:string,method:string)=>{const d=v.replace(/\D/g,'');return method==='email'?/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v):d.length>=10&&d.length<=15};
+async function sendLead(body:Record<string,unknown>){
+ const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:'en',page:location.pathname,source:getAttribution(),...body})});
+ if(!r.ok)throw new Error();
+}
 
 // ---------- Home ----------
 export function Hero({small}:{small?:boolean}){
@@ -98,7 +114,7 @@ export function Results(){
 
 const quizQ:[string,string[]][]=[['What does your company do?',['Accounting firm','Recruitment agency','Law firm','Hotel or restaurant','Clinic or dental practice','Trades or other services']],['Where do most enquiries arrive?',['Phone calls','Website chat or WhatsApp','Email and PDFs','Mostly internal work']],['How big is the team?',['1–5 people','6–20 people','21–100 people','100+ people']],['What would help most?',['Answer every enquiry','Stop retyping data','Train the team','Not sure yet']]];
 export function Quiz(){
- const {cur,cta,toContact}=useIx();
+ const {cur}=useIx();
  const [qa,setQa]=useState<number[]>([]);
  const qn=qa.length,done=qn>=4;
  const pick=(i:number)=>{if(!qn)track('quiz_start');const next=[...qa,i];setQa(next);if(next.length===4)track('quiz_complete',{industry:quizQ[0][1][next[0]],channel:quizQ[1][1][next[1]]})};
@@ -133,10 +149,40 @@ export function Quiz(){
       <span>Launch price<b><s>{res!.was}</s>{res!.now}</b></span>
       <span>Timeline<b>{res!.time}</b></span>
      </div>
-     <div className="btn-row"><a href="#contact" onClick={toContact} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a><button type="button" onClick={()=>setQa([])} className="ix-textbtn">Start again</button></div>
+     <QuizCapture summary={res!.name+'. '+quizQ.map(([q,o],i)=>q+' '+o[qa[i]]).join(' ')} onRestart={()=>setQa([])}/>
     </div>}
    </div>
   </section>
+ );
+}
+
+
+// The quiz result asks for one contact, like the quiz on praxenai.ge; the answers go with the enquiry.
+function QuizCapture({summary,onRestart}:{summary:string;onRestart:()=>void}){
+ const {route}=useIx();
+ const [method,setMethod]=useState<'whatsapp'|'email'>('whatsapp'),[contact,setContact]=useState(''),[website,setWebsite]=useState('');
+ const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
+ const submit=async(e:React.FormEvent)=>{
+  e.preventDefault();if(sending)return;
+  if(!validContact(contact,method)){setStatus('invalid');track('form_error',{reason:'invalid_contact',form:'quiz'});return}
+  setSending(true);setStatus('');
+  try{await sendLead({contact:method+': '+contact,message:'Quiz: '+summary,context:'praxenai.com · quiz · '+(route.slug||route.page),website});setDone(true);track('generate_lead',{method,form:'quiz',page:location.pathname})}
+  catch{setStatus('error');track('form_error',{reason:'send_failed',form:'quiz'})}
+  finally{setSending(false)}
+ };
+ if(done)return <div role="status" className="quiz-done"><span className="done-icon"><Icon name="check" size={22}/></span><div><b>Thanks, we’ve got it.</b><p>We’ll reply within one working day with the plan and a price for your business.</p></div></div>;
+ return (
+  <form onSubmit={submit} noValidate className="quiz-form">
+   <b>Get this plan with your numbers. Where should we send it?</b>
+   <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
+   <div className="quiz-row">
+    <input name="contact" value={contact} onChange={e=>{setStatus('');setContact(formatContact(e.target.value,method))}} aria-label={method==='email'?'Your email':'Your WhatsApp number'} placeholder={method==='email'?'name@company.co.uk':'+44 7700 900 123'} inputMode={method==='email'?'email':'tel'} autoComplete={method==='email'?'email':'tel'} aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>
+    <button type="submit" disabled={sending} className="btn btn-primary">{sending?'Sending…':'Send'}<Icon name="arrow-right" size={16}/></button>
+   </div>
+   <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
+   {status&&<p role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter a full number, e.g. +44 7700 900 123.'):'Something went wrong. Please message us on WhatsApp.'}</p>}
+   <div className="quiz-alt"><BookLink className="ulink">Or book a free call<Icon name="calendar-check" size={16}/></BookLink><button type="button" onClick={onRestart} className="ix-textbtn">Start again</button></div>
+  </form>
  );
 }
 
@@ -146,7 +192,7 @@ export function CurSwitch(){
  return <div role="group" aria-label="Currency" className="ix-cur">{curs.map(k=><button key={k} type="button" onClick={()=>setCur(k)} aria-pressed={cur===k} className={cur===k?'is-on':''}>{curInfo[k].sym} {curInfo[k].label}</button>)}</div>;
 }
 export function Pricing(){
- const {cur,toContact}=useIx();
+ const {cur,go}=useIx();
  const [open,setOpen]=useState<string[]>([]);
  const card=(t:typeof tariffs[number])=>{
   const on=open.includes(t.key),per=t.monthly?'/mo':'';
@@ -157,7 +203,7 @@ export function Pricing(){
    <button type="button" onClick={()=>setOpen(o=>on?o.filter(k=>k!==t.key):[...o,t.key])} aria-expanded={on} className="tariff-more">What is included<Icon name="chevron-down" size={16}/></button>
    <p className="tariff-body"><b className="ix-inc">What is included</b>{t.body}</p>
    <p className="tariff-meta">{t.monthly?t.time:<>Timeline: <b>{t.time}</b></>}</p>
-   <a href="#contact" onClick={toContact} className="ulink tariff-cta">{t.cta}<Icon name="arrow-right" size={16}/></a>
+   <a href="#contact" onClick={e=>{e.preventDefault();go(t.name)}} className="ulink tariff-cta">{t.cta}<Icon name="arrow-right" size={16}/></a>
   </article>;
  };
  return (
@@ -180,7 +226,7 @@ export function Pricing(){
 }
 
 export function Calculator(){
- const {cur,toContact}=useIx();
+ const {cur,go}=useIx();
  const [c,setC]=useState({items:600,min:6,cost:18,share:60,lost:8,deal:400});
  const used=useRef(false);
  const sym=curInfo[cur].sym;
@@ -202,7 +248,7 @@ export function Calculator(){
        <div className="ix-span"><small>Revenue from lost leads</small><b className="ix-mid">+{fmt(leads,cur)}</b><small>if one in five becomes a customer</small></div>
       </div>
       <p className="ix-payback">A pilot from <b>{fmt(promo(price('pilot',cur)),cur)}</b> pays back, even with care at {fmt(promo(price('care',cur)),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>
-      <a href="#contact" onClick={toContact} className="btn btn-primary ix-btn-48">Discuss my estimate<Icon name="arrow-right" size={16}/></a>
+      <a href="#contact" onClick={e=>{e.preventDefault();go('Savings estimate: '+hours+' h and '+fmt(money,cur)+' a month')}} className="btn btn-primary ix-btn-48">Discuss my estimate<Icon name="arrow-right" size={16}/></a>
       <p className="ix-calc-note">An estimate based on your inputs. We measure the real effect in a pilot.</p>
      </div>
     </div>
@@ -362,7 +408,7 @@ export function OneSystem(){
 }
 
 export function ReceptionistPrice(){
- const {cur,cta,toContact}=useIx();
+ const {cur,cta,go}=useIx();
  const rc=offers.find(o=>o.key==='receptionist')!;
  return (
   <section data-screen-label="Price" className="wrap sec pb0">
@@ -375,7 +421,7 @@ export function ReceptionistPrice(){
       <div><small>One-off setup</small><div><s>{fmt(price('rcSetup',cur),cur)}</s><b>{fmt(promo(price('rcSetup',cur)),cur)}</b></div></div>
      </div>
      <p className="ix-rc-note">{usageNote(cur)} All prices exclude VAT.</p>
-     <div className="btn-row"><a href="#contact" onClick={toContact} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a><CurSwitch/></div>
+     <div className="btn-row"><a href="#contact" onClick={e=>{e.preventDefault();go('AI receptionist')}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a><CurSwitch/></div>
     </div>
     <ul className="ix-checks">{rc.includes.map(t=><li key={t}><Icon name="check" size={17}/>{t}</li>)}<li className="is-muted"><Icon name="clock" size={17}/>Live in 2 weeks · billed monthly</li></ul>
    </div>
@@ -384,12 +430,12 @@ export function ReceptionistPrice(){
 }
 
 export function Scenarios({entity,group}:{entity:Entity;group:string}){
- const {toContact}=useIx();
+ const {go}=useIx();
  const title=group==='services'?'What it handles.':group==='industries'?'Where AI helps '+entity.name.toLowerCase()+'.':'Where AI helps your '+entity.name.toLowerCase()+' team.';
  return (
   <section data-screen-label="Scenarios" className="wrap sec">
    <h2 data-reveal="" className="h2 mw820">{title}</h2>
-   <div className="grid-c3w mt28" data-stagger="">{entity.scenarios.map(([ic,t,d])=>{const [b,r]=splitB(d);return <a key={t} href="#contact" onClick={toContact} className="card ix-card-lift ix-scard">
+   <div className="grid-c3w mt28" data-stagger="">{entity.scenarios.map(([ic,t,d])=>{const [b,r]=splitB(d);return <a key={t} href="#contact" onClick={e=>{e.preventDefault();go(entity.name+': '+t)}} className="card ix-card-lift ix-scard">
     <span className="tile-icon tile-44 r12"><Icon name={ic} size={22}/></span><h3>{t}</h3><p><strong>{b}</strong>{r}</p>
     <span className="ulink mt-auto">Discuss this scenario<Icon name="arrow-right" size={16}/></span></a>})}</div>
   </section>
@@ -524,32 +570,19 @@ export function Faq({items,title}:{items:Pair[];title:string}){
 }
 
 export function Contact(){
- const {cta,painsKey,route}=useIx();
+ const {cta,painsKey,route,context,setContext}=useIx();
  const opts=pains[painsKey]||pains.default;
  const [chosen,setChosen]=useState<string[]>([]),[method,setMethod]=useState<'whatsapp'|'email'|'phone'>('whatsapp'),[contact,setContact]=useState(''),[message,setMessage]=useState(''),[showMsg,setShowMsg]=useState(false),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
  const started=useRef(false);
  const start=()=>{if(!started.current){started.current=true;track('form_start',{page:location.pathname})}};
- // UK numbers: 07… becomes +44 7…, grouped as +44 7700 900 123; other countries keep their code.
- const change=(v:string)=>{
-  start();setStatus('');
-  if(method==='email'){setContact(v.trim());return}
-  let d=v.replace(/\D/g,'');
-  if(d.startsWith('0'))d='44'+d.slice(1);
-  if(d.startsWith('44')){const r=d.slice(2,12);setContact('+44'+(r?' '+r.slice(0,4):'')+(r.length>4?' '+r.slice(4,7):'')+(r.length>7?' '+r.slice(7,10):''))}
-  else setContact((v.trim().startsWith('+')||d.length>10?'+':'')+d.slice(0,15));
- };
+ const change=(v:string)=>{start();setStatus('');setContact(formatContact(v,method))};
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
-  const digits=contact.replace(/\D/g,'');
-  const ok=method==='email'?/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(contact):digits.length>=10&&digits.length<=15;
-  if(!ok){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
+  if(!validContact(contact,method)){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
   setSending(true);setStatus('');
-  try{
-   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact:method+': '+contact,message,tasks:chosen,context:'praxenai.com · '+(route.slug||route.page),lang:'en',page:location.pathname,source:getAttribution(),website})});
-   if(!r.ok)throw new Error();
-   setDone(true);track('generate_lead',{method,options:chosen.length,page:location.pathname});
-  }catch{setStatus('error');track('form_error',{reason:'send_failed'})}
+  try{await sendLead({contact:method+': '+contact,message,tasks:chosen,context:'praxenai.com · '+(route.slug||route.page)+(context?' · '+context:''),website});setDone(true);track('generate_lead',{method,options:chosen.length,page:location.pathname})}
+  catch{setStatus('error');track('form_error',{reason:'send_failed'})}
   finally{setSending(false)}
  };
  const label=method==='email'?'Your email':method==='phone'?'Your phone number':'Your WhatsApp number';
@@ -577,6 +610,7 @@ export function Contact(){
        <legend>What takes the most time?</legend>
        <div className="ix-pains">{opts.map(o=>{const on=chosen.includes(o);return <button key={o} type="button" role="checkbox" aria-checked={on} onClick={()=>{start();setChosen(v=>on?v.filter(x=>x!==o):[...v,o])}} className={'ix-pain'+(on?' is-on':'')}><span><Icon name="check" size={13} strokeWidth={3}/></span>{o}</button>})}</div>
       </fieldset>
+      {context&&<div className="context-chip"><span><span className="muted">About:</span> <b>{context}</b></span><button type="button" onClick={()=>setContext('')} aria-label="Remove topic"><Icon name="x" size={15}/></button></div>}
       <div className="field">
        <span className="ix-label">How should we reply?</span>
        <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email'],['phone','Phone']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
