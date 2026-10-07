@@ -27,6 +27,7 @@ Claude Code loads them automatically from `.claude/skills/`.
 | `geo` (+ `scripts/`, `templates/`, `schema/`), `geo-audit`, `geo-citability`, `geo-crawlers`, `geo-llmstxt`, `geo-platform-optimizer`, `geo-brand-mentions`, `geo-content`, `geo-schema`, `geo-technical` | GEO: visibility in ChatGPT, Claude, Perplexity, Gemini, AI Overviews | [zubair-trabzada/geo-seo-claude](https://github.com/zubair-trabzada/geo-seo-claude) @ `ea29bd2` | MIT |
 | `product-marketing`, `ai-seo`, `content-strategy`, `site-architecture`, `programmatic-seo`, `copywriting`, `cro`, `lead-magnets`, `cold-email`, `ads`, `ad-creative`, `competitor-profiling`, `customer-research` | Positioning, AI SEO, content plan, site structure, copy, conversion, outreach, paid ads, competitor and customer research | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) @ `dda3841` | MIT |
 | `yandex-metrika`, `yandex-wordstat`, `yandex-webmaster` | Yandex Metrica reports (counter 113476399), Wordstat demand / keyword research, Yandex Webmaster indexing, queries, sitemaps, recrawl | [artwist-polyakov/polyakov-claude-skills](https://github.com/artwist-polyakov/polyakov-claude-skills), copied from the Saldo repo | see upstream |
+| `social-content` | Posts for Facebook, Instagram, LinkedIn and Google Business Profile: KA / RU / EN copy and branded 1080×1350 cards (`scripts/social/render.mjs`) | written for this repo | — |
 
 Local changes to vendored files:
 - `seo-schema` points to its own copy of `references/schema-types.md` instead of `../seo/references/`.
