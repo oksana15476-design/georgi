@@ -13,7 +13,12 @@ export async function generateMetadata({params}:{params:Promise<{lang:string}>})
     description:description(lang),
     other:{'codex-preview':'development'},
     formatDetection:{telephone:true},
-    icons:{icon:base+'/favicon.svg',shortcut:base+'/favicon.svg'},
+    // favicon.ico is what Yandex and Google fetch by default; SVG for modern browsers, PNG sizes for search results and home screens.
+    icons:{
+      icon:[{url:base+'/favicon.ico',sizes:'48x48',type:'image/x-icon'},{url:base+'/favicon.svg',type:'image/svg+xml'},{url:base+'/favicon-96x96.png',sizes:'96x96',type:'image/png'}],
+      apple:[{url:base+'/apple-touch-icon.png',sizes:'180x180',type:'image/png'}],
+    },
+    manifest:base+'/site.webmanifest',
   };
 }
 
