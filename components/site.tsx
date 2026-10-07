@@ -16,6 +16,7 @@ import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
 import {BookingEmbed} from '@/components/booking';
 import {LeadPopup} from '@/components/praxen/lead-popup';
 import {Privacy} from '@/components/praxen/privacy';
+import {About,Security,aboutLabel,securityLabel} from '@/components/praxen/company';
 import {Quiz} from '@/components/praxen/quiz';
 import {Team} from '@/components/praxen/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
@@ -28,7 +29,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const c=copyFn(lang);
  const profile=data.profile;
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
- const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners;
+ const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isCompany=section==='about'||section==='security',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners&&!isCompany;
  const s=siteCopy(c,isDetail?slug:undefined);
  const root=homeHref(lang),link=(p:string)=>pageHref(lang,p);
  const rest=(section==='home'?'':'/'+section)+(slug?'/'+slug:'');
@@ -61,7 +62,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const faqItems:[string,string][]=isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:section==='departments'?[aboutFaq,agentFaq,...deptFaq]:genFaq;
  const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
- const sectionName=isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
+ const sectionName=section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
   crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[])],
   service:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
@@ -75,7 +76,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
   :defaultOptions),s.other];
 
  const footerCols=[
-  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:'#contact',label:s.action,contact:true}]},
+  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:link('about'),label:c('О нас','About','ჩვენ შესახებ'),contact:false},{href:link('security'),label:c('Безопасность и данные','Security and data','უსაფრთხოება და მონაცემები'),contact:false},{href:'#contact',label:s.action,contact:true}]},
   {title:sectionLabel(c,'departments'),links:departments.slice(0,4).map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
   {title:sectionLabel(c,'industries'),links:[...industries.slice(0,4).map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
  ];
@@ -91,6 +92,8 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><Quiz x={x}/></>}
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
+    {section==='about'&&<><About x={x}/><Process x={x}/><Team x={x}/></>}
+    {section==='security'&&<><Security x={x}/><Trust x={x}/></>}
     {isList&&<InnerHero x={x} page={section}/>}
     {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
     {section==='industries'&&!isDetail&&<IndustriesGrid x={x}/>}

@@ -33,7 +33,7 @@ export function pageMeta(lang:Lang,path:string,title:string,desc:string):Metadat
 }
 
 // Every public page, for the sitemap.
-export const allPaths=isIntl?intlPaths:['',...['industries','departments','training','solutions','cases','partners','privacy'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
+export const allPaths=isIntl?intlPaths:['',...['industries','departments','training','solutions','cases','partners','privacy','about','security'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
 
 const offers:[Copy,keyof typeof prices,string?][]=[
  [['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],'training','/training'],
