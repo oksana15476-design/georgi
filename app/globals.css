@@ -1140,6 +1140,10 @@ main{outline:none}
 .ix-tested{list-style:none;border-top:1px solid var(--line2)}
 .ix-tested li{display:flex;gap:18px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-size:17px;line-height:1.55;color:var(--ink)}
 .ix-tested span{flex-shrink:0;font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+.ix-measure{margin-top:24px;padding-top:18px;border-top:1px solid var(--line2)}
+.ix-measure b{font-size:17px;font-weight:600}
+.ix-measure p{margin-top:6px;font-size:16px;line-height:1.55;color:var(--ink)}
+.ix-measure small{display:block;margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--muted)}
 .ix-logos{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .ix-logos>span{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
 .ix-answer{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gapS);padding:var(--cardPadL);border-radius:16px;background:var(--ink);color:#fff}

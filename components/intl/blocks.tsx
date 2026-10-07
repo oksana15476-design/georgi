@@ -511,6 +511,7 @@ export function Tested({entity}:{entity:Entity}){
    <h2 data-reveal="" className="h2">What we test before launch.</h2>
    <div>
     <ol className="ix-tested">{items.map((t,i)=><li key={t}><span>0{i+1}</span>{t}</li>)}</ol>
+    {entity.measure&&<div className="ix-measure"><b>What we measure</b><p>{entity.measure}</p><small>We compare with how the work runs today, including the time people spend checking.</small></div>}
     <div className="ix-logos">{(logoSets[entity.slug]||defaultLogoSet).map(n=><span key={n}><Logo name={n} size={16}/>{n}</span>)}</div>
    </div>
   </section>
