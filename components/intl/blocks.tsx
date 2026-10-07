@@ -58,7 +58,7 @@ export function Hero({small}:{small?:boolean}){
  const {cur}=useIx();
  const h=small
   ?{eyebrow:'AI for small businesses',h1:'AI that fits a small team.',h1b:'Start with one workflow.',sub:'We find the one job that eats the most hours, such as calls, enquiries or paperwork, and automate it in 2–4 weeks at a fixed price.',proof:[['Free','30-minute audit call'],['2–4 wks','pilot on your real data'],['Fixed','price agreed before we start']]}
-  :{eyebrow:'Practical AI for small businesses',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, AI receptionist']]};
+  :{eyebrow:'Practical AI for business',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, AI receptionist']]};
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
@@ -547,8 +547,8 @@ export function AboutStory(){
   <section data-screen-label="About story" className="wrap sec ix-split">
    <h2 data-reveal="" className="h2">Why we exist.</h2>
    <div className="ix-story">
-    <p>Small businesses need the phone answered, the CRM filled in and the paperwork done, without hiring more people.</p>
-    <p>The problems are the same in every small business: missed calls, data typed twice and slow replies. We build AI assistants and automations for exactly those, and we measure the result.</p>
+    <p>Most companies need the phone answered, the CRM filled in and the paperwork done, without hiring more people.</p>
+    <p>The problems are the same in every business: missed calls, data typed twice and slow replies. We build AI assistants and automations for exactly those, and we measure the result.</p>
     <div className="grid-c2 mt14">
      <div className="ix-mini"><Icon name="clock" size={20}/><b>Working hours</b><p>We work remotely and schedule calls in UK working hours. Email and WhatsApp replies come the same working day.</p></div>
      <div className="ix-mini"><Icon name="briefcase" size={20}/><b>Business customers</b><p>We work with businesses only. Contracts, DPA and invoices in English.</p></div>

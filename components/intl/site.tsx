@@ -76,7 +76,7 @@ function Footer(){
      <div>
       <a href={link('')} aria-label="Praxen AI" className="brand brand-dark"><Wordmark dark/></a>
       <p className="footer-tag">Practical AI for real work.</p>
-      <p className="footer-about">AI receptionists, chatbots and automation for small businesses, plus team training.</p>
+      <p className="footer-about">AI receptionists, chatbots and automation for business, plus team training.</p>
       <div className="ix-foot-contacts"><a href={contacts.whatsapp} target="_blank" rel="noopener">WhatsApp</a><a href={'mailto:'+contacts.email}>{contacts.email}</a></div>
       <BookLink className="btn btn-white">Book a free call<Icon name="arrow-right" size={16}/></BookLink>
      </div>

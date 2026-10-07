@@ -25,7 +25,7 @@ const locales:Record<Lang,string>={en:'en_US',ka:'ka_GE',ru:'ru_RU'};
 
 // Full metadata for one page: canonical and hreflang links, Open Graph and Twitter cards.
 export function pageMeta(lang:Lang,path:string,title:string,desc:string):Metadata{
- const image=isIntl?{url:absolute('/og/og-intl.png'),width:1200,height:630,alt:'Praxen AI — practical AI for small businesses'}:{url:absolute('/og/og-'+lang+'.png'),width:1200,height:630,alt:t(siteTitle,lang)};
+ const image=isIntl?{url:absolute('/og/og-intl.png'),width:1200,height:630,alt:'Praxen AI — practical AI for business'}:{url:absolute('/og/og-'+lang+'.png'),width:1200,height:630,alt:t(siteTitle,lang)};
  return {title,description:desc,alternates:alternates(lang,path),
   openGraph:{type:'website',url:pageUrl(lang,path),siteName:'Praxen AI',title,description:desc,locale:isIntl?'en_GB':locales[lang],alternateLocale:languages.filter(l=>l!==lang).map(l=>locales[l]),images:[image]},
   twitter:{card:'summary_large_image',title,description:desc,images:[image.url]},

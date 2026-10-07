@@ -12,7 +12,7 @@ const usage=curInfo.gbp.usage;
 
 export const posts:Post[]=[
  {slug:'ai-receptionist-cost-uk',cat:'AI receptionist',date:'2026-10-07',dateLabel:'7 October 2026',minutes:7,
-  title:'How much does an AI receptionist cost for a UK small business?',
+  title:'How much does an AI receptionist cost in the UK?',
   description:'Setup, monthly fee and call minutes explained, with a simple way to check whether an AI receptionist pays for itself in your business.',
   excerpt:'Setup, the monthly fee and call minutes, plus a five-minute way to check whether it pays back for you.',
   answer:'An AI receptionist usually costs a one-off setup fee, a monthly fee and call minutes billed by the telephony and AI providers. With Praxen that is '+rcSetup+' setup and '+rcMonth+' a month ('+rcSetupP+' and '+rcMonthP+' with the launch offer), plus typically '+usage+' per minute of calls on your own accounts. Prices exclude VAT.',
@@ -27,12 +27,12 @@ export const posts:Post[]=[
   faq:[['Can it use my existing phone number?','Yes. You forward your number to it after hours, when lines are busy, or all the time.'],['Is there a long contract?','The setup is a one-off fee and the plan is billed monthly.'],['What does a typical call cost in minutes?','A three-minute call at '+usage+' a minute costs well under 50p.']],
   links:[['services/ai-receptionist','AI receptionist: how it works and pricing'],['industries/clinics','AI for clinics and dentists'],['solutions','All prices']]},
  {slug:'ai-implementation-cost',cat:'Pricing',date:'2026-10-07',dateLabel:'7 October 2026',minutes:8,
-  title:'How much does AI implementation cost for a small business?',
+  title:'How much does AI implementation cost?',
   description:'Training, a pilot on one workflow, custom agents and ongoing care: what each costs, how long it takes and how to keep the first project small.',
   excerpt:'Four formats, what each costs and how to start small enough to measure the result.',
-  answer:'For a small business, AI implementation usually starts with one of four formats: team training ('+training+', '+trainingP+' with the launch offer), a pilot on one workflow ('+pilot+', '+pilotP+'), a custom solution with AI agents (from '+custom+', '+customP+') and optional ongoing care ('+care+' a month, '+careP+'). AI usage is paid to the providers at cost. Prices exclude VAT.',
+  answer:'For most businesses, AI implementation starts with one of four formats: team training ('+training+', '+trainingP+' with the launch offer), a pilot on one workflow ('+pilot+', '+pilotP+'), a custom solution with AI agents (from '+custom+', '+customP+') and optional ongoing care ('+care+' a month, '+careP+'). AI usage is paid to the providers at cost. Prices exclude VAT.',
   blocks:[
-   {h:'Start with one workflow',p:['The most expensive AI projects are the ones that try to change everything at once. A small business gets better results from one workflow with a clear metric: calls answered, invoices entered, replies sent within a minute. Once that works, the next workflow reuses the same knowledge base, access rules and integrations, so it is cheaper and faster.']},
+   {h:'Start with one workflow',p:['The most expensive AI projects are the ones that try to change everything at once. A business gets better results from one workflow with a clear metric: calls answered, invoices entered, replies sent within a minute. Once that works, the next workflow reuses the same knowledge base, access rules and integrations, so it is cheaper and faster.']},
    {h:'The four formats',table:[['Format','What you get','Timeline','Price (launch offer)'],['Team training','Half-day session on your own tasks, prompt library, usage policy','From 1 week',trainingP],['Implementation pilot','One workflow on your real data, connected to your tools','2–4 weeks',pilotP],['Custom AI solution','AI agents, internal assistants, custom integrations','From 4 weeks','from '+customP],['Ongoing care','Monitoring, knowledge base updates, fixes','Monthly',careP+'/mo']]},
    {h:'What drives the cost',list:['Integrations. Reading and writing to HubSpot, Xero or a booking system is most of the work in a pilot.','Data quality. Clean price lists and policies are quick to load. Scattered documents need sorting first.','Approval points. Every place where a person must check the result needs a screen and a rule.','Volume and languages. More channels and languages mean more testing.']},
    {h:'Costs people forget',list:['AI and telephony usage. Billed by the providers per message or minute. With us it runs on your own accounts at cost.','Staff time in the pilot. Expect a few hours from the person who knows the workflow best.','Changes after launch. Prices, products and policies change; someone has to update the knowledge base. That is what ongoing care covers.']},

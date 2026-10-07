@@ -11,8 +11,8 @@ export async function generateMetadata({params}:{params:Promise<{lang:string}>})
   const {lang:raw}=await params;const lang=isLang(raw)?raw:defaultLang;
   return {
     metadataBase:new URL(siteUrl),
-    title:isIntl?'Praxen AI — practical AI for small businesses':t(siteTitle,lang),
-    description:isIntl?'AI receptionists, chatbots and automation for small businesses in the UK, US and EU, plus team training.':description(lang),
+    title:isIntl?'Praxen AI — practical AI for business':t(siteTitle,lang),
+    description:isIntl?'AI receptionists, chatbots and automation for businesses in the UK, US and EU, plus team training.':description(lang),
     other:{'codex-preview':'development'},
     formatDetection:{telephone:true},
     // favicon.ico is what Yandex and Google fetch by default; SVG for modern browsers, PNG sizes for search results and home screens.
