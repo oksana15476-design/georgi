@@ -1,8 +1,11 @@
 import {Lang,t} from './content';
 import {casesVerified} from './proof';
+import {isIntl} from './market';
+import {intlText} from './intl-text';
 
 export type C=(ru:string,en:string,ka:string)=>string;
-export const copyFn=(lang:Lang):C=>(ru,en,ka)=>t([ru,en,ka],lang);
+// praxenai.com is English only and swaps Georgia-specific phrases for UK ones (lib/intl-text.ts).
+export const copyFn=(lang:Lang):C=>isIntl?(_ru,en)=>intlText[en]??en:(ru,en,ka)=>t([ru,en,ka],lang);
 
 export const sections=['industries','departments','training','solutions','cases'] as const;
 export const sectionLabel=(c:C,n:string)=>({industries:c('Отрасли','Industries','ინდუსტრიები'),departments:c('Для отделов','For departments','განყოფილებებისთვის'),training:c('Обучение','Training','სწავლება'),solutions:c('Решения','Solutions','გადაწყვეტილებები'),cases:c('Примеры решений','Solution examples','გადაწყვეტილებების მაგალითები')} as Record<string,string>)[n]||n;
