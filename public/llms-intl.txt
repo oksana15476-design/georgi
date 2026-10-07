@@ -9,7 +9,7 @@ Key facts:
 - Every project starts with a free 30-minute audit; the pilot price is fixed before work begins.
 - Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; works as a processor under a data processing agreement (UK GDPR).
 - AI does not make final decisions: review points and handover to a person are agreed for every workflow.
-- Contact: hello@praxenai.ge, WhatsApp https://wa.me/995557125497, free call https://cal.com/praxenai/audit
+- Contact: hello@praxenai.com, WhatsApp https://wa.me/995557125497, free call https://cal.com/praxenai/audit
 
 ## Main pages
 - [AI receptionist and automation for small businesses](https://praxenai.com): AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.
