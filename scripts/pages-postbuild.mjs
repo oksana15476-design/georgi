@@ -45,7 +45,9 @@ const siteUrl=entries.length?entries[0][0].replace(/\/(en|ka|ru)(\/.*)?$/,''):''
 // AI search and assistant crawlers are named explicitly so the policy stays clear if rules for
 // other bots are added later. Lead submissions are not content.
 const aiBots=['OAI-SearchBot','ChatGPT-User','GPTBot','PerplexityBot','Perplexity-User','Claude-SearchBot','Claude-User','ClaudeBot','Google-Extended','Applebot-Extended','Bingbot'];
-writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /api/\n\n${aiBots.map(b=>`User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+// Same Clean-param as app/robots.ts.
+const cleanParam='utm_source&utm_medium&utm_campaign&utm_content&utm_term&fbclid&gclid&yclid&ysclid&popup';
+writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /api/\nClean-param: ${cleanParam}\n\n${aiBots.map(b=>`User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 
 // llms.txt: a short plain-text guide for language models, built from the English pages' titles
 // and descriptions, with links to the Georgian and Russian versions.
