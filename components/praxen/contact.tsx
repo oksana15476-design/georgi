@@ -3,6 +3,7 @@ import {useRef,useState} from 'react';
 import {getAttribution,track} from '@/components/analytics';
 import {base} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
+import {isIntl} from '@/lib/market';
 import {Icon} from './icon';
 import type {X} from './types';
 
@@ -101,7 +102,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
        <span className="step-label"><span className="step-badge">2</span>{s.howContact}</span>
        <div role="radiogroup" aria-label={s.howContact} className="methods">{methods.map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContactValue('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       </div>
-      <label className="field">{method==='telegram'?'Telegram':method==='whatsapp'?'WhatsApp':method==='email'?'Email':s.phoneLabel}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username / +995…':method==='email'?'name@company.com':'+995 5XX XXX XXX'} inputMode={method==='telegram'?'text':method==='email'?'email':'tel'} autoComplete={method==='telegram'?'off':method==='email'?'email':'tel'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={invalid?'is-invalid':''}/></label>
+      <label className="field">{method==='telegram'?'Telegram':method==='whatsapp'?'WhatsApp':method==='email'?'Email':s.phoneLabel}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username / +995…':method==='email'?'name@company.com':isIntl?'+44 7XXX XXX XXX':'+995 5XX XXX XXX'} inputMode={method==='telegram'?'text':method==='email'?'email':'tel'} autoComplete={method==='telegram'?'off':method==='email'?'email':'tel'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={invalid?'is-invalid':''}/></label>
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
       {statusText&&<p id="form-status" role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{statusText}</p>}
       <div className="submit-row">

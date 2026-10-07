@@ -932,3 +932,51 @@ main{outline:none}
 /* Home blocks kept on desktop and hidden on phones */
 .desktop-only{display:contents}
 @media(max-width:760px){.desktop-only,.hide-mobile{display:none!important}}
+
+/* praxenai.com (international site) */
+.ix-hero{max-width:900px}
+.ix-hero .h1{margin-top:18px}
+.ix-hero .hero-lead{margin-top:22px}
+.ix-hero-short{padding-bottom:24px}
+.ix-hero-short .h1{margin-top:16px}
+.ix-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:var(--tint);color:var(--accent);font-size:14px;font-weight:600}
+.ix-grid{display:grid;gap:var(--gap)}
+.ix-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ix-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ix-card{display:flex;flex-direction:column;gap:10px;padding:24px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);transition:border-color .2s,transform .3s var(--spring)}
+a.ix-card:hover{border-color:var(--accent);transform:translateY(-2px);color:var(--ink)}
+.ix-card b{font-size:18px;font-weight:600;letter-spacing:-.01em}
+.ix-card span{font-size:15px;line-height:1.55;color:var(--body)}
+.ix-card .tile-icon{margin-bottom:4px}
+.ix-card-flat{background:transparent}
+.ix-more{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:8px;font-weight:600;color:var(--accent)!important}
+.ix-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);padding:0;list-style:none}
+.ix-steps li{display:flex;flex-direction:column;gap:8px;padding-top:18px;border-top:1px solid var(--line2)}
+.ix-steps span{font-size:13px;font-weight:700;color:var(--accent)}
+.ix-steps b{font-size:18px;font-weight:600;color:var(--ink)}
+.ix-steps p{font-size:15px;line-height:1.55;color:var(--body)}
+.ix-plan{position:relative;display:flex;flex-direction:column;gap:12px;padding:26px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.ix-plan.is-featured{border:1.5px solid var(--accent);box-shadow:0 24px 48px -32px #2755ec66}
+.ix-plan-badge{position:absolute;top:-12px;left:20px;background:var(--accent)}
+.ix-plan h3{font-size:20px;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+.ix-plan-price{font-size:15px;line-height:1.6;color:var(--muted)}
+.ix-plan-price small{font-size:14px}
+.ix-unit{display:block}
+.ix-price{white-space:nowrap}
+.ix-price s{color:var(--faint);font-size:15px}
+.ix-price b{font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.ix-price small{margin-left:2px;font-size:14px;color:var(--muted)}
+.ix-plan-body{font-size:15px;line-height:1.55;color:var(--body)}
+.ix-list{display:grid;gap:8px;padding:0;list-style:none}
+.ix-list li{display:flex;gap:8px;font-size:14px;line-height:1.5;color:var(--ink)}
+.ix-list svg{flex-shrink:0;margin-top:3px;color:var(--accent)}
+.ix-plan-time{display:flex;align-items:center;gap:6px;margin-top:auto;font-size:14px;color:var(--muted)}
+.ix-plan-cta{align-self:flex-start;font-size:14px}
+.ix-note{display:flex;gap:8px;align-items:flex-start;margin-top:20px;font-size:14px;line-height:1.55;color:var(--muted)}
+.ix-note svg{flex-shrink:0;margin-top:3px}
+.ix-privacy{max-width:820px}
+.ix-privacy section{margin-top:32px}
+.ix-privacy h2{font-size:22px;font-weight:600;color:var(--ink)}
+.ix-privacy p{margin-top:10px;font-size:16px;line-height:1.65;color:var(--body)}
+@media(max-width:1100px){.ix-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.ix-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.ix-grid-3,.ix-grid-4,.ix-steps{grid-template-columns:1fr}}

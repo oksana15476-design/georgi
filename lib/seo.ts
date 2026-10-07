@@ -5,8 +5,9 @@ import {pageCopy} from '@/lib/page-copy';
 import {prices} from '@/lib/pricing';
 import {detailMeta} from '@/lib/detail-meta';
 import {contentUpdated} from '@/lib/proof';
-import {indexable,market,marketUrls} from '@/lib/market';
+import {indexable,isIntl,market,marketUrls} from '@/lib/market';
 import {langPath} from '@/lib/base';
+import {offers as intlOffers} from '@/lib/intl';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // NEXT_PUBLIC_SITE_URL overrides it, e.g. for the Georgian domain or a staging address.
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||marketUrls[market]).replace(/\/$/,'');
@@ -32,7 +33,7 @@ export function pageMeta(lang:Lang,path:string,title:string,desc:string):Metadat
 }
 
 // Every public page, for the sitemap.
-export const allPaths=['',...['industries','departments','training','solutions','cases','partners','privacy'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
+export const allPaths=isIntl?['','/ai-receptionist','/pricing','/privacy']:['',...['industries','departments','training','solutions','cases','partners','privacy'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
 
 const offers:[Copy,keyof typeof prices,string?][]=[
  [['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],'training','/training'],
@@ -42,7 +43,24 @@ const offers:[Copy,keyof typeof prices,string?][]=[
 ];
 
 // Site-wide graph: the business with its services and starting prices, the founder and the website.
+// praxenai.com: the same company, serving the UK and Europe, with GBP prices.
+function intlOrganizationJsonLd(){
+ const org=absolute('/#organization');
+ return {'@context':'https://schema.org','@graph':[
+  {'@type':'ProfessionalService','@id':org,name:'Praxen AI',url:absolute('/'),logo:absolute('/og/logo.png'),email:contacts.email,
+   description:'AI receptionists and AI automation for small and mid-sized businesses in the UK and Europe.',
+   address:{'@type':'PostalAddress',addressLocality:'Batumi',addressCountry:'GE'},areaServed:[{'@type':'Country',name:'United Kingdom'},{'@type':'Place',name:'Europe'}],availableLanguage:['en'],
+   founder:{'@id':absolute('/#founder')},contactPoint:{'@type':'ContactPoint',email:contacts.email,contactType:'sales',availableLanguage:['English']},
+   hasOfferCatalog:{'@type':'OfferCatalog',name:'Praxen AI services',itemListElement:intlOffers.map(o=>({'@type':'Offer',url:absolute(o.key==='receptionist'?'/ai-receptionist':'/pricing'),
+    priceSpecification:{'@type':'PriceSpecification',minPrice:o.price,priceCurrency:'GBP',...(o.monthly?{unitText:'MONTH'}:{})},
+    itemOffered:{'@type':'Service',name:o.name,description:o.body,provider:{'@id':org},areaServed:{'@type':'Country',name:'United Kingdom'}}}))}},
+  {'@type':'Person','@id':absolute('/#founder'),name:'Evgeny Budnikov',jobTitle:'Founder',worksFor:{'@id':org},image:absolute('/team/evgeny.jpg')},
+  {'@type':'WebSite','@id':absolute('/#website'),url:absolute('/'),name:'Praxen AI',inLanguage:'en',publisher:{'@id':org}},
+ ]};
+}
+
 export function organizationJsonLd(lang:Lang){
+ if(isIntl)return intlOrganizationJsonLd();
  const org=absolute('/#organization');
  return {'@context':'https://schema.org','@graph':[
   {'@type':'ProfessionalService','@id':org,name:'Praxen AI',url:pageUrl(lang,''),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,

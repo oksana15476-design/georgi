@@ -19,8 +19,8 @@ const publicEnv = {
 //   pages and the lead API. Set NEXT_PUBLIC_SITE_URL to the public domain.
 const githubPages = process.env.GITHUB_PAGES === "1";
 const intl = process.env.NEXT_PUBLIC_MARKET === "intl";
-// Top-level pages under app/[lang]; keep in sync with app/[lang]/[[...section]]/page.tsx.
-const sections = ["industries", "departments", "training", "solutions", "cases", "partners", "privacy"];
+// praxenai.com pages; keep in sync with lib/intl.ts.
+const sections = ["ai-receptionist", "pricing", "privacy"];
 const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = pages
@@ -51,7 +51,6 @@ const nextConfig: NextConfig = pages
             { source: "/", destination: "/en" },
             ...sections.flatMap((s) => [
               { source: `/${s}`, destination: `/en/${s}` },
-              { source: `/${s}/:slug`, destination: `/en/${s}/:slug` },
             ]),
           ],
         };
