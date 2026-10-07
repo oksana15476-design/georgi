@@ -11,7 +11,7 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
-import {AboutStory,AuditReport,BookLink,Calculator,Cards,Contact,Doc,Faq,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
+import {AboutStory,AuditReport,BookLink,Calculator,Cards,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
 const nav:[string,string,Drop?][]=[['services','Services','services'],['industries','Industries','industries'],['departments','Departments','departments'],['solutions','Solutions & pricing'],['training','Training'],['cases','Cases'],['about','About']];
@@ -97,7 +97,8 @@ function Page({route}:{route:IntlRoute}){
  if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/><AuditReport/></>;
  if(page==='about')return <><InnerHero/><AboutStory/><Team/><Process/></>;
  if(page==='security')return <><InnerHero/><Security/></>;
- if(page==='partners'||page==='privacy'||page==='terms')return <><InnerHero/><Doc page={page}/></>;
+ if(page==='partners')return <><InnerHero/><Partners/></>;
+ if(page==='privacy'||page==='terms')return <><InnerHero/><Doc page={page}/></>;
  return null;
 }
 
@@ -120,7 +121,7 @@ export default function IntlSite({route}:{route:IntlRoute}){
  const popupX={lang:'en',c:copyFn('en'),s:{heroWhatsAppText:waText} as SiteCopy,link,go,toContact,data:{}} as X;
  const key=e?.slug||route.page;
  const cta=ctaFor(key);
- const docPage=route.page==='partners'||route.page==='privacy'||route.page==='terms';
+ const docPage=route.page==='privacy'||route.page==='terms';
  const faq=faqFor(route,e,cur);
  return (
   <IntlCtx.Provider value={{route,cur,setCur,cta,painsKey:key,toContact,go,context,setContext,waText}}>

@@ -4,7 +4,7 @@ import {createContext,useContext,useRef,useState} from 'react';
 import {getAttribution,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
-import {curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {partnerSteps,partnerWho,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {Icon} from './icon';
 import {Scene} from './scene';
 
@@ -532,9 +532,23 @@ export function Security(){
  );
 }
 
-export function Doc({page}:{page:'partners'|'privacy'|'terms'}){
+export function Partners(){
+ return (<>
+  <section data-screen-label="Who it is for" className="wrap sec">
+   <h2 data-reveal="" className="h2 mw820">Who it is for.</h2>
+   <div className="grid-c4 mt28" data-stagger="">{partnerWho.map(([ic,t,d])=><article key={t} className="card partner-card"><span className="tile-icon"><Icon name={ic} size={20}/></span><h3>{t}</h3><p>{d}</p></article>)}</div>
+  </section>
+  <section data-screen-label="How it works" className="band-white bordered">
+   <div className="wrap sec">
+    <h2 data-reveal="" className="h2 mw820">How it works.</h2>
+    <ol className="ix-process ix-process-3 mt28">{partnerSteps.map((t,i)=><li key={t} data-reveal="" style={rd(i*110)}><span className="step-num">0{i+1}</span><p className="partner-step">{t}</p></li>)}</ol>
+   </div>
+  </section>
+ </>);
+}
+
+export function Doc({page}:{page:'privacy'|'terms'}){
  const docs:Record<string,[string,string[]][]>={
-  partners:[['Referral partners',['Accountants, IT providers and agencies who introduce clients to us. We pay a referral fee on signed pilots.']],['Delivery partners',['Teams who build with us on larger projects, under a shared statement of work.']],['Get in touch',['Write to '+contacts.email+' with a short note about your clients.']]],
   privacy:[['Who we are',['Praxen AI is an AI implementation company based in Georgia. For any question about your data, email '+contacts.email+'.']],
    ['What data we collect',['From the enquiry form: your contact details (email, phone or WhatsApp), the options you choose, your message, the page you sent it from and the traffic source (such as UTM tags).','When you book a call: your name, email and the time you choose, handled by Cal.com.','With your consent only: anonymous usage data (pages viewed, device and clicks) through Google Analytics and the Meta Pixel.']],
    ['Why and on what basis',['To reply to your enquiry and prepare a proposal: steps taken at your request before a contract (UK GDPR Art. 6(1)(b)).','To understand which pages and channels are useful: your consent (Art. 6(1)(a)), which you can withdraw at any time in the cookie settings.']],
@@ -543,7 +557,7 @@ export function Doc({page}:{page:'partners'|'privacy'|'terms'}){
    ['Your rights',['You can ask for a copy of your data, correct or delete it, object to or restrict its use, and withdraw consent. Email '+contacts.email+'; we reply within one month. You can also complain to the Information Commissioner’s Office (ico.org.uk).']]],
   terms:[['Business customers only',['We work with businesses only. UK and EU business customers account for VAT under the reverse charge.']],['Prices',['All prices exclude VAT. The launch price is fixed in the pilot plan you approve.']],['Usage costs',['AI and telephony usage runs on your own accounts and is billed by the providers at cost.']],['Data',['We process personal data as your processor under a data processing agreement.']]],
  };
- return <section data-screen-label="Document" className="wrap sec ix-doc">{docs[page].map(([h,ps])=><div key={h}><h2>{h}</h2>{ps.map(p=><p key={p}>{p}</p>)}</div>)}</section>;
+ return <section data-screen-label="Document" className="wrap sec"><div className="ix-doc">{docs[page].map(([h,ps])=><div key={h}><h2>{h}</h2>{ps.map(p=><p key={p}>{p}</p>)}</div>)}</div></section>;
 }
 
 // ---------- FAQ and contact ----------

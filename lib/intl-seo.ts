@@ -31,7 +31,7 @@ export function intlPageJsonLd(r:IntlRoute){
   else crumbs.push([sectionName[r.page],'/'+r.page],[e?.name||r.slug,path]);
  }
  if(crumbs.length>1)graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map(([name,p],i)=>({'@type':'ListItem',position:i+1,name,item:pageUrl('en',p)}))});
- const faq=r.page==='partners'||r.page==='privacy'||r.page==='terms'?[]:faqFor(r,e,'gbp').items;
+ const faq=r.page==='privacy'||r.page==='terms'?[]:faqFor(r,e,'gbp').items;
  if(faq.length)graph.push({'@type':'FAQPage',mainEntity:faq.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))});
  if(e){
   const rc=e.slug==='ai-receptionist';

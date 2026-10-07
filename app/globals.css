@@ -1056,6 +1056,8 @@ main{outline:none}
 .ix-process .step-out{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:1.45;font-weight:600;color:var(--ink);margin:0}
 .ix-process .step-out svg{color:var(--accent);margin-top:1px}
 @media(max-width:1100px){.ix-process{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ix-process.ix-process-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.ix-process.ix-process-3{grid-template-columns:1fr}}
 @media(max-width:600px){.ix-process{grid-template-columns:1fr}}
 .ix-lock{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:14px 16px;border-radius:10px;background:var(--soft);font-size:14.5px;line-height:1.55;color:var(--ink)}
 .ix-lock svg{flex-shrink:0;margin-top:2px;color:var(--accent)}

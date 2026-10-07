@@ -222,7 +222,7 @@ export const defaultLogoSet=['HubSpot','Microsoft 365','Google Workspace','Whats
 
 // ---- Copy shared by several pages ----
 // Page-specific primary CTA (one accent colour, wording per page). The header always says "Book a free call".
-export const ctas:Record<string,string>={home:'Get a free AI audit','ai-receptionist':'Audit my phone line','ai-automation':'Audit my manual work','ai-consultancy':'Get a free AI audit','ai-chatbot':'Audit my enquiries','ai-agents':'Request an estimate','ai-training':'Get a training plan',accounting:'Audit my client admin',recruitment:'Audit my screening','law-firms':'Audit my intake',hospitality:'Audit my guest messages','estate-agents':'Audit my viewings',clinics:'Audit my front desk',trades:'Audit my call handling',sales:'Audit my sales process','customer-support':'Audit my helpdesk',marketing:'Audit our marketing',operations:'Audit our operations',hr:'Audit our onboarding',finance:'Audit our invoices',procurement:'Automate quote comparison',leadership:'Get an AI roadmap'};
+export const ctas:Record<string,string>={home:'Get a free AI audit','ai-receptionist':'Audit my phone line','ai-automation':'Audit my manual work','ai-consultancy':'Get a free AI audit','ai-chatbot':'Audit my enquiries','ai-agents':'Request an estimate','ai-training':'Get a training plan',accounting:'Audit my client admin',recruitment:'Audit my screening','law-firms':'Audit my intake',hospitality:'Audit my guest messages','estate-agents':'Audit my viewings',clinics:'Audit my front desk',trades:'Audit my call handling',sales:'Audit my sales process','customer-support':'Audit my helpdesk',marketing:'Audit our marketing',operations:'Audit our operations',hr:'Audit our onboarding',finance:'Audit our invoices',procurement:'Automate quote comparison',leadership:'Get an AI roadmap',partners:'Become a partner'};
 export const ctaFor=(key:string)=>ctas[key]||'Get a free AI audit';
 
 // Page-specific options for the short form.
@@ -241,6 +241,7 @@ export const pains:Record<string,string[]>={
  hr:['Staff ask the same policy questions','Onboarding is a manual checklist','Too many CVs to screen'],
  procurement:['Supplier quotes arrive in every format','Comparing prices takes hours','Price changes slip through'],
  marketing:['Content takes too long to draft','Reviews go unanswered','Reports are manual'],
+ partners:['IT support or managed services','Accounting or bookkeeping firm','Marketing or web agency','Business consultant'],
 };
 
 // Industry tabs inside service and department pages: one micro-scenario each.
@@ -305,7 +306,7 @@ export const innerPages:Partial<Record<IntlPage,{eyebrow:string;h1:string;sub:st
  cases:{eyebrow:'Cases',h1:'Example scenarios, honest numbers.',sub:'We publish client results only with permission. Until our first UK case studies are signed off, these are example scenarios with the metrics we track.',facts:[['flag','Example','Every scenario below is marked as an example'],['bar-chart-3','Estimates','Real numbers are measured in your pilot'],['shield-check','With permission','Client names only when they agree']]},
  about:{eyebrow:'About',h1:'A small team that builds what it recommends.',sub:'Praxen AI implements practical AI for small businesses. We started in Georgia and now work with companies in the UK, US and EU.',facts:[['map-pin','Based in Georgia','UTC+4, 3–4 hours ahead of the UK'],['clock','UK working hours','Calls scheduled in your day'],['user-round','One accountable lead','From audit to launch']]},
  security:{eyebrow:'Security',h1:'Your data, your rules.',sub:'We use enterprise APIs. Your data never trains public models. Here is how we handle data, access and UK GDPR.',facts:[['lock','Enterprise APIs','No training on your data'],['file-signature','DPA as standard','We act as your processor'],['scroll-text','Full logs','Every AI action is recorded']]},
- partners:{eyebrow:'Partners',h1:'Partners',sub:'Agencies, IT providers and accountants who refer clients to us or deliver projects with us.'},
+ partners:{eyebrow:'Partner programme',h1:'Earn from AI with us.',sub:'For IT providers, accountants, agencies and consultants who already have small-business clients: you introduce a company, we implement AI, you earn a reward.',facts:[['wallet','A reward on every project','A share of each paid project and care plan'],['handshake','Joint sales','We meet clients together or deliver under your brand'],['book-open','Demos and materials','Case scenarios and decks for your sales']]},
  privacy:{eyebrow:'Legal',h1:'Privacy policy',sub:'How Praxen AI collects and uses personal data under UK GDPR. Last updated: '+intlUpdatedLabel+'.'},
  terms:{eyebrow:'Legal',h1:'Terms of service',sub:'The basics of how we work with business customers. Last updated: '+intlUpdatedLabel+'.'},
 };
@@ -342,7 +343,12 @@ export const faqFor=(route:IntlRoute,entity:Entity|undefined,cur:Cur):{items:[st
  const gen=homeFaq(cur);
  if(entity)return {items:[...(entity.faqs||[]),gen[0],gen[2],gen[3]].slice(0,6),title:'Questions about '+entity.name.toLowerCase()+'.'};
  if(route.page==='security')return {items:[gen[2],['Where is data stored?','With UK or EU hosting wherever the provider allows. Data location is listed in your DPA.'],['Do you sign a DPA?','Yes, as standard, before we touch any personal data.'],['Who at Praxen can see our data?','Only the engineer working on your project, with access removed at handover.']],title:'Security questions.'};
+ if(route.page==='partners')return {items:[['How much will I earn?','A share of each paid project and care plan. The rate depends on your role, from a referral to joint selling, and is fixed in a contract.'],['Do I need to know AI?','No. Knowing your client’s needs is enough. We handle the audit, estimate and delivery and give you demos and materials.'],['Can you deliver under our brand?','Yes, for joint projects. We agree how we present the work to the client before the first meeting.'],['Who owns the client relationship?','You do. We keep you in the loop on every meeting and never approach your clients about other work without you.']],title:'Partner questions.'};
  if(route.page==='solutions')return {items:[gen[0],gen[5],['What does the launch offer include?','30% off every price on this page for our first clients, including setup and monthly fees.'],['Can we start with training only?','Yes. Team training is a standalone format.']],title:'Pricing questions.'};
  if(route.page==='home'||route.page==='ai-for-small-business')return {items:[['What is Praxen AI?',brandDef(cur)],...gen.slice(0,5)],title:'Before our first conversation.'};
  return {items:gen,title:'Before our first conversation.'};
 };
+
+// Partner programme (the same terms as praxenai.ge/en/partners).
+export const partnerWho:[string,string,string][]=[['wrench','IT support and managed service providers','Add AI receptionists, chatbots and automation to the services you already sell.'],['calculator','Accountants and bookkeepers','For clients buried in paperwork: documents read, coded and chased automatically.'],['megaphone','Marketing and web agencies','Chatbots, lead handling and content workflows for your clients.'],['compass','Business consultants','Offer clients measurable automation after your diagnostics.']];
+export const partnerSteps=['You introduce a client or bring them to a meeting.','We run the free audit and launch a pilot.','You are paid once the client pays.'];
