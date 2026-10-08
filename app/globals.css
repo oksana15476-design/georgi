@@ -1440,7 +1440,8 @@ main{outline:none}
 .ix-article-table thead th{font-size:13px;font-weight:600;color:var(--muted)}
 .ix-article-table tbody th{font-weight:600}
 .ix-article-table tr:last-child>*{border-bottom:0}
-.ix-article-table.is-narrow table{min-width:0}
+.ix-article-table.is-narrow table{min-width:0;table-layout:fixed}
+.ix-article-table th,.ix-article-table td{overflow-wrap:break-word}
 /* Article blocks for both blogs (components/article-blocks.tsx). */
 .ix-article-body .art-list{list-style:none;padding-left:0;gap:12px}
 .art-list li{position:relative;padding-left:22px}
