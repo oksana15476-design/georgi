@@ -331,7 +331,7 @@ export type IntlRoute={page:IntlPage;slug?:string};
 export const groups:Record<'services'|'industries'|'departments',Entity[]>={services,industries,departments};
 const simplePages:IntlPage[]=['ai-for-small-business','services','industries','departments','solutions','training','cases','about','security','partners','privacy','terms','blog'];
 // Blog post slugs; the articles themselves are in lib/intl-blog.ts.
-export const blogSlugs=['ai-receptionist-cost-uk','ai-implementation-cost','ai-for-accounting-firms','ai-for-recruitment-agencies'];
+export const blogSlugs=['ai-receptionist-cost-uk','ai-implementation-cost','ai-for-accounting-firms','ai-for-recruitment-agencies','ai-knowledge-base-for-support','ai-workflow-automation-examples','ai-for-law-firms','ai-for-sales-teams','ai-training-for-teams','ai-agents-for-business'];
 // Top-level sections served without the /en prefix (see next.config.ts).
 export const intlSections=simplePages;
 

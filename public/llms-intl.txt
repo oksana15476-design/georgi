@@ -12,7 +12,7 @@ Key facts:
 - Contact: hello@praxenai.com, WhatsApp https://wa.me/995557125497, free call https://cal.com/praxenai/audit
 
 ## Main pages
-- [AI receptionist and AI automation for business](https://praxenai.com): AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.
+- [AI automation agency: AI receptionist and chatbots](https://praxenai.com): AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.
 - [AI implementation pricing in £, $ and €](https://praxenai.com/solutions): AI receptionist from £950 + £249/month, implementation pilot from £2,900, team training from £850. Launch offer: 30% off. Prices exclude VAT.
 - [AI for small businesses: starter terms and pricing](https://praxenai.com/ai-for-small-business): AI receptionist and automation for teams of up to 50: setup in three payments, no long contract and the first month of care free. Free 30-minute audit.
 - [AI implementation examples by industry](https://praxenai.com/cases): Example scenarios for dental practices, accounting firms and recruitment agencies, with the metrics we track. Real results are measured in your pilot.
@@ -37,7 +37,7 @@ Key facts:
 - [AI for trades: answer calls while on the job](https://praxenai.com/industries/trades): Calls are answered while your hands are full, jobs are qualified and booked into the diary, and emergencies come straight through to you.
 
 ## Departments
-- [AI for customer support: routine answered 24/7](https://praxenai.com/departments/customer-support): Order status, returns and how-to questions answered on chat, email and phone from your help centre. Agents get the conversations that need judgement.
+- [AI customer service: routine questions answered 24/7](https://praxenai.com/departments/customer-support): Order status, returns and how-to questions answered on chat, email and phone from your help centre. Agents get the conversations that need judgement.
 - [AI for sales: every lead answered and logged](https://praxenai.com/departments/sales): Every lead gets a reply in minutes, calls are qualified and logged in HubSpot or Pipedrive, and quotes are drafted from your price list.
 - [AI for marketing teams: content, reviews and reports](https://praxenai.com/departments/marketing): Posts, newsletters and review replies drafted in your brand voice, and campaign numbers pulled into one weekly report. Your team edits and approves.
 - [AI for operations: orders, scheduling and requests](https://praxenai.com/departments/operations): Orders from emails and PDFs entered into your system, rotas planned to your rules and internal requests routed. Every step logged, with approvals.
@@ -49,5 +49,11 @@ Key facts:
 ## Blog
 - [How much does an AI receptionist cost in the UK?](https://praxenai.com/blog/ai-receptionist-cost-uk): Setup, monthly fee and call minutes explained, with a simple way to check whether an AI receptionist pays for itself in your business.
 - [How much does AI implementation cost?](https://praxenai.com/blog/ai-implementation-cost): Training, a pilot on one workflow, custom agents and ongoing care: what each costs, how long it takes and how to keep the first project small.
-- [AI for accounting firms: 7 workflows to automate first](https://praxenai.com/blog/ai-for-accounting-firms): Which accounting workflows to hand to AI first, in what order, what to keep with your team and how Making Tax Digital changes the workload.
-- [AI for recruitment agencies: screening, scheduling and follow-up](https://praxenai.com/blog/ai-for-recruitment-agencies): How a recruitment agency can use AI to screen CVs, book interviews and keep candidates informed, where people must stay in charge and what it costs.
+- [AI for accounting firms: what to automate first](https://praxenai.com/blog/ai-for-accounting-firms): Which accounting workflows to hand to AI first, in what order, what to keep with your team and how Making Tax Digital changes the workload.
+- [AI for recruitment agencies: screening and scheduling](https://praxenai.com/blog/ai-for-recruitment-agencies): How a recruitment agency can use AI to screen CVs, book interviews and keep candidates informed, where people must stay in charge and what it costs.
+- [AI knowledge base for support: how to build one](https://praxenai.com/blog/ai-knowledge-base-for-support): What goes into an AI knowledge base for customer support, how a RAG chatbot cites its sources, how to keep it current and how to test it before launch.
+- [AI workflow automation: 10 everyday examples](https://praxenai.com/blog/ai-workflow-automation-examples): Ten realistic AI workflow automation examples from sales, finance, operations and HR: what each does, where a person approves and how to pick the first.
+- [AI for law firms: intake, documents and research](https://praxenai.com/blog/ai-for-law-firms): Where AI helps a law firm with client intake, document review, drafting and research support, what stays with solicitors, and what a first pilot costs.
+- [AI for sales teams: replies, CRM and follow-ups](https://praxenai.com/blog/ai-for-sales-teams): How sales teams use AI to answer new leads, keep HubSpot, Pipedrive or Salesforce up to date and send follow-ups on time, while people run the deals.
+- [AI training for teams: programme, format and cost](https://praxenai.com/blog/ai-training-for-teams): What a half-day AI workshop for employees covers, how it runs on your team’s own tasks, what people take away and what corporate AI training costs.
+- [AI agents for business: examples and costs](https://praxenai.com/blog/ai-agents-for-business): What AI agents are, how they differ from chatbots and automations, five examples for businesses, the safeguards they need and what they cost to build.
