@@ -280,3 +280,31 @@ export function IndustryDepartments({x,slug}:{x:X;slug:string}){
   </section>
  );
 }
+
+// Pilot plan built from the page's own problem, first scenario, tools and metric, so detail pages
+// do not repeat the shared 'approach' and 'control' blocks (same idea as praxenai.com).
+export function PilotSteps({x,slug}:{x:X;slug:string}){
+ const {c,lang}=x;const {industry,ent,profile}=getEntity(slug,x.data);
+ const ov=x.data.ov;
+ const [first,firstBody]=ov?ov.sc[0]:[t(profile.scenarios[0].title,lang),t(profile.scenarios[0].body,lang)];
+ const tools=(pageLogos[slug]||[]).slice(0,3);
+ const steps:[string,string,string][]=[
+  ['search-check',c('Бесплатный аудит, 30 минут','Free audit, 30 minutes','უფასო აუდიტი, 30 წუთი'),(industry?t(industry.problem,lang)+' ':'')+c('Выбираем первый процесс и оцениваем, сколько он стоит сейчас.','We choose the first workflow and estimate what it costs today.','ვარჩევთ პირველ პროცესს და ვაფასებთ, რა ღირს ის დღეს.')],
+  ['flag',c('Пилот: ','Pilot: ','პილოტი: ')+first,firstBody],
+  ['workflow',c('Подключение и тест','Connected and tested','დაკავშირება და ტესტი'),tools.length?c('Подключаем ','We connect ','ვაკავშირებთ: ')+tools.join(', ')+c(' и проверяем на ваших реальных случаях до запуска.',' and test on your real cases before launch.','. ვამოწმებთ თქვენს რეალურ შემთხვევებზე გაშვებამდე.'):c('Подключаем ваши системы и проверяем на реальных случаях до запуска.','We connect your systems and test on real cases before launch.','ვაკავშირებთ თქვენს სისტემებს და ვამოწმებთ რეალურ შემთხვევებზე გაშვებამდე.')],
+  ['line-chart',c('Измеряем результат','Measured','შედეგის გაზომვა'),t(ent.metric,lang)+'. '+c('Сравниваем с тем, как работа идёт сейчас.','We compare it with how the work runs today.','ვადარებთ დღევანდელ მდგომარეობას.')],
+ ];
+ return (
+  <section data-screen-label="Pilot steps" className="wrap sec">
+   <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{c('Пилот по шагам.','Your pilot, step by step.','პილოტი ეტაპობრივად.')}</h2><p className="lead">{c('2–4 недели на одном процессе. Цену фиксируем после аудита, до начала работ.','2–4 weeks on one workflow. We fix the price after the audit, before work starts.','2–4 კვირა ერთ პროცესზე. ფასს აუდიტის შემდეგ, სამუშაოს დაწყებამდე ვაფიქსირებთ.')}</p></div></div>
+   <div data-reveal="line" aria-hidden="true" className="process-line"/>
+   <ol className="process">
+    {steps.map(([icon,title,body],i)=><li key={icon}><div data-reveal="" style={rd(i*110)}>
+     <span className="step-num">{'0'+(i+1)}</span>
+     <h3>{title}</h3>
+     <p>{body}</p>
+    </div></li>)}
+   </ol>
+  </section>
+ );
+}

@@ -944,6 +944,8 @@ main{outline:none}
 .ix .header-row{gap:24px}
 .ix .nav-link{height:36px;padding:0 10px;font-size:14.5px}
 .ix .desktop-nav{gap:2px}
+/* praxenai.com has six short menu items, so the menu (with Blog) stays visible down to tablet width. */
+@media(min-width:901px) and (max-width:1240px){.ix .desktop-nav{display:flex}.ix .mega{display:block}.ix .burger{display:none}}
 .ix .tariff-badge{background:var(--ink)}
 .ix .submit-row{flex-direction:column;align-items:flex-start;gap:12px}
 .ix .submit-btn{width:100%}
@@ -1438,6 +1440,7 @@ main{outline:none}
 .ix-article-table thead th{font-size:13px;font-weight:600;color:var(--muted)}
 .ix-article-table tbody th{font-weight:600}
 .ix-article-table tr:last-child>*{border-bottom:0}
+.ix-article-table.is-narrow table{min-width:0}
 .ix-article-cta{padding:var(--cardPadL);border-radius:16px;background:radial-gradient(ellipse at 100% 0%,#dfe7ff,transparent 60%),var(--soft);border:1px solid #d6e0f5}
 .ix-article-cta b{display:block;font-size:20px;font-weight:600;letter-spacing:-.02em}
 .ix-article-cta p{margin:8px 0 18px;font-size:15px;line-height:1.55;color:var(--body)}

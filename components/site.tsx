@@ -9,7 +9,7 @@ import {copyFn,sectionLabel,siteCopy} from '@/lib/site-copy';
 import {Header} from '@/components/praxen/header';
 import {Hero,Marquee,Results} from '@/components/praxen/home';
 import {CaseExamples,DepartmentsGrid,Formats,IndustriesGrid,InnerHero,Process,SolutionExamples,Trust} from '@/components/praxen/inner';
-import {DetailAnswer,DetailHero,IndustryDepartments,Related,Scenarios,Tested} from '@/components/praxen/detail';
+import {DetailAnswer,DetailHero,IndustryDepartments,PilotSteps,Related,Scenarios,Tested} from '@/components/praxen/detail';
 import {Contact,Faq} from '@/components/praxen/contact';
 import {Icon} from '@/components/praxen/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
@@ -24,6 +24,7 @@ import {Team} from '@/components/praxen/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
 import type {X} from '@/components/praxen/types';
 import {pageJsonLd} from '@/lib/seo';
+import {geFaq} from '@/lib/ge-faq';
 
 type Props={lang?:Lang;section?:string;slug?:string;data?:PageData};
 
@@ -62,7 +63,10 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const partnerFaq:[string,string][]=[[c('Сколько я получу?','How much will I earn?','რამდენს მივიღებ?'),c('Процент с оплаченного проекта и ведения. Размер зависит от вашей роли в сделке — от рекомендации до совместных продаж — и фиксируется в договоре.','A share of each paid project and support plan. The rate depends on your role, from a referral to joint selling, and is fixed in a contract.','პროცენტი გადახდილი პროექტიდან და მხარდაჭერიდან. ოდენობა დამოკიდებულია თქვენს როლზე და ხელშეკრულებით ფიქსირდება.')],[c('Нужно ли разбираться в ИИ?','Do I need to know AI?','AI‑ში უნდა ვერკვეოდე?'),c('Нет. Достаточно знать задачи клиента. Аудит, расчёт и внедрение берём на себя, а вам даём демо и материалы.','No. Knowing the client’s needs is enough. We handle the audit, estimate and delivery and give you demos and materials.','არა. საკმარისია კლიენტის ამოცანების ცოდნა. აუდიტს, გათვლასა და დანერგვას ჩვენ ვაკეთებთ.')],[c('Можно работать под нашим брендом?','Can you deliver under our brand?','შეიძლება ჩვენი ბრენდით?'),c('Да, для агентств и интеграторов делаем внедрения под вашим брендом. Условия обсуждаем отдельно.','Yes, for agencies and integrators we deliver under your brand. Terms are agreed separately.','დიახ, სააგენტოებისა და ინტეგრატორებისთვის ვმუშაობთ თქვენი ბრენდით.')],[c('Когда выплачивается вознаграждение?','When am I paid?','როდის ხდება ანაზღაურება?'),c('После оплаты клиентом каждого этапа — пилота, внедрения или месяца ведения.','After the client pays for each stage — pilot, implementation or a month of support.','კლიენტის მიერ თითოეული ეტაპის გადახდის შემდეგ.')]];
  const detailHead=slug==='leadership'?c('ИИ-стратегия','an AI strategy','AI სტრატეგია'):isDetail?(ov?.h1.split(':')[0].trim()||t(ent!.name,lang)):'';
  const detailCost:[string,string]=[c('Сколько стоит '+detailHead+'?','How much does '+detailHead+' cost?','რა ღირს '+detailHead+'?'),c('Внедрение готовых инструментов — от 3 200 ₾ ($1 200): пилот на одном процессе за 2–4 недели на ваших реальных данных. Если нужна разработка под ваши системы — от 6 700 ₾ ($2 500), дополнительное ведение — от 550 ₾ в месяц. Аудит бесплатный, цену пилота фиксируем до старта.','Implementing ready tools starts at 3,200 ₾ ($1,200): a pilot on one workflow in 2–4 weeks on your real data. Custom development for your systems starts at 6,700 ₾ ($2,500), ongoing maintenance from 550 ₾ a month. The audit is free and the pilot price is fixed before work begins.','მზა ინსტრუმენტების დანერგვა — 3 200 ₾‑დან ($1 200): პილოტი ერთ პროცესზე 2–4 კვირაში თქვენს რეალურ მონაცემებზე. თქვენს სისტემებზე მორგებული შემუშავება — 6 700 ₾‑დან ($2 500), დამატებითი მომსახურება — 550 ₾‑დან თვეში. აუდიტი უფასოა, პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.')];
- const faqItems:[string,string][]=isBlog?(post?post.faq:[]):isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:section==='departments'?[aboutFaq,agentFaq,...deptFaq]:genFaq;
+ // Each list and company page has its own questions (lib/ge-faq.ts), so FAQ blocks do not repeat between pages.
+ const g=geFaq(c),[,costFaq,,trainingFaq,systemsFaq,mistakeFaq,langFaq]=genFaq;
+ const pageFaq:Record<string,[string,string][]>={home:[aboutFaq,costFaq,agentFaq,langFaq],solutions:[g.excluded,g.support,g.pilotPrice],training:[trainingFaq,g.trainingHow,g.trainingLang],cases:[g.casesReal,g.measure],industries:[g.notListed,systemsFaq],departments:deptFaq.filter(([,a])=>a!==costAnswer),about:[g.who,g.onSite],security:[mistakeFaq,g.dataTraining,g.whoSees]};
+ const faqItems:[string,string][]=isBlog?(post?post.faq:[]):isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:pageFaq[section]||genFaq;
  const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
  const sectionName=isBlog?blogLabel(x):section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
@@ -99,7 +103,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
     {section==='about'&&<><About x={x}/><Process x={x}/><Team x={x}/></>}
-    {section==='security'&&<><Security x={x}/><Trust x={x}/></>}
+    {section==='security'&&<Security x={x}/>}
     {isBlog&&(post?<GeArticle x={x} post={post}/>:<BlogList x={x}/>)}
     {isList&&<InnerHero x={x} page={section}/>}
     {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
@@ -109,12 +113,11 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {['home','solutions'].includes(section)&&!isDetail&&<Calculator x={x}/>}
     {section==='solutions'&&<SolutionExamples x={x}/>}
     {section==='cases'&&<><CaseExamples x={x}/><Results x={x} count={false}/></>}
-    {isList&&<Process x={x}/>}
-    {(isHome||isList)&&<Trust x={x}/>}
+    {isHome&&<Trust x={x}/>}
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
-    {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
-    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/>{section==='industries'&&<IndustryDepartments x={x} slug={slug!}/>}<Process x={x}/><DetailAnswer x={x} slug={slug!}/><Trust x={x}/></>}
+    {isHome&&<Team x={x}/>}
+    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/>{section==='industries'&&<IndustryDepartments x={x} slug={slug!}/>}<PilotSteps x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/></>}
     {!isPrivacy&&<>{faqItems.length>0&&<Faq x={x} items={faqItems} title={faqTitle}/>}
     <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>

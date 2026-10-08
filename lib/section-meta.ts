@@ -3,7 +3,7 @@ import type {Copy} from './content';
 // Search titles and descriptions for the home page and section pages, per language [ru, en, ka].
 export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  home:{
-  title:['Внедрение ИИ в бизнес в Грузии: чат-боты, ИИ-агенты, автоматизация — Praxen AI','AI for business in Georgia: AI chatbots, AI agents, automation — Praxen AI','ხელოვნური ინტელექტი ბიზნესისთვის: AI ჩატბოტები და AI აგენტები — Praxen AI'],
+  title:['Внедрение ИИ в бизнес в Грузии: чат-боты и ИИ-агенты — Praxen AI','AI for business in Georgia: chatbots and AI agents — Praxen AI','AI ბიზნესისთვის: ჩატბოტები და AI აგენტები — Praxen AI'],
   description:['Чат-боты для WhatsApp и Telegram, ИИ-агенты для CRM и документов, обучение сотрудников. Батуми, Тбилиси и вся Грузия, бесплатный аудит, внедрение от 3 200 ₾.','AI automation agency in Batumi and Tbilisi: WhatsApp and Telegram chatbots, AI agents for CRM and documents, team training. Free audit, implementation from 3,200 ₾.','ხელოვნური ინტელექტის დანერგვა საქართველოში: ქართულად მოსაუბრე AI ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI აგენტები CRM-ისთვის, გუნდის სწავლება. უფასო აუდიტი, დანერგვა 3 200 ₾-დან.'],
  },
  industries:{
@@ -19,7 +19,7 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
   description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Batumi and Tbilisi, from 1,900 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
  },
  solutions:{
-  title:['Стоимость внедрения ИИ в Грузии: обучение, внедрение, разработка — Praxen AI','AI implementation cost in Georgia: training, implementation, development — Praxen AI','AI-ს დანერგვის ფასი საქართველოში: სწავლება, დანერგვა, შემუშავება — Praxen AI'],
+  title:['Стоимость внедрения ИИ в Грузии: форматы и цены — Praxen AI','AI implementation cost in Georgia: formats and prices — Praxen AI','AI-ს დანერგვის ფასი საქართველოში: ფორმატები და ფასები — Praxen AI'],
   description:['Обучение от 1 900 ₾, внедрение под процесс от 3 200 ₾, разработка от 6 700 ₾, дополнительное ведение от 550 ₾ в месяц. Калькулятор экономии и бесплатный аудит.','Training from 1,900 ₾, implementation from 3,200 ₾, custom development from 6,700 ₾, ongoing maintenance from 550 ₾ a month. A savings calculator and a free audit.','სწავლება 1 900 ₾-დან, დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან, დამატებითი მომსახურება 550 ₾-დან თვეში. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
  },
  cases:{
@@ -28,7 +28,7 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  },
  blog:{
   title:['Блог Praxen AI: ИИ для бизнеса в Грузии — цены и примеры','Praxen AI blog: AI for business in Georgia — prices and examples','Praxen AI ბლოგი: AI ბიზნესისთვის საქართველოში'],
-  description:['Статьи о внедрении ИИ в Грузии: чат-боты для WhatsApp и Telegram, ИИ для отелей, цены в лари и примеры расчёта.','Articles on AI for companies in Georgia: WhatsApp and Telegram chatbots, AI for hotels, prices in lari and worked examples.','სტატიები AI-ს დანერგვაზე საქართველოში: ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI სასტუმროებისთვის, ფასები ლარში.'],
+  description:['Статьи о внедрении ИИ в Грузии: чат-боты для WhatsApp и Telegram, ИИ для отелей и клиник, заявки на недвижимость в Батуми, цены в лари.','Articles on AI for companies in Georgia: WhatsApp and Telegram chatbots, AI for hotels and clinics, property enquiries in Batumi, prices in lari.','სტატიები AI-ს დანერგვაზე საქართველოში: ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI სასტუმროებისა და კლინიკებისთვის, უძრავი ქონება ბათუმში, ფასები ლარში.'],
  },
  about:{
   title:['О компании Praxen AI: внедрение ИИ в Грузии — Praxen AI','About Praxen AI: AI implementation in Georgia — Praxen AI','Praxen AI-ის შესახებ: AI-ს დანერგვა საქართველოში — Praxen AI'],

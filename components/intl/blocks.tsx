@@ -499,7 +499,7 @@ export function CaseDetails(){
  return (
   <section data-screen-label="Cases" className="wrap sec">
    <div className="grid-c3w" data-stagger="">{examples.map(x=><article key={x.href} className="card ex-card">
-    <span className="over">{x.over} · Example</span>
+    <span className="over">{x.over}</span>
     <h3>{x.title}</h3>
     <p>{x.body}</p>
     <dl>
@@ -847,7 +847,7 @@ export function Article({post}:{post:Post}){
       <h2>{b.h}</h2>
       {b.p?.map(t=><p key={t}>{t}</p>)}
       {b.list&&<ul>{b.list.map(t=><li key={t}>{t}</li>)}</ul>}
-      {b.table&&<div className="ix-article-table"><table><thead><tr>{b.table[0].map(c=><th key={c}>{c}</th>)}</tr></thead><tbody>{b.table.slice(1).map(r=><tr key={r[0]}>{r.map((c,i)=>i?<td key={i}>{c}</td>:<th key={i}>{c}</th>)}</tr>)}</tbody></table></div>}
+      {b.table&&<div className={'ix-article-table'+(b.table[0].length<3?' is-narrow':'')}><table><thead><tr>{b.table[0].map(c=><th key={c}>{c}</th>)}</tr></thead><tbody>{b.table.slice(1).map(r=><tr key={r[0]}>{r.map((c,i)=>i?<td key={i}>{c}</td>:<th key={i}>{c}</th>)}</tr>)}</tbody></table></div>}
      </section>)}
      <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>A free 30-minute audit gives you the hours saved and a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free call<Icon name="arrow-right" size={16}/></BookLink></aside>
      <div className="ix-article-links"><b>Related pages</b>{post.links.map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
