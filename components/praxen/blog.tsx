@@ -2,6 +2,7 @@
 // praxenai.ge blog: the list (in every language) and an article (Russian and English for now).
 // The article layout reuses the praxenai.com article classes in globals.css.
 import {base,homeHref,pageHref} from '@/lib/base';
+import {ArticleBlock} from '@/components/article-blocks';
 import {geArticles,type GePost} from '@/lib/ge-blog';
 import type {Lang} from '@/lib/content';
 import {Icon} from './icon';
@@ -60,10 +61,7 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
     <div className="ix-article-body">
      <div className="ix-answer-box"><b>{c('Коротко','Short answer','მოკლედ')}</b><p>{post.answer}</p></div>
      {post.blocks.map((b,i)=><section key={b.h} id={anchor(b.h,i)}>
-      <h2>{b.h}</h2>
-      {b.p?.map(t=><p key={t}>{t}</p>)}
-      {b.list&&<ul>{b.list.map(t=><li key={t}>{t}</li>)}</ul>}
-      {b.table&&<div className={'ix-article-table'+(b.table[0].length<3?' is-narrow':'')}><table><thead><tr>{b.table[0].map((h,k)=><th key={k}>{h}</th>)}</tr></thead><tbody>{b.table.slice(1).map(r=><tr key={r[0]}>{r.map((v,k)=>k?<td key={k}>{v}</td>:<th key={k}>{v}</th>)}</tr>)}</tbody></table></div>}
+      <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>{c('Хотите такой расчёт для своего бизнеса?','Want these numbers for your business?','გსურთ ასეთი გათვლა თქვენი ბიზნესისთვის?')}</b><p>{c('Бесплатный аудит покажет, сколько часов освободит ИИ и сколько будет стоить пилот.','A free audit shows how many hours AI frees up and what a pilot costs.','უფასო აუდიტი გაჩვენებთ, რამდენ საათს გაათავისუფლებს AI და რა ეღირება პილოტი.')}</p><button type="button" onClick={()=>x.go(post.cat)} className="btn btn-primary">{x.s.action}<Icon name="arrow-right" size={16}/></button></aside>
      <div className="ix-article-links"><b>{c('Читайте также','Related pages','ასევე წაიკითხეთ')}</b>{post.links.map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>

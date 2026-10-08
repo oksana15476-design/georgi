@@ -6,6 +6,7 @@ import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {partnerSteps,partnerWho,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {posts,type Post} from '@/lib/intl-blog';
+import {ArticleBlock} from '@/components/article-blocks';
 import {Icon} from './icon';
 import {Scene} from './scene';
 
@@ -844,10 +845,7 @@ export function Article({post}:{post:Post}){
     <div className="ix-article-body">
      <div className="ix-answer-box"><b>Short answer</b><p>{post.answer}</p></div>
      {post.blocks.map(b=><section key={b.h} id={anchor(b.h)}>
-      <h2>{b.h}</h2>
-      {b.p?.map(t=><p key={t}>{t}</p>)}
-      {b.list&&<ul>{b.list.map(t=><li key={t}>{t}</li>)}</ul>}
-      {b.table&&<div className={'ix-article-table'+(b.table[0].length<3?' is-narrow':'')}><table><thead><tr>{b.table[0].map(c=><th key={c}>{c}</th>)}</tr></thead><tbody>{b.table.slice(1).map(r=><tr key={r[0]}>{r.map((c,i)=>i?<td key={i}>{c}</td>:<th key={i}>{c}</th>)}</tr>)}</tbody></table></div>}
+      <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>A free 30-minute audit gives you the hours saved and a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free call<Icon name="arrow-right" size={16}/></BookLink></aside>
      <div className="ix-article-links"><b>Related pages</b>{post.links.map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
