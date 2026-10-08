@@ -47,8 +47,8 @@ const siteUrl=entries.length?entries[0][0].replace(/\/(en|ka|ru)(\/.*)?$/,''):''
 const aiBots=['OAI-SearchBot','ChatGPT-User','GPTBot','PerplexityBot','Perplexity-User','Claude-SearchBot','Claude-User','ClaudeBot','Google-Extended','Applebot-Extended','Bingbot'];
 // Same Clean-param as app/robots.ts.
 const cleanParam=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','yclid','ysclid','popup'];
-// The international site (NEXT_PUBLIC_MARKET=intl) stays closed to robots until NEXT_PUBLIC_INTL_LIVE=1, as in app/robots.ts.
-const closed=process.env.NEXT_PUBLIC_MARKET==='intl'&&process.env.NEXT_PUBLIC_INTL_LIVE!=='1';
+// The international site (NEXT_PUBLIC_MARKET=intl) is open to robots unless NEXT_PUBLIC_INTL_LIVE=0, as in lib/market.ts.
+const closed=process.env.NEXT_PUBLIC_MARKET==='intl'&&process.env.NEXT_PUBLIC_INTL_LIVE==='0';
 if(closed)writeFileSync(join(out,'robots.txt'),'User-agent: *\nDisallow: /\n');
 else writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /api/\n${cleanParam.map(p=>`Clean-param: ${p}\n`).join('')}\n${aiBots.map(b=>`User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 

@@ -123,4 +123,4 @@ Cloudflare Pages задаёт `CF_PAGES`, и `scripts/pages-postbuild.mjs` до�
 | не задано / `ge` | praxenai.ge | грузинский, русский, английский; Telegram; Яндекс Метрика |
 | `intl` | praxenai.com | только английский; email вместо Telegram; без Яндекс Метрики; адрес praxenai.com |
 
-Международный сайт закрыт от поисковиков (`noindex` и `Disallow: /`), пока не задано `NEXT_PUBLIC_INTL_LIVE=1`: до запуска у него должны быть свои тексты, иначе он будет дублировать английскую версию praxenai.ge.
+Международный сайт открыт для поисковиков с 8 октября 2026. Чтобы снова закрыть его (`noindex` и `Disallow: /`), задайте при сборке `NEXT_PUBLIC_INTL_LIVE=0`.

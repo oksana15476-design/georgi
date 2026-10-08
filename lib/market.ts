@@ -4,6 +4,6 @@
 export type Market='ge'|'intl';
 export const market:Market=process.env.NEXT_PUBLIC_MARKET==='intl'?'intl':'ge';
 export const isIntl=market==='intl';
-// The international site stays out of search results until NEXT_PUBLIC_INTL_LIVE=1.
-export const indexable=!isIntl||process.env.NEXT_PUBLIC_INTL_LIVE==='1';
+// praxenai.com went live on 8 October 2026. NEXT_PUBLIC_INTL_LIVE=0 at build time takes it out of search again.
+export const indexable=!isIntl||process.env.NEXT_PUBLIC_INTL_LIVE!=='0';
 export const marketUrls={ge:'https://praxenai.ge',intl:'https://praxenai.com'};
