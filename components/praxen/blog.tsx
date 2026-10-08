@@ -39,6 +39,9 @@ export function BlogList({x}:{x:X}){
 const anchor=(h:string,i:number)=>'s'+(i+1);
 export function GeArticle({x,post}:{x:X;post:GePost}){
  const {c,lang,link}=x;
+ // Two more articles in this language (the next ones in the list) that the post does not already link to.
+ const i=geArticles.findIndex(a=>a.langs[lang]===post),seen=new Set(post.links.map(([h])=>h));
+ const related:[string,string][]=[...geArticles.slice(i+1),...geArticles.slice(0,Math.max(i,0))].filter(a=>a.langs[lang]&&!seen.has('blog/'+a.slug)).slice(0,2).map(a=>['blog/'+a.slug,a.langs[lang]!.title]);
  return (
   <article data-screen-label="Article" className="ix-article">
    <header className="inner-hero">
@@ -64,7 +67,7 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
       <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>{c('Хотите такой расчёт для своего бизнеса?','Want these numbers for your business?','გსურთ ასეთი გათვლა თქვენი ბიზნესისთვის?')}</b><p>{c('Бесплатный аудит покажет, сколько часов освободит ИИ и сколько будет стоить пилот.','A free audit shows how many hours AI frees up and what a pilot costs.','უფასო აუდიტი გაჩვენებთ, რამდენ საათს გაათავისუფლებს AI და რა ეღირება პილოტი.')}</p><button type="button" onClick={()=>x.go(post.cat)} className="btn btn-primary">{x.s.action}<Icon name="arrow-right" size={16}/></button></aside>
-     <div className="ix-article-links"><b>{c('Читайте также','Related pages','ასევე წაიკითხეთ')}</b>{post.links.map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
+     <div className="ix-article-links"><b>{c('Читайте также','Related pages','ასევე წაიკითხეთ')}</b>{[...post.links,...related].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
    </div>
   </article>

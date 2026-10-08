@@ -16,7 +16,10 @@ function Lead({text}:{text:string}){
  return <><b>{m[1]+(m[2]===':'?':':'.')}</b> {m[3]}</>;
 }
 
-function priceColumn(rows:string[][]):number{
+const priceHead=/price|standard|launch|cost|цена|стоимость|ფასი/i;
+function priceColumn(head:string[],rows:string[][]):number{
+ // A column titled as a price with at least one amount wins; otherwise the column with amounts in half the rows.
+ for(let c=1;c<head.length;c++)if(priceHead.test(head[c])&&rows.some(r=>money.test(r[c]||'')))return c;
  let best=-1,bestN=0;
  for(let c=1;c<rows[0].length;c++){const n=rows.filter(r=>money.test(r[c]||'')).length;if(n>bestN){best=c;bestN=n}}
  return bestN>=Math.ceil(rows.length/2)?best:-1;
@@ -32,7 +35,7 @@ function PriceValue({text}:{text:string}){
 export function ArticleBlock({b}:{b:ArticleBlockData}){
  const [head,...rows]=b.table||[[]];
  const steps=!!b.list&&stepHeading.test(b.h);
- const pc=b.table&&head[0]!==''?priceColumn(rows):-1;
+ const pc=b.table&&head[0]!==''?priceColumn(head,rows):-1;
  const timeline=!!b.table&&head.length===2&&timeHeading.test(head[0]);
  return (<>
   <h2>{b.h}</h2>
@@ -44,7 +47,7 @@ export function ArticleBlock({b}:{b:ArticleBlockData}){
    ?<div className={'art-prices'+(rows.length===3?' is-3':'')}>{rows.map(r=><div key={r[0]} className="art-price">
      <b className="art-price-name">{r[0]}</b>
      <PriceValue text={r[pc]}/>
-     {r.map((v,i)=>i===0||i===pc||!v?null:timeCol.test(head[i])?<span key={i} className="art-chip">{head[i]}: {v}</span>:<span key={i} className="art-price-note">{v}</span>)}
+     {r.map((v,i)=>i===0||i===pc||!v||v===r[pc]?null:timeCol.test(head[i])?<span key={i} className="art-chip">{head[i]}: {v}</span>:<span key={i} className="art-price-note">{money.test(v)?head[i]+': ':''}{v}</span>)}
     </div>)}</div>
    :timeline
    ?<ol className="art-timeline">{rows.map(([when,what])=><li key={when}><b>{when}</b><span>{what}</span></li>)}</ol>

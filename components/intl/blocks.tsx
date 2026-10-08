@@ -822,6 +822,12 @@ export function BlogList(){
 }
 
 const anchor=(h:string)=>h.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+// Two more articles from the same blog (the next ones in the list) that the post does not already link to.
+function relatedPosts(post:Post):[string,string][]{
+ const i=posts.findIndex(p=>p.slug===post.slug),seen=new Set(post.links.map(([h])=>h));
+ return [...posts.slice(i+1),...posts.slice(0,i)].filter(p=>!seen.has('blog/'+p.slug)).slice(0,2).map(p=>['blog/'+p.slug,p.title]);
+}
+
 export function Article({post}:{post:Post}){
  return (
   <article data-screen-label="Article" className="ix-article">
@@ -848,7 +854,7 @@ export function Article({post}:{post:Post}){
       <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>A free 30-minute audit gives you the hours saved and a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free call<Icon name="arrow-right" size={16}/></BookLink></aside>
-     <div className="ix-article-links"><b>Related pages</b>{post.links.map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
+     <div className="ix-article-links"><b>Related pages</b>{[...post.links,...relatedPosts(post)].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
    </div>
   </article>

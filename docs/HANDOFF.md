@@ -49,6 +49,7 @@
 - `node scripts/qa/audit.mjs intl|ge http://localhost:<порт> <папка out> <папка отчёта>` — все страницы из sitemap: H1, title, description, JSON-LD, ошибки, выход за экран, битые ссылки.
 - `node scripts/qa/text.mjs http://localhost:<порт> <папка out> <файл.json>` — тексты всех страниц (для проверки уникальности и вычитки).
 - Перед пушем: `npx tsc --noEmit -p .` и `npx eslint components lib app`.
+- Статьи блогов: правила — скилл `.claude/skills/praxen-blog/SKILL.md` (темы, структура, как блоки превращаются в UI, стиль без «ИИ-шности», SEO), проверка — `npx tsx scripts/qa/blog-check.ts` (длина title и description, ссылки, языки, антитезы, дословные повторы между статьями).
 
 ## Что сделано (кратко)
 

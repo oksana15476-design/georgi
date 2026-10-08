@@ -27,6 +27,9 @@ Claude Code loads them automatically from `.claude/skills/`.
 | `geo` (+ `scripts/`, `templates/`, `schema/`), `geo-audit`, `geo-citability`, `geo-crawlers`, `geo-llmstxt`, `geo-platform-optimizer`, `geo-brand-mentions`, `geo-content`, `geo-schema`, `geo-technical` | GEO: visibility in ChatGPT, Claude, Perplexity, Gemini, AI Overviews | [zubair-trabzada/geo-seo-claude](https://github.com/zubair-trabzada/geo-seo-claude) @ `ea29bd2` | MIT |
 | `product-marketing`, `ai-seo`, `content-strategy`, `site-architecture`, `programmatic-seo`, `copywriting`, `cro`, `lead-magnets`, `cold-email`, `ads`, `ad-creative`, `competitor-profiling`, `customer-research` | Positioning, AI SEO, content plan, site structure, copy, conversion, outreach, paid ads, competitor and customer research | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) @ `dda3841` | MIT |
 | `yandex-metrika`, `yandex-wordstat`, `yandex-webmaster` | Yandex Metrica reports (counter 113476399), Wordstat demand / keyword research, Yandex Webmaster indexing, queries, sitemaps, recrawl | [artwist-polyakov/polyakov-claude-skills](https://github.com/artwist-polyakov/polyakov-claude-skills), copied from the Saldo repo | see upstream |
+| `praxen-blog` | **Project rules for blog articles on both sites**: topics, structure, block-to-UI mapping, anti-AI style, SEO checklist, `scripts/qa/blog-check.ts` | this repo | — |
+| `on-page-seo`, `technical-seo`, `schema-markup`, `internal-linking`, `keyword-clustering`, `marketing-seo-audit`, `broken-links`, `ai-visibility` | Page-level and technical SEO, JSON-LD, internal links, keyword groups, full SEO audit, dead links, visibility in AI answers | copied (instructions only) from the Saldo repo `oksana15476-design/saldio`, 8 Oct 2026 | see upstream |
+| `content-brief`, `content-creation`, `draft-content`, `brand-voice`, `brand-review`, `ux-copy` | Article briefs and drafts, house voice, editor's review before publishing (copywriter → editor), interface copy | copied (instructions only) from the Saldo repo, 8 Oct 2026 | see upstream |
 
 Local changes to vendored files:
 - `seo-schema` points to its own copy of `references/schema-types.md` instead of `../seo/references/`.
@@ -42,3 +45,5 @@ To update a skill, copy its folder again from the source repository and bump the
 
 `.claude/settings.json` enables [Superpowers](https://github.com/obra/superpowers) (`superpowers@anthropic-plugin-directory`, MIT): brainstorming → plan → TDD → code review → verification workflow, systematic debugging, git worktrees.
 It is a plugin, not vendored skills, because its skills reference each other as `superpowers:<skill>` and it ships a SessionStart hook. Claude Code offers to install it when the project is opened.
+
+Not copied from Saldo: `crawl4ai-seo` and `yandex-search-api` (they ship Python and shell scripts; add them only with the owner's approval).
