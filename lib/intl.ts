@@ -187,7 +187,7 @@ export const industries:Entity[]=[
 ];
 
 export const departments:Entity[]=[
- {slug:'customer-support',title:'AI for customer support: routine answered 24/7',desc2:'Order status, returns and how-to questions answered on chat, email and phone from your help centre. Agents get the conversations that need judgement.',measure:'First reply time, share of tickets resolved without an agent and customer satisfaction on resolved chats.',name:'Customer support',icon:'headphones',desc:'Answer routine questions, escalate the rest',scene:'helpdesk',
+ {slug:'customer-support',title:'AI customer service: routine questions answered 24/7',desc2:'Order status, returns and how-to questions answered on chat, email and phone from your help centre. Agents get the conversations that need judgement.',measure:'First reply time, share of tickets resolved without an agent and customer satisfaction on resolved chats.',name:'Customer support',icon:'headphones',desc:'Answer routine questions, escalate the rest',scene:'helpdesk',
   question:'What can AI do for customer support, and what does it cost?',
   h1:'AI for customer support: routine answered, people for the rest.',sub:'Order status, returns and “how do I…” questions are answered on chat, email and phone from your help centre. Your agents handle the conversations that need judgement.',
   stats:[['< 10 sec','first reply'],['24/7','chat, email and phone'],['1 click','handover with full context']],
@@ -370,7 +370,7 @@ export const sectionName:Record<string,string>={blog:'Blog',services:'Services',
 
 // ---- Search titles and descriptions ----
 const meta:Partial<Record<IntlPage,[string,string]>>={
- home:['AI receptionist and AI automation for business | Praxen AI','AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.'],
+ home:['AI automation agency: AI receptionist and chatbots | Praxen AI','AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.'],
  'ai-for-small-business':['AI for small businesses: starter terms and pricing | Praxen AI','AI receptionist and automation for teams of up to 50: setup in three payments, no long contract and the first month of care free. Free 30-minute audit.'],
  services:['AI services for business: receptionist and automation | Praxen AI','AI receptionist, AI automation, AI chatbots, AI agents, AI consultancy and team training. Every project starts with a free audit and a fixed-price pilot.'],
  industries:['AI for accounting, law, recruitment and clinics | Praxen AI','How AI handles routine work in accounting firms, recruitment agencies, law firms, hotels, estate agents, clinics and trades — and what we check before launch.'],
