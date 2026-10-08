@@ -1036,8 +1036,8 @@ main{outline:none}
 .ix .ix-small-card .btn{align-self:flex-start;margin-top:auto}
 .ix .ix-small-card .tariff-meta{margin-bottom:20px}
 .ix .ix-small-month{font-size:15px;color:var(--ink)}
-.ix .ix-strip{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-size:16px;line-height:1.5;color:var(--body)}
-.ix .ix-strip>span:nth-child(2){flex:1 1 320px}
+.ix .ix-strip{display:flex;flex-direction:row;align-items:center;gap:18px;flex-wrap:wrap;font-size:16px;line-height:1.5;color:var(--body)}
+.ix .ix-strip>span:nth-child(2){flex:1 1 300px;min-width:0}
 .ix .ix-strip b{color:var(--ink)}
 @media (max-width:760px){.ix .ix-small-grid{grid-template-columns:1fr}}
 /* One more subgrid row than .ge: the struck-through regular price under each price. */
