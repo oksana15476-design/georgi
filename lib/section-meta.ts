@@ -26,6 +26,18 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
   title:['Примеры внедрения ИИ в бизнес в Грузии — Praxen AI','AI implementation examples for businesses in Georgia — Praxen AI','AI-ს დანერგვის მაგალითები ბიზნესში — Praxen AI'],
   description:['Как ИИ работает в отелях, оптовой торговле и недвижимости: ситуация, решение и то, как измеряем результат. Сценарии для компаний в Грузии.','How AI works in hotels, wholesale and real estate: the situation, the solution and how we measure the result. Scenarios for companies in Georgia.','როგორ მუშაობს AI სასტუმროებში, საბითუმო ვაჭრობასა და უძრავ ქონებაში: სიტუაცია, გადაწყვეტა და შედეგის მეტრიკა.'],
  },
+ blog:{
+  title:['Блог Praxen AI: ИИ для бизнеса в Грузии — цены и примеры','Praxen AI blog: AI for business in Georgia — prices and examples','Praxen AI ბლოგი: AI ბიზნესისთვის საქართველოში'],
+  description:['Статьи о внедрении ИИ в Грузии: чат-боты для WhatsApp и Telegram, ИИ для отелей, цены в лари и примеры расчёта.','Articles on AI for companies in Georgia: WhatsApp and Telegram chatbots, AI for hotels, prices in lari and worked examples.','სტატიები AI-ს დანერგვაზე საქართველოში: ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI სასტუმროებისთვის, ფასები ლარში.'],
+ },
+ about:{
+  title:['О компании Praxen AI: внедрение ИИ в Грузии — Praxen AI','About Praxen AI: AI implementation in Georgia — Praxen AI','Praxen AI-ის შესახებ: AI-ს დანერგვა საქართველოში — Praxen AI'],
+  description:['Команда из Батуми: внедряем ИИ-ассистентов, ИИ-агентов и автоматизацию для компаний по всей Грузии на грузинском, английском и русском. Один ответственный от аудита до запуска.','A Batumi-based team building AI assistants, AI agents and automation for companies across Georgia in Georgian, English and Russian. One accountable lead from audit to launch.','გუნდი ბათუმიდან: ვნერგავთ AI ასისტენტებს, AI აგენტებს და ავტომატიზაციას კომპანიებისთვის მთელ საქართველოში, ქართულ, ინგლისურ და რუსულ ენებზე.'],
+ },
+ security:{
+  title:['Безопасность данных при внедрении ИИ — Praxen AI','Data security in AI implementation — Praxen AI','მონაცემთა უსაფრთხოება AI-ს დანერგვისას — Praxen AI'],
+  description:['Enterprise API без обучения на ваших данных, развёртывание в вашем контуре, доступы по ролям, журнал действий ИИ и работа по Закону Грузии о защите персональных данных.','Enterprise APIs that do not train on your data, deployment in your own environment, role-based access, a log of AI actions and work under the Georgian personal data law.','Enterprise API თქვენს მონაცემებზე სწავლების გარეშე, თქვენს გარემოში განთავსება, როლებზე დაფუძნებული წვდომა, AI-ს მოქმედებების ჟურნალი და მუშაობა პერსონალურ მონაცემთა დაცვის კანონით.'],
+ },
  partners:{
   title:['Партнёрская программа по внедрению ИИ — Praxen AI','AI implementation partner programme — Praxen AI','AI დანერგვის პარტნიორული პროგრამა — Praxen AI'],
   description:['Для интеграторов 1С и CRM, агентств, бухгалтерских фирм и консультантов в Грузии: приводите клиентов, мы внедряем ИИ, вы получаете вознаграждение.','For 1C and CRM integrators, agencies, accounting firms and consultants in Georgia: refer clients, we implement AI, you earn a reward.','1C და CRM ინტეგრატორებისთვის, სააგენტოებისთვის, საბუღალტრო ფირმებისა და კონსულტანტებისთვის საქართველოში: მოიყვანეთ კლიენტი და მიიღეთ ანაზღაურება.'],

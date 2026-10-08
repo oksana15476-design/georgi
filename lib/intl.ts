@@ -1,33 +1,444 @@
-// praxenai.com (NEXT_PUBLIC_MARKET=intl): pages, prices and search titles of the international site.
-// Prices approved by the owner on 2026-10-07; the launch offer takes 30% off for the first UK clients.
+// praxenai.com (NEXT_PUBLIC_MARKET=intl): pages, prices and copy of the international site.
+// Source: Claude Design handoff v4 (design_handoff_praxenai_com), British English.
+// Prices approved by the owner on 2026-10-07; the launch offer takes 30% off for the first clients.
+// Prices are fixed round numbers per currency, not exchange-rate conversions.
 
-export const intlPages=['ai-receptionist','pricing','privacy'] as const;
-export type IntlPage='home'|typeof intlPages[number];
-export const isIntlPage=(v:string):v is IntlPage=>v==='home'||(intlPages as readonly string[]).includes(v);
-
-export const launchDiscount=0.3;
-type Offer={key:string;name:string;price:number;monthly?:boolean;setup?:number;unit?:string;body:string;includes:string[];time:string};
-export const offers:Offer[]=[
- {key:'receptionist',name:'AI receptionist',setup:950,price:249,monthly:true,body:'Answers every call 24/7, books appointments into your calendar, takes messages and sends you a summary after each call.',
-  includes:['Voice agent trained on your services, prices and FAQs','Booking into Google Calendar, Outlook or your booking system','Call summaries by email or into your CRM','Transfer to a person for urgent calls','Monthly review and updates'],time:'Live in 2 weeks'},
- {key:'training',name:'Team training',price:850,unit:'half-day session, up to 12 people',body:'Hands-on session on your own tasks: prompts, templates and safe-use rules your team keeps using.',
-  includes:['Programme built around your workflows','Online or on-site (travel extra)','Prompt library and usage policy','Follow-up Q&A after 2 weeks'],time:'From 1 week'},
- {key:'implementation',name:'AI implementation pilot',price:2900,body:'One workflow automated on your real data in 2–4 weeks: chat or WhatsApp assistant, CRM updates, documents or invoices.',
-  includes:['Free audit and success metric agreed upfront','Integration with your tools (HubSpot, Pipedrive, Google Workspace, Microsoft 365…)','Testing on real cases before launch','Handover and team onboarding'],time:'2–4 weeks'},
- {key:'development',name:'Custom AI solution',price:6500,body:'Multi-step AI agents, internal assistants on your knowledge base and custom integrations.',
-  includes:['Solution design and estimate','AI agents with access rules and logs','Knowledge base (RAG) on your documents','Documentation and handover'],time:'From 4 weeks'},
- {key:'care',name:'Ongoing care',price:350,monthly:true,body:'We monitor answers, update the knowledge base, fix issues and improve the workflows after launch.',
-  includes:['Monthly quality review','Knowledge base and prompt updates','Fixes and small improvements','Priority support by email and WhatsApp'],time:'Monthly, cancel anytime'},
-];
-export const gbp=(n:number)=>'£'+Math.round(n).toLocaleString('en-GB');
-export const promo=(n:number)=>Math.round(n*(1-launchDiscount));
-
-// AI and phone usage is paid at cost on the client's own accounts, as on praxenai.ge.
-export const usageNote='Call minutes and AI usage are billed at provider cost on your own accounts — typically 6–15p per minute of calls.';
-
-export const intlMeta:Record<IntlPage,{title:string;description:string}>={
- home:{title:'AI receptionist & AI automation for UK small businesses — Praxen AI',description:'AI receptionist that answers every call 24/7, books appointments and qualifies leads, plus AI automation for CRM, documents and customer service. Launch offer: 30% off.'},
- 'ai-receptionist':{title:'AI receptionist for UK businesses: 24/7 call answering and booking — Praxen AI',description:'An AI receptionist that answers calls, books appointments, takes messages and sends call summaries. Live in 2 weeks, from £665 setup + £174/month with the launch offer.'},
- pricing:{title:'Pricing: AI receptionist, AI implementation and team training — Praxen AI',description:'Clear prices in GBP: AI receptionist from £950 + £249/month, AI implementation pilot from £2,900, team training from £850. Launch offer: 30% off for our first UK clients.'},
- privacy:{title:'Privacy policy — Praxen AI',description:'How Praxen AI collects and uses personal data under UK GDPR: enquiries, call bookings, analytics with consent and your rights.'},
+export type Cur='gbp'|'usd'|'eur';
+export const curs:Cur[]=['gbp','usd','eur'];
+export const curInfo:Record<Cur,{sym:string;label:string;usage:string}>={
+ gbp:{sym:'£',label:'GBP',usage:'6–15p'},usd:{sym:'$',label:'USD',usage:'8–19¢'},eur:{sym:'€',label:'EUR',usage:'7–17c'},
 };
+export type PriceKey='rcSetup'|'rcMonth'|'training'|'pilot'|'custom'|'care';
+export const prices:Record<PriceKey,Record<Cur,number>>={
+ rcSetup:{gbp:950,usd:1190,eur:1090},
+ rcMonth:{gbp:249,usd:299,eur:279},
+ training:{gbp:850,usd:1050,eur:990},
+ pilot:{gbp:2900,usd:3600,eur:3350},
+ custom:{gbp:6500,usd:8100,eur:7500},
+ care:{gbp:350,usd:440,eur:400},
+};
+export const launchDiscount=0.3;
+export const promo=(n:number)=>Math.round(n*(1-launchDiscount));
+export const fmt=(n:number,cur:Cur='gbp')=>curInfo[cur].sym+Math.round(n).toLocaleString('en-GB');
+export const price=(k:PriceKey,cur:Cur='gbp')=>prices[k][cur];
+export const usageNote=(cur:Cur='gbp')=>'Call minutes and AI usage are billed at provider cost on your own accounts, typically '+curInfo[cur].usage+' per minute of calls.';
+export const vatNote='All prices exclude VAT. We work with businesses only. UK and EU business customers account for VAT under the reverse charge.';
+// Content review date shown in the short answers and used as dateModified.
+export const intlUpdated='2026-10-08';
+export const intlUpdatedLabel='8 October 2026';
+
+// Offers for JSON-LD and the receptionist price block.
+export type Offer={key:string;name:string;price:PriceKey;setup?:PriceKey;monthly?:boolean;body:string;includes:string[];path:string};
+export const offers:Offer[]=[
+ {key:'receptionist',name:'AI receptionist',price:'rcMonth',setup:'rcSetup',monthly:true,path:'/services/ai-receptionist',body:'Answers every call 24/7, books appointments into your calendar, takes messages and sends a summary after each call.',
+  includes:['Voice agent trained on your services, prices and FAQs','Booking into Google Calendar, Outlook or your booking system','Call summaries by email or into your CRM','Transfer to a person for urgent calls']},
+ {key:'training',name:'Team training',price:'training',path:'/training',body:'Hands-on half-day session for up to 12 people on your own tasks: prompts, templates and safe-use rules.',includes:['Programme built around your workflows','Online or on-site (travel extra)','Prompt library and a written usage policy','Follow-up Q&A after two weeks']},
+ {key:'pilot',name:'AI implementation pilot',price:'pilot',path:'/solutions',body:'One workflow automated on your real data in 2–4 weeks: chat assistant, CRM updates, documents or invoices.',includes:[]},
+ {key:'custom',name:'Custom AI solution',price:'custom',path:'/solutions',body:'Multi-step AI agents, internal assistants on your knowledge base and custom integrations.',includes:[]},
+ {key:'care',name:'Ongoing care',price:'care',monthly:true,path:'/solutions',body:'We monitor answers, update the knowledge base, fix issues and improve workflows after launch.',includes:[]},
+];
+
+// Pricing block: step 1 one-off launch formats, step 2 monthly care.
+export const tariffs:{key:PriceKey;name:string;body:string;time:string;cta:string;popular?:boolean;from?:boolean;monthly?:boolean}[]=[
+ {key:'training',name:'Team training',body:'Hands-on session on your own tasks: prompts, templates and safe-use rules. Half a day, up to 12 people.',time:'from 1 week',cta:'Get a training plan'},
+ {key:'pilot',name:'Implementation pilot',body:'One workflow on your real data: chat assistant, CRM updates, documents or invoices, connected to your tools.',time:'2–4 weeks',cta:'Find the right tools',popular:true},
+ {key:'custom',name:'Custom AI solution',body:'AI agents, internal assistants on your knowledge base and custom integrations.',time:'from 4 weeks',cta:'Request an estimate',from:true},
+ {key:'care',name:'Ongoing care',body:'We update the knowledge base, review answers, fix errors and improve workflows.',time:'AI usage and servers stay on your account, paid directly',cta:'Discuss care',monthly:true},
+];
+
+// ---- Animated scenes (components/intl/scene.tsx) ----
+export type SceneType='call'|'doc'|'score'|'chat'|'agent'|'playbook'|'crm'|'helpdesk'|'slack'|'compare'|'planner';
+export type SceneData=Record<string,unknown>;
+export const scenes:Record<SceneType,SceneData>={
+ call:{caller:'Incoming call',number:'+44 7700 900 412',lines:[['c','Hi, I’d like to book a consultation for next week.'],['a','Of course. Thursday at 14:30 or Friday at 10:00?'],['c','Thursday works. It’s Sarah Collins.'],['a','Booked. You’ll get a confirmation text now.']],slot:'Thu 14:30 · Consultation',slotWho:'Sarah Collins',summary:'New booking, first visit. Prefers SMS reminders.',to:'office@yourfirm.co.uk'},
+ doc:{app:'Google Sheets',file:'INV-20418.pdf',from:'accounts@supplier.co.uk',fields:[['Supplier','Northgate Supplies Ltd'],['Invoice no.','INV-20418'],['Net','£1,240.00'],['VAT 20%','£248.00'],['Due','14 Nov 2026']],sheet:'Purchase ledger',row:['Northgate','£1,488.00','14 Nov'],approve:'Approved by finance'},
+ score:{title:'Process audit',items:[['Answering phone enquiries',92,'18 h/wk'],['Invoice data entry',78,'9 h/wk'],['Writing quotes',64,'6 h/wk'],['Weekly reporting',40,'3 h/wk'],['Social media replies',28,'2 h/wk']],pick:3},
+ chat:{channel:'WhatsApp',who:'Riverside Dental',q:'Do you do teeth whitening, and how much is it?',a:'Yes. In-surgery whitening is £395, home kits are £250. Both start with a check-up.',src:'Price list · updated 2 Oct',hand:'Hand over to reception'},
+ agent:{title:'Agent run · supplier email',steps:[['inbox','Read','New order request from Bramley Foods'],['search-check','Check','Stock and price list match 6 of 6 lines'],['file-edit','Draft','Order confirmation and delivery date'],['user-check','Wait for approval','Sent to Tom for sign-off']],log:['09:12 read email #4821','09:12 matched 6 SKUs','09:13 drafted reply','09:13 waiting: human approval']},
+ playbook:{title:'Team playbook',cards:[['Reply to a complaint','Prompt'],['Summarise a call','Prompt'],['Never paste client IDs','Rule'],['Draft a quote','Template'],['Check facts against source','Rule']],hours:11},
+ crm:{app:'HubSpot',tile:'#ff7a59',deal:'Bramley Foods — 40 office chairs',stages:['New','Qualified','Quote sent','Won'],stage:1,fields:[['Contact','Tom Reed'],['Deal value','£8,400'],['Source','Inbound call · 14:02'],['Next step','Send quote today']],note:'Call summary logged by AI · reviewed by Sam'},
+ helpdesk:{tickets:[['#5521','Where is my order?','Resolved by AI','ok'],['#5522','Item arrived damaged, want a refund','Urgent','urgent'],['#5523','How do I change my delivery address?','Resolved by AI','ok']],open:'Item arrived damaged, want a refund',draft:'Sorry about that. I’ve attached our returns label and flagged this for a refund.',hand:'Hand over to an agent',who:'Assigned to Emma · 1 min'},
+ slack:{app:'Slack',channel:'ask-hr',user:'Nina Shah',q:'How many days of holiday do I have left this year?',a:'You have 9 days left for 2026. Book them in BrightHR before 15 December to carry over up to 5.',src:'Staff handbook · section 4.2',bot:'HR assistant'},
+ compare:{pdf:'quote_FINAL_v3 (2).pdf',email:'RE: RE: Fwd: pricing for Q4',head:['Supplier','Unit','Delivery','Total'],rows:[['Northgate','£4.20','5 days','£4,200'],['Bexley Ltd','£3.95','10 days','£3,950'],['Harper & Co','£4.05','3 days','£4,050']],best:2,bestLabel:'Best value for a 1-week deadline'},
+ planner:{days:['Mon','Tue','Wed','Thu','Fri'],posts:[[0,'Instagram','Autumn menu is here'],[2,'LinkedIn','How we cut reply times to 10 seconds'],[4,'Instagram','Meet the team: Sarah']],status:'Scheduled · waiting for your approval'},
+};
+const xero={app:'Xero',tile:'#13b5ea',sheet:'Xero · Bills to pay'};
+
+// ---- Services (jobs to be done), industries and departments ----
+type Pair=[string,string];
+export type Entity={slug:string;name:string;icon:string;desc:string;scene:SceneType;sceneData?:SceneData;h1:string;sub:string;stats:Pair[];
+ scenarios:[string,string,string][];tested?:string[];measure?:string;answer?:string;question?:string;faqs?:Pair[];pricing?:boolean;title?:string;desc2?:string};
+
+export const services:Entity[]=[
+ {slug:'ai-receptionist',title:'AI receptionist for UK businesses: 24/7 answering',desc2:'An AI receptionist that answers calls 24/7, books appointments and sends call summaries. Live in 2 weeks, from £665 setup + £174/month with the launch offer.',measure:'Missed calls, bookings made out of hours and reception time spent on the phone, compared with the month before launch.',name:'AI receptionist',icon:'phone-call',desc:'Answers every call, books and takes messages 24/7',scene:'call',pricing:true,
+  question:'What does an AI receptionist do and what does it cost?',
+  h1:'An AI receptionist that answers every call.',sub:'It picks up 24/7, books appointments into your calendar, takes messages and sends you a summary after each call. Urgent calls go straight to a person.',
+  stats:[['24/7','calls answered, evenings and weekends'],['2 weeks','from first call to live'],['6–15p','per call minute, at cost']],
+  scenarios:[['calendar-check','Book appointments','Checks free slots and books directly into Google Calendar, Outlook or your booking system.'],['message-square-text','Take messages','Captures name, number and reason, then emails or texts you a clean summary.'],['phone-forwarded','Transfer urgent calls','Recognises urgent requests and puts them through to the right person.'],['help-circle','Answer FAQs','Opening hours, prices, parking and what to bring, from your own information.'],['user-plus','Qualify new leads','Asks your questions and logs the answers in HubSpot or Pipedrive.'],['languages','Speak several languages','Handles callers in English and other languages your clients use.']],
+  tested:['We call it ourselves with 50+ real scenarios from your business before launch.','It never quotes prices, dates or promises outside the rules you approve.','Every call has a recording, transcript and summary you can check.'],
+  answer:'An AI receptionist is a voice agent that answers your business phone, books appointments and takes messages around the clock. Praxen sets one up in about two weeks.',
+  faqs:[['Will callers know it’s AI?','Yes. It introduces itself as your virtual assistant. Most callers care that they get an answer and a booking straight away.'],['Can it use my existing number?','Yes. We forward your number to it after hours, when lines are busy, or all the time. Your choice.'],['What happens with a difficult call?','It transfers to a person or takes a detailed message and flags it as urgent.']]},
+ {slug:'ai-automation',measure:'Hours of manual entry per week, error rate in the entered data and how long a document waits before it is in your system.',name:'AI automation',icon:'workflow',desc:'Stop retyping enquiries, documents and invoices',scene:'doc',
+  title:'AI automation for invoices, documents and CRM',question:'What does AI automation do and what does it cost?',
+  h1:'AI automation for the work your team retypes.',sub:'Enquiries, PDFs, invoices and emails are read, checked and entered into your CRM, accounting software or spreadsheets. People approve, the system types.',
+  stats:[['2–4 wks','pilot on one workflow'],['1 metric','agreed before we start'],['Human','approval before anything is posted']],
+  scenarios:[['file-text','Invoices into Xero or QuickBooks','Supplier invoices are read, coded and queued for approval.'],['mail','Email enquiries into CRM','Each enquiry becomes a contact and deal with the right fields filled.'],['table','Reports from spreadsheets','Weekly figures pulled together and summarised in plain English.']],
+  tested:['We run the workflow on a month of your real documents before launch.','Anything the system is unsure about goes to a person for a check.','Every change is logged with the source document.'],
+  answer:'AI automation uses language models to read documents and messages and enter the data into your systems, with a person approving the result.',
+  faqs:[['Which tools do you connect to?','HubSpot, Pipedrive, Xero, QuickBooks, Google Workspace, Microsoft 365 and most tools with an API.'],['Do we need to change our software?','No. We work with what you already use.']]},
+ {slug:'ai-consultancy',title:'AI consultancy: from audit to a working pilot',measure:'Hours and money saved on the first workflow you automate, against the estimate in the audit.',name:'AI consultancy',icon:'compass',desc:'Find where AI pays back, then implement calmly',scene:'score',
+  question:'What does AI consultancy include and what does it cost?',
+  h1:'AI consultancy that ends in a working pilot.',sub:'We map your workflows, estimate hours and money saved, and pick the one or two that pay back fastest. Then we build them.',
+  stats:[['30 min','free first call'],['1 week','audit and shortlist'],['3','workflows ranked by payback']],
+  scenarios:[['list-checks','Process audit','Interviews with your team and a ranked list of automation candidates.'],['calculator','Payback estimate','Hours saved, cost and risk for each candidate, in one table.'],['shield-check','AI usage policy','Clear rules on what staff may and may not do with AI tools.']],
+  tested:['Estimates use your real volumes.','We tell you when AI is not the right answer.','You keep the audit report whether or not you work with us.'],
+  answer:'AI consultancy helps a business find which processes are worth automating and in what order. Praxen starts with a free 30-minute call and a one-week audit that ends in a ranked shortlist.',
+  faqs:[['How is this different from a big consultancy?','We are small, we build what we recommend, and the audit takes about a week.']]},
+ {slug:'ai-chatbot',measure:'Reply time, share of questions answered without staff and leads captured outside working hours.',name:'AI chatbot',icon:'messages-square',desc:'Website chat and WhatsApp replies from your knowledge base',scene:'chat',
+  title:'AI chatbot for your website and WhatsApp',question:'What does an AI chatbot do and what does it cost?',
+  h1:'An AI chatbot that answers from your own information.',sub:'It replies on your website and WhatsApp in seconds, using your price list, policies and FAQs. Each answer cites its source, and a person takes over when needed.',
+  stats:[['< 10 sec','typical reply time'],['24/7','website and WhatsApp'],['1 click','handover to your team']],
+  scenarios:[['globe','Website chat','Answers visitors and captures leads with name, email and need.'],['message-circle','WhatsApp Business','Replies, sends links and books appointments in WhatsApp.'],['book-open','Internal help desk','Staff ask questions about policies and get answers with sources.']],
+  tested:['Answers come only from documents you approve.','It says “I don’t know” and hands over rather than guessing.','Weekly review of conversations in the first month.'],
+  answer:'An AI chatbot answers customer questions on your website or WhatsApp using your own knowledge base, with handover to a person built in.',
+  faqs:[['Can it book appointments?','Yes, it connects to your calendar or booking system.']]},
+ {slug:'ai-agents',title:'AI agents for business, with approvals and logs',measure:'Time per completed task, share of runs approved without changes and hours handed back to the team.',name:'AI agents',icon:'bot',desc:'Multi-step routine handled with checks and logs',scene:'agent',
+  question:'What do AI agents do and what do they cost?',
+  h1:'AI agents that do the steps and ask before they act.',sub:'An agent reads, checks, drafts and waits for approval. Every action is logged, access is limited to what it needs, and a person signs off where it matters.',
+  stats:[['4–8 wks','typical build'],['100%','actions logged'],['0','actions without your rules']],
+  scenarios:[['inbox','Order processing','Reads order emails, checks stock and drafts confirmations.'],['users','Candidate screening','Scores CVs against the brief and schedules first calls.'],['receipt','Month-end chasing','Finds unpaid invoices and drafts polite reminders.']],
+  tested:['Agents run in a sandbox on past cases before touching live systems.','Role-based access: read-only unless approved.','Human approval points on anything external.'],
+  answer:'AI agents are programs that complete multi-step tasks across your tools, such as reading an email, checking data and drafting a reply. Praxen builds them with approval points and full logs.',
+  faqs:[['Is it safe to let an agent send emails?','By default agents draft and a person sends. We remove the approval step only where you decide.']]},
+ {slug:'ai-training',measure:'Hours saved per person a week, measured at the two-week follow-up, and how many people still use the playbook.',name:'AI training',icon:'graduation-cap',desc:'Teach your team to use AI safely and usefully',scene:'playbook',
+  title:'AI training for teams: hands-on half-day workshops',question:'What does AI training for teams include and what does it cost?',
+  h1:'AI training your team will still use next month.',sub:'A half-day session on your own tasks. Everyone leaves with a playbook of prompts, templates and rules, and we follow up two weeks later.',
+  stats:[['½ day','online or on-site'],['12','people per session'],['2 weeks','follow-up Q&A']],
+  scenarios:[['pen-line','Writing and replies','Emails, proposals and complaint replies in your tone.'],['file-search','Research and summaries','Reading long documents and checking facts against sources.'],['shield','Safe use','What data never goes into AI tools, and why.']],
+  tested:['Exercises use your real (anonymised) documents.','A written usage policy is part of the deliverable.','We measure hours saved at the follow-up.'],
+  answer:'AI training for teams teaches staff to use tools like ChatGPT, Claude and Copilot on their real work, safely. Praxen runs half-day sessions for up to 12 people.',
+  faqs:[['Which tools do you cover?','ChatGPT, Claude, Microsoft Copilot or Gemini, whichever your company allows.']]},
+];
+
+export const industries:Entity[]=[
+ {slug:'accounting',title:'AI for accounting firms: less data entry',desc2:'Client documents read and coded into Xero or QuickBooks, missing receipts chased and deadline reminders sent. Your accountants review instead of retyping.',measure:'Hours of data entry per accountant, documents chased by hand and returns filed in the last week before a deadline.',name:'Accounting firms',icon:'calculator',desc:'Invoices, client chasing and deadline reminders',scene:'doc',
+  sceneData:{...xero,file:'client-invoices-Oct.pdf',from:'bookkeeping@client.co.uk',fields:[['Client','Hartley & Sons Ltd'],['Invoices','23 documents'],['VAT period','Jul–Sep 2026'],['Missing','2 receipts'],['MTD deadline','7 Nov 2026']],sheet:'Xero · Client files',row:['Hartley & Sons','23 / 25','7 Nov'],approve:'Reviewed by accountant'},
+  h1:'AI for accounting firms: less data entry, fewer chasers.',sub:'Client documents are read and coded, missing receipts are chased automatically, and deadline reminders go out on time. Your accountants review instead of retyping.',
+  stats:[['10–20 h','saved per accountant a month (estimate)'],['MTD','deadline reminders on autopilot'],['UK GDPR','processing under a DPA']],
+  scenarios:[['file-text','Bookkeeping data entry','Invoices and receipts read and coded into Xero or QuickBooks for review.'],['bell-ring','Chasing missing documents','Polite, personalised reminders until the client sends what’s missing.'],['calendar-clock','Deadline reminders','VAT, payroll and self-assessment dates tracked per client.'],['phone-call','Front-desk calls','An AI receptionist answers routine client questions and books calls.']],
+  tested:['Nothing is posted to the ledger without a person approving it.','Client data stays in your own accounts and is never used to train models.','Pilot runs on last quarter’s documents first.'],
+  answer:'Accounting firms use AI to read and code client documents, chase missing paperwork and track deadlines, connected to Xero or QuickBooks.',
+  question:'What can AI do for an accounting firm, and what does it cost?',
+  faqs:[['Does it work with Xero and QuickBooks?','Yes. Documents are read and coded into Xero, QuickBooks or Sage as drafts for an accountant to approve.'],['Is it ready for Making Tax Digital?','It tracks MTD and filing deadlines per client and chases what is missing. Submissions stay with your accountants and your existing software.'],['What about busy season?','That is when it pays most: client chasers, document coding and routine calls keep running while your team works on returns.']]},
+ {slug:'recruitment',measure:'Time to shortlist, time to first reply to an applicant and consultant hours per role.',name:'Recruitment agencies',icon:'users',desc:'Screen candidates and book first calls faster',scene:'agent',
+  sceneData:{title:'Agent run · Senior bookkeeper role',steps:[['inbox','Read','48 new applications'],['search-check','Check','12 match must-haves, 3 need visa check'],['file-edit','Draft','Shortlist with reasons per candidate'],['user-check','Wait for approval','Sent to consultant for review']],log:['10:02 parsed 48 CVs','10:04 scored against brief','10:05 drafted shortlist','10:05 waiting: consultant approval']},
+  h1:'AI for recruitment agencies: shortlist in minutes.',sub:'CVs are screened against the brief, candidates get a reply the same day and first calls are booked automatically. Consultants spend their time on people.',
+  stats:[['Same day','reply to every applicant'],['48 → 12','CVs to a reasoned shortlist'],['0','decisions made without a consultant']],
+  scenarios:[['user-search','CV screening','Each CV scored against must-haves with a short reason.'],['calendar-plus','Interview scheduling','Candidates pick a slot; reminders go out automatically.'],['phone-call','Candidate calls','An AI receptionist answers “any update on my application?”']],
+  tested:['Scoring criteria are written and approved by you.','Bias checks on the shortlist before go-live.','Final decisions always made by a consultant.'],
+  answer:'Recruitment agencies use AI to screen CVs against a brief, reply to applicants and book interviews, with consultant approval at every decision.',
+  question:'What can AI do for a recruitment agency, and what does it cost?',
+  faqs:[['Does it connect to Bullhorn?','Yes, through the Bullhorn API. Candidate notes, scores and next steps are written to the record for a consultant to check.'],['Will candidates feel processed by a robot?','Every applicant gets a fast, personal reply instead of silence. Consultants still hold every interview and make every decision.'],['Is AI screening fair?','Screening uses the must-haves you set for the role and gives a reason for each score. A consultant reviews the shortlist, and nobody is rejected by the AI alone.']]},
+ {slug:'law-firms',measure:'Enquiries answered out of hours, time from first call to booked consultation and fee-earner time spent on intake.',name:'Law firms',icon:'scale',desc:'Intake calls, document review and client updates',scene:'call',
+  sceneData:{caller:'New enquiry',number:'+44 20 7946 0123',lines:[['c','Hello, I need advice on a lease dispute.'],['a','I can book a first consultation. Is this commercial or residential?'],['c','Commercial. We’re a café in Leeds.'],['a','Booked with Ms Patel, Tuesday 11:00.']],slot:'Tue 11:00 · Commercial property',slotWho:'New client · café, Leeds',summary:'Lease dispute, commercial. Conflict check needed.',to:'intake@yourfirm.co.uk'},
+  h1:'AI for law firms: every enquiry captured and triaged.',sub:'New-client calls are answered and triaged by practice area, intake forms are filled in, and routine client updates are drafted for a fee earner to send.',
+  stats:[['24/7','new-client intake'],['Triage','by practice area'],['No advice','legal advice stays with your lawyers']],
+  scenarios:[['phone-call','Intake calls','Captures the matter type and books a first consultation.'],['file-search','Document review','Summaries of long documents with page references.'],['mail','Client updates','Drafts status emails for fee earners to check and send.']],
+  tested:['The assistant never gives legal advice.','Conflict checks flagged before any booking is confirmed.','Data processed under a DPA with UK/EU hosting.'],
+  answer:'Law firms use AI receptionists to capture and triage new enquiries, and AI tools to summarise documents and draft client updates. The AI never gives legal advice.',
+  question:'What can AI do for a law firm, and what does it cost?',
+  faqs:[['Is it compliant with SRA rules?','The AI does not give legal advice. It captures and triages enquiries, drafts updates and summaries, and a fee earner reviews anything sent to a client.'],['Does it work with Clio?','Yes. Intake details become a matter form in Clio, and call summaries are attached to the contact.'],['What about client confidentiality?','Data stays in your accounts, is processed under a DPA and is never used to train public models. Access is limited by role and every action is logged.']]},
+ {slug:'hospitality',title:'AI for hotels and restaurants: answer every guest',measure:'Reply time to guest messages, share answered without staff and direct bookings from chats.',name:'Hotels & restaurants',icon:'bed-double',desc:'Bookings and guest questions in every channel',scene:'chat',
+  sceneData:{channel:'WhatsApp',who:'The Harbour Inn',q:'Hi, is there parking, and can we check in early on Friday?',a:'Yes, free parking behind the inn. Early check-in from 12:00 is £20. Shall I add it?',src:'Guest info · house rules',hand:'Hand over to front desk'},
+  h1:'AI for hotels and restaurants: every guest gets an answer.',sub:'Booking questions, table requests and “is there parking?” answered in seconds on WhatsApp, web chat and phone. Staff focus on the guests in front of them.',
+  stats:[['< 10 sec','reply to guest messages'],['24/7','phone, web chat and WhatsApp'],['0','upgrades or discounts without your rules']],
+  scenarios:[['message-circle','Guest questions','Parking, check-in, menus and allergies, from your own information.'],['calendar-check','Table and room requests','Checks availability and books or hands over.'],['star','Review replies','Drafts replies to Google and Booking.com reviews.']],
+  tested:['No discounts or upgrades offered without your rules.','Allergy questions always confirmed by staff.','Busy-night handover tested before launch.'],
+  answer:'Hotels and restaurants use AI to answer guest questions and booking requests on WhatsApp, web chat and phone, with staff handover for anything outside the rules.',
+  question:'What can AI do for a hotel or restaurant, and what does it cost?',
+  faqs:[['Can it take bookings?','Yes. It books tables and rooms through your booking system or sends the guest a link, and it never confirms beyond your availability.'],['What languages does it speak?','English plus the languages your guests use most, such as French, Spanish or German.'],['What about allergy questions?','It answers only from your approved allergen information and always suggests confirming with staff on arrival.']]},
+ {slug:'estate-agents',title:'AI for estate agents: viewings booked 24/7',measure:'Viewing requests answered out of hours, time to book a viewing and share of qualified applicants.',name:'Estate agents',icon:'home',desc:'Viewing requests and applicant qualifying',scene:'call',
+  sceneData:{caller:'Viewing request',number:'+44 7700 900 881',lines:[['c','I saw the two-bed flat on Mill Road. Can I view it?'],['a','Yes. Are you buying or renting, and do you have a mortgage in principle?'],['c','Buying, and yes, I do.'],['a','Viewing booked for Saturday 10:30.']],slot:'Sat 10:30 · 14 Mill Road',slotWho:'Buyer · MIP confirmed',summary:'Qualified buyer, first-time. Wants parking.',to:'sales@youragency.co.uk'},
+  h1:'AI for estate agents: viewings booked while you’re out.',sub:'Portal enquiries and calls are answered, applicants qualified and viewings booked into the diary, evenings and weekends included.',
+  stats:[['24/7','viewing requests handled'],['Qualified','buyers and tenants before the call'],['CRM','notes logged automatically']],
+  scenarios:[['phone-call','Viewing calls','Qualifies the applicant and books a slot.'],['mail','Portal enquiries','Rightmove and Zoopla leads answered in minutes.'],['wrench','Maintenance reports','Tenants report issues; jobs logged with photos.']],
+  tested:['No offers or prices negotiated by the AI.','Diary rules (travel time, hours) respected.','Tested on a month of past enquiries.'],
+  answer:'Estate agents use AI to answer viewing requests, qualify applicants and book viewings around the clock.',
+  question:'What can AI do for an estate agency, and what does it cost?',
+  faqs:[['Does it connect to our property software?','We connect to Reapit, Alto, Jupix and others through their APIs or through email and calendar integrations. We check this in the free audit.'],['Can it book viewings out of hours?','Yes. It qualifies the applicant, checks the diary and books the viewing, with a confirmation text to both sides.'],['What about tenant repair calls?','It logs the issue with photos, judges how urgent it is using your rules and passes emergencies to the on-call contact straight away.']]},
+ {slug:'clinics',title:'AI for clinics and dentists: fewer missed calls',measure:'Missed calls, no-show rate and reception hours spent on the phone.',name:'Clinics & dentists',icon:'stethoscope',desc:'Appointment calls, reminders and FAQs',scene:'call',
+  sceneData:{caller:'Patient call',number:'+44 7700 900 230',lines:[['c','Hi, I need a check-up and a hygienist appointment.'],['a','I have Wednesday at 9:00 for both, back to back. Does that work?'],['c','Perfect, thanks.'],['a','Booked. We’ll text you a reminder the day before.']],slot:'Wed 09:00 · Check-up + hygienist',slotWho:'Existing patient',summary:'Two appointments booked back to back. SMS reminder set.',to:'reception@yourclinic.co.uk'},
+  h1:'AI for clinics and dentists: fewer missed calls, fewer no-shows.',sub:'Patients book, move and cancel appointments by phone or chat at any hour. Reminders go out automatically and reception gets the calls that need a person.',
+  stats:[['24/7','appointment line'],['Reminders','by SMS and WhatsApp'],['0','clinical advice from AI']],
+  scenarios:[['phone-call','Appointment calls','Book, move and cancel into your practice system.'],['bell-ring','Reminders','SMS and WhatsApp reminders with easy rescheduling.'],['help-circle','Patient FAQs','Prices, opening hours, parking and what to bring.']],
+  tested:['Never gives clinical advice; urgent symptoms go to staff or 111.','Patient data handled under UK GDPR with a DPA.','Tested with reception staff before launch.'],
+  answer:'Clinics and dental practices use AI receptionists to handle appointment calls and reminders 24/7, with no clinical advice given by the AI.',
+  question:'What can AI do for a clinic or dental practice, and what does it cost?',
+  faqs:[['Does it work with our practice software?','We connect to systems such as Dentally, Software of Excellence and Cliniko where they allow it, or book through your online booking page.'],['Will it give medical advice?','No. It books, moves and cancels appointments and answers practical questions. Anything clinical goes to your team.'],['Can it reduce no-shows?','Yes. Reminders go out by text, and patients can move their appointment in the same conversation, so the slot can be refilled.']]},
+ {slug:'trades',title:'AI for trades: answer calls while on the job',measure:'Calls answered while you are on a job, jobs booked from them and time spent returning calls in the evening.',name:'Trades & field services',icon:'wrench',desc:'Answer calls on the job and book visits',scene:'call',
+  sceneData:{caller:'Job enquiry',number:'+44 7700 900 655',lines:[['c','My boiler’s stopped working. Can someone come out?'],['a','Sorry to hear that. Is there any smell of gas?'],['c','No, just no hot water.'],['a','Engineer booked for tomorrow 8–10am.']],slot:'Tomorrow 08:00–10:00 · Boiler',slotWho:'Home owner · Didsbury',summary:'No hot water, no gas smell. Combi boiler, 9 yrs.',to:'jobs@yourcompany.co.uk'},
+  h1:'AI for trades: answer every call while you’re on the job.',sub:'Calls are answered while your hands are full, jobs are qualified and booked into the diary, and emergencies come straight through to you.',
+  stats:[['Every','call answered on the job'],['Qualified','jobs with photos and address'],['Urgent','calls put straight through']],
+  scenarios:[['phone-call','Job calls','Captures the problem, address and best time.'],['calendar-check','Diary booking','Books visits with travel time between jobs.'],['file-text','Quotes','Drafts a quote from your price list for you to check.']],
+  tested:['Safety questions (gas, water, electrics) escalate immediately.','Your diary rules are respected.','Tested on your real call types.'],
+  answer:'Tradespeople use AI receptionists to answer calls while on the job, qualify the work and book visits.',
+  question:'What can AI do for a trades business, and what does it cost?',
+  faqs:[['Will it answer while I’m on a job?','Yes. It picks up every call, takes the details and photos, and books the visit into your diary or texts you the job.'],['Can it give prices?','Only the prices and call-out fees you approve. Anything that needs a site visit is booked as a quote visit.'],['Does it work with Jobber or Tradify?','We connect to common job management tools through their APIs, or send jobs to your calendar and email.']]},
+];
+
+export const departments:Entity[]=[
+ {slug:'customer-support',title:'AI for customer support: routine answered 24/7',desc2:'Order status, returns and how-to questions answered on chat, email and phone from your help centre. Agents get the conversations that need judgement.',measure:'First reply time, share of tickets resolved without an agent and customer satisfaction on resolved chats.',name:'Customer support',icon:'headphones',desc:'Answer routine questions, escalate the rest',scene:'helpdesk',
+  question:'What can AI do for customer support, and what does it cost?',
+  h1:'AI for customer support: routine answered, people for the rest.',sub:'Order status, returns and “how do I…” questions are answered on chat, email and phone from your help centre. Your agents handle the conversations that need judgement.',
+  stats:[['< 10 sec','first reply'],['24/7','chat, email and phone'],['1 click','handover with full context']],
+  scenarios:[['messages-square','Chat and WhatsApp','Answers from your help centre with links to sources.'],['mail','Email triage','Tags, routes and drafts replies for agents.'],['phone-call','Phone support','An AI receptionist answers and resolves simple calls.'],['package-search','Order status','Looks up orders in Shopify or your system.'],['refresh-ccw','Returns','Explains the policy and starts the return.'],['bar-chart-3','Weekly insights','Top reasons for contact, summarised.']],
+  tested:['Answers only from approved help-centre content.','Angry or sensitive messages go to a person straight away.','Weekly review of a sample of conversations.'],
+  answer:'Customer support teams use AI to answer routine questions on chat, email and phone, and hand over complex ones to agents with full context.',
+  faqs:[['Will it make things up?','It answers only from your help centre and policies. If the answer is not there, it hands the conversation to an agent.'],['Which helpdesks do you connect to?','Zendesk, Intercom, Freshdesk, HubSpot and Gorgias, plus WhatsApp and email.'],['Can customers always reach a person?','Yes. They can ask for one at any time, and urgent or upset messages go straight to an agent.']]},
+ {slug:'sales',title:'AI for sales: every lead answered and logged',desc2:'Every lead gets a reply in minutes, calls are qualified and logged in HubSpot or Pipedrive, and quotes are drafted from your price list.',measure:'Time to first reply on a lead, share of calls logged in the CRM and quotes sent the same day.',name:'Sales',icon:'trending-up',desc:'Reply to leads fast and keep HubSpot complete',scene:'crm',
+  question:'What can AI do for a sales team, and what does it cost?',
+  h1:'AI for sales teams: every lead answered, every deal logged.',sub:'Leads get a reply in minutes, calls are qualified, and HubSpot or Pipedrive is filled in automatically. Salespeople sell instead of typing notes.',
+  stats:[['Minutes','to first reply on every lead'],['HubSpot','and Pipedrive kept complete'],['Draft','quotes ready for review']],
+  scenarios:[['user-plus','Lead qualification','Asks your questions and scores the lead.'],['database','CRM updates','Calls and emails summarised into HubSpot.'],['file-text','Quotes and proposals','Drafted from your price list and templates.'],['repeat','Follow-ups','Reminders and drafted follow-up emails.'],['phone-call','Inbound calls','Sales calls answered after hours, qualified and booked into a rep’s calendar.'],['bar-chart-3','Pipeline review','Stalled deals and missing next steps flagged every Monday.']],
+  tested:['No discounts or prices beyond your rules.','Salesperson approves every quote.','CRM field mapping checked on 100 past deals.'],
+  answer:'Sales teams use AI to reply to leads quickly, qualify them and keep the CRM complete. Praxen connects to HubSpot and Pipedrive.',
+  faqs:[['Will it contact our leads on its own?','Only within rules you set, such as a first reply and a booking link. Quotes, discounts and negotiations stay with your salespeople.'],['Which CRMs do you work with?','HubSpot, Pipedrive and Salesforce, plus Microsoft Dynamics through its API.'],['How fast can it go live?','A pilot for lead replies and CRM logging usually takes 2–3 weeks.']]},
+ {slug:'marketing',title:'AI for marketing teams: content, reviews and reports',desc2:'Posts, newsletters and review replies drafted in your brand voice, and campaign numbers pulled into one weekly report. Your team edits and approves.',measure:'Hours spent on drafts and reports a week and reviews answered within a day.',name:'Marketing',icon:'megaphone',desc:'Content drafts, review replies and reports',scene:'planner',
+  sceneData:{posts:[[0,'LinkedIn','3 lessons from our spring launch'],[1,'Newsletter','October offers for existing clients'],[3,'Google review','Reply to Mark: thank you for the 5 stars'],[4,'Instagram','Behind the scenes: packing day']],status:'4 drafts · waiting for Anna’s approval'},
+  question:'What can AI do for a marketing team, and what does it cost?',
+  h1:'AI for marketing: drafts in your voice, reports on time.',sub:'Posts, newsletters and review replies are drafted from your briefs and past content. Numbers from Google Ads, Meta and GA4 land in one weekly report. Nothing goes out without approval.',
+  stats:[['Hours','back each week on first drafts'],['Same day','replies to Google reviews'],['Monday','report from Ads, Meta and GA4']],
+  scenarios:[['pen-line','Content drafts','Posts, blog outlines and newsletters drafted from your brief, past posts and product notes.'],['star','Review replies','Google and Trustpilot reviews answered in your tone; negative ones go to a manager first.'],['bar-chart-3','Weekly reporting','Spend, leads and cost per lead from Google Ads, Meta and GA4 in one plain-English summary.'],['languages','Localisation','Campaign copy adapted for US and EU markets with local spelling and units.'],['search-check','SEO briefs','Keyword research turned into briefs and outlines your writers can start from.'],['inbox','Lead hand-off','Form and ad leads checked and passed to sales with the source attached.']],
+  tested:['Drafts follow a style guide we build from your best-performing content.','Nothing is published or sent without a person approving it.','Report figures are pulled from the source systems and checked against last month.'],
+  answer:'Marketing teams use AI to draft posts, newsletters and review replies in their brand voice and to turn campaign data into a weekly report. People approve everything before it goes out.',
+  faqs:[['Will the content sound like AI?','We build a style guide from your best posts and emails, and your team edits every draft. Most teams change a few lines, not the whole text.'],['Which tools do you connect?','Google Ads, Meta, GA4, HubSpot, Mailchimp, Google Business Profile and the scheduler you already use.'],['Can it publish on its own?','It schedules posts once you approve them. We do not set it up to publish without a person signing off.']]},
+ {slug:'operations',title:'AI for operations: orders, scheduling and requests',desc2:'Orders from emails and PDFs entered into your system, rotas planned to your rules and internal requests routed. Every step logged, with approvals.',measure:'Time per order or request, manual handoffs per week and errors caught before they reach a customer.',name:'Operations',icon:'settings-2',desc:'Orders, scheduling and internal requests',scene:'agent',
+  sceneData:{title:'Agent run · delivery reschedule',steps:[['inbox','Read','Customer asks to move Friday’s delivery'],['search-check','Check','Tuesday route has 2 free slots'],['file-edit','Draft','New route sheet and customer confirmation'],['user-check','Wait for approval','Sent to Mike in dispatch']],log:['14:21 read email #7310','14:21 checked Tuesday routes','14:22 drafted new slot','14:22 waiting: dispatch approval']},
+  question:'What can AI do for operations, and what does it cost?',
+  h1:'AI for operations: orders in, schedules out, every step logged.',sub:'Orders arriving by email and PDF are entered into your system, rotas and visits are planned to your rules, and internal requests reach the right person. Anything unusual waits for a person.',
+  stats:[['Minutes','from order email to system entry'],['Every step','logged with its source'],['Approval','for anything outside the rules']],
+  scenarios:[['inbox','Order intake','Orders from emails, PDFs and spreadsheets entered into your ERP or order system for review.'],['calendar-range','Scheduling','Rotas, deliveries and site visits planned around availability, skills and your rules.'],['ticket','Internal requests','IT, facilities and HR requests classified and routed to the right owner with a due date.'],['truck','Delivery updates','Customers told about delays and new slots before they call to ask.'],['clipboard-list','Procedures on demand','Staff ask how a process works and get the step from your own procedures.'],['bar-chart-3','Morning status','Open orders, late jobs and bottlenecks summarised at the start of each day.']],
+  tested:['The pilot runs on last month’s orders, compared line by line with what your team entered.','Anything outside the rules, such as a new customer or an unusual quantity, waits for a person.','Every action has a log entry showing what the AI read and what it changed.'],
+  answer:'Operations teams use AI to enter orders from emails and PDFs, plan schedules to set rules and route internal requests. Each step is logged, and unusual cases wait for a person.',
+  faqs:[['Does it work with our ERP?','Usually, yes. We connect through the system’s API or, if there is none, through email, shared folders or spreadsheet imports. We check this in the free audit.'],['What if an order is unclear?','It does not guess. The order is flagged with the missing detail and goes to a person.'],['How do we know what it did?','Every run has a log: what came in, what was checked, what was changed and who approved it.']]},
+ {slug:'hr',title:'AI for HR: screening, onboarding and policy answers',desc2:'CVs screened against the role, onboarding tracked and policy questions answered from your handbook in Slack or Teams. People make hiring decisions.',measure:'Time to reply to applicants, policy questions answered without HR and onboarding hours per new starter.',name:'HR',icon:'users',desc:'Screening, onboarding and policy questions',scene:'slack',
+  question:'What can AI do for HR, and what does it cost?',
+  h1:'AI for HR: fewer repeat questions, faster hiring admin.',sub:'Staff get answers on holiday, expenses and benefits from your handbook in Slack or Teams. CVs are screened against the role and new starters get their checklists on time. People make every hiring decision.',
+  stats:[['Seconds','to answer a policy question'],['Same day','reply to every applicant'],['People','make every hiring decision']],
+  scenarios:[['book-open','Policy questions','Holiday, expenses, sick leave and benefits answered from your handbook, with the section quoted.'],['user-search','CV screening','Each CV checked against the must-haves with a short reason, for a recruiter to review.'],['calendar-plus','Interview scheduling','Candidates pick a slot; interviewers get the CV and questions in advance.'],['clipboard-check','Onboarding','Contracts, IT accounts, training and first-week plans sent and tracked for each new starter.'],['file-text','Letters and documents','Offer letters, contract changes and references drafted from your templates.'],['message-circle','Pulse surveys','Short check-ins sent and answers summarised by team and topic.']],
+  tested:['Answers come only from documents you approve, with a link to the source.','Grievances, health and pay disputes go straight to HR.','Your team reviews the screening criteria, and no candidate is rejected without a person.'],
+  answer:'HR teams use AI to answer staff policy questions from the handbook, screen CVs against the role and run onboarding checklists. Hiring and sensitive decisions stay with people.',
+  faqs:[['Is it legal to screen CVs with AI?','Yes, with safeguards. Under UK GDPR, a candidate must not be rejected by an automated decision alone. The AI ranks and explains; a person decides.'],['Where does it get policy answers?','Only from the handbook and documents you approve. If the answer is not there, it says so and passes the question to HR.'],['Does it work in Slack and Teams?','Yes. Staff ask in the channel they already use, and HR sees the questions that needed a person.']]},
+ {slug:'finance',title:'AI for finance: invoices, reconciliation and chasers',desc2:'Supplier invoices read and coded into Xero, QuickBooks or Sage, bank lines matched and overdue customers chased on schedule. Finance approves every posting.',measure:'Hours of invoice entry a week, days to reconcile and overdue invoices chased on time.',name:'Finance',icon:'landmark',desc:'Invoices, reconciliation and chasing',scene:'doc',
+  sceneData:{...xero,file:'Bank statement · October.csv',from:'Business current account',fields:[['Bank line','BACS MERIDIAN LTD'],['Amount','£3,420.00'],['Matched to','INV-1182, INV-1187'],['Difference','£0.00'],['Confidence','High']],sheet:'Xero · Bank reconciliation',row:['Meridian Ltd','£3,420.00','14 Oct'],approve:'Approved by finance'},
+  question:'What can AI do for a finance team, and what does it cost?',
+  h1:'AI for finance: invoices coded, payments matched, chasers sent.',sub:'Supplier invoices are read and coded for approval, bank lines are matched with suggestions, and overdue customers get polite reminders on schedule. Nothing is posted or paid without finance signing off.',
+  stats:[['Coded','supplier invoices ready to approve'],['Matched','bank lines with suggested entries'],['On time','reminders for every overdue invoice']],
+  scenarios:[['file-text','Invoice processing','Supplier invoices read, coded to the right nominal and sent to Xero, QuickBooks or Sage for approval.'],['git-compare','Bank reconciliation','Bank lines matched to invoices and payments, with suggestions for the ones that don’t match.'],['bell-ring','Credit control','Polite reminders 1, 7 and 14 days after the due date, in your tone, with the invoice attached.'],['receipt','Expenses','Receipts photographed by staff are read, categorised and checked against your policy.'],['line-chart','Month-end summary','Cash, debtors and spend against budget explained in plain English.'],['help-circle','Supplier queries','“Has my invoice been paid?” answered from the ledger, without anyone looking it up.']],
+  tested:['The pilot runs on last month’s invoices and is compared with what your team posted.','Nothing is posted to the ledger or paid without approval.','Unusual amounts, new suppliers and changed bank details are always flagged to a person.'],
+  answer:'Finance teams use AI to read and code supplier invoices, match bank lines and chase overdue customers. It connects to Xero, QuickBooks and Sage, and finance approves every posting.',
+  faqs:[['Can it make payments or change bank details?','No. It prepares entries and reminders. Payments stay with your team, and any change to a supplier’s bank details is flagged as a fraud risk.'],['Which accounting systems do you support?','Xero, QuickBooks and Sage, and SAP or Microsoft Dynamics through their APIs.'],['How accurate is invoice coding?','We measure it in the pilot on your own invoices. Anything below the confidence level you set goes to a person.']]},
+ {slug:'procurement',title:'AI for procurement: quotes compared in minutes',desc2:'Supplier quotes in any format turned into like-for-like tables, price changes flagged against your last order and supplier emails drafted.',measure:'Time to compare quotes, price changes caught and buyer hours per order.',name:'Procurement',icon:'truck',desc:'Supplier quotes compared and summarised',scene:'compare',
+  question:'What can AI do for procurement, and what does it cost?',
+  h1:'AI for procurement: quotes compared in minutes.',sub:'Quotes arrive as PDFs, spreadsheets and email threads. AI turns them into one like-for-like table, flags price changes against your last order and drafts the supplier emails. The buyer makes the call.',
+  stats:[['One table','for every quote format'],['Flagged','price changes against the last order'],['Buyer','makes every decision']],
+  scenarios:[['scale','Quote comparison','PDF, spreadsheet and email quotes in one like-for-like table: unit price, delivery and terms.'],['file-search','Price list checks','New price lists compared with your last order; increases above your threshold flagged.'],['mail','Supplier emails','Requests for quotes, order confirmations and chasers drafted for a buyer to send.'],['clipboard-check','Purchase requests','Internal requests checked for budget code, approver and preferred supplier before they reach you.'],['file-signature','Contract register','Payment terms, renewal dates and penalties pulled from supplier contracts into one register.'],['truck','Late deliveries','Delays spotted in supplier emails and flagged with the orders they affect.']],
+  tested:['Every figure in a comparison links to the page of the quote it came from.','A buyer approves every order and supplier email.','The pilot runs on last quarter’s quotes, checked against the decisions your team made.'],
+  answer:'Procurement teams use AI to compare supplier quotes in different formats, flag price changes against the last order and draft supplier emails. The buyer still makes every decision.',
+  faqs:[['Can it read scanned quotes?','In most cases, yes, including tables in PDFs and photos. Figures it cannot read with confidence are marked for a person to check.'],['Does it connect to SAP or Dynamics?','Yes, through their APIs, or through exports if API access is not available.'],['Will it choose the supplier?','No. It shows the comparison and the trade-offs. The buyer decides.']]},
+ {slug:'leadership',title:'AI for leadership: an AI plan and weekly briefings',desc2:'A ranked list of where AI pays back, a usage policy for your team and a Monday briefing from your own numbers. Then one pilot with a clear payback.',measure:'Payback of the first pilot against the plan and hours freed across the team.',name:'Leadership',icon:'briefcase',desc:'Weekly briefings and an AI plan',scene:'score',
+  sceneData:{title:'AI opportunity map',items:[['Customer calls and enquiries',88,'£2,900/mo'],['Invoice and order entry',74,'£1,700/mo'],['Sales follow-ups',61,'£1,200/mo'],['Board pack preparation',45,'£600/mo'],['Recruitment admin',30,'£400/mo']],pick:2},
+  question:'Where should a business start with AI, and what does it cost?',
+  h1:'AI for leadership: a clear plan, then measurable results.',sub:'You get a ranked list of where AI pays back in your business, a usage policy your team can follow and a Monday briefing built from your own numbers. Then one pilot with a fixed price and a payback you can check.',
+  stats:[['Ranked','opportunities with hours and £ value'],['1 page','AI usage policy for the team'],['Monday','briefing from your own data']],
+  scenarios:[['compass','AI roadmap','Every team’s routine work scored by hours, value and risk, with the first pilot named.'],['shield-check','Usage policy','What staff may paste into AI tools, which tools are approved and who owns the risk.'],['line-chart','Monday briefing','Sales, cash, pipeline and service numbers pulled from your systems onto one page.'],['layers','Board packs','Board and investor updates drafted from your figures for you to edit.'],['graduation-cap','Manager training','A hands-on half day so managers know what to hand to AI and what to keep.'],['flag','Pilot with payback','One workflow, a fixed price and a metric agreed before work starts.']],
+  tested:['Every estimate in the roadmap shows the hours and rates it is based on.','The briefing names the system and date behind each number.','The pilot metric is agreed before work starts and measured against today.'],
+  answer:'Leaders use AI to find where it pays back, set rules for safe use and get a weekly briefing from their own numbers. Praxen starts with a ranked roadmap and one pilot at a fixed price.',
+  faqs:[['We have no AI strategy. Where do we start?','With the free 30-minute audit. We look at where hours go and name the workflow with the clearest payback.'],['How do we stop staff pasting data into ChatGPT?','A short usage policy, approved tools on business accounts and a training session. We set up all three.'],['How do we know it paid off?','The pilot has one metric agreed upfront, such as hours saved or calls answered, measured against how the work runs today.']]},
+];
+
+// AI training lives at /training (the .ge structure), not under /services.
+// Lower-case a name inside a sentence, keeping acronyms such as AI and HR.
+export const lc=(n:string)=>/^[A-Z]{2}/.test(n)?n:n[0].toLowerCase()+n.slice(1);
+
+export const servicePath=(slug:string)=>slug==='ai-training'?'training':'services/'+slug;
+
+// ---- Integrations ----
+// Colour logos from public/logos; names do not imply partnerships.
+export const logos:[string,string][]=[['HubSpot','hubspot.svg'],['Salesforce','salesforce.svg'],['Pipedrive',''],['Microsoft 365','microsoft365.svg'],['Google Workspace','google.svg'],['Slack','slack.svg'],['Microsoft Teams','microsoftteams.svg'],['Zendesk','zendesk.svg'],['Intercom','intercom.svg'],['Xero','xero.svg'],['QuickBooks','quickbooks.svg'],['Sage','sage.svg'],['Clio','clio.png'],['Bullhorn','bullhorn.png'],['SAP','sap.svg'],['Microsoft Dynamics','dynamics365.svg'],['WhatsApp','whatsapp.svg'],['Calendly','calendly.svg']];
+export const logoSets:Record<string,string[]>={accounting:['Xero','QuickBooks','Sage','Microsoft 365','Google Workspace'],recruitment:['Bullhorn','Microsoft Teams','Calendly','Microsoft 365'],'law-firms':['Clio','Microsoft 365','Calendly','Microsoft Teams'],sales:['HubSpot','Salesforce','Pipedrive','Microsoft 365','Calendly'],'customer-support':['Zendesk','Intercom','WhatsApp','Slack','HubSpot'],hr:['Slack','Microsoft Teams','Google Workspace'],finance:['Xero','QuickBooks','Sage','SAP'],procurement:['SAP','Microsoft Dynamics','Microsoft 365'],marketing:['HubSpot','Google Workspace','Slack','Microsoft 365'],operations:['SAP','Microsoft Dynamics','Microsoft 365','Slack'],leadership:['Microsoft 365','Google Workspace','HubSpot','Xero'],'ai-receptionist':['Calendly','Microsoft 365','Google Workspace','HubSpot','Pipedrive'],'ai-chatbot':['WhatsApp','Intercom','Zendesk','HubSpot']};
+export const defaultLogoSet=['HubSpot','Microsoft 365','Google Workspace','WhatsApp','Slack'];
+
+// ---- Copy shared by several pages ----
+// Page-specific primary CTA (one accent colour, wording per page). The header always says "Book a free call".
+export const ctas:Record<string,string>={home:'Get a free AI audit','ai-receptionist':'Audit my phone line','ai-automation':'Audit my manual work','ai-consultancy':'Get a free AI audit','ai-chatbot':'Audit my enquiries','ai-agents':'Audit my workflows','ai-training':'Get a training plan',accounting:'Audit my client admin',recruitment:'Audit my screening','law-firms':'Audit my intake',hospitality:'Audit my guest messages','estate-agents':'Audit my viewings',clinics:'Audit my front desk',trades:'Audit my call handling',sales:'Audit my sales process','customer-support':'Audit my helpdesk',marketing:'Audit our marketing',operations:'Audit our operations',hr:'Audit our onboarding',finance:'Audit our invoices',procurement:'Automate quote comparison',leadership:'Get an AI roadmap',partners:'Become a partner'};
+export const ctaFor=(key:string)=>ctas[key]||'Get a free AI audit';
+
+// Page-specific options for the short form.
+export const pains:Record<string,string[]>={
+ default:['We miss calls and enquiries','Staff retype data between systems','Quotes and documents take hours','The team uses AI without rules'],
+ 'ai-receptionist':['We miss calls when we’re busy','No one answers after hours','Reception spends the day on routine calls','Bookings are taken on paper'],
+ 'ai-automation':['We retype invoices and PDFs','Enquiries are copied into the CRM by hand','Weekly reports take a day','Data lives in too many spreadsheets'],
+ 'ai-chatbot':['Website visitors leave without an answer','WhatsApp replies take hours','The same questions every day'],
+ 'ai-agents':['Multi-step admin eats our week','Orders arrive in emails and PDFs','We need logs and approvals'],
+ 'ai-training':['People use ChatGPT without rules','Only one person knows how to use AI','We need a usage policy'],
+ accounting:['Clients send documents late','We code invoices by hand','Deadline reminders are manual','Phones ring all through filing season'],
+ recruitment:['Too many CVs to read','Candidates wait days for a reply','Scheduling interviews takes hours'],
+ 'law-firms':['New enquiries go to voicemail','Intake forms are retyped','Clients chase us for updates'],
+ sales:['We lose leads after hours','Reps skip CRM updates','Quotes take too long','Follow-ups get forgotten'],
+ 'customer-support':['The same questions all day','Urgent tickets get buried','Replies take hours at weekends'],
+ hr:['Staff ask the same policy questions','Onboarding is a manual checklist','Too many CVs to screen','Interview scheduling takes days'],
+ operations:['Orders are retyped from emails','Scheduling lives in one person’s head','Internal requests get lost in inboxes','Customers chase delivery updates'],
+ finance:['We key invoices in by hand','Reconciliation takes days at month end','Overdue invoices are chased late','Supplier queries interrupt the team'],
+ leadership:['We don’t know where AI would pay off','Staff use AI tools without rules','Reports take days to put together','Pilots never reach production'],
+ procurement:['Supplier quotes arrive in every format','Comparing prices takes hours','Price changes slip through','Contract renewals are missed'],
+ marketing:['Content takes too long to draft','Reviews go unanswered for days','Reports are copied from five dashboards','Leads reach sales without context'],
+ partners:['IT support or managed services','Accounting or bookkeeping firm','Marketing or web agency','Business consultant'],
+};
+
+// Industry tabs inside service and department pages: one micro-scenario each.
+export const micro:Record<string,Record<string,string>>={
+ accounting:{default:'chases missing client documents before the filing deadline','ai-receptionist':'answers “has my return been filed?” and books calls with the right accountant','ai-automation':'reads client invoices and codes them into Xero for review','customer-support':'answers “has my return been filed?” and “what do you still need from me?”',sales:'follows up new-client enquiries and books a call with a partner',marketing:'drafts the monthly client newsletter on tax deadlines and changes',operations:'tracks every client’s paperwork against the filing calendar',hr:'answers staff questions on leave and busy-season overtime from the handbook',finance:'matches client bank lines in Xero and flags the ones that don’t match',procurement:'compares software and outsourcing quotes before renewal',leadership:'shows partners which services and clients take the most hours','ai-consultancy':'ranks client admin by hours, so you know what to automate before busy season','ai-chatbot':'answers client questions about deadlines and missing documents on your website and WhatsApp','ai-agents':'collects bank statements, codes them and drafts the query list for each client'},
+ recruitment:{default:'screens 50 CVs against the brief and books first calls','ai-receptionist':'answers candidate calls about application status','customer-support':'answers candidates asking about their application status',sales:'qualifies new client vacancies and logs them in Bullhorn',marketing:'turns job briefs into adverts for each job board',operations:'books interviews across candidates’ and clients’ calendars',hr:'collects right-to-work documents and references for new placements',finance:'matches contractor timesheets to invoices',procurement:'compares job board and assessment tool pricing',leadership:'reports placements, time to fill and fees per consultant every Monday','ai-automation':'parses CVs into Bullhorn and updates candidate records after every call','ai-consultancy':'shows which consultant hours go on admin and what to automate first','ai-chatbot':'answers candidate questions on job adverts and collects CVs on WhatsApp','ai-agents':'screens applications, drafts a shortlist with reasons and books first calls'},
+ 'law-firms':{default:'triages new enquiries by practice area and books a first consultation','ai-automation':'turns intake calls into a completed matter form in Clio','customer-support':'drafts client updates on matter progress for a fee earner to send',sales:'triages new enquiries by practice area and books a first consultation',marketing:'drafts articles on legal changes for a solicitor to review',operations:'turns intake calls into a completed matter form in Clio',hr:'answers staff questions on CPD, leave and supervision from firm policy',finance:'chases unpaid bills and matches client account payments',procurement:'compares quotes for searches, couriers and counsel',leadership:'shows partners which matters risk a write-off','ai-receptionist':'answers new-client calls out of hours and books a first consultation','ai-consultancy':'maps intake and matter admin and sets rules for AI use in the firm','ai-chatbot':'answers practical questions on fees and process and books consultations','ai-agents':'prepares a matter file from intake notes and drafts the client care letter for review'},
+ hospitality:{default:'answers parking, check-in and allergy questions in seconds','ai-receptionist':'takes table bookings by phone on busy evenings','customer-support':'answers parking, check-in and allergy questions in seconds',sales:'replies to group and event enquiries with a quote from your packages',marketing:'replies to Tripadvisor and Google reviews in your tone',operations:'plans staff rotas around bookings and events',hr:'onboards seasonal staff with checklists and training',finance:'codes invoices from food and drink suppliers',procurement:'compares supplier price lists every week',leadership:'sends a Monday summary of covers, revenue and reviews','ai-automation':'turns booking emails and supplier invoices into entries in your systems','ai-consultancy':'finds where front-of-house hours go in peak season','ai-chatbot':'answers guest questions on WhatsApp in several languages, day and night','ai-agents':'handles group booking requests from enquiry to deposit link, with manager approval'},
+ 'estate-agents':{default:'qualifies viewing requests and books them into the diary','customer-support':'answers tenants’ repair and rent questions and logs the issue',sales:'qualifies viewing requests and books them into the diary',marketing:'drafts property descriptions from photos and floor plans',operations:'chases sales progression from offer to completion',hr:'answers negotiators’ questions on commission and leave',finance:'tracks rent arrears and sends reminders',procurement:'compares contractor quotes for repairs',leadership:'reports viewings, offers and fall-throughs per branch','ai-receptionist':'answers applicant calls after hours and books viewings','ai-automation':'logs applicants and viewing feedback in your CRM automatically','ai-consultancy':'shows which branch admin to automate first','ai-chatbot':'answers questions on listings and books viewings from your website','ai-agents':'chases sales progression and updates every party after each step'},
+ clinics:{default:'books, moves and cancels appointments and sends reminders','customer-support':'books, moves and cancels appointments and sends reminders',sales:'follows up treatment enquiries such as implants or aligners',marketing:'asks happy patients for reviews and drafts the replies',operations:'fills cancelled slots from the waiting list',hr:'tracks staff registrations and CPD deadlines',finance:'chases unpaid patient balances and insurer claims',procurement:'compares dental and medical supply prices',leadership:'reports chair utilisation, no-shows and new patients','ai-receptionist':'answers the phone at lunch and after hours and books into the diary','ai-automation':'sends recalls and reminders and updates patient records','ai-consultancy':'finds where reception time goes and what to automate first','ai-chatbot':'answers treatment and price questions on WhatsApp and books consultations','ai-agents':'fills cancelled slots from the waiting list and confirms by text'},
+ trades:{default:'answers calls while you’re on a job and books the visit','customer-support':'answers calls while you’re on a job and books the visit',sales:'turns photos and measurements into a draft quote',marketing:'asks customers for reviews on Google and Checkatrade',operations:'plans the week’s jobs and routes for each van',hr:'collects certificates and site inductions for subcontractors',finance:'chases unpaid invoices and stage payments',procurement:'compares merchant prices for materials',leadership:'shows which job types make the most profit','ai-receptionist':'picks up while your hands are full and books the job into the diary','ai-automation':'turns finished jobs into invoices and chases payment','ai-consultancy':'shows where office time goes and what pays back first','ai-chatbot':'answers website and WhatsApp enquiries with prices and photos','ai-agents':'turns a customer’s photos and notes into a draft quote and books the survey'},
+};
+
+// No verified UK cases yet: example scenarios instead of quotes (as casesVerified=false on .ge).
+export const examples:{over:string;title:string;body:string;nums:Pair[];href:string;situation:string;solution:string;measure:string}[]=[
+ {over:'Dental practice · 3 chairs',title:'Every call answered, fewer no-shows',body:'An AI receptionist answers after hours and at lunch, books into the practice system and sends reminders.',nums:[['0','missed calls after hours'],['~12 h','reception time saved a week']],href:'industries/clinics',situation:'Reception answers the phone between patients. Calls at lunch, after 6 pm and at weekends go to voicemail, and some callers book elsewhere.',solution:'An AI receptionist takes every call, books, moves and cancels appointments in the practice system and sends SMS reminders. Anything clinical goes to staff.',measure:'Missed calls, bookings made outside opening hours, no-show rate and reception hours spent on the phone.'},
+ {over:'Accounting firm · 8 staff',title:'Client documents coded before review',body:'Invoices and receipts are read and coded into Xero. Missing documents are chased automatically before the deadline.',nums:[['~15 h','per accountant a month'],['2','reminders before every deadline']],href:'industries/accounting',situation:'Clients send invoices and receipts late and in every format. Staff code them by hand and chase missing documents by email before each VAT deadline.',solution:'Documents are read and coded into Xero for review, missing items are chased automatically, and deadline reminders go out per client.',measure:'Hours of data entry per accountant, documents chased by hand and returns filed in the last week before the deadline.'},
+ {over:'Recruitment agency · 5 consultants',title:'Shortlists in minutes, decisions by people',body:'CVs scored against the brief with reasons. Candidates get a same-day reply and pick an interview slot.',nums:[['48 → 12','CVs to a reasoned shortlist'],['Same day','reply to every applicant']],href:'industries/recruitment',situation:'Each role brings dozens of CVs. Consultants read them all, candidates wait days for a reply and interview scheduling takes hours of emails.',solution:'CVs are scored against the brief with a short reason, every applicant gets a same-day reply and shortlisted candidates pick an interview slot.',measure:'Time to shortlist, time to first reply and consultant hours per role. Every decision stays with a consultant.'},
+];
+
+export const homeFaq=(cur:Cur):Pair[]=>[
+ ['How much does an AI receptionist cost?','Setup is '+fmt(price('rcSetup',cur),cur)+' and the monthly fee is '+fmt(price('rcMonth',cur),cur)+'. Both are 30% off during our launch offer. Call minutes are billed at cost on your own account, typically '+curInfo[cur].usage+' a minute.'],
+ ['Do you work in UK hours?','Yes. We work remotely and schedule calls in UK working hours. Email and WhatsApp replies come the same working day.'],
+ ['Is our data safe?','We process data under UK GDPR with a data processing agreement. Your data stays on your accounts and is never used to train public models.'],
+ ['What if the AI makes a mistake?','Every workflow has rules, review points and a handover to a person. In the pilot we test on your real cases before anything goes live.'],
+ ['Do we need to change our software?','No. We connect to what you use: HubSpot, Pipedrive, Xero, QuickBooks, Google Workspace, Microsoft 365, WhatsApp and more.'],
+ ['How do you charge VAT?','All prices exclude VAT. We work with businesses only; UK and EU business customers account for VAT under the reverse charge.'],
+];
+export const brandDef=(cur:Cur)=>'Praxen AI is an AI implementation company for businesses in the UK, US and EU. We set up AI receptionists that answer calls 24/7, chatbots for websites and WhatsApp, and automations for CRM, documents and invoices. We also train teams to use AI safely. Every project starts with a free 30-minute audit; a pilot on one workflow takes 2–4 weeks from '+fmt(promo(price('pilot',cur)),cur)+' with the launch offer, and team training starts at '+fmt(promo(price('training',cur)),cur)+'. All prices exclude VAT.';
+
+// ---- Routes ----
+export type ListPage='services'|'industries'|'departments'|'cases';
+export type IntlPage='home'|'ai-for-small-business'|ListPage|'solutions'|'training'|'about'|'security'|'partners'|'privacy'|'terms'|'blog';
+export type IntlRoute={page:IntlPage;slug?:string};
+export const groups:Record<'services'|'industries'|'departments',Entity[]>={services,industries,departments};
+const simplePages:IntlPage[]=['ai-for-small-business','services','industries','departments','solutions','training','cases','about','security','partners','privacy','terms','blog'];
+// Blog post slugs; the articles themselves are in lib/intl-blog.ts.
+export const blogSlugs=['ai-receptionist-cost-uk','ai-implementation-cost'];
+// Top-level sections served without the /en prefix (see next.config.ts).
+export const intlSections=simplePages;
+
+export function resolveIntl(seg:string[]=[]):IntlRoute|null{
+ if(!seg.length)return {page:'home'};
+ const [p,slug,...rest]=seg;
+ if(rest.length||!(simplePages as string[]).includes(p))return null;
+ if(!slug)return {page:p as IntlPage};
+ if(p==='blog')return blogSlugs.includes(slug)?{page:'blog',slug}:null;
+ if(p==='services'||p==='industries'||p==='departments'){
+  if(p==='services'&&slug==='ai-training')return null;
+  return groups[p].some(e=>e.slug===slug)?{page:p,slug}:null;
+ }
+ return null;
+}
+export const routePath=(r:IntlRoute)=>r.page==='home'?'':'/'+r.page+(r.slug?'/'+r.slug:'');
+export const entityOf=(r:IntlRoute):Entity|undefined=>r.page==='training'?services.find(s=>s.slug==='ai-training'):r.slug&&(r.page==='services'||r.page==='industries'||r.page==='departments')?groups[r.page].find(e=>e.slug===r.slug):undefined;
+export const intlPaths:string[]=['',...simplePages.map(p=>'/'+p),...services.filter(s=>s.slug!=='ai-training').map(s=>'/services/'+s.slug),...industries.map(s=>'/industries/'+s.slug),...departments.map(s=>'/departments/'+s.slug),...blogSlugs.map(s=>'/blog/'+s)];
+
+// ---- Inner page heroes ----
+export type Fact=[string,string,string];
+export const innerPages:Partial<Record<IntlPage,{eyebrow:string;h1:string;sub:string;badge?:boolean;showCur?:boolean;facts?:Fact[]}>>={
+ services:{eyebrow:'Services',h1:'Six jobs AI can take off your team.',sub:'Pick the job you need done. Each one starts with a free audit and a fixed-price pilot on one workflow.',facts:[['search-check','Free audit first','A 30-minute call, then a named first workflow'],['receipt','Fixed price','Agreed before any work starts'],['shield-check','Control built in','Review points, logs and human handover']]},
+ industries:{eyebrow:'Industries',h1:'AI for the businesses we know best.',sub:'Each page shows the routine work AI handles in that kind of business, and what we check before launch.',facts:[['layers','Same building blocks','Receptionist, chatbot, automation and agents'],['users','Your workflows','Set up and tested on your real cases'],['clock','2–4 weeks','From audit to a working pilot']]},
+ departments:{eyebrow:'Departments',h1:'Start with the team that’s most overloaded.',sub:'Support and sales usually feel it first. One knowledge base means every next department connects faster.',facts:[['headphones','Customer support','Routine answered, urgent escalated'],['trending-up','Sales','Every lead answered and logged in HubSpot'],['database','One system','Shared knowledge base and access rules']]},
+ solutions:{eyebrow:'Solutions & pricing',h1:'What AI implementation costs.',sub:'Prices fixed before we start. Tools and AI usage run on your own accounts, billed at cost.',badge:true,showCur:true,facts:[['search-check','The audit is free','30 minutes, no obligation'],['receipt','Fixed launch price','Agreed in the pilot plan'],['calendar-x','Care is optional','Monthly, cancel anytime']]},
+ cases:{eyebrow:'Cases',h1:'Example scenarios, honest numbers.',sub:'Typical scenarios with the metrics we track. We publish client names and results only with their permission; your own numbers are measured in the pilot.',facts:[['flag','Example','Every scenario below is marked as an example'],['bar-chart-3','Estimates','Real numbers are measured in your pilot'],['shield-check','With permission','Client names only when they agree']]},
+ about:{eyebrow:'About',h1:'A team that builds what it recommends.',sub:'Praxen AI implements practical AI for businesses in the UK, US and EU. One person leads your project from the first call to launch.',facts:[['globe','Remote by design','For businesses in the UK, US and EU'],['clock','UK working hours','Calls scheduled in your day'],['user-round','One accountable lead','From audit to launch']]},
+ security:{eyebrow:'Security',h1:'Your data, your rules.',sub:'We use enterprise APIs. Your data never trains public models. Here is how we handle data, access and UK GDPR.',facts:[['lock','Enterprise APIs','No training on your data'],['file-signature','DPA as standard','We act as your processor'],['scroll-text','Full logs','Every AI action is recorded']]},
+ blog:{eyebrow:'Blog',h1:'Practical notes on AI for business.',sub:'Costs, checklists and step-by-step guides from real projects.'},
+ partners:{eyebrow:'Partner programme',h1:'Earn from AI with us.',sub:'For IT providers, accountants, agencies and consultants who already have business clients: you introduce a company, we implement AI, you earn a reward.',facts:[['wallet','A reward on every project','A share of each paid project and care plan'],['handshake','Joint sales','We meet clients together or deliver under your brand'],['book-open','Demos and materials','Case scenarios and decks for your sales']]},
+ privacy:{eyebrow:'Legal',h1:'Privacy policy',sub:'How Praxen AI collects and uses personal data under UK GDPR. Last updated: '+intlUpdatedLabel+'.'},
+ terms:{eyebrow:'Legal',h1:'Terms of service',sub:'How we work with business customers. Last updated: '+intlUpdatedLabel+'.'},
+};
+export const sectionName:Record<string,string>={blog:'Blog',services:'Services',industries:'Industries',departments:'Departments',training:'Training',solutions:'Solutions & pricing',cases:'Cases',about:'About',security:'Security',partners:'Partners',privacy:'Privacy policy',terms:'Terms of service','ai-for-small-business':'AI for small businesses'};
+
+// ---- Search titles and descriptions ----
+const meta:Partial<Record<IntlPage,[string,string]>>={
+ home:['AI receptionist and AI automation for business | Praxen AI','AI receptionists that answer every call 24/7, chatbots and automation for CRM, documents and invoices, plus team training. Free audit. Launch offer: 30% off.'],
+ 'ai-for-small-business':['AI for small businesses: starter terms and pricing | Praxen AI','AI receptionist and automation for teams of up to 50: setup in three payments, no long contract and the first month of care free. Free 30-minute audit.'],
+ services:['AI services for business: receptionist and automation | Praxen AI','AI receptionist, AI automation, AI chatbots, AI agents, AI consultancy and team training. Every project starts with a free audit and a fixed-price pilot.'],
+ industries:['AI for accounting, law, recruitment and clinics | Praxen AI','How AI handles routine work in accounting firms, recruitment agencies, law firms, hotels, estate agents, clinics and trades — and what we check before launch.'],
+ departments:['AI for sales, customer support, finance and HR | Praxen AI','Start with the team that is most overloaded: customer support, sales, marketing, operations, HR, finance, procurement or leadership. One knowledge base for all.'],
+ solutions:['AI implementation pricing in £, $ and € | Praxen AI','AI receptionist from £950 + £249/month, implementation pilot from £2,900, team training from £850. Launch offer: 30% off. Prices exclude VAT.'],
+ cases:['AI implementation examples by industry | Praxen AI','Example scenarios for dental practices, accounting firms and recruitment agencies, with the metrics we track. Real results are measured in your pilot.'],
+ about:['About Praxen AI: a team that builds what it recommends','Praxen AI implements practical AI for businesses in the UK, US and EU. One accountable lead from audit to launch, calls in UK working hours.'],
+ security:['Security and UK GDPR: how Praxen AI handles your data','Enterprise APIs that never train on your data, a DPA as standard, role-based access, full logs and retention you control. Subprocessors listed.'],
+ partners:['Partner with Praxen AI: referral and delivery partners','For accountants, IT providers and agencies: refer clients for AI implementation or deliver larger projects with us.'],
+ privacy:['Privacy policy | Praxen AI','How Praxen AI collects and uses personal data under UK GDPR: enquiries, call bookings, analytics with consent and your rights.'],
+ blog:['Blog: practical AI for business | Praxen AI','Costs, checklists and how-tos for businesses using AI: AI receptionists, automation, chatbots and team training, with real prices.'],
+ terms:['Terms of service | Praxen AI','How Praxen AI works with business customers: proposals, payment, monthly plans and cancellation, ownership, data protection and liability.'],
+};
+export function intlMeta(r:IntlRoute):{title:string;description:string}{
+ const e=entityOf(r);
+ if(e){
+  const own=e.title||e.h1.replace(/\.$/,'');
+  const recDesc=e.slug==='ai-receptionist'?' From '+fmt(promo(price('rcSetup')))+' setup + '+fmt(promo(price('rcMonth')))+'/month with the launch offer.':'';
+  return {title:own+' | Praxen AI',description:e.desc2||e.sub+recDesc};
+ }
+ const m=meta[r.page]||meta.home!;
+ return {title:m[0],description:m[1]};
+}
+
+// FAQ shown on a page (also used for FAQPage JSON-LD, so the markup always matches the page).
+export const faqFor=(route:IntlRoute,entity:Entity|undefined,cur:Cur):{items:[string,string][];title:string}=>{
+ const gen=homeFaq(cur);
+ if(entity)return {items:entity.faqs||[],title:'Questions about '+lc(entity.name)+'.'};
+ if(route.page==='security')return {items:[gen[2],['Where is data stored?','With UK or EU hosting wherever the provider allows. Data location is listed in your DPA.'],['Do you sign a DPA?','Yes, as standard, before we touch any personal data.'],['Who at Praxen can see our data?','Only the engineer working on your project, with access removed at handover.']],title:'Security questions.'};
+ if(route.page==='partners')return {items:[['How much will I earn?','A share of each paid project and care plan. The rate depends on your role, from a referral to joint selling, and is fixed in a contract.'],['Do I need to know AI?','No. Knowing your client’s needs is enough. We handle the audit, estimate and delivery and give you demos and materials.'],['Can you deliver under our brand?','Yes, for joint projects. We agree how we present the work to the client before the first meeting.'],['Who owns the client relationship?','You do. We keep you in the loop on every meeting and never approach your clients about other work without you.']],title:'Partner questions.'};
+ if(route.page==='solutions')return {items:[['What does the launch offer include?','30% off every price on this page while the launch offer runs, including setup and monthly fees.'],['Can we start with training only?','Yes. Team training is a standalone format.'],['What do we pay AI providers?','Usage runs on your own accounts at cost: typically '+curInfo[cur].usage+' a call minute for an AI receptionist, plus usage-based fees for AI models that we estimate before launch.'],['Can we pay in instalments?','Businesses with up to 50 staff can spread the setup over three monthly payments under our small business starter terms.']],title:'Pricing questions.'};
+ if(route.page==='services')return {items:[['Which service should we start with?','Usually the one that touches customers: an AI receptionist if you miss calls, a chatbot if enquiries arrive in writing. The free audit names the workflow with the clearest payback.'],['Can we combine several services?','Yes. Most businesses start with one and add the next once it pays back. They share one knowledge base and one set of access rules, so each next one is faster.'],['What is the difference between automation and agents?','Automation follows fixed steps, such as reading an invoice into Xero. An agent handles several steps that need judgement, such as reading an order email, checking stock and drafting a reply, and asks for approval before it acts.']],title:'Choosing a service.'};
+ if(route.page==='industries')return {items:[['Our industry is not on the list. Can you help?','Yes. These pages show common examples. The same tools work for any business that answers calls, handles enquiries or moves documents between systems.'],['Do you know our industry software?','We work with the usual tools in each sector, such as Clio, Bullhorn, Xero or practice management systems, and check access to yours in the free audit.'],['Can we see an example for our sector?','Each industry page has an example workflow and what we would measure. In the free audit we sketch the same for your business.']],title:'Industry questions.'};
+ if(route.page==='departments')return {items:[['Which department should start?','The one with the most repeated, rule-based work: usually customer support, sales admin or finance. The free audit ranks them by hours and payback.'],['Do departments share one AI?','They share one knowledge base, access rules and logs, so the second department connects in days rather than weeks.'],['Who owns the AI inside the company?','A named person in each department approves the rules and reviews results. We train them and hand over the documentation.']],title:'Department questions.'};
+ if(route.page==='cases')return {items:[['Are these real clients?','They are example scenarios built on typical workflows and marked as examples. We publish client names and results only with their permission.'],['How do you measure results?','We agree one metric before the pilot, such as missed calls or hours of data entry, and compare it with how the work runs today.'],['Can we speak to a reference?','Where a client agrees, yes. Ask during the free audit.']],title:'About these examples.'};
+ if(route.page==='about')return {items:[['Who will we work with?','Evgeny leads every project from the first call to launch. You write to him directly by email or WhatsApp.'],['Do you work outside the UK?','Yes. We work with businesses in the UK, US and EU, remotely, and schedule calls in your working hours.'],['Why trust a small company?','You approve a fixed price and one metric before work starts, the pilot runs on your real cases and you can stop after it. Tools stay on your own accounts.']],title:'About working with us.'};
+ if(route.page==='home')return {items:[['What is Praxen AI?',brandDef(cur)],...gen.slice(0,5)],title:'Before our first conversation.'};
+ if(route.page==='ai-for-small-business')return {items:[...smallFaq(cur),gen[2]],title:'Questions small businesses ask.'};
+ return {items:gen,title:'Before our first conversation.'};
+};
+
+// Small business starter terms (/ai-for-small-business): for companies with up to 50 staff.
+export const smallLimit='up to 50 staff';
+export const smallPerks:[string,string,string][]=[
+ ['receipt','Setup in three payments','Spread the one-off setup fee over three monthly payments at no extra cost.'],
+ ['calendar-x','No long contract','Monthly plans run month to month. Cancel with 30 days’ notice.'],
+ ['life-buoy','First month of care free','Monitoring, fixes and tweaks for the first month after launch are included.'],
+ ['graduation-cap','Free team session','A one-hour online session at launch on using AI safely in your business.'],
+ ['layers','Ready-made setups','Tested starting points for clinics, trades, agencies and professional services, so you go live sooner.'],
+ ['badge-check','Results check at 30 days','We review the agreed metric together. If the pilot falls short, we keep tuning it for another month at no extra cost.'],
+];
+export const smallScenarios:[string,string,string][]=[
+ ['phone-call','Missed calls while you work','An AI receptionist answers when you’re with a customer, on site or closed, and books the job.'],
+ ['messages-square','WhatsApp and website enquiries','Prices, opening hours and availability answered in seconds, day and night.'],
+ ['file-text','Quotes from a few details','A draft quote from the customer’s message, photos and your price list, ready for you to check.'],
+ ['receipt','Invoices and chasers','Invoices sent for finished jobs and polite reminders until they are paid.'],
+ ['star','Reviews','Happy customers asked for a Google review; replies drafted in your tone.'],
+ ['calendar-check','Bookings and reminders','Appointments go straight into your calendar, with reminders that cut no-shows.'],
+];
+export const smallScene:SceneData={channel:'WhatsApp',who:'Mason Plumbing',q:'Can someone look at a leaking boiler tomorrow morning?',a:'Yes. We have 8:00 or 10:30 tomorrow. The call-out fee is £75 and comes off the repair.',src:'Price list · diary',hand:'Pass to Dave'};
+const smallFaq=(cur:Cur):Pair[]=>[
+ ['Is AI worth it for a business our size?','If you miss calls or spend evenings on admin, usually yes. The free audit puts a number on one workflow in hours and money before you spend anything.'],
+ ['How much does it cost?','An AI receptionist is '+fmt(promo(price('rcSetup',cur)),cur)+' setup, payable in three instalments, and '+fmt(promo(price('rcMonth',cur)),cur)+' a month with the launch offer. A pilot on another workflow is '+fmt(promo(price('pilot',cur)),cur)+' at a fixed price. All prices exclude VAT.'],
+ ['Do we need technical staff?','No. We set everything up, connect your calendar, email and accounting tools, and show you how to check the results. Changes are one message away.'],
+ ['Can we cancel?','Yes. Monthly plans run month to month with 30 days’ notice. The setup fee covers work already done, so it is not refundable.'],
+ ['Who qualifies for the starter terms?','Businesses with up to 50 staff, for the first workflow or AI receptionist they launch with us.'],
+];
+
+// Partner programme (the same terms as praxenai.ge/en/partners).
+export const partnerWho:[string,string,string][]=[['wrench','IT support and managed service providers','Add AI receptionists, chatbots and automation to the services you already sell.'],['calculator','Accountants and bookkeepers','For clients buried in paperwork: documents read, coded and chased automatically.'],['megaphone','Marketing and web agencies','Chatbots, lead handling and content workflows for your clients.'],['compass','Business consultants','Offer clients measurable automation after your diagnostics.']];
+export const partnerSteps=['You introduce a client or bring them to a meeting.','We run the free audit and launch a pilot.','You are paid once the client pays.'];

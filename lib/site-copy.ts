@@ -1,11 +1,14 @@
 import {Lang,t} from './content';
 import {casesVerified} from './proof';
+import {isIntl} from './market';
+import {intlText} from './intl-text';
 
 export type C=(ru:string,en:string,ka:string)=>string;
-export const copyFn=(lang:Lang):C=>(ru,en,ka)=>t([ru,en,ka],lang);
+// praxenai.com is English only and swaps Georgia-specific phrases for UK ones (lib/intl-text.ts).
+export const copyFn=(lang:Lang):C=>isIntl?(_ru,en)=>intlText[en]??en:(ru,en,ka)=>t([ru,en,ka],lang);
 
 export const sections=['industries','departments','training','solutions','cases'] as const;
-export const sectionLabel=(c:C,n:string)=>({industries:c('Отрасли','Industries','ინდუსტრიები'),departments:c('Для отделов','For departments','განყოფილებებისთვის'),training:c('Обучение','Training','სწავლება'),solutions:c('Решения','Solutions','გადაწყვეტილებები'),cases:c('Примеры решений','Solution examples','გადაწყვეტილებების მაგალითები')} as Record<string,string>)[n]||n;
+export const sectionLabel=(c:C,n:string)=>({industries:c('Отрасли','Industries','ინდუსტრიები'),departments:c('Для отделов','For departments','განყოფილებებისთვის'),training:c('Обучение','Training','სწავლება'),solutions:c('Решения','Solutions','გადაწყვეტილებები'),cases:c('Примеры решений','Solution examples','გადაწყვეტილებების მაგალითები'),blog:c('Блог','Blog','ბლოგი')} as Record<string,string>)[n]||n;
 
 // Department pages get their own call to action; everything else uses the free audit.
 export const actionFor=(c:C,slug?:string)=>{
@@ -23,12 +26,12 @@ export function siteCopy(c:C,slug?:string){
   viewAll:c('Смотреть всё','View all','ყველას ნახვა'),
   openMenu:c('Открыть меню','Open menu','მენიუს გახსნა'),closeMenu:c('Закрыть меню','Close menu','მენიუს დახურვა'),
   heroEyebrow:c('Практический ИИ для бизнеса в Грузии','Practical AI for business in Georgia','პრაქტიკული AI ბიზნესისთვის საქართველოში'),
-  heroH1a:c('Внедряем ИИ','We bring AI','ვნერგავთ AI‑ს'),heroH1b:c('в бизнес-процессы: заявки, документы, CRM и клиентский сервис.','into your workflows: enquiries, documents, CRM and customer service.','ბიზნესპროცესებში: მოთხოვნები, დოკუმენტები, CRM და მომსახურება.'),heroH1c:c('Пилот за 2⁠–⁠4 недели с фиксированной ценой.','A 2⁠–⁠4 week pilot at a fixed price.','პილოტი 2⁠–⁠4 კვირაში ფიქსირებული ფასით.'),
-  heroIntro:c('ИИ отвечает клиентам в WhatsApp и Telegram, заполняет CRM и готовит документы на трёх языках.','AI answers customers on WhatsApp and Telegram, fills in your CRM and drafts documents in three languages.','AI პასუხობს კლიენტებს WhatsApp‑სა და Telegram‑ში, ავსებს CRM‑ს და ამზადებს დოკუმენტებს სამ ენაზე.'),
+  heroH1a:c('ИИ отвечает клиентам за секунды','AI answers your customers in seconds','AI კლიენტებს წამებში პასუხობს'),heroH1b:c('и сам заполняет CRM.','and fills in your CRM.','და CRM‑ს თავად ავსებს.'),heroH1c:c('Пилот за 2⁠–⁠4 недели с фиксированной ценой.','A 2⁠–⁠4 week pilot at a fixed price.','პილოტი 2⁠–⁠4 კვირაში ფიქსირებული ფასით.'),
+  heroIntro:c('Ассистенты для WhatsApp, Telegram и сайта, ИИ-агенты для заявок и документов, обучение команды. На грузинском, английском и русском.','Assistants for WhatsApp, Telegram and your website, AI agents for enquiries and documents, and team training. In Georgian, English and Russian.','ასისტენტები WhatsApp‑ის, Telegram‑ისა და საიტისთვის, AI აგენტები მოთხოვნებისა და დოკუმენტებისთვის, გუნდის სწავლება. ქართულ, ინგლისურ და რუსულ ენებზე.'),
   heroWhatsApp:c('Обсудить в WhatsApp','Chat on WhatsApp','მოგვწერეთ WhatsApp‑ში'),
   heroWhatsAppText:c('Здравствуйте! Хочу обсудить внедрение ИИ в нашей компании.','Hello! I would like to discuss bringing AI into our company.','გამარჯობა! მინდა განვიხილოთ AI‑ს დანერგვა ჩვენს კომპანიაში.'),
   heroSecondary:c('Посмотреть, как это работает','See it in action','ნახეთ, როგორ მუშაობს'),
-  demoTitle:c('ЗАЯВКА → ПРЕДЛОЖЕНИЕ','ENQUIRY → PROPOSAL','მოთხოვნა → შეთავაზება'),
+  demoTitle:c('Заявка → предложение','Enquiry → proposal','მოთხოვნა → შეთავაზება'),
   demoMsg:c('Привет, надо 30 стульев на завтра в Батуми, скиньте прайс','Hi, we need 30 chairs in Batumi tomorrow. Can you send prices?','გამარჯობა, ხვალ ბათუმში 30 სკამი გვჭირდება. გამოგვიგზავნეთ ფასები.'),
   demoCap0:c('Обычное сообщение. Данные ещё не структурированы.','An everyday message. The details are not structured yet.','ჩვეულებრივი შეტყობინება. მონაცემები ჯერ არ არის სტრუქტურირებული.'),
   demoFoot:c('Демо-сценарий · не реальная отправка','Illustrative demo · no messages sent','დემო სცენარი · შეტყობინება არ იგზავნება'),
@@ -41,7 +44,7 @@ export function siteCopy(c:C,slug?:string){
   nextReview:c('Следующий шаг — проверка сотрудником','Next: staff review','შემდეგ: თანამშრომლის შემოწმება'),
   mockDisclaimer:c('Иллюстрация сценария. Данные условные.','Illustrative workflow. Sample data.','სცენარის ილუსტრაცია. მონაცემები პირობითია.'),
   mockTabs:[c('Входящий запрос','Incoming request','შემოსული მოთხოვნა'),c('Результат обработки','Processed result','დამუშავების შედეგი')],
-  resultsH2:c('Польза в рабочем дне.','Value in everyday work.','სარგებელი ყოველდღიურ სამუშაოში.'),
+  resultsH2:c('Что меняется в рабочем дне.','What changes in everyday work.','სარგებელი ყოველდღიურ სამუშაოში.'),
   resultsP:casesVerified?c('Два проекта с разными задачами. Результаты относятся к указанным процессам.','Two projects, different goals. Results apply to the workflows described.','ორი პროექტი, განსხვავებული ამოცანები. შედეგები ეხება აღწერილ პროცესებს.'):c('Два типовых сценария: что делает ассистент и какие показатели мы измеряем. Цифры — ориентиры, реальные значения фиксируем на вашем пилоте.','Two typical scenarios: what the assistant does and which metrics we track. Figures are benchmarks; we record your real numbers in the pilot.','ორი ტიპური სცენარი: რას აკეთებს ასისტენტი და რომელ მაჩვენებლებს ვზომავთ. რიცხვები ორიენტირებია, რეალურ მნიშვნელობებს თქვენს პილოტზე ვაფიქსირებთ.'),
   findWorkflow:c('Найдите свой сценарий.','Find your workflow.','იპოვეთ თქვენი სცენარი.'),
   howEvaluate:c('Как оцениваем результат','How we evaluate results','როგორ ვაფასებთ შედეგს'),
@@ -55,7 +58,7 @@ export function siteCopy(c:C,slug?:string){
   exploreWorkflows:c('Посмотреть сценарии','Explore workflows','სცენარების ნახვა'),
   examplesH2:c('Так это может работать в вашем бизнесе.','How it could work in your business.','როგორ შეიძლება იმუშაოს თქვენს ბიზნესში.'),
   examplesP:c('Три сценария для бизнеса в Грузии: от обращения клиента до следующего действия сотрудника.','Three illustrative scenarios for businesses in Georgia. Explore the workflow and evaluation criteria.','სამი პროექტის სცენარი საქართველოს ბიზნესებისთვის. ნახეთ პროცესი და შეფასების კრიტერიუმები.'),
-  illustrative:c('ПРИМЕР РЕШЕНИЯ','ILLUSTRATIVE SOLUTION','გადაწყვეტილების მაგალითი'),
+  illustrative:c('Пример решения','Example solution','გადაწყვეტილების მაგალითი'),
   situation:c('Ситуация','Situation','სიტუაცია'),solution:c('Решение','Solution','გადაწყვეტილება'),measure:c('Что измеряем','What we measure','რას ვზომავთ'),
   exploreScenario:c('Разобрать сценарий','Explore this scenario','სცენარის ნახვა'),
   stackEyebrow:c('Инструменты и интеграции','Tools & integrations','ინსტრუმენტები და ინტეგრაციები'),

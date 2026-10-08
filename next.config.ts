@@ -19,8 +19,9 @@ const publicEnv = {
 //   pages and the lead API. Set NEXT_PUBLIC_SITE_URL to the public domain.
 const githubPages = process.env.GITHUB_PAGES === "1";
 const intl = process.env.NEXT_PUBLIC_MARKET === "intl";
-// praxenai.com pages; keep in sync with lib/intl.ts.
-const sections = ["ai-receptionist", "pricing", "privacy"];
+// praxenai.com top-level sections; keep in sync with intlSections in lib/intl.ts.
+const sections = ["ai-for-small-business", "services", "industries", "departments", "solutions", "training", "cases", "about", "security", "partners", "privacy", "terms", "blog"];
+const withSlugs = ["services", "industries", "departments", "blog"];
 const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = pages
@@ -42,6 +43,10 @@ const nextConfig: NextConfig = pages
         return [
           { source: "/en", destination: "/", permanent: true },
           { source: "/en/:path*", destination: "/:path*", permanent: true },
+          // Stage-1 addresses of praxenai.com.
+          { source: "/pricing", destination: "/solutions", permanent: true },
+          { source: "/ai-receptionist", destination: "/services/ai-receptionist", permanent: true },
+          { source: "/services/ai-training", destination: "/training", permanent: true },
         ];
       },
       async rewrites() {
@@ -49,9 +54,10 @@ const nextConfig: NextConfig = pages
         return {
           beforeFiles: [
             { source: "/", destination: "/en" },
-            ...sections.flatMap((s) => [
-              { source: `/${s}`, destination: `/en/${s}` },
-            ]),
+            ...sections.map((s) => ({ source: `/${s}`, destination: `/en/${s}` })),
+            ...withSlugs.map((s) => ({ source: `/${s}/:slug`, destination: `/en/${s}/:slug` })),
+            // public/llms.txt describes praxenai.ge; praxenai.com serves its own file.
+            { source: "/llms.txt", destination: "/llms-intl.txt" },
           ],
         };
       },

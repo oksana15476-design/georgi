@@ -9,5 +9,6 @@ export const contacts = {
  whatsapp: 'https://wa.me/995557125497',
  // Cal.com / Calendly link for booking the free audit; the booking button appears once it is set.
  booking: process.env.NEXT_PUBLIC_BOOKING_URL || 'https://cal.com/praxenai/audit',
- email: 'hello@praxenai.ge',
+ // Each site uses its own domain; hello@praxenai.com needs Cloudflare Email Routing on praxenai.com.
+ email: isIntl ? 'hello@praxenai.com' : 'hello@praxenai.ge',
 };

@@ -33,7 +33,7 @@ support:c('ИИ для поддержки: ответы из вашей базы
 operations:c('ИИ для бэк-офиса: документы, письма и задачи без ручной передачи.|AI for operations: fewer manual document and task handoffs.|AI ოპერაციებისთვის: ნაკლები ხელით სამუშაო დოკუმენტებსა და ამოცანებზე.'),
 hr:c('ИИ для HR: помогайте новичкам быстрее включаться в работу.|AI for HR: help new hires get up to speed.|AI HR‑ისთვის: დაეხმარეთ ახალ თანამშრომლებს საქმეში ჩართვაში.'),
 finance:c('ИИ для бухгалтерии: первичка и сверки под вашим контролем.|AI for accounting: document entry and reconciliation under your control.|AI ბუღალტერიისთვის: დოკუმენტები და შედარება თქვენი კონტროლით.'),
-procurement:c('ИИ для закупок: сравнивайте поставщиков, а не собирайте таблицы.|AI for procurement: compare suppliers with less spreadsheet work.|AI შესყიდვებისთვის: შეადარეთ მომწოდებლები ნაკლები ცხრილებით.'),
+procurement:c('ИИ для закупок: сравнение предложений поставщиков за минуты.|AI for procurement: supplier quotes compared in minutes.|AI შესყიდვებისთვის: შეადარეთ მომწოდებლები ნაკლები ცხრილებით.'),
 leadership:c('Внедряйте ИИ с понятной экономикой и планом действий.|Adopt AI with clear economics and an action plan.|დანერგეთ AI მკაფიო ეკონომიკითა და სამოქმედო გეგმით.'),
 retail:c('ИИ для магазина: от выбора товара до статуса заказа.|AI for retail: from product selection to order status.|AI მაღაზიისთვის: პროდუქტის არჩევიდან შეკვეთის სტატუსამდე.'),
 wholesale:c('ИИ для опта: превращайте заявки и прайсы в готовые черновики заказов.|AI for wholesale: turn requests and price lists into order drafts.|AI საბითუმო ვაჭრობისთვის: მოთხოვნებიდან შეკვეთის მონახაზებამდე.'),
