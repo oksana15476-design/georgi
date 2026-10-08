@@ -24,6 +24,8 @@ export const price=(k:PriceKey,cur:Cur='gbp')=>prices[k][cur];
 export const usageNote=(cur:Cur='gbp')=>'Call minutes and AI usage are billed at provider cost on your own accounts, typically '+curInfo[cur].usage+' per minute of calls.';
 export const vatNote='All prices exclude VAT. We work with businesses only. UK and EU business customers account for VAT under the reverse charge.';
 // Content review date shown in the short answers and used as dateModified.
+// The legal entity behind praxenai.com; shown only in the privacy policy and terms.
+export const legalEntity={name:'Individual Entrepreneur Evgenii Budnikov',country:'Georgia',address:'9 Nizharadze Street, Apartment 124, Batumi, Georgia'};
 export const intlUpdated='2026-10-08';
 export const intlUpdatedLabel='8 October 2026';
 
