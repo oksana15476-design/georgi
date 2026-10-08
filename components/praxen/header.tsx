@@ -10,9 +10,9 @@ import {Flag,Wordmark} from './ui';
 export const deptIcon:Record<string,string>={sales:'shopping-cart',marketing:'megaphone',hr:'users',finance:'calculator',procurement:'truck',leadership:'briefcase',support:'message-square',operations:'workflow'};
 export const industryIcon:Record<string,string>={retail:'shopping-bag',wholesale:'boxes',hotels:'bed-double',tourism:'map','real-estate':'home',developers:'building-2',restaurants:'utensils',clinics:'stethoscope',logistics:'truck',manufacturing:'factory',services:'briefcase',education:'graduation-cap'};
 
-type Props={lang:Lang;c:C;s:SiteCopy;page:string;rest:string;toContact:(e?:React.MouseEvent)=>void;menu:boolean;setMenu:(v:boolean|((m:boolean)=>boolean))=>void};
+type Props={lang:Lang;c:C;s:SiteCopy;page:string;rest:string;langRest?:(code:Lang)=>string;toContact:(e?:React.MouseEvent)=>void;menu:boolean;setMenu:(v:boolean|((m:boolean)=>boolean))=>void};
 
-export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
+export function Header({lang,c,s,page,rest,langRest,toContact,menu,setMenu}:Props){
  const [drop,setDrop]=useState('');const [scrolled,setScrolled]=useState(false);
  const leave=useRef<ReturnType<typeof setTimeout>>(undefined);
  // Long labels (Georgian especially) can outgrow the row before the 1240px breakpoint; switch to the burger then.
@@ -34,7 +34,9 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
   return()=>{window.removeEventListener('scroll',onScroll);document.removeEventListener('keydown',onKey);clearTimeout(leave.current)};
  },[setMenu]);
  const hover=(k:string)=>{clearTimeout(leave.current);if(window.matchMedia('(hover: hover)').matches)setDrop(k)};
- const nav=['solutions','departments','industries','training','cases'];
+ const nav=['solutions','departments','industries','training','cases','blog'];
+ // Short labels keep six items on one line; breadcrumbs and page titles use the full section names.
+ const navLabel=(k:string)=>({solutions:c('Решения','Solutions','გადაწყვეტები'),departments:c('Отделы','Departments','განყოფილებები'),cases:c('Кейсы','Cases','ქეისები')} as Record<string,string>)[k]||sectionLabel(c,k);
  const dropList=drop==='industries'?industries:departments;
  const langs=([['en','EN'],['ka','GE'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
  const action=s.actionHeader;
@@ -49,15 +51,15 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
       const isDrop=k==='industries'||k==='departments',active=page===k||drop===k;
       return <div key={k} className="nav-item" onMouseEnter={()=>hover(isDrop?k:'')}>
        {isDrop
-        ?<button type="button" onClick={()=>setDrop(d=>d===k?'':k)} aria-expanded={drop===k} aria-haspopup="true" className={'nav-link'+(active?' is-active':'')+(drop===k?' is-open':'')}>{sectionLabel(c,k)}<span className="chev"><Icon name="chevron-down" size={15}/></span></button>
-        :<a href={link(k)} aria-current={page===k?'page':undefined} className={'nav-link'+(active?' is-active':'')}>{sectionLabel(c,k)}</a>}
+        ?<button type="button" onClick={()=>setDrop(d=>d===k?'':k)} aria-expanded={drop===k} aria-haspopup="true" className={'nav-link'+(active?' is-active':'')+(drop===k?' is-open':'')}>{navLabel(k)}<span className="chev"><Icon name="chevron-down" size={15}/></span></button>
+        :<a href={link(k)} aria-current={page===k?'page':undefined} className={'nav-link'+(active?' is-active':'')}>{navLabel(k)}</a>}
       </div>;
      })}
     </nav>
     <div className="header-actions">
      <a href={'tel:'+contacts.phone} aria-label={contacts.phoneLabel} className="header-phone"><Icon name="phone" size={17}/></a>
      {langs.length>1&&<div role="group" aria-label={s.langLabel} className="langs">
-      {langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
+      {langs.map(([code,lb])=><a key={code} href={base+'/'+code+(langRest?langRest(code):rest)} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
      </div>}
      <a href="#contact" onClick={toContact} className="btn btn-primary btn-sm header-cta">{action}</a>
      <button type="button" onClick={()=>{setMenu(m=>!m);setDrop('')}} aria-expanded={menu} aria-label={menu?s.closeMenu:s.openMenu} className="burger"><Icon name={menu?'x':'menu'} size={22}/></button>
@@ -65,7 +67,7 @@ export function Header({lang,c,s,page,rest,toContact,menu,setMenu}:Props){
    </div>
 
    {menu&&<nav aria-label={s.mainNav} className="mobile-menu">
-    {nav.map(k=><a key={k} href={link(k)} className={page===k?'is-active':''}>{sectionLabel(c,k)}<Icon name="arrow-up-right" size={20}/></a>)}
+    {nav.map(k=><a key={k} href={link(k)} className={page===k?'is-active':''}>{navLabel(k)}<Icon name="arrow-up-right" size={20}/></a>)}
     <a href={'tel:'+contacts.phone} className="mobile-phone"><Icon name="phone" size={18}/>{contacts.phoneLabel}</a>
     <a href={contacts.whatsapp} target="_blank" rel="noopener" className="mobile-phone"><Icon name="whatsapp" size={18}/>WhatsApp</a>
     <a href="#contact" onClick={toContact} className="btn btn-primary btn-block">{s.action}</a>

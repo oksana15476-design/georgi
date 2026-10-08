@@ -15,7 +15,8 @@ import {Icon} from './icon';
 import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,PilotPlan,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
-const nav:[string,string,Drop?][]=[['services','Services','services'],['industries','Industries','industries'],['departments','Departments','departments'],['solutions','Solutions & pricing'],['training','Training'],['cases','Cases'],['about','About']];
+// Six items: training sits in the Services menu and departments in the Industries menu.
+const nav:[string,string,Drop?][]=[['services','Services','services'],['industries','Industries','industries'],['solutions','Pricing'],['cases','Cases'],['blog','Blog'],['about','About']];
 const megaItems=(d:Drop)=>(d==='services'?services:d==='industries'?industries:departments).map(x=>({name:x.name,desc:x.desc,icon:x.icon,href:d==='services'?servicePath(x.slug):d+'/'+x.slug}));
 const megaTitle:Record<Drop,string>={services:'Start with the job you need done',industries:'Find your business',departments:'Start with your department'};
 const curKey='praxen_cur',curEvent='praxen:cur';
@@ -29,6 +30,7 @@ function Header({route,open,setOpen}:{route:IntlRoute;open:boolean;setOpen:(v:bo
  const leave=useRef<ReturnType<typeof setTimeout>>(undefined);
  useEffect(()=>{const on=()=>setScrolled(window.scrollY>8);on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[]);
  useEffect(()=>{const k=(e:KeyboardEvent)=>{if(e.key==='Escape'){setDrop('');setOpen(false)}};document.addEventListener('keydown',k);return()=>document.removeEventListener('keydown',k)},[setOpen]);
+ const act=route.page==='training'?'services':route.page==='departments'?'industries':route.page;
  const hover=(d:Drop|'')=>{clearTimeout(leave.current);if(window.matchMedia('(hover: hover)').matches)setDrop(d)};
  return (
   <header className={'site-header'+(scrolled||open?' is-scrolled':'')+(drop?' has-drop':'')} onMouseLeave={()=>{clearTimeout(leave.current);leave.current=setTimeout(()=>setDrop(''),160)}}>
@@ -36,8 +38,8 @@ function Header({route,open,setOpen}:{route:IntlRoute;open:boolean;setOpen:(v:bo
     <a href={link('')} aria-label="Praxen AI" className="brand"><Wordmark/></a>
     <nav aria-label="Main" className="desktop-nav ix-nav">
      {nav.map(([k,label,d])=><div key={k} className="nav-item" onMouseEnter={()=>hover(d||'')}>
-      {d?<button type="button" onClick={()=>setDrop(drop===d?'':d)} aria-expanded={drop===d} aria-haspopup="true" className={'nav-link'+(drop===d?' is-open':'')+(route.page===k?' is-active':'')}>{label}<span className="chev"><Icon name="chevron-down" size={14}/></span></button>
-       :<a href={link(k)} aria-current={route.page===k?'page':undefined} className={'nav-link'+(route.page===k?' is-active':'')}>{label}</a>}
+      {d?<button type="button" onClick={()=>setDrop(drop===d?'':d)} aria-expanded={drop===d} aria-haspopup="true" className={'nav-link'+(drop===d?' is-open':'')+(act===k?' is-active':'')}>{label}<span className="chev"><Icon name="chevron-down" size={14}/></span></button>
+       :<a href={link(k)} aria-current={act===k?'page':undefined} className={'nav-link'+(act===k?' is-active':'')}>{label}</a>}
      </div>)}
     </nav>
     <div className="header-actions">
@@ -48,7 +50,7 @@ function Header({route,open,setOpen}:{route:IntlRoute;open:boolean;setOpen:(v:bo
    {open&&<nav aria-label="Main" className="mobile-menu ix-mobile">
     {nav.map(([k,label,d])=><div key={k} className="ix-acc">
      {d?<><button type="button" onClick={()=>setAcc(acc===d?'':d)} aria-expanded={acc===d} className="ix-acc-btn">{label}<span className={'chev'+(acc===d?' is-up':'')}><Icon name="chevron-down" size={20}/></span></button>
-      {acc===d&&<div className="ix-acc-items fade-in">{megaItems(d).map(m=><a key={m.href} href={link(m.href)}><span className="ix-acc-icon"><Icon name={m.icon} size={16}/></span>{m.name}</a>)}<a href={link(d)} className="ix-acc-all">View all<Icon name="arrow-right" size={15}/></a></div>}</>
+      {acc===d&&<div className="ix-acc-items fade-in">{megaItems(d).map(m=><a key={m.href} href={link(m.href)}><span className="ix-acc-icon"><Icon name={m.icon} size={16}/></span>{m.name}</a>)}{d==='industries'&&<a href={link('departments')} className="ix-acc-all">By department<Icon name="arrow-right" size={15}/></a>}<a href={link(d)} className="ix-acc-all">View all<Icon name="arrow-right" size={15}/></a></div>}</>
       :<a href={link(k)} className="ix-acc-btn">{label}<Icon name="arrow-up-right" size={20}/></a>}
     </div>)}
     <a href={contacts.whatsapp} target="_blank" rel="noopener" className="mobile-phone"><Icon name="whatsapp" size={18}/>WhatsApp</a>
@@ -57,7 +59,7 @@ function Header({route,open,setOpen}:{route:IntlRoute;open:boolean;setOpen:(v:bo
    </nav>}
    {drop&&<div className="mega"><div role="menu" className="mega-panel">
     <div className="mega-grid">{megaItems(drop).map(m=><a key={m.href} role="menuitem" href={link(m.href)} className="mega-item"><span className="mega-icon"><Icon name={m.icon} size={17}/></span><span className="mega-text"><b>{m.name}</b><span>{m.desc}</span></span></a>)}</div>
-    <div className="mega-foot"><span>{megaTitle[drop]}</span><a href={link(drop)}>View all<Icon name="arrow-right" size={16}/></a></div>
+    <div className="mega-foot"><span>{megaTitle[drop]}</span><span className="ix-mega-links">{drop==='industries'&&<a href={link('departments')}>By department<Icon name="arrow-right" size={16}/></a>}<a href={link(drop)}>View all<Icon name="arrow-right" size={16}/></a></span></div>
    </div></div>}
   </header>
  );

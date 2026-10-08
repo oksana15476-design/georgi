@@ -1486,3 +1486,4 @@ main{outline:none}
 .ix{--faint:#5f6879}
 .ix .btn-ghost{border-color:#9aa6bb}
 .ix .btn-ghost:hover{border-color:var(--ink);background:#fff}
+.ix .ix-mega-links{display:inline-flex;gap:24px}

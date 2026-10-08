@@ -8,7 +8,7 @@ export type C=(ru:string,en:string,ka:string)=>string;
 export const copyFn=(lang:Lang):C=>isIntl?(_ru,en)=>intlText[en]??en:(ru,en,ka)=>t([ru,en,ka],lang);
 
 export const sections=['industries','departments','training','solutions','cases'] as const;
-export const sectionLabel=(c:C,n:string)=>({industries:c('Отрасли','Industries','ინდუსტრიები'),departments:c('Для отделов','For departments','განყოფილებებისთვის'),training:c('Обучение','Training','სწავლება'),solutions:c('Решения','Solutions','გადაწყვეტილებები'),cases:c('Примеры решений','Solution examples','გადაწყვეტილებების მაგალითები')} as Record<string,string>)[n]||n;
+export const sectionLabel=(c:C,n:string)=>({industries:c('Отрасли','Industries','ინდუსტრიები'),departments:c('Для отделов','For departments','განყოფილებებისთვის'),training:c('Обучение','Training','სწავლება'),solutions:c('Решения','Solutions','გადაწყვეტილებები'),cases:c('Примеры решений','Solution examples','გადაწყვეტილებების მაგალითები'),blog:c('Блог','Blog','ბლოგი')} as Record<string,string>)[n]||n;
 
 // Department pages get their own call to action; everything else uses the free audit.
 export const actionFor=(c:C,slug?:string)=>{

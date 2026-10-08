@@ -26,6 +26,10 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
   title:['Примеры внедрения ИИ в бизнес в Грузии — Praxen AI','AI implementation examples for businesses in Georgia — Praxen AI','AI-ს დანერგვის მაგალითები ბიზნესში — Praxen AI'],
   description:['Как ИИ работает в отелях, оптовой торговле и недвижимости: ситуация, решение и то, как измеряем результат. Сценарии для компаний в Грузии.','How AI works in hotels, wholesale and real estate: the situation, the solution and how we measure the result. Scenarios for companies in Georgia.','როგორ მუშაობს AI სასტუმროებში, საბითუმო ვაჭრობასა და უძრავ ქონებაში: სიტუაცია, გადაწყვეტა და შედეგის მეტრიკა.'],
  },
+ blog:{
+  title:['Блог Praxen AI: ИИ для бизнеса в Грузии — цены и примеры','Praxen AI blog: AI for business in Georgia — prices and examples','Praxen AI ბლოგი: AI ბიზნესისთვის საქართველოში'],
+  description:['Статьи о внедрении ИИ в Грузии: чат-боты для WhatsApp и Telegram, ИИ для отелей, цены в лари и примеры расчёта.','Articles on AI for companies in Georgia: WhatsApp and Telegram chatbots, AI for hotels, prices in lari and worked examples.','სტატიები AI-ს დანერგვაზე საქართველოში: ჩატბოტები WhatsApp-ისა და Telegram-ისთვის, AI სასტუმროებისთვის, ფასები ლარში.'],
+ },
  about:{
   title:['О компании Praxen AI: внедрение ИИ в Грузии — Praxen AI','About Praxen AI: AI implementation in Georgia — Praxen AI','Praxen AI-ის შესახებ: AI-ს დანერგვა საქართველოში — Praxen AI'],
   description:['Команда из Батуми: внедряем ИИ-ассистентов, ИИ-агентов и автоматизацию для компаний по всей Грузии на грузинском, английском и русском. Один ответственный от аудита до запуска.','A Batumi-based team building AI assistants, AI agents and automation for companies across Georgia in Georgian, English and Russian. One accountable lead from audit to launch.','გუნდი ბათუმიდან: ვნერგავთ AI ასისტენტებს, AI აგენტებს და ავტომატიზაციას კომპანიებისთვის მთელ საქართველოში, ქართულ, ინგლისურ და რუსულ ენებზე.'],

@@ -17,6 +17,8 @@ import {BookingEmbed} from '@/components/booking';
 import {LeadPopup} from '@/components/praxen/lead-popup';
 import {Privacy} from '@/components/praxen/privacy';
 import {About,Security,aboutLabel,securityLabel} from '@/components/praxen/company';
+import {BlogList,GeArticle,blogLabel} from '@/components/praxen/blog';
+import {geArticle} from '@/lib/ge-blog';
 import {Quiz} from '@/components/praxen/quiz';
 import {Team} from '@/components/praxen/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
@@ -29,7 +31,8 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const c=copyFn(lang);
  const profile=data.profile;
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
- const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isCompany=section==='about'||section==='security',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners&&!isCompany;
+ const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isCompany=section==='about'||section==='security',isBlog=section==='blog',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners&&!isCompany&&!isBlog;
+ const post=isBlog&&slug?geArticle(slug)?.langs[lang]:undefined;
  const s=siteCopy(c,isDetail?slug:undefined);
  const root=homeHref(lang),link=(p:string)=>pageHref(lang,p);
  const rest=(section==='home'?'':'/'+section)+(slug?'/'+slug:'');
@@ -59,12 +62,13 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const partnerFaq:[string,string][]=[[c('Сколько я получу?','How much will I earn?','რამდენს მივიღებ?'),c('Процент с оплаченного проекта и ведения. Размер зависит от вашей роли в сделке — от рекомендации до совместных продаж — и фиксируется в договоре.','A share of each paid project and support plan. The rate depends on your role, from a referral to joint selling, and is fixed in a contract.','პროცენტი გადახდილი პროექტიდან და მხარდაჭერიდან. ოდენობა დამოკიდებულია თქვენს როლზე და ხელშეკრულებით ფიქსირდება.')],[c('Нужно ли разбираться в ИИ?','Do I need to know AI?','AI‑ში უნდა ვერკვეოდე?'),c('Нет. Достаточно знать задачи клиента. Аудит, расчёт и внедрение берём на себя, а вам даём демо и материалы.','No. Knowing the client’s needs is enough. We handle the audit, estimate and delivery and give you demos and materials.','არა. საკმარისია კლიენტის ამოცანების ცოდნა. აუდიტს, გათვლასა და დანერგვას ჩვენ ვაკეთებთ.')],[c('Можно работать под нашим брендом?','Can you deliver under our brand?','შეიძლება ჩვენი ბრენდით?'),c('Да, для агентств и интеграторов делаем внедрения под вашим брендом. Условия обсуждаем отдельно.','Yes, for agencies and integrators we deliver under your brand. Terms are agreed separately.','დიახ, სააგენტოებისა და ინტეგრატორებისთვის ვმუშაობთ თქვენი ბრენდით.')],[c('Когда выплачивается вознаграждение?','When am I paid?','როდის ხდება ანაზღაურება?'),c('После оплаты клиентом каждого этапа — пилота, внедрения или месяца ведения.','After the client pays for each stage — pilot, implementation or a month of support.','კლიენტის მიერ თითოეული ეტაპის გადახდის შემდეგ.')]];
  const detailHead=slug==='leadership'?c('ИИ-стратегия','an AI strategy','AI სტრატეგია'):isDetail?(ov?.h1.split(':')[0].trim()||t(ent!.name,lang)):'';
  const detailCost:[string,string]=[c('Сколько стоит '+detailHead+'?','How much does '+detailHead+' cost?','რა ღირს '+detailHead+'?'),c('Внедрение готовых инструментов — от 3 200 ₾ ($1 200): пилот на одном процессе за 2–4 недели на ваших реальных данных. Если нужна разработка под ваши системы — от 6 700 ₾ ($2 500), дополнительное ведение — от 550 ₾ в месяц. Аудит бесплатный, цену пилота фиксируем до старта.','Implementing ready tools starts at 3,200 ₾ ($1,200): a pilot on one workflow in 2–4 weeks on your real data. Custom development for your systems starts at 6,700 ₾ ($2,500), ongoing maintenance from 550 ₾ a month. The audit is free and the pilot price is fixed before work begins.','მზა ინსტრუმენტების დანერგვა — 3 200 ₾‑დან ($1 200): პილოტი ერთ პროცესზე 2–4 კვირაში თქვენს რეალურ მონაცემებზე. თქვენს სისტემებზე მორგებული შემუშავება — 6 700 ₾‑დან ($2 500), დამატებითი მომსახურება — 550 ₾‑დან თვეში. აუდიტი უფასოა, პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.')];
- const faqItems:[string,string][]=isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:section==='departments'?[aboutFaq,agentFaq,...deptFaq]:genFaq;
+ const faqItems:[string,string][]=isBlog?(post?post.faq:[]):isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:section==='departments'?[aboutFaq,agentFaq,...deptFaq]:genFaq;
  const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
- const sectionName=section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
+ const sectionName=isBlog?blogLabel(x):section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
-  crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[])],
+  crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[]),...(post?[[post.title,rest] as [string,string]]:[])],
+  article:post?{title:post.title,description:post.description,date:geArticle(slug!)!.date,path:rest}:undefined,
   service:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
@@ -76,17 +80,19 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
   :defaultOptions),s.other];
 
  const footerCols=[
-  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:link('about'),label:c('О нас','About','ჩვენ შესახებ'),contact:false},{href:link('security'),label:c('Безопасность и данные','Security and data','უსაფრთხოება და მონაცემები'),contact:false},{href:'#contact',label:s.action,contact:true}]},
+  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:link('about'),label:c('О нас','About','ჩვენ შესახებ'),contact:false},{href:link('blog'),label:c('Блог','Blog','ბლოგი'),contact:false},{href:link('security'),label:c('Безопасность и данные','Security and data','უსაფრთხოება და მონაცემები'),contact:false},{href:'#contact',label:s.action,contact:true}]},
   {title:sectionLabel(c,'departments'),links:departments.slice(0,4).map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
   {title:sectionLabel(c,'industries'),links:[...industries.slice(0,4).map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
  ];
  const langs=([['en','EN'],['ka','GE'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
+ // An article that has no version in a language links to that language's blog list instead.
+ const langRest=(code:Lang)=>isBlog&&slug&&!geArticle(slug)?.langs[code]?'/blog':rest;
 
  return (
   <div className="site">
    <MotionRoot/>
    <a href="#main" onClick={e=>{e.preventDefault();document.getElementById('main')?.focus()}} className="skip">{s.skip}</a>
-   <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} toContact={toContact} menu={menu} setMenu={setMenu}/>
+   <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} langRest={langRest} toContact={toContact} menu={menu} setMenu={setMenu}/>
    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,'\\u003c')}}/>
    <main id="main" tabIndex={-1}>
     {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><Quiz x={x}/></>}
@@ -94,6 +100,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {isPartners&&<Partners x={x}/>}
     {section==='about'&&<><About x={x}/><Process x={x}/><Team x={x}/></>}
     {section==='security'&&<><Security x={x}/><Trust x={x}/></>}
+    {isBlog&&(post?<GeArticle x={x} post={post}/>:<BlogList x={x}/>)}
     {isList&&<InnerHero x={x} page={section}/>}
     {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
     {section==='industries'&&!isDetail&&<IndustriesGrid x={x}/>}
@@ -108,7 +115,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
     {(['home','solutions'].includes(section)&&!isDetail||isPartners)&&<Team x={x}/>}
     {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/>{section==='industries'&&<IndustryDepartments x={x} slug={slug!}/>}<Process x={x}/><DetailAnswer x={x} slug={slug!}/><Trust x={x}/></>}
-    {!isPrivacy&&<><Faq x={x} items={faqItems} title={faqTitle}/>
+    {!isPrivacy&&<>{faqItems.length>0&&<Faq x={x} items={faqItems} title={faqTitle}/>}
     <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>
 
@@ -129,7 +136,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
      </div>
      <div className="footer-bottom">
       <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a></span><span>{s.footerServices}</span>
-      {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+rest} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
+      {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+langRest(code)} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
      </div>
     </div>
    </footer>
