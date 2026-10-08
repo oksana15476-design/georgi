@@ -9,6 +9,8 @@ export async function POST(request:Request){
  if(raw.length>MAX_BODY)return Response.json({error:'size'},{status:413});
  const {lead,error}=parseLead(raw);
  if(!lead)return Response.json({error},{status:400});
+ // Full page address, so the lead shows which site (praxenai.ge or praxenai.com) it came from.
+ if(lead.page.startsWith('/'))lead.page=new URL(request.url).origin+lead.page;
  const result=await deliverLead(lead,env as unknown as Record<string,string|undefined>);
  if(result.status==='ok')return Response.json({ok:true});
  // Channel errors (e.g. "telegram 400") go to the Workers log and the response; they never contain secrets.
