@@ -26,6 +26,6 @@
 
 **Ключевые события GA4** (Администратор → Отображение данных → Ключевые события): `generate_lead` (форма, квиз и брони Cal.com), `whatsapp_click`, `telegram_click`, `phone_click`. `booking_click` (только открыл календарь), `cta_click`, `form_start`, `calculator_use` и `quiz_*` — не ключевые, это шаги воронки.
 
-**praxenai.com** — отдельный ресурс GA4 `praxenai.com` (поток `G-8JMZ08G5Y3`, ресурс 558070926, валюта GBP, хранение 14 месяцев). Ключевые события: `generate_lead` и `booking_complete` (каждое событие), `whatsapp_click` и `email_click` (раз за сеанс). Метрика на .com выключена.
+**praxenai.com** — отдельный ресурс GA4 `praxenai.com` (поток `G-8JMZ08G5Y3`, ресурс 558070926, валюта GBP, хранение 14 месяцев). Ключевые события: `generate_lead` (каждое событие; запись через Cal.com тоже отправляет его), `whatsapp_click` и `email_click` (раз за сеанс). `booking_complete` не ключевое, иначе запись посчитается дважды. На .ge ключевые: `generate_lead`, `whatsapp_click`, `telegram_click`, `phone_click`; хранение 14 месяцев. Метрика на .com выключена.
 
 Календарь Cal.com открывается окном на сайте (`components/booking.tsx`), поэтому сама бронь засчитывается как заявка. Если скрипт Cal.com заблокирован или посетитель открыл ссылку с Ctrl/Cmd, откроется обычная страница cal.com — такие брони в аналитику не попадут.
