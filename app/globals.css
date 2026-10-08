@@ -1029,6 +1029,17 @@ main{outline:none}
 .ix-rc-line{background:var(--bg);border:1px solid var(--line3)}
 .ix .tariff-example{border:1px solid var(--line3)}
 .ix-vat{margin-top:14px;max-width:860px;font-size:13px;line-height:1.6;color:var(--muted)}
+.ix .ix-small-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.ix .ix-small-card{display:flex;flex-direction:column;gap:6px}
+.ix .ix-small-card h3{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.ix .ix-small-card>p:not(.tariff-price):not(.ix-was):not(.ix-small-month):not(.tariff-meta){font-size:15px;line-height:1.6;color:var(--body);margin:8px 0 4px}
+.ix .ix-small-card .btn{align-self:flex-start;margin-top:auto}
+.ix .ix-small-card .tariff-meta{margin-bottom:20px}
+.ix .ix-small-month{font-size:15px;color:var(--ink)}
+.ix .ix-strip{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-size:16px;line-height:1.5;color:var(--body)}
+.ix .ix-strip>span:nth-child(2){flex:1 1 320px}
+.ix .ix-strip b{color:var(--ink)}
+@media (max-width:760px){.ix .ix-small-grid{grid-template-columns:1fr}}
 /* One more subgrid row than .ge: the struck-through regular price under each price. */
 @media(min-width:1101px){.ix .tariffs .tariff{grid-row:2/span 6}.ix .tariff-plus{grid-row:2/span 6}}
 @media(min-width:761px){.ix .tariff .tariff-more{display:none}}

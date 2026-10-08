@@ -4,7 +4,7 @@ import {createContext,useContext,useRef,useState} from 'react';
 import {getAttribution,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
-import {partnerSteps,partnerWho,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {partnerSteps,partnerWho,smallLimit,smallPerks,smallScenarios,smallScene,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {posts,type Post} from '@/lib/intl-blog';
 import {Icon} from './icon';
 import {Scene} from './scene';
@@ -57,8 +57,8 @@ async function sendLead(body:Record<string,unknown>){
 export function Hero({small}:{small?:boolean}){
  const {cur}=useIx();
  const h=small
-  ?{eyebrow:'AI for small businesses',h1:'AI that fits a small team.',h1b:'Start with one workflow.',sub:'We find the one job that eats the most hours, such as calls, enquiries or paperwork, and automate it in 2–4 weeks at a fixed price.',proof:[['Free','30-minute audit call'],['2–4 wks','pilot on your real data'],['Fixed','price agreed before we start']]}
-  :{eyebrow:'Practical AI for business',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, AI receptionist']]};
+  ?{eyebrow:'AI for small businesses',h1:'You run the business.',h1b:'AI takes the calls and the admin.',sub:'An AI receptionist, WhatsApp replies and paperwork on autopilot for teams of '+smallLimit+'. Starter terms: setup in three payments, no long contract and the first month of care free.',proof:[['3 payments','for the setup fee'],['No lock-in','cancel with 30 days’ notice'],['Free','first month of care']]}
+  :{eyebrow:'Practical AI for business',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM, for a single office or a team across several sites.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, AI receptionist']]};
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
@@ -68,12 +68,12 @@ export function Hero({small}:{small?:boolean}){
      <h1 data-reveal="" style={rd(60)} className="h1 ix-hero-h1">{h.h1} <span className="ix-accent">{h.h1b}</span></h1>
      <div data-reveal="" style={rd(180)}>
       <p className="ix-hero-sub">{h.sub}</p>
-      <div className="btn-row mt28"><Cta/><a href={link('solutions')} className="btn btn-ghost">See pricing</a></div>
+      <div className="btn-row mt28"><Cta/><a href={small?'#pricing':link('solutions')} className="btn btn-ghost">See pricing</a></div>
       <Offer/>
      </div>
      <div data-reveal="" style={rd(260)} className="proof-mini">{h.proof.map(([n,l])=><span key={l}><b>{n}</b>{l}</span>)}</div>
     </div>
-    <div className="min0"><div data-reveal="" style={rd(120)} className="ix-scene-box"><Scene type="call"/></div></div>
+    <div className="min0"><div data-reveal="" style={rd(120)} className="ix-scene-box">{small?<Scene type="chat" data={smallScene}/>:<Scene type="call"/>}</div></div>
    </div>
   </section>
  );
@@ -392,6 +392,70 @@ export function Cards({page}:{page:ListPage}){
  );
 }
 
+// ---------- Small business page (/ai-for-small-business) ----------
+export function SmallPerks(){
+ return (
+  <section data-screen-label="Starter terms" className="band-soft">
+   <div className="wrap sec">
+    <div data-reveal=""><p className="kicker">Small business starter</p><h2 className="h2 mw820">Starter terms for teams of {smallLimit}.</h2><p className="lead mw560">On top of the launch offer, for the first workflow or AI receptionist you launch with us.</p></div>
+    <div className="grid-c3w mt28" data-stagger="">{smallPerks.map(([ic,t,d])=><article key={t} className="card ix-scard"><span className="tile-icon tile-44 r12"><Icon name={ic} size={22}/></span><h3>{t}</h3><p>{d}</p></article>)}</div>
+   </div>
+  </section>
+ );
+}
+
+export function SmallScenarios(){
+ const {go}=useIx();
+ return (
+  <section data-screen-label="Scenarios" className="wrap sec">
+   <h2 data-reveal="" className="h2 mw820">Where a small team gets hours back.</h2>
+   <div className="grid-c3w mt28" data-stagger="">{smallScenarios.map(([ic,t,d])=><a key={t} href="#contact" onClick={e=>{e.preventDefault();go('Small business: '+t)}} className="card ix-card-lift ix-scard">
+    <span className="tile-icon tile-44 r12"><Icon name={ic} size={22}/></span><h3>{t}</h3><p>{d}</p>
+    <span className="ulink mt-auto">Discuss this<Icon name="arrow-right" size={16}/></span></a>)}</div>
+  </section>
+ );
+}
+
+export function SmallPricing(){
+ const {cur,go}=useIx();
+ const third=(k:'rcSetup'|'pilot')=>fmt(Math.ceil(promo(price(k,cur))/3),cur);
+ const cards:{name:string;once:string;unit:string;split:string;monthly?:string;body:string;meta:string}[]=[
+  {name:'AI receptionist',once:fmt(promo(price('rcSetup',cur)),cur),unit:' setup',split:'or 3 × '+third('rcSetup'),monthly:fmt(promo(price('rcMonth',cur)),cur),body:'Answers every call 24/7, books into your calendar and texts you a summary. '+usageNote(cur),meta:'Live in about 2 weeks · month to month'},
+  {name:'One-workflow pilot',once:fmt(promo(price('pilot',cur)),cur),unit:' once',split:'or 3 × '+third('pilot'),body:'Quotes, invoices, enquiries or bookings: one workflow automated and tested on your real data.',meta:'2–4 weeks · fixed price agreed upfront'},
+ ];
+ return (
+  <section id="pricing" data-screen-label="Pricing" className="wrap sec">
+   <div className="ix-head">
+    <div data-reveal=""><h2 className="h2">What it costs a small business.</h2><p className="lead">Launch prices with 30% off. Starter terms let you spread the setup over three months. All prices exclude VAT.</p></div>
+    <CurSwitch/>
+   </div>
+   <div className="ix-small-grid mt28" data-stagger="">{cards.map(c=><article key={c.name} className="card ix-small-card">
+    <h3>{c.name}</h3>
+    <p className="tariff-price">{c.once}<small>{c.unit}</small></p>
+    <p className="ix-was">{c.split} · no extra cost</p>
+    {c.monthly&&<p className="ix-small-month">then <b>{c.monthly}/mo</b>, cancel with 30 days’ notice</p>}
+    <p>{c.body}</p>
+    <p className="tariff-meta">{c.meta}</p>
+    <a href="#contact" onClick={e=>{e.preventDefault();go('Small business: '+c.name)}} className="btn btn-primary mt-auto">Get a free AI audit<Icon name="arrow-right" size={16}/></a>
+   </article>)}</div>
+   <p className="ix-vat">{vatNote}</p>
+  </section>
+ );
+}
+
+// Home: a short pointer to the small business page and its starter terms.
+export function SmallStrip(){
+ return (
+  <section data-screen-label="Small business" className="wrap sec pb0">
+   <a href={link('ai-for-small-business')} data-reveal="" className="card ix-card-lift ix-strip">
+    <span className="tile-icon tile-44 r12"><Icon name="users" size={22}/></span>
+    <span><b>A team of {smallLimit}?</b> Starter terms: setup in three payments, no long contract and the first month of care free.</span>
+    <span className="ulink">See small business terms<Icon name="arrow-right" size={16}/></span>
+   </a>
+  </section>
+ );
+}
+
 export function OneSystem(){
  const left:[string,string][]=[['headphones','Support assistant'],['users','HR bot'],['trending-up','Sales assistant'],['landmark','Finance automation']];
  return (
@@ -594,7 +658,20 @@ export function Doc({page}:{page:'privacy'|'terms'}){
    ['Who receives it',['Enquiries reach us by email and messenger and may be stored in our CRM. Call bookings are handled by Cal.com. Analytics providers (Google, Meta) receive data only after your consent. We never sell personal data.','Our team and some providers are outside the UK. Where data leaves the UK, we rely on the safeguards the UK GDPR provides, such as the International Data Transfer Agreement or adequacy regulations.']],
    ['How long we keep it',['Enquiry data is kept for up to 3 years after our last contact, or until you ask us to delete it.']],
    ['Your rights',['You can ask for a copy of your data, correct or delete it, object to or restrict its use, and withdraw consent. Email '+contacts.email+'; we reply within one month. You can also complain to the Information Commissioner’s Office (ico.org.uk).']]],
-  terms:[['Business customers only',['We work with businesses only. UK and EU business customers account for VAT under the reverse charge.']],['Prices',['All prices exclude VAT. The launch price is fixed in the pilot plan you approve.']],['Usage costs',['AI and telephony usage runs on your own accounts and is billed by the providers at cost.']],['Data',['We process personal data as your processor under a data processing agreement.']]],
+  terms:[['Who these terms apply to',['These terms apply when a business buys services from Praxen AI: audits, pilots, implementations, AI receptionists, care plans and training. We work with businesses only, not consumers.','A signed proposal or pilot plan takes priority over these terms where the two differ.']],
+   ['Proposals and scope',['Every project starts with a written proposal or pilot plan that sets out the scope, deliverables, timeline, price and the metric we will measure. Work outside that scope is quoted separately and starts only after you approve it.']],
+   ['Prices and payment',['All prices exclude VAT. UK and EU business customers account for VAT under the reverse charge.','One-off fees are invoiced when work starts, unless the proposal says otherwise, for example setup in three monthly payments under our small business starter terms. Monthly fees are invoiced monthly in advance. Invoices are payable within 14 days.','If an invoice is more than 14 days overdue, we may pause the service after giving you 7 days’ written notice.']],
+   ['Third-party costs',['AI models, telephony and software subscriptions run on your own accounts and are billed to you by the providers at cost. We estimate these costs before launch, and you can see every charge in the provider’s dashboard.']],
+   ['Your part',['You give us timely access to the systems and information the project needs, and you tell us about rules that apply in your business. You review and approve each workflow before it goes live.','Where an AI receptionist or assistant talks to your customers, you are responsible for telling them that calls may be recorded and that they are speaking to an AI assistant. We provide the wording.']],
+   ['AI outputs',['AI can make mistakes. We design every workflow with rules, review points and a handover to a person, and we test it on your real cases before launch. Decisions made on the basis of AI outputs, and messages your business sends, remain your responsibility.','We do not give legal, financial, tax or medical advice.']],
+   ['Monthly plans and cancellation',['Monthly plans, including the AI receptionist and care plans, run month to month unless your proposal sets a minimum term. Either side can cancel with 30 days’ written notice; an email is enough.','One-off fees cover work already done and are not refundable. When a plan ends, we hand over the configuration, prompts and documentation and remove our access to your systems.']],
+   ['Ownership',['Your data and everything the AI produces from it belong to you. Once paid for, the configuration we build for you is yours to use and change.','We keep ownership of our general tools, templates and know-how, and you may use them as part of the solution we deliver.']],
+   ['Confidentiality',['Each side keeps the other’s confidential information private and uses it only for the project. This continues after the contract ends.']],
+   ['Data protection',['When we handle personal data for you, we act as your processor under UK GDPR and EU GDPR. We sign a data processing agreement before we touch any personal data. How we handle data from this website is described in our privacy policy.']],
+   ['Liability',['Nothing in these terms limits liability for death or personal injury caused by negligence, for fraud, or for anything else that cannot be limited by law.','Otherwise, our total liability under a contract is limited to the fees you paid us in the 12 months before the claim. Neither side is liable for indirect losses or loss of profit, revenue or data. We are not liable for outages or changes of third-party providers outside our control, but we will help you work around them.']],
+   ['Ending a contract for breach',['Either side may end a contract with written notice if the other seriously breaches it and does not put it right within 30 days of being asked to.']],
+   ['Law and changes',['These terms and any contract under them are governed by the law of England and Wales, and the courts of England and Wales have jurisdiction.','We may update these terms. Changes apply to new proposals; signed contracts keep the terms that applied when they were signed.']],
+   ['Contact',['Questions about these terms: '+contacts.email+'.']]],
  };
  return <section data-screen-label="Document" className="wrap sec"><div className="ix-doc">{docs[page].map(([h,ps])=><div key={h}><h2>{h}</h2>{ps.map(p=><p key={p}>{p}</p>)}</div>)}</div></section>;
 }

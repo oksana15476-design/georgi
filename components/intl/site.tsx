@@ -12,7 +12,7 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
-import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
+import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
 const nav:[string,string,Drop?][]=[['services','Services','services'],['industries','Industries','industries'],['departments','Departments','departments'],['solutions','Solutions & pricing'],['training','Training'],['cases','Cases'],['about','About']];
@@ -92,7 +92,8 @@ function Page({route}:{route:IntlRoute}){
  const e=entityOf(route);
  const {page}=route;
  const group=page==='training'?'services':page;
- if(page==='home'||page==='ai-for-small-business')return <><Hero small={page==='ai-for-small-business'}/><Marquee/><Results/><Quiz/><Pricing/><Calculator/><Trust/><AuditReport/><Team/></>;
+ if(page==='home')return <><Hero/><Marquee/><Results/><Quiz/><Pricing/><SmallStrip/><Calculator/><Trust/><AuditReport/><Team/></>;
+ if(page==='ai-for-small-business')return <><Hero small/><SmallPerks/><SmallScenarios/><SmallPricing/><Calculator/><Process/></>;
  if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><Process/><ShortAnswer entity={e} group={group}/><Trust/></>;
  if(page==='cases')return <><InnerHero/><CaseDetails/><Process/></>;
  if(page==='services'||page==='industries'||page==='departments')return <><InnerHero/><Cards page={page}/>{page==='departments'&&<OneSystem/>}<Process/></>;
