@@ -1445,3 +1445,44 @@ main{outline:none}
 .ix-article-links b{font-size:17px}
 @media(max-width:1100px){.ix-article-grid{grid-template-columns:1fr}.ix-toc{display:none}}
 @media(max-width:600px){.ix-article-body h2{font-size:24px}.ix-article-body section p,.ix-article-body ul,.ix-answer-box p{font-size:17px}}
+
+/* praxenai.com: page-specific pilot plan, short answer card, trust grid (2026-10-08) */
+.ix .ix-tested li{align-items:center}
+.ix .ix-tested .tile-icon{width:36px;height:36px;border-radius:10px;font-size:inherit}
+.ix .ix-plan-meta{display:flex;flex-wrap:wrap;gap:10px}
+.ix .ix-plan-meta span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:#fff;font-size:14px;font-weight:600;color:var(--ink)}
+.ix .ix-plan-meta svg{color:var(--accent)}
+.ix .ix-plan{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:none}
+.ix .ix-plan li{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.ix .ix-plan-num{position:absolute;top:20px;right:20px;font-size:13px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.ix .ix-plan b{font-size:17px;line-height:1.35;color:var(--ink)}
+.ix .ix-plan p{font-size:15px;line-height:1.6;color:var(--body)}
+@media(max-width:1100px){.ix .ix-plan{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.ix .ix-plan{grid-template-columns:1fr}}
+.ix .ix-ans{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:0;border:1px solid var(--line2);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 20px 50px -36px #243d8240}
+.ix .ix-ans-main{padding:36px}
+.ix .ix-ans-main .ix-answer-kick{color:var(--accent)}
+.ix .ix-ans-main h2{margin-top:10px;font-size:clamp(24px,2.2vw,30px);line-height:1.2;font-weight:600;letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
+.ix .ix-ans-main>p:not(.ix-answer-kick){margin-top:16px;font-size:18px;line-height:1.6;color:var(--ink);text-wrap:pretty}
+.ix .ix-ans-main .ix-ans-tools{font-size:15px;color:var(--body)}
+.ix .ix-ans-side{display:flex;flex-direction:column;gap:16px;padding:36px;background:var(--bg);border-left:1px solid var(--line)}
+.ix .ix-ans-prices div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ix .ix-ans-prices div:first-child{padding-top:0}
+.ix .ix-ans-prices dt{font-size:15px;color:var(--body)}
+.ix .ix-ans-prices dd{text-align:right}
+.ix .ix-ans-prices dd b{display:block;font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.ix .ix-ans-prices dd span{display:block;margin-top:2px;font-size:13px;color:var(--muted)}
+.ix .ix-ans-note{font-size:13px;color:var(--muted)}
+.ix .ix-ans-side .btn{align-self:flex-start}
+@media(max-width:1000px){.ix .ix-ans{grid-template-columns:1fr}.ix .ix-ans-side{border-left:0;border-top:1px solid var(--line)}}
+@media(max-width:600px){.ix .ix-ans-main,.ix .ix-ans-side{padding:24px}.ix .ix-ans-main>p:not(.ix-answer-kick){font-size:17px}}
+.ix .ix-trust-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 40px}
+.ix .ix-trust-item{display:flex;gap:16px;align-items:flex-start}
+.ix .ix-trust-item .tile-icon{flex-shrink:0}
+@media(max-width:700px){.ix .ix-trust-grid{grid-template-columns:1fr}}
+.ix .ix-ex-over{display:inline-flex;align-items:center;gap:10px}
+.ix .ix-ex-over .tile-icon{width:32px;height:32px;border-radius:9px}
+.ix .ix-nums b{color:var(--accent)}
+.ix{--faint:#5f6879}
+.ix .btn-ghost{border-color:#9aa6bb}
+.ix .btn-ghost:hover{border-color:var(--ink);background:#fff}

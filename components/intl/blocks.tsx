@@ -4,7 +4,7 @@ import {createContext,useContext,useRef,useState} from 'react';
 import {getAttribution,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
-import {partnerSteps,partnerWho,smallLimit,smallPerks,smallScenarios,smallScene,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {partnerSteps,partnerWho,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {posts,type Post} from '@/lib/intl-blog';
 import {Icon} from './icon';
 import {Scene} from './scene';
@@ -101,7 +101,7 @@ export function Results(){
     <div data-reveal="" className="sec-head"><div><h2 className="h2 mw820">What changes in a normal week.</h2><p className="lead lead-muted">Three typical scenarios with the numbers we track. Figures are estimates; we measure your real ones in the pilot. We publish client results only with their permission.</p></div></div>
     <div className="grid-c3w" data-stagger="">
      {examples.map(r=><a key={r.href} href={link(r.href)} className="card ix-card-lift ix-example">
-      <span className="over">{r.over} · Example</span>
+      <span className="over ix-ex-over"><span className="tile-icon"><Icon name={industries.find(x=>'industries/'+x.slug===r.href)?.icon||'briefcase'} size={16}/></span>{r.over} · Example</span>
       <h3>{r.title}</h3>
       <p>{r.body}</p>
       <div className="ix-nums">{r.nums.map(([n,l])=><div key={l}><b>{n}</b><span>{l}</span></div>)}</div>
@@ -280,7 +280,7 @@ export function Process(){
 
 export function Trust(){
  const log:[string,string,string,string,string,string][]=[['check','#e7f6ec','#146c2e','Reply approved','manager · quote #2141','10:42'],['user-round','#fff4e0','#a35b00','Handed to a person','refund outside rules','10:38'],['lock','#eaf0ff','#2146d3','Access restricted','role: trainee · payroll','10:31'],['link','#eaf0ff','#2146d3','Source cited','returns policy, §3','10:27']];
- const pts=[['Review where it matters','Agree which actions need a person and which can never run automatically.'],['Your data and rules','Sources, access and retention are defined before implementation.'],['UK GDPR and a DPA','We act as your processor under a data processing agreement.'],['Your team knows how','Instructions and training on real tasks from your business.']];
+ const pts=[['user-check','Review where it matters','Agree which actions need a person and which can never run automatically.'],['database','Your data and rules','Sources, access and retention are defined before implementation.'],['file-signature','UK GDPR and a DPA','We act as your processor under a data processing agreement.'],['graduation-cap','Your team knows how','Instructions and training on real tasks from your business.']];
  return (
   <section data-screen-label="Trust" className="band-white bordered">
    <div className="wrap sec">
@@ -293,38 +293,42 @@ export function Trust(){
       <ul>{log.map(([ic,bg,fg,t,s,tm],i)=><li key={t} style={{animationDelay:i*120+'ms'}}><span className="log-icon" style={{background:bg,color:fg}}><Icon name={ic} size={13}/></span><span className="min0 grow"><b>{t}</b><span>{s}</span></span><small>{tm}</small></li>)}</ul>
      </div>
     </div>
-    <div className="grid-c4 ix-mt40">{pts.map(([t,b],i)=><article key={t} data-reveal="" style={rd(i*80)} className="trust-item"><h3>{t}</h3><p>{b}</p></article>)}</div>
+    <div className="ix-trust-grid ix-mt40">{pts.map(([ic,t,b],i)=><article key={t} data-reveal="" style={rd(i*80)} className="trust-item ix-trust-item"><span className="tile-icon"><Icon name={ic} size={19}/></span><div><h3>{t}</h3><p>{b}</p></div></article>)}</div>
    </div>
   </section>
  );
 }
 
-export function AuditReport(){
+// The free audit, shown with a different sample on the home page (dental practice) and on AI consultancy (accounting firm).
+export function AuditReport({variant='home'}:{variant?:'home'|'consultancy'}){
  const {cur}=useIx();
- const rows:[string,number,number,string][]=[['Phone bookings and enquiries',64,12,'High'],['Reminders and no-shows',20,4,'Medium'],['Patient questions on WhatsApp',18,5,'Medium'],['Review replies',6,2,'Low']];
+ const cons=variant==='consultancy';
+ const rows:[string,number,number,string][]=cons?[['Invoice coding into Xero',56,14,'High'],['Chasing client documents',40,8,'High'],['Client calls in busy season',30,10,'Medium'],['Deadline reminders',12,2,'Low']]:[['Phone bookings and enquiries',64,12,'High'],['Reminders and no-shows',20,4,'Medium'],['Patient questions on WhatsApp',18,5,'Medium'],['Review replies',6,2,'Low']];
  const gets:[string,string,string][]=[['map','Process map','Where time goes, with hours per month.'],['bar-chart-3','Impact estimate','Hours and money AI could free in each process.'],['receipt','Pilot plan and price','One process, a success metric, timeline and a fixed price.']];
  return (
   <section data-screen-label="Audit report" className="wrap sec audit">
-   <div data-reveal=""><h2 className="h2">What the free audit gives you.</h2><p className="lead mw460">A working document: what to automate, what it saves and what the pilot costs.</p>
+   <div data-reveal=""><h2 className="h2">{cons?'What the audit report looks like.':'What the free audit gives you.'}</h2><p className="lead mw460">{cons?'One document for the leadership team: every routine process scored by hours and money, and the pilot we recommend.':'A working document: what to automate, what it saves and what the pilot costs.'}</p>
     <ul className="audit-gets">{gets.map(([ic,t,d])=><li key={t}><span className="tile-icon"><Icon name={ic} size={18}/></span><span><b>{t}</b><span>{d}</span></span></li>)}</ul>
     <div className="btn-row mt28"><Cta/></div></div>
    <div data-reveal="" style={rd(100)} className="report">
-    <div className="report-head"><span>Process audit</span><small>Sample · dental practice, 3 chairs</small></div>
+    <div className="report-head"><span>Process audit</span><small>{cons?'Sample · accounting firm, 8 staff':'Sample · dental practice, 3 chairs'}</small></div>
     <table><thead><tr><th>Process</th><th>Now, h/mo</th><th>With AI</th><th>Saved/mo</th><th>Priority</th></tr></thead>
      <tbody>{rows.map(([n,now,ai,p])=><tr key={n}><th>{n}</th><td data-label="Now, h/mo">{now}</td><td data-label="With AI">{ai}</td><td data-label="Saved/mo" className="num">{fmt((now-ai)*18,cur)}</td><td data-label="Priority"><span className={'prio '+(p==='High'?'prio-hi':p==='Medium'?'prio-mid':'prio-lo')}>{p}</span></td></tr>)}</tbody></table>
-    <p className="report-foot"><Icon name="flag" size={15}/><span><b>Recommended pilot:</b> AI receptionist · 2 weeks · {fmt(promo(price('rcSetup',cur)),cur)} + {fmt(promo(price('rcMonth',cur)),cur)}/mo</span></p>
+    <p className="report-foot"><Icon name="flag" size={15}/><span><b>Recommended pilot:</b> {cons?<>invoice coding and document chasing · 3 weeks · {fmt(promo(price('pilot',cur)),cur)}</>:<>AI receptionist · 2 weeks · {fmt(promo(price('rcSetup',cur)),cur)} + {fmt(promo(price('rcMonth',cur)),cur)}/mo</>}</span></p>
     <p className="report-note">Illustrative figures.</p>
    </div>
   </section>
  );
 }
 
-export function Team(){
- const pts=[['Revenue first, technology second','We work out where AI pays off in money and hours, then pick the tool.'],['One accountable lead','One person works with you from audit to launch and owns the result.'],['Direct line','You write to Evgeny directly by email or WhatsApp.']];
+// Home: who builds it. About: how working with Evgeny looks day to day.
+export function Team({variant='home'}:{variant?:'home'|'about'}){
+ const about=variant==='about';
+ const pts=about?[['Plain English','Every proposal says what changes, what it costs and how we measure it.'],['The same person builds it','Whoever audits your process also designs, builds and tests the solution.'],['Same-day replies','Email and WhatsApp answered the same working day, in UK hours.']]:[['Revenue first, technology second','We work out where AI pays off in money and hours, then pick the tool.'],['One accountable lead','One person works with you from audit to launch and owns the result.'],['Direct line','You write to Evgeny directly by email or WhatsApp.']];
  return (
   <section data-screen-label="Team" className="band-soft">
    <div className="wrap sec">
-    <div data-reveal=""><h2 className="h2">Who builds it.</h2><p className="lead mw560">One person works with you from the first call to launch and owns the result.</p></div>
+    <div data-reveal=""><h2 className="h2">{about?'Who you will work with.':'Who builds it.'}</h2><p className="lead mw560">{about?'Evgeny runs the audit, designs the workflow and stays on the project after launch.':'One person works with you from the first call to launch and owns the result.'}</p></div>
     <div className="ix-team mt28">
      <figure data-reveal="" className="ix-team-photo">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -332,7 +336,7 @@ export function Team(){
       <figcaption><small>Founder, Praxen AI</small><b>Evgeny Budnikov</b></figcaption>
      </figure>
      <div>
-      <p className="ix-team-bio">Makes sure AI brings measurable results: maps your processes, estimates the impact and leads implementation from audit to launch.</p>
+      <p className="ix-team-bio">{about?'Evgeny founded Praxen AI to make AI pay back in ordinary businesses: fewer missed calls, less retyping and faster replies, measured against how the work runs today.':'Makes sure AI brings measurable results: maps your processes, estimates the impact and leads implementation from audit to launch.'}</p>
       <ul className="ix-team-pts">{pts.map(([t,d])=><li key={t}><b>{t}</b><span>{d}</span></li>)}</ul>
       <div className="btn-row mt28">
        <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ix-dark-btn"><Icon name="whatsapp" size={16}/>WhatsApp</a>
@@ -534,7 +538,7 @@ export function ReceptionistPrice(){
 
 export function Scenarios({entity,group}:{entity:Entity;group:string}){
  const {go}=useIx();
- const title=entity.slug==='ai-training'?'What the session covers.':entity.slug==='ai-consultancy'?'What you get.':group==='services'?'What it handles.':group==='industries'?'Where AI helps '+entity.name.toLowerCase()+'.':'Where AI helps your '+entity.name.toLowerCase()+' team.';
+ const title=entity.slug==='ai-training'?'What the session covers.':entity.slug==='ai-consultancy'?'What you get.':group==='services'?'What it handles.':group==='industries'?'Where AI helps '+lc(entity.name)+'.':'Where AI helps your '+lc(entity.name)+' team.';
  return (
   <section data-screen-label="Scenarios" className="wrap sec">
    <h2 data-reveal="" className="h2 mw820">{title}</h2>
@@ -551,7 +555,7 @@ export function Tabs({entity,group}:{entity:Entity;group:string}){
  const [ti,setTi]=useState(0);
  const T=src[ti];
  const m=isInd?T.desc.toLowerCase():(micro[T.slug]?.[entity.slug]||micro[T.slug]?.default||'');
- const title=isInd?'Services that fit '+entity.name.toLowerCase()+'.':group==='departments'?'Same team, different industries.':'How it works in your industry.';
+ const title=isInd?'Services that fit '+lc(entity.name)+'.':group==='departments'?'Same team, different industries.':'How it works in your industry.';
  return (
   <section data-screen-label="Tabs" className="band-white bordered">
    <div className="wrap sec">
@@ -561,7 +565,7 @@ export function Tabs({entity,group}:{entity:Entity;group:string}){
      <article key={ti} className="panel fade-in" role="tabpanel">
       <span className="ix-kick">{isInd?'Service':'Industry'}</span>
       <h3 className="ix-tab-h3">{T.name} <span>→ {m}</span></h3>
-      <a href={link(isInd?servicePath(T.slug):'industries/'+T.slug)} className="ulink mt24">{isInd?'About '+T.name:'AI for '+T.name.toLowerCase()}<Icon name="arrow-right" size={16}/></a>
+      <a href={link(isInd?servicePath(T.slug):'industries/'+T.slug)} className="ulink mt24">{isInd?'About '+T.name:'AI for '+lc(T.name)}<Icon name="arrow-right" size={16}/></a>
      </article>
     </div>
    </div>
@@ -571,35 +575,76 @@ export function Tabs({entity,group}:{entity:Entity;group:string}){
 
 export function Tested({entity}:{entity:Entity}){
  const items=entity.tested||['We test on your real cases before launch.','Clear rules on what the AI may and may not do.','Every action is logged and reviewable.'];
+ const icons=['search-check','shield-check','user-check'];
  return (
   <section data-screen-label="Tested" className="wrap sec ix-split">
    <h2 data-reveal="" className="h2">What we test before launch.</h2>
    <div>
-    <ol className="ix-tested">{items.map((t,i)=><li key={t}><span>0{i+1}</span>{t}</li>)}</ol>
-    {entity.measure&&<div className="ix-measure"><b>What we measure</b><p>{entity.measure}</p><small>We compare with how the work runs today, including the time people spend checking.</small></div>}
+    <ol className="ix-tested">{items.map((t,i)=><li key={t}><span className="tile-icon"><Icon name={icons[i%3]} size={17}/></span>{t}</li>)}</ol>
     <div className="ix-logos">{(logoSets[entity.slug]||defaultLogoSet).map(n=><span key={n}><Logo name={n} size={16}/>{n}</span>)}</div>
    </div>
   </section>
  );
 }
 
-export function ShortAnswer({entity,group}:{entity:Entity;group:string}){
+// How a pilot runs for this page, built from the page's own pains, first scenario, tools and metric.
+export function PilotPlan({entity,group}:{entity:Entity;group:string}){
  const {cur}=useIx();
- const set=(logoSets[entity.slug]||['HubSpot','Microsoft 365','Google Workspace']).slice(0,3).join(', ');
- const q=entity.question||'What does AI do for '+entity.name.toLowerCase()+' and what does it cost?';
- const lead=entity.answer||entity.name+' teams use AI to answer routine questions, move data between systems and prepare drafts for review.';
- const rc=entity.slug==='ai-receptionist'?' Setup is '+fmt(promo(price('rcSetup',cur)),cur)+' and the monthly fee '+fmt(promo(price('rcMonth',cur)),cur)+' with the launch offer ('+fmt(price('rcSetup',cur),cur)+' and '+fmt(price('rcMonth',cur),cur)+' standard), plus call minutes at cost, typically '+curInfo[cur].usage+' a minute.':'';
- const tail=entity.slug==='ai-receptionist'?' It connects to '+set+' and other tools you already use. Every project starts with a free 30-minute audit.'
-  :' A pilot on one workflow takes 2–4 weeks and costs '+fmt(promo(price('pilot',cur)),cur)+' with the launch offer ('+fmt(price('pilot',cur),cur)+' standard); team training is '+fmt(promo(price('training',cur)),cur)+' and optional care '+fmt(promo(price('care',cur)),cur)+' a month. It connects to '+set+' and other tools you already use. Every project starts with a free 30-minute audit.';
- void group;
- return <AnswerBox q={q} a={lead+rc+tail} updated/>;
-}
-export function AnswerBox({q,a,updated}:{q:string;a:string;updated?:boolean}){
+ const tools=(logoSets[entity.slug]||defaultLogoSet).slice(0,3);
+ const toolList=tools.slice(0,-1).join(', ')+' and '+tools[tools.length-1];
+ const pain=(pains[entity.slug]||pains.default)[0];
+ const [,first,firstDesc]=entity.scenarios[0];
+ const training=entity.slug==='ai-training';
+ const rc=entity.slug==='ai-receptionist';
+ const steps:[string,string,string][]=training?[
+  ['phone-call','Short call','We learn which tools your team uses, what they already do with AI and where the rules are unclear.'],
+  ['graduation-cap','Half-day session','Hands-on work on your own tasks: '+entity.scenarios.slice(0,3).map(x=>lc(x[1])).join(', ')+'.'],
+  ['book-open','Playbook and policy','Your team keeps the prompts, templates and a one-page usage policy written for your business.'],
+  ['line-chart','Follow-up','We check '+lc(entity.measure||'how the team uses AI after the session.')],
+ ]:[
+  ['search-check','Free audit, 30 minutes','We start where it hurts: “'+pain+'”. We name the first workflow and estimate what it is worth.'],
+  ['flag','Pilot: '+lc(first),firstDesc],
+  ['workflow','Connected and tested','Connected to '+toolList+', then tested on your real cases before anything goes live.'],
+  ['line-chart','Measured',entity.measure||'One metric agreed upfront and compared with how the work runs today.'],
+ ];
+ const time=training?'From 1 week to the session':rc?'Live in about 2 weeks':'2–4 weeks';
+ const cost=training?fmt(promo(price('training',cur)),cur)+' per session':rc?fmt(promo(price('rcSetup',cur)),cur)+' setup + '+fmt(promo(price('rcMonth',cur)),cur)+'/mo':fmt(promo(price('pilot',cur)),cur)+' fixed price';
+ const title=training?'How the training runs.':rc?'How we launch your AI receptionist.':group==='services'?'Your '+entity.name+' pilot, step by step.':'How a pilot for '+(group==='departments'?'your '+lc(entity.name)+' team':lc(entity.name))+' runs.';
  return (
-  <section data-screen-label="Short answer" className="wrap">
-   <div data-reveal="" className="ix-answer">
-    <div><p className="ix-answer-kick">Short answer</p><h2>{q}</h2>{updated&&<small>Updated {intlUpdatedLabel}</small>}</div>
-    <p>{a}</p>
+  <section data-screen-label="Pilot plan" className="band-white bordered">
+   <div className="wrap sec">
+    <div data-reveal="" className="ix-head"><h2 className="h2 mw820">{title}</h2><p className="ix-plan-meta"><span><Icon name="clock" size={16}/>{time}</span><span><Icon name="receipt" size={16}/>{cost}</span></p></div>
+    <ol className="ix-plan mt28">{steps.map(([ic,t,d],i)=><li key={t} data-reveal="" style={rd(i*90)}><span className="ix-plan-num">0{i+1}</span><span className="tile-icon"><Icon name={ic} size={18}/></span><b>{t}</b><p>{d}</p></li>)}</ol>
+   </div>
+  </section>
+ );
+}
+
+export function ShortAnswer({entity}:{entity:Entity}){
+ const {cur,cta,go}=useIx();
+ const tools=(logoSets[entity.slug]||defaultLogoSet).slice(0,4);
+ const q=entity.question||'What does AI do for '+lc(entity.name)+' and what does it cost?';
+ const lead=entity.answer||entity.name+' teams use AI to answer routine questions, move data between systems and prepare drafts for review.';
+ const P=(k:'rcSetup'|'rcMonth'|'pilot'|'training'|'care',per='')=>[fmt(promo(price(k,cur)),cur)+per,fmt(price(k,cur),cur)+per] as const;
+ const cells:[string,string,string][]=entity.slug==='ai-receptionist'
+  ?[['Time to launch','2 weeks','from the first call'],['Hours covered','24/7','evenings and weekends too'],['Call minutes',curInfo[cur].usage,'per minute, at cost']]
+  :entity.slug==='ai-training'
+  ?[['Format','Half a day','on site or online'],['Group size','Up to 12','per session'],['Lead time','1 week','to the session date']]
+  :[['Pilot, one workflow',...P('pilot')],['Team training',...P('training')],['Care, optional',...P('care','/mo')]];
+ return (
+  <section data-screen-label="Short answer" className="wrap sec">
+   <div data-reveal="" className="ix-ans">
+    <div className="ix-ans-main">
+     <p className="ix-answer-kick">Short answer · updated {intlUpdatedLabel}</p>
+     <h2>{q}</h2>
+     <p>{lead}</p>
+     <p className="ix-ans-tools">Works with {tools.join(', ')} and the other tools you already use. Every project starts with a free 30-minute audit.</p>
+    </div>
+    <div className="ix-ans-side">
+     <dl className="ix-ans-prices">{cells.map(([l,v,n])=><div key={l}><dt>{l}</dt><dd><b>{v}</b><span>{n.startsWith(curInfo[cur].sym)?<><s>{n}</s> standard</>:n}</span></dd></div>)}</dl>
+     <p className="ix-ans-note">{entity.pricing||entity.slug==='ai-training'?'Prices are in the block at the top of this page. All prices exclude VAT.':'Launch prices with 30% off. All prices exclude VAT.'}</p>
+     <a href="#contact" onClick={e=>{e.preventDefault();go(entity.name)}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a>
+    </div>
    </div>
   </section>
  );

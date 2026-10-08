@@ -160,7 +160,7 @@ export function Scene({type,data}:{type:SceneType;data?:SceneData}){
     </>}
    </div>
    <div className="sc-foot">
-    <span>Illustration, no real data</span>
+    <span>Example with sample data</span>
     <span className="sc-dots">{Array.from({length:Math.min(n,6)},(_,i)=><i key={i} className={s>=i+1?'is-on':''}/>)}</span>
    </div>
   </div>

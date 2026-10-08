@@ -12,7 +12,7 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
-import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
+import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,PilotPlan,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
 const nav:[string,string,Drop?][]=[['services','Services','services'],['industries','Industries','industries'],['departments','Departments','departments'],['solutions','Solutions & pricing'],['training','Training'],['cases','Cases'],['about','About']];
@@ -67,7 +67,7 @@ function Footer(){
  const cols:[string,[string,string][]][]=[
   ['Services',services.map(x=>[x.name,servicePath(x.slug)])],
   ['Industries',industries.map(x=>[x.name,'industries/'+x.slug])],
-  ['Company',[['Solutions & pricing','solutions'],['Departments','departments'],['Training','training'],['Cases','cases'],['About','about'],['Security','security'],['Partners','partners'],['Blog','blog'],['AI for small businesses','ai-for-small-business']]],
+  ['Company',[['Pricing','solutions'],['Small businesses','ai-for-small-business'],['Cases','cases'],['About','about'],['Blog','blog'],['Partners','partners']]],
  ];
  return (
   <footer className="footer">
@@ -76,7 +76,6 @@ function Footer(){
      <div>
       <a href={link('')} aria-label="Praxen AI" className="brand brand-dark"><Wordmark dark/></a>
       <p className="footer-tag">Practical AI for real work.</p>
-      <p className="footer-about">AI receptionists, chatbots and automation for business, plus team training.</p>
       <div className="ix-foot-contacts"><a href={contacts.whatsapp} target="_blank" rel="noopener">WhatsApp</a><a href={'mailto:'+contacts.email}>{contacts.email}</a></div>
       <BookLink className="btn btn-white">Book a free call<Icon name="arrow-right" size={16}/></BookLink>
      </div>
@@ -92,13 +91,13 @@ function Page({route}:{route:IntlRoute}){
  const e=entityOf(route);
  const {page}=route;
  const group=page==='training'?'services':page;
- if(page==='home')return <><Hero/><Marquee/><Results/><Quiz/><Pricing/><SmallStrip/><Calculator/><Trust/><AuditReport/><Team/></>;
- if(page==='ai-for-small-business')return <><Hero small/><SmallPerks/><SmallScenarios/><SmallPricing/><Calculator/><Process/></>;
- if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><Process/><ShortAnswer entity={e} group={group}/><Trust/></>;
- if(page==='cases')return <><InnerHero/><CaseDetails/><Process/></>;
- if(page==='services'||page==='industries'||page==='departments')return <><InnerHero/><Cards page={page}/>{page==='departments'&&<OneSystem/>}<Process/></>;
- if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/><AuditReport/></>;
- if(page==='about')return <><InnerHero/><AboutStory/><Team/><Process/></>;
+ if(page==='home')return <><Hero/><Marquee/><Results/><Quiz/><Pricing/><SmallStrip/><Trust/><AuditReport/><Team/></>;
+ if(page==='ai-for-small-business')return <><Hero small/><SmallPerks/><SmallScenarios/><SmallPricing/></>;
+ if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><PilotPlan entity={e} group={group}/><ShortAnswer entity={e}/></>;
+ if(page==='cases')return <><InnerHero/><CaseDetails/></>;
+ if(page==='services'||page==='industries'||page==='departments')return <><InnerHero/><Cards page={page}/>{page==='departments'&&<OneSystem/>}</>;
+ if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/></>;
+ if(page==='about')return <><InnerHero/><AboutStory/><Team variant="about"/><Process/></>;
  if(page==='security')return <><InnerHero/><Security/></>;
  if(page==='blog'){const post=posts.find(p=>p.slug===route.slug);return post?<Article post={post}/>:<><InnerHero/><BlogList/></>}
  if(page==='partners')return <><InnerHero/><Partners/></>;
