@@ -15,11 +15,6 @@ export async function generateMetadata({params}:{params:Promise<{lang:string}>})
     description:isIntl?'AI receptionists, chatbots and automation for businesses in the UK, US and EU, plus team training.':description(lang),
     other:{'codex-preview':'development'},
     formatDetection:{telephone:true},
-    // favicon.ico is what Yandex and Google fetch by default; SVG for modern browsers, PNG sizes for search results and home screens.
-    icons:{
-      icon:[{url:base+'/favicon.ico',sizes:'48x48',type:'image/x-icon'},{url:base+'/favicon.svg',type:'image/svg+xml'},{url:base+'/favicon-96x96.png',sizes:'96x96',type:'image/png'}],
-      apple:[{url:base+'/apple-touch-icon.png',sizes:'180x180',type:'image/png'}],
-    },
     manifest:base+'/site.webmanifest',
   };
 }
@@ -35,6 +30,13 @@ export default async function RootLayout({children,params}:Readonly<{children:Re
     <html lang={isIntl?'en-GB':isLang(lang)?lang:defaultLang} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{__html:motionScript}}/>
+        {/* Icons are written straight into <head>: metadata icons are streamed into the body and moved by script,
+            and the Google and Yandex favicon crawlers read the raw HTML of the home page. favicon.ico is their default,
+            the 96px PNG (a multiple of 48) is what search results show, SVG is for modern browsers. */}
+        <link rel="icon" href={base+'/favicon.ico'} sizes="48x48" type="image/x-icon"/>
+        <link rel="icon" href={base+'/favicon-96x96.png'} sizes="96x96" type="image/png"/>
+        <link rel="icon" href={base+'/favicon.svg'} type="image/svg+xml"/>
+        <link rel="apple-touch-icon" href={base+'/apple-touch-icon.png'} sizes="180x180"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
         {/* praxenai.com is English only and does not need the Georgian font. */}
