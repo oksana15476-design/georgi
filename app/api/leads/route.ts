@@ -11,5 +11,7 @@ export async function POST(request:Request){
  if(!lead)return Response.json({error},{status:400});
  const result=await deliverLead(lead,env as unknown as Record<string,string|undefined>);
  if(result.status==='ok')return Response.json({ok:true});
- return Response.json({error:result.status==='unavailable'?'unavailable':'delivery'},{status:result.status==='unavailable'?503:502});
+ // Channel errors (e.g. "telegram 400") go to the Workers log and the response; they never contain secrets.
+ if(result.errors.length)console.error('lead delivery failed',result.errors);
+ return Response.json({error:result.status==='unavailable'?'unavailable':'delivery',channels:result.errors},{status:result.status==='unavailable'?503:502});
 }
