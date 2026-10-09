@@ -56,7 +56,7 @@ export function organizationJsonLd(lang:Lang){
    hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:pageUrl(lang,path||''),
     priceSpecification:{'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL',...(key==='support'?{unitText:'MONTH'}:{})},
     itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),]}},
-  {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg'),url:pageUrl(lang,'/about'),knowsAbout:['AI implementation','AI chatbots','AI agents','Business process automation'],...(founderProfiles.length?{sameAs:founderProfiles}:{})},
+  {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg'),url:pageUrl(lang,'/about'),knowsAbout:['AI implementation','AI chatbots','AI agents','Business process automation'],...(founderProfiles.ge.length?{sameAs:founderProfiles.ge}:{})},
   {'@type':'WebSite','@id':absolute('/#website'),url:pageUrl(lang,''),name:'Praxen AI',inLanguage:lang,publisher:{'@id':org}},
  ]};
 }
