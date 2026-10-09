@@ -16,6 +16,8 @@ const [batchPath,onlyId,onlyLang]=process.argv.slice(2);
 if(!batchPath){console.error('Usage: node scripts/social/render.mjs <batch.json> [post id] [ka|ru|en]');process.exit(1);}
 const batch=JSON.parse(readFileSync(resolve(batchPath),'utf8'));
 const langs=(onlyLang?[onlyLang]:batch.langs||['ka','ru','en']);
+// A batch for praxenai.com sets "site" and "contacts"; praxenai.ge batches keep the defaults.
+const siteName=batch.site||'praxenai.ge',contactsLine=batch.contacts||'WhatsApp +995 557 125 497 · praxenai.ge';
 const outDir=join(root,'content/social/out',basename(batchPath,'.json'));
 
 async function loadPlaywright(){
@@ -59,14 +61,14 @@ function slideHtml(s,l,i,n){
    <div class="after"><h3>${esc(tr(s.afterLabel||ui.after,l))}</h3>${(s.after||[]).map(x=>`<p>${rich(x,l)}</p>`).join('')}</div></div>`,
   cta:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h1 class="fit">${rich(s.title,l)}</h1>
    ${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}<div class="button">${rich(s.button,l)}</div>
-   <p class="contacts">WhatsApp +995 557 125 497 · praxenai.ge</p>`,
+   <p class="contacts">${esc(contactsLine)}</p>`,
  }[s.layout];
  if(!body) throw new Error(`Unknown layout "${s.layout}"`);
  return `<section class="slide ${s.layout} ${dark?'dark':'light'}">
   <header><div class="logo">${dark?logoWhite:logoDark}</div>
    <div class="meta">${s.example?`<span class="tag">${esc(tr(ui.example,l))}</span>`:''}${n>1?`<span>${i+1}/${n}</span>`:''}</div></header>
   <main>${body()}</main>
-  <footer><span>praxenai.ge</span>${n>1&&i<n-1?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
+  <footer><span>${esc(siteName)}</span>${n>1&&i<n-1?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
 }
 
 const css=`
@@ -144,7 +146,7 @@ for(const post of posts){
   }
  }
  // Captions with the tracked link, ready to paste.
- const link=(l)=>{const u=new URL(post.link||'https://praxenai.ge/'+l);if(!post.link) u.pathname='/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)/,'/'+l);
+ const link=(l)=>{const u=new URL(post.link||'https://'+siteName+'/'+l);if(!post.link) u.pathname='/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)/,'/'+l);
   u.searchParams.set('utm_source',process.env.UTM_SOURCE||'facebook');u.searchParams.set('utm_medium','social');u.searchParams.set('utm_campaign',batch.campaign||'organic');u.searchParams.set('utm_content',post.id);return u.toString();};
  const md=[`# ${post.id} · ${post.date} · ${post.pillar}`,''];
  for(const l of langs) md.push(`## ${l}`,'',tr(post.text,l).replace('{link}',link(l)),'');

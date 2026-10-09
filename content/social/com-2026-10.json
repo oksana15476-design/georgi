@@ -1,0 +1,108 @@
+{
+ "campaign": "organic_com_2026-10",
+ "langs": ["en"],
+ "site": "praxenai.com",
+ "contacts": "hello@praxenai.com · praxenai.com",
+ "posts": [
+  {
+   "id": "01-intro",
+   "date": "2026-10-13",
+   "pillar": "about",
+   "link": "https://praxenai.com/",
+   "text": "Most businesses we speak to do not need “an AI strategy”. They need the phone answered, enquiries logged and invoices out of the inbox.\n\nThat is what Praxen AI does:\n• AI receptionists that answer and book calls 24/7\n• Chatbots for your website and WhatsApp, answering from your own documents\n• Automation for CRM updates, documents and invoices\n• Team training on your real tasks\n\nEvery project starts with a free 30-minute audit and a pilot on one workflow at a fixed price. It runs on your accounts, and people approve what matters.\n\nSee how it works: {link}\n\n#AIforBusiness #Automation #AIreceptionist",
+   "slides": [
+    {"layout": "cover", "kicker": "Praxen AI", "title": "Every call answered. Every enquiry *logged*.", "sub": "AI receptionists, chatbots and automation for businesses"},
+    {"layout": "list", "title": "How a project runs", "items": ["Free 30-minute audit of one workflow", "Pilot in 2–4 weeks at a *fixed price*", "Tested on your real calls and documents", "Runs on your accounts, people approve", "Measured against how work runs today"]},
+    {"layout": "cta", "title": "Start with a *free* audit", "sub": "30 minutes, no obligation", "button": "Book a call at praxenai.com"}
+   ]
+  },
+  {
+   "id": "02-missed-calls",
+   "date": "2026-10-15",
+   "pillar": "money",
+   "link": "https://praxenai.com/blog/ai-receptionist-cost-uk",
+   "text": "How much does a missed call cost you?\n\nA quick way to check, with your own numbers:\n1. Count the calls that went to voicemail last week.\n2. Estimate how many were new customers.\n3. Multiply by the value of a first order or appointment.\n\nExample with illustrative figures: 15 missed calls a week, one in five a new customer worth £150. That is about £1,900 a month walking to a competitor.\n\nAn AI receptionist answers those calls, books them into your calendar and sends you a summary. Full cost breakdown: {link}\n\n#AIreceptionist #UKbusiness #CustomerService",
+   "slides": [
+    {"layout": "cover", "kicker": "Example calculation", "title": "What a missed call *really* costs", "sub": "A five-minute check with your own numbers"},
+    {"layout": "number", "example": true, "value": "≈ £1,900", "label": "a month in lost first visits", "note": "15 missed calls a week × 1 in 5 new customers × £150"},
+    {"layout": "list", "title": "Check it for your business", "items": ["Count calls that hit *voicemail* in a week", "Estimate the share of new customers", "Multiply by a first order’s value", "Compare with £174 a month (launch offer)"]},
+    {"layout": "cta", "title": "Answer every call, *24/7*", "sub": "AI receptionist from £174 a month with the launch offer", "button": "See the full cost breakdown"}
+   ]
+  },
+  {
+   "id": "03-accounting-mtd",
+   "date": "2026-10-20",
+   "pillar": "usecase",
+   "link": "https://praxenai.com/blog/ai-for-accounting-firms",
+   "text": "Making Tax Digital for Income Tax turns one deadline a year into four quarterly updates for many sole traders and landlords. For an accounting firm, that is four rounds of chasing records.\n\nWhere AI helps first:\n• chasing missing documents with specific, polite reminders\n• reading invoices and receipts into Xero, QuickBooks or Sage as drafts\n• answering “has my return been filed?”\n\nAccountants keep the review, the advice and every submission to HMRC.\n\nThe seven workflows, in the order we would start: {link}\n\n#Accounting #MakingTaxDigital #AIforBusiness",
+   "slides": [
+    {"layout": "cover", "kicker": "Accounting firms", "title": "Four deadlines a year, *same* team", "sub": "Where AI takes the admin around each one"},
+    {"layout": "compare", "example": true, "title": "Quarterly chasing, before and after", "before": ["Staff email each client by hand", "Invoices retyped into Xero", "Phones ring all through January"], "after": ["Reminders go out with *what is missing*", "Invoices coded as drafts for review", "Status questions answered *any time*"]},
+    {"layout": "list", "title": "What stays with accountants", "items": ["Advice and judgement calls", "Every submission to HMRC", "Payments and bank detail changes", "Final review of coded entries"]},
+    {"layout": "cta", "title": "Seven workflows, in *order*", "sub": "Which to automate first and what it costs", "button": "Read the guide"}
+   ]
+  },
+  {
+   "id": "04-voice-vs-ivr",
+   "date": "2026-10-22",
+   "pillar": "myths",
+   "link": "https://praxenai.com/blog/ai-voice-agents",
+   "text": "“Press 1 for bookings, press 2 for…” Most callers hang up before option 4.\n\nAn AI voice agent works differently. The caller says what they need in their own words, and the agent books, answers or passes the call to a person.\n\nWhat it should never do on its own: give clinical, legal or financial advice, quote prices outside your rules, or keep an upset caller on the line.\n\nAI voice agents compared with phone menus and voicemail: {link}\n\n#VoiceAI #CustomerExperience #AIforBusiness",
+   "slides": [
+    {"layout": "cover", "kicker": "Voice AI", "title": "Press 1 for… *hang up*", "sub": "AI voice agents compared with phone menus"},
+    {"layout": "dialog", "example": true, "title": "A call at 19:40", "messages": [{"from": "client", "time": "19:40", "text": "Hi, can I move my appointment on Thursday?"}, {"from": "bot", "time": "19:40", "text": "Of course. I have Friday at 10:00 or 14:30. Which suits you?"}, {"from": "client", "time": "19:41", "text": "10:00, please."}, {"from": "bot", "time": "19:41", "text": "Done. You will get a confirmation by text."}]},
+    {"layout": "list", "title": "What a person keeps", "items": ["Advice of any kind", "Prices outside your rules", "Upset or *urgent* callers", "Anything the agent is unsure of"]},
+    {"layout": "cta", "title": "Voice agent or phone menu?", "sub": "A plain comparison for businesses", "button": "Read the comparison"}
+   ]
+  },
+  {
+   "id": "05-recruitment",
+   "date": "2026-10-27",
+   "pillar": "usecase",
+   "link": "https://praxenai.com/blog/ai-for-recruitment-agencies",
+   "text": "In most recruitment agencies, the hours do not go on finding candidates. They go on reading CVs that do not fit, agreeing interview times and answering “any news?”.\n\nAI can score each CV against the brief with written reasons, reply to every applicant the same day and offer interview slots from both calendars.\n\nConsultants make every shortlist and every decision. Under UK GDPR, that is also the safe way to design it.\n\nScreening, scheduling and follow-up, step by step: {link}\n\n#Recruitment #Hiring #AIforBusiness",
+   "slides": [
+    {"layout": "cover", "kicker": "Recruitment agencies", "title": "Shortlists in minutes, *decisions* by people", "sub": "Screening, scheduling and candidate follow-up"},
+    {"layout": "dialog", "example": true, "title": "A candidate at 22:15", "messages": [{"from": "client", "time": "22:15", "text": "Any news on the warehouse supervisor role?"}, {"from": "bot", "time": "22:15", "text": "Your CV is with the consultant. You will hear by Thursday. Would you like to pick an interview slot now?"}]},
+    {"layout": "list", "title": "Rules we design in", "items": ["Scores come with *written reasons*", "No automatic rejections", "A consultant approves every message", "Bias checked on your past roles"]},
+    {"layout": "cta", "title": "Same-day reply to *every* applicant", "sub": "A pilot on one stage takes 2–4 weeks", "button": "Read the guide"}
+   ]
+  },
+  {
+   "id": "06-90-day-plan",
+   "date": "2026-10-29",
+   "pillar": "process",
+   "link": "https://praxenai.com/blog/how-to-implement-ai",
+   "text": "“Where do we even start with AI?”\n\nA plan that works for most businesses:\n• Weeks 1–2: audit one workflow and agree one metric\n• Weeks 3–6: pilot on real data, with a person approving\n• Weeks 7–10: roll out to the team and write the rules\n• Weeks 11–13: start the second workflow, reusing what you built\n\nThe full 90-day plan with roles and common mistakes: {link}\n\n#AIimplementation #DigitalTransformation #Operations",
+   "slides": [
+    {"layout": "cover", "kicker": "How to start", "title": "AI in your business in *90 days*", "sub": "One workflow first, then the next"},
+    {"layout": "list", "title": "The plan", "items": ["Weeks 1–2: audit and *one metric*", "Weeks 3–6: pilot on real data", "Weeks 7–10: roll out with rules", "Weeks 11–13: second workflow"]},
+    {"layout": "cta", "title": "Start with a *free* audit", "sub": "We map the first workflow in 30 minutes", "button": "Read the 90-day plan"}
+   ]
+  },
+  {
+   "id": "07-knowledge-base",
+   "date": "2026-11-03",
+   "pillar": "tips",
+   "link": "https://praxenai.com/blog/ai-knowledge-base-for-support",
+   "text": "A support chatbot is only as good as what it reads.\n\nBefore the bot, build the knowledge base:\n• start from questions customers actually ask, not from your brochure\n• one approved answer per topic, with an owner and a review date\n• prices and policies from the live source, not a copy\n• a clear rule for what goes to a person\n\nHow to build and test an AI knowledge base: {link}\n\n#CustomerSupport #Chatbots #KnowledgeManagement",
+   "slides": [
+    {"layout": "cover", "kicker": "Customer support", "title": "The bot is only as good as its *sources*", "sub": "Build the knowledge base first"},
+    {"layout": "list", "title": "What goes in", "items": ["Real customer questions", "One approved answer per topic", "Live prices and policies", "An owner and a *review date*", "Rules for handing over"]},
+    {"layout": "cta", "title": "Answers that *cite* the source", "sub": "A pilot on one channel takes 2–4 weeks", "button": "Read the guide"}
+   ]
+  },
+  {
+   "id": "08-offer",
+   "date": "2026-11-05",
+   "pillar": "offer",
+   "link": "https://praxenai.com/solutions",
+   "text": "Our launch offer: 30% off every format for new clients.\n\n• AI receptionist: £665 setup + £174 a month\n• Implementation pilot on one workflow: £2,030\n• Team training, half day: £595\n\nPrices exclude VAT. AI usage is billed at cost on your own accounts. It starts with a free 30-minute audit, and the pilot price is fixed before any work.\n\nAll prices: {link}\n\n#AIforBusiness #Automation #UKbusiness",
+   "slides": [
+    {"layout": "cover", "kicker": "Launch offer", "title": "*30% off* for new clients", "sub": "Every format, prices fixed before work starts"},
+    {"layout": "list", "title": "With the launch offer", "items": ["AI receptionist: £665 + *£174/mo*", "Implementation pilot: *£2,030*", "Team training, half day: *£595*", "Prices exclude VAT"]},
+    {"layout": "cta", "title": "Book a *free* 30-minute audit", "sub": "We find the first workflow worth automating", "button": "See all prices"}
+   ]
+  }
+ ]
+}

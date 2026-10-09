@@ -20,6 +20,7 @@
 |---|---|
 | `facebook-cover-1640x624.png` | Обложка страницы Facebook. Текст в верхних 40%: снизу по центру ложится аватар страницы, на телефоне обрезаются края |
 | `linkedin-cover-1128x191.png` | Обложка страницы компании LinkedIn. Текст справа, слева на обложку ложится логотип |
+| `linkedin-cover-com-1128x191.png` | Обложка страницы компании LinkedIn для praxenai.com (без упоминания Грузии): «AI receptionists, chatbots and automation», praxenai.com |
 | `youtube-banner-2560x1440.png` | Баннер канала YouTube. Всё в центральной безопасной зоне 1546×423 |
 | `gbp-logo-720.png` | Логотип для Google Business Profile (Google не принимает файлы меньше ~10 КБ, поэтому знак на градиенте) |
 | `gbp-cover-1024x576.png` | Обложка Google Business Profile |
