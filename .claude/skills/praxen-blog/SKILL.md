@@ -19,6 +19,7 @@ Two blogs, one codebase. The data is plain (heading, paragraphs, list, table); `
 
 ## Topic rules
 
+- **Topics and articles are unique on both sites** (owner decision, 9 October 2026). The topic does not repeat another article of the same blog, a service, industry or department page of the same site, or an article of the other site; check the live page titles first, an article never takes a page's head query ("AI for accounting firms", «ИИ для отелей»). The content is unique too: no retelling of other articles or pages, own examples, calculations and facts; standard caveats (tokens, client accounts, free audit) are not repeated in every article. Current overlaps: `docs/BLOG-AUDIT-2026-10.md`.
 - One article = one search intent = one next step. Check `docs/CONTENT-PLAN.md` and both blogs first; a topic used on one site is not used on the other.
 - A commercial query that a service, industry or department page already targets is not taken by an article (example: "AI customer service" belongs to the .com support page, so the article is about the knowledge base).
 - .com: never mention Georgia; "for businesses", not "for small businesses". .ge: tasks of companies in Georgia, prices in lari.
@@ -47,7 +48,7 @@ Give every article at least one price table and, where it fits, one step list or
 ## Style (from the Saldo anti-AI rules, docs/seo/ANTI_AI_STYLE.md in saldio)
 
 1. "Not X but Y" / «не X, а Y» antitheses: at most 1 per article, aim for 0. Rewrite as a plain statement.
-2. No sentence repeats word for word between articles. Standard facts (illustrative figures, tokens paid to providers, free audit, pilot price) are worded differently in each article.
+2. No sentence repeats word for word or in paraphrase between articles, and articles are not built on one template (example calculation → price cards → tokens → audit). Standard facts (illustrative figures, tokens paid to providers, free audit, pilot price) are worded differently in each article.
 3. No table-of-contents intro ("Below we look at…") and no identical closing heading. The first screen is the definition plus the first useful fact.
 4. Numbers only with a source or as a marked example ("The figures are illustrative…", «Цифры условные…»). No statistics, client names, ratings or testimonials. Laws and dates only when certain.
 5. Short sentences, verbs and nouns. No aphorisms, drama or empty intensifiers. Vary paragraph length; lists have as many items as there really are.
