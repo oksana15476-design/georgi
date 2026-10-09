@@ -7,7 +7,8 @@ import {detailMeta} from '@/lib/detail-meta';
 import {contentUpdated} from '@/lib/proof';
 import {indexable,isIntl,market,marketUrls} from '@/lib/market';
 import {langPath} from '@/lib/base';
-import {intlPaths} from '@/lib/intl';
+import {intlPaths,legalEntity} from '@/lib/intl';
+import {foundingDate,founderProfiles,sameAsFor} from '@/lib/profiles';
 // Public address (including any sub-path) used for canonical, hreflang, Open Graph and the sitemap.
 // NEXT_PUBLIC_SITE_URL overrides it, e.g. for the Georgian domain or a staging address.
 export const siteUrl=(process.env.NEXT_PUBLIC_SITE_URL||marketUrls[market]).replace(/\/$/,'');
@@ -49,13 +50,13 @@ export function organizationJsonLd(lang:Lang){
  const org=absolute('/#organization');
  return {'@context':'https://schema.org','@graph':[
   {'@type':'ProfessionalService','@id':org,name:'Praxen AI',url:pageUrl(lang,''),logo:absolute('/og/logo.png'),image:absolute('/og/og-'+lang+'.png'),description:description(lang),telephone:contacts.phone,
-   address:{'@type':'PostalAddress',addressLocality:'Batumi',addressRegion:'Adjara',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:[contacts.telegram],
+   address:{'@type':'PostalAddress',addressLocality:'Batumi',addressRegion:'Adjara',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:sameAsFor('ge',[contacts.telegram]),legalName:legalEntity.name,foundingDate,
    founder:{'@id':absolute('/#founder')},
    contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
    hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:pageUrl(lang,path||''),
     priceSpecification:{'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL',...(key==='support'?{unitText:'MONTH'}:{})},
     itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),]}},
-  {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg')},
+  {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg'),url:pageUrl(lang,'/about'),knowsAbout:['AI implementation','AI chatbots','AI agents','Business process automation'],...(founderProfiles.length?{sameAs:founderProfiles}:{})},
   {'@type':'WebSite','@id':absolute('/#website'),url:pageUrl(lang,''),name:'Praxen AI',inLanguage:lang,publisher:{'@id':org}},
  ]};
 }

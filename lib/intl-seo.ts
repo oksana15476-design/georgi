@@ -3,7 +3,8 @@
 import {contacts} from '@/lib/contacts';
 import {absolute,pageUrl} from '@/lib/seo';
 import {posts} from '@/lib/intl-blog';
-import {curs,entityOf,faqFor,intlMeta,intlUpdated,offers,price,promo,routePath,sectionName,type IntlRoute} from '@/lib/intl';
+import {foundingDate,founderProfiles,sameAsFor} from '@/lib/profiles';
+import {curs,entityOf,faqFor,intlMeta,intlUpdated,legalEntity,offers,price,promo,routePath,sectionName,type IntlRoute} from '@/lib/intl';
 
 const org=()=>absolute('/#organization');
 
@@ -13,11 +14,11 @@ export function intlOrganizationJsonLd(){
    description:'AI implementation company for businesses in the UK, US and EU: AI receptionists, chatbots for websites and WhatsApp, automation for CRM, documents and invoices, AI agents and team training.',
    areaServed:[{'@type':'Country',name:'United Kingdom'},{'@type':'Country',name:'United States'},{'@type':'Place',name:'European Union'}],
    availableLanguage:['en'],knowsAbout:['AI receptionist','AI voice agent','AI chatbot','AI automation','AI agents','AI consultancy','AI training','UK GDPR'],
-   founder:{'@id':absolute('/#founder')},contactPoint:{'@type':'ContactPoint',email:contacts.email,contactType:'sales',availableLanguage:['English']},
+   founder:{'@id':absolute('/#founder')},sameAs:sameAsFor('intl'),legalName:legalEntity.name,foundingDate,contactPoint:{'@type':'ContactPoint',email:contacts.email,contactType:'sales',availableLanguage:['English']},
    hasOfferCatalog:{'@type':'OfferCatalog',name:'Praxen AI services',itemListElement:offers.map(o=>({'@type':'Offer',url:absolute(o.path),
     priceSpecification:{'@type':'UnitPriceSpecification',price:promo(price(o.price)),priceCurrency:'GBP',valueAddedTaxIncluded:false,...(o.monthly?{unitText:'MONTH'}:{})},
     itemOffered:{'@type':'Service',name:o.name,description:o.body,provider:{'@id':org()}}}))}},
-  {'@type':'Person','@id':absolute('/#founder'),name:'Evgeny Budnikov',jobTitle:'Founder',worksFor:{'@id':org()},image:absolute('/team/evgeny.jpg')},
+  {'@type':'Person','@id':absolute('/#founder'),name:'Evgeny Budnikov',jobTitle:'Founder',worksFor:{'@id':org()},image:absolute('/team/evgeny.jpg'),url:absolute('/about'),knowsAbout:['AI implementation','AI receptionists','AI agents','Business process automation'],...(founderProfiles.length?{sameAs:founderProfiles}:{})},
   {'@type':'WebSite','@id':absolute('/#website'),url:absolute('/'),name:'Praxen AI',inLanguage:'en-GB',publisher:{'@id':org()}},
  ]};
 }
