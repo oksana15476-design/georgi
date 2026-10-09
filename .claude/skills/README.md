@@ -30,6 +30,7 @@ Claude Code loads them automatically from `.claude/skills/`.
 | `praxen-blog` | **Project rules for blog articles on both sites**: topics, structure, block-to-UI mapping, anti-AI style, SEO checklist, `scripts/qa/blog-check.ts` | this repo | — |
 | `on-page-seo`, `technical-seo`, `schema-markup`, `internal-linking`, `keyword-clustering`, `marketing-seo-audit`, `broken-links`, `ai-visibility` | Page-level and technical SEO, JSON-LD, internal links, keyword groups, full SEO audit, dead links, visibility in AI answers | copied (instructions only) from the Saldo repo `oksana15476-design/saldio`, 8 Oct 2026 | see upstream |
 | `content-brief`, `content-creation`, `draft-content`, `brand-voice`, `brand-review`, `ux-copy` | Article briefs and drafts, house voice, editor's review before publishing (copywriter → editor), interface copy | copied (instructions only) from the Saldo repo, 8 Oct 2026 | see upstream |
+| Agents `praxen-seo-editor`, `praxen-copywriter`, `praxen-editor-in-chief` (`.claude/agents/`) | Blog editorial team: topic and brief → draft → editor's «принято»; process and checklist in `docs/BLOG-EDITORIAL.md` | written for this repo after the Saldo agents `saldo-copywriter` / `saldo-editor-in-chief` | — |
 | `social-content` | Posts for Facebook, Instagram, LinkedIn and Google Business Profile: KA / RU / EN copy and branded 1080×1350 cards (`scripts/social/render.mjs`) | written for this repo | — |
 
 Local changes to vendored files:
