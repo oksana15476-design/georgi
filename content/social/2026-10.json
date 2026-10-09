@@ -1,0 +1,460 @@
+{
+ "campaign": "organic_2026-10",
+ "langs": ["ka", "ru", "en"],
+ "posts": [
+  {
+   "id": "01-intro",
+   "date": "2026-10-09",
+   "pillar": "about",
+   "link": "https://praxenai.ge/ru",
+   "text": {
+    "ru": "Praxen AI — внедряем искусственный интеллект в работу бизнеса в Грузии.\n\nНе «чат-бот ради чат-бота», а конкретные процессы: ответы клиентам в WhatsApp и Telegram, заявки и CRM, документы, обучение команды.\n\nКак работаем:\n1. Бесплатный аудит за 30 минут — находим, где теряются время и заявки.\n2. Пилот на 2–4 недели на одном процессе и ваших реальных данных.\n3. Запуск на ваших аккаунтах — контроль остаётся у вас.\n\nЗаписаться на аудит: {link}\n\n#ИИдлябизнеса #Грузия #Тбилиси #Батуми #автоматизация",
+    "ka": "Praxen AI — ვნერგავთ ხელოვნურ ინტელექტს ბიზნესის ყოველდღიურ საქმეში საქართველოში.\n\nარა „ჩატბოტი ჩატბოტისთვის“, არამედ კონკრეტული პროცესები: კლიენტებისთვის პასუხი WhatsApp-სა და Telegram-ში, მოთხოვნები და CRM, დოკუმენტები, გუნდის სწავლება.\n\nროგორ ვმუშაობთ:\n1. უფასო აუდიტი 30 წუთში — ვპოულობთ, სად იკარგება დრო და მოთხოვნები.\n2. პილოტი 2–4 კვირით ერთ პროცესზე, თქვენს რეალურ მონაცემებზე.\n3. გაშვება თქვენს ანგარიშებზე — კონტროლი თქვენთან რჩება.\n\nაუდიტზე ჩაწერა: {link}\n\n#ხელოვნურიინტელექტი #AI #ბიზნესი #საქართველო #ავტომატიზაცია",
+    "en": "Praxen AI helps businesses in Georgia put AI to work.\n\nNot a chatbot for the sake of it, but real processes: replies to clients on WhatsApp and Telegram, leads and CRM, documents, team training.\n\nHow we work:\n1. A free 30-minute audit to find where time and leads are lost.\n2. A 2–4 week pilot on one process with your real data.\n3. Launch on your own accounts, so you stay in control.\n\nBook an audit: {link}\n\n#AI #Georgia #Tbilisi #Batumi #automation"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Praxen AI · Грузия", "ka": "Praxen AI · საქართველო", "en": "Praxen AI · Georgia"},
+     "title": {"ru": "Внедряем *ИИ* в работу бизнеса в Грузии", "ka": "ვნერგავთ *AI-ს* ბიზნესის ყოველდღიურ საქმეში", "en": "We put *AI* to work in Georgian businesses"},
+     "sub": {"ru": "Ответы клиентам, заявки, CRM, документы и обучение команды", "ka": "კლიენტებთან კომუნიკაცია, მოთხოვნები, CRM, დოკუმენტები და გუნდის სწავლება", "en": "Client replies, leads, CRM, documents and team training"}},
+    {"layout": "list",
+     "title": {"ru": "Как мы работаем", "ka": "როგორ ვმუშაობთ", "en": "How we work"},
+     "items": [
+      {"ru": "Бесплатный аудит за 30 минут: где теряются время и заявки", "ka": "უფასო აუდიტი 30 წუთში: სად იკარგება დრო და მოთხოვნები", "en": "Free 30-minute audit: where time and leads are lost"},
+      {"ru": "Пилот на 2–4 недели на одном процессе и ваших данных", "ka": "პილოტი 2–4 კვირით ერთ პროცესზე, თქვენს მონაცემებზე", "en": "A 2–4 week pilot on one process with your data"},
+      {"ru": "Запуск на ваших аккаунтах — контроль остаётся у вас", "ka": "გაშვება თქვენს ანგარიშებზე — კონტროლი თქვენთან რჩება", "en": "Launch on your accounts — you keep control"},
+      {"ru": "Обучение команды, чтобы ИИ использовали каждый день", "ka": "გუნდის სწავლება, რომ AI ყოველდღე გამოიყენონ", "en": "Team training so AI gets used every day"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Начните с *бесплатного* аудита", "ka": "დაიწყეთ *უფასო* აუდიტით", "en": "Start with a *free* audit"},
+     "sub": {"ru": "30 минут онлайн. Покажем, что передать ИИ и сколько это сэкономит.", "ka": "30 წუთი ონლაინ. გაჩვენებთ, რა გადავცეთ AI-ს და რამდენს დაზოგავს.", "en": "30 minutes online. What to hand over to AI and what it saves."},
+     "button": {"ru": "Записаться → praxenai.ge", "ka": "ჩაწერა → praxenai.ge", "en": "Book → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "02-hotels",
+   "date": "2026-10-12",
+   "pillar": "usecase",
+   "link": "https://praxenai.ge/ru/industries/hotels",
+   "text": {
+    "ru": "Гость пишет в WhatsApp в 23:40. Администратор спит, а утром гость уже забронировал другой отель.\n\nИИ-ассистент отвечает за минуту на грузинском, русском, английском и других языках: свободные номера, цены, условия. Всё, в чём не уверен, передаёт администратору со сводкой и не придумывает ответы.\n\nСейчас межсезонье — лучшее время запустить пилот и проверить его на весенних бронированиях.\n\nЭто пример сценария. Подробнее для отелей: {link}\n\n#отель #Батуми #гостевойдом #ИИдлябизнеса #Грузия",
+    "ka": "სტუმარი WhatsApp-ში 23:40-ზე წერს. ადმინისტრატორს სძინავს, დილით კი სტუმარს უკვე სხვა სასტუმრო აქვს დაჯავშნილი.\n\nAI ასისტენტი 1 წუთში პასუხობს ქართულად, რუსულად, ინგლისურად და სხვა ენებზე: თავისუფალი ნომრები, ფასები, პირობები. რაშიც დარწმუნებული არ არის, ადმინისტრატორს გადასცემს შეჯამებით და პასუხს არ იგონებს.\n\nახლა არასეზონია — საუკეთესო დრო პილოტის დასაწყებად და გაზაფხულის ჯავშნებზე შესამოწმებლად.\n\nეს სცენარის მაგალითია. დეტალები სასტუმროებისთვის: {link}\n\n#სასტუმრო #ბათუმი #ხელოვნურიინტელექტი #ბიზნესი #საქართველო",
+    "en": "A guest messages on WhatsApp at 11:40 pm. The front desk is asleep, and by morning the guest has booked another hotel.\n\nAn AI assistant replies within a minute in Georgian, Russian, English and more: free rooms, prices, terms. Anything it is unsure about goes to your staff with a summary — it does not make answers up.\n\nOff-season is the best time to run a pilot and test it on spring bookings.\n\nThis is an example scenario. More for hotels: {link}\n\n#hotel #Batumi #guesthouse #AI #Georgia"
+   },
+   "slides": [
+    {"layout": "cover", "example": true,
+     "kicker": {"ru": "Отели и гостевые дома", "ka": "სასტუმროები და საოჯახო სასტუმროები", "en": "Hotels and guesthouses"},
+     "title": {"ru": "Гость пишет в WhatsApp *в 23:40*. Кто ответит?", "ka": "სტუმარი WhatsApp-ში *23:40-ზე* წერს. ვინ უპასუხებს?", "en": "A guest messages on WhatsApp *at 11:40 pm*. Who replies?"},
+     "sub": {"ru": "Кто ответил первым — тот и получил бронь.", "ka": "ვინც პირველი უპასუხებს, ჯავშანიც მას რჩება.", "en": "Whoever answers first gets the booking."}},
+    {"layout": "dialog", "example": true,
+     "title": {"ru": "Так это выглядит с ИИ-ассистентом", "ka": "ასე გამოიყურება AI ასისტენტით", "en": "What it looks like with an AI assistant"},
+     "messages": [
+      {"from": "client", "time": "23:40", "text": {"ru": "Здравствуйте! Есть номер на двоих с 15 по 18 мая?", "ka": "გამარჯობა! გაქვთ ორადგილიანი ნომერი 15-დან 18 მაისამდე?", "en": "Hi! Do you have a double room from 15 to 18 May?"}},
+      {"from": "bot", "time": "23:40", "text": {"ru": "Здравствуйте! Да, есть двухместный номер с видом на море, завтрак включён. Прислать фото и цену за 3 ночи?", "ka": "გამარჯობა! დიახ, გვაქვს ორადგილიანი ნომერი ზღვის ხედით, საუზმე შედის. გამოგიგზავნოთ ფოტოები და ფასი 3 ღამისთვის?", "en": "Hi! Yes, a sea-view double with breakfast is free. Shall I send photos and the price for 3 nights?"}},
+      {"from": "client", "time": "23:41", "text": {"ru": "Да. А с собакой можно?", "ka": "დიახ. ძაღლით შეიძლება?", "en": "Yes please. Are dogs allowed?"}},
+      {"from": "bot", "time": "23:41", "text": {"ru": "Уточню у администратора и отвечу утром до 9:00. Пока отправляю фото и цену.", "ka": "ადმინისტრატორთან დავაზუსტებ და დილით 9:00-მდე გიპასუხებთ. მანამდე გიგზავნით ფოტოებსა და ფასს.", "en": "I’ll check with the manager and reply by 9:00 am. Meanwhile, here are the photos and the price."}}
+     ]},
+    {"layout": "compare",
+     "title": {"ru": "Что меняется", "ka": "რა იცვლება", "en": "What changes"},
+     "before": [
+      {"ru": "Ответ утром — гость уже забронировал другое", "ka": "პასუხი დილით — სტუმარმა უკვე სხვაგან დაჯავშნა", "en": "Reply in the morning — guest already booked elsewhere"},
+      {"ru": "Администратор весь день отвечает на одни и те же вопросы", "ka": "ადმინისტრატორი მთელი დღე ერთსა და იმავე კითხვებს პასუხობს", "en": "Staff answer the same questions all day"},
+      {"ru": "Заявки теряются в переписке", "ka": "მოთხოვნები მიმოწერაში იკარგება", "en": "Requests get lost in chats"}
+     ],
+     "after": [
+      {"ru": "Ответ за минуту, 24/7, на языке гостя", "ka": "პასუხი 1 წუთში, 24/7, სტუმრის ენაზე", "en": "A reply within a minute, 24/7, in the guest’s language"},
+      {"ru": "Сложные вопросы — администратору с готовой сводкой", "ka": "რთული კითხვები — ადმინისტრატორს, მზა შეჯამებით", "en": "Tricky questions go to staff with a summary"},
+      {"ru": "Каждая заявка — в таблице или CRM", "ka": "ყოველი მოთხოვნა — ცხრილში ან CRM-ში", "en": "Every request lands in a sheet or CRM"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Настроим *до сезона 2027*", "ka": "მოვამზადებთ *2027 წლის სეზონამდე*", "en": "Ready *before the 2027 season*"},
+     "sub": {"ru": "Межсезонье — лучшее время для пилота: 2–4 недели, проверка на весенних бронированиях.", "ka": "არასეზონი პილოტისთვის საუკეთესო დროა: 2–4 კვირა, შემოწმება გაზაფხულის ჯავშნებზე.", "en": "Off-season is the best time for a pilot: 2–4 weeks, tested on spring bookings."},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "03-lost-leads",
+   "date": "2026-10-14",
+   "pillar": "money",
+   "link": "https://praxenai.ge/ru#calculator",
+   "text": {
+    "ru": "Одна неотвеченная заявка кажется мелочью. Посчитаем.\n\n5 заявок в неделю приходят вечером и в выходные. Каждая пятая уходит к тем, кто ответил быстрее. Это около 4 клиентов в месяц. При среднем чеке 400 ₾ — примерно 1 600 ₾ в месяц достаются конкуренту.\n\nЭто пример. Подставьте свои цифры в калькулятор на сайте — он покажет и потерянную выручку, и сколько часов команды уходит на рутину: {link}\n\n#продажи #малыйбизнес #ИИдлябизнеса #Грузия",
+    "ka": "ერთი უპასუხო მოთხოვნა წვრილმანად გეჩვენებათ. დავთვალოთ.\n\nკვირაში 5 მოთხოვნა საღამოს და შაბათ-კვირას შემოდის. ყოველი მეხუთე მიდის მასთან, ვინც უფრო სწრაფად უპასუხა. ეს თვეში დაახლოებით 4 კლიენტია. 400 ₾ საშუალო ჩეკით — თვეში დაახლოებით 1 600 ₾ კონკურენტს რჩება.\n\nეს მაგალითია. ჩასვით თქვენი ციფრები კალკულატორში საიტზე — ის გაჩვენებთ დაკარგულ შემოსავალსაც და იმასაც, რამდენ საათს ხარჯავს გუნდი რუტინაზე: {link}\n\n#გაყიდვები #მცირებიზნესი #ხელოვნურიინტელექტი #საქართველო",
+    "en": "One unanswered inquiry looks like nothing. Let’s count.\n\n5 inquiries a week arrive in the evening or at weekends. One in five goes to whoever replied faster. That is about 4 clients a month. With an average order of 400 ₾, roughly 1,600 ₾ a month goes to a competitor.\n\nThis is an example. Plug your own numbers into the calculator on our site — it shows both the lost revenue and the hours your team spends on routine: {link}\n\n#sales #smallbusiness #AI #Georgia"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Простая арифметика", "ka": "მარტივი არითმეტიკა", "en": "Simple maths"},
+     "title": {"ru": "Сколько стоит *одна неотвеченная* заявка?", "ka": "რა ღირს *ერთი უპასუხო* მოთხოვნა?", "en": "What does *one missed* inquiry cost?"}},
+    {"layout": "list",
+     "title": {"ru": "Посчитаем на примере", "ka": "დავთვალოთ მაგალითზე", "en": "Let’s count"},
+     "items": [
+      {"ru": "5 заявок в неделю приходят вечером и в выходные", "ka": "კვირაში 5 მოთხოვნა საღამოს და შაბათ-კვირას შემოდის", "en": "5 inquiries a week arrive in the evening or at weekends"},
+      {"ru": "Каждая пятая уходит к тем, кто ответил быстрее", "ka": "ყოველი მეხუთე მიდის მასთან, ვინც უფრო სწრაფად უპასუხა", "en": "One in five goes to whoever replied faster"},
+      {"ru": "Это 1 клиент в неделю, около 4 в месяц", "ka": "ეს კვირაში 1 კლიენტია, თვეში დაახლოებით 4", "en": "That is 1 client a week, about 4 a month"},
+      {"ru": "Средний чек — 400 ₾", "ka": "საშუალო ჩეკი — 400 ₾", "en": "Average order — 400 ₾"}
+     ]},
+    {"layout": "number",
+     "value": "≈ 1 600 ₾",
+     "label": {"ru": "в месяц достаётся конкурентам", "ka": "თვეში კონკურენტებს რჩება", "en": "a month goes to competitors"},
+     "note": {"ru": "Пример расчёта. Подставьте свои цифры в калькулятор на сайте.", "ka": "გაანგარიშების მაგალითი. ჩასვით თქვენი ციფრები კალკულატორში საიტზე.", "en": "Example calculation. Plug in your own numbers on our site."}},
+    {"layout": "cta",
+     "title": {"ru": "Посчитайте *свои* потери за минуту", "ka": "დათვალეთ *თქვენი* დანაკარგი 1 წუთში", "en": "Count *your* losses in a minute"},
+     "button": {"ru": "Калькулятор → praxenai.ge", "ka": "კალკულატორი → praxenai.ge", "en": "Calculator → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "04-myths",
+   "date": "2026-10-16",
+   "pillar": "myths",
+   "link": "https://praxenai.ge/ru",
+   "text": {
+    "ru": "Три мысли, из-за которых бизнес откладывает ИИ на «потом»:\n\n«Это дорого». Начинаем с одного процесса, а не со всей компании, и фиксируем цену пилота до старта.\n\n«ИИ заменит сотрудников». ИИ забирает рутину — однотипные ответы, перенос данных, черновики. Решения остаются у людей.\n\n«Данные утекут». Решение работает на ваших аккаунтах и серверах, доступы настраиваем вместе с вами.\n\nКакой страх у вас? Напишите в комментариях — разберём.\n\n{link}\n\n#ИИдлябизнеса #Грузия #малыйбизнес",
+    "ka": "სამი აზრი, რის გამოც ბიზნესი AI-ს „მერე“-სთვის დებს:\n\n„ეს ძვირია“. ვიწყებთ ერთი პროცესით და არა მთელი კომპანიით, პილოტის ფასს კი სამუშაოს დაწყებამდე ვაფიქსირებთ.\n\n„AI თანამშრომლებს ჩაანაცვლებს“. AI რუტინას იღებს — ერთნაირ პასუხებს, მონაცემების გადატანას, მონახაზებს. გადაწყვეტილებები ადამიანებთან რჩება.\n\n„მონაცემები გაჟონავს“. გადაწყვეტა თქვენს ანგარიშებსა და სერვერებზე მუშაობს, წვდომებს თქვენთან ერთად ვაწყობთ.\n\nრა გაშფოთებთ თქვენ? მოგვწერეთ კომენტარებში — განვიხილავთ.\n\n{link}\n\n#ხელოვნურიინტელექტი #ბიზნესი #საქართველო",
+    "en": "Three thoughts that make businesses put AI off until “later”:\n\n“It’s expensive.” We start with one process, not the whole company, and fix the pilot price before work begins.\n\n“AI will replace my staff.” AI takes the routine — repeat answers, data entry, drafts. Decisions stay with people.\n\n“Our data will leak.” It runs on your accounts and servers, and we set up access together with you.\n\nWhat worries you most? Tell us in the comments.\n\n{link}\n\n#AI #Georgia #smallbusiness"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Мифы", "ka": "მითები", "en": "Myths"},
+     "title": {"ru": "3 мифа об ИИ, из-за которых бизнес *теряет время*", "ka": "AI-ს შესახებ 3 მითი, რის გამოც ბიზნესი *დროს კარგავს*", "en": "3 AI myths that *cost businesses time*"}},
+    {"layout": "list",
+     "kicker": {"ru": "Миф 1", "ka": "მითი 1", "en": "Myth 1"},
+     "title": {"ru": "«Это дорого»", "ka": "„ეს ძვირია“", "en": "“It’s expensive”"},
+     "items": [
+      {"ru": "Начинаем с одного процесса, а не со всей компании", "ka": "ვიწყებთ ერთი პროცესით და არა მთელი კომპანიით", "en": "We start with one process, not the whole company"},
+      {"ru": "Обучение команды — от 1 900 ₾, внедрение — от 3 200 ₾", "ka": "გუნდის სწავლება — 1 900 ₾-დან, დანერგვა — 3 200 ₾-დან", "en": "Team training from 1,900 ₾, implementation from 3,200 ₾"},
+      {"ru": "Цену пилота фиксируем до старта работ", "ka": "პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ", "en": "The pilot price is fixed before work starts"}
+     ]},
+    {"layout": "list",
+     "kicker": {"ru": "Миф 2", "ka": "მითი 2", "en": "Myth 2"},
+     "title": {"ru": "«ИИ заменит моих сотрудников»", "ka": "„AI ჩემს თანამშრომლებს ჩაანაცვლებს“", "en": "“AI will replace my staff”"},
+     "items": [
+      {"ru": "ИИ забирает рутину: однотипные ответы, перенос данных, черновики", "ka": "AI რუტინას იღებს: ერთნაირი პასუხები, მონაცემების გადატანა, მონახაზები", "en": "AI takes the routine: repeat answers, data entry, drafts"},
+      {"ru": "Решения и сложные случаи остаются у людей", "ka": "გადაწყვეტილებები და რთული შემთხვევები ადამიანებთან რჩება", "en": "Decisions and tricky cases stay with people"},
+      {"ru": "Команда успевает больше без новых наймов", "ka": "გუნდი მეტს ასწრებს ახალი თანამშრომლების აყვანის გარეშე", "en": "The team gets more done without new hires"}
+     ]},
+    {"layout": "list",
+     "kicker": {"ru": "Миф 3", "ka": "მითი 3", "en": "Myth 3"},
+     "title": {"ru": "«Наши данные утекут»", "ka": "„ჩვენი მონაცემები გაჟონავს“", "en": "“Our data will leak”"},
+     "items": [
+      {"ru": "Решение работает на ваших аккаунтах и серверах", "ka": "გადაწყვეტა თქვენს ანგარიშებსა და სერვერებზე მუშაობს", "en": "It runs on your accounts and servers"},
+      {"ru": "Доступы и правила хранения настраиваем вместе с вами", "ka": "წვდომებსა და შენახვის წესებს თქვენთან ერთად ვაწყობთ", "en": "We set up access and storage rules with you"},
+      {"ru": "ИИ видит только то, что нужно для задачи", "ka": "AI ხედავს მხოლოდ იმას, რაც ამოცანისთვის სჭირდება", "en": "AI only sees what the task needs"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Остались вопросы? Разберём на *бесплатном* аудите", "ka": "კითხვები დაგრჩათ? განვიხილოთ *უფასო* აუდიტზე", "en": "Questions left? Let’s go through them in a *free* audit"},
+     "button": {"ru": "Записаться → praxenai.ge", "ka": "ჩაწერა → praxenai.ge", "en": "Book → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "05-process",
+   "date": "2026-10-19",
+   "pillar": "process",
+   "link": "https://praxenai.ge/ru#contact",
+   "text": {
+    "ru": "Как проходит внедрение ИИ — без сюрпризов.\n\n1. Аудит, 30 минут. Выбираем один процесс с понятной метрикой: заявки, ответы клиентам или документы.\n2. Расчёт. Что меняем, сколько стоит и как проверим результат.\n3. Пилот 2–4 недели на ваших реальных данных.\n4. Запуск и обучение команды. Ведение после запуска — по желанию.\n\nВсё работает на ваших аккаунтах, токены ИИ и серверы вы оплачиваете провайдерам напрямую. От аудита до запуска с вами работает один человек, который отвечает за результат.\n\nВыбрать время аудита: {link}\n\n#ИИдлябизнеса #Грузия #автоматизация",
+    "ka": "როგორ მიმდინარეობს AI-ს დანერგვა — სიურპრიზების გარეშე.\n\n1. აუდიტი, 30 წუთი. ვირჩევთ ერთ პროცესს გასაგები მეტრიკით: მოთხოვნები, პასუხები კლიენტებს ან დოკუმენტები.\n2. გაანგარიშება. რას ვცვლით, რა ღირს და როგორ შევამოწმებთ შედეგს.\n3. პილოტი 2–4 კვირა თქვენს რეალურ მონაცემებზე.\n4. გაშვება და გუნდის სწავლება. მხარდაჭერა გაშვების შემდეგ — სურვილისამებრ.\n\nყველაფერი თქვენს ანგარიშებზე მუშაობს, AI ტოკენებსა და სერვერებს პირდაპირ პროვაიდერებს უხდით. აუდიტიდან გაშვებამდე თქვენთან ერთი ადამიანი მუშაობს, რომელიც შედეგზე პასუხისმგებელია.\n\nაირჩიეთ აუდიტის დრო: {link}\n\n#ხელოვნურიინტელექტი #ბიზნესი #საქართველო",
+    "en": "How an AI implementation works — no surprises.\n\n1. Audit, 30 minutes. We pick one process with a clear metric: leads, client replies or documents.\n2. Estimate. What changes, what it costs and how we will measure the result.\n3. A 2–4 week pilot on your real data.\n4. Launch and team training. Support after launch is optional.\n\nEverything runs on your accounts; you pay AI tokens and servers directly to the providers. One person works with you from audit to launch and owns the result.\n\nPick an audit time: {link}\n\n#AI #Georgia #automation"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Как проходит внедрение", "ka": "როგორ მიმდინარეობს დანერგვა", "en": "How implementation works"},
+     "title": {"ru": "От первого звонка до запуска — *за 2–4 недели*", "ka": "პირველი ზარიდან გაშვებამდე — *2–4 კვირაში*", "en": "From first call to launch *in 2–4 weeks*"}},
+    {"layout": "list",
+     "title": {"ru": "4 шага", "ka": "4 ნაბიჯი", "en": "4 steps"},
+     "items": [
+      {"ru": "Аудит, 30 минут: выбираем процесс с понятной метрикой", "ka": "აუდიტი, 30 წუთი: ვირჩევთ პროცესს გასაგები მეტრიკით", "en": "Audit, 30 min: pick a process with a clear metric"},
+      {"ru": "Расчёт: что меняем, сколько стоит, как проверим результат", "ka": "გაანგარიშება: რას ვცვლით, რა ღირს, როგორ შევამოწმებთ შედეგს", "en": "Estimate: what changes, the cost, how we measure it"},
+      {"ru": "Пилот 2–4 недели на ваших реальных данных", "ka": "პილოტი 2–4 კვირა თქვენს რეალურ მონაცემებზე", "en": "A 2–4 week pilot on your real data"},
+      {"ru": "Запуск и обучение команды; ведение — по желанию", "ka": "გაშვება და გუნდის სწავლება; მხარდაჭერა — სურვილისამებრ", "en": "Launch and team training; support is optional"}
+     ]},
+    {"layout": "list",
+     "title": {"ru": "Контроль остаётся *у вас*", "ka": "კონტროლი *თქვენთან* რჩება", "en": "You stay *in control*"},
+     "items": [
+      {"ru": "Всё работает на ваших аккаунтах", "ka": "ყველაფერი თქვენს ანგარიშებზე მუშაობს", "en": "Everything runs on your accounts"},
+      {"ru": "Токены ИИ и серверы оплачиваете провайдерам напрямую", "ka": "AI ტოკენებსა და სერვერებს პირდაპირ პროვაიდერებს უხდით", "en": "You pay AI tokens and servers directly to the providers"},
+      {"ru": "От аудита до запуска с вами один человек, который отвечает за результат", "ka": "აუდიტიდან გაშვებამდე თქვენთან ერთი ადამიანი მუშაობს, რომელიც შედეგზე პასუხისმგებელია", "en": "One person works with you from audit to launch and owns the result"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Шаг 1 — *бесплатный* аудит", "ka": "ნაბიჯი 1 — *უფასო* აუდიტი", "en": "Step 1 — a *free* audit"},
+     "sub": {"ru": "Выберите удобное время прямо на сайте.", "ka": "აირჩიეთ მოსახერხებელი დრო პირდაპირ საიტზე.", "en": "Pick a time right on our site."},
+     "button": {"ru": "Выбрать время → praxenai.ge", "ka": "დროის არჩევა → praxenai.ge", "en": "Pick a time → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "06-tasks-tomorrow",
+   "date": "2026-10-21",
+   "pillar": "tips",
+   "link": "https://praxenai.ge/ru",
+   "text": {
+    "ru": "5 задач, которые можно отдать ИИ уже завтра — без разработки и бюджета, в обычном ChatGPT, Claude или Gemini:\n\n1. Описание товара или услуги сразу на грузинском, русском и английском.\n2. Протокол встречи из заметок: решения, сроки, ответственные.\n3. Разбор 50 отзывов: что хвалят и на что жалуются.\n4. Шаблоны ответов на 10 самых частых вопросов клиентов.\n5. Черновик коммерческого предложения по вашему прайсу.\n\nОдно правило: не загружайте в публичный чат паспорта, договоры с персональными данными и пароли. Для таких задач нужна настройка на ваших аккаунтах.\n\nСохраните пост, чтобы не потерять. Хотите, чтобы так работала вся команда? {link}\n\n#ИИдлябизнеса #ChatGPT #Грузия #продуктивность",
+    "ka": "5 ამოცანა, რომელიც AI-ს ხვალვე შეგიძლიათ გადასცეთ — დეველოპმენტისა და ბიუჯეტის გარეშე, ჩვეულებრივ ChatGPT-ში, Claude-ში ან Gemini-ში:\n\n1. პროდუქტის ან სერვისის აღწერა ერთბაშად ქართულად, რუსულად და ინგლისურად.\n2. შეხვედრის ოქმი ჩანაწერებიდან: გადაწყვეტილებები, ვადები, პასუხისმგებლები.\n3. 50 შეფასების ანალიზი: რას აქებენ და რაზე წუწუნებენ.\n4. პასუხების შაბლონები კლიენტების 10 ყველაზე ხშირ კითხვაზე.\n5. კომერციული შეთავაზების მონახაზი თქვენი ფასების მიხედვით.\n\nერთი წესი: საჯარო ჩატში ნუ ატვირთავთ პასპორტებს, პერსონალური მონაცემების შემცველ ხელშეკრულებებსა და პაროლებს. ასეთი ამოცანებისთვის საჭიროა გამართვა თქვენს ანგარიშებზე.\n\nშეინახეთ პოსტი. გინდათ, რომ მთელმა გუნდმა ასე იმუშაოს? {link}\n\n#ხელოვნურიინტელექტი #ChatGPT #ბიზნესი #საქართველო",
+    "en": "5 tasks you can hand to AI tomorrow — no development, no budget, just plain ChatGPT, Claude or Gemini:\n\n1. Product or service copy in Georgian, Russian and English at once.\n2. Meeting notes into minutes: decisions, deadlines, owners.\n3. 50 reviews analysed: what people praise and complain about.\n4. Reply templates for your 10 most common client questions.\n5. A first-draft proposal from your price list.\n\nOne rule: don’t paste passports, contracts with personal data or passwords into a public chat. Those tasks need a setup on your own accounts.\n\nSave this post. Want your whole team working like this? {link}\n\n#AI #ChatGPT #Georgia #productivity"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Можно начать сегодня", "ka": "შეგიძლიათ დღესვე დაიწყოთ", "en": "Start today"},
+     "title": {"ru": "5 задач, которые можно отдать ИИ *уже завтра*", "ka": "5 ამოცანა, რომელიც AI-ს *ხვალვე* შეგიძლიათ გადასცეთ", "en": "5 tasks you can hand to AI *tomorrow*"},
+     "sub": {"ru": "Без разработки и бюджета — в обычном ChatGPT, Claude или Gemini.", "ka": "დეველოპმენტისა და ბიუჯეტის გარეშე — ჩვეულებრივ ChatGPT-ში, Claude-ში ან Gemini-ში.", "en": "No development or budget: plain ChatGPT, Claude or Gemini."}},
+    {"layout": "list",
+     "title": {"ru": "Сохраните себе", "ka": "შეინახეთ", "en": "Save this"},
+     "items": [
+      {"ru": "Описание товара или услуги сразу на грузинском, русском и английском", "ka": "პროდუქტის ან სერვისის აღწერა ერთბაშად ქართულად, რუსულად და ინგლისურად", "en": "Product or service copy in Georgian, Russian and English at once"},
+      {"ru": "Протокол встречи из заметок: решения, сроки, ответственные", "ka": "შეხვედრის ოქმი ჩანაწერებიდან: გადაწყვეტილებები, ვადები, პასუხისმგებლები", "en": "Meeting notes into minutes: decisions, deadlines, owners"},
+      {"ru": "Разбор 50 отзывов: что хвалят и на что жалуются", "ka": "50 შეფასების ანალიზი: რას აქებენ და რაზე წუწუნებენ", "en": "50 reviews analysed: what people praise and complain about"},
+      {"ru": "Шаблоны ответов на 10 самых частых вопросов клиентов", "ka": "პასუხების შაბლონები კლიენტების 10 ყველაზე ხშირ კითხვაზე", "en": "Reply templates for your 10 most common client questions"},
+      {"ru": "Черновик коммерческого предложения по вашему прайсу", "ka": "კომერციული შეთავაზების მონახაზი თქვენი ფასების მიხედვით", "en": "A first-draft proposal from your price list"}
+     ]},
+    {"layout": "list",
+     "title": {"ru": "Одно правило", "ka": "ერთი წესი", "en": "One rule"},
+     "items": [
+      {"ru": "Не загружайте в публичный чат паспорта, договоры с персональными данными и пароли", "ka": "საჯარო ჩატში ნუ ატვირთავთ პასპორტებს, პერსონალური მონაცემების შემცველ ხელშეკრულებებსა და პაროლებს", "en": "Don’t paste passports, contracts with personal data or passwords into a public chat"},
+      {"ru": "Для таких задач нужна настройка на ваших аккаунтах — это мы и делаем", "ka": "ასეთი ამოცანებისთვის საჭიროა გამართვა თქვენს ანგარიშებზე — სწორედ ამას ვაკეთებთ", "en": "Those tasks need a setup on your own accounts — that’s what we do"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Хотите, чтобы это работало *каждый день*?", "ka": "გინდათ, რომ ეს *ყოველდღე* მუშაობდეს?", "en": "Want this working *every day*?"},
+     "sub": {"ru": "Обучим команду на ваших задачах — от 1 900 ₾.", "ka": "გუნდს თქვენს ამოცანებზე ვასწავლით — 1 900 ₾-დან.", "en": "We train your team on your own tasks, from 1,900 ₾."},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "07-clinics",
+   "date": "2026-10-23",
+   "pillar": "usecase",
+   "link": "https://praxenai.ge/ru/industries/clinics",
+   "text": {
+    "ru": "Пациент пишет в субботу утром: «Можно к стоматологу на следующей неделе?» Администратор выйдет только в понедельник.\n\nИИ-ассистент сразу предлагает свободное время, записывает пациента в ваше расписание и накануне присылает напоминание. Администратор не висит на телефоне, а пустых окон становится меньше.\n\nЭто пример сценария. Подробнее для клиник: {link}\n\n#клиника #стоматология #Тбилиси #Батуми #ИИдлябизнеса",
+    "ka": "პაციენტი შაბათს დილით წერს: „შეიძლება სტომატოლოგთან ჩაწერა მომავალ კვირას?“ ადმინისტრატორი მხოლოდ ორშაბათს გამოვა.\n\nAI ასისტენტი მაშინვე სთავაზობს თავისუფალ დროს, პაციენტს თქვენს განრიგში წერს და წინა დღეს შეხსენებას უგზავნის. ადმინისტრატორი მთელი დღე ტელეფონზე აღარ არის, ცარიელი ფანჯრები კი ნაკლებია.\n\nეს სცენარის მაგალითია. დეტალები კლინიკებისთვის: {link}\n\n#კლინიკა #სტომატოლოგია #თბილისი #ბათუმი #ხელოვნურიინტელექტი",
+    "en": "A patient writes on Saturday morning: “Can I see a dentist next week?” The front desk is back only on Monday.\n\nAn AI assistant offers free slots right away, books the patient into your schedule and sends a reminder the day before. The front desk is off the phone, and there are fewer empty slots.\n\nThis is an example scenario. More for clinics: {link}\n\n#clinic #dentist #Tbilisi #Batumi #AI"
+   },
+   "slides": [
+    {"layout": "cover", "example": true,
+     "kicker": {"ru": "Клиники", "ka": "კლინიკები", "en": "Clinics"},
+     "title": {"ru": "Запись к врачу *без звонков* и пропущенных визитов", "ka": "ექიმთან ჩაწერა *ზარებისა* და გაცდენილი ვიზიტების *გარეშე*", "en": "Doctor appointments *without calls* or no-shows"}},
+    {"layout": "dialog", "example": true,
+     "title": {"ru": "Пациент пишет в субботу", "ka": "პაციენტი შაბათს წერს", "en": "A patient writes on Saturday"},
+     "messages": [
+      {"from": "client", "time": "10:12", "text": {"ru": "Можно записаться к стоматологу на следующей неделе?", "ka": "შეიძლება სტომატოლოგთან ჩაწერა მომავალ კვირას?", "en": "Can I book a dentist next week?"}},
+      {"from": "bot", "time": "10:12", "text": {"ru": "Да. Свободно: вторник 11:00, среда 16:30, четверг 9:00. Что удобнее?", "ka": "დიახ. თავისუფალია: სამშაბათი 11:00, ოთხშაბათი 16:30, ხუთშაბათი 9:00. რომელი გირჩევნიათ?", "en": "Yes. Free slots: Tue 11:00, Wed 16:30, Thu 9:00. Which suits you?"}},
+      {"from": "client", "time": "10:13", "text": {"ru": "Среда, 16:30", "ka": "ოთხშაბათი, 16:30", "en": "Wednesday, 16:30"}},
+      {"from": "bot", "time": "10:13", "text": {"ru": "Записал вас на среду, 16:30. Накануне пришлю напоминание.", "ka": "ჩაგწერეთ ოთხშაბათს, 16:30-ზე. წინა დღეს შეგახსენებთ.", "en": "You’re booked for Wednesday at 16:30. I’ll remind you the day before."}}
+     ]},
+    {"layout": "compare",
+     "title": {"ru": "Что получает клиника", "ka": "რას იღებს კლინიკა", "en": "What the clinic gets"},
+     "before": [
+      {"ru": "Администратор весь день на телефоне", "ka": "ადმინისტრატორი მთელი დღე ტელეფონზეა", "en": "Front desk on the phone all day"},
+      {"ru": "Записи в выходные теряются", "ka": "შაბათ-კვირის ჩაწერები იკარგება", "en": "Weekend bookings get lost"},
+      {"ru": "Пациенты забывают о визите", "ka": "პაციენტებს ვიზიტი ავიწყდებათ", "en": "Patients forget appointments"}
+     ],
+     "after": [
+      {"ru": "Запись в WhatsApp и на сайте 24/7", "ka": "ჩაწერა WhatsApp-სა და საიტზე 24/7", "en": "Booking on WhatsApp and the website 24/7"},
+      {"ru": "Запись сразу попадает в ваше расписание", "ka": "ჩანაწერი პირდაპირ თქვენს განრიგში ხვდება", "en": "Bookings go straight into your schedule"},
+      {"ru": "Напоминания накануне — меньше пустых окон", "ka": "შეხსენება წინა დღეს — ნაკლები ცარიელი ფანჯარა", "en": "Day-before reminders — fewer empty slots"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Посмотрим, *что подойдёт* вашей клинике", "ka": "ვნახოთ, *რა მოერგება* თქვენს კლინიკას", "en": "Let’s see *what fits* your clinic"},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "08-real-estate",
+   "date": "2026-10-26",
+   "pillar": "usecase",
+   "link": "https://praxenai.ge/ru/industries/real-estate",
+   "text": {
+    "ru": "Покупатель из-за границы пишет вечером: «Ищу 1+1 в Батуми до $70 000, у моря». Менеджер соберёт подборку завтра к обеду — если не забудет.\n\nИИ-ассистент берёт объекты из вашей CRM или фида и за минуты отправляет актуальные варианты: планировки, этажи, цены, рассрочку. Уточняет бюджет и сроки, а менеджеру передаёт тёплого клиента со сводкой.\n\nЭто пример сценария. Подробнее для недвижимости: {link}\n\n#недвижимостьБатуми #застройщик #Грузия #ИИдлябизнеса",
+    "ka": "მყიდველი საზღვარგარეთიდან საღამოს წერს: „ვეძებ 1+1-ს ბათუმში $70 000-მდე, ზღვასთან“. მენეჯერი შერჩევას ხვალ შუადღისთვის მოამზადებს — თუ არ დაავიწყდა.\n\nAI ასისტენტი ობიექტებს თქვენი CRM-იდან ან ფიდიდან იღებს და წუთებში აგზავნის აქტუალურ ვარიანტებს: გეგმარებები, სართულები, ფასები, განვადება. არკვევს ბიუჯეტსა და ვადებს, მენეჯერს კი თბილ კლიენტს შეჯამებით გადასცემს.\n\nეს სცენარის მაგალითია. დეტალები უძრავი ქონებისთვის: {link}\n\n#უძრავიქონება #ბათუმი #დეველოპერი #ხელოვნურიინტელექტი",
+    "en": "A buyer abroad writes in the evening: “Looking for a 1-bed in Batumi under $70,000, near the sea.” Your manager will put a shortlist together by lunch tomorrow — if they remember.\n\nAn AI assistant pulls listings from your CRM or feed and sends current options within minutes: layouts, floors, prices, instalments. It checks budget and timing and hands a warm lead to your manager with a summary.\n\nThis is an example scenario. More for real estate: {link}\n\n#BatumiRealEstate #developer #Georgia #AI"
+   },
+   "slides": [
+    {"layout": "cover", "example": true,
+     "kicker": {"ru": "Недвижимость и застройщики", "ka": "უძრავი ქონება და დეველოპერები", "en": "Real estate and developers"},
+     "title": {"ru": "Подборка квартир клиенту — *за минуты*, а не к вечеру", "ka": "ბინების შერჩევა კლიენტისთვის — *წუთებში* და არა საღამოსთვის", "en": "Apartment shortlists *in minutes*, not by evening"}},
+    {"layout": "dialog", "example": true,
+     "title": {"ru": "Покупатель пишет из-за границы", "ka": "მყიდველი საზღვარგარეთიდან წერს", "en": "A buyer writes from abroad"},
+     "messages": [
+      {"from": "client", "time": "21:05", "text": {"ru": "Ищу 1+1 в Батуми до $70 000, у моря, сдача в 2027", "ka": "ვეძებ 1+1-ს ბათუმში $70 000-მდე, ზღვასთან, ჩაბარება 2027-ში", "en": "Looking for a 1-bed in Batumi under $70,000, near the sea, completion 2027"}},
+      {"from": "bot", "time": "21:06", "text": {"ru": "Нашёл 4 варианта в актуальной базе: планировки, этажи, цены и рассрочка. Отправляю. Удобно, если менеджер позвонит завтра в 11:00?", "ka": "აქტუალურ ბაზაში 4 ვარიანტი ვიპოვე: გეგმარებები, სართულები, ფასები და განვადება. გიგზავნით. მოსახერხებელია, თუ მენეჯერი ხვალ 11:00-ზე დაგირეკავთ?", "en": "Found 4 options in the current listings: layouts, floors, prices and instalments. Sending now. Can our manager call you tomorrow at 11:00?"}},
+      {"from": "client", "time": "21:07", "text": {"ru": "Да, давайте", "ka": "კი, შევთანხმდით", "en": "Yes, sure"}}
+     ]},
+    {"layout": "list",
+     "title": {"ru": "Что делает ассистент", "ka": "რას აკეთებს ასისტენტი", "en": "What the assistant does"},
+     "items": [
+      {"ru": "Берёт объекты из вашей CRM или фида — только актуальные", "ka": "ობიექტებს იღებს თქვენი CRM-იდან ან ფიდიდან — მხოლოდ აქტუალურს", "en": "Pulls listings from your CRM or feed — current ones only"},
+      {"ru": "Отвечает на русском, грузинском, английском и других языках", "ka": "პასუხობს რუსულად, ქართულად, ინგლისურად და სხვა ენებზე", "en": "Replies in Russian, Georgian, English and more"},
+      {"ru": "Уточняет бюджет, сроки и цель покупки", "ka": "არკვევს ბიუჯეტს, ვადებსა და შეძენის მიზანს", "en": "Checks budget, timing and purpose"},
+      {"ru": "Передаёт менеджеру тёплого клиента со сводкой", "ka": "მენეჯერს თბილ კლიენტს შეჯამებით გადასცემს", "en": "Hands a warm lead to your manager with a summary"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Покажем на *ваших* объектах", "ka": "გაჩვენებთ *თქვენს* ობიექტებზე", "en": "We’ll show it on *your* listings"},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "09-restaurants",
+   "date": "2026-10-28",
+   "pillar": "usecase",
+   "link": "https://praxenai.ge/ru/industries/restaurants",
+   "text": {
+    "ru": "Пятница, 20:00. Зал полный, а в WhatsApp и Instagram висят вопросы: «Есть столик на шестерых?», «Есть блюда без глютена?», «До скольки работаете?»\n\nИИ-ассистент отвечает гостям сразу и на их языке, записывает брони в одну таблицу без накладок, готовит черновики ответов на отзывы в Google и раз в неделю присылает сводку: что спрашивают и на что жалуются.\n\nЭто пример сценария. Подробнее для ресторанов: {link}\n\n#ресторан #кафе #Тбилиси #Батуми #ИИдлябизнеса",
+    "ka": "პარასკევი, 20:00. დარბაზი სავსეა, WhatsApp-სა და Instagram-ში კი კითხვები გროვდება: „ექვს კაცზე მაგიდა გაქვთ?“, „უგლუტენო კერძები გაქვთ?“, „რომლამდე მუშაობთ?“\n\nAI ასისტენტი სტუმრებს მაშინვე და მათ ენაზე პასუხობს, ჯავშნებს ერთ ცხრილში წერს გადაფარვის გარეშე, ამზადებს Google-ის შეფასებებზე პასუხების მონახაზებს და კვირაში ერთხელ გიგზავნით შეჯამებას: რას კითხულობენ და რაზე წუწუნებენ.\n\nეს სცენარის მაგალითია. დეტალები რესტორნებისთვის: {link}\n\n#რესტორანი #კაფე #თბილისი #ბათუმი #ხელოვნურიინტელექტი",
+    "en": "Friday, 8 pm. The room is full, and WhatsApp and Instagram are piling up with questions: “Table for six?”, “Gluten-free options?”, “How late are you open?”\n\nAn AI assistant answers guests right away in their language, logs bookings in one table with no double-booking, drafts replies to Google reviews and sends you a weekly summary of what guests ask and complain about.\n\nThis is an example scenario. More for restaurants: {link}\n\n#restaurant #cafe #Tbilisi #Batumi #AI"
+   },
+   "slides": [
+    {"layout": "cover", "example": true,
+     "kicker": {"ru": "Рестораны и кафе", "ka": "რესტორნები და კაფეები", "en": "Restaurants and cafés"},
+     "title": {"ru": "Брони и вопросы гостей — *пока кухня работает*", "ka": "ჯავშნები და სტუმრების კითხვები — *სანამ სამზარეულო მუშაობს*", "en": "Bookings and guest questions *while the kitchen works*"}},
+    {"layout": "list",
+     "title": {"ru": "Что можно отдать ИИ", "ka": "რა შეიძლება გადაეცეს AI-ს", "en": "What AI can take over"},
+     "items": [
+      {"ru": "Брони столиков в WhatsApp, Instagram и на сайте", "ka": "მაგიდების დაჯავშნა WhatsApp-ში, Instagram-სა და საიტზე", "en": "Table bookings on WhatsApp, Instagram and your site"},
+      {"ru": "Ответы про меню, аллергены и часы работы на нескольких языках", "ka": "პასუხები მენიუზე, ალერგენებსა და სამუშაო საათებზე რამდენიმე ენაზე", "en": "Menu, allergens and opening hours in several languages"},
+      {"ru": "Черновики ответов на отзывы в Google — на вашу проверку", "ka": "Google-ის შეფასებებზე პასუხების მონახაზები — თქვენი შემოწმებისთვის", "en": "Draft replies to Google reviews for you to approve"},
+      {"ru": "Сводка за неделю: что спрашивают и на что жалуются", "ka": "კვირის შეჯამება: რას კითხულობენ და რაზე წუწუნებენ", "en": "A weekly summary: what guests ask and complain about"}
+     ]},
+    {"layout": "compare",
+     "title": {"ru": "Пятница, 20:00", "ka": "პარასკევი, 20:00", "en": "Friday, 8 pm"},
+     "before": [
+      {"ru": "Официант отвечает в директ между заказами", "ka": "მიმტანი შეკვეთებს შორის დირექტში პასუხობს", "en": "Waiters answer DMs between orders"},
+      {"ru": "Брони записаны на листочке", "ka": "ჯავშნები ფურცელზეა ჩაწერილი", "en": "Bookings on a sheet of paper"},
+      {"ru": "Отзывы висят без ответа", "ka": "შეფასებები უპასუხოდ რჩება", "en": "Reviews left unanswered"}
+     ],
+     "after": [
+      {"ru": "Гость получает ответ сразу", "ka": "სტუმარი პასუხს მაშინვე იღებს", "en": "Guests get an answer right away"},
+      {"ru": "Брони в одной таблице, без накладок", "ka": "ჯავშნები ერთ ცხრილშია, გადაფარვის გარეშე", "en": "All bookings in one table, no double-booking"},
+      {"ru": "На каждый отзыв — вежливый ответ за день", "ka": "ყოველ შეფასებაზე — თავაზიანი პასუხი ერთ დღეში", "en": "Every review gets a polite reply within a day"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Разберём *ваш* ресторан за 30 минут", "ka": "განვიხილოთ *თქვენი* რესტორანი 30 წუთში", "en": "Let’s look at *your* restaurant in 30 minutes"},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "10-quiz",
+   "date": "2026-10-30",
+   "pillar": "offer",
+   "link": "https://praxenai.ge/ru#quiz",
+   "text": {
+    "ru": "С чего начать ИИ именно в вашем бизнесе?\n\nОбычно начинают с одного из трёх:\n• продажи — быстрый ответ на заявки и порядок в CRM;\n• поддержка — ответы на частые вопросы клиентов 24/7;\n• бэк-офис — документы, счета, перенос данных.\n\nЧтобы понять, что первым окупится у вас, пройдите мини-аудит на сайте: 4 вопроса, 2 минуты. Сразу покажем первый сценарий, формат и цену, контакт оставлять не обязательно.\n\n{link}\n\n#ИИдлябизнеса #Грузия #автоматизация",
+    "ka": "საიდან დაიწყოთ AI სწორედ თქვენს ბიზნესში?\n\nჩვეულებრივ სამიდან ერთით იწყებენ:\n• გაყიდვები — სწრაფი პასუხი მოთხოვნებზე და წესრიგი CRM-ში;\n• მხარდაჭერა — პასუხები კლიენტების ხშირ კითხვებზე 24/7;\n• ბექ-ოფისი — დოკუმენტები, ინვოისები, მონაცემების გადატანა.\n\nრომ გაიგოთ, რა ანაზღაურდება თქვენთან პირველად, გაიარეთ მინი-აუდიტი საიტზე: 4 კითხვა, 2 წუთი. მაშინვე გაჩვენებთ პირველ სცენარს, ფორმატსა და ფასს; კონტაქტის დატოვება აუცილებელი არ არის.\n\n{link}\n\n#ხელოვნურიინტელექტი #ბიზნესი #საქართველო",
+    "en": "Where should AI start in your business?\n\nMost companies start with one of three:\n• sales — fast replies to leads and a tidy CRM;\n• support — answers to common client questions 24/7;\n• back office — documents, invoices, data entry.\n\nTo see what pays off first for you, take the mini audit on our site: 4 questions, 2 minutes. You see your first scenario, format and price right away; leaving a contact is optional.\n\n{link}\n\n#AI #Georgia #automation"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Мини-аудит", "ka": "მინი-აუდიტი", "en": "Mini audit"},
+     "title": {"ru": "С чего начать ИИ *в вашем бизнесе*?", "ka": "საიდან დაიწყოთ AI *თქვენს ბიზნესში*?", "en": "Where should AI start *in your business*?"},
+     "sub": {"ru": "4 вопроса — и сразу первый сценарий, формат и цена.", "ka": "4 კითხვა — და მაშინვე პირველი სცენარი, ფორმატი და ფასი.", "en": "4 questions, and you instantly see your first scenario, format and price."}},
+    {"layout": "list",
+     "title": {"ru": "Обычно начинают с одного из трёх", "ka": "ჩვეულებრივ სამიდან ერთით იწყებენ", "en": "Most start with one of three"},
+     "items": [
+      {"ru": "Продажи: быстрый ответ на заявки и порядок в CRM", "ka": "გაყიდვები: სწრაფი პასუხი მოთხოვნებზე და წესრიგი CRM-ში", "en": "Sales: fast replies to leads and a tidy CRM"},
+      {"ru": "Поддержка: ответы на частые вопросы клиентов 24/7", "ka": "მხარდაჭერა: პასუხები კლიენტების ხშირ კითხვებზე 24/7", "en": "Support: answers to common client questions 24/7"},
+      {"ru": "Бэк-офис: документы, счета, перенос данных", "ka": "ბექ-ოფისი: დოკუმენტები, ინვოისები, მონაცემების გადატანა", "en": "Back office: documents, invoices, data entry"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Пройдите мини-аудит — *2 минуты*", "ka": "გაიარეთ მინი-აუდიტი — *2 წუთი*", "en": "Take the mini audit — *two minutes*"},
+     "button": {"ru": "Мини-аудит → praxenai.ge", "ka": "მინი-აუდიტი → praxenai.ge", "en": "Mini audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "11-wholesale",
+   "date": "2026-11-02",
+   "pillar": "usecase",
+   "link": "https://praxenai.ge/ru/industries/wholesale",
+   "text": {
+    "ru": "Заказы в опте приходят как угодно: фото списка от руки, голосовое, Excel, сообщение в WhatsApp. Менеджер вручную ищет позиции и цены, а в пиковые дни растут ошибки.\n\nИИ распознаёт позиции из любого формата, сверяет их с вашим каталогом и прайсом и готовит черновик счёта за минуты. Менеджер проверяет и отправляет.\n\nЭто пример сценария. Подробнее для опта: {link}\n\n#опт #дистрибуция #HoReCa #Грузия #ИИдлябизнеса",
+    "ka": "საბითუმო შეკვეთები ნებისმიერი ფორმით შემოდის: ხელით დაწერილი სიის ფოტო, ხმოვანი შეტყობინება, Excel, მესიჯი WhatsApp-ში. მენეჯერი პოზიციებსა და ფასებს ხელით ეძებს, პიკის დღეებში კი შეცდომები მატულობს.\n\nAI პოზიციებს ნებისმიერი ფორმატიდან ცნობს, ადარებს თქვენს კატალოგსა და ფასებს და ინვოისის მონახაზს წუთებში ამზადებს. მენეჯერი ამოწმებს და აგზავნის.\n\nეს სცენარის მაგალითია. დეტალები საბითუმო ვაჭრობისთვის: {link}\n\n#საბითუმო #დისტრიბუცია #HoReCa #საქართველო #ხელოვნურიინტელექტი",
+    "en": "Wholesale orders arrive in every format: a photo of a handwritten list, a voice note, Excel, a WhatsApp message. Managers look up items and prices by hand, and mistakes grow on peak days.\n\nAI reads the items from any format, matches them to your catalogue and prices, and prepares a draft invoice in minutes. The manager checks it and sends it.\n\nThis is an example scenario. More for wholesale: {link}\n\n#wholesale #distribution #HoReCa #Georgia #AI"
+   },
+   "slides": [
+    {"layout": "cover", "example": true,
+     "kicker": {"ru": "Опт и дистрибуция", "ka": "საბითუმო ვაჭრობა და დისტრიბუცია", "en": "Wholesale and distribution"},
+     "title": {"ru": "Заявка в любом формате — *черновик счёта за минуты*", "ka": "მოთხოვნა ნებისმიერ ფორმატში — *ინვოისის მონახაზი წუთებში*", "en": "Orders in any format — *a draft invoice in minutes*"}},
+    {"layout": "compare",
+     "title": {"ru": "Как обрабатываются заказы", "ka": "როგორ მუშავდება შეკვეთები", "en": "How orders get processed"},
+     "before": [
+      {"ru": "Фото списка, голосовое, Excel, WhatsApp", "ka": "სიის ფოტო, ხმოვანი, Excel, WhatsApp", "en": "A photo of a list, a voice note, Excel, WhatsApp"},
+      {"ru": "Менеджер вручную ищет позиции и цены", "ka": "მენეჯერი პოზიციებსა და ფასებს ხელით ეძებს", "en": "A manager looks up items and prices by hand"},
+      {"ru": "Ошибки в артикулах и количествах", "ka": "შეცდომები არტიკულებსა და რაოდენობებში", "en": "Mistakes in SKUs and quantities"}
+     ],
+     "after": [
+      {"ru": "ИИ распознаёт позиции из любого формата", "ka": "AI პოზიციებს ნებისმიერი ფორმატიდან ცნობს", "en": "AI reads the items from any format"},
+      {"ru": "Сверяет с вашим каталогом и прайсом", "ka": "ადარებს თქვენს კატალოგსა და ფასებს", "en": "Matches them to your catalogue and prices"},
+      {"ru": "Менеджер проверяет черновик и отправляет", "ka": "მენეჯერი ამოწმებს მონახაზს და აგზავნის", "en": "The manager checks the draft and sends it"}
+     ]},
+    {"layout": "list",
+     "title": {"ru": "Где это особенно окупается", "ka": "სად ანაზღაურდება განსაკუთრებით", "en": "Where it pays off most"},
+     "items": [
+      {"ru": "Сотни позиций в каталоге", "ka": "კატალოგში ასობით პოზიციაა", "en": "Hundreds of SKUs in the catalogue"},
+      {"ru": "Много мелких заказов от магазинов и HoReCa", "ka": "ბევრი მცირე შეკვეთა მაღაზიებიდან და HoReCa-დან", "en": "Lots of small orders from shops and HoReCa"},
+      {"ru": "Менеджеры тонут в переписке в пиковые дни", "ka": "პიკის დღეებში მენეჯერები მიმოწერაში იხრჩობიან", "en": "Managers drowning in messages on peak days"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Проверим на *ваших* заказах", "ka": "შევამოწმოთ *თქვენს* შეკვეთებზე", "en": "Let’s test it on *your* orders"},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "12-audit-prep",
+   "date": "2026-11-04",
+   "pillar": "process",
+   "link": "https://praxenai.ge/ru#contact",
+   "text": {
+    "ru": "Как получить максимум от бесплатного аудита — 4 вопроса, 10 минут подготовки:\n\n1. Какой процесс отнимает больше всего времени команды?\n2. Сколько обращений или документов в неделю?\n3. Где сейчас живут данные: таблицы, CRM, мессенджеры?\n4. Как вы поймёте, что стало лучше: часы, заявки, ошибки?\n\nНе знаете ответов — тоже нормально, разберёмся вместе. Аудит бесплатный, 30 минут, онлайн. Время можно выбрать прямо на сайте: {link}\n\n#ИИдлябизнеса #Грузия #аудит",
+    "ka": "როგორ მიიღოთ მაქსიმუმი უფასო აუდიტიდან — 4 კითხვა, 10 წუთი მომზადება:\n\n1. რომელი პროცესი ართმევს გუნდს ყველაზე მეტ დროს?\n2. რამდენი მიმართვა ან დოკუმენტია კვირაში?\n3. სად ინახება მონაცემები ახლა: ცხრილები, CRM, მესენჯერები?\n4. როგორ მიხვდებით, რომ უკეთესად გახდა: საათები, მოთხოვნები, შეცდომები?\n\nპასუხები არ იცით? არაუშავს, ერთად გავარკვევთ. აუდიტი უფასოა, 30 წუთი, ონლაინ. დრო პირდაპირ საიტზე შეგიძლიათ აირჩიოთ: {link}\n\n#ხელოვნურიინტელექტი #ბიზნესი #საქართველო",
+    "en": "How to get the most from a free audit — 4 questions, 10 minutes of prep:\n\n1. Which process takes most of your team’s time?\n2. How many requests or documents a week?\n3. Where does your data live: sheets, CRM, messengers?\n4. How will you know it got better: hours, leads, errors?\n\nDon’t know the answers? That’s fine — we’ll work it out together. The audit is free, 30 minutes, online. Pick a time on our site: {link}\n\n#AI #Georgia #audit"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Перед аудитом", "ka": "აუდიტამდე", "en": "Before the audit"},
+     "title": {"ru": "Как получить от аудита *максимум*", "ka": "როგორ მიიღოთ აუდიტიდან *მაქსიმუმი*", "en": "How to get *the most* from the audit"}},
+    {"layout": "list",
+     "title": {"ru": "4 вопроса, 10 минут", "ka": "4 კითხვა, 10 წუთი", "en": "4 questions, 10 minutes"},
+     "items": [
+      {"ru": "Какой процесс отнимает больше всего времени команды", "ka": "რომელი პროცესი ართმევს გუნდს ყველაზე მეტ დროს", "en": "Which process takes most of your team’s time"},
+      {"ru": "Сколько обращений или документов в неделю", "ka": "რამდენი მიმართვა ან დოკუმენტია კვირაში", "en": "How many requests or documents a week"},
+      {"ru": "Где живут данные: таблицы, CRM, мессенджеры", "ka": "სად ინახება მონაცემები: ცხრილები, CRM, მესენჯერები", "en": "Where your data lives: sheets, CRM, messengers"},
+      {"ru": "Как поймёте, что стало лучше: часы, заявки, ошибки", "ka": "როგორ მიხვდებით, რომ უკეთესად გახდა: საათები, მოთხოვნები, შეცდომები", "en": "How you’ll know it got better: hours, leads, errors"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Аудит бесплатный. *30 минут*, онлайн.", "ka": "აუდიტი უფასოა. *30 წუთი*, ონლაინ.", "en": "The audit is free. *30 minutes*, online."},
+     "sub": {"ru": "Выберите удобное время прямо на сайте.", "ka": "აირჩიეთ მოსახერხებელი დრო პირდაპირ საიტზე.", "en": "Pick a time right on our site."},
+     "button": {"ru": "Выбрать время → praxenai.ge", "ka": "დროის არჩევა → praxenai.ge", "en": "Pick a time → praxenai.ge"}}
+   ]
+  },
+  {
+   "id": "13-training",
+   "date": "2026-11-06",
+   "pillar": "offer",
+   "link": "https://praxenai.ge/ru",
+   "text": {
+    "ru": "Подписка на ChatGPT в компании есть, а пользы пока не видно? Так бывает почти всегда, и причины одни и те же:\n\n• каждый пробует сам, без общих правил;\n• нет готовых запросов под ваши задачи;\n• непонятно, какие данные можно загружать.\n\nОбучение команды решает это: практика на ваших реальных задачах, библиотека запросов для каждого отдела и понятные правила работы с данными клиентов. От 1 900 ₾, от 1 недели.\n\n{link}\n\n#обучение #ИИдлябизнеса #ChatGPT #Грузия",
+    "ka": "კომპანიაში ChatGPT-ის გამოწერა გაქვთ, სარგებელი კი ჯერ არ ჩანს? ეს თითქმის ყოველთვის ასეა და მიზეზებიც ერთი და იგივეა:\n\n• ყველა თავად ცდილობს, საერთო წესების გარეშე;\n• არ არის მზა მოთხოვნები თქვენი ამოცანებისთვის;\n• გაუგებარია, რა მონაცემების ატვირთვა შეიძლება.\n\nგუნდის სწავლება ამას აგვარებს: პრაქტიკა თქვენს რეალურ ამოცანებზე, მოთხოვნების ბიბლიოთეკა ყველა განყოფილებისთვის და კლიენტების მონაცემებთან მუშაობის გასაგები წესები. 1 900 ₾-დან, 1 კვირიდან.\n\n{link}\n\n#სწავლება #ხელოვნურიინტელექტი #ChatGPT #საქართველო",
+    "en": "Your company pays for ChatGPT but the results aren’t showing? That’s common, and the reasons are always the same:\n\n• everyone experiments alone, with no shared rules;\n• there are no ready prompts for your actual tasks;\n• nobody knows which data is safe to upload.\n\nTeam training fixes this: practice on your real tasks, a prompt library for each department and clear rules for client data. From 1,900 ₾, from 1 week.\n\n{link}\n\n#training #AI #ChatGPT #Georgia"
+   },
+   "slides": [
+    {"layout": "cover",
+     "kicker": {"ru": "Обучение команды", "ka": "გუნდის სწავლება", "en": "Team training"},
+     "title": {"ru": "Подписка на ChatGPT есть. *Пользы* — пока нет?", "ka": "ChatGPT-ის გამოწერა გაქვთ. *სარგებელი* — ჯერ არა?", "en": "You pay for ChatGPT. *Results* — not yet?"}},
+    {"layout": "list",
+     "title": {"ru": "Почему так бывает", "ka": "რატომ ხდება ასე", "en": "Why it happens"},
+     "items": [
+      {"ru": "Каждый пробует сам, без общих правил", "ka": "ყველა თავად ცდილობს, საერთო წესების გარეშე", "en": "Everyone experiments alone, with no shared rules"},
+      {"ru": "Нет готовых запросов под ваши задачи", "ka": "არ არის მზა მოთხოვნები თქვენი ამოცანებისთვის", "en": "No ready prompts for your actual tasks"},
+      {"ru": "Непонятно, какие данные можно загружать", "ka": "გაუგებარია, რა მონაცემების ატვირთვა შეიძლება", "en": "Nobody knows which data is safe to upload"}
+     ]},
+    {"layout": "list",
+     "title": {"ru": "Что даёт обучение", "ka": "რას იძლევა სწავლება", "en": "What training gives you"},
+     "items": [
+      {"ru": "Практика на ваших реальных задачах, а не на общих примерах", "ka": "პრაქტიკა თქვენს რეალურ ამოცანებზე და არა ზოგად მაგალითებზე", "en": "Practice on your real tasks, not generic examples"},
+      {"ru": "Библиотека запросов для каждого отдела", "ka": "მოთხოვნების ბიბლიოთეკა ყველა განყოფილებისთვის", "en": "A prompt library for each department"},
+      {"ru": "Правила работы с данными клиентов", "ka": "კლიენტების მონაცემებთან მუშაობის წესები", "en": "Rules for handling client data"},
+      {"ru": "От 1 900 ₾, от 1 недели", "ka": "1 900 ₾-დან, 1 კვირიდან", "en": "From 1,900 ₾, from 1 week"}
+     ]},
+    {"layout": "cta",
+     "title": {"ru": "Обсудим обучение *вашей* команды", "ka": "განვიხილოთ *თქვენი* გუნდის სწავლება", "en": "Let’s plan training for *your* team"},
+     "button": {"ru": "Бесплатный аудит → praxenai.ge", "ka": "უფასო აუდიტი → praxenai.ge", "en": "Free audit → praxenai.ge"}}
+   ]
+  }
+ ]
+}
