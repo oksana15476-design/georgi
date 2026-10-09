@@ -45,7 +45,10 @@ Two blogs, one codebase. The data is plain (heading, paragraphs, list, table); `
 
 Give every article at least one price table and, where it fits, one step list or timeline.
 
-## Style (from the Saldo anti-AI rules, docs/seo/ANTI_AI_STYLE.md in saldio)
+## Style
+
+Owner's choice (9 Oct 2026): every text goes through `brand-voice` (the site's VOICE PROFILE and hard bans), `seo` (on-page) and, last, `humanizer` (26 patterns of AI writing). How these apply to Russian dashes, quotes and bold list labels: `docs/BLOG-EDITORIAL.md`. The project rules below stay on top of them:
+
 
 1. "Not X but Y" / «не X, а Y» antitheses: at most 1 per article, aim for 0. Rewrite as a plain statement.
 2. No sentence repeats word for word or in paraphrase between articles, and articles are not built on one template (example calculation → price cards → tokens → audit). Standard facts (illustrative figures, tokens paid to providers, free audit, pilot price) are worded differently in each article.
