@@ -5,7 +5,7 @@ description: How to write, format and publish blog articles for praxenai.com and
 
 # Articles for the Praxen AI blogs
 
-Two blogs, one codebase. The data is plain (heading, paragraphs, list, table); `components/article-blocks.tsx` turns it into UI on both sites. Owner decisions: 10+ articles per blog, then 2 a week; topics never repeat between the sites; everything shown with UI, in the spirit of the Saldo blog (repo `oksana15476-design/saldio`, `src/components/blog/ArticleBody.tsx`).
+Two blogs, one codebase. The data is plain (heading, paragraphs, list, table); `components/article-blocks.tsx` turns it into UI on both sites. Owner decisions: **nothing is written or published without the owner's approval** (9 October 2026): send the owner the topics and an outline first, write and publish only after their yes; edits to published articles go through the owner too. 16 articles per blog so far; topics never repeat between the sites; everything shown with UI, in the spirit of the Saldo blog (repo `oksana15476-design/saldio`, `src/components/blog/ArticleBody.tsx`).
 
 ## Where things live
 
