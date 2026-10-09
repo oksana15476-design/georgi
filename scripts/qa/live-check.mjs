@@ -1,6 +1,6 @@
 // SEO guard for the live sites (see CLAUDE.md and docs/HANDOFF.md, owner rule 10).
 // Run after every deploy: node scripts/qa/live-check.mjs [https://praxenai.ge https://praxenai.com]
-// Every sitemap URL must answer 200 with a canonical pointing to itself, no noindex, one <title> and an <h1>;
+// The sitemap lists each address once with reciprocal hreflang; every sitemap URL must answer 200 with a canonical pointing to itself, no noindex, one <title> and an <h1>;
 // titles must be unique; robots.txt must not block the site and must list the sitemap; llms.txt must
 // answer 200 and an unknown address 404. Exit code 1 when anything fails.
 const sites=process.argv.slice(2).length?process.argv.slice(2):['https://praxenai.ge','https://praxenai.com'];
@@ -20,8 +20,14 @@ for(const site of sites){
  const missing=await get(site+'/no-such-page-'+Date.now());
  if(missing.status!==404)bad(`${site} unknown address answers ${missing.status}, expected 404`);
  const sm=await get(site+'/sitemap.xml');
- const urls=[...new Set([...sm.text.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]))];
+ const all=[...sm.text.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
+ const urls=[...new Set(all)];
  if(sm.status!==200||!urls.length){bad(`${site}/sitemap.xml answers ${sm.status} with ${urls.length} URLs`);continue}
+ // Each address once; hreflang alternates stay inside the sitemap and point back to each other.
+ if(all.length!==urls.length)bad(`${site}/sitemap.xml lists ${all.length-urls.length} addresses more than once`);
+ const entries=[...sm.text.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(m=>({loc:m[1].match(/<loc>([^<]+)/)?.[1],alts:[...m[1].matchAll(/hreflang="[^"]+" href="([^"]+)"/g)].map(x=>x[1])}));
+ const byLoc=new Map(entries.map(e=>[e.loc,e]));
+ for(const e of entries)for(const u of e.alts){const o=byLoc.get(u);if(!o)bad(`${e.loc}: hreflang points outside the sitemap (${u})`);else if(!o.alts.includes(e.loc))bad(`${e.loc} and ${u}: hreflang is not reciprocal`)}
  const titles=new Map();let i=0;
  const worker=async()=>{while(i<urls.length){const u=urls[i++];const r=await get(u);
   if(r.status!==200){bad(`${u} answers ${r.status}`);continue}
