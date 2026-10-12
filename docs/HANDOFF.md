@@ -26,6 +26,7 @@
 - Роутинг: `app/[lang]/[[...section]]/page.tsx`, детальные страницы `app/[lang]/industries/[slug]`, `departments/[slug]`. Для .com — rewrites и 308 в `next.config.ts`.
 - Заявки: форма → `/api/leads` (`app/api/leads/route.ts`) → Telegram / Resend / amoCRM (`lib/lead-delivery.mjs`). Секреты задаются в Cloudflare на каждом Worker отдельно. При ошибке API отвечает `{"error":"delivery","channels":["telegram 400: ..."]}`.
 - Аналитика: `lib/tracking.ts` — GA4 `G-JPD37TCM27` (.ge, ресурс 557602365) и `G-8JMZ08G5Y3` (.com, отдельный ресурс 558070926), Meta Pixel, Метрика только на .ge. События и ключевые события — `docs/ANALYTICS-GOALS.md`.
+- Meta (.ge, с 12 октября): рабочее бизнес-портфолио Praxen AI `2199775080882690` (администратор — Оксана Будникова), в нём страница Facebook Praxen AI `1431418180049547`, Instagram `praxenai`, рекламный аккаунт `1572744140745644` (USD, Asia/Tbilisi, карта ещё не добавлена). Старое портфолио `265332837573036` не используем. Пиксель на сайте `3535943709898672` принадлежит старому портфолио: перед запуском рекламы создать новый набор данных в новом портфолио, заменить номер в `lib/tracking.ts` и подтвердить домен praxenai.ge мета-тегом. Стратегия рекламы — документ «Praxen AI .ge: стратегия набора аудитории через Meta» в Claude Docs.
 
 ## Правила владельца (обязательно)
 
