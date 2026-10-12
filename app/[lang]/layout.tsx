@@ -37,6 +37,8 @@ export default async function RootLayout({children,params}:Readonly<{children:Re
         <link rel="icon" href={base+'/favicon-96x96.png'} sizes="96x96" type="image/png"/>
         <link rel="icon" href={base+'/favicon.svg'} type="image/svg+xml"/>
         <link rel="apple-touch-icon" href={base+'/apple-touch-icon.png'} sizes="180x180"/>
+        {/* Meta domain verification of praxenai.ge for the business portfolio 2199775080882690; in <head> for the same reason as the icons. */}
+        {!isIntl&&<meta name="facebook-domain-verification" content="k3f518fbiuxbbxbwojy10j85ewj1m9"/>}
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
         {/* praxenai.com is English only and does not need the Georgian font. */}
