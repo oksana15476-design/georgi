@@ -43,6 +43,14 @@ Local changes to vendored files:
 - Marketing skills read shared product context. It lives at `.claude/product-marketing.md` because `/.agents/` is git-ignored here; keep it there if a skill offers to move it. It is a draft filled from the site; items marked ⚠ need confirmation.
 - Yandex skills need credentials in each skill's `config/` (see its `config/README.md`): `YANDEX_METRIKA_TOKEN`, `YANDEX_WORDSTAT_TOKEN` or a Yandex Cloud service account, `YANDEX_WEBMASTER_TOKEN`. These files are git-ignored; never commit tokens. `yandex-wordstat` got its own `.gitignore` for `config/.env`, `config/config.json` and `config/service_account_key.json`.
 
+## Paid media (12 October 2026, owner approval)
+
+Instructions only (no scripts, no hooks); both sources are MIT and each folder keeps its LICENSE.
+
+- [AgriciDaniel/claude-ads](https://github.com/AgriciDaniel/claude-ads) @ `ac21644`: conductor `claude-ads` (renamed from `ads`, which is taken by the strategy skill), workflow skills `ads-google`, `ads-meta`, `ads-linkedin`, `ads-microsoft`, `ads-audit`, `ads-plan`, `ads-budget`, `ads-create`, `ads-creative`, `ads-landing`, `ads-research`, `ads-math`, `ads-report`, `ads-test`, `ads-competitor`, `ads-attribution`, `ads-monitor`, `ads-optimize`, `ads-launch`, `ads-validate`, `ads-dna`; agents in `.claude/agents/` (`audit-*`, `copy-writer`, `creative-strategist`, `format-adapter`, `research-worker`, `source-verifier`). Paths `ads/references/` were changed to `.claude/skills/claude-ads/references/`. Not installed: the Python core `claude_ads_core`, image scripts, installers, and platforms we do not use (Amazon, Apple, Pinterest, Reddit, Snapchat, TikTok, X, YouTube).
+- [thatrebeccarae/claude-marketing](https://github.com/thatrebeccarae/claude-marketing) @ `a8a63ec`, Paid Media pack: `google-ads`, `facebook-ads`, `linkedin-ads`, `microsoft-ads`, `account-structure-review`, `wasted-spend-finder`, `utm-attribution-strategy`, `competitor-ads-analyst`, `landing-page-optimizer` (Markdown only; their Python API helpers are not installed).
+- Rule: these skills draft campaigns, audits and reports. They never change a live ad account; the owner launches every change.
+
 To update a skill, copy its folder again from the source repository and bump the commit above.
 
 ## Plugins
