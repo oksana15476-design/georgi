@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "winwinbot": {
+      "type": "http",
+      "url": "https://my.winwinbot.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${WINWINBOT_TOKEN}"
+      }
+    }
+  }
+}
