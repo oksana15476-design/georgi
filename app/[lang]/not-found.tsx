@@ -8,10 +8,10 @@ import {Wordmark} from '@/components/praxen/ui';
 export default function NotFound(){
  const links:[string,string][]=isIntl
   ?[['/','Home'],['/services','Services'],['/industries','Industries'],['/solutions','Solutions & pricing'],['/cases','Cases'],['/about','About']]
-  :[['/en','English'],['/ka','ქართული'],['/ru','Русский'],['/en/solutions','Solutions & prices'],['/en/industries','Industries'],['/en/cases','Cases']];
+  :[['/','English'],['/ka','ქართული'],['/ru','Русский'],['/solutions','Solutions & prices'],['/industries','Industries'],['/cases','Cases']];
  return (
   <div className={'site'+(isIntl?' ix':'')}>
-   <header className="site-header"><div className="wrap header-row"><a href={base+(isIntl?'/':'/en')} aria-label="Praxen AI" className="brand"><Wordmark/></a></div></header>
+   <header className="site-header"><div className="wrap header-row"><a href={base+'/'} aria-label="Praxen AI" className="brand"><Wordmark/></a></div></header>
    <main id="main" className="wrap sec">
     <p className="hero-eyebrow">404</p>
     <h1 className="h1 mt14">{isIntl?'This page does not exist.':'Page not found.'}</h1>

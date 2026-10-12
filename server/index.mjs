@@ -86,10 +86,12 @@ const server=createServer(async(req,res)=>{
   }
   if(url.pathname==='/healthz')return json(res,200,{ok:true});
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405,security);return res.end()}
-  if(url.pathname==='/'){res.writeHead(302,{...security,Location:'/en'});return res.end()}
+  // English pages have no /en prefix (as in next.config.ts): old /en addresses redirect permanently,
+  // and addresses outside /ka and /ru are served from the English files.
+  if(url.pathname==='/en'||url.pathname.startsWith('/en/')){res.writeHead(308,{...security,Location:(url.pathname.slice(3)||'/')+url.search});return res.end()}
   // Trailing slashes redirect to the clean address.
   if(url.pathname.length>1&&url.pathname.endsWith('/')){res.writeHead(301,{...security,Location:url.pathname.slice(0,-1)+url.search});return res.end()}
-  const file=resolveFile(url.pathname);
+  const file=(url.pathname!=='/'&&resolveFile(url.pathname))||(/^\/(ka|ru)(\/|$)/.test(url.pathname)?null:resolveFile(url.pathname==='/'?'/en':'/en'+url.pathname));
   if(file)return sendFile(req,res,file);
   const notFound=join(root,'404.html');
   if(existsSync(notFound))return sendFile(req,res,notFound,404);

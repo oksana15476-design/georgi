@@ -22,6 +22,9 @@ const intl = process.env.NEXT_PUBLIC_MARKET === "intl";
 // praxenai.com top-level sections; keep in sync with intlSections in lib/intl.ts.
 const sections = ["ai-for-small-business", "services", "industries", "departments", "solutions", "training", "cases", "about", "security", "partners", "privacy", "terms", "blog"];
 const withSlugs = ["services", "industries", "departments", "blog"];
+// praxenai.ge top-level sections; keep in sync with geSections in app/[lang]/[[...section]]/page.tsx.
+const geSections = ["industries", "departments", "training", "solutions", "cases", "partners", "privacy", "about", "security", "blog"];
+const geWithSlugs = ["industries", "departments", "blog"];
 const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
 const nextConfig: NextConfig = pages
@@ -36,10 +39,13 @@ const nextConfig: NextConfig = pages
     }
   : {
       env: publicEnv,
-      // praxenai.ge: English is the default language; the site has no page at the bare root.
-      // praxenai.com (intl): English only, served without the /en prefix.
+      // English pages are served without the /en prefix on both sites (praxenai.ge since 12 October 2026);
+      // old /en addresses redirect permanently. praxenai.ge keeps /ka and /ru.
       async redirects() {
-        if (!intl) return [{ source: "/", destination: "/en", permanent: false }];
+        if (!intl) return [
+          { source: "/en", destination: "/", permanent: true },
+          { source: "/en/:path*", destination: "/:path*", permanent: true },
+        ];
         return [
           { source: "/en", destination: "/", permanent: true },
           { source: "/en/:path*", destination: "/:path*", permanent: true },
@@ -50,7 +56,13 @@ const nextConfig: NextConfig = pages
         ];
       },
       async rewrites() {
-        if (!intl) return { beforeFiles: [] };
+        if (!intl) return {
+          beforeFiles: [
+            { source: "/", destination: "/en" },
+            ...geSections.map((s) => ({ source: `/${s}`, destination: `/en/${s}` })),
+            ...geWithSlugs.map((s) => ({ source: `/${s}/:slug`, destination: `/en/${s}/:slug` })),
+          ],
+        };
         return {
           beforeFiles: [
             { source: "/", destination: "/en" },

@@ -54,8 +54,8 @@ else writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /a
 
 // llms.txt: a short plain-text guide for language models, built from the English pages' titles
 // and descriptions, with links to the Georgian and Russian versions.
-const page=path=>{const u=siteUrl+'/en'+path,i=info.get(u);return i?`- [${i.title.replace(/ — Praxen AI$/,'')}](${u}): ${i.description}`:null};
-const group=prefix=>entries.map(e=>e[0]).filter(u=>u.startsWith(siteUrl+'/en'+prefix+'/')).map(u=>page(u.slice((siteUrl+'/en').length))).filter(Boolean);
+const page=path=>{const u=siteUrl+path,i=info.get(u);return i?`- [${i.title.replace(/ — Praxen AI$/,'')}](${u}): ${i.description}`:null};
+const group=prefix=>entries.map(e=>e[0]).filter(u=>u.startsWith(siteUrl+prefix+'/')).map(u=>page(u.slice(siteUrl.length))).filter(Boolean);
 const llms=`# Praxen AI
 
 > Praxen AI is an AI implementation company based in Batumi, Georgia, working with businesses in Tbilisi and across the country. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
@@ -67,7 +67,7 @@ Key facts:
 - Integrations via API where available, for example amoCRM, Bitrix24, HubSpot, 1C, Google Workspace, hotel PMS (Opera, Cloudbeds, Bnovo, TravelLine), WhatsApp and Telegram.
 - Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; on-premise deployment is available.
 - AI does not make final decisions: review points and escalation to staff are agreed for every workflow.
-- Contact: phone and WhatsApp +995 557 125 497, Telegram https://t.me/zheniazikinzik, form at ${siteUrl}/en#contact
+- Contact: phone and WhatsApp +995 557 125 497, Telegram https://t.me/zheniazikinzik, form at ${siteUrl}/#contact
 
 ## Main pages
 ${['','/solutions','/training','/cases','/partners'].map(page).filter(Boolean).join('\n')}
@@ -83,17 +83,18 @@ ${[page('/industries'),...group('/industries')].filter(Boolean).join('\n')}
 - [Russian version](${siteUrl}/ru)
 
 ## Optional
-- [Privacy policy](${siteUrl}/en/privacy)
+- [Privacy policy](${siteUrl}/privacy)
 `;
 writeFileSync(join(out,'llms.txt'),llms);
 // The Cloudflare Worker build serves public/ as is and does not run this script, so keep a copy there.
 // Only the Georgian build refreshes it; the international site will get its own.
 if(!base&&process.env.NEXT_PUBLIC_MARKET!=='intl')writeFileSync('public/llms.txt',llms);
 
-// The bare root has no page; send visitors to the default language.
-writeFileSync(join(out,'index.html'),`<!doctype html><meta charset="utf-8"><title>Praxen AI</title><meta http-equiv="refresh" content="0;url=${base}/en"><link rel="canonical" href="${base}/en"><script>location.replace('${base}/en')</script><a href="${base}/en">Praxen AI</a>`);
+// English pages have no /en prefix (lib/base.ts): static hosts serve them from copies at the root,
+// and the Docker server (server/index.mjs) redirects old /en addresses.
+if(existsSync(join(out,'en.html'))){cpSync(join(out,'en.html'),join(out,'index.html'));if(existsSync(join(out,'en')))cpSync(join(out,'en'),out,{recursive:true})}
 // Cloudflare Pages (CF_PAGES is set in its build): the security and cache headers the Docker
-// server sends, and a real redirect from the bare root to the default language.
+// server sends, and permanent redirects from the old /en addresses.
 if(process.env.CF_PAGES){
  writeFileSync(join(out,'_headers'),`/*
   X-Content-Type-Options: nosniff
@@ -105,7 +106,7 @@ if(process.env.CF_PAGES){
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 `);
- writeFileSync(join(out,'_redirects'),'/ /en 302\n');
+ writeFileSync(join(out,'_redirects'),'/en / 308\n/en/* /:splat 308\n');
  // vinext also writes a redirected Wrangler config for the Workers build; Pages must not pick it up.
  rmSync('.wrangler/deploy/config.json',{force:true});
 }

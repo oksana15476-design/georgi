@@ -6,7 +6,8 @@ const types={'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'
 http.createServer((req,res)=>{
  let p=decodeURIComponent(new URL(req.url,'http://x').pathname);
  const cands=[];
- if(mode==='intl'){cands.push(p==='/'?'/en.html':'/en'+p+'.html')}
+ // English pages have no /en prefix on either site; praxenai.ge keeps /ka and /ru.
+ if(mode==='intl'||(mode==='ge'&&!/^\/(ka|ru)(\/|$)/.test(p))){cands.push(p==='/'?'/en.html':'/en'+p+'.html')}
  cands.push(p,p+'.html',path.join(p,'index.html'));
  for(const c of cands){const f=path.join(root,c);if(f.startsWith(root)&&fs.existsSync(f)&&fs.statSync(f).isFile()){res.writeHead(200,{'content-type':types[path.extname(f)]||'application/octet-stream'});fs.createReadStream(f).pipe(res);return}}
  res.writeHead(404);res.end('404');

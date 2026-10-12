@@ -146,7 +146,7 @@ for(const post of posts){
   }
  }
  // Captions with the tracked link, ready to paste.
- const link=(l)=>{const u=new URL(post.link||'https://'+siteName+'/'+l);if(!post.link) u.pathname='/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)/,'/'+l);
+ const link=(l)=>{const u=new URL(post.link||'https://'+siteName+'/'+l);if(!post.link) u.pathname=l==='en'?'/':'/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)(?=\/|$)/,l==='en'?'':'/'+l)||'/';
   u.searchParams.set('utm_source',process.env.UTM_SOURCE||'facebook');u.searchParams.set('utm_medium','social');u.searchParams.set('utm_campaign',batch.campaign||'organic');u.searchParams.set('utm_content',post.id);return u.toString();};
  const md=[`# ${post.id} · ${post.date} · ${post.pillar}`,''];
  for(const l of langs) md.push(`## ${l}`,'',tr(post.text,l).replace('{link}',link(l)),'');

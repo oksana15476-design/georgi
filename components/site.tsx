@@ -1,6 +1,6 @@
 'use client';
 import {useCallback,useEffect,useState} from 'react';
-import {base,homeHref,pageHref} from '@/lib/base';
+import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {departments,industries,languages,t,Lang} from '@/lib/content';
 import {solutionChoices} from '@/lib/solution-choices';
 import type {PageData} from '@/lib/page-data';
@@ -139,7 +139,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
      </div>
      <div className="footer-bottom">
       <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a></span><span>{s.footerServices}</span>
-      {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+'/'+code+langRest(code)} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
+      {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+langPath(code)+langRest(code)||'/'} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
      </div>
     </div>
    </footer>
