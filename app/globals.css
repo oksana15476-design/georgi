@@ -1879,3 +1879,22 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 .wb .wb-crm.is-on .wb-crm-wait{color:#1f9d55}
 .wb .wb-crm:not(.is-on){opacity:0;transform:translateY(18px) scale(.96);pointer-events:none}
 .wb .wb-crm{transition:opacity .5s var(--ease),transform .6s var(--spring)}
+/* Webinar landing: clearer story (hook → problem → what we show → register → FAQ). */
+.wb .wb-hero{padding-bottom:72px}
+.wb .wb-host-2{margin-top:8px}
+.wb .wb-steps4{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:none}
+.wb .wb-steps4 li{position:relative;padding:22px;border-radius:18px;background:var(--bg);border:1px solid var(--line);transition:transform .45s var(--spring),box-shadow .45s,opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
+.wb .wb-steps4 li:hover{transform:translateY(-6px);box-shadow:0 24px 50px -30px #243d8266;background:#fff}
+.wb .wb-steps4 .wb-min{position:absolute;top:22px;right:22px;height:26px;padding:0 10px;font-size:12px}
+.wb .wb-steps4 h3{margin:14px 0 8px;font-size:18px;font-weight:600;letter-spacing:-.015em}
+.wb .wb-steps4 p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.wb .wb-price-line{margin:22px auto 0;max-width:860px;text-align:center;font-size:15px;line-height:1.6;color:var(--body)}
+.wb .wb-price-line b{color:var(--ink)}
+.wb .wb-gift-mini{display:flex;align-items:center;gap:14px;margin-top:22px;padding:14px 16px;border-radius:14px;background:#ffffff1f;border:1px solid #ffffff33;max-width:460px}
+.wb .wb-gift-ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;border-radius:12px;background:#fff;color:var(--accent)}
+.wb .wb-gift-mini small{display:block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#c7d2ff}
+.wb .wb-gift-mini b{display:block;margin-top:2px;font-size:15px;line-height:1.35}
+.wb .wb-after{margin-top:18px;gap:8px}
+.wb .wb-after li{font-size:14.5px}
+@media(max-width:1100px){.wb .wb-steps4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.wb .wb-steps4{grid-template-columns:1fr}.wb .wb-hero{padding-bottom:48px}}

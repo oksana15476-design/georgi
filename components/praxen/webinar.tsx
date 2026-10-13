@@ -226,32 +226,11 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        <p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{c.hero.badge}</p>
        <h1 className="wb-h1">{c.hero.h1} <span className="wb-grad">{c.hero.h1Grad}</span></h1>
        <p className="wb-lead">{c.hero.sub}</p>
-       <Countdown c={c}/>
-       <div className="wb-hero-cta">{cta(c.hero.cta)}<span className="wb-free"><Icon name="check-circle-2" size={18}/>{c.hero.free}</span></div>
-       <p className="wb-host-line"><Icon name="user-round" size={16}/>{c.hero.host}</p>
+       <div className="wb-hero-cta">{cta(c.hero.cta)}</div>
+       <p className="wb-host-line"><Icon name="check-circle-2" size={16}/>{c.hero.free}</p>
+       <p className="wb-host-line wb-host-2"><Icon name="user-round" size={16}/>{c.hero.host}</p>
       </div>
       <DemoMock c={c}/>
-     </div>
-    </section>
-
-    <section aria-label={c.form.title} className="wrap wb-strip-wrap">
-     <ul className="wb-strip">{c.strip.map(([icon,label,value])=><li key={label}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><div><small>{label}</small><b>{value}</b></div></li>)}</ul>
-    </section>
-
-    <section data-screen-label="Webinar gift" className="wrap sec wb-gift-wrap">
-     <div className="wb-gift">
-      <div data-reveal="">
-       <p className="kicker">{c.gift.k}</p>
-       <h2 className="h2">{c.gift.h}</h2>
-       <p className="lead">{c.gift.sub}</p>
-       <div className="wb-gift-cta">{cta(c.gift.cta)}</div>
-      </div>
-      <div data-reveal="" className="wb-doc" aria-hidden="true">
-       <div className="wb-doc-badge">PDF · 10</div>
-       <div className="wb-doc-head"><Wordmark/></div>
-       <b className="wb-doc-title">{c.gift.h.includes(': ')?c.gift.h.slice(c.gift.h.indexOf(': ')+2):c.gift.h}</b>
-       <ul>{c.gift.preview.map((q,i)=><li key={q}><span className="wb-doc-box"><Icon name="check" size={12}/></span><span><i>{String(i+1).padStart(2,'0')}</i>{q}</span></li>)}<li className="wb-doc-more">{c.gift.more}</li></ul>
-      </div>
      </div>
     </section>
 
@@ -263,16 +242,12 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
     </section>
 
     <section data-screen-label="Webinar agenda" className="wb-band">
-     <div className="wrap sec wb-split wb-split-top">
-      <div data-reveal=""><p className="kicker">{c.agenda.k}</p><h2 className="h2">{c.agenda.h}</h2><p className="lead">{c.agenda.sub}</p></div>
-      <ol data-stagger="" className="wb-agenda">{c.agenda.items.map(([min,title,body])=><li key={min}><span className="wb-min">{min}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ol>
+     <div className="wrap sec">
+      <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.agenda.k}</p><h2 className="h2">{c.agenda.h}</h2><p className="lead">{c.agenda.sub}</p></div></div>
+      <ol data-stagger="" className="wb-steps4">{c.agenda.items.map(([min,title,body],i)=><li key={min}><span className="wb-num">{'0'+(i+1)}</span><span className="wb-min">{min}</span><h3>{title}</h3><p>{body}</p></li>)}</ol>
+      <p data-reveal="" className="wb-price-line"><b>{c.prices.k}:</b> {c.prices.items.map(([,t,price])=>t+' — '+price).join(' · ')}</p>
+      <div className="wb-center wb-mt">{cta(c.demo.cta)}</div>
      </div>
-    </section>
-
-    <section data-screen-label="Webinar prices" className="wrap sec">
-     <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.prices.k}</p><h2 className="h2">{c.prices.h}</h2></div></div>
-     <ul data-stagger="" className="wb-prices">{c.prices.items.map(([icon,t,price,d],i)=><li key={t} className={i===1?'is-main':''}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><small>{t}</small><b>{price}</b><span>{d}</span></li>)}</ul>
-     <p className="wb-note wb-center wb-prices-foot">{c.prices.foot}</p>
     </section>
 
     <section id="register" data-screen-label="Webinar register" className="wb-reg">
@@ -283,7 +258,10 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        <h2 className="wb-reg-h">{c.reg.h}</h2>
        <p className="wb-lead">{c.reg.sub}</p>
        <Countdown c={c}/>
-       <p className="wb-host-line wb-host-reg"><Icon name="user-round" size={16}/>{c.hero.host}</p>
+       <div className="wb-gift-mini">
+        <span className="wb-gift-ico"><Icon name="file-text" size={22}/></span>
+        <div><small>{c.gift.k}</small><b>{c.gift.h.includes(': ')?c.gift.h.slice(c.gift.h.indexOf(': ')+2):c.gift.h}</b></div>
+       </div>
        <ul className="wb-after">{c.how.map(([icon,label])=><li key={label}><Icon name={icon} size={18}/>{label}</li>)}</ul>
       </div>
       <div className="form-box wb-form-box"><RegisterForm c={c} lang={L} id="wb-bottom"/></div>
