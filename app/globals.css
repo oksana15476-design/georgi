@@ -1526,3 +1526,73 @@ main{outline:none}
 .ix .btn-ghost{border-color:#9aa6bb}
 .ix .btn-ghost:hover{border-color:var(--ink);background:#fff}
 .ix .ix-mega-links{display:inline-flex;gap:24px}
+
+/* Webinar landing (praxenai.ge/ru/webinar); every rule is scoped to .wb so other pages are untouched. */
+.wb .wb-hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:start;padding-top:56px;padding-bottom:64px}
+.wb .wb-over{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink)}
+.wb .wb-dot{width:8px;height:8px;border-radius:50%;background:#e5484d;box-shadow:0 0 0 4px #e5484d22;flex-shrink:0}
+.wb .wb-h1{margin-top:24px;font-size:clamp(38px,4vw,58px)}
+.wb .wb-lead{margin-top:22px;max-width:620px;font-size:18px;line-height:1.65;color:var(--body);text-wrap:pretty}
+.wb .wb-facts{list-style:none;display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:32px}
+.wb .wb-facts li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;color:var(--ink)}
+.wb .wb-form-box{background:#fff;box-shadow:0 30px 60px -40px #243d8255;padding:28px}
+.wb .wb-form-h{font-size:24px;font-weight:600;letter-spacing:-.02em}
+.wb .wb-form-sub{margin-top:6px;font-size:14px;color:var(--muted)}
+.wb .wb-legend{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+.wb .wb-legend .muted{font-weight:500}
+.wb .wb-wide{width:100%}
+.wb .wb-note{font-size:12.5px;line-height:1.5;color:var(--muted)}
+.wb .wb-note a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.wb .wb-done{align-items:stretch}
+.wb .wb-done .ulink{align-self:flex-start}
+.wb .wb-band{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.wb .wb-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center}
+.wb .wb-split-top{align-items:start}
+.wb .wb-ind{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.wb .wb-ind li{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:16px;font-weight:600}
+.wb .wb-learn{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.wb .wb-learn li{padding:24px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.wb .wb-learn h3,.wb .wb-demo h3{font-size:20px;font-weight:600;letter-spacing:-.02em;margin:12px 0 8px}
+.wb .wb-learn p,.wb .wb-demo p{font-size:15px;line-height:1.6;color:var(--body)}
+.wb .wb-demo{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);counter-reset:none}
+.wb .wb-demo li{position:relative;padding:24px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 18px 40px -34px #243d8255}
+.wb .wb-demo li:not(:last-child):after{content:'';position:absolute;top:47px;right:calc(-1 * var(--gap));width:var(--gap);height:2px;background:var(--line2)}
+.wb .wb-demo-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:var(--grad);color:#fff;margin-bottom:16px}
+.wb .wb-demo .step-num{display:block}
+.wb .wb-agenda{list-style:none;display:flex;flex-direction:column}
+.wb .wb-agenda li{display:grid;grid-template-columns:88px minmax(0,1fr);gap:20px;padding:18px 0;border-top:1px solid var(--line3)}
+.wb .wb-agenda li:last-child{border-bottom:1px solid var(--line3)}
+.wb .wb-min{display:inline-flex;align-items:center;justify-content:center;height:32px;border-radius:8px;background:var(--tint);color:var(--accent);font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.wb .wb-agenda h3{font-size:18px;font-weight:600;letter-spacing:-.015em}
+.wb .wb-agenda p{margin-top:4px;font-size:15px;line-height:1.6;color:var(--body)}
+.wb .wb-final-wrap{padding-top:var(--sec);padding-bottom:var(--sec)}
+.wb .wb-final{display:flex;justify-content:space-between;align-items:center;gap:24px 40px;padding:44px 48px;border-radius:20px;background:var(--grad);color:#fff;box-shadow:0 30px 60px -36px #315bf5aa}
+.wb .wb-final-over{font-size:14px;font-weight:600;opacity:.85}
+.wb .wb-final-h{margin-top:10px;font-size:clamp(26px,2.6vw,38px);line-height:1.15;letter-spacing:-.025em;font-weight:500;max-width:640px;text-wrap:balance}
+.wb .wb-final-btn{margin-top:0;flex-shrink:0}
+.wb .wb-foot .footer-bottom{border-top:0;padding-top:0}
+.wb .wb-foot .footer-phone{margin-top:0}
+.wb .wb-foot-legal{margin-top:24px;padding-top:20px!important;border-top:1px solid #2a3550!important}
+@media(max-width:1100px){.wb .wb-hero-grid{grid-template-columns:1fr;gap:32px}.wb .wb-learn,.wb .wb-demo{grid-template-columns:repeat(2,minmax(0,1fr))}.wb .wb-demo li:after{display:none}}
+@media(max-width:900px){.wb .wb-split{grid-template-columns:1fr;gap:28px}}
+@media(max-width:600px){
+ .wb .wb-head-cta{display:none}
+ .wb .wb-hero-grid{padding-top:24px;padding-bottom:40px}
+ .wb .wb-over{font-size:13px;padding:7px 12px}
+ .wb .wb-h1{font-size:32px;margin-top:18px}
+ .wb .wb-lead{font-size:16px}
+ .wb .wb-facts{flex-direction:column;gap:10px;margin-top:22px}
+ .wb .wb-form-box{padding:20px}
+ .wb .wb-ind,.wb .wb-learn,.wb .wb-demo{grid-template-columns:1fr}
+ .wb .wb-agenda li{grid-template-columns:72px minmax(0,1fr);gap:14px}
+ .wb .wb-final{flex-direction:column;align-items:stretch;padding:28px 22px}
+ .wb .wb-final-btn{width:100%}
+ .wb .wb-foot .footer-bottom{flex-direction:column;align-items:flex-start}
+ .wb footer{padding-bottom:72px}
+}
+.wb .faq-card{width:100%}
+.wb .wb-host{grid-template-columns:minmax(0,3fr) minmax(0,9fr)}
+.wb .wb-host .founder-photo{min-height:0;height:100%;max-height:420px}
+.wb .wb-host-points{list-style:none;display:flex;flex-direction:column;gap:12px;margin:24px 0 28px;padding-top:22px;border-top:1px solid var(--line3)}
+.wb .wb-host-points li{display:flex;align-items:center;gap:14px;font-size:15px;font-weight:600}
+@media(max-width:900px){.wb .wb-host{grid-template-columns:1fr}.wb .wb-host .founder-photo{height:320px;max-height:none}}

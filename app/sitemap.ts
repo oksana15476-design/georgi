@@ -4,6 +4,7 @@ import {allPaths,alternates,pageUrl} from '@/lib/seo';
 import {isIntl} from '@/lib/market';
 import {intlUpdated} from '@/lib/intl';
 import {geArticles} from '@/lib/ge-blog';
+import {webinar} from '@/lib/webinar';
 import type {Lang} from '@/lib/content';
 
 export const dynamic='force-static';
@@ -22,5 +23,7 @@ export default function sitemap():MetadataRoute.Sitemap{
   const avail=Object.keys(a.langs) as Lang[];
   return avail.map(lang=>({url:pageUrl(lang,'/blog/'+a.slug),lastModified:a.date,changeFrequency:'monthly' as const,priority:.6,alternates:{languages:alternates(lang,'/blog/'+a.slug,avail).languages}}));
  });
- return [...pages,...articles];
+ // Webinar landing: praxenai.ge, Russian only (lib/webinar.ts).
+ const webinarPage:MetadataRoute.Sitemap=isIntl?[]:[{url:pageUrl('ru',webinar.path),changeFrequency:'weekly' as const,priority:.6,alternates:{languages:alternates('ru',webinar.path,['ru']).languages}}];
+ return [...pages,...articles,...webinarPage];
 }
