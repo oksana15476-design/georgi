@@ -149,23 +149,20 @@ function Modal({c,lang,open,onClose}:{c:WebinarCopy;lang:L;open:boolean;onClose:
  </div>;
 }
 
-// Demo mock-up: the chat types itself out and the CRM card fills in once the block scrolls into view.
-// Everything is visible in the server HTML and for visitors who turn motion off.
+// Demo mock-up on the first screen: the chat types itself out, the CRM card fills in, then it plays again.
+// The server HTML shows the finished state, and visitors who turn motion off keep it.
 function DemoMock({c}:{c:WebinarCopy}){
  const chat=c.demo.chat,crm=c.demo.crm,total=chat.length+crm.length;
- const [step,setStep]=useState(total),ref=useRef<HTMLDivElement>(null);
+ const [step,setStep]=useState(total);
  useEffect(()=>{
-  const el=ref.current;
-  if(!el||!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   let t:ReturnType<typeof setTimeout>|undefined;
-  const run=(n:number)=>{setStep(n);if(n<total)t=setTimeout(()=>run(n+1),n<chat.length?1100:380)};
-  if(el.getBoundingClientRect().top<innerHeight)return;
-  setStep(0);
-  const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();t=setTimeout(()=>run(1),400)}},{threshold:.35});
-  io.observe(el);return()=>{io.disconnect();if(t)clearTimeout(t)};
+  const run=(n:number)=>{setStep(n);t=setTimeout(()=>n<total?run(n+1):run(0),n<chat.length?1200:n<total?380:4500)};
+  t=setTimeout(()=>run(0),300);
+  return()=>{if(t)clearTimeout(t)};
  },[total,chat.length]);
  const typing=step<chat.length&&chat[step]?.[0]==='out';
- return <div ref={ref} className="wb-mock">
+ return <div className="wb-mock wb-mock-hero">
   <div className="wb-chat">
    <div className="wb-chat-head"><span className="wb-chat-ava"><Icon name="whatsapp" size={16}/></span><div><b>WhatsApp</b><small>{typing?c.demo.typing:c.demo.online}</small></div></div>
    <div className="wb-chat-body">
@@ -177,6 +174,7 @@ function DemoMock({c}:{c:WebinarCopy}){
    <div className="wb-crm-head"><Icon name="table-2" size={16}/>{c.demo.crmHead}</div>
    <dl>{crm.map(([k,val],i)=><div key={k} className={chat.length+i<step?'is-on':''}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
   </div>
+  <p className="wb-example">{c.demo.example}</p>
  </div>;
 }
 
@@ -230,16 +228,9 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        <p className="wb-lead">{c.hero.sub}</p>
        <Countdown c={c}/>
        <div className="wb-hero-cta">{cta(c.hero.cta)}<span className="wb-free"><Icon name="check-circle-2" size={18}/>{c.hero.free}</span></div>
+       <p className="wb-host-line"><Icon name="user-round" size={16}/>{c.hero.host}</p>
       </div>
-      <div className="wb-speaker">
-       <div className="wb-ring"><div className="wb-photo">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={base+w.photo} alt={c.host.name} width={400} height={400} decoding="async" fetchPriority="high"/>
-        <div className="wb-photo-cap"><b>{c.host.name}</b><span>{c.hero.cap}</span></div>
-       </div></div>
-       <div className="wb-float wb-float-1"><Icon name="message-circle" size={18}/>{c.hero.floats[0]}</div>
-       <div className="wb-float wb-float-2"><Icon name="table-2" size={18}/>{c.hero.floats[1]}</div>
-      </div>
+      <DemoMock c={c}/>
      </div>
     </section>
 
@@ -258,7 +249,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
       <div data-reveal="" className="wb-doc" aria-hidden="true">
        <div className="wb-doc-badge">PDF · 10</div>
        <div className="wb-doc-head"><Wordmark/></div>
-       <b className="wb-doc-title">{c.gift.h}</b>
+       <b className="wb-doc-title">{c.gift.h.includes(': ')?c.gift.h.slice(c.gift.h.indexOf(': ')+2):c.gift.h}</b>
        <ul>{c.gift.preview.map((q,i)=><li key={q}><span className="wb-doc-box"><Icon name="check" size={12}/></span><span><i>{String(i+1).padStart(2,'0')}</i>{q}</span></li>)}<li className="wb-doc-more">{c.gift.more}</li></ul>
       </div>
      </div>
@@ -278,35 +269,6 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      </div>
     </section>
 
-    <section data-screen-label="Webinar demo" className="wb-dark">
-     <div className="wb-glow wb-glow-2" aria-hidden="true"/>
-     <div className="wrap sec wb-demo-grid">
-      <div data-reveal=""><p className="kicker wb-kicker-light">{c.demo.k}</p><h2 className="h2 wb-light">{c.demo.h}</h2><p className="lead wb-light-2">{c.demo.sub}</p><p className="wb-example">{c.demo.example}</p><div className="wb-demo-cta">{cta(c.demo.cta)}</div></div>
-      <DemoMock c={c}/>
-     </div>
-    </section>
-
-    <section data-screen-label="Webinar host" className="wb-band">
-     <div className="wrap sec">
-      <article data-reveal="" className="wb-host">
-       {/* Live-broadcast mock-up instead of a second copy of the hero photo. */}
-       <div className="wb-live" aria-hidden="true">
-        <div className="wb-live-top"><span className="wb-live-dot"/>LIVE<span className="wb-live-tg"><Icon name="send" size={14}/>Telegram</span></div>
-        <div className="wb-live-screen"><span className="wb-live-play"><Icon name="play" size={26}/></span><b>{c.host.name}</b><small>{c.head.date}</small></div>
-        <div className="wb-live-bar"><span>{c.strip[2][2]}</span><span>45:00</span></div>
-       </div>
-       <div className="wb-host-body">
-        <p className="kicker">{c.host.k}</p>
-        <h2 className="h2">{c.host.name}</h2>
-        <p className="wb-host-role">{c.host.role}</p>
-        <p className="wb-host-bio">{c.host.bio}</p>
-        <ul className="wb-host-points">{c.host.points.map(([icon,label])=><li key={label}><span className="tile-icon"><Icon name={icon} size={18}/></span>{label}</li>)}</ul>
-        <a href={home} className="ulink mt24">{c.host.more}<Icon name="arrow-right" size={15}/></a>
-       </div>
-      </article>
-     </div>
-    </section>
-
     <section data-screen-label="Webinar prices" className="wrap sec">
      <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.prices.k}</p><h2 className="h2">{c.prices.h}</h2></div></div>
      <ul data-stagger="" className="wb-prices">{c.prices.items.map(([icon,t,price,d],i)=><li key={t} className={i===1?'is-main':''}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><small>{t}</small><b>{price}</b><span>{d}</span></li>)}</ul>
@@ -321,6 +283,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        <h2 className="wb-reg-h">{c.reg.h}</h2>
        <p className="wb-lead">{c.reg.sub}</p>
        <Countdown c={c}/>
+       <p className="wb-host-line wb-host-reg"><Icon name="user-round" size={16}/>{c.hero.host}</p>
        <ul className="wb-after">{c.how.map(([icon,label])=><li key={label}><Icon name={icon} size={18}/>{label}</li>)}</ul>
       </div>
       <div className="form-box wb-form-box"><RegisterForm c={c} lang={L} id="wb-bottom"/></div>

@@ -1857,3 +1857,17 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 .wb .wb-live-screen small{font-size:13px;color:#c9d2e3}
 .wb .wb-live-bar{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;font-size:13px;color:#c9d2e3}
 @media(max-width:600px){.wb .wb-live{max-width:300px}}
+/* Webinar landing: live demo on the first screen instead of the photo. */
+@media(min-width:1101px){.wb .wb-hero-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}}
+.wb .wb-mock-hero{display:flex;flex-direction:column;width:100%;max-width:460px;justify-self:end;animation:wb-in 1s var(--ease) .2s both}
+.wb .wb-mock-hero .wb-chat{width:88%;box-shadow:0 40px 80px -30px #000c,0 0 0 1px #ffffff1f}
+.wb .wb-mock-hero .wb-crm{position:relative;z-index:2;width:66%;margin:-36px 0 0 auto;box-shadow:0 30px 60px -20px #000c}
+.wb .wb-mock-hero .wb-crm dl{gap:7px}
+.wb .wb-mock-hero .wb-example{align-self:flex-start;margin-top:14px}
+.wb .wb-host-line{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:14px;font-weight:600;color:#c9d2e3}
+.wb .wb-host-line svg{color:#7b95ff}
+.wb .wb-host-reg{margin-top:20px;color:#fff}
+.wb .wb-host-reg svg{color:#fff}
+@media(max-width:1100px){.wb .wb-mock-hero{justify-self:center}}
+@media(max-width:600px){.wb .wb-mock-hero .wb-chat{width:94%}.wb .wb-mock-hero .wb-crm{width:78%}.wb .wb-msg{font-size:13px}}
+@media(max-width:600px){.wb .wb-strip{grid-template-columns:1fr 1fr}.wb .wb-strip li{flex-direction:column;align-items:flex-start;gap:8px;padding:14px 16px}.wb .wb-strip li+li{border-top:0;border-left:0}.wb .wb-strip li:nth-child(2n){border-left:1px solid var(--line3)}.wb .wb-strip li:nth-child(n+3){border-top:1px solid var(--line3)}.wb .wb-strip b{font-size:15px}.wb .wb-strip-icon{width:36px;height:36px}}
