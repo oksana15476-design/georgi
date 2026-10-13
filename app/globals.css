@@ -1846,3 +1846,14 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 .wb .wb-prices-foot{margin-top:16px;text-align:center}
 @media(max-width:900px){.wb .wb-gift{grid-template-columns:1fr;gap:32px;padding:28px}.wb .wb-prices{grid-template-columns:1fr}}
 @media(max-width:600px){.wb .wb-gift{padding:22px}.wb .wb-gift-cta .wb-cta{width:100%}.wb .wb-doc{max-width:300px}.wb .wb-prices b{font-size:26px}}
+/* Webinar landing: live-broadcast mock-up in the host block. */
+.wb .wb-live{width:100%;max-width:360px;justify-self:center;border-radius:22px;overflow:hidden;background:var(--wb-dark);color:#fff;box-shadow:0 30px 60px -30px #243d8299;position:relative}
+.wb .wb-live-top{display:flex;align-items:center;gap:8px;padding:14px 16px;font-size:12px;font-weight:800;letter-spacing:.08em}
+.wb .wb-live-dot{width:8px;height:8px;border-radius:50%;background:#ff5a5f;box-shadow:0 0 0 4px #ff5a5f33;animation:wb-pulse 1.8s ease-in-out infinite}
+.wb .wb-live-tg{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#229ed9;font-size:12px;letter-spacing:0;font-weight:700}
+.wb .wb-live-screen{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;aspect-ratio:4/3;margin:0 16px;border-radius:14px;background:radial-gradient(circle at 30% 20%,#315bf588,transparent 60%),radial-gradient(circle at 80% 90%,#7960e877,transparent 60%),#1b2540;text-align:center;padding:16px}
+.wb .wb-live-play{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 10px #ffffff12;margin-bottom:10px;animation:wb-bob 4s ease-in-out infinite}
+.wb .wb-live-screen b{font-size:18px;font-weight:600}
+.wb .wb-live-screen small{font-size:13px;color:#c9d2e3}
+.wb .wb-live-bar{display:flex;justify-content:space-between;gap:12px;padding:14px 16px;font-size:13px;color:#c9d2e3}
+@media(max-width:600px){.wb .wb-live{max-width:300px}}

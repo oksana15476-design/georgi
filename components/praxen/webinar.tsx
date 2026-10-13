@@ -289,8 +289,12 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
     <section data-screen-label="Webinar host" className="wb-band">
      <div className="wrap sec">
       <article data-reveal="" className="wb-host">
-       {/* eslint-disable-next-line @next/next/no-img-element */}
-       <img src={base+w.photo} alt={c.host.name} width={400} height={400} loading="lazy" decoding="async" className="wb-host-photo"/>
+       {/* Live-broadcast mock-up instead of a second copy of the hero photo. */}
+       <div className="wb-live" aria-hidden="true">
+        <div className="wb-live-top"><span className="wb-live-dot"/>LIVE<span className="wb-live-tg"><Icon name="send" size={14}/>Telegram</span></div>
+        <div className="wb-live-screen"><span className="wb-live-play"><Icon name="play" size={26}/></span><b>{c.host.name}</b><small>{c.head.date}</small></div>
+        <div className="wb-live-bar"><span>{c.strip[2][2]}</span><span>45:00</span></div>
+       </div>
        <div className="wb-host-body">
         <p className="kicker">{c.host.k}</p>
         <h2 className="h2">{c.host.name}</h2>
