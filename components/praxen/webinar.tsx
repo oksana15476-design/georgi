@@ -10,6 +10,7 @@ import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
 
 type L='ru'|'en'|'ka';
+const stepIcons=['search','play','scale','rocket'];
 const evTitle={ru:'Вебинар «ИИ в отделе продаж» — Praxen AI',en:'Webinar: AI for your sales team — Praxen AI'};
 const googleCal=(ev:WebinarEvent,details:string)=>'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(evTitle[ev])+'&dates='+webinarEvents[ev].cal+'&details='+encodeURIComponent(details+' '+w.bot)+'&ctz=Asia/Tbilisi';
 const icsFile=(ev:WebinarEvent,details:string)=>'data:text/calendar;charset=utf-8,'+encodeURIComponent(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Praxen AI//Webinar//RU','BEGIN:VEVENT','UID:webinar-'+ev+'@praxenai.ge','DTSTAMP:20261013T000000Z','DTSTART:'+webinarEvents[ev].ics[0],'DTEND:'+webinarEvents[ev].ics[1],'SUMMARY:'+evTitle[ev],'DESCRIPTION:'+details+' '+w.bot,'END:VEVENT','END:VCALENDAR'].join('\r\n'));
@@ -227,25 +228,33 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        <h1 className="wb-h1">{c.hero.h1} <span className="wb-grad">{c.hero.h1Grad}</span></h1>
        <p className="wb-lead">{c.hero.sub}</p>
        <div className="wb-hero-cta">{cta(c.hero.cta)}</div>
-       <p className="wb-host-line"><Icon name="check-circle-2" size={16}/>{c.hero.free}</p>
-       <p className="wb-host-line wb-host-2"><Icon name="user-round" size={16}/>{c.hero.host}</p>
+       <ul className="wb-trust">{c.trust.map(([icon,label])=><li key={label}><Icon name={icon} size={15}/>{label}</li>)}</ul>
+       <p className="wb-host-line"><Icon name="user-round" size={16}/>{c.hero.host}</p>
       </div>
       <DemoMock c={c}/>
      </div>
     </section>
 
     <section data-screen-label="Webinar pain" className="wrap sec">
-     <div className="wb-split">
-      <div data-reveal=""><p className="kicker">{c.pain.k}</p><h2 className="h2">{c.pain.h}</h2><p className="lead">{c.who.h}</p><ul className="wb-tags">{c.who.items.map(x=><li key={x}>{x}</li>)}</ul></div>
-      <ul data-stagger="" className="wb-check wb-pain">{c.pain.items.map(x=><li key={x}><span className="wb-check-icon"><Icon name="alert-circle" size={18}/></span>{x}</li>)}</ul>
+     <div className="wb-pain-grid">
+      <div data-reveal="">
+       <p className="kicker">{c.pain.k}</p><h2 className="h2">{c.pain.h}</h2>
+       <ul className="wb-pain-list">{c.pain.items.map((x,i)=><li key={x}><span className="wb-pain-n">{i+1}</span>{x}</li>)}</ul>
+       <p className="wb-who-line">{c.who.h} <b>{c.who.items.join(' · ')}</b></p>
+      </div>
+      <div data-reveal="" className="wb-night" aria-hidden="true">
+       <div className="wb-night-head"><Icon name="moon-star" size={16}/>{c.pain.night.title}</div>
+       <ul>{c.pain.night.msgs.map(([t,m])=><li key={t}><span className="wb-night-ava"><Icon name="whatsapp" size={14}/></span><div><p>{m}</p><small><b>{t}</b> · <em>{c.pain.night.status}</em></small></div></li>)}</ul>
+       <div className="wb-night-note"><Icon name="clock" size={15}/>{c.pain.night.note}</div>
+      </div>
      </div>
     </section>
 
     <section data-screen-label="Webinar agenda" className="wb-band">
      <div className="wrap sec">
       <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.agenda.k}</p><h2 className="h2">{c.agenda.h}</h2><p className="lead">{c.agenda.sub}</p></div></div>
-      <ol data-stagger="" className="wb-steps4">{c.agenda.items.map(([min,title,body],i)=><li key={min}><span className="wb-num">{'0'+(i+1)}</span><span className="wb-min">{min}</span><h3>{title}</h3><p>{body}</p></li>)}</ol>
-      <p data-reveal="" className="wb-price-line"><b>{c.prices.k}:</b> {c.prices.items.map(([,t,price])=>t+' — '+price).join(' · ')}</p>
+      <ol data-stagger="" className="wb-steps4 wb-tl">{c.agenda.items.map(([min,title,body],i)=><li key={min}><span className="wb-tl-dot"><Icon name={stepIcons[i]||'check'} size={20}/></span><span className="wb-min">{min}′</span><h3>{title}</h3><p>{body}</p></li>)}</ol>
+      <ul data-reveal="" className="wb-pills"><li className="wb-pills-k">{c.prices.k}</li>{c.prices.items.map(([icon,t,price])=><li key={t}><Icon name={icon} size={15}/>{t}<b>{price}</b></li>)}</ul>
       <div className="wb-center wb-mt">{cta(c.demo.cta)}</div>
      </div>
     </section>

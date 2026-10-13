@@ -1898,3 +1898,38 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 .wb .wb-after li{font-size:14.5px}
 @media(max-width:1100px){.wb .wb-steps4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.wb .wb-steps4{grid-template-columns:1fr}.wb .wb-hero{padding-bottom:48px}}
+/* Webinar landing: richer blocks (trust row, night inbox, agenda timeline, price pills). */
+.wb .wb-trust{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.wb .wb-trust li{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:#ffffff12;border:1px solid #ffffff24;font-size:13px;font-weight:600;color:#e3e8f2}
+.wb .wb-trust svg{color:#7b95ff}
+.wb .wb-pain-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:center}
+.wb .wb-pain-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.wb .wb-pain-list li{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:15px;font-weight:600;line-height:1.45;transition:transform .45s var(--spring),border-color .3s}
+.wb .wb-pain-list li:hover{transform:translateY(-4px);border-color:#f3b8b8}
+.wb .wb-pain-n{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0;border-radius:8px;background:#fdeceb;color:#d14343;font-size:14px;font-weight:700}
+.wb .wb-who-line{margin-top:18px;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.wb .wb-who-line b{color:var(--ink);font-weight:600}
+.wb .wb-night{position:relative;padding:18px;border-radius:24px;background:var(--wb-dark);color:#fff;box-shadow:0 40px 80px -36px #121a2baa;overflow:hidden}
+.wb .wb-night:before{content:'';position:absolute;inset:0;background:radial-gradient(260px 200px at 85% 0%,#315bf555,transparent 70%);pointer-events:none}
+.wb .wb-night-head{position:relative;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#c9d2e3;margin-bottom:14px}
+.wb .wb-night-head svg{color:#ffd166}
+.wb .wb-night ul{position:relative;list-style:none;display:flex;flex-direction:column;gap:10px}
+.wb .wb-night li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#ffffff10;border:1px solid #ffffff1a}
+.wb .wb-night-ava{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#25d366;color:#fff}
+.wb .wb-night li p{font-size:14px;line-height:1.4}
+.wb .wb-night li small{display:block;margin-top:4px;font-size:12px;color:#8e9ab3}
+.wb .wb-night li em{font-style:normal;font-weight:700;color:#ff8a8a}
+.wb .wb-night-note{position:relative;display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed #ffffff26;font-size:13px;font-weight:600;color:#ffd166}
+.wb .wb-tl{position:relative}
+.wb .wb-tl:before{content:'';position:absolute;left:8%;right:8%;top:46px;height:2px;background:linear-gradient(90deg,#315bf5,#7960e8);opacity:.35}
+.wb .wb-tl li{background:#fff;text-align:center;display:flex;flex-direction:column;align-items:center;padding-top:18px}
+.wb .wb-tl-dot{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:var(--grad);color:#fff;box-shadow:0 0 0 6px #fff,0 14px 30px -12px #315bf5aa}
+.wb .wb-tl .wb-min{position:static;margin-top:14px}
+.wb .wb-tl h3{margin-top:10px}
+.wb .wb-pills{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;margin-top:26px}
+.wb .wb-pills li{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--body)}
+.wb .wb-pills li svg{color:var(--accent)}
+.wb .wb-pills li b{margin-left:4px;color:var(--ink);font-weight:800}
+.wb .wb-pills .wb-pills-k{background:none;border:0;padding:0 4px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+@media(max-width:1100px){.wb .wb-tl:before{display:none}.wb .wb-pain-grid{grid-template-columns:1fr;gap:32px}.wb .wb-night{max-width:460px}}
+@media(max-width:600px){.wb .wb-pain-list{grid-template-columns:1fr}.wb .wb-trust li{font-size:12px}.wb .wb-pills{justify-content:flex-start}}
