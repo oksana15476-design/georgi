@@ -1735,9 +1735,7 @@ main{outline:none}
 .wb .wb-typing i:nth-child(2){animation-delay:.15s}
 .wb .wb-typing i:nth-child(3){animation-delay:.3s}
 .wb .wb-crm{transition:opacity .5s var(--ease),transform .6s var(--spring)}
-.wb .wb-crm:not(.is-on){opacity:.35;transform:translateY(12px)}
 .wb .wb-crm dl>div{transition:opacity .4s var(--ease),transform .4s var(--ease)}
-.wb .wb-crm dl>div:not(.is-on){opacity:0;transform:translateX(-8px)}
 .wb .wb-agenda li{transition:background .3s,opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
 .wb .wb-agenda li:hover .wb-min{background:var(--grad);color:#fff}
 .wb .wb-min{transition:background .3s,color .3s}
@@ -1871,3 +1869,13 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 @media(max-width:1100px){.wb .wb-mock-hero{justify-self:center}}
 @media(max-width:600px){.wb .wb-mock-hero .wb-chat{width:94%}.wb .wb-mock-hero .wb-crm{width:78%}.wb .wb-msg{font-size:13px}}
 @media(max-width:600px){.wb .wb-strip{grid-template-columns:1fr 1fr}.wb .wb-strip li{flex-direction:column;align-items:flex-start;gap:8px;padding:14px 16px}.wb .wb-strip li+li{border-top:0;border-left:0}.wb .wb-strip li:nth-child(2n){border-left:1px solid var(--line3)}.wb .wb-strip li:nth-child(n+3){border-top:1px solid var(--line3)}.wb .wb-strip b{font-size:15px}.wb .wb-strip-icon{width:36px;height:36px}}
+/* Webinar landing: the CRM card stays white; empty fields show skeleton bars until the chat fills them. */
+@keyframes wb-skel{to{background-position:-200% 0}}
+.wb .wb-crm dd{position:relative;transition:color .35s var(--ease)}
+.wb .wb-crm dl>div:not(.is-on) dd{color:transparent}
+.wb .wb-crm dl>div:not(.is-on) dd:after{content:'';position:absolute;left:0;top:3px;height:12px;width:70%;border-radius:6px;background:linear-gradient(90deg,#eef1f6 0%,#dfe5ef 50%,#eef1f6 100%);background-size:200% 100%;animation:wb-skel 1.4s linear infinite}
+.wb .wb-crm dl>div:nth-child(2n):not(.is-on) dd:after{width:52%}
+.wb .wb-crm-wait{margin-left:auto;font-size:11px;font-weight:600;color:var(--muted)}
+.wb .wb-crm.is-on .wb-crm-wait{color:#1f9d55}
+.wb .wb-crm:not(.is-on){opacity:0;transform:translateY(18px) scale(.96);pointer-events:none}
+.wb .wb-crm{transition:opacity .5s var(--ease),transform .6s var(--spring)}

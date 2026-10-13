@@ -171,7 +171,7 @@ function DemoMock({c}:{c:WebinarCopy}){
    </div>
   </div>
   <div className={'wb-crm'+(step>chat.length?' is-on':'')}>
-   <div className="wb-crm-head"><Icon name="table-2" size={16}/>{c.demo.crmHead}</div>
+   <div className="wb-crm-head"><Icon name="table-2" size={16}/>{c.demo.crmHead}<span className="wb-crm-wait">{step>=total?'✓':'…'}</span></div>
    <dl>{crm.map(([k,val],i)=><div key={k} className={chat.length+i<step?'is-on':''}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
   </div>
   <p className="wb-example">{c.demo.example}</p>
