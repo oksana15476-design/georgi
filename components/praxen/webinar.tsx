@@ -53,6 +53,7 @@ function Done({c,lang,ev,contact}:{c:WebinarCopy;lang:L;ev:WebinarEvent;contact:
    <p>{f.doneText}</p>
    <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="send" size={16}/></a>
    <div className="wb-done-links">
+    <a href={base+w.checklist[ev]} target="_blank" rel="noopener" className="ulink"><Icon name="file-text" size={15}/>{f.pdf}</a>
     <a href={googleCal(ev,details)} target="_blank" rel="noopener" className="ulink"><Icon name="calendar" size={15}/>{f.calGoogle}</a>
     <a href={icsFile(ev,details)} download="praxen-webinar.ics" className="ulink"><Icon name="calendar-check" size={15}/>{f.calIcs}</a>
     <button type="button" onClick={share} className="ulink"><Icon name="share-2" size={15}/>{copied?f.copied:f.share}</button>
@@ -246,6 +247,23 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      <ul className="wb-strip">{c.strip.map(([icon,label,value])=><li key={label}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><div><small>{label}</small><b>{value}</b></div></li>)}</ul>
     </section>
 
+    <section data-screen-label="Webinar gift" className="wrap sec wb-gift-wrap">
+     <div className="wb-gift">
+      <div data-reveal="">
+       <p className="kicker">{c.gift.k}</p>
+       <h2 className="h2">{c.gift.h}</h2>
+       <p className="lead">{c.gift.sub}</p>
+       <div className="wb-gift-cta">{cta(c.gift.cta)}</div>
+      </div>
+      <div data-reveal="" className="wb-doc" aria-hidden="true">
+       <div className="wb-doc-badge">PDF · 10</div>
+       <div className="wb-doc-head"><Wordmark/></div>
+       <b className="wb-doc-title">{c.gift.h}</b>
+       <ul>{c.gift.preview.map((q,i)=><li key={q}><span className="wb-doc-box"><Icon name="check" size={12}/></span><span><i>{String(i+1).padStart(2,'0')}</i>{q}</span></li>)}<li className="wb-doc-more">{c.gift.more}</li></ul>
+      </div>
+     </div>
+    </section>
+
     <section data-screen-label="Webinar pain" className="wrap sec">
      <div className="wb-split">
       <div data-reveal=""><p className="kicker">{c.pain.k}</p><h2 className="h2">{c.pain.h}</h2><p className="lead">{c.who.h}</p><ul className="wb-tags">{c.who.items.map(x=><li key={x}>{x}</li>)}</ul></div>
@@ -283,6 +301,12 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        </div>
       </article>
      </div>
+    </section>
+
+    <section data-screen-label="Webinar prices" className="wrap sec">
+     <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.prices.k}</p><h2 className="h2">{c.prices.h}</h2></div></div>
+     <ul data-stagger="" className="wb-prices">{c.prices.items.map(([icon,t,price,d],i)=><li key={t} className={i===1?'is-main':''}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><small>{t}</small><b>{price}</b><span>{d}</span></li>)}</ul>
+     <p className="wb-note wb-center wb-prices-foot">{c.prices.foot}</p>
     </section>
 
     <section id="register" data-screen-label="Webinar register" className="wb-reg">
