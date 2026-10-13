@@ -1637,8 +1637,8 @@ main{outline:none}
 .wb .wb-legend{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--ink)}
 .wb .wb-legend .muted{font-weight:500}
 .wb .wb-wide{width:100%}
-.wb .wb-note{font-size:12.5px;line-height:1.5;color:var(--muted)}
-.wb .wb-note a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+
+
 .wb .wb-done{align-items:stretch}
 .wb .wb-done .ulink{align-self:flex-start}
 .wb .faq-card{width:100%}
@@ -1748,43 +1748,6 @@ main{outline:none}
 @media(max-width:600px){.wb .wb-orbs i:nth-child(1){width:300px;height:300px}.wb .wb-reg .wb-form-box{animation:none}}
 /* Webinar landing, research rebuild: pain, comparison, calculator, audience, steps, thank-you state. */
 .wb .wb-pain .wb-check-icon{background:#fdeceb;color:#d14343}
-.wb .wb-cmp{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);max-width:1040px;margin:0 auto}
-.wb .wb-cmp-col{padding:28px;border-radius:18px;border:1px solid var(--line);background:var(--bg)}
-.wb .wb-cmp-col h3{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:600;margin-bottom:18px;color:var(--muted)}
-.wb .wb-cmp-col ul{list-style:none;display:flex;flex-direction:column;gap:14px}
-.wb .wb-cmp-col li{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.5;color:var(--body)}
-.wb .wb-cmp-col li svg{margin-top:3px;color:#c4462f}
-.wb .wb-cmp-col.is-ai{position:relative;background:var(--wb-dark);border-color:transparent;color:#fff;box-shadow:0 30px 60px -30px #315bf588}
-.wb .wb-cmp-col.is-ai h3{color:#fff}
-.wb .wb-cmp-col.is-ai h3 svg{color:#7b95ff}
-.wb .wb-cmp-col.is-ai li{color:#e3e8f2}
-.wb .wb-cmp-col.is-ai li svg{color:#7b95ff}
-.wb .wb-calc{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--gap);align-items:stretch}
-.wb .wb-calc-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;padding:28px;border-radius:18px;border:1px solid var(--line);background:#fff}
-.wb .wb-calc-fields .field input{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
-.wb .wb-calc-fields .wb-note{grid-column:1/-1}
-.wb .wb-calc-res{display:flex;flex-direction:column;justify-content:center;gap:20px;padding:32px;border-radius:18px;background:var(--grad);color:#fff;box-shadow:0 30px 60px -30px #315bf5aa}
-.wb .wb-calc-res b{display:block;font-size:clamp(34px,3.4vw,48px);line-height:1;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.wb .wb-calc-res span{display:block;margin-top:6px;font-size:15px;color:#dfe6ff}
-.wb .wb-calc-money{padding-top:20px;border-top:1px solid #ffffff33}
-.wb .wb-calc-res p{font-size:15px;font-weight:600}
-.wb .wb-who{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.wb .wb-who li{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;border:1px solid var(--line);background:#fff;transition:transform .45s var(--spring),box-shadow .45s,opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
-.wb .wb-who li:hover{transform:translateY(-6px);box-shadow:0 24px 50px -30px #243d8266}
-.wb .wb-who b{font-size:17px;font-weight:600}
-.wb .wb-bubble{position:relative;padding:12px 14px;border-radius:12px 12px 12px 4px;background:var(--bg);font-size:14px;line-height:1.45;color:var(--body)}
-.wb .wb-not{margin-top:28px;padding:24px 28px;border-radius:18px;border:1px dashed var(--line2);background:#fff}
-.wb .wb-not h3{font-size:18px;font-weight:600;margin-bottom:12px}
-.wb .wb-not ul{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 24px}
-.wb .wb-not li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--body)}
-.wb .wb-not li svg{margin-top:3px;color:var(--muted)}
-.wb .wb-two{display:grid;grid-template-columns:1fr 1fr;gap:64px}
-.wb .wb-list{list-style:none;display:flex;flex-direction:column;gap:14px}
-.wb .wb-list li{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border-radius:16px;border:1px solid var(--line);background:#fff;transition:opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
-.wb .wb-list b{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600}
-.wb .wb-list li span:not(.wb-strip-icon):not(.wb-step-n){display:block;margin-top:4px;font-size:15px;line-height:1.55;color:var(--body)}
-.wb .wb-step-n{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--wb-dark);color:#fff;font-size:18px;font-weight:700}
-.wb .wb-steps b svg{color:var(--accent)}
 .wb .wb-demo-cta{margin-top:28px}
 .wb .wb-contact{margin-top:8px;background:#fff;border:1px solid var(--line2);border-radius:8px;font-size:16px;font-weight:400;height:48px;padding:0 14px;outline:none;transition:border-color .2s}
 .wb .wb-contact:focus{border-color:var(--ink)}
@@ -1796,9 +1759,9 @@ main{outline:none}
 .wb .wb-q .field textarea{padding:12px 14px;min-height:72px}
 .wb .wb-q .btn{align-self:flex-start}
 .wb .wb-q-done{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--accent)}
-@media(max-width:1100px){.wb .wb-who{grid-template-columns:repeat(3,minmax(0,1fr))}.wb .wb-calc{grid-template-columns:1fr}.wb .wb-two{grid-template-columns:1fr;gap:48px}}
-@media(max-width:900px){.wb .wb-cmp{grid-template-columns:1fr}.wb .wb-not ul{grid-template-columns:1fr}.wb .wb-who{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.wb .wb-calc-fields{grid-template-columns:1fr;padding:20px}.wb .wb-calc-res{padding:24px}.wb .wb-who{grid-template-columns:1fr}.wb .wb-cmp-col{padding:22px}.wb .wb-demo-cta .wb-cta{width:100%}}
+@media(max-width:1100px){}
+@media(max-width:900px){}
+@media(max-width:600px){.wb .wb-demo-cta .wb-cta{width:100%}}
 .wb .wb-h1{font-size:clamp(34px,3.4vw,50px)}
 html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 @media(max-width:600px){.wb .wb-h1{font-size:30px}html[lang=ka] .wb .wb-h1{font-size:26px}}
@@ -1821,26 +1784,15 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
 .wb .wb-split{gap:48px}
 .wb .wb-check{gap:10px}
 .wb .wb-check li{padding:14px 18px;font-size:16px}
-.wb .wb-cmp-col{padding:22px 24px}
-.wb .wb-cmp-col h3{margin-bottom:14px;font-size:18px}
-.wb .wb-cmp-col ul{gap:10px}
-.wb .wb-cmp-col li{font-size:15px}
-.wb .wb-calc-fields{padding:22px;gap:12px 16px}
-.wb .wb-calc-res{padding:26px;gap:16px}
 .wb .wb-agenda li{padding:12px 0;gap:16px}
 .wb .wb-agenda h3{font-size:17px}
 .wb .wb-agenda p{font-size:14.5px;margin-top:2px}
 .wb .wb-demo-grid{gap:48px}
 .wb .wb-demo-cta{margin-top:20px}
-.wb .wb-who li{padding:16px;gap:10px}
-.wb .wb-not{margin-top:16px;padding:18px 22px}
 .wb .wb-host{gap:40px}
 .wb .wb-host-photo{max-width:320px}
 .wb .wb-host-bio{margin-top:10px;font-size:16px}
 .wb .wb-host-points{margin-top:16px;padding-top:16px;gap:10px}
-.wb .wb-two{gap:40px}
-.wb .wb-list{gap:10px}
-.wb .wb-list li{padding:14px 18px}
 .wb .wb-reg-grid{gap:40px}
 .wb .wb-reg-h{margin-top:16px}
 .wb .wb-form-box{padding:24px}
@@ -1858,12 +1810,12 @@ html[lang=ka] .wb .wb-h1{font-size:clamp(30px,2.9vw,42px);letter-spacing:-.01em}
  .wb .wb-speaker{max-width:300px}
  .wb .wb-photo{aspect-ratio:1}
  .wb .wb-strip li{padding:12px 18px}
- .wb .wb-who{grid-template-columns:1fr 1fr;gap:10px}
- .wb .wb-who li{padding:14px}
- .wb .wb-who b{font-size:15px}
+ 
+ 
+ 
  .wb .wb-bubble{font-size:13px;padding:10px 12px}
- .wb .wb-who li:last-child{grid-column:1/-1}
- .wb .wb-calc-fields{gap:10px}
+ 
+ 
  .wb .wb-host-photo{max-width:240px}
  .wb .wb-form-box,.wb .wb-modal{padding:20px}
 }

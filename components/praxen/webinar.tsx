@@ -148,27 +148,6 @@ function Modal({c,lang,open,onClose}:{c:WebinarCopy;lang:L;open:boolean;onClose:
  </div>;
 }
 
-// Lost-revenue calculator: every number comes from the visitor; the defaults are labelled as an example.
-function Calculator({c,lang}:{c:WebinarCopy;lang:L}){
- const [v,setV]=useState([12,30,20,25,600]);
- const max=[500,100,100,100,100000];
- const set=(i:number,x:string)=>{const n=Math.max(0,Math.min(max[i],Number(x.replace(/\D/g,''))||0));setV(o=>o.map((y,j)=>j===i?n:y))};
- const used=useRef(false);const touch=()=>{if(!used.current){used.current=true;track('calculator_use',{form:'webinar'})}};
- const lost=Math.round(v[0]*30*v[1]/100*v[2]/100);
- const money=Math.round(lost*v[3]/100*v[4]);
- const fmt=(n:number)=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,lang==='en'?',':' ');
- return (
-  <div className="wb-calc">
-   <div className="wb-calc-fields">{c.calc.fields.map((lb,i)=><label key={lb} className="field">{lb}<input inputMode="numeric" value={v[i]} onChange={e=>{touch();set(i,e.target.value)}}/></label>)}<p className="wb-note">{c.calc.note}</p></div>
-   <div className="wb-calc-res" aria-live="polite">
-    <div><b>{fmt(lost)}</b><span>{c.calc.leads}</span></div>
-    <div className="wb-calc-money"><b>{fmt(money)} ₾</b><span>{c.calc.money}</span></div>
-    <p>{c.calc.hint}</p>
-   </div>
-  </div>
- );
-}
-
 // Demo mock-up: the chat types itself out and the CRM card fills in once the block scrolls into view.
 // Everything is visible in the server HTML and for visitors who turn motion off.
 function DemoMock({c}:{c:WebinarCopy}){
@@ -269,24 +248,9 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
 
     <section data-screen-label="Webinar pain" className="wrap sec">
      <div className="wb-split">
-      <div data-reveal=""><p className="kicker">{c.pain.k}</p><h2 className="h2">{c.pain.h}</h2></div>
+      <div data-reveal=""><p className="kicker">{c.pain.k}</p><h2 className="h2">{c.pain.h}</h2><p className="lead">{c.who.h}</p><ul className="wb-tags">{c.who.items.map(x=><li key={x}>{x}</li>)}</ul></div>
       <ul data-stagger="" className="wb-check wb-pain">{c.pain.items.map(x=><li key={x}><span className="wb-check-icon"><Icon name="alert-circle" size={18}/></span>{x}</li>)}</ul>
      </div>
-    </section>
-
-    <section data-screen-label="Webinar compare" className="wb-band">
-     <div className="wrap sec">
-      <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.cmp.k}</p><h2 className="h2">{c.cmp.h}</h2></div></div>
-      <div data-reveal="" className="wb-cmp">
-       <div className="wb-cmp-col"><h3><Icon name="clock" size={18}/>{c.cmp.now}</h3><ul>{c.cmp.rows.map(([a])=><li key={a}><Icon name="x" size={16}/>{a}</li>)}</ul></div>
-       <div className="wb-cmp-col is-ai"><h3><Icon name="sparkles" size={18}/>{c.cmp.ai}</h3><ul>{c.cmp.rows.map(([,b])=><li key={b}><Icon name="check" size={16}/>{b}</li>)}</ul></div>
-      </div>
-     </div>
-    </section>
-
-    <section data-screen-label="Webinar calculator" className="wrap sec">
-     <div className="sec-head"><div data-reveal=""><p className="kicker">{c.calc.k}</p><h2 className="h2 mw820">{c.calc.h}</h2><p className="lead">{c.calc.sub}</p></div></div>
-     <div data-reveal=""><Calculator c={c} lang={L}/></div>
     </section>
 
     <section data-screen-label="Webinar agenda" className="wb-band">
@@ -302,12 +266,6 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
       <div data-reveal=""><p className="kicker wb-kicker-light">{c.demo.k}</p><h2 className="h2 wb-light">{c.demo.h}</h2><p className="lead wb-light-2">{c.demo.sub}</p><p className="wb-example">{c.demo.example}</p><div className="wb-demo-cta">{cta(c.demo.cta)}</div></div>
       <DemoMock c={c}/>
      </div>
-    </section>
-
-    <section data-screen-label="Webinar audience" className="wrap sec">
-     <div className="sec-head"><div data-reveal=""><p className="kicker">{c.who.k}</p><h2 className="h2 mw820">{c.who.h}</h2><p className="lead">{c.who.sub}</p></div></div>
-     <ul data-stagger="" className="wb-who">{c.who.items.map(([icon,name,ex])=><li key={name}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><b>{name}</b><span className="wb-bubble">{ex}</span></li>)}</ul>
-     <div data-reveal="" className="wb-not"><h3>{c.who.notH}</h3><ul>{c.who.not.map(x=><li key={x}><Icon name="x" size={16}/>{x}</li>)}</ul></div>
     </section>
 
     <section data-screen-label="Webinar host" className="wb-band">
@@ -327,15 +285,6 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      </div>
     </section>
 
-    <section data-screen-label="Webinar get" className="wrap sec">
-     <div className="wb-two">
-      <div><div className="sec-head"><div data-reveal=""><p className="kicker">{c.get.k}</p><h2 className="h2">{c.get.h}</h2></div></div>
-       <ul data-stagger="" className="wb-list">{c.get.items.map(([icon,t,d])=><li key={t}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><div><b>{t}</b><span>{d}</span></div></li>)}</ul></div>
-      <div><div className="sec-head"><div data-reveal=""><p className="kicker">{c.how.k}</p><h2 className="h2">{c.how.h}</h2></div></div>
-       <ol data-stagger="" className="wb-list wb-steps">{c.how.items.map(([icon,t,d],i)=><li key={t}><span className="wb-step-n">{i+1}</span><div><b><Icon name={icon} size={16}/>{t}</b><span>{d}</span></div></li>)}</ol></div>
-     </div>
-    </section>
-
     <section id="register" data-screen-label="Webinar register" className="wb-reg">
      <div className="wb-glow wb-glow-3" aria-hidden="true"/>
      <div className="wrap sec wb-reg-grid">
@@ -344,6 +293,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
        <h2 className="wb-reg-h">{c.reg.h}</h2>
        <p className="wb-lead">{c.reg.sub}</p>
        <Countdown c={c}/>
+       <ul className="wb-after">{c.how.map(([icon,label])=><li key={label}><Icon name={icon} size={18}/>{label}</li>)}</ul>
       </div>
       <div className="form-box wb-form-box"><RegisterForm c={c} lang={L} id="wb-bottom"/></div>
      </div>
