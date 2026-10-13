@@ -5,6 +5,7 @@ import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {absolute,pageUrl} from '@/lib/seo';
 import {webinar as w} from '@/lib/webinar';
+import type {Lang} from '@/lib/content';
 import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
 
@@ -146,7 +147,8 @@ function DemoMock(){
  </div>;
 }
 
-export function Webinar(){
+export function Webinar({lang='ru'}:{lang?:Lang}){
+ void lang;
  const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false),bar=useRef<HTMLDivElement>(null);
  useEffect(()=>{
   const hero=document.getElementById('wb-hero');

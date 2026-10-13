@@ -1,5 +1,10 @@
 // Webinar landing on praxenai.ge (/ru/webinar). Texts come from the owner's approval document
 // «Вебинар «ИИ в отделе продаж»: тексты на согласование» in Claude Docs.
+import type {Lang} from '@/lib/content';
+
+// Languages the landing is published in; English and Georgian are added together with their texts.
+export const webinarLangs:Lang[]=['ru'];
+
 export const webinar={
  path:'/webinar',
  // 19:00 Tbilisi time (UTC+4, no daylight saving), 45 minutes.
@@ -55,3 +60,6 @@ export const webinar={
  ] as [string,string][],
  formIndustries:['Услуги','Недвижимость','Туризм и отели','Клиника','Интернет-магазин','Другое'],
 };
+
+// Per-language title and description for metadata.
+export const webinarCopy:Partial<Record<Lang,{title:string;description:string}>>&Record<'ru',{title:string;description:string}>={ru:{title:webinar.title,description:webinar.description}};

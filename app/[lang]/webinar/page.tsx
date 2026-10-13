@@ -1,9 +1,11 @@
 import {notFound} from 'next/navigation';
 import {isIntl} from '@/lib/market';
 import {pageMeta} from '@/lib/seo';
-import {webinar} from '@/lib/webinar';
+import {webinar,webinarCopy,webinarLangs} from '@/lib/webinar';
 import {Webinar} from '@/components/praxen/webinar';
-// Webinar landing: praxenai.ge only, Russian only (praxenai.ge/ru/webinar).
-export function generateStaticParams(){return isIntl?[]:[{lang:'ru'}]}
-export async function generateMetadata({params}:{params:Promise<{lang:string}>}){const {lang}=await params;if(isIntl||lang!=='ru')return {};return pageMeta('ru',webinar.path,webinar.title,webinar.description,['ru'])}
-export default async function Page({params}:{params:Promise<{lang:string}>}){const {lang}=await params;if(isIntl||lang!=='ru')notFound();return <Webinar/>}
+import type {Lang} from '@/lib/content';
+// Webinar landing: praxenai.ge only (/ru/webinar, /ka/webinar, English at /webinar).
+const ok=(l:string):l is Lang=>!isIntl&&(webinarLangs as string[]).includes(l);
+export function generateStaticParams(){return isIntl?[]:webinarLangs.map(lang=>({lang}))}
+export async function generateMetadata({params}:{params:Promise<{lang:string}>}){const {lang}=await params;if(!ok(lang))return {};const c=webinarCopy[lang]||webinarCopy.ru;return pageMeta(lang,webinar.path,c.title,c.description,webinarLangs)}
+export default async function Page({params}:{params:Promise<{lang:string}>}){const {lang}=await params;if(!ok(lang))notFound();return <Webinar lang={lang}/>}
