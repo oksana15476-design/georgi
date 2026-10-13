@@ -1556,7 +1556,6 @@ main{outline:none}
 .wb .wb-count-cell span{margin-top:6px;font-size:12px;color:#8e9ab3}
 .wb .wb-speaker{position:relative;justify-self:center;width:100%;max-width:420px}
 .wb .wb-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:#1d2740;box-shadow:0 40px 80px -30px #000c,0 0 0 1px #ffffff1f}
-.wb .wb-photo:before{content:'';position:absolute;inset:-2px;border-radius:26px;padding:2px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;z-index:2;pointer-events:none}
 .wb .wb-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:40% 30%}
 .wb .wb-photo-cap{position:absolute;left:0;right:0;bottom:0;padding:48px 22px 20px;background:linear-gradient(180deg,transparent,#0d1424e6);display:flex;flex-direction:column;gap:4px}
 .wb .wb-photo-cap b{font-size:20px;font-weight:600}
@@ -1683,3 +1682,74 @@ main{outline:none}
  .wb .wb-foot .footer-bottom{flex-direction:column;align-items:flex-start}
  .wb footer{padding-bottom:72px}
 }
+/* Webinar landing motion; the global prefers-reduced-motion rule switches all of it off. */
+@property --wb-a{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes wb-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes wb-shine{to{background-position:200% center}}
+@keyframes wb-bob{50%{transform:translateY(-10px)}}
+@keyframes wb-spin{to{--wb-a:360deg}}
+@keyframes wb-sweep{0%,55%{left:-60%}100%{left:130%}}
+@keyframes wb-drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,-40px) scale(1.15)}}
+@keyframes wb-tick{from{opacity:0;transform:translateY(-35%)}to{opacity:1;transform:none}}
+@keyframes wb-marquee{to{transform:translateX(-50%)}}
+@keyframes wb-flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes wb-dot3{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+.wb .wb-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:90;background:var(--grad);transform-origin:left;transform:scaleX(var(--p,0));pointer-events:none}
+.wb .wb-hero:after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(#ffffff0a 1px,transparent 1px),linear-gradient(90deg,#ffffff0a 1px,transparent 1px);background-size:64px 64px;-webkit-mask:radial-gradient(ellipse 70% 60% at 60% 40%,#000 30%,transparent 80%);mask:radial-gradient(ellipse 70% 60% at 60% 40%,#000 30%,transparent 80%)}
+.wb .wb-orbs{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.wb .wb-orbs i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:wb-drift 14s ease-in-out infinite alternate}
+.wb .wb-orbs i:nth-child(1){width:420px;height:420px;background:#315bf5;top:-120px;right:8%}
+.wb .wb-orbs i:nth-child(2){width:340px;height:340px;background:#7960e8;bottom:-140px;left:-60px;animation-duration:18s;animation-delay:-6s}
+.wb .wb-orbs i:nth-child(3){width:220px;height:220px;background:#5268f5;top:40%;left:45%;opacity:.3;animation-duration:22s}
+.wb .wb-intro>*{animation:wb-in .8s var(--ease) both}
+.wb .wb-intro>:nth-child(2){animation-delay:.08s}
+.wb .wb-intro>:nth-child(3){animation-delay:.18s}
+.wb .wb-intro>:nth-child(4){animation-delay:.28s}
+.wb .wb-intro>:nth-child(5){animation-delay:.38s}
+.wb .wb-speaker{animation:wb-in 1s var(--ease) .2s both}
+.wb .wb-grad{background-image:linear-gradient(100deg,#7b95ff 0%,#a99bff 30%,#ffffff 50%,#a99bff 70%,#7b95ff 100%);background-size:200% auto;animation:wb-shine 7s linear infinite}
+.wb .wb-ring{position:relative;padding:3px;border-radius:27px;background:conic-gradient(from var(--wb-a),#315bf5,#7960e8,#7b95ff,#ffffff,#315bf5);animation:wb-spin 6s linear infinite;box-shadow:0 0 60px -10px #5268f5aa}
+.wb .wb-ring .wb-photo{border-radius:24px;box-shadow:none}
+.wb .wb-float{animation:wb-bob 5s ease-in-out infinite}
+.wb .wb-float-2{animation-delay:-2.5s}
+.wb .wb-cta{position:relative;overflow:hidden;isolation:isolate}
+.wb .wb-cta:after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#ffffff66,transparent);transform:skewX(-20deg);animation:wb-sweep 3.6s ease-in-out infinite;pointer-events:none}
+.wb .wb-count-cell b{display:block;animation:wb-tick .45s var(--spring)}
+.wb .wb-count-cell{transition:border-color .3s,background .3s}
+.wb .wb-count-cell:hover{border-color:#7b95ff;background:#ffffff1c}
+.wb .wb-strip li{transition:background .3s}
+.wb .wb-strip li:hover{background:var(--soft)}
+.wb .wb-strip-icon{transition:transform .45s var(--spring)}
+.wb .wb-strip li:hover .wb-strip-icon{transform:rotate(-8deg) scale(1.08)}
+.wb .wb-ticker{overflow:hidden;margin-top:48px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.wb .wb-ticker-track{display:flex;width:max-content;animation:wb-marquee 36s linear infinite}
+.wb .wb-ticker-track span{display:flex}
+.wb .wb-ticker b{display:inline-flex;align-items:center;gap:28px;padding:18px 0 18px 28px;font-size:16px;font-weight:600;white-space:nowrap;color:var(--ink)}
+.wb .wb-ticker b i{width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.wb .wb-ticker:hover .wb-ticker-track{animation-play-state:paused}
+.wb .wb-check li{transition:transform .45s var(--spring),box-shadow .45s,border-color .3s,opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
+.wb .wb-check li:hover{transform:translateX(6px);border-color:var(--hover)}
+.wb .wb-learn li:before{content:'';position:absolute;inset:-1px;border-radius:19px;padding:1.5px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s;pointer-events:none}
+.wb .wb-learn li:hover:before{opacity:1}
+.wb .wb-learn li:hover{background:#fff}
+.wb .wb-msg{transition:opacity .45s var(--ease),transform .5s var(--spring)}
+.wb .wb-msg:not(.is-on){opacity:0;transform:translateY(10px) scale(.96)}
+.wb .wb-msg-in:not(.is-on){transform-origin:left bottom}
+.wb .wb-msg-out:not(.is-on){transform-origin:right bottom}
+.wb .wb-typing{display:none;align-self:flex-end;gap:4px;padding:10px 14px;border-radius:10px;background:#d9fdd3}
+.wb .wb-typing.is-on{display:inline-flex}
+.wb .wb-typing i{width:6px;height:6px;border-radius:50%;background:#56756a;animation:wb-dot3 1.2s infinite}
+.wb .wb-typing i:nth-child(2){animation-delay:.15s}
+.wb .wb-typing i:nth-child(3){animation-delay:.3s}
+.wb .wb-crm{transition:opacity .5s var(--ease),transform .6s var(--spring)}
+.wb .wb-crm:not(.is-on){opacity:.35;transform:translateY(12px)}
+.wb .wb-crm dl>div{transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.wb .wb-crm dl>div:not(.is-on){opacity:0;transform:translateX(-8px)}
+.wb .wb-agenda li{transition:background .3s,opacity .7s var(--ease) var(--sd,0ms),translate .8s var(--ease) var(--sd,0ms)}
+.wb .wb-agenda li:hover .wb-min{background:var(--grad);color:#fff}
+.wb .wb-min{transition:background .3s,color .3s}
+.wb .wb-host-photo{transition:transform .6s var(--spring)}
+.wb .wb-host:hover .wb-host-photo{transform:scale(1.02) rotate(-1deg)}
+.wb .wb-reg{background:linear-gradient(115deg,#2755ec,#5268f5,#7960e8,#5268f5,#2755ec);background-size:300% 300%;animation:wb-flow 14s ease infinite}
+
+@media(max-width:600px){.wb .wb-orbs i:nth-child(1){width:300px;height:300px}.wb .wb-ticker{margin-top:32px}.wb .wb-ticker b{font-size:14px;padding:14px 0 14px 22px;gap:22px}.wb .wb-reg .wb-form-box{animation:none}}

@@ -8,7 +8,6 @@ import {webinar as w} from '@/lib/webinar';
 import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
 
-const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 const calendarUrl='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Вебинар «ИИ в отделе продаж» — Praxen AI')+'&dates='+w.calStart+'/'+w.calEnd+'&details='+encodeURIComponent('Ссылку на эфир пришлём в Telegram: '+w.bot)+'&ctz=Asia/Tbilisi';
 
 function jsonLd(){
@@ -95,7 +94,7 @@ function Countdown({dark=false}:{dark?:boolean}){
  const units=['дней','часов','минут','секунд'];
  return <div className={'wb-count'+(dark?' is-dark':'')} role="timer" aria-label="До начала эфира">
   <span className="wb-count-label">До эфира</span>
-  <div className="wb-count-row">{units.map((u,i)=><div key={u} className="wb-count-cell"><b suppressHydrationWarning>{v?pad(v[i]):'--'}</b><span>{u}</span></div>)}</div>
+  <div className="wb-count-row">{units.map((u,i)=><div key={u} className="wb-count-cell"><b key={v?v[i]:'x'} suppressHydrationWarning>{v?pad(v[i]):'--'}</b><span>{u}</span></div>)}</div>
  </div>;
 }
 
@@ -116,11 +115,45 @@ function Modal({open,onClose}:{open:boolean;onClose:()=>void}){
  </div>;
 }
 
+// Demo mock-up: the chat types itself out and the CRM card fills in once the block scrolls into view.
+// Everything is visible in the server HTML and for visitors who turn motion off.
+function DemoMock(){
+ const total=w.chat.length+w.crm.length;
+ const [step,setStep]=useState(total),ref=useRef<HTMLDivElement>(null);
+ useEffect(()=>{
+  const el=ref.current;
+  if(!el||!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  let t:ReturnType<typeof setTimeout>|undefined;
+  const run=(n:number)=>{setStep(n);if(n<total)t=setTimeout(()=>run(n+1),n<w.chat.length?1100:380)};
+  const r=el.getBoundingClientRect();if(r.top<innerHeight)return;
+  setStep(0);
+  const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();t=setTimeout(()=>run(1),400)}},{threshold:.35});
+  io.observe(el);return()=>{io.disconnect();if(t)clearTimeout(t)};
+ },[total]);
+ const typing=step<w.chat.length&&w.chat[step]?.[0]==='out';
+ return <div ref={ref} className="wb-mock">
+  <div className="wb-chat">
+   <div className="wb-chat-head"><span className="wb-chat-ava"><Icon name="whatsapp" size={16}/></span><div><b>WhatsApp</b><small>{typing?'ассистент печатает…':'ассистент отвечает'}</small></div></div>
+   <div className="wb-chat-body">
+    {w.chat.map(([dir,text,time],i)=><div key={i} className={'wb-msg wb-msg-'+dir+(i<step?' is-on':'')}>{text}<small>{time}</small></div>)}
+    <div className={'wb-typing'+(typing&&step>0?' is-on':'')} aria-hidden="true"><i/><i/><i/></div>
+   </div>
+  </div>
+  <div className={'wb-crm'+(step>w.chat.length?' is-on':'')}>
+   <div className="wb-crm-head"><Icon name="table-2" size={16}/>Новая сделка в CRM</div>
+   <dl>{w.crm.map(([k,v],i)=><div key={k} className={w.chat.length+i<step?'is-on':''}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+  </div>
+ </div>;
+}
+
 export function Webinar(){
- const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false);
+ const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false),bar=useRef<HTMLDivElement>(null);
  useEffect(()=>{
   const hero=document.getElementById('wb-hero');
-  const onScroll=()=>{const r=hero?.getBoundingClientRect();setSticky(!!r&&r.bottom<80)};onScroll();
+  const onScroll=()=>{
+   const r=hero?.getBoundingClientRect();setSticky(!!r&&r.bottom<80);
+   const max=document.documentElement.scrollHeight-innerHeight;bar.current?.style.setProperty('--p',String(max>0?Math.min(1,scrollY/max):0));
+  };onScroll();
   window.addEventListener('scroll',onScroll,{passive:true});return()=>window.removeEventListener('scroll',onScroll);
  },[]);
  const openForm=(e?:React.MouseEvent)=>{e?.preventDefault();setModal(true);track('cta_click',{label:'webinar_register',page:location.pathname})};
@@ -129,6 +162,7 @@ export function Webinar(){
   <div className="site wb">
    <MotionRoot/>
    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd()).replace(/</g,'\\u003c')}}/>
+   <div ref={bar} className="wb-progress" aria-hidden="true"/>
    <header className="wb-head">
     <div className="wrap header-row">
      <a href={homeHref('ru')} className="brand brand-dark" aria-label="Praxen AI — главная"><Wordmark dark/></a>
@@ -139,8 +173,9 @@ export function Webinar(){
    <main id="main" tabIndex={-1}>
     <section id="wb-hero" data-screen-label="Webinar hero" className="wb-hero">
      <div className="wb-glow" aria-hidden="true"/>
+     <div className="wb-orbs" aria-hidden="true"><i/><i/><i/></div>
      <div className="wrap wb-hero-grid">
-      <div className="min0">
+      <div className="min0 wb-intro">
        <p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{w.badge} · 12 ноября</p>
        <h1 className="wb-h1">{w.h1[0]} <span className="wb-grad">{w.h1[1]}</span></h1>
        <p className="wb-lead">{w.lead}</p>
@@ -148,11 +183,11 @@ export function Webinar(){
        <div className="wb-hero-cta">{cta()}<span className="wb-free"><Icon name="check-circle-2" size={18}/>Бесплатно · 45 минут · запись всем</span></div>
       </div>
       <div className="wb-speaker">
-       <div className="wb-photo">
+       <div className="wb-ring"><div className="wb-photo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={base+'/team/evgeny.jpg'} alt={w.host.name} width={400} height={400} decoding="async" fetchPriority="high"/>
         <div className="wb-photo-cap"><b>{w.host.name}</b><span>{w.host.role}, ведущий вебинара</span></div>
-       </div>
+       </div></div>
        <div className="wb-float wb-float-1"><Icon name="message-circle" size={18}/>Ответ клиенту в 23:40</div>
        <div className="wb-float wb-float-2"><Icon name="table-2" size={18}/>Карточка в CRM готова</div>
       </div>
@@ -162,6 +197,8 @@ export function Webinar(){
     <section aria-label="Детали вебинара" className="wrap wb-strip-wrap">
      <ul className="wb-strip">{w.strip.map(([icon,label,value])=><li key={label}><span className="wb-strip-icon"><Icon name={icon} size={20}/></span><div><small>{label}</small><b>{value}</b></div></li>)}</ul>
     </section>
+
+    <div className="wb-ticker" aria-hidden="true"><div className="wb-ticker-track">{[0,1].map(k=><span key={k}>{['Бесплатно','12 ноября, 19:00 по Тбилиси','Демонстрация на демо-стенде','Расчёт на ваших цифрах','Ответы на вопросы','Запись всем участникам'].map(x=><b key={x}>{x}<i/></b>)}</span>)}</div></div>
 
     <section data-screen-label="Webinar for you" className="wrap sec">
      <div className="wb-split">
@@ -182,22 +219,13 @@ export function Webinar(){
      <div className="wb-glow wb-glow-2" aria-hidden="true"/>
      <div className="wrap sec wb-demo-grid">
       <div data-reveal=""><p className="kicker wb-kicker-light">Демонстрация</p><h2 className="h2 wb-light">Покажем на эфире, как это работает.</h2><p className="lead wb-light-2">Клиент пишет ночью, ассистент задаёт ваши вопросы, а утром менеджер открывает готовую карточку в CRM.</p><p className="wb-example">Пример сценария на нашем демо-стенде</p></div>
-      <div data-reveal="" style={rd(120)} className="wb-mock">
-       <div className="wb-chat">
-        <div className="wb-chat-head"><span className="wb-chat-ava"><Icon name="whatsapp" size={16}/></span><div><b>WhatsApp</b><small>ассистент отвечает</small></div></div>
-        <div className="wb-chat-body">{w.chat.map(([dir,text,time],i)=><div key={i} className={'wb-msg wb-msg-'+dir}>{text}<small>{time}</small></div>)}</div>
-       </div>
-       <div className="wb-crm">
-        <div className="wb-crm-head"><Icon name="table-2" size={16}/>Новая сделка в CRM</div>
-        <dl>{w.crm.map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
-       </div>
-      </div>
+      <DemoMock/>
      </div>
     </section>
 
     <section data-screen-label="Webinar agenda" className="wrap sec wb-split wb-split-top">
      <div data-reveal=""><p className="kicker">Программа</p><h2 className="h2">45 минут по шагам.</h2><p className="lead">Время в минутах от начала эфира. Вопросы можно задать в чате.</p></div>
-     <ol data-reveal="" style={rd(100)} className="wb-agenda">{w.agenda.map(([min,title,body])=><li key={min}><span className="wb-min">{min}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ol>
+     <ol data-stagger="" className="wb-agenda">{w.agenda.map(([min,title,body])=><li key={min}><span className="wb-min">{min}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ol>
     </section>
 
     <section data-screen-label="Webinar host" className="wb-band">
