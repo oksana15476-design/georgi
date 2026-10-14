@@ -3,15 +3,17 @@ import type {Lang} from '@/lib/content';
 // Public offer (terms of sale) for the services sold on the workshop offer page: /ru/webinar/terms, /webinar/terms, /ka/webinar/terms.
 // Built on the Civil Code of Georgia (art. 327–333, 342–348), the Law on Consumer Rights Protection (2022), the Law on Electronic
 // Commerce (2023) and the Law on Personal Data Protection (2023); see the research notes in docs/HANDOFF.md.
-// DRAFT: the seller's details below are empty until the owner provides them, and a Georgian lawyer must review the text
-// (especially the Georgian version, which takes priority) before payments go live. While any detail is empty the page shows a draft notice.
+// DRAFT: the VAT status is still missing, and a Georgian lawyer must review the text (especially the Georgian version,
+// which takes priority) before payments go live. While any detail is empty the page shows a draft notice.
 
 /** Seller details (individual entrepreneur). Fill in from the owner's registration documents; never guess. */
 export const seller={
- name:{ru:'',en:'',ka:''} as Record<'ru'|'en'|'ka',string>,
- idCode:'',
- legalAddress:{ru:'',en:'',ka:''} as Record<'ru'|'en'|'ka',string>,
- iban:'',
+ // From the owner's registration and the TBC bank certificate (14 October 2026). The official name is the Latin one.
+ name:{ru:'ИП Евгений Будников (P/E Evgenii Budnikov)',en:'P/E Evgenii Budnikov',ka:'ი/მ ევგენი ბუდნიკოვი (P/E Evgenii Budnikov)'} as Record<'ru'|'en'|'ka',string>,
+ idCode:'345868894',
+ legalAddress:{ru:'9 Niyazaradi St., Batumi, Georgia',en:'9 Niyazaradi St., Batumi, Georgia',ka:'9 Niyazaradi St., Batumi, Georgia'} as Record<'ru'|'en'|'ka',string>,
+ iban:'GE73TB7037345064300159',
+ swift:'TBCBGE22',
  // Either «not a VAT payer» or «prices include VAT»; set after checking the status at rs.ge.
  vat:{ru:'',en:'',ka:''} as Record<'ru'|'en'|'ka',string>,
 };
@@ -28,7 +30,7 @@ const ru=(s:typeof seller):TermsCopy=>({
  description:'Условия заказа и оплаты обучения, внедрения и разработки ИИ-решений Praxen AI: цена, бронь, сроки, отказ и возврат денег.',
  h1:'Публичная оферта',
  edition:'Редакция от 14 октября 2026 года',
- draft:'Черновик: реквизиты исполнителя ещё не заполнены, текст на проверке у юриста. До этого оплата на сайте не принимается.',
+ draft:'Черновик: не все данные исполнителя заполнены, текст на проверке у юриста. До этого оплата на сайте не принимается.',
  missing:'заполнить',
  sections:[
   {h:'1. Общие положения',p:[
@@ -90,7 +92,7 @@ const ru=(s:typeof seller):TermsCopy=>({
  formH:'Форма отказа от договора',
  form:['Кому: Исполнителю, указанному в разделе 11, на email из раздела 11.','Я, [имя и фамилия], отказываюсь от договора на оказание услуг по тарифу [название тарифа], заказ № [номер заказа из письма], дата заказа [дата].','Прошу вернуть оплату тем же способом, каким она была сделана.','Дата. Подпись — для бумажного заявления.'],
  reqH:'11. Реквизиты исполнителя',
- req:[['Индивидуальный предприниматель',s.name.ru],['Идентификационный номер',s.idCode],['Юридический адрес',s.legalAddress.ru],['Фактический адрес','Батуми, Грузия'],['Банк','АО «Тибиси Банк» (TBC Bank)'],['IBAN',s.iban],['Телефон','+995 557 125 497'],['Email','hello@praxenai.ge'],['Сайт','praxenai.ge']],
+ req:[['Индивидуальный предприниматель',s.name.ru],['Налоговый (идентификационный) номер',s.idCode],['Юридический адрес',s.legalAddress.ru],['Фактический адрес','Батуми, Грузия'],['Банк','АО «Тибиси Банк» (JSC TBC Bank), Тбилиси, Грузия'],['IBAN',s.iban],['SWIFT/BIC',s.swift],['Телефон','+995 557 125 497'],['Email','hello@praxenai.ge'],['Сайт','praxenai.ge']],
  back:'Вернуться к тарифам',
  foot:{location:'Батуми, Грузия',privacy:'Конфиденциальность'},
 });
@@ -100,7 +102,7 @@ const en=(s:typeof seller):TermsCopy=>({
  description:'Terms for ordering and paying for Praxen AI training, implementation and AI development: price, booking, timing, withdrawal and refunds.',
  h1:'Public offer',
  edition:'Version of 14 October 2026',
- draft:'Draft: the provider’s details are not filled in yet and the text is with a lawyer for review. Online payment is not accepted until then.',
+ draft:'Draft: some of the provider’s details are still missing and the text is with a lawyer for review. Online payment is not accepted until then.',
  missing:'to fill in',
  sections:[
   {h:'1. General provisions',p:[
@@ -162,7 +164,7 @@ const en=(s:typeof seller):TermsCopy=>({
  formH:'Withdrawal form',
  form:['To: the Provider named in section 11, at the email in section 11.','I, [full name], withdraw from the services contract for the [plan name] plan, order no. [order number from the email], ordered on [date].','Please refund the payment by the same method as it was made.','Date. Signature, for a paper notice.'],
  reqH:'11. Provider details',
- req:[['Individual entrepreneur',s.name.en],['Identification number',s.idCode],['Legal address',s.legalAddress.en],['Actual address','Batumi, Georgia'],['Bank','JSC TBC Bank'],['IBAN',s.iban],['Phone','+995 557 125 497'],['Email','hello@praxenai.ge'],['Website','praxenai.ge']],
+ req:[['Individual entrepreneur',s.name.en],['Tax ID',s.idCode],['Legal address',s.legalAddress.en],['Actual address','Batumi, Georgia'],['Bank','JSC TBC Bank, Tbilisi, Georgia'],['IBAN',s.iban],['SWIFT/BIC',s.swift],['Phone','+995 557 125 497'],['Email','hello@praxenai.ge'],['Website','praxenai.ge']],
  back:'Back to the plans',
  foot:{location:'Batumi, Georgia',privacy:'Privacy'},
 });
@@ -172,7 +174,7 @@ const ka=(s:typeof seller):TermsCopy=>({
  description:'Praxen AI-ის სწავლების, დანერგვისა და AI გადაწყვეტების შემუშავების შეკვეთისა და გადახდის პირობები: ფასი, ჯავშანი, ვადები, უარი და თანხის დაბრუნება.',
  h1:'საჯარო ოფერტა',
  edition:'რედაქცია 2026 წლის 14 ოქტომბრით',
- draft:'პროექტი: შემსრულებლის რეკვიზიტები ჯერ არ არის შევსებული, ტექსტი იურისტთან შემოწმებაზეა. მანამდე საიტზე გადახდა არ მიიღება.',
+ draft:'პროექტი: შემსრულებლის ყველა მონაცემი ჯერ არ არის შევსებული, ტექსტი იურისტთან შემოწმებაზეა. მანამდე საიტზე გადახდა არ მიიღება.',
  missing:'შესავსები',
  sections:[
   {h:'1. ზოგადი დებულებები',p:[
@@ -234,7 +236,7 @@ const ka=(s:typeof seller):TermsCopy=>({
  formH:'ხელშეკრულებაზე უარის ფორმა',
  form:['ვის: მე-11 ნაწილში მითითებულ შემსრულებელს, მე-11 ნაწილში მითითებულ email-ზე.','მე, [სახელი და გვარი], უარს ვამბობ მომსახურების ხელშეკრულებაზე ტარიფით [ტარიფის დასახელება], შეკვეთა № [შეკვეთის ნომერი წერილიდან], შეკვეთის თარიღი [თარიღი].','გთხოვთ, თანხა დამიბრუნოთ იმავე საშუალებით, რითაც გადავიხადე.','თარიღი. ხელმოწერა — ქაღალდის განცხადებისთვის.'],
  reqH:'11. შემსრულებლის რეკვიზიტები',
- req:[['ინდივიდუალური მეწარმე',s.name.ka],['საიდენტიფიკაციო ნომერი',s.idCode],['იურიდიული მისამართი',s.legalAddress.ka],['ფაქტობრივი მისამართი','ბათუმი, საქართველო'],['ბანკი','სს „თიბისი ბანკი“'],['IBAN',s.iban],['ტელეფონი','+995 557 125 497'],['Email','hello@praxenai.ge'],['საიტი','praxenai.ge']],
+ req:[['ინდივიდუალური მეწარმე',s.name.ka],['საიდენტიფიკაციო ნომერი',s.idCode],['იურიდიული მისამართი',s.legalAddress.ka],['ფაქტობრივი მისამართი','ბათუმი, საქართველო'],['ბანკი','სს „თიბისი ბანკი“ (JSC TBC Bank), თბილისი, საქართველო'],['IBAN',s.iban],['SWIFT/BIC',s.swift],['ტელეფონი','+995 557 125 497'],['Email','hello@praxenai.ge'],['საიტი','praxenai.ge']],
  back:'ტარიფებზე დაბრუნება',
  foot:{location:'ბათუმი, საქართველო',privacy:'კონფიდენციალურობა'},
 });
