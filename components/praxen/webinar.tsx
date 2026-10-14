@@ -10,10 +10,9 @@ import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
 
 type L='ru'|'en'|'ka';
-const stepIcons=['search','play','scale','rocket'];
-const evTitle={ru:'Вебинар «ИИ в отделе продаж» — Praxen AI',en:'Webinar: AI for your sales team — Praxen AI'};
+const evTitle={ru:'Воркшоп «ИИ в отделе продаж» — Praxen AI',en:'Workshop: AI for your sales team — Praxen AI'};
 const googleCal=(ev:WebinarEvent,details:string)=>'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(evTitle[ev])+'&dates='+webinarEvents[ev].cal+'&details='+encodeURIComponent(details+' '+w.bot)+'&ctz=Asia/Tbilisi';
-const icsFile=(ev:WebinarEvent,details:string)=>'data:text/calendar;charset=utf-8,'+encodeURIComponent(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Praxen AI//Webinar//RU','BEGIN:VEVENT','UID:webinar-'+ev+'@praxenai.ge','DTSTAMP:20261013T000000Z','DTSTART:'+webinarEvents[ev].ics[0],'DTEND:'+webinarEvents[ev].ics[1],'SUMMARY:'+evTitle[ev],'DESCRIPTION:'+details+' '+w.bot,'END:VEVENT','END:VCALENDAR'].join('\r\n'));
+const icsFile=(ev:WebinarEvent,details:string)=>'data:text/calendar;charset=utf-8,'+encodeURIComponent(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Praxen AI//Workshop//RU','BEGIN:VEVENT','UID:webinar-'+ev+'@praxenai.ge','DTSTAMP:20261013T000000Z','DTSTART:'+webinarEvents[ev].ics[0],'DTEND:'+webinarEvents[ev].ics[1],'SUMMARY:'+evTitle[ev],'DESCRIPTION:'+details+' '+w.bot,'END:VEVENT','END:VCALENDAR'].join('\r\n'));
 
 function jsonLd(lang:L,c:WebinarCopy){
  const url=pageUrl(lang,w.path),org=absolute('/#organization');
@@ -43,27 +42,27 @@ function Done({c,lang,ev,contact}:{c:WebinarCopy;lang:L;ev:WebinarEvent;contact:
  };
  const ask=async(e:React.FormEvent)=>{
   e.preventDefault();if(busy||(!q.trim()&&!ind))return;setBusy(true);
-  try{await sendLead({contact,message:q.trim(),tasks:ind?[ind]:[],context:f.context[ev]+' · вопрос к эфиру',lang});setSent(true);track('webinar_question',{form:'webinar'})}catch{}
+  try{await sendLead({contact,message:q.trim(),tasks:ind?[ind]:[],context:f.context[ev]+' · вопрос к воркшопу',lang});setSent(true);track('webinar_question',{form:'webinar'})}catch{}
   finally{setBusy(false)}
  };
  const details=f.doneText;
  return (
   <div role="status" className="form-done wb-done fade-in">
-   <span className="done-icon"><Icon name="check" size={22}/></span>
+   <span className="wb-done-ico"><Icon name="check" size={24}/></span>
    <h3>{f.doneTitle}</h3>
    <p>{f.doneText}</p>
-   <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="send" size={16}/></a>
+   <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="send" size={18}/></a>
    <div className="wb-done-links">
     <a href={base+w.checklist[ev]} target="_blank" rel="noopener" className="ulink"><Icon name="file-text" size={15}/>{f.pdf}</a>
     <a href={googleCal(ev,details)} target="_blank" rel="noopener" className="ulink"><Icon name="calendar" size={15}/>{f.calGoogle}</a>
-    <a href={icsFile(ev,details)} download="praxen-webinar.ics" className="ulink"><Icon name="calendar-check" size={15}/>{f.calIcs}</a>
+    <a href={icsFile(ev,details)} download="praxen-workshop.ics" className="ulink"><Icon name="calendar-check" size={15}/>{f.calIcs}</a>
     <button type="button" onClick={share} className="ulink"><Icon name="share-2" size={15}/>{copied?f.copied:f.share}</button>
    </div>
    {sent?<p className="wb-q-done"><Icon name="check-circle-2" size={16}/>{f.qDone}</p>:
    <form onSubmit={ask} className="wb-q">
     <label className="field">{f.qTitle}<textarea rows={2} maxLength={600} value={q} onChange={e=>setQ(e.target.value)} placeholder={f.qPh}/></label>
     <div><span className="wb-legend">{f.industryLabel}</span><div className="chips">{f.industries.map(lb=><button key={lb} type="button" onClick={()=>setInd(v=>v===lb?'':lb)} aria-pressed={ind===lb} className={'chip'+(ind===lb?' is-on':'')}>{lb}</button>)}</div></div>
-    <button type="submit" disabled={busy||(!q.trim()&&!ind)} className="btn btn-ghost">{f.qSend}<Icon name="arrow-right" size={16}/></button>
+    <button type="submit" disabled={busy||(!q.trim()&&!ind)} className="btn wb-ghost">{f.qSend}<Icon name="arrow-right" size={16}/></button>
    </form>}
   </div>
  );
@@ -99,7 +98,7 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
  if(done)return <Done c={c} lang={lang} ev={ev} contact={done}/>;
  const invalid=status==='invalid';
  return (
-  <form onSubmit={submit} noValidate data-lpignore="true" className="form" aria-labelledby={id+'-title'}>
+  <form onSubmit={submit} noValidate data-lpignore="true" className="form wb-form" aria-labelledby={id+'-title'}>
    <div><h2 id={id+'-title'} className="wb-form-h">{f.title}</h2><p className="wb-form-sub">{f.sub}</p></div>
    {f.events&&<div className="field"><span className="step-label">{f.eventLabel}</span><div role="radiogroup" aria-label={f.eventLabel} className="methods wb-events">{(['ru','en'] as WebinarEvent[]).map(k=><button key={k} type="button" role="radio" aria-checked={ev===k} onClick={()=>{start();setEv(k)}} className={ev===k?'is-on':''}>{f.events![k]}</button>)}</div></div>}
    <label className="field">{f.name}<input name="name" required maxLength={100} value={name} onChange={e=>{start();setName(e.target.value)}} autoComplete="given-name"/></label>
@@ -110,7 +109,7 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
    </div>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
    {status&&<p id={id+'-status'} role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{invalid?f.invalid:f.error}</p>}
-   <button type="submit" disabled={sending} className="btn wb-cta wb-wide">{sending?f.sending:f.submit}<Icon name="arrow-right" size={16}/></button>
+   <button type="submit" disabled={sending} className="btn wb-cta wb-wide wb-submit">{sending?f.sending:f.submit}<Icon name="arrow-right" size={20}/></button>
    <small className="wb-note">{f.consent} <a href={pageHref(lang,'privacy')}>{f.privacy}</a></small>
   </form>
  );
@@ -127,9 +126,9 @@ function useCountdown(ev:WebinarEvent){
 const pad=(n:number)=>String(n).padStart(2,'0');
 function Countdown({c}:{c:WebinarCopy}){
  const v=useCountdown(c.event);
- return <div className="wb-count" role="timer" aria-label={c.hero.countLabel}>
-  <span className="wb-count-label">{c.hero.countLabel}</span>
-  <div className="wb-count-row">{c.hero.units.map((u,i)=><div key={u} className="wb-count-cell"><b key={v?v[i]:'x'} suppressHydrationWarning>{v?pad(v[i]):'--'}</b><span>{u}</span></div>)}</div>
+ return <div className="wb-count" role="timer" aria-label={c.reg.countLabel}>
+  <span className="wb-count-label">{c.reg.countLabel}</span>
+  <div className="wb-count-row">{c.reg.units.map((u,i)=><div key={u} className="wb-count-cell"><b suppressHydrationWarning>{v?pad(v[i]):'--'}</b><span>{u}</span></div>)}</div>
  </div>;
 }
 
@@ -150,7 +149,7 @@ function Modal({c,lang,open,onClose}:{c:WebinarCopy;lang:L;open:boolean;onClose:
  </div>;
 }
 
-// Demo mock-up on the first screen: the chat types itself out, the CRM card fills in, then it plays again.
+// Live demo: the chat types itself out, the CRM card appears and fills in, then it plays again.
 // The server HTML shows the finished state, and visitors who turn motion off keep it.
 function DemoMock({c}:{c:WebinarCopy}){
  const chat=c.demo.chat,crm=c.demo.crm,total=chat.length+crm.length;
@@ -163,121 +162,157 @@ function DemoMock({c}:{c:WebinarCopy}){
   return()=>{if(t)clearTimeout(t)};
  },[total,chat.length]);
  const typing=step<chat.length&&chat[step]?.[0]==='out';
- return <div className="wb-mock wb-mock-hero">
+ return <div className="wb-mock" aria-hidden="true">
   <div className="wb-chat">
    <div className="wb-chat-head"><span className="wb-chat-ava"><Icon name="whatsapp" size={16}/></span><div><b>WhatsApp</b><small>{typing?c.demo.typing:c.demo.online}</small></div></div>
    <div className="wb-chat-body">
     {chat.map(([dir,text,time],i)=><div key={i} className={'wb-msg wb-msg-'+dir+(i<step?' is-on':'')}>{text}<small>{time}</small></div>)}
-    <div className={'wb-typing'+(typing&&step>0?' is-on':'')} aria-hidden="true"><i/><i/><i/></div>
+    <div className={'wb-typing'+(typing&&step>0?' is-on':'')}><i/><i/><i/></div>
    </div>
   </div>
   <div className={'wb-crm'+(step>chat.length?' is-on':'')}>
    <div className="wb-crm-head"><Icon name="table-2" size={16}/>{c.demo.crmHead}<span className="wb-crm-wait">{step>=total?'✓':'…'}</span></div>
    <dl>{crm.map(([k,val],i)=><div key={k} className={chat.length+i<step?'is-on':''}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
   </div>
-  <p className="wb-example">{c.demo.example}</p>
  </div>;
 }
 
 function Questions({c}:{c:WebinarCopy}){
  const [open,setOpen]=useState(0);
  return (
-  <section data-screen-label="Webinar FAQ" className="wrap sec">
-   <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.faq.k}</p><h2 className="h2">{c.faq.h}</h2></div></div>
-   <div className="faq-grid">{[0,1].map(col=><div key={col} className="faq-col">{c.faq.items.map(([q,a],i)=>{if(i%2!==col)return null;const on=open===i;return <div key={q} className={'faq-card'+(on?' is-open':'')} style={{order:i}}>
-    <h3><button type="button" onClick={()=>setOpen(on?-1:i)} aria-expanded={on} aria-controls={'wb-faq-'+i}>{q}<span className="faq-ring"><Icon name="plus" size={15}/></span></button></h3>
-    <p id={'wb-faq-'+i} className="faq-a" hidden={!on}>{a}</p>
-   </div>})}</div>)}</div>
+  <section data-screen-label="08 FAQ" className="wb-sec">
+   <div className="wb-c">
+    <h2 data-reveal="" className="wb-h2">{c.faq.h}</h2>
+    <div className="wb-faq">{c.faq.items.map(([q,a],i)=>{const on=open===i;return <div key={q} className={'wb-faq-item'+(on?' is-open':'')}>
+     <h3><button type="button" onClick={()=>setOpen(on?-1:i)} aria-expanded={on} aria-controls={'wb-faq-'+i}>{q}<span className="wb-faq-ring"><Icon name="plus" size={18}/></span></button></h3>
+     <p id={'wb-faq-'+i} hidden={!on}>{a}</p>
+    </div>})}</div>
+   </div>
   </section>
  );
 }
 
+function StickyBar({c,shown,onCta}:{c:WebinarCopy;shown:boolean;onCta:(e:React.MouseEvent)=>void}){
+ const v=useCountdown(c.event);
+ return <div className={'wb-bar'+(shown?' is-shown':'')} aria-hidden={!shown}>
+  <div className="wb-c wb-bar-in">
+   <span className="wb-bar-label"><span className="wb-dot" aria-hidden="true"/>{c.sticky.label}</span>
+   <span className="wb-bar-time">{c.sticky.until} <b suppressHydrationWarning>{v?v[0]+c.sticky.d+' '+pad(v[1])+':'+pad(v[2])+':'+pad(v[3]):'--'}</b></span>
+   <a href="#register" onClick={onCta} tabIndex={shown?0:-1} className="wb-bar-cta">{c.sticky.cta}</a>
+  </div>
+ </div>;
+}
+
 export function Webinar({lang='ru'}:{lang?:Lang}){
  const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L];
- const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false),bar=useRef<HTMLDivElement>(null);
+ const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false);
  useEffect(()=>{
-  const hero=document.getElementById('wb-hero');
-  const onScroll=()=>{
-   const r=hero?.getBoundingClientRect();setSticky(!!r&&r.bottom<80);
-   const max=document.documentElement.scrollHeight-innerHeight;bar.current?.style.setProperty('--p',String(max>0?Math.min(1,scrollY/max):0));
-  };onScroll();
-  window.addEventListener('scroll',onScroll,{passive:true});return()=>window.removeEventListener('scroll',onScroll);
+  const hero=document.getElementById('wb-hero');if(!hero)return;
+  const io=new IntersectionObserver(([e])=>setSticky(!e.isIntersecting),{rootMargin:'-80px 0px 0px 0px'});
+  io.observe(hero);return()=>io.disconnect();
  },[]);
  const openForm=(e?:React.MouseEvent)=>{e?.preventDefault();setModal(true);track('cta_click',{label:'webinar_register',page:location.pathname})};
- const cta=(label:string)=><a href="#register" onClick={openForm} className="btn wb-cta">{label}<Icon name="arrow-right" size={18}/></a>;
  const home=homeHref(L);
+ const line=c.marquee.join(' ● ')+' ●';
  return (
   <div className="site wb">
    <MotionRoot/>
    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd(L,c)).replace(/</g,'\\u003c')}}/>
-   <div ref={bar} className="wb-progress" aria-hidden="true"/>
-   <header className="wb-head">
-    <div className="wrap header-row">
-     <a href={home} className="brand brand-dark" aria-label={c.head.home}><Wordmark dark/></a>
-     <div className="header-actions"><span className="wb-head-date">{c.head.date}</span><a href="#register" onClick={openForm} className="btn btn-sm wb-head-cta">{c.head.cta}</a></div>
-    </div>
+   <div className="wb-marquee" aria-hidden="true"><div className="wb-marquee-track">{[0,1,2,3].map(i=><span key={i}>{line}</span>)}</div></div>
+   <header className="wb-c wb-head">
+    <a href={home} className="brand" aria-label={c.head.home}><Wordmark/></a>
+    <a href="#register" onClick={openForm} className="wb-head-cta">{c.head.cta}</a>
    </header>
 
    <main id="main" tabIndex={-1}>
-    <section id="wb-hero" data-screen-label="Webinar hero" className="wb-hero">
-     <div className="wb-glow" aria-hidden="true"/>
-     <div className="wb-orbs" aria-hidden="true"><i/><i/><i/></div>
-     <div className="wrap wb-hero-grid">
-      <div className="min0 wb-intro">
-       <p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{c.hero.badge}</p>
-       <h1 className="wb-h1">{c.hero.h1} <span className="wb-grad">{c.hero.h1Grad}</span></h1>
-       <p className="wb-lead">{c.hero.sub}</p>
-       <div className="wb-hero-cta">{cta(c.hero.cta)}</div>
+    <section id="wb-hero" data-screen-label="01 Hero" className="wb-c wb-hero">
+     <div className="wb-hero-top"><p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{c.hero.badge}</p><span className="wb-hero-host">{c.hero.host}</span></div>
+     <h1 className="wb-h1">{c.hero.h1} <span className="wb-grad">{c.hero.h1Grad}</span></h1>
+     <div className="wb-hero-row">
+      <p className="wb-lead">{c.hero.sub}</p>
+      <dl className="wb-info">{c.hero.info.map(([k,val])=><div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
+     </div>
+     <div className="wb-hero-cta">
+      <a href="#register" onClick={openForm} className="btn wb-cta wb-cta-xl">{c.hero.cta}<Icon name="arrow-right" size={20}/></a>
+      <p className="wb-gift-line"><span className="wb-gift-ico"><Icon name="gift" size={20}/></span>{c.hero.gift}</p>
+     </div>
+    </section>
+
+    <section data-screen-label="02 Manifest" className="wb-sec wb-dark">
+     <div className="wb-c">
+      <p data-reveal="" className="wb-manifest">{c.manifest.a}<span className="wb-y">{c.manifest.hl1}</span>{c.manifest.b}<span className="wb-r">{c.manifest.hl2}</span>{c.manifest.c}</p>
+      <ul data-stagger="" className="wb-pains">{c.manifest.pains.map((x,i)=><li key={x}><span>{c.manifest.painLabel} {pad(i+1)}</span>{x}</li>)}</ul>
+     </div>
+    </section>
+
+    <section data-screen-label="03 Blocks" className="wb-sec">
+     <div className="wb-c">
+      <div data-reveal="" className="wb-sec-head"><h2 className="wb-h2">{c.blocks.h}</h2><p className="wb-sec-note">{c.blocks.note}</p></div>
+      <ol className="wb-blocks">{c.blocks.items.map(([n,t,body,tag],i)=><li key={n} data-reveal="">
+       <span className="wb-block-n">{n}</span>
+       <div><h3>{t}</h3><p>{body}</p></div>
+       <span className={'wb-tag'+(i===c.blocks.items.length-1?' is-y':'')}>{tag}</span>
+      </li>)}</ol>
+     </div>
+    </section>
+
+    <section data-screen-label="04 Demo" className="wb-sec wb-demo">
+     <div className="wb-c wb-demo-in">
+      <div className="wb-demo-text" data-reveal="">
+       <span className="wb-sticker">{c.demo.sticker}</span>
+       <h2 className="wb-h2 wb-h2-demo">{c.demo.h}</h2>
+       <p className="wb-demo-lead">{c.demo.sub}</p>
        <ul className="wb-trust">{c.trust.map(([icon,label])=><li key={label}><Icon name={icon} size={15}/>{label}</li>)}</ul>
-       <p className="wb-host-line"><Icon name="user-round" size={16}/>{c.hero.host}</p>
       </div>
-      <DemoMock c={c}/>
+      <div className="wb-demo-mock"><DemoMock c={c}/></div>
      </div>
     </section>
 
-    <section data-screen-label="Webinar pain" className="wrap sec">
-     <div className="wb-pain-grid">
+    <section data-screen-label="05 For whom" className="wb-sec">
+     <div className="wb-c">
+      <h2 data-reveal="" className="wb-h2">{c.fit.h}</h2>
+      <ul data-stagger="" className="wb-fit">{c.fit.items.map(x=><li key={x}><Icon name="circle-check" size={32}/>{x}</li>)}</ul>
+      <p data-reveal="" className="wb-nofit"><b>{c.fit.noLabel}</b> {c.fit.no}</p>
+     </div>
+    </section>
+
+    <section data-screen-label="06 Host" className="wb-sec wb-host">
+     <div className="wb-c wb-host-in">
       <div data-reveal="">
-       <p className="kicker">{c.pain.k}</p><h2 className="h2">{c.pain.h}</h2>
-       <ul className="wb-pain-list">{c.pain.items.map((x,i)=><li key={x}><span className="wb-pain-n">{i+1}</span>{x}</li>)}</ul>
-       <p className="wb-who-line">{c.who.h} <b>{c.who.items.join(' · ')}</b></p>
+       <p className="wb-kicker">{c.host.k}</p>
+       <h2 className="wb-host-name">{c.host.name}</h2>
+       <p className="wb-host-role">{c.host.role}</p>
+       <p className="wb-host-bio">{c.host.bio}</p>
       </div>
-      <div data-reveal="" className="wb-night" aria-hidden="true">
-       <div className="wb-night-head"><Icon name="moon-star" size={16}/>{c.pain.night.title}</div>
-       <ul>{c.pain.night.msgs.map(([t,m])=><li key={t}><span className="wb-night-ava"><Icon name="whatsapp" size={14}/></span><div><p>{m}</p><small><b>{t}</b> · <em>{c.pain.night.status}</em></small></div></li>)}</ul>
-       <div className="wb-night-note"><Icon name="clock" size={15}/>{c.pain.night.note}</div>
+      <div data-reveal="">
+       <p className="wb-quote">{c.host.quote[0]}<span>{c.host.quote[1]}</span></p>
+       <ul className="wb-principles">{c.host.principles.map(([icon,t,d])=><li key={t}><Icon name={icon} size={20}/><span><b>{t}</b> {d}</span></li>)}</ul>
       </div>
      </div>
     </section>
 
-    <section data-screen-label="Webinar agenda" className="wb-band">
-     <div className="wrap sec">
-      <div className="sec-head wb-center"><div data-reveal=""><p className="kicker">{c.agenda.k}</p><h2 className="h2">{c.agenda.h}</h2><p className="lead">{c.agenda.sub}</p></div></div>
-      <ol data-stagger="" className="wb-steps4 wb-tl">{c.agenda.items.map(([min,title,body],i)=><li key={min}><span className="wb-tl-dot"><Icon name={stepIcons[i]||'check'} size={20}/></span><span className="wb-min">{min}′</span><h3>{title}</h3><p>{body}</p></li>)}</ol>
-      <ul data-reveal="" className="wb-pills"><li className="wb-pills-k">{c.prices.k}</li>{c.prices.items.map(([icon,t,price])=><li key={t}><Icon name={icon} size={15}/>{t}<b>{price}</b></li>)}</ul>
-      <div className="wb-center wb-mt">{cta(c.demo.cta)}</div>
-     </div>
-    </section>
-
-    <section id="register" data-screen-label="Webinar register" className="wb-reg">
-     <div className="wb-glow wb-glow-3" aria-hidden="true"/>
-     <div className="wrap sec wb-reg-grid">
-      <div>
-       <p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{c.reg.badge}</p>
-       <h2 className="wb-reg-h">{c.reg.h}</h2>
-       <p className="wb-lead">{c.reg.sub}</p>
-       <Countdown c={c}/>
-       <div className="wb-gift-mini">
-        <span className="wb-gift-ico"><Icon name="file-text" size={22}/></span>
-        <div><small>{c.gift.k}</small><b>{c.gift.h.includes(': ')?c.gift.h.slice(c.gift.h.indexOf(': ')+2):c.gift.h}</b></div>
+    <section id="register" data-screen-label="07 Register" className="wb-sec wb-dark wb-reg">
+     <div className="wb-c">
+      <h2 data-reveal="" className="wb-h2">{c.reg.h} <span className="wb-y">{c.reg.hGift}</span></h2>
+      <div className="wb-reg-in">
+       <div>
+        <ul data-stagger="" className="wb-gifts">{c.reg.gifts.map(([t,d],i)=><li key={t} className={i===0?'is-y':''}><span className="wb-gift-n">{c.reg.giftLabel} {i+1}</span><div><b>{t}</b><small>{d}</small></div></li>)}</ul>
+        <Countdown c={c}/>
        </div>
-       <ul className="wb-after">{c.how.map(([icon,label])=><li key={label}><Icon name={icon} size={18}/>{label}</li>)}</ul>
+       <div className="wb-form-box"><RegisterForm c={c} lang={L} id="wb-bottom"/></div>
       </div>
-      <div className="form-box wb-form-box"><RegisterForm c={c} lang={L} id="wb-bottom"/></div>
      </div>
     </section>
 
     <Questions c={c}/>
+
+    <section data-screen-label="09 Final" className="wb-final">
+     <div className="wb-c" data-reveal="">
+      <p className="wb-kicker">{c.final.k}</p>
+      <p className="wb-final-h">{c.final.h}</p>
+      <a href="#register" onClick={openForm} className="btn wb-final-cta">{c.final.cta}<Icon name="arrow-right" size={20}/></a>
+     </div>
+    </section>
    </main>
 
    <footer className="footer">
@@ -290,9 +325,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
     </div>
    </footer>
 
-   <div className={'sticky-cta wb-sticky'+(sticky&&!modal?' is-shown':'')}>
-    <a href="#register" onClick={openForm} className="btn wb-cta">{c.sticky}</a>
-   </div>
+   <StickyBar c={c} shown={sticky&&!modal} onCta={openForm}/>
    <Modal c={c} lang={L} open={modal} onClose={()=>setModal(false)}/>
   </div>
  );
