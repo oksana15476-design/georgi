@@ -1,28 +1,28 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
 import {getAttribution,track} from '@/components/analytics';
-import {base,homeHref,pageHref} from '@/lib/base';
+import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {absolute,pageUrl} from '@/lib/seo';
-import {webinar as w,webinarCopy,webinarEvents,type WebinarCopy,type WebinarEvent} from '@/lib/webinar';
+import {webinar as w,webinarCopy,webinarEvents,type WebinarCopy} from '@/lib/webinar';
 import {Icon} from './icon';
-import {MotionRoot,Wordmark} from './ui';
+import {Flag,MotionRoot,Wordmark} from './ui';
 
 type L='ru'|'en'|'ka';
-const evTitle={ru:'Воркшоп «ИИ в отделе продаж» — Praxen AI',en:'Workshop: AI for your sales team — Praxen AI'};
-const googleCal=(ev:WebinarEvent,details:string)=>'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(evTitle[ev])+'&dates='+webinarEvents[ev].cal+'&details='+encodeURIComponent(details+' '+w.bot)+'&ctz=Asia/Tbilisi';
-const icsFile=(ev:WebinarEvent,details:string)=>'data:text/calendar;charset=utf-8,'+encodeURIComponent(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Praxen AI//Workshop//RU','BEGIN:VEVENT','UID:webinar-'+ev+'@praxenai.ge','DTSTAMP:20261013T000000Z','DTSTART:'+webinarEvents[ev].ics[0],'DTEND:'+webinarEvents[ev].ics[1],'SUMMARY:'+evTitle[ev],'DESCRIPTION:'+details+' '+w.bot,'END:VEVENT','END:VCALENDAR'].join('\r\n'));
+const ev=webinarEvents.ru;
+const evTitle={ru:'Воркшоп «ИИ в отделе продаж» — Praxen AI',en:'Workshop: AI for your sales team — Praxen AI',ka:'ვორქშოპი „AI გაყიდვების განყოფილებაში“ — Praxen AI'};
+const googleCal=(lang:L,details:string)=>'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(evTitle[lang])+'&dates='+ev.cal+'&details='+encodeURIComponent(details+' '+w.bot)+'&ctz=Asia/Tbilisi';
+const icsFile=(lang:L,details:string)=>'data:text/calendar;charset=utf-8,'+encodeURIComponent(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Praxen AI//Workshop//RU','BEGIN:VEVENT','UID:workshop-20261112@praxenai.ge','DTSTAMP:20261013T000000Z','DTSTART:'+ev.ics[0],'DTEND:'+ev.ics[1],'SUMMARY:'+evTitle[lang],'DESCRIPTION:'+details+' '+w.bot,'END:VEVENT','END:VCALENDAR'].join('\r\n'));
 
 function jsonLd(lang:L,c:WebinarCopy){
  const url=pageUrl(lang,w.path),org=absolute('/#organization');
- const events:WebinarEvent[]=lang==='ka'?['ru','en']:[c.event];
  return {'@context':'https://schema.org','@graph':[
-  ...events.map(ev=>({'@type':'Event','@id':url+'#event-'+ev,name:evTitle[ev].replace(' — Praxen AI',''),description:c.description,startDate:webinarEvents[ev].start,endDate:webinarEvents[ev].end,
+  {'@type':'Event','@id':url+'#event',name:evTitle[lang].replace(' — Praxen AI',''),description:c.description,startDate:ev.start,endDate:ev.end,
    eventStatus:'https://schema.org/EventScheduled',eventAttendanceMode:'https://schema.org/OnlineEventAttendanceMode',
-   location:{'@type':'VirtualLocation',url},inLanguage:ev,isAccessibleForFree:true,image:absolute('/og/og-'+lang+'.png'),
+   location:{'@type':'VirtualLocation',url},inLanguage:'ru',isAccessibleForFree:true,image:absolute('/og/og-'+lang+'.png'),
    organizer:{'@id':org},performer:{'@id':absolute('/#founder')},
-   offers:{'@type':'Offer',price:0,priceCurrency:'GEL',availability:'https://schema.org/InStock',url}})),
+   offers:{'@type':'Offer',price:0,priceCurrency:'GEL',availability:'https://schema.org/InStock',url}},
   {'@type':'FAQPage',mainEntity:c.faq.items.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))},
  ]};
 }
@@ -32,7 +32,7 @@ async function sendLead(body:Record<string,unknown>){
  if(!r.ok)throw new Error();
 }
 
-function Done({c,lang,ev,contact}:{c:WebinarCopy;lang:L;ev:WebinarEvent;contact:string}){
+function Done({c,lang,contact}:{c:WebinarCopy;lang:L;contact:string}){
  const f=c.form;
  const [q,setQ]=useState(''),[ind,setInd]=useState(''),[sent,setSent]=useState(false),[busy,setBusy]=useState(false),[copied,setCopied]=useState(false);
  const share=async()=>{
@@ -42,7 +42,7 @@ function Done({c,lang,ev,contact}:{c:WebinarCopy;lang:L;ev:WebinarEvent;contact:
  };
  const ask=async(e:React.FormEvent)=>{
   e.preventDefault();if(busy||(!q.trim()&&!ind))return;setBusy(true);
-  try{await sendLead({contact,message:q.trim(),tasks:ind?[ind]:[],context:f.context[ev]+' · вопрос к воркшопу',lang});setSent(true);track('webinar_question',{form:'webinar'})}catch{}
+  try{await sendLead({contact,message:q.trim(),tasks:ind?[ind]:[],context:f.context+' · вопрос к воркшопу',lang});setSent(true);track('webinar_question',{form:'webinar'})}catch{}
   finally{setBusy(false)}
  };
  const details=f.doneText;
@@ -53,9 +53,9 @@ function Done({c,lang,ev,contact}:{c:WebinarCopy;lang:L;ev:WebinarEvent;contact:
    <p>{f.doneText}</p>
    <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="send" size={18}/></a>
    <div className="wb-done-links">
-    <a href={base+w.checklist[ev]} target="_blank" rel="noopener" className="ulink"><Icon name="file-text" size={15}/>{f.pdf}</a>
-    <a href={googleCal(ev,details)} target="_blank" rel="noopener" className="ulink"><Icon name="calendar" size={15}/>{f.calGoogle}</a>
-    <a href={icsFile(ev,details)} download="praxen-workshop.ics" className="ulink"><Icon name="calendar-check" size={15}/>{f.calIcs}</a>
+    <a href={base+w.checklist[lang]} target="_blank" rel="noopener" className="ulink"><Icon name="file-text" size={15}/>{f.pdf}</a>
+    <a href={googleCal(lang,details)} target="_blank" rel="noopener" className="ulink"><Icon name="calendar" size={15}/>{f.calGoogle}</a>
+    <a href={icsFile(lang,details)} download="praxen-workshop.ics" className="ulink"><Icon name="calendar-check" size={15}/>{f.calIcs}</a>
     <button type="button" onClick={share} className="ulink"><Icon name="share-2" size={15}/>{copied?f.copied:f.share}</button>
    </div>
    {sent?<p className="wb-q-done"><Icon name="check-circle-2" size={16}/>{f.qDone}</p>:
@@ -70,7 +70,7 @@ function Done({c,lang,ev,contact}:{c:WebinarCopy;lang:L;ev:WebinarEvent;contact:
 
 function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
  const f=c.form;
- const [name,setName]=useState(''),[method,setMethod]=useState<0|1|2>(0),[contact,setContact]=useState(''),[website,setWebsite]=useState(''),[ev,setEv]=useState<WebinarEvent>(c.event);
+ const [name,setName]=useState(''),[method,setMethod]=useState<0|1|2>(0),[contact,setContact]=useState(''),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState('');
  const started=useRef(false);
  const keys=['telegram','whatsapp','phone'] as const;
@@ -90,17 +90,16 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
   setSending(true);setStatus('');
   const full=keys[method]+': '+contact;
   try{
-   await sendLead({name,contact:full,context:f.context[ev],lang,website});
-   setDone(full);track('generate_lead',{form:'webinar',method:keys[method],event:ev,page:location.pathname});
+   await sendLead({name,contact:full,context:f.context,lang,website});
+   setDone(full);track('generate_lead',{form:'webinar',method:keys[method],event:'2026-11-12',page:location.pathname});
   }catch{setStatus('error');track('form_error',{form:'webinar',reason:'send_failed'})}
   finally{setSending(false)}
  };
- if(done)return <Done c={c} lang={lang} ev={ev} contact={done}/>;
+ if(done)return <Done c={c} lang={lang} contact={done}/>;
  const invalid=status==='invalid';
  return (
   <form onSubmit={submit} noValidate data-lpignore="true" className="form wb-form" aria-labelledby={id+'-title'}>
    <div><h2 id={id+'-title'} className="wb-form-h">{f.title}</h2><p className="wb-form-sub">{f.sub}</p></div>
-   {f.events&&<div className="field"><span className="step-label">{f.eventLabel}</span><div role="radiogroup" aria-label={f.eventLabel} className="methods wb-events">{(['ru','en'] as WebinarEvent[]).map(k=><button key={k} type="button" role="radio" aria-checked={ev===k} onClick={()=>{start();setEv(k)}} className={ev===k?'is-on':''}>{f.events![k]}</button>)}</div></div>}
    <label className="field">{f.name}<input name="name" required maxLength={100} value={name} onChange={e=>{start();setName(e.target.value)}} autoComplete="given-name"/></label>
    <div className="field">
     <span className="step-label">{f.where}</span>
@@ -177,6 +176,14 @@ function DemoMock({c}:{c:WebinarCopy}){
  </div>;
 }
 
+// Language switch in the workshop and offer headers: the same page in English, Georgian and Russian.
+const langLabel={ru:'Язык страницы',en:'Page language',ka:'გვერდის ენა'};
+export function WbLangs({lang,path}:{lang:L;path:string}){
+ return <div role="group" aria-label={langLabel[lang]} className="langs wb-langs">
+  {([['en','EN'],['ka','GE'],['ru','RU']] as [L,string][]).map(([code,lb])=><a key={code} href={base+langPath(code)+path} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
+ </div>;
+}
+
 export function Questions({h,items,label='08 FAQ'}:{h:string;items:[string,string][];label?:string}){
  const [open,setOpen]=useState(0);
  return (
@@ -221,7 +228,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
    <div className="wb-marquee" aria-hidden="true"><div className="wb-marquee-track">{[0,1,2,3].map(i=><span key={i}>{line}</span>)}</div></div>
    <header className="wb-c wb-head">
     <a href={home} className="brand" aria-label={c.head.home}><Wordmark/></a>
-    <a href="#register" onClick={openForm} className="wb-head-cta">{c.head.cta}</a>
+    <div className="wb-head-r"><WbLangs lang={L} path={w.path}/><a href="#register" onClick={openForm} className="wb-head-cta">{c.head.cta}</a></div>
    </header>
 
    <main id="main" tabIndex={-1}>

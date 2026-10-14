@@ -64,6 +64,7 @@ const nextConfig: NextConfig = pages
             // Webinar landing (app/[lang]/webinar): English without the /en prefix.
             { source: "/webinar", destination: "/en/webinar" },
             { source: "/webinar/offer", destination: "/en/webinar/offer" },
+            { source: "/webinar/terms", destination: "/en/webinar/terms" },
           ],
         };
         return {

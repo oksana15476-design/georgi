@@ -1,17 +1,17 @@
 import type {Lang} from '@/lib/content';
 
-// Copy for the offer page after the workshop: /ru/webinar/offer (after the 12 November session) and /webinar/offer (after 17 November).
-// Reachable only by the link sent after the workshop: noindex, not in the sitemap or the menus. There is no Georgian session, so no Georgian page.
+// Copy for the offer page after the 12 November workshop: /ru/webinar/offer, /webinar/offer and /ka/webinar/offer.
+// Participants come from all three language pages, so the offer is in all three languages (owner's decision, 14 October).
+// Reachable only by the link sent after the workshop: noindex, not in the sitemap or the menus. Georgian texts need a native speaker's read-through.
 // Layout and Russian copy follow the design handoff «Workshop funnel — landing + offer page» (14 October 2026).
 // Tariffs, deadlines and the server-side order check: lib/webinar-offer-order.mjs.
-export const offerLangs:Lang[]=['ru','en'];
+export const offerLangs:Lang[]=['ru','en','ka'];
 export const offerPath='/webinar/offer';
 
 export type TariffKey='training'|'training_impl'|'training_dev';
-export type MethodKey='card'|'tbc'|'ipay';
 type Pair=[string,string];
 export type OfferCopy={
- event:'ru'|'en';title:string;description:string;
+ title:string;description:string;
  marquee:string[];
  head:{cta:string;home:string};
  hero:{badge:string;h1:string;h1Grad:string;sub:string;countLabel:string;countEnded:string;units:[string,string,string,string];seats:string;seatsSub:string};
@@ -23,21 +23,20 @@ export type OfferCopy={
  faq:{h:string;items:Pair[]};
  final:{cta:string};
  sticky:{label:string;until:string;d:string;cta:string};
- checkout:{buy:string;book:string;amount:string;bonusPill:string;hold:(price:string)=>string;hours:string;name:string;email:string;emailPh:string;phone:string;methodLabel:string;
-  methods:Record<MethodKey,Pair>;invalid:string;manual:string;consent:string;privacy:string;submitBuy:string;submitBook:string;sending:string;error:string;
-  doneBuy:string;doneBook:string;doneText:(amount:string)=>string;curator:string;close:string};
- foot:{location:string;privacy:string};
+ checkout:{buy:string;book:string;amount:string;bonusPill:string;hold:(price:string)=>string;hours:string;name:string;email:string;emailPh:string;phone:string;payLabel:string;payInfo:string;
+  accept:[string,string,string];invalid:string;notAccepted:string;consent:string;privacy:string;submitBuy:(amount:string)=>string;submitBook:string;sending:string;redirecting:string;error:string;
+  manualBuy:string;manualBook:string;manualText:(amount:string)=>string;paidBuy:string;paidBook:string;paidText:string;failTitle:string;failText:string;pendingTitle:string;pendingText:string;retry:string;curator:string;close:string};
+ foot:{location:string;privacy:string;offer:string};
 };
 
 const ru:OfferCopy={
- event:'ru',
  title:'Спецпредложение для участников воркшопа — Praxen AI',
  description:'Обучение команды, внедрение и разработка ИИ-решений по ценам для участников воркшопа 12 ноября. Спеццены до 14 ноября, 19:45.',
  marquee:['Только для участников воркшопа','Спеццены до 14 ноября, 19:45','Места на ноябрь ограничены'],
  head:{cta:'Выбрать тариф',home:'Praxen AI — главная'},
  hero:{badge:'Для участников воркшопа',h1:'Одна связка —',h1Grad:'только начало',sub:'Научим команду работать с ИИ на ваших задачах — и, если нужно, внедрим готовые инструменты или разработаем решение под ваш процесс. Цены для участников — ниже, чем на сайте.',countLabel:'До конца спеццены',countEnded:'Спеццена закончилась',units:['дней','часов','минут','секунд'],seats:'Количество мест на ноябрь ограничено',seatsSub:'Купите сразу или забронируйте спеццену за 500 ₾'},
  tariffs:{h:'Три формата',note:'Обучение команды — в основе каждого тарифа. Дальше — внедрение готовых инструментов или своя разработка. Цену фиксируем до старта, решение работает на ваших аккаунтах.',label:'Тариф',from:'от',after:'После 14 ноября —',sticker:'Выбор участников',book:'Забронировать за 500 ₾',
-  pay:['Безопасная оплата','Visa · Mastercard · Apple Pay · TBC · Bank of Georgia','Счёт для юрлица — по запросу','Токены ИИ и серверы — на вашем аккаунте, оплачиваете провайдерам напрямую'],
+  pay:['Безопасная оплата','Visa · Mastercard · Apple Pay · Google Pay','Счёт для юрлица — по запросу','Токены ИИ и серверы — на вашем аккаунте, оплачиваете провайдерам напрямую'],
   items:{
    training:{name:'Обучение команды',sub:'Практика на задачах ваших сотрудников. ИИ становится рабочим навыком команды.',features:['4 практических занятия за 1–2 недели — онлайн или в вашем офисе','Программа под ваш отдел: документы, обращения, данные','Рабочие шаблоны и правила проверки результата','Инструкции и записи занятий остаются у вас','Ответы на вопросы команды — 30 дней'],muted:'Интеграции настраиваете вы',note:['Апгрейд в течение 30 дней.','Перейдёте на внедрение или разработку — стоимость обучения засчитаем.'],buy:'Купить обучение'},
    training_impl:{name:'Обучение + внедрение',sub:'Обучим команду и вместе запустим первую связку на реальных заявках.',features:['Всё из тарифа «Обучение команды»','Разбор ваших заявок и выбор первой связки','Настраиваем связку на ваших аккаунтах: мессенджер, CRM, уведомления','Пилот на реальных заявках — 2–4 недели','Поддержка и доработки — 60 дней'],buy:'Купить и начать'},
@@ -50,22 +49,23 @@ const ru:OfferCopy={
  final:{cta:'Выбрать тариф'},
  sticky:{label:'Места ограничены',until:'До конца спеццены:',d:'д',cta:'Выбрать тариф'},
  checkout:{buy:'Покупка',book:'Бронирование',amount:'К оплате',bonusPill:'+ личная сессия с Евгением (бонус 24 часа)',hold:p=>'Бронь спеццены '+p+' на 14 дней. 500 ₾ засчитываются в стоимость.',hours:'Базовый объём — 25 часов разработки. Если нужно больше, дополнительные часы согласуем после разбора — до старта работ.',
-  name:'Имя',email:'Email для чека',emailPh:'ваш email',phone:'Телефон / WhatsApp',methodLabel:'Способ оплаты',methods:{card:['Банковская карта','Visa · Mastercard · Apple Pay'],tbc:['TBC Pay','TBC Bank'],ipay:['iPay','Bank of Georgia']},
-  invalid:'Проверьте email и телефон.',manual:'Ссылку на оплату выбранным способом пришлём на email и в WhatsApp в течение рабочего дня.',consent:'Нажимая кнопку, вы соглашаетесь на обработку данных.',privacy:'Политика конфиденциальности',
-  submitBuy:'Оформить заказ',submitBook:'Забронировать за 500 ₾',sending:'Отправляем…',error:'Не получилось отправить. Попробуйте ещё раз или напишите нам в WhatsApp.',
-  doneBuy:'Заказ принят!',doneBook:'Бронь принята!',doneText:a=>'Сумма к оплате — '+a+'. В течение рабочего дня пришлём ссылку на оплату, а куратор свяжется и согласует старт.',curator:'Написать куратору',close:'Закрыть'},
- foot:{location:'Батуми, Грузия',privacy:'Конфиденциальность'},
+  name:'Имя',email:'Email для чека',emailPh:'ваш email',phone:'Телефон / WhatsApp',payLabel:'Способ оплаты',payInfo:'Карта Visa или Mastercard, Apple Pay или Google Pay — на защищённой странице банка',
+  accept:['Я принимаю условия ','публичной оферты',' и прошу начать работу до окончания 14-дневного срока на отказ.'],invalid:'Проверьте имя, email и телефон.',notAccepted:'Чтобы перейти к оплате, примите условия оферты.',consent:'Ваши данные нужны для заказа и чека.',privacy:'Политика конфиденциальности',
+  submitBuy:a=>'Оплатить '+a,submitBook:'Оплатить бронь — 500 ₾',sending:'Отправляем…',redirecting:'Переходим к оплате…',error:'Не получилось оформить заказ. Попробуйте ещё раз или напишите нам в WhatsApp.',
+  manualBuy:'Заказ принят!',manualBook:'Бронь принята!',manualText:a=>'Сумма к оплате — '+a+'. В течение рабочего дня пришлём ссылку на оплату, а куратор свяжется и согласует старт.',
+  paidBuy:'Оплата прошла!',paidBook:'Бронь оформлена!',paidText:'Чек и подтверждение придут на email. Куратор свяжется с вами в течение рабочего дня.',
+  failTitle:'Оплата не прошла',failText:'Деньги не списаны. Попробуйте ещё раз или напишите куратору — поможем оплатить.',pendingTitle:'Проверяем оплату',pendingText:'Банк ещё подтверждает платёж. Как только он пройдёт, придёт чек на email, а куратор свяжется с вами.',retry:'Выбрать тариф снова',curator:'Написать куратору',close:'Закрыть'},
+ foot:{location:'Батуми, Грузия',privacy:'Конфиденциальность',offer:'Оферта'},
 };
 
 const en:OfferCopy={
- event:'en',
  title:'Special offer for workshop participants — Praxen AI',
- description:'Team training, implementation and custom AI development at prices for participants of the 17 November workshop. Special prices until 19 November, 19:45.',
- marquee:['For workshop participants only','Special prices until 19 November, 19:45','Limited places in November'],
+ description:'Team training, implementation and custom AI development at prices for participants of the 12 November workshop. Special prices until 14 November, 19:45.',
+ marquee:['For workshop participants only','Special prices until 14 November, 19:45','Limited places in November'],
  head:{cta:'Choose a plan',home:'Praxen AI — home'},
  hero:{badge:'For workshop participants',h1:'One set-up is',h1Grad:'just the start',sub:'We train your team to use AI on your own tasks and, if you need it, set up ready-made tools or build a solution for your process. Participants pay less than the prices on our site.',countLabel:'Special prices end in',countEnded:'Special prices have ended',units:['days','hours','min','sec'],seats:'Places in November are limited',seatsSub:'Buy now or hold the special price for 500 ₾'},
- tariffs:{h:'Three plans',note:'Team training is the base of every plan. On top of it: implementing ready-made tools or building your own. The price is fixed before work starts, and everything runs on your accounts.',label:'Plan',from:'from',after:'After 19 November:',sticker:'Participants’ choice',book:'Hold for 500 ₾',
-  pay:['Secure payment','Visa · Mastercard · Apple Pay · TBC · Bank of Georgia','Invoice for a company on request','AI tokens and servers run on your account; you pay the providers directly'],
+ tariffs:{h:'Three plans',note:'Team training is the base of every plan. On top of it: implementing ready-made tools or building your own. The price is fixed before work starts, and everything runs on your accounts.',label:'Plan',from:'from',after:'After 14 November:',sticker:'Participants’ choice',book:'Hold for 500 ₾',
+  pay:['Secure payment','Visa · Mastercard · Apple Pay · Google Pay','Invoice for a company on request','AI tokens and servers run on your account; you pay the providers directly'],
   items:{
    training:{name:'Team training',sub:'Practice on your staff’s real tasks. AI becomes a working skill of the team.',features:['4 hands-on sessions over 1–2 weeks, online or at your office','A programme for your team: documents, requests, data','Working templates and rules for checking results','Guides and session recordings stay with you','Answers to the team’s questions for 30 days'],muted:'You set up integrations yourself',note:['Upgrade within 30 days.','Move to implementation or development and we credit the training fee.'],buy:'Buy training'},
    training_impl:{name:'Training + implementation',sub:'We train your team and launch the first set-up together on real enquiries.',features:['Everything in Team training','Review of your enquiries and choice of the first set-up','We set it up on your accounts: messenger, CRM, notifications','Pilot on real enquiries: 2–4 weeks','Support and adjustments for 60 days'],buy:'Buy and start'},
@@ -78,11 +78,42 @@ const en:OfferCopy={
  final:{cta:'Choose a plan'},
  sticky:{label:'Limited places',until:'Special prices end in:',d:'d',cta:'Choose a plan'},
  checkout:{buy:'Purchase',book:'Hold',amount:'To pay',bonusPill:'+ one-to-one session with Evgeny (24-hour bonus)',hold:p=>'Holds the special price of '+p+' for 14 days. The 500 ₾ counts towards the price.',hours:'Base scope: 25 hours of development. If more is needed, we agree the extra hours after the review, before work starts.',
-  name:'Name',email:'Email for the receipt',emailPh:'your email',phone:'Phone / WhatsApp',methodLabel:'Payment method',methods:{card:['Bank card','Visa · Mastercard · Apple Pay'],tbc:['TBC Pay','TBC Bank'],ipay:['iPay','Bank of Georgia']},
-  invalid:'Please check the email and phone.',manual:'We will send a payment link for the chosen method by email and WhatsApp within one working day.',consent:'By clicking the button you agree to the processing of your data.',privacy:'Privacy policy',
-  submitBuy:'Place the order',submitBook:'Hold for 500 ₾',sending:'Sending…',error:'Something went wrong. Please try again or message us on WhatsApp.',
-  doneBuy:'Order received!',doneBook:'Hold received!',doneText:a=>'Amount to pay: '+a+'. Within one working day we will send the payment link, and a curator will contact you to agree the start.',curator:'Message the curator',close:'Close'},
- foot:{location:'Batumi, Georgia',privacy:'Privacy'},
+  name:'Name',email:'Email for the receipt',emailPh:'your email',phone:'Phone / WhatsApp',payLabel:'Payment method',payInfo:'Visa or Mastercard, Apple Pay or Google Pay, on the bank’s secure page',
+  accept:['I accept the ','public offer',' and ask for work to start before the 14-day withdrawal period ends.'],invalid:'Please check the name, email and phone.',notAccepted:'Please accept the offer terms to continue to payment.',consent:'We need your details for the order and the receipt.',privacy:'Privacy policy',
+  submitBuy:a=>'Pay '+a,submitBook:'Pay the hold: 500 ₾',sending:'Sending…',redirecting:'Opening the payment page…',error:'We could not place the order. Please try again or message us on WhatsApp.',
+  manualBuy:'Order received!',manualBook:'Hold received!',manualText:a=>'Amount to pay: '+a+'. Within one working day we will send the payment link, and a curator will contact you to agree the start.',
+  paidBuy:'Payment received!',paidBook:'Your hold is confirmed!',paidText:'The receipt and confirmation will come by email. A curator will contact you within one working day.',
+  failTitle:'The payment did not go through',failText:'No money was taken. Please try again or message the curator, and we will help you pay.',pendingTitle:'Checking the payment',pendingText:'The bank is still confirming the payment. Once it goes through, the receipt will come by email and a curator will contact you.',retry:'Choose a plan again',curator:'Message the curator',close:'Close'},
+ foot:{location:'Batumi, Georgia',privacy:'Privacy',offer:'Public offer'},
 };
 
-export const offerCopy:Record<'ru'|'en',OfferCopy>={ru,en};
+const ka:OfferCopy={
+ title:'სპეციალური შეთავაზება ვორქშოპის მონაწილეებისთვის — Praxen AI',
+ description:'გუნდის სწავლება, AI-ის დანერგვა და შემუშავება 12 ნოემბრის ვორქშოპის მონაწილეებისთვის სპეციალურ ფასად. სპეციალური ფასები — 14 ნოემბრის 19:45-მდე.',
+ marquee:['მხოლოდ ვორქშოპის მონაწილეებისთვის','სპეციალური ფასები 14 ნოემბრის 19:45-მდე','ნოემბრისთვის ადგილები შეზღუდულია'],
+ head:{cta:'ტარიფის არჩევა',home:'Praxen AI — მთავარი'},
+ hero:{badge:'ვორქშოპის მონაწილეებისთვის',h1:'ერთი კავშირი —',h1Grad:'მხოლოდ დასაწყისია',sub:'ვასწავლით თქვენს გუნდს AI-თან მუშაობას თქვენსავე ამოცანებზე და, საჭიროების შემთხვევაში, დავნერგავთ მზა ინსტრუმენტებს ან შევიმუშავებთ გადაწყვეტას თქვენი პროცესისთვის. მონაწილეებისთვის ფასები საიტზე მითითებულზე დაბალია.',countLabel:'სპეციალური ფასის დასრულებამდე',countEnded:'სპეციალური ფასი დასრულდა',units:['დღე','საათი','წუთი','წამი'],seats:'ნოემბრისთვის ადგილების რაოდენობა შეზღუდულია',seatsSub:'იყიდეთ ახლავე ან დაჯავშნეთ სპეციალური ფასი 500 ₾-ად'},
+ tariffs:{h:'სამი ფორმატი',note:'გუნდის სწავლება ყველა ტარიფის საფუძველია. შემდეგ — მზა ინსტრუმენტების დანერგვა ან საკუთარი შემუშავება. ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ, გადაწყვეტა თქვენს ანგარიშებზე მუშაობს.',label:'ტარიფი',from:'',after:'14 ნოემბრის შემდეგ —',sticker:'მონაწილეების არჩევანი',book:'დაჯავშნა 500 ₾-ად',
+  pay:['უსაფრთხო გადახდა','Visa · Mastercard · Apple Pay · Google Pay','ინვოისი კომპანიისთვის — მოთხოვნით','AI ტოკენები და სერვერები თქვენს ანგარიშზეა, პროვაიდერებს პირდაპირ უხდით'],
+  items:{
+   training:{name:'გუნდის სწავლება',sub:'პრაქტიკა თქვენი თანამშრომლების ამოცანებზე. AI გუნდის სამუშაო უნარად იქცევა.',features:['4 პრაქტიკული შეხვედრა 1–2 კვირაში — ონლაინ ან თქვენს ოფისში','პროგრამა თქვენი განყოფილებისთვის: დოკუმენტები, მომართვები, მონაცემები','სამუშაო შაბლონები და შედეგის შემოწმების წესები','ინსტრუქციები და შეხვედრების ჩანაწერები თქვენთან რჩება','გუნდის კითხვებზე პასუხები — 30 დღე'],muted:'ინტეგრაციებს თავად აწყობთ',note:['განახლება 30 დღის განმავლობაში.','გადახვალთ დანერგვაზე ან შემუშავებაზე — სწავლების ღირებულებას ჩავთვლით.'],buy:'სწავლების ყიდვა'},
+   training_impl:{name:'სწავლება + დანერგვა',sub:'ვასწავლით გუნდს და ერთად გავუშვებთ პირველ კავშირს რეალურ მოთხოვნებზე.',features:['ყველაფერი ტარიფიდან „გუნდის სწავლება“','თქვენი მოთხოვნების ანალიზი და პირველი კავშირის არჩევა','კავშირს ვაწყობთ თქვენს ანგარიშებზე: მესენჯერი, CRM, შეტყობინებები','პილოტი რეალურ მოთხოვნებზე — 2–4 კვირა','მხარდაჭერა და დახვეწა — 60 დღე'],buy:'ყიდვა და დაწყება'},
+   training_dev:{name:'სწავლება + შემუშავება',sub:'ვასწავლით გუნდს და შევიმუშავებთ გადაწყვეტას თქვენი პროცესისთვის — როცა მზა ინსტრუმენტები არ კმარა.',features:['ყველაფერი ტარიფიდან „გუნდის სწავლება“','პროცესის ანალიზი და ეფექტის გათვლა — პროექტის შეფასებამდე','AI ასისტენტები და აგენტები მოთხოვნებისა და დოკუმენტებისთვის','შიდა ინტერფეისები, ინტეგრაციები CRM-თან, 1C-თან, ERP-თან','ტესტი თქვენი სამუშაოს მაგალითებზე, ვადა — 4 კვირიდან','გაშვების შემდეგ ერთი თვის მომსახურება'],note:['საბაზო მოცულობა — 25 საათი შემუშავება.','თუ ამოცანას მეტი სჭირდება, დამატებით საათებს ანალიზის შემდეგ შევათანხმებთ — სამუშაოს დაწყებამდე.'],buy:'ყიდვა'},
+  }},
+ bonus:{k:'ბონუსი პირველ 24 საათში გადახდისთვის',h:'პირადი სესია ევგენისთან — 60 წუთი თქვენი გაყიდვების განყოფილების ანალიზი',until:'ბონუსი დასრულდება',ended:'ბონუსი დასრულდა'},
+ program:{h:'სწავლების პროგრამა',note:'შედის ყველა ტარიფში. ყოველი შეხვედრა — თქვენი გუნდის რეალურ ამოცანებზე.',items:[['01','ამოცანების რუკა','სად მოიტანს AI ეფექტს ფულსა და საათებში და სად არის საჭირო ადამიანი. ვირჩევთ ამოცანებს დასაწყებად.','კვირა 1'],['02','შაბლონები თქვენს მონაცემებზე','პრომპტები და ინსტრუქციები თქვენი დოკუმენტებისთვის, მომართვებისა და კონტენტისთვის — ქართულად, ინგლისურად და რუსულად.','კვირა 1'],['03','ასისტენტი და CRM','ვორქშოპის კავშირს ვაწყობთ თქვენი ფასებისა და წესების მიხედვით: მოთხოვნა, პასუხი, ბარათი CRM-ში.','კვირა 2'],['04','შემოწმება და მეტრიკები','პასუხების შემოწმების წესები, მოქმედებების ჟურნალი და მაჩვენებლები, რომლებითაც შედეგი ჩანს.','კვირა 2']]},
+ after:{h:'გადახდის შემდეგ',items:[['ქვითარი email-ზე','გადახდისთანავე — ქვითარი და ტარიფის დადასტურება.'],['კურატორი კავშირზე','სამუშაო დღის განმავლობაში დაგიკავშირდებათ, დააზუსტებს პროცესს და შეათანხმებს შედეგის კრიტერიუმებს.'],['სტარტი','სწავლება — ერთი კვირის განმავლობაში. დანერგვის პილოტი — 2–4 კვირა. შემუშავება — 4 კვირიდან, ფასს ანალიზის შემდეგ ვაფიქსირებთ.']]},
+ faq:{h:'კითხვები',items:[['რით განსხვავდება ეს ფასები საიტის ფასებისგან?','საიტის ფასებით სწავლება ღირს 1 900 ₾-დან, დანერგვა — 3 200 ₾-დან, შემუშავება — 6 700 ₾-დან. სწავლებასთან ერთად პაკეტები ვორქშოპის მონაწილეებისთვის უფრო იაფია — ტაიმერის დასრულებამდე.'],['კიდევ რისი გადახდა მომიწევს?','AI ტოკენები და სერვერები თქვენს ანგარიშზე მუშაობს — პროვაიდერებს პირდაპირ უხდით. ჩართული თვის შემდეგ მომსახურება — თვეში 550 ₾-დან, თუ მოისურვებთ.'],['შეიძლება დავიწყო სწავლებით და შემდეგ გადავიდე უფრო მაღალ ტარიფზე?','დიახ. სწავლების ყიდვიდან 30 დღის განმავლობაში შეგიძლიათ გადახვიდეთ ტარიფზე „სწავლება + დანერგვა“ ან „სწავლება + შემუშავება“ — გადახდილ თანხას ღირებულებაში ჩავთვლით.'],['რით განსხვავდება ჯავშანი ყიდვისგან?','500 ₾-იანი ჯავშანი 14 დღით გინარჩუნებთ სპეციალურ ფასს და ადგილს გრაფიკში — თანხა ღირებულებაში ჩაითვლება. ყიდვა — სრული გადახდა და სამუშაოს დაწყება.'],['რა შედის შემუშავების საბაზო მოცულობაში?','25 საათი შემუშავება თქვენი პროცესისთვის. რამდენი საათი გჭირდებათ, ანალიზზე ვითვლით — თუ საბაზოზე მეტია, დამატებით თანხას სამუშაოს დაწყებამდე შევათანხმებთ და დავაფიქსირებთ.'],['რა ემართება ჩვენს მონაცემებს?','ვმუშაობთ კორპორატიული Enterprise API-ით — თქვენი მონაცემები საჯარო მოდელების სწავლებისთვის არ გამოიყენება. საჭიროების შემთხვევაში გადაწყვეტას თქვენს ინფრასტრუქტურაში ვაყენებთ.'],['შეიძლება კომპანიის სახელით გადახდა?','დიახ. მოგვწერეთ WhatsApp-ში — კომპანიაზე ინვოისს გამოვწერთ; სპეციალური ფასი შენარჩუნდება, თუ მოთხოვნა ტაიმერის დასრულებამდე მოვა.']]},
+ final:{cta:'ტარიფის არჩევა'},
+ sticky:{label:'ადგილები შეზღუდულია',until:'სპეციალური ფასის დასრულებამდე:',d:'დ',cta:'ტარიფის არჩევა'},
+ checkout:{buy:'ყიდვა',book:'დაჯავშნა',amount:'გადასახდელი',bonusPill:'+ პირადი სესია ევგენისთან (24-საათიანი ბონუსი)',hold:p=>'სპეციალური ფასის ('+p+') ჯავშანი 14 დღით. 500 ₾ ღირებულებაში ჩაითვლება.',hours:'საბაზო მოცულობა — 25 საათი შემუშავება. თუ მეტი საჭიროა, დამატებით საათებს ანალიზის შემდეგ შევათანხმებთ — სამუშაოს დაწყებამდე.',
+  name:'სახელი',email:'Email ქვითრისთვის',emailPh:'თქვენი email',phone:'ტელეფონი / WhatsApp',payLabel:'გადახდის საშუალება',payInfo:'Visa ან Mastercard ბარათი, Apple Pay ან Google Pay — ბანკის დაცულ გვერდზე',
+  accept:['ვეთანხმები ','საჯარო ოფერტის',' პირობებს და ვითხოვ სამუშაოს დაწყებას უარის 14-დღიანი ვადის გასვლამდე.'],invalid:'შეამოწმეთ სახელი, email და ტელეფონი.',notAccepted:'გადახდაზე გადასასვლელად დაეთანხმეთ ოფერტის პირობებს.',consent:'თქვენი მონაცემები საჭიროა შეკვეთისა და ქვითრისთვის.',privacy:'კონფიდენციალურობის პოლიტიკა',
+  submitBuy:a=>'გადახდა — '+a,submitBook:'ჯავშნის გადახდა — 500 ₾',sending:'იგზავნება…',redirecting:'გადავდივართ გადახდაზე…',error:'შეკვეთის გაფორმება ვერ მოხერხდა. სცადეთ თავიდან ან მოგვწერეთ WhatsApp-ში.',
+  manualBuy:'შეკვეთა მიღებულია!',manualBook:'ჯავშანი მიღებულია!',manualText:a=>'გადასახდელი თანხა — '+a+'. სამუშაო დღის განმავლობაში გამოგიგზავნით გადახდის ბმულს, კურატორი კი დაგიკავშირდებათ და სტარტს შეგითანხმებთ.',
+  paidBuy:'გადახდა შესრულდა!',paidBook:'ჯავშანი გაფორმდა!',paidText:'ქვითარი და დადასტურება email-ზე მოვა. კურატორი სამუშაო დღის განმავლობაში დაგიკავშირდებათ.',
+  failTitle:'გადახდა ვერ შესრულდა',failText:'თანხა არ ჩამოგეჭრათ. სცადეთ თავიდან ან მისწერეთ კურატორს — დაგეხმარებით.',pendingTitle:'ვამოწმებთ გადახდას',pendingText:'ბანკი ჯერ ადასტურებს გადახდას. დადასტურებისთანავე ქვითარი email-ზე მოვა, კურატორი კი დაგიკავშირდებათ.',retry:'ტარიფის ხელახლა არჩევა',curator:'კურატორთან მიწერა',close:'დახურვა'},
+ foot:{location:'ბათუმი, საქართველო',privacy:'კონფიდენციალურობა',offer:'ოფერტა'},
+};
+
+export const offerCopy:Record<'ru'|'en'|'ka',OfferCopy>={ru,en,ka};

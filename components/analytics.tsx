@@ -25,7 +25,9 @@ export function track(event:string,params:Record<string,string|number|undefined>
  if(event==='generate_lead'){
   window.fbq?.('track','Lead');
   if(tracking.ads&&tracking.adsLeadLabel)window.gtag?.('event','conversion',{send_to:tracking.ads+'/'+tracking.adsLeadLabel});
- }else if(event==='cta_click'||event==='phone_click'||event==='telegram_click'||event==='whatsapp_click'||event==='booking_click'||event==='email_click')window.fbq?.('track','Contact');
+ }else if(event==='begin_checkout')window.fbq?.('track','InitiateCheckout',{value:params.value,currency:params.currency});
+ else if(event==='purchase')window.fbq?.('track','Purchase',{value:params.value,currency:params.currency});
+ else if(event==='cta_click'||event==='phone_click'||event==='telegram_click'||event==='whatsapp_click'||event==='booking_click'||event==='email_click')window.fbq?.('track','Contact');
 }
 
 // "utm_source=linkedin; utm_campaign=hotels-oct; ref=google.com" or '' when the visit is direct.

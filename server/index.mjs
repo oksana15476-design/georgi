@@ -5,7 +5,7 @@ import {createReadStream,existsSync,readFileSync,statSync} from 'node:fs';
 import {extname,join,normalize,resolve} from 'node:path';
 import {gzipSync} from 'node:zlib';
 import {MAX_BODY,deliverLead,parseLead} from '../lib/lead-delivery.mjs';
-import {parseOrder} from '../lib/webinar-offer-order.mjs';
+import {checkoutCallback,checkoutReturn,createCheckout} from '../lib/checkout-handlers.mjs';
 
 const root=resolve(process.env.STATIC_DIR||new URL('../out',import.meta.url).pathname);
 const port=Number(process.env.PORT||3000);
@@ -70,12 +70,12 @@ async function handleLead(req,res,order=false){
  if(limited(ip)||globallyLimited())return json(res,429,{error:'rate'});
  let raw='';
  for await(const chunk of req){raw+=chunk;if(raw.length>MAX_BODY)return json(res,413,{error:'size'})}
- const {lead,amount,error}=order?parseOrder(raw,Date.now()):parseLead(raw);
+ if(order){const r=await createCheckout(raw,'https://'+host,process.env,Date.now());return json(res,r.status,r.body)}
+ const {lead,error}=parseLead(raw);
  if(!lead)return json(res,400,{error});
- if(order&&lead.page.startsWith('/'))lead.page='https://'+host+lead.page;
  const result=await deliverLead(lead,process.env);
  if(result.errors.length)console.error('lead delivery errors:',result.errors.join('; '));
- if(result.status==='ok')return json(res,200,order?{ok:true,amount,payment:'manual'}:{ok:true});
+ if(result.status==='ok')return json(res,200,{ok:true});
  return json(res,result.status==='unavailable'?503:502,{error:result.status==='unavailable'?'unavailable':'delivery'});
 }
 
@@ -89,6 +89,15 @@ const server=createServer(async(req,res)=>{
   if(url.pathname==='/api/checkout'){
    if(req.method==='POST')return await handleLead(req,res,true);
    return json(res,405,{error:'method'});
+  }
+  // Flitt payment notice and the buyer's return from the payment page (lib/checkout-handlers.mjs).
+  if(url.pathname==='/api/checkout/callback'||url.pathname==='/api/checkout/return'){
+   let raw='';
+   if(req.method==='POST')for await(const chunk of req){raw+=chunk;if(raw.length>MAX_BODY*4)return json(res,413,{error:'size'})}
+   else raw=url.search.slice(1);
+   const type=req.method==='POST'?String(req.headers['content-type']||''):'application/x-www-form-urlencoded';
+   if(url.pathname.endsWith('/callback')){const r=await checkoutCallback(raw,type,process.env);res.writeHead(r.status,{...security,'Content-Type':'text/plain'});return res.end(r.text)}
+   res.writeHead(303,{...security,Location:await checkoutReturn(raw,type,process.env)});return res.end();
   }
   if(url.pathname==='/healthz')return json(res,200,{ok:true});
   if(req.method!=='GET'&&req.method!=='HEAD'){res.writeHead(405,security);return res.end()}
