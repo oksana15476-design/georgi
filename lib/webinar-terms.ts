@@ -3,8 +3,8 @@ import type {Lang} from '@/lib/content';
 // Public offer (terms of sale) for the services sold on the workshop offer page: /ru/webinar/terms, /webinar/terms, /ka/webinar/terms.
 // Built on the Civil Code of Georgia (art. 327–333, 342–348), the Law on Consumer Rights Protection (2022), the Law on Electronic
 // Commerce (2023) and the Law on Personal Data Protection (2023); see the research notes in docs/HANDOFF.md.
-// DRAFT: the VAT status is still missing, and a Georgian lawyer must review the text (especially the Georgian version,
-// which takes priority) before payments go live. While any detail is empty the page shows a draft notice.
+// A Georgian lawyer should review the text (especially the Georgian version, which takes priority) before payments go live.
+// While any seller detail is empty the page shows a draft notice.
 
 /** Seller details (individual entrepreneur). Fill in from the owner's registration documents; never guess. */
 export const seller={
@@ -14,8 +14,8 @@ export const seller={
  legalAddress:{ru:'9 Niyazaradi St., Batumi, Georgia',en:'9 Niyazaradi St., Batumi, Georgia',ka:'9 Niyazaradi St., Batumi, Georgia'} as Record<'ru'|'en'|'ka',string>,
  iban:'GE73TB7037345064300159',
  swift:'TBCBGE22',
- // Either «not a VAT payer» or «prices include VAT»; set after checking the status at rs.ge.
- vat:{ru:'',en:'',ka:''} as Record<'ru'|'en'|'ka',string>,
+ // Owner, 14 October 2026: small business status (1% turnover tax), not registered for VAT.
+ vat:{ru:'Исполнитель не является плательщиком НДС.',en:'The Provider is not registered for VAT.',ka:'შემსრულებელი არ არის დღგ-ის გადამხდელი.'} as Record<'ru'|'en'|'ka',string>,
 };
 export const termsDraft=!seller.name.ru||!seller.idCode||!seller.legalAddress.ru||!seller.vat.ru;
 export const termsLangs:Lang[]=['ru','en','ka'];
