@@ -1771,3 +1771,92 @@ main{outline:none}
  .wb .wb-foot .footer-bottom{flex-direction:column;align-items:flex-start}
 }
 @media(prefers-reduced-motion:reduce){.wb .wb-marquee-track,.wb .wb-gift-ico,.wb .wb-cta:after{animation:none}}
+
+/* Workshop offer page (/ru/webinar/offer, /webinar/offer): tariffs, bonus and the checkout modal; shares the .wb landing rules. */
+.wb .wb-on-dark{max-width:400px;color:#c9d2e3}
+.wb .wb-otimer .wb-count-label{color:var(--wb-muted)}
+.wb .wb-otimer-row{display:flex;border:2px solid var(--wb-ink);border-radius:18px;overflow:hidden}
+.wb .wb-otimer-row>div{display:flex;flex-direction:column;align-items:center;justify-content:center;width:84px;height:84px}
+.wb .wb-otimer-row>div+div{border-left:2px solid var(--wb-ink)}
+.wb .wb-otimer-row>div:last-child{background:var(--wb-y)}
+.wb .wb-otimer-row b{font-size:34px;line-height:1;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.wb .wb-otimer-row span{margin-top:6px;font-size:12px;font-weight:700;color:var(--wb-body)}
+.wb .wb-seats{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:40px;padding:18px 22px;border-radius:18px;background:var(--wb-soft)}
+.wb .wb-seats b{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:800}
+.wb .wb-seats>span{font-size:14px;font-weight:600;color:var(--wb-muted)}
+.wb .wb-tariffs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;align-items:stretch}
+.wb .wb-tariff{position:relative;display:flex;flex-direction:column;padding:30px;border-radius:24px;background:#ffffff0d;border:1px solid #ffffff26}
+.wb .wb-tariff.is-featured{background:#fff;color:var(--wb-ink);border-color:#fff;box-shadow:0 0 0 4px #5268f5,0 40px 80px -30px #315bf5aa}
+.wb .wb-tariff-sticker{position:absolute;top:-16px;right:24px;padding:8px 14px;border-radius:999px;background:var(--wb-y);border:2px solid var(--wb-ink);color:var(--wb-ink);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;transform:rotate(3deg)}
+.wb .wb-tariff-k{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--wb-y)}
+.wb .wb-tariff.is-featured .wb-tariff-k{color:#315bf5}
+.wb .wb-tariff h3{margin-top:12px;font-size:30px;line-height:1.05;font-weight:800;letter-spacing:-.035em}
+.wb .wb-tariff-sub{margin-top:10px;font-size:15px;line-height:1.55;color:#c9d2e3}
+.wb .wb-tariff.is-featured .wb-tariff-sub{color:var(--wb-body)}
+.wb .wb-tariff-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-top:22px;padding-top:22px;border-top:1px solid #ffffff26}
+.wb .wb-tariff.is-featured .wb-tariff-price{border-top-color:var(--line)}
+.wb .wb-tariff-price b{font-size:48px;line-height:1;font-weight:800;letter-spacing:-.045em;white-space:nowrap}
+.wb .wb-tariff-price s{font-size:20px;font-weight:700;color:#8e9ab3;white-space:nowrap}
+.wb .wb-tariff.is-featured .wb-tariff-price s{color:var(--wb-muted)}
+.wb .wb-tariff-price small{flex-basis:100%;font-size:13px;font-weight:700;color:#ff8a8a}
+.wb .wb-tariff.is-featured .wb-tariff-price small{color:#d14343}
+.wb .wb-tariff ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.wb .wb-tariff li{display:flex;gap:12px;font-size:15px;line-height:1.45}
+.wb .wb-tariff li svg{flex-shrink:0;color:#7b95ff}
+.wb .wb-tariff.is-featured li svg{color:#315bf5}
+.wb .wb-tariff li.is-muted{color:#8e9ab3}
+.wb .wb-tariff li.is-muted svg{color:var(--wb-muted)}
+.wb .wb-tariff-note{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:14px 16px;border-radius:14px;background:#ffd16614;border:1px dashed #ffd16680;font-size:13.5px;line-height:1.5;color:#e3e8f2}
+.wb .wb-tariff-note svg{flex-shrink:0;margin-top:1px;color:var(--wb-y);transform:rotate(-45deg)}
+.wb .wb-tariff-note b{color:#fff}
+.wb .wb-tariff-act{display:flex;flex-direction:column;gap:12px;margin-top:auto;padding-top:28px}
+.wb .wb-tariff-act .btn{min-height:60px;font-size:16px}
+.wb .wb-outline{border-radius:999px;border:2px solid #fff;background:none;color:#fff;font-weight:800;text-transform:uppercase;letter-spacing:.02em;transition:background .2s,color .2s}
+.wb .wb-outline:hover{background:#fff;color:var(--wb-ink)}
+.wb .wb-book{align-self:center;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;border:0;border-bottom:2px solid #ffffff40;background:none;font-size:15px;font-weight:700;color:#c9d2e3;transition:color .2s,border-color .2s}
+.wb .wb-book:hover{color:#fff;border-color:var(--wb-y)}
+.wb .wb-tariff.is-featured .wb-book{color:var(--wb-ink);border-bottom-color:var(--wb-ink)}
+.wb .wb-tariff.is-featured .wb-book:hover{color:#315bf5;border-color:#315bf5}
+.wb .wb-pay{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;margin-top:28px;font-size:14px;font-weight:600;color:#8e9ab3}
+.wb .wb-pay span{display:inline-flex;align-items:center;gap:8px}
+.wb .wb-bonus{padding:48px 0;background:var(--wb-y);border-bottom:2px solid var(--wb-ink)}
+.wb .wb-bonus-in{display:flex;flex-wrap:wrap;align-items:center;gap:24px 40px}
+.wb .wb-bonus-in>div:nth-child(2){flex:1 1 420px;min-width:0}
+.wb .wb-bonus .wb-kicker{color:var(--wb-ink)}
+.wb .wb-bonus-ico{display:inline-flex;align-items:center;justify-content:center;width:88px;height:88px;flex-shrink:0;border-radius:50%;background:#fff;border:2px solid var(--wb-ink);animation:wb-wiggle 3s ease-in-out infinite}
+.wb .wb-bonus-h{margin-top:10px;font-size:clamp(26px,3vw,44px);line-height:1.08;letter-spacing:-.035em;font-weight:800}
+.wb .wb-bonus-t{display:flex;flex-direction:column;gap:6px;padding:14px 22px;border-radius:16px;background:#fff;border:2px solid var(--wb-ink)}
+.wb .wb-bonus-t span{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--wb-muted)}
+.wb .wb-bonus-t b{font-size:30px;line-height:1;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.wb .wb-after-pay{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:40px}
+.wb .wb-after-pay li{padding:28px;border-radius:20px;border:2px solid var(--wb-ink);background:#fff}
+.wb .wb-after-pay .wb-block-n{display:block;font-size:48px}
+.wb .wb-after-pay h3{margin-top:18px;font-size:22px;font-weight:800;letter-spacing:-.02em}
+.wb .wb-after-pay p{margin-top:8px;font-size:16px;line-height:1.55;color:var(--wb-body)}
+.wb .wb-co-k{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#315bf5}
+.wb .wb-co .wb-form-h{margin-top:6px;padding-right:40px}
+.wb .wb-co-sum{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 12px;padding:16px 18px;border-radius:14px;background:var(--wb-soft)}
+.wb .wb-co-sum>span{font-size:14px;font-weight:700;color:var(--wb-muted)}
+.wb .wb-co-sum>b{display:flex;align-items:baseline;gap:10px;font-size:28px;font-weight:800;letter-spacing:-.03em;white-space:nowrap}
+.wb .wb-co-sum s{order:-1;font-size:15px;font-weight:700;color:var(--wb-muted)}
+.wb .wb-co-sum small{flex-basis:100%;font-size:13px;line-height:1.5;color:var(--wb-body)}
+.wb .wb-co-sum em{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--wb-y);font-style:normal;font-size:13px;font-weight:800}
+.wb .wb-co input[type=email],.wb .wb-co input[type=tel]{height:52px;border:2px solid #cdd6e3;border-radius:12px;font-weight:500}
+.wb .wb-co input[type=email]:focus,.wb .wb-co input[type=tel]:focus{border-color:var(--wb-ink)}
+.wb .wb-co input[aria-invalid=true]{border-color:#b42318}
+.wb .wb-co-methods{display:flex;flex-direction:column;gap:8px}
+.wb .wb-co-methods button{display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-height:52px;padding:12px 16px;border:2px solid #cdd6e3;border-radius:12px;background:#fff;color:var(--wb-ink);text-align:left;transition:border-color .2s,background .2s}
+.wb .wb-co-methods button.is-on{border-color:var(--wb-ink);background:var(--wb-soft);box-shadow:inset 4px 0 0 #315bf5}
+.wb .wb-co-methods b{font-size:15px;font-weight:800}
+.wb .wb-co-methods small{font-size:13px;color:var(--wb-muted)}
+.wb .wb-co .wb-note svg{display:inline;vertical-align:-2px}
+@media(max-width:600px){
+ .wb .wb-otimer,.wb .wb-otimer-row{width:100%}
+ .wb .wb-otimer-row>div{flex:1;width:auto;height:72px}
+ .wb .wb-otimer-row b{font-size:28px}
+ .wb .wb-tariff{padding:24px}
+ .wb .wb-tariff-price b{font-size:40px}
+ .wb .wb-bonus-ico{width:64px;height:64px}
+ .wb .wb-bonus-t{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.wb .wb-bonus-ico{animation:none}}

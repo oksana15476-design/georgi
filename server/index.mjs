@@ -1,10 +1,11 @@
 // Production server for the Docker image: serves the static export in ./out and accepts leads at
-// POST /api/leads. No dependencies beyond Node itself.
+// POST /api/leads and orders from the workshop offer page at POST /api/checkout. No dependencies beyond Node itself.
 import {createServer} from 'node:http';
 import {createReadStream,existsSync,readFileSync,statSync} from 'node:fs';
 import {extname,join,normalize,resolve} from 'node:path';
 import {gzipSync} from 'node:zlib';
 import {MAX_BODY,deliverLead,parseLead} from '../lib/lead-delivery.mjs';
+import {parseOrder} from '../lib/webinar-offer-order.mjs';
 
 const root=resolve(process.env.STATIC_DIR||new URL('../out',import.meta.url).pathname);
 const port=Number(process.env.PORT||3000);
@@ -57,7 +58,7 @@ function limited(ip){
  return list.length>5;
 }
 
-async function handleLead(req,res){
+async function handleLead(req,res,order=false){
  const host=req.headers['x-forwarded-host']||req.headers.host;
  const origin=req.headers.origin;
  if(!origin||new URL(origin).host!==host)return json(res,403,{error:'origin'});
@@ -69,11 +70,12 @@ async function handleLead(req,res){
  if(limited(ip)||globallyLimited())return json(res,429,{error:'rate'});
  let raw='';
  for await(const chunk of req){raw+=chunk;if(raw.length>MAX_BODY)return json(res,413,{error:'size'})}
- const {lead,error}=parseLead(raw);
+ const {lead,amount,error}=order?parseOrder(raw,Date.now()):parseLead(raw);
  if(!lead)return json(res,400,{error});
+ if(order&&lead.page.startsWith('/'))lead.page='https://'+host+lead.page;
  const result=await deliverLead(lead,process.env);
  if(result.errors.length)console.error('lead delivery errors:',result.errors.join('; '));
- if(result.status==='ok')return json(res,200,{ok:true});
+ if(result.status==='ok')return json(res,200,order?{ok:true,amount,payment:'manual'}:{ok:true});
  return json(res,result.status==='unavailable'?503:502,{error:result.status==='unavailable'?'unavailable':'delivery'});
 }
 
@@ -82,6 +84,10 @@ const server=createServer(async(req,res)=>{
   const url=new URL(req.url||'/','http://localhost');
   if(url.pathname==='/api/leads'){
    if(req.method==='POST')return await handleLead(req,res);
+   return json(res,405,{error:'method'});
+  }
+  if(url.pathname==='/api/checkout'){
+   if(req.method==='POST')return await handleLead(req,res,true);
    return json(res,405,{error:'method'});
   }
   if(url.pathname==='/healthz')return json(res,200,{ok:true});

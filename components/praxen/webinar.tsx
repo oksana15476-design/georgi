@@ -116,16 +116,16 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
 }
 
 // Days, hours, minutes and seconds to the start; null until mounted so server and client HTML match.
-function useCountdown(ev:WebinarEvent){
+export function useCountdown(target:string){
  const [left,setLeft]=useState<number|null>(null);
- useEffect(()=>{const t0=Date.parse(webinarEvents[ev].start);const tick=()=>setLeft(Math.max(0,t0-Date.now()));tick();const t=setInterval(tick,1000);return()=>clearInterval(t)},[ev]);
+ useEffect(()=>{const t0=Date.parse(target);const tick=()=>setLeft(Math.max(0,t0-Date.now()));tick();const t=setInterval(tick,1000);return()=>clearInterval(t)},[target]);
  if(left===null)return null;
  const s=Math.floor(left/1000);
  return [Math.floor(s/86400),Math.floor(s%86400/3600),Math.floor(s%3600/60),s%60];
 }
-const pad=(n:number)=>String(n).padStart(2,'0');
+export const pad=(n:number)=>String(n).padStart(2,'0');
 function Countdown({c}:{c:WebinarCopy}){
- const v=useCountdown(c.event);
+ const v=useCountdown(webinarEvents[c.event].start);
  return <div className="wb-count" role="timer" aria-label={c.reg.countLabel}>
   <span className="wb-count-label">{c.reg.countLabel}</span>
   <div className="wb-count-row">{c.reg.units.map((u,i)=><div key={u} className="wb-count-cell"><b suppressHydrationWarning>{v?pad(v[i]):'--'}</b><span>{u}</span></div>)}</div>
@@ -177,13 +177,13 @@ function DemoMock({c}:{c:WebinarCopy}){
  </div>;
 }
 
-function Questions({c}:{c:WebinarCopy}){
+export function Questions({h,items,label='08 FAQ'}:{h:string;items:[string,string][];label?:string}){
  const [open,setOpen]=useState(0);
  return (
-  <section data-screen-label="08 FAQ" className="wb-sec">
+  <section data-screen-label={label} className="wb-sec">
    <div className="wb-c">
-    <h2 data-reveal="" className="wb-h2">{c.faq.h}</h2>
-    <div className="wb-faq">{c.faq.items.map(([q,a],i)=>{const on=open===i;return <div key={q} className={'wb-faq-item'+(on?' is-open':'')}>
+    <h2 data-reveal="" className="wb-h2">{h}</h2>
+    <div className="wb-faq">{items.map(([q,a],i)=>{const on=open===i;return <div key={q} className={'wb-faq-item'+(on?' is-open':'')}>
      <h3><button type="button" onClick={()=>setOpen(on?-1:i)} aria-expanded={on} aria-controls={'wb-faq-'+i}>{q}<span className="wb-faq-ring"><Icon name="plus" size={18}/></span></button></h3>
      <p id={'wb-faq-'+i} hidden={!on}>{a}</p>
     </div>})}</div>
@@ -193,7 +193,7 @@ function Questions({c}:{c:WebinarCopy}){
 }
 
 function StickyBar({c,shown,onCta}:{c:WebinarCopy;shown:boolean;onCta:(e:React.MouseEvent)=>void}){
- const v=useCountdown(c.event);
+ const v=useCountdown(webinarEvents[c.event].start);
  return <div className={'wb-bar'+(shown?' is-shown':'')} aria-hidden={!shown}>
   <div className="wb-c wb-bar-in">
    <span className="wb-bar-label"><span className="wb-dot" aria-hidden="true"/>{c.sticky.label}</span>
@@ -304,7 +304,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      </div>
     </section>
 
-    <Questions c={c}/>
+    <Questions h={c.faq.h} items={c.faq.items}/>
 
     <section data-screen-label="09 Final" className="wb-final">
      <div className="wb-c" data-reveal="">

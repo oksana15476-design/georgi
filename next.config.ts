@@ -63,6 +63,7 @@ const nextConfig: NextConfig = pages
             ...geWithSlugs.map((s) => ({ source: `/${s}/:slug`, destination: `/en/${s}/:slug` })),
             // Webinar landing (app/[lang]/webinar): English without the /en prefix.
             { source: "/webinar", destination: "/en/webinar" },
+            { source: "/webinar/offer", destination: "/en/webinar/offer" },
           ],
         };
         return {
