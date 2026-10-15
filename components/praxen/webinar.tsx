@@ -30,8 +30,11 @@ function jsonLd(lang:L,c:WebinarCopy){
 
 // Participant code, remembered by the browser at registration and sent again with an order, so the CRM links the buyer
 // to the registration even when the contacts differ (e.g. registered by Telegram, bought with a phone number).
+// Links we send to a participant (bot, email, WhatsApp) carry it as ?c=…, so another phone or computer gets the same code.
 export function participantCode(){
  try{
+  const fromLink=new URLSearchParams(location.search).get('c')||'';
+  if(/^W[A-Z0-9]{4,11}$/.test(fromLink))localStorage.setItem('praxen_wb_code',fromLink);
   let c=localStorage.getItem('praxen_wb_code');
   if(!c){const a=new Uint8Array(6);crypto.getRandomValues(a);c='W'+Array.from(a,x=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[x%32]).join('');localStorage.setItem('praxen_wb_code',c)}
   return c;
