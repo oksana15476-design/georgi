@@ -12,7 +12,8 @@ export async function POST(request:Request){
  // Full page address, so the lead shows which site (praxenai.ge or praxenai.com) it came from.
  if(lead.page.startsWith('/'))lead.page=new URL(request.url).origin+lead.page;
  const result=await deliverLead(lead,env as unknown as Record<string,string|undefined>);
- if(result.status==='ok')return Response.json({ok:true});
+ // Channels that failed while another worked are named in «warn» (never secrets) and reported to the team chat.
+ if(result.status==='ok')return Response.json(result.errors.length?{ok:true,warn:result.errors}:{ok:true});
  // Channel errors (e.g. "telegram 400") go to the Workers log and the response; they never contain secrets.
  if(result.errors.length)console.error('lead delivery failed',result.errors);
  return Response.json({error:result.status==='unavailable'?'unavailable':'delivery',channels:result.errors},{status:result.status==='unavailable'?503:502});
