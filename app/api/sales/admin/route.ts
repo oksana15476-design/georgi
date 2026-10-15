@@ -31,7 +31,7 @@ async function report(key:string){
  try{
   const d=await funnelReport(E());
   const pct=d.registered?Math.round(d.bought/d.registered*1000)/10:0;
-  body=`<div class="s">Записались: ${d.registered} · купили из них: ${d.bought} · конверсия ${pct}%</div>
+  body=`<div class="s">Сделок: ${d.total} · записались на воркшоп: ${d.registered} · купили всего: ${d.boughtAll}<br>Из записавшихся купили: ${d.bought} — конверсия ${pct}% · купили без записи: ${d.boughtAll-d.bought}</div>
 <p>${Object.entries(d.stages).map(([k,v])=>esc(k)+': '+v).join(' · ')}</p>
 <h2>Дубли</h2>${d.duplicates.length?`<ul class="sys">${d.duplicates.map(x=>`<li><b>⚠️ ${esc(x.key)}</b><span>сделки ${x.deals.join(', ')}</span></li>`).join('')}</ul>`:'<p>✅ Дублей нет: у каждого контакта и кода участника одна сделка.</p>'}
 <h2>Сделки (${d.rows.length})</h2><ul class="sys">${d.rows.map(x=>`<li><b>${esc(x.name)}</b><span>#${x.id} · сейчас: <b>${esc(x.stage)}</b></span><span>история: ${esc(x.path.join(' → ')||'—')}</span><span>записей в сделке: ${x.notes}${x.price?' · сумма '+x.price+' ₾':''}</span><span>поля: ${esc(Object.entries(x.filled).map(([k,v])=>k+' = '+v).join(' · ')||'—')}</span>${x.missing.length?`<span>⚠️ не заполнено: ${esc(x.missing.join(', '))}</span>`:''}</li>`).join('')}</ul>`;
@@ -46,7 +46,9 @@ const rows=(origin:string)=>systemStatus(E(),origin).catch(()=>[] as Row[]);
 export async function GET(request:Request){
  const key=new URL(request.url).searchParams.get('key')||'';
  if(!allowed(key))return new Response('Not found',{status:404});
- if(new URL(request.url).searchParams.get('report'))return report(key);
+ const q=new URL(request.url).searchParams;
+ if(q.get('report')==='json')return funnelReport(E()).then(d=>Response.json(d,{headers:{'Cache-Control':'no-store'}}),e=>Response.json({error:String((e as Error).message||e)},{status:500}));
+ if(q.get('report'))return report(key);
  const origin=new URL(request.url).origin;
  return page(key,await getSales(E(),true),'',await rows(origin));
 }
