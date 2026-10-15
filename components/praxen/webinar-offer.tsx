@@ -9,7 +9,7 @@ import {seller,termsPath} from '@/lib/webinar-terms';
 import {BONUS_END,DEPOSIT,OFFER_END,TARIFFS,bonusActive,offerActive,tariffPrice} from '@/lib/webinar-offer-order.mjs';
 import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
-import {Questions,WbLangs,pad,useCountdown,useSalesSwitch} from './webinar';
+import {Questions,WbLangs,pad,participantCode,useCountdown,useSalesSwitch} from './webinar';
 
 type Tariff=typeof TARIFFS[number];
 type Order={tariff:Tariff;mode:'buy'|'book'};
@@ -77,7 +77,7 @@ function Checkout({c,lang,order,now,onClose}:{c:OfferCopy;lang:'ru'|'en'|'ka';or
   if(!accepted){setStatus('accept');return}
   setSending(k.sending);setStatus('');
   try{
-   const r=await fetch(base+'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tariff:t.key,mode:order.mode,pay,payer,payerId,name,email,phone,website,lang,accepted:true,page:location.pathname,source:getAttribution()})});
+   const r=await fetch(base+'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tariff:t.key,mode:order.mode,pay,payer,payerId,name,email,phone,website,lang,accepted:true,code:participantCode(),page:location.pathname,source:getAttribution()})});
    const data=await r.json().catch(()=>({})) as {ok?:boolean;amount?:number;payment?:string;url?:string;order?:string};
    if(!r.ok||!data.ok)throw new Error();
    const value=data.amount||amount;

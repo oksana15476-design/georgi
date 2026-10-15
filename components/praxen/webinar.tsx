@@ -28,8 +28,18 @@ function jsonLd(lang:L,c:WebinarCopy){
  ]};
 }
 
+// Participant code, remembered by the browser at registration and sent again with an order, so the CRM links the buyer
+// to the registration even when the contacts differ (e.g. registered by Telegram, bought with a phone number).
+export function participantCode(){
+ try{
+  let c=localStorage.getItem('praxen_wb_code');
+  if(!c){const a=new Uint8Array(6);crypto.getRandomValues(a);c='W'+Array.from(a,x=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[x%32]).join('');localStorage.setItem('praxen_wb_code',c)}
+  return c;
+ }catch{return ''}
+}
+
 async function sendLead(body:Record<string,unknown>){
- const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,page:location.pathname,source:getAttribution()})});
+ const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,code:participantCode(),page:location.pathname,source:getAttribution()})});
  if(!r.ok)throw new Error();
 }
 
