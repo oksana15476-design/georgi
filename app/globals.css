@@ -1616,14 +1616,15 @@ main{outline:none}
 .wb .wb-chat-head b{display:block;font-size:14px}
 .wb .wb-chat-head small{display:block;font-size:12px;opacity:.8}
 .wb .wb-chat-ava{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#25d366}
-.wb .wb-chat-body{display:flex;flex-direction:column;gap:8px;padding:16px 16px 64px;min-height:340px}
+.wb .wb-chat-body{position:relative;display:flex;flex-direction:column;gap:8px;padding:16px 16px 64px;min-height:340px}
 .wb .wb-msg{position:relative;max-width:86%;padding:9px 12px 18px;border-radius:10px;font-size:14px;line-height:1.45;color:#111b21;box-shadow:0 1px 1px #0000001a;transition:opacity .45s var(--ease),transform .5s var(--spring)}
 .wb .wb-msg small{position:absolute;right:10px;bottom:4px;font-size:11px;color:#667781}
 .wb .wb-msg-in{align-self:flex-start;background:#fff;transform-origin:left bottom}
 .wb .wb-msg-out{align-self:flex-end;background:#d9fdd3;transform-origin:right bottom}
 .wb .wb-msg:not(.is-on){opacity:0;transform:translateY(10px) scale(.96)}
-.wb .wb-typing{display:none;align-self:flex-end;gap:4px;padding:10px 14px;border-radius:10px;background:#d9fdd3}
-.wb .wb-typing.is-on{display:inline-flex}
+/* The typing dots sit in the reserved bottom padding, so the chat never changes height (no page jumps on phones). */
+.wb .wb-typing{position:absolute;right:16px;bottom:20px;display:inline-flex;gap:4px;padding:10px 14px;border-radius:10px;background:#d9fdd3;opacity:0;transition:opacity .25s}
+.wb .wb-typing.is-on{opacity:1}
 .wb .wb-typing i{width:6px;height:6px;border-radius:50%;background:#56756a;animation:wb-dot3 1.2s infinite}
 .wb .wb-typing i:nth-child(2){animation-delay:.15s}
 .wb .wb-typing i:nth-child(3){animation-delay:.3s}
