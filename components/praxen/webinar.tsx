@@ -6,6 +6,7 @@ import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {absolute,pageUrl} from '@/lib/seo';
 import {webinar as w,webinarCopy,webinarEvents,type WebinarCopy} from '@/lib/webinar';
+import {offerPath} from '@/lib/webinar-offer';
 import {Icon} from './icon';
 import {Flag,MotionRoot,Wordmark} from './ui';
 
@@ -210,9 +211,26 @@ function StickyBar({c,shown,onCta}:{c:WebinarCopy;shown:boolean;onCta:(e:React.M
  </div>;
 }
 
+// Polls the «open sales» switch (/api/sales, lib/sales-switch.mjs) every 15 seconds and when the tab becomes visible again.
+// Without the API (static build, Telegram not configured) the state stays «unknown» and nothing happens.
+export function useSalesSwitch(onState:(state:'open'|'closed'|'unknown')=>void){
+ const cb=useRef(onState);
+ useEffect(()=>{cb.current=onState});
+ useEffect(()=>{
+  let stop=false;
+  const check=()=>fetch(base+'/api/sales',{cache:'no-store'}).then(r=>(r.ok?r.json():{state:'unknown'}) as Promise<{state?:string}>).then(d=>{if(!stop&&(d.state==='open'||d.state==='closed'))cb.current(d.state)}).catch(()=>{});
+  check();const t=setInterval(check,15000);
+  const vis=()=>{if(document.visibilityState==='visible')check()};
+  document.addEventListener('visibilitychange',vis);
+  return()=>{stop=true;clearInterval(t);document.removeEventListener('visibilitychange',vis)};
+ },[]);
+}
+
 export function Webinar({lang='ru'}:{lang?:Lang}){
  const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L];
  const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false);
+ // When the owner opens sales during the workshop, everyone on the landing goes to the offer page (UTM tags kept).
+ useSalesSwitch(state=>{if(state==='open')location.replace(base+langPath(L)+offerPath+location.search)});
  useEffect(()=>{
   const hero=document.getElementById('wb-hero');if(!hero)return;
   const io=new IntersectionObserver(([e])=>setSticky(!e.isIntersecting),{rootMargin:'-80px 0px 0px 0px'});

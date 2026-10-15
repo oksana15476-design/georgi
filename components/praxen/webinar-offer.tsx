@@ -9,7 +9,7 @@ import {termsPath} from '@/lib/webinar-terms';
 import {BONUS_END,DEPOSIT,OFFER_END,TARIFFS,bonusActive,offerActive,tariffPrice} from '@/lib/webinar-offer-order.mjs';
 import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
-import {Questions,WbLangs,pad,useCountdown} from './webinar';
+import {Questions,WbLangs,pad,useCountdown,useSalesSwitch} from './webinar';
 
 type Tariff=typeof TARIFFS[number];
 type Order={tariff:Tariff;mode:'buy'|'book'};
@@ -112,9 +112,18 @@ export function WebinarOffer({lang='ru'}:{lang?:Lang}){
  const now=useNow(),left=useCountdown(OFFER_END),bonusLeft=useCountdown(BONUS_END);
  const special=now===null||offerActive(now),bonus=now===null||bonusActive(now);
  const [order,setOrder]=useState<Order|null>(null),[sticky,setSticky]=useState(false),[back,setBack]=useState<Result|null>(null);
+ // Until the owner opens sales, the offer page sends visitors back to the workshop landing. Buyers returning from the bank stay,
+ // and ?preview=1 lets the team look at the page before the workshop (remembered for the browser tab).
+ const keep=useRef(false);
+ useSalesSwitch(state=>{
+  if(state!=='closed'||keep.current)return;
+  try{const q=new URLSearchParams(location.search);if(q.has('preview')||q.has('payment'))sessionStorage.setItem('praxen_offer_preview','1');if(sessionStorage.getItem('praxen_offer_preview')){keep.current=true;return}}catch{}
+  location.replace(base+langPath(L)+'/webinar'+location.search);
+ });
  // The bank sends the buyer back here with ?payment=success|fail|pending; the team learns about the payment from the bank's notice.
  useEffect(()=>{
   const q=new URLSearchParams(location.search),p=q.get('payment');if(!p)return;
+  keep.current=true;
   const mode=q.get('mode')==='book'?'book':'buy',amount=Number(q.get('amount'))||0;
   const kind=p==='success'?'paid':p==='fail'?'fail':'pending';
   history.replaceState(null,'',location.pathname);
