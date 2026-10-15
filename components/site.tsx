@@ -138,7 +138,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
       </div>)}
      </div>
      <div className="footer-bottom">
-      <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a></span><span>{s.footerServices}</span>
+      <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a> · <a href={base+langPath(lang)+'/webinar/terms'} className="footer-privacy">{c('Оферта','Public offer','ოფერტა')}</a></span><span>{s.footerServices}</span>
       {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+langPath(code)+langRest(code)||'/'} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
      </div>
     </div>
