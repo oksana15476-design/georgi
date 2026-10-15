@@ -113,11 +113,12 @@ export function WebinarOffer({lang='ru'}:{lang?:Lang}){
  const special=now===null||offerActive(now),bonus=now===null||bonusActive(now);
  const [order,setOrder]=useState<Order|null>(null),[sticky,setSticky]=useState(false),[back,setBack]=useState<Result|null>(null);
  // Until the owner opens sales, the offer page sends visitors back to the workshop landing. Buyers returning from the bank stay,
- // and ?preview=1 lets the team look at the page before the workshop (remembered for the browser tab).
+ // and ?preview=1 in the address lets the team look at the page before the workshop (only while it stays in the address).
  const keep=useRef(false);
  useSalesSwitch(state=>{
   if(state!=='closed'||keep.current)return;
-  try{const q=new URLSearchParams(location.search);if(q.has('preview')||q.has('payment'))sessionStorage.setItem('praxen_offer_preview','1');if(sessionStorage.getItem('praxen_offer_preview')){keep.current=true;return}}catch{}
+  try{sessionStorage.removeItem('praxen_offer_preview')}catch{}
+  const q=new URLSearchParams(location.search);if(q.has('preview')||q.has('payment')){keep.current=true;return}
   location.replace(base+langPath(L)+'/webinar'+location.search);
  });
  // The bank sends the buyer back here with ?payment=success|fail|pending; the team learns about the payment from the bank's notice.
