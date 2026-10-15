@@ -1875,9 +1875,22 @@ main{outline:none}
 .wb .wb-gap{padding:0 6px;border-radius:4px;background:var(--wb-y);color:var(--wb-ink);font-weight:700}
 .wb .wb-doc-form{padding:20px 24px;border-radius:16px;background:var(--wb-soft)}
 @media(max-width:600px){.wb .wb-doc-req>div{grid-template-columns:1fr;gap:2px}}
-.wb .wb-co-pay{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:2px solid #cdd6e3;font-size:14px;line-height:1.5;color:var(--wb-body)}
-.wb .wb-co-pay svg{flex-shrink:0;margin-top:2px;color:#315bf5}
-.wb .wb-co-pay b{display:block;color:var(--wb-ink)}
+.wb .wb-co-methods{display:grid;gap:10px;margin:0;padding:0;border:0;min-width:0}
+.wb .wb-co-methods legend{padding:0;margin-bottom:10px;font-size:15px;font-weight:700;color:var(--wb-ink)}
+.wb .wb-co-method{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:12px;border:2px solid #cdd6e3;font-size:14px;line-height:1.5;color:var(--wb-body);cursor:pointer;transition:border-color .15s,background .15s}
+.wb .wb-co-method:hover{border-color:#9fb0c8}
+.wb .wb-co-method.is-on{border-color:#315bf5;background:#f3f6ff}
+.wb .wb-co-method input{flex-shrink:0;width:18px;height:18px;margin:2px 0 0;accent-color:#315bf5}
+.wb .wb-co-method svg{flex-shrink:0;margin-top:2px;color:#315bf5}
+.wb .wb-co-method b{display:block;color:var(--wb-ink)}
+.wb .wb-co-method:has(input:focus-visible){outline:3px solid #315bf5;outline-offset:2px}
+.wb .wb-req{display:grid;gap:0;margin:0;padding:4px 16px;border-radius:14px;background:var(--wb-soft);border:2px solid #cdd6e3}
+.wb .wb-req>div{display:grid;gap:2px;padding:10px 0;border-bottom:1px solid #dde3ec}
+.wb .wb-req>div:last-child{border-bottom:0}
+.wb .wb-req dt{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--wb-muted)}
+.wb .wb-req dd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;margin:0;font-size:15px;font-weight:700;color:var(--wb-ink);overflow-wrap:anywhere}
+.wb .wb-req-copy{flex-shrink:0;padding:5px 10px;border-radius:8px;border:2px solid var(--wb-ink);background:#fff;font:inherit;font-size:13px;font-weight:700;color:var(--wb-ink);cursor:pointer}
+.wb .wb-req-copy:hover{background:var(--wb-y)}
 .wb .wb-co-accept{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:var(--wb-body);cursor:pointer}
 .wb .wb-co-accept input{flex-shrink:0;width:20px;height:20px;margin-top:1px;accent-color:#315bf5}
 .wb .wb-co-accept a{color:#315bf5;text-decoration:underline}

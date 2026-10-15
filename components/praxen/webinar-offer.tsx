@@ -5,7 +5,7 @@ import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {offerCopy,offerPath,type OfferCopy,type TariffKey} from '@/lib/webinar-offer';
-import {termsPath} from '@/lib/webinar-terms';
+import {seller,termsPath} from '@/lib/webinar-terms';
 import {BONUS_END,DEPOSIT,OFFER_END,TARIFFS,bonusActive,offerActive,tariffPrice} from '@/lib/webinar-offer-order.mjs';
 import {Icon} from './icon';
 import {MotionRoot,Wordmark} from './ui';
@@ -23,17 +23,26 @@ function useNow(){
  return now;
 }
 
-type Result={kind:'paid'|'fail'|'pending'|'manual';mode:'buy'|'book';amount:number};
+type Result={kind:'paid'|'fail'|'pending'|'manual'|'invoice';mode:'buy'|'book';amount:number;order?:string};
 
 // Result of a payment or an order: shown after the bank sends the buyer back (?payment=…) or after a manual order.
-function ResultBox({c,r}:{c:OfferCopy;r:Result}){
- const k=c.checkout,ok=r.kind==='paid'||r.kind==='manual';
- const title={paid:r.mode==='book'?k.paidBook:k.paidBuy,manual:r.mode==='book'?k.manualBook:k.manualBuy,fail:k.failTitle,pending:k.pendingTitle}[r.kind];
- const text={paid:k.paidText,manual:k.manualText(gel(r.amount)),fail:k.failText,pending:k.pendingText}[r.kind];
+// Seller's bank details for a transfer, with copy buttons for the account and the payment reference.
+function Requisites({c,lang,r}:{c:OfferCopy;lang:'ru'|'en'|'ka';r:Result}){
+ const k=c.checkout,[copied,setCopied]=useState('');
+ const copy=(key:string,v:string)=>{navigator.clipboard?.writeText(v).then(()=>{setCopied(key);setTimeout(()=>setCopied(''),1800)}).catch(()=>{})};
+ const rows:[string,string,string?][]=[[k.req.recipient,seller.name.en],[k.req.code,seller.idCode],[k.req.bank,seller.bank[lang]],[k.req.iban,seller.iban,'iban'],[k.req.swift,seller.swift],[k.req.amount,gel(r.amount)],[k.req.purpose,k.purpose(r.order||''),'purpose']];
+ return <dl className="wb-req">{rows.map(([h,v,key])=><div key={h}><dt>{h}</dt><dd><span>{v}</span>{key&&<button type="button" onClick={()=>copy(key,v)} className="wb-req-copy">{copied===key?k.copied:k.copy}</button>}</dd></div>)}</dl>;
+}
+
+function ResultBox({c,lang,r}:{c:OfferCopy;lang:'ru'|'en'|'ka';r:Result}){
+ const k=c.checkout,ok=r.kind==='paid'||r.kind==='manual'||r.kind==='invoice';
+ const title={paid:r.mode==='book'?k.paidBook:k.paidBuy,manual:r.mode==='book'?k.manualBook:k.manualBuy,invoice:k.invoiceTitle,fail:k.failTitle,pending:k.pendingTitle}[r.kind];
+ const text={paid:k.paidText,manual:k.manualText(gel(r.amount)),invoice:k.invoiceText,fail:k.failText,pending:k.pendingText}[r.kind];
  return <div role="status" className="form-done wb-done">
   <span className={'wb-done-ico'+(ok?'':' is-warn')}><Icon name={ok?'check':r.kind==='fail'?'x':'clock'} size={24}/></span>
   <h3>{title}</h3>
   <p>{text}</p>
+  {r.kind==='invoice'&&<Requisites c={c} lang={lang} r={r}/>}
   <a href={contacts.whatsapp} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{k.curator}<Icon name="whatsapp" size={18}/></a>
   {r.kind==='fail'&&<a href="#tariffs" className="ulink">{k.retry}</a>}
  </div>;
@@ -59,24 +68,27 @@ function Checkout({c,lang,order,now,onClose}:{c:OfferCopy;lang:'ru'|'en'|'ka';or
  const special=offerActive(now),price=tariffPrice(t,now),amount=order.mode==='book'?DEPOSIT:price;
  const from=t.from&&order.mode==='buy'&&c.tariffs.from?c.tariffs.from+' ':'';
  const [name,setName]=useState(''),[email,setEmail]=useState(''),[phone,setPhone]=useState(''),[accepted,setAccepted]=useState(false),[website,setWebsite]=useState('');
- const [status,setStatus]=useState<''|'invalid'|'accept'|'error'>(''),[sending,setSending]=useState(''),[result,setResult]=useState<Result|null>(null);
+ const [pay,setPay]=useState<'card'|'invoice'>('card'),[payer,setPayer]=useState(''),[payerId,setPayerId]=useState('');
+ const [status,setStatus]=useState<''|'invalid'|'payer'|'accept'|'error'>(''),[sending,setSending]=useState(''),[result,setResult]=useState<Result|null>(null);
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
   if(!name.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())||phone.replace(/\D/g,'').length<7){setStatus('invalid');track('form_error',{form:'offer',reason:'invalid'});return}
+  if(pay==='invoice'&&!payer.trim()){setStatus('payer');return}
   if(!accepted){setStatus('accept');return}
   setSending(k.sending);setStatus('');
   try{
-   const r=await fetch(base+'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tariff:t.key,mode:order.mode,name,email,phone,website,lang,accepted:true,page:location.pathname,source:getAttribution()})});
-   const data=await r.json().catch(()=>({})) as {ok?:boolean;amount?:number;payment?:string;url?:string};
+   const r=await fetch(base+'/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tariff:t.key,mode:order.mode,pay,payer,payerId,name,email,phone,website,lang,accepted:true,page:location.pathname,source:getAttribution()})});
+   const data=await r.json().catch(()=>({})) as {ok?:boolean;amount?:number;payment?:string;url?:string;order?:string};
    if(!r.ok||!data.ok)throw new Error();
    const value=data.amount||amount;
    if(data.payment==='redirect'&&data.url){track('add_payment_info',{tariff:t.key,mode:order.mode,value,currency:'GEL'});setSending(k.redirecting);location.assign(data.url);return}
-   setResult({kind:'manual',mode:order.mode,amount:value});track('checkout_request',{tariff:t.key,mode:order.mode,value,currency:'GEL'});
+   const invoice=data.payment==='invoice';
+   setResult({kind:invoice?'invoice':'manual',mode:order.mode,amount:value,order:data.order});track('checkout_request',{tariff:t.key,mode:order.mode,method:invoice?'invoice':'manual',value,currency:'GEL'});
   }catch{setStatus('error');track('form_error',{form:'offer',reason:'send_failed'})}
   setSending('');
  };
  return <Modal label={(order.mode==='book'?k.book:k.buy)+': '+name0} onClose={onClose} close={k.close}>
-  {result?<ResultBox c={c} r={result}/>:
+  {result?<ResultBox c={c} lang={lang} r={result}/>:
   <form onSubmit={submit} noValidate className="form wb-form">
    <div><p className="wb-co-k">{order.mode==='book'?k.book:k.buy}</p><h2 className="wb-form-h">{name0}</h2></div>
    <div className="wb-co-sum">
@@ -89,11 +101,17 @@ function Checkout({c,lang,order,now,onClose}:{c:OfferCopy;lang:'ru'|'en'|'ka';or
    <label className="field">{k.name}<input name="name" required maxLength={100} value={name} onChange={e=>{setName(e.target.value);setStatus('')}} autoComplete="name"/></label>
    <label className="field">{k.email}<input name="email" type="email" required maxLength={160} value={email} onChange={e=>{setEmail(e.target.value);setStatus('')}} placeholder={k.emailPh} autoComplete="email" aria-invalid={status==='invalid'}/></label>
    <label className="field">{k.phone}<input name="phone" type="tel" required maxLength={40} value={phone} onChange={e=>{setPhone(e.target.value);setStatus('')}} placeholder="+995 5XX XXX XXX" autoComplete="tel" aria-invalid={status==='invalid'}/></label>
-   <div className="wb-co-pay"><Icon name="lock" size={16}/><span><b>{k.payLabel}</b>{k.payInfo}</span></div>
+   <fieldset className="wb-co-methods"><legend>{k.payLabel}</legend>
+    {(['card','invoice'] as const).map(m=><label key={m} className={'wb-co-method'+(pay===m?' is-on':'')}><input type="radio" name="pay" value={m} checked={pay===m} onChange={()=>{setPay(m);setStatus('')}}/><Icon name={m==='card'?'lock':'file-text'} size={18}/><span><b>{k.methods[m][0]}</b>{k.methods[m][1]}</span></label>)}
+   </fieldset>
+   {pay==='invoice'&&<>
+    <label className="field">{k.payer}<input name="payer" required maxLength={160} value={payer} onChange={e=>{setPayer(e.target.value);setStatus('')}} placeholder={k.payerPh} autoComplete="organization" aria-invalid={status==='payer'}/></label>
+    <label className="field">{k.payerId}<input name="payerId" maxLength={40} value={payerId} onChange={e=>setPayerId(e.target.value)} placeholder={k.payerIdPh} inputMode="numeric"/></label>
+   </>}
    <label className={'wb-co-accept'+(status==='accept'?' is-invalid':'')}><input type="checkbox" checked={accepted} onChange={e=>{setAccepted(e.target.checked);setStatus('')}}/><span>{k.accept[0]}<a href={base+langPath(lang)+termsPath} target="_blank" rel="noopener">{k.accept[1]}</a>{k.accept[2]}</span></label>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
-   {status&&<p role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?k.invalid:status==='accept'?k.notAccepted:k.error}</p>}
-   <button type="submit" disabled={!!sending} className="btn wb-cta wb-wide wb-submit">{sending||(order.mode==='book'?k.submitBook:k.submitBuy(gel(amount)))}<Icon name="arrow-right" size={20}/></button>
+   {status&&<p role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?k.invalid:status==='payer'?k.invalidPayer:status==='accept'?k.notAccepted:k.error}</p>}
+   <button type="submit" disabled={!!sending} className="btn wb-cta wb-wide wb-submit">{sending||(pay==='invoice'?k.submitInvoice(gel(amount)):order.mode==='book'?k.submitBook:k.submitBuy(gel(amount)))}<Icon name="arrow-right" size={20}/></button>
    <small className="wb-note">{k.consent} <a href={pageHref(lang,'privacy')}>{k.privacy}</a></small>
   </form>}
  </Modal>;
@@ -243,7 +261,7 @@ export function WebinarOffer({lang='ru'}:{lang?:Lang}){
     </div>
    </div>
    {order&&now!==null&&<Checkout c={c} lang={L} order={order} now={now} onClose={close}/>}
-   {back&&!order&&<Modal label={c.checkout.amount} onClose={closeBack} close={c.checkout.close}><ResultBox c={c} r={back}/></Modal>}
+   {back&&!order&&<Modal label={c.checkout.amount} onClose={closeBack} close={c.checkout.close}><ResultBox c={c} lang={L} r={back}/></Modal>}
   </div>
  );
 }

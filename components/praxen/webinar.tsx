@@ -251,7 +251,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
 
    <main id="main" tabIndex={-1}>
     <section id="wb-hero" data-screen-label="01 Hero" className="wb-c wb-hero">
-     <div className="wb-hero-top"><p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{c.hero.badge}</p><span className="wb-hero-host">{c.hero.host}</span></div>
+     <div className="wb-hero-top"><p className="wb-badge"><span className="wb-dot" aria-hidden="true"/>{c.hero.badge}</p>{c.hero.host&&<span className="wb-hero-host">{c.hero.host}</span>}</div>
      <h1 className="wb-h1">{c.hero.h1} <span className="wb-grad">{c.hero.h1Grad}</span></h1>
      <div className="wb-hero-row">
       <p className="wb-lead">{c.hero.sub}</p>

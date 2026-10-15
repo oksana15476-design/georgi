@@ -15,12 +15,13 @@ export const seller={
  iban:'GE73TB7037345064300159',
  swift:'TBCBGE22',
  // Owner, 14 October 2026: small business status (1% turnover tax), not registered for VAT.
+ bank:{ru:'АО «Тибиси Банк» (JSC TBC Bank), Тбилиси, Грузия',en:'JSC TBC Bank, Tbilisi, Georgia',ka:'სს „თიბისი ბანკი“ (JSC TBC Bank), თბილისი, საქართველო'} as Record<'ru'|'en'|'ka',string>,
  vat:{ru:'Исполнитель не является плательщиком НДС.',en:'The Provider is not registered for VAT.',ka:'შემსრულებელი არ არის დღგ-ის გადამხდელი.'} as Record<'ru'|'en'|'ka',string>,
 };
 export const termsDraft=!seller.name.ru||!seller.idCode||!seller.legalAddress.ru||!seller.vat.ru;
 export const termsLangs:Lang[]=['ru','en','ka'];
 export const termsPath='/webinar/terms';
-export const termsEdition='2026-10-14';
+export const termsEdition='2026-10-15';
 
 type Section={h:string;p:string[]};
 export type TermsCopy={title:string;description:string;h1:string;edition:string;draft:string;missing:string;sections:Section[];formH:string;form:string[];reqH:string;req:[string,string][];back:string;foot:{location:string;privacy:string}};
@@ -29,7 +30,7 @@ const ru=(s:typeof seller):TermsCopy=>({
  title:'Публичная оферта на оказание услуг — Praxen AI',
  description:'Условия заказа и оплаты обучения, внедрения и разработки ИИ-решений Praxen AI: цена, бронь, сроки, отказ и возврат денег.',
  h1:'Публичная оферта',
- edition:'Редакция от 14 октября 2026 года',
+ edition:'Редакция от 15 октября 2026 года',
  draft:'Черновик: не все данные исполнителя заполнены, текст на проверке у юриста. До этого оплата на сайте не принимается.',
  missing:'заполнить',
  sections:[
@@ -49,7 +50,7 @@ const ru=(s:typeof seller):TermsCopy=>({
   {h:'3. Цена и оплата',p:[
    '3.1. Цены указаны в грузинских лари и окончательны. '+(s.vat.ru||'[заполнить: статус по НДС]'),
    '3.2. Специальные цены для участников воркшопа действуют до 14 ноября 2026 года, 19:45 по Тбилиси. После этого действуют цены, указанные на странице как обычные.',
-   '3.3. Оплата принимается банковской картой Visa или Mastercard, через Apple Pay или Google Pay на защищённой странице платёжного сервиса Flitt (группа TBC), а для организаций — также по счёту. Данные карты Исполнитель не получает и не хранит.',
+   '3.3. Оплата принимается банковской картой Visa или Mastercard, через Apple Pay или Google Pay на защищённой странице платёжного сервиса Flitt (группа TBC), а также банковским переводом на счёт Исполнителя (раздел 11) по выставленному счёту. При переводе в назначении платежа указывается номер заказа; оплата считается произведённой в день поступления денег на счёт Исполнителя. Данные карты Исполнитель не получает и не хранит.',
    '3.4. Бронь. Платёж 500 ₾ закрепляет за заказчиком специальную цену выбранного тарифа и место в графике на 14 дней. Это аванс, а не задаток: он засчитывается в цену тарифа. Если за 14 дней остаток не оплачен, бронь снимается, и аванс возвращается заказчику по его запросу.',
    '3.5. Переход на старший тариф. В течение 30 дней после оплаты тарифа «Обучение команды» заказчик может перейти на тариф «Обучение + внедрение» или «Обучение + разработка». Уже оплаченная сумма засчитывается в цену нового тарифа.',
   ]},
@@ -75,10 +76,10 @@ const ru=(s:typeof seller):TermsCopy=>({
   {h:'7. Отмена и возврат для организаций',p:[
    '7.1. До начала работ организация может отменить заказ и получить оплату полностью.',
    '7.2. После начала работ оплата возвращается за вычетом стоимости уже оказанных услуг.',
-   '7.3. Возврат на карту проходит через платёжный сервис в течение 14 дней; срок зачисления зависит от банка, выпустившего карту.',
+   '7.3. Возврат на карту проходит через платёжный сервис в течение 14 дней; срок зачисления зависит от банка, выпустившего карту. Оплата переводом возвращается переводом на счёт, с которого она поступила, в течение 14 дней.',
   ]},
   {h:'8. Персональные данные',p:[
-   '8.1. Исполнитель обрабатывает имя, email и телефон заказчика для исполнения договора, отправки чека и связи по заказу. Платёж обрабатывает Flitt; данные карты Исполнителю не передаются.',
+   '8.1. Исполнитель обрабатывает имя, email и телефон заказчика, а при оплате по счёту — также название и код плательщика, для исполнения договора, отправки чека и связи по заказу. Платёж обрабатывает Flitt; данные карты Исполнителю не передаются.',
    '8.2. Подробно — в политике конфиденциальности на сайте praxenai.ge.',
   ]},
   {h:'9. Претензии и споры',p:[
@@ -92,7 +93,7 @@ const ru=(s:typeof seller):TermsCopy=>({
  formH:'Форма отказа от договора',
  form:['Кому: Исполнителю, указанному в разделе 11, на email из раздела 11.','Я, [имя и фамилия], отказываюсь от договора на оказание услуг по тарифу [название тарифа], заказ № [номер заказа из письма], дата заказа [дата].','Прошу вернуть оплату тем же способом, каким она была сделана.','Дата. Подпись — для бумажного заявления.'],
  reqH:'11. Реквизиты исполнителя',
- req:[['Индивидуальный предприниматель',s.name.ru],['Налоговый (идентификационный) номер',s.idCode],['Юридический адрес',s.legalAddress.ru],['Фактический адрес','Батуми, Грузия'],['Банк','АО «Тибиси Банк» (JSC TBC Bank), Тбилиси, Грузия'],['IBAN',s.iban],['SWIFT/BIC',s.swift],['Телефон','+995 557 125 497'],['Email','hello@praxenai.ge'],['Сайт','praxenai.ge']],
+ req:[['Индивидуальный предприниматель',s.name.ru],['Налоговый (идентификационный) номер',s.idCode],['Юридический адрес',s.legalAddress.ru],['Фактический адрес','Батуми, Грузия'],['Банк',s.bank.ru],['IBAN',s.iban],['SWIFT/BIC',s.swift],['Телефон','+995 557 125 497'],['Email','hello@praxenai.ge'],['Сайт','praxenai.ge']],
  back:'Вернуться к тарифам',
  foot:{location:'Батуми, Грузия',privacy:'Конфиденциальность'},
 });
@@ -101,7 +102,7 @@ const en=(s:typeof seller):TermsCopy=>({
  title:'Public offer for services — Praxen AI',
  description:'Terms for ordering and paying for Praxen AI training, implementation and AI development: price, booking, timing, withdrawal and refunds.',
  h1:'Public offer',
- edition:'Version of 14 October 2026',
+ edition:'Version of 15 October 2026',
  draft:'Draft: some of the provider’s details are still missing and the text is with a lawyer for review. Online payment is not accepted until then.',
  missing:'to fill in',
  sections:[
@@ -121,7 +122,7 @@ const en=(s:typeof seller):TermsCopy=>({
   {h:'3. Price and payment',p:[
    '3.1. Prices are in Georgian lari and are final. '+(s.vat.en||'[to fill in: VAT status]'),
    '3.2. Special prices for workshop participants apply until 14 November 2026, 19:45 Tbilisi time. After that the prices shown on the page as regular apply.',
-   '3.3. Payment is accepted by Visa or Mastercard bank card, Apple Pay or Google Pay on the secure page of the Flitt payment service (TBC Group), and for organisations also by invoice. The Provider does not receive or store card details.',
+   '3.3. Payment is accepted by Visa or Mastercard bank card, Apple Pay or Google Pay on the secure page of the Flitt payment service (TBC Group), and also by bank transfer to the Provider’s account (section 11) against an invoice. A transfer must quote the order number in the payment reference; payment is made on the day the money reaches the Provider’s account. The Provider does not receive or store card details.',
    '3.4. Booking. A 500 ₾ payment holds the special price of the chosen plan and a slot in the schedule for 14 days. It is an advance payment, not a deposit forfeited on cancellation: it counts towards the plan price. If the balance is not paid within 14 days, the booking lapses and the advance is refunded to the Client on request.',
    '3.5. Upgrade. Within 30 days of paying for Team training, the Client can move to Training + implementation or Training + development. The amount already paid counts towards the new plan.',
   ]},
@@ -147,10 +148,10 @@ const en=(s:typeof seller):TermsCopy=>({
   {h:'7. Cancellation and refunds for organisations',p:[
    '7.1. Before work starts, an organisation may cancel the order and receive a full refund.',
    '7.2. After work starts, the payment is refunded minus the value of the services already provided.',
-   '7.3. Card refunds go through the payment service within 14 days; the time to reach the card depends on the issuing bank.',
+   '7.3. Card refunds go through the payment service within 14 days; the time to reach the card depends on the issuing bank. A payment made by bank transfer is refunded by transfer to the account it came from within 14 days.',
   ]},
   {h:'8. Personal data',p:[
-   '8.1. The Provider processes the Client’s name, email and phone to perform the contract, send the receipt and keep in touch about the order. Payments are processed by Flitt; card details are not passed to the Provider.',
+   '8.1. The Provider processes the Client’s name, email and phone, and for payment by invoice also the payer’s name and registration number, to perform the contract, send the receipt and keep in touch about the order. Payments are processed by Flitt; card details are not passed to the Provider.',
    '8.2. Details are in the privacy policy on praxenai.ge.',
   ]},
   {h:'9. Complaints and disputes',p:[
@@ -164,7 +165,7 @@ const en=(s:typeof seller):TermsCopy=>({
  formH:'Withdrawal form',
  form:['To: the Provider named in section 11, at the email in section 11.','I, [full name], withdraw from the services contract for the [plan name] plan, order no. [order number from the email], ordered on [date].','Please refund the payment by the same method as it was made.','Date. Signature, for a paper notice.'],
  reqH:'11. Provider details',
- req:[['Individual entrepreneur',s.name.en],['Tax ID',s.idCode],['Legal address',s.legalAddress.en],['Actual address','Batumi, Georgia'],['Bank','JSC TBC Bank, Tbilisi, Georgia'],['IBAN',s.iban],['SWIFT/BIC',s.swift],['Phone','+995 557 125 497'],['Email','hello@praxenai.ge'],['Website','praxenai.ge']],
+ req:[['Individual entrepreneur',s.name.en],['Tax ID',s.idCode],['Legal address',s.legalAddress.en],['Actual address','Batumi, Georgia'],['Bank',s.bank.en],['IBAN',s.iban],['SWIFT/BIC',s.swift],['Phone','+995 557 125 497'],['Email','hello@praxenai.ge'],['Website','praxenai.ge']],
  back:'Back to the plans',
  foot:{location:'Batumi, Georgia',privacy:'Privacy'},
 });
@@ -173,7 +174,7 @@ const ka=(s:typeof seller):TermsCopy=>({
  title:'საჯარო ოფერტა მომსახურების გაწევაზე — Praxen AI',
  description:'Praxen AI-ის სწავლების, დანერგვისა და AI გადაწყვეტების შემუშავების შეკვეთისა და გადახდის პირობები: ფასი, ჯავშანი, ვადები, უარი და თანხის დაბრუნება.',
  h1:'საჯარო ოფერტა',
- edition:'რედაქცია 2026 წლის 14 ოქტომბრით',
+ edition:'რედაქცია 2026 წლის 15 ოქტომბრით',
  draft:'პროექტი: შემსრულებლის ყველა მონაცემი ჯერ არ არის შევსებული, ტექსტი იურისტთან შემოწმებაზეა. მანამდე საიტზე გადახდა არ მიიღება.',
  missing:'შესავსები',
  sections:[
@@ -193,7 +194,7 @@ const ka=(s:typeof seller):TermsCopy=>({
   {h:'3. ფასი და გადახდა',p:[
    '3.1. ფასები მითითებულია ქართულ ლარში და საბოლოოა. '+(s.vat.ka||'[შესავსები: დღგ-ის სტატუსი]'),
    '3.2. ვორქშოპის მონაწილეთა სპეციალური ფასები მოქმედებს 2026 წლის 14 ნოემბრის 19:45-მდე (თბილისის დროით). ამის შემდეგ მოქმედებს გვერდზე ჩვეულებრივად მითითებული ფასები.',
-   '3.3. გადახდა მიიღება Visa ან Mastercard საბანკო ბარათით, Apple Pay-ით ან Google Pay-ით გადახდის სერვის Flitt-ის (TBC ჯგუფი) დაცულ გვერდზე, ორგანიზაციებისთვის — ასევე ინვოისით. ბარათის მონაცემებს შემსრულებელი არ იღებს და არ ინახავს.',
+   '3.3. გადახდა მიიღება Visa ან Mastercard საბანკო ბარათით, Apple Pay-ით ან Google Pay-ით გადახდის სერვის Flitt-ის (TBC ჯგუფი) დაცულ გვერდზე, ასევე საბანკო გადარიცხვით შემსრულებლის ანგარიშზე (მე-11 ნაწილი) ინვოისის საფუძველზე. გადარიცხვისას გადახდის დანიშნულებაში მიეთითება შეკვეთის ნომერი; გადახდა შესრულებულად ითვლება შემსრულებლის ანგარიშზე თანხის ჩარიცხვის დღეს. ბარათის მონაცემებს შემსრულებელი არ იღებს და არ ინახავს.',
    '3.4. ჯავშანი. 500 ₾-იანი გადახდა 14 დღით უნარჩუნებს დამკვეთს არჩეული ტარიფის სპეციალურ ფასს და ადგილს გრაფიკში. ეს არის ავანსი და არა ბე: ის ჩაითვლება ტარიფის ფასში. თუ 14 დღეში დარჩენილი თანხა არ არის გადახდილი, ჯავშანი უქმდება, ავანსი კი დამკვეთს მისი მოთხოვნით უბრუნდება.',
    '3.5. უფრო მაღალ ტარიფზე გადასვლა. „გუნდის სწავლების“ გადახდიდან 30 დღის განმავლობაში დამკვეთს შეუძლია გადავიდეს ტარიფზე „სწავლება + დანერგვა“ ან „სწავლება + შემუშავება“. უკვე გადახდილი თანხა ჩაითვლება ახალი ტარიფის ფასში.',
   ]},
@@ -219,10 +220,10 @@ const ka=(s:typeof seller):TermsCopy=>({
   {h:'7. გაუქმება და თანხის დაბრუნება ორგანიზაციებისთვის',p:[
    '7.1. სამუშაოს დაწყებამდე ორგანიზაციას შეუძლია შეკვეთის გაუქმება და გადახდილი თანხის სრულად დაბრუნება.',
    '7.2. სამუშაოს დაწყების შემდეგ თანხა ბრუნდება უკვე გაწეული მომსახურების ღირებულების გამოკლებით.',
-   '7.3. ბარათზე თანხის დაბრუნება ხდება გადახდის სერვისის მეშვეობით 14 დღის განმავლობაში; ჩარიცხვის ვადა დამოკიდებულია ბარათის გამცემ ბანკზე.',
+   '7.3. ბარათზე თანხის დაბრუნება ხდება გადახდის სერვისის მეშვეობით 14 დღის განმავლობაში; ჩარიცხვის ვადა დამოკიდებულია ბარათის გამცემ ბანკზე. გადარიცხვით გადახდილი თანხა ბრუნდება გადარიცხვით იმ ანგარიშზე, საიდანაც შემოვიდა, 14 დღის განმავლობაში.',
   ]},
   {h:'8. პერსონალური მონაცემები',p:[
-   '8.1. შემსრულებელი ამუშავებს დამკვეთის სახელს, email-სა და ტელეფონს ხელშეკრულების შესასრულებლად, ქვითრის გასაგზავნად და შეკვეთასთან დაკავშირებით კომუნიკაციისთვის. გადახდას ამუშავებს Flitt; ბარათის მონაცემები შემსრულებელს არ გადაეცემა.',
+   '8.1. შემსრულებელი ამუშავებს დამკვეთის სახელს, email-სა და ტელეფონს, ინვოისით გადახდისას — ასევე გადამხდელის დასახელებასა და კოდს, ხელშეკრულების შესასრულებლად, ქვითრის გასაგზავნად და შეკვეთასთან დაკავშირებით კომუნიკაციისთვის. გადახდას ამუშავებს Flitt; ბარათის მონაცემები შემსრულებელს არ გადაეცემა.',
    '8.2. დეტალურად — კონფიდენციალურობის პოლიტიკაში საიტზე praxenai.ge.',
   ]},
   {h:'9. პრეტენზიები და დავები',p:[
@@ -236,7 +237,7 @@ const ka=(s:typeof seller):TermsCopy=>({
  formH:'ხელშეკრულებაზე უარის ფორმა',
  form:['ვის: მე-11 ნაწილში მითითებულ შემსრულებელს, მე-11 ნაწილში მითითებულ email-ზე.','მე, [სახელი და გვარი], უარს ვამბობ მომსახურების ხელშეკრულებაზე ტარიფით [ტარიფის დასახელება], შეკვეთა № [შეკვეთის ნომერი წერილიდან], შეკვეთის თარიღი [თარიღი].','გთხოვთ, თანხა დამიბრუნოთ იმავე საშუალებით, რითაც გადავიხადე.','თარიღი. ხელმოწერა — ქაღალდის განცხადებისთვის.'],
  reqH:'11. შემსრულებლის რეკვიზიტები',
- req:[['ინდივიდუალური მეწარმე',s.name.ka],['საიდენტიფიკაციო ნომერი',s.idCode],['იურიდიული მისამართი',s.legalAddress.ka],['ფაქტობრივი მისამართი','ბათუმი, საქართველო'],['ბანკი','სს „თიბისი ბანკი“ (JSC TBC Bank), თბილისი, საქართველო'],['IBAN',s.iban],['SWIFT/BIC',s.swift],['ტელეფონი','+995 557 125 497'],['Email','hello@praxenai.ge'],['საიტი','praxenai.ge']],
+ req:[['ინდივიდუალური მეწარმე',s.name.ka],['საიდენტიფიკაციო ნომერი',s.idCode],['იურიდიული მისამართი',s.legalAddress.ka],['ფაქტობრივი მისამართი','ბათუმი, საქართველო'],['ბანკი',s.bank.ka],['IBAN',s.iban],['SWIFT/BIC',s.swift],['ტელეფონი','+995 557 125 497'],['Email','hello@praxenai.ge'],['საიტი','praxenai.ge']],
  back:'ტარიფებზე დაბრუნება',
  foot:{location:'ბათუმი, საქართველო',privacy:'კონფიდენციალურობა'},
 });
