@@ -28,6 +28,8 @@ export const vatNote='All prices exclude VAT. We work with businesses only. UK a
 export const legalEntity={name:'Individual Entrepreneur Evgenii Budnikov',country:'Georgia',address:'9 Nizharadze Street, Apartment 124, Batumi, Georgia'};
 export const intlUpdated='2026-10-08';
 export const intlUpdatedLabel='8 October 2026';
+// Last change of the privacy policy (outbound B2B emails section, 21 October 2026).
+export const privacyUpdatedLabel='21 October 2026';
 
 // Offers for JSON-LD and the receptionist price block.
 export type Offer={key:string;name:string;price:PriceKey;setup?:PriceKey;monthly?:boolean;body:string;includes:string[];path:string};
@@ -365,7 +367,7 @@ export const innerPages:Partial<Record<IntlPage,{eyebrow:string;h1:string;sub:st
  security:{eyebrow:'Security',h1:'Your data, your rules.',sub:'We use enterprise APIs. Your data never trains public models. Here is how we handle data, access and UK GDPR.',facts:[['lock','Enterprise APIs','No training on your data'],['file-signature','DPA as standard','We act as your processor'],['scroll-text','Full logs','Every AI action is recorded']]},
  blog:{eyebrow:'Blog',h1:'Practical notes on AI for business.',sub:'Costs, checklists and step-by-step guides from real projects.'},
  partners:{eyebrow:'Partner programme',h1:'Earn from AI with us.',sub:'For IT providers, accountants, agencies and consultants who already have business clients: you introduce a company, we implement AI, you earn a reward.',facts:[['wallet','A reward on every project','A share of each paid project and care plan'],['handshake','Joint sales','We meet clients together or deliver under your brand'],['book-open','Demos and materials','Case scenarios and decks for your sales']]},
- privacy:{eyebrow:'Legal',h1:'Privacy policy',sub:'How Praxen AI collects and uses personal data under UK GDPR. Last updated: '+intlUpdatedLabel+'.'},
+ privacy:{eyebrow:'Legal',h1:'Privacy policy',sub:'How Praxen AI collects and uses personal data under UK GDPR. Last updated: '+privacyUpdatedLabel+'.'},
  terms:{eyebrow:'Legal',h1:'Terms of service',sub:'How we work with business customers. Last updated: '+intlUpdatedLabel+'.'},
 };
 export const sectionName:Record<string,string>={blog:'Blog',services:'Services',industries:'Industries',departments:'Departments',training:'Training',solutions:'Solutions & pricing',cases:'Cases',about:'About',security:'Security',partners:'Partners',privacy:'Privacy policy',terms:'Terms of service','ai-for-small-business':'AI for small businesses'};
