@@ -42,9 +42,12 @@ const nextConfig: NextConfig = pages
       // English pages are served without the /en prefix on both sites (praxenai.ge since 12 October 2026);
       // old /en addresses redirect permanently. praxenai.ge keeps /ka and /ru.
       async redirects() {
+        // A link pasted at the end of a sentence («…praxenai.com/privacy.») arrives with the dot.
+        const privacyDot = { source: "/privacy.", destination: "/privacy", permanent: true };
         if (!intl) return [
           { source: "/en", destination: "/", permanent: true },
           { source: "/en/:path*", destination: "/:path*", permanent: true },
+          privacyDot,
         ];
         return [
           { source: "/en", destination: "/", permanent: true },
@@ -53,6 +56,7 @@ const nextConfig: NextConfig = pages
           { source: "/pricing", destination: "/solutions", permanent: true },
           { source: "/ai-receptionist", destination: "/services/ai-receptionist", permanent: true },
           { source: "/services/ai-training", destination: "/training", permanent: true },
+          privacyDot,
         ];
       },
       async rewrites() {
