@@ -644,6 +644,7 @@ export function ShortAnswer({entity}:{entity:Entity}){
     <div className="ix-ans-side">
      <dl className="ix-ans-prices">{cells.map(([l,v,n])=><div key={l}><dt>{l}</dt><dd><b>{v}</b><span>{n.startsWith(curInfo[cur].sym)?<><s>{n}</s> standard</>:n}</span></dd></div>)}</dl>
      <p className="ix-ans-note">{entity.pricing||entity.slug==='ai-training'?'Prices are in the block at the top of this page. All prices exclude VAT.':'Launch prices with 30% off. All prices exclude VAT.'}</p>
+     {entity.scene==='call'&&!entity.pricing&&<a href={link('services/ai-receptionist')} className="ulink">AI receptionist pricing and details<Icon name="arrow-right" size={16}/></a>}
      <a href="#contact" onClick={e=>{e.preventDefault();go(entity.name)}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a>
     </div>
    </div>
