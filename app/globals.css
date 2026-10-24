@@ -1595,6 +1595,11 @@ main{outline:none}
 .wb .wb-info dt{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--wb-muted)}
 .wb .wb-info>div:last-child dt{color:var(--wb-body)}
 .wb .wb-info dd{margin:6px 0 0;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.wb .wb-when{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-width:0}
+.wb .wb-zones{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:0;font-size:13px;font-weight:600;color:var(--wb-muted)}
+.wb .wb-zones svg{margin-right:-6px;flex:none}
+.wb .wb-zones span{white-space:nowrap}
+.wb .wb-zones b{color:var(--wb-ink);font-weight:800}
 .wb .wb-hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;margin-top:36px}
 .wb .wb-gift-line{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700}
 .wb .wb-gift-ico{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border-radius:50%;background:var(--wb-y);border:2px solid var(--wb-ink);animation:wb-wiggle 3s ease-in-out infinite}

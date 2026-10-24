@@ -1,11 +1,11 @@
 'use client';
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {getAttribution,track} from '@/components/analytics';
 import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {absolute,pageUrl} from '@/lib/seo';
-import {webinar as w,webinarCopy,webinarEvents,type WebinarCopy} from '@/lib/webinar';
+import {webinar as w,webinarCopy,webinarEvents,wbYourTime,wbZones,type WebinarCopy} from '@/lib/webinar';
 import {offerPath} from '@/lib/webinar-offer';
 import {Icon} from './icon';
 import {PhoneInput} from './phone-input';
@@ -13,6 +13,26 @@ import {Flag,MotionRoot,Wordmark} from './ui';
 
 type L='ru'|'en'|'ka';
 const ev=webinarEvents.ru;
+
+// Workshop time for the visitor: their city if its time zone is one of ours, otherwise «your time».
+// The server and the first render show Tbilisi; the browser switches to the visitor's zone after hydration.
+const at=(tz:string,o:Intl.DateTimeFormatOptions)=>{try{return new Intl.DateTimeFormat('en-GB',{...o,timeZone:tz}).format(new Date(ev.start))}catch{return ''}};
+const hm=(tz:string)=>at(tz,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+const dm=(tz:string)=>at(tz,{day:'2-digit',month:'2-digit'}).replace('/','.');
+const noop=()=>()=>{};
+const visitorZone=()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone||'Asia/Tbilisi'}catch{return 'Asia/Tbilisi'}};
+function useSlot(lang:L){
+ const tz=useSyncExternalStore(noop,visitorZone,()=>'Asia/Tbilisi');
+ const z=wbZones.find(x=>x.tz===tz||x.also?.includes(tz));
+ const zone=z?z.tz:tz,time=hm(zone)||hm('Asia/Tbilisi');
+ return {date:dm(zone)||'12.11',label:(z||wbYourTime).name[lang],time,by:time+' '+(z||wbYourTime).by[lang]};
+}
+// One line with every city; cities with the same time share a slot (Astana and Tashkent).
+function zoneLine(lang:L){
+ const out:[string,string][]=[];
+ for(const z of wbZones){const t=hm(z.tz),same=out.find(([,x])=>x===t);if(same)same[0]+=', '+z.name[lang];else out.push([z.name[lang],t])}
+ return out;
+}
 const evTitle={ru:'Воркшоп «ИИ в отделе продаж» — Praxen AI',en:'Workshop: AI for your sales team — Praxen AI',ka:'ვორქშოპი „AI გაყიდვების განყოფილებაში“ — Praxen AI'};
 const googleCal=(lang:L,details:string)=>'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(evTitle[lang])+'&dates='+ev.cal+'&details='+encodeURIComponent(details+' '+w.bot)+'&ctz=Asia/Tbilisi';
 const icsFile=(lang:L,details:string)=>'data:text/calendar;charset=utf-8,'+encodeURIComponent(['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Praxen AI//Workshop//RU','BEGIN:VEVENT','UID:workshop-20261112@praxenai.ge','DTSTAMP:20261013T000000Z','DTSTART:'+ev.ics[0],'DTEND:'+ev.ics[1],'SUMMARY:'+evTitle[lang],'DESCRIPTION:'+details+' '+w.bot,'END:VEVENT','END:VCALENDAR'].join('\r\n'));
@@ -60,12 +80,12 @@ function Done({c,lang,contact}:{c:WebinarCopy;lang:L;contact:string}){
   try{await sendLead({contact,message:q.trim(),tasks:ind?[ind]:[],context:f.context+' · вопрос к воркшопу',lang});setSent(true);track('webinar_question',{form:'webinar'})}catch{}
   finally{setBusy(false)}
  };
- const details=f.doneText;
+ const slot=useSlot(lang),doneText=f.doneText.replace('{time}',slot.by),details=doneText;
  return (
   <div role="status" className="form-done wb-done fade-in">
    <span className="wb-done-ico"><Icon name="check" size={24}/></span>
    <h3>{f.doneTitle}</h3>
-   <p>{f.doneText}</p>
+   <p>{doneText}</p>
    <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="send" size={18}/></a>
    <div className="wb-done-links">
     <a href={base+w.checklist[lang]} target="_blank" rel="noopener" className="ulink"><Icon name="file-text" size={15}/>{f.pdf}</a>
@@ -84,7 +104,7 @@ function Done({c,lang,contact}:{c:WebinarCopy;lang:L;contact:string}){
 }
 
 function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
- const f=c.form;
+ const f=c.form,slot=useSlot(lang);
  const [name,setName]=useState(''),[method,setMethod]=useState<0|1|2>(0),[contact,setContact]=useState(''),[phoneOk,setPhoneOk]=useState(false),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState('');
  const started=useRef(false);
@@ -108,7 +128,7 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
  const invalid=status==='invalid';
  return (
   <form onSubmit={submit} noValidate data-lpignore="true" className="form wb-form" aria-labelledby={id+'-title'}>
-   <div><h2 id={id+'-title'} className="wb-form-h">{f.title}</h2><p className="wb-form-sub">{f.sub}</p></div>
+   <div><h2 id={id+'-title'} className="wb-form-h">{f.title}</h2><p className="wb-form-sub">{f.sub.replace('{time}',slot.by)}</p></div>
    <label className="field">{f.name}<input name="name" required maxLength={100} value={name} onChange={e=>{start();setName(e.target.value)}} autoComplete="given-name"/></label>
    <div className="field">
     <span className="step-label">{f.where}</span>
@@ -236,7 +256,7 @@ export function useSalesSwitch(onState:(state:'open'|'closed'|'unknown')=>void){
 }
 
 export function Webinar({lang='ru'}:{lang?:Lang}){
- const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L];
+ const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L],slot=useSlot(L);
  const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false);
  // When the owner opens sales during the workshop, everyone on the landing goes to the offer page (UTM tags kept).
  useSalesSwitch(state=>{if(state==='open')location.replace(base+langPath(L)+offerPath+location.search)});
@@ -264,7 +284,10 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      <h1 className="wb-h1">{c.hero.h1} <span className="wb-grad">{c.hero.h1Grad}</span></h1>
      <div className="wb-hero-row">
       <p className="wb-lead">{c.hero.sub}</p>
-      <dl className="wb-info">{c.hero.info.map(([k,val])=><div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
+      <div className="wb-when">
+       <dl className="wb-info">{c.hero.info.map(([k,val],i)=>{const [dt,dd]=i===0?[k,slot.date]:i===c.hero.info.length-1?[slot.label,slot.time]:[k,val];return <div key={i}><dt>{dt}</dt><dd>{dd}</dd></div>})}</dl>
+       <p className="wb-zones"><Icon name="clock" size={14}/>{zoneLine(L).map(([city,t])=><span key={city}>{city} <b>{t}</b></span>)}</p>
+      </div>
      </div>
      <div className="wb-hero-cta">
       <a href="#register" onClick={openForm} className="btn wb-cta wb-cta-xl">{c.hero.cta}<Icon name="arrow-right" size={20}/></a>
