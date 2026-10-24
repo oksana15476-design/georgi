@@ -1776,9 +1776,11 @@ main{outline:none}
  .wb .wb-sec,.wb .wb-final{padding:64px 0}
  .wb .wb-hero{padding-top:28px;padding-bottom:56px}
  .wb .wb-lead{font-size:18px}
+ .wb .wb-when{width:100%}
  .wb .wb-info{width:100%}
- .wb .wb-info>div{flex:1;padding:14px}
- .wb .wb-info dd{font-size:24px}
+ .wb .wb-info>div{flex:1 1 auto;padding:12px 10px}
+ .wb .wb-info dt{font-size:10px;letter-spacing:.05em}
+ .wb .wb-info dd{font-size:21px}
  .wb .wb-cta-xl,.wb .wb-final-cta{width:100%;padding:0 20px;font-size:17px}
  .wb .wb-blocks li{grid-template-columns:56px minmax(0,1fr);align-items:start;padding:22px 0}
  .wb .wb-blocks li:hover{padding-left:0}

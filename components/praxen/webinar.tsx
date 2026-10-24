@@ -14,8 +14,8 @@ import {Flag,MotionRoot,Wordmark} from './ui';
 type L='ru'|'en'|'ka';
 const ev=webinarEvents.ru;
 
-// Workshop time for the visitor: their city if its time zone is one of ours, otherwise «your time».
-// The server and the first render show Tbilisi; the browser switches to the visitor's zone after hydration.
+// Workshop time for the form: Tbilisi, plus the visitor's city (or «your time») when it differs.
+// The server and the first render show Tbilisi only; the browser adds the visitor's zone after hydration.
 const at=(tz:string,o:Intl.DateTimeFormatOptions)=>{try{return new Intl.DateTimeFormat('en-GB',{...o,timeZone:tz}).format(new Date(ev.start))}catch{return ''}};
 const hm=(tz:string)=>at(tz,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
 const dm=(tz:string)=>at(tz,{day:'2-digit',month:'2-digit'}).replace('/','.');
@@ -25,12 +25,13 @@ function useSlot(lang:L){
  const tz=useSyncExternalStore(noop,visitorZone,()=>'Asia/Tbilisi');
  const z=wbZones.find(x=>x.tz===tz||x.also?.includes(tz));
  const zone=z?z.tz:tz,time=hm(zone)||hm('Asia/Tbilisi');
- return {date:dm(zone)||'12.11',label:(z||wbYourTime).name[lang],time,by:time+' '+(z||wbYourTime).by[lang]};
+ const tb=hm('Asia/Tbilisi')+' '+wbZones[0].by[lang];
+ return {by:zone==='Asia/Tbilisi'?tb:tb+' ('+time+' '+(z||wbYourTime).by[lang]+(dm(zone)&&dm(zone)!==dm('Asia/Tbilisi')?', '+dm(zone):'')+')'};
 }
-// One line with every city; cities with the same time share a slot (Astana and Tashkent).
+// Caption under the hero box: the other cities; cities with the same time share a slot (Astana and Tashkent).
 function zoneLine(lang:L){
  const out:[string,string][]=[];
- for(const z of wbZones){const t=hm(z.tz),same=out.find(([,x])=>x===t);if(same)same[0]+=', '+z.name[lang];else out.push([z.name[lang],t])}
+ for(const z of wbZones.slice(1)){const t=hm(z.tz),same=out.find(([,x])=>x===t);if(same)same[0]+=', '+z.name[lang];else out.push([z.name[lang],t])}
  return out;
 }
 const evTitle={ru:'Воркшоп «ИИ в отделе продаж» — Praxen AI',en:'Workshop: AI for your sales team — Praxen AI',ka:'ვორქშოპი „AI გაყიდვების განყოფილებაში“ — Praxen AI'};
@@ -256,7 +257,7 @@ export function useSalesSwitch(onState:(state:'open'|'closed'|'unknown')=>void){
 }
 
 export function Webinar({lang='ru'}:{lang?:Lang}){
- const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L],slot=useSlot(L);
+ const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L];
  const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false);
  // When the owner opens sales during the workshop, everyone on the landing goes to the offer page (UTM tags kept).
  useSalesSwitch(state=>{if(state==='open')location.replace(base+langPath(L)+offerPath+location.search)});
@@ -285,7 +286,7 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      <div className="wb-hero-row">
       <p className="wb-lead">{c.hero.sub}</p>
       <div className="wb-when">
-       <dl className="wb-info">{c.hero.info.map(([k,val],i)=>{const [dt,dd]=i===0?[k,slot.date]:i===c.hero.info.length-1?[slot.label,slot.time]:[k,val];return <div key={i}><dt>{dt}</dt><dd>{dd}</dd></div>})}</dl>
+       <dl className="wb-info">{c.hero.info.map(([k,val])=><div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
        <p className="wb-zones"><Icon name="clock" size={14}/>{zoneLine(L).map(([city,t])=><span key={city}>{city} <b>{t}</b></span>)}</p>
       </div>
      </div>
