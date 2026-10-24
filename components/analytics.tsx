@@ -25,8 +25,10 @@ export function track(event:string,params:Record<string,string|number|undefined>
  window.gtag?.('event',event,params);
  // Visitors who started the form or reached out are not shown the lead popup again.
  if(event==='generate_lead'||event==='form_start'||event.startsWith('quiz_')||(event.endsWith('_click')&&event!=='cta_click'))try{sessionStorage.setItem('praxen_engaged','1')}catch{}
- // Metrica JavaScript-event goals: lead, form_start, calculator, quiz_start, quiz_complete, booking_done, cta and contact_* (the "contact" goal matches every contact_* id).
- const goal=event==='generate_lead'?'lead':event==='form_start'?'form_start':event==='calculator_use'?'calculator':event==='quiz_start'||event==='quiz_complete'?event:event==='booking_complete'?'booking_done':event==='cta_click'?'cta':event.endsWith('_click')?'contact_'+event.slice(0,-6):'';
+ // Metrica JavaScript-event goals (funnels in docs/ANALYTICS-GOALS.md). Workshop steps get their own ids, so the services
+ // funnel (form_start → lead → booking_done) counts only service enquiries; "contact" matches every contact_* id.
+ const ws=params.form==='webinar'||params.label==='webinar_register';
+ const goal=event==='generate_lead'?(ws?'workshop_lead':'lead'):event==='form_start'?(ws?'workshop_form':'form_start'):event==='calculator_use'?'calculator':event==='quiz_start'||event==='quiz_complete'?event:event==='booking_complete'?'booking_done':event==='begin_checkout'?'checkout_start':event==='purchase'?'purchase':event==='cta_click'?(ws?'workshop_cta':'cta'):event.endsWith('_click')?'contact_'+event.slice(0,-6):'';
  if(tracking.ym&&goal)window.ym?.(Number(tracking.ym),'reachGoal',goal,params);
  if(event==='generate_lead'){
   window.fbq?.('track','Lead');
