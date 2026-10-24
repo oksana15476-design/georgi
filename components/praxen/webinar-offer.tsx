@@ -51,7 +51,7 @@ function ResultBox({c,lang,r}:{c:OfferCopy;lang:'ru'|'en'|'ka';r:Result}){
 
 function Modal({label,onClose,children,close}:{label:string;onClose:()=>void;children:React.ReactNode;close:string}){
  useEffect(()=>{
-  const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')onClose()};
+  const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape'&&!e.defaultPrevented)onClose()};
   document.addEventListener('keydown',onKey);document.body.style.overflow='hidden';
   const f=setTimeout(()=>document.querySelector<HTMLInputElement>('.wb-modal input[name=name]')?.focus(),60);
   return()=>{clearTimeout(f);document.removeEventListener('keydown',onKey);document.body.style.overflow=''};

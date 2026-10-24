@@ -5,6 +5,7 @@ import {contacts} from '@/lib/contacts';
 import {prices} from '@/lib/pricing';
 import {getAttribution,track} from '@/components/analytics';
 import {Icon} from './icon';
+import {PhoneInput} from './phone-input';
 import type {X} from './types';
 
 const fmt=(n:number)=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0');
@@ -28,7 +29,7 @@ export function Quiz({x}:{x:X}){
  const gains=[c('Отвечает круглосуточно — ночные заявки не теряются.','Replies 24/7, so night leads are not lost.','პასუხობს 24/7 — ღამის მოთხოვნები არ იკარგება.'),c('Клиент получает ответ за секунды.','Customers get an answer in seconds.','კლიენტი პასუხს წამებში იღებს.'),c('Каждая заявка — в CRM с ответственным.','Every lead goes to the CRM with an owner.','ყოველი მოთხოვნა — CRM-ში პასუხისმგებლით.'),c('На аудите найдём, где теряются заявки.','The audit will show where leads are lost.','აუდიტი გაჩვენებთ, სად იკარგება მოთხოვნები.')];
 
  const [step,setStep]=useState(0),[answers,setAnswers]=useState<number[]>([]);
- const [method,setMethod]=useState<'whatsapp'|'telegram'>('whatsapp'),[contact,setContact]=useState(''),[website,setWebsite]=useState('');
+ const [method,setMethod]=useState<'whatsapp'|'telegram'>('whatsapp'),[contact,setContact]=useState(''),[phoneOk,setPhoneOk]=useState(false),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
  const head=useRef<HTMLDivElement>(null);
  const total=questions.length,finished=step>=total;
@@ -48,11 +49,11 @@ export function Quiz({x}:{x:X}){
  const answerText=questions.map(([q,o],i)=>q+' '+(o[answers[i]]??'')).join('; ');
  const waText=c('Здравствуйте! Прошёл мини-аудит на сайте Praxen AI. ','Hello! I took the mini audit on the Praxen AI site. ','გამარჯობა! Praxen AI-ს საიტზე მინი-აუდიტი გავიარე. ')+questions.map(([,o],i)=>o[answers[i]]).join(', ')+c('. Хочу обсудить результат.','. I would like to discuss the result.','. მინდა შედეგის განხილვა.');
 
- const change=(v:string)=>{setStatus('');setContact(method==='telegram'?v.replace(/\s/g,''):v.replace(/[^\d+\s()-]/g,''))};
+ const change=(v:string)=>{setStatus('');setContact(v.replace(/\s/g,''))};
+ const changePhone=(full:string,ok:boolean)=>{setStatus('');setContact(full);setPhoneOk(ok)};
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
-  const digits=contact.replace(/\D/g,'');
-  const ok=method==='whatsapp'?digits.length>=7&&digits.length<=15:/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)||/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''));
+  const ok=method==='whatsapp'?phoneOk:/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)||/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''));
   if(!ok){setStatus('invalid');track('form_error',{reason:'invalid_contact',form:'quiz'});return}
   setSending(true);setStatus('');
   try{
@@ -93,9 +94,10 @@ export function Quiz({x}:{x:X}){
      {done?<div role="status" className="quiz-done"><span className="done-icon"><Icon name="check" size={22}/></span><div><b>{s.successTitle}</b><p>{s.successBody}</p></div></div>:
      <form onSubmit={submit} noValidate className="quiz-form">
       <b>{c('Обсудим на бесплатном аудите. Куда написать?','Discuss it in a free audit. Where do we message you?','განვიხილოთ უფასო აუდიტზე. სად მოგწეროთ?')}</b>
-      <div role="radiogroup" aria-label={s.howContact} className="methods">{([['whatsapp','WhatsApp'],['telegram','Telegram']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
+      <div role="radiogroup" aria-label={s.howContact} className="methods">{([['whatsapp','WhatsApp'],['telegram','Telegram']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       <div className="quiz-row">
-       <input name="contact" value={contact} onChange={e=>change(e.target.value)} aria-label={method==='telegram'?'Telegram':'WhatsApp'} placeholder={method==='telegram'?'@username / +995…':'+995 5XX XXX XXX'} inputMode={method==='whatsapp'?'tel':'text'} autoComplete={method==='whatsapp'?'tel':'off'} aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>
+       {method==='whatsapp'?<PhoneInput lang={lang} invalid={status==='invalid'} onChange={changePhone} label="WhatsApp"/>
+       :<input name="contact" value={contact} onChange={e=>change(e.target.value)} aria-label="Telegram" placeholder="@username" autoComplete="off" aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>}
        <button type="submit" disabled={sending} className="btn btn-primary">{sending?s.sending:c('Отправить','Send','გაგზავნა')}<Icon name="arrow-right" size={16}/></button>
       </div>
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>

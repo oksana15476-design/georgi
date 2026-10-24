@@ -8,6 +8,7 @@ import {partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios
 import {posts,type Post} from '@/lib/intl-blog';
 import {ArticleBlock} from '@/components/article-blocks';
 import {Icon} from './icon';
+import {PhoneInput} from '@/components/praxen/phone-input';
 import {Scene} from './scene';
 
 // Page context: currency (switched in the pricing block, one currency per page), the page CTA and links.
@@ -162,11 +163,11 @@ export function Quiz(){
 // The quiz result asks for one contact, like the quiz on praxenai.ge; the answers go with the enquiry.
 function QuizCapture({summary,onRestart}:{summary:string;onRestart:()=>void}){
  const {route}=useIx();
- const [method,setMethod]=useState<'whatsapp'|'email'>('whatsapp'),[contact,setContact]=useState(''),[website,setWebsite]=useState('');
+ const [method,setMethod]=useState<'whatsapp'|'email'>('whatsapp'),[contact,setContact]=useState(''),[phoneOk,setPhoneOk]=useState(false),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
-  if(!validContact(contact,method)){setStatus('invalid');track('form_error',{reason:'invalid_contact',form:'quiz'});return}
+  if(method==='email'?!validContact(contact,method):!phoneOk){setStatus('invalid');track('form_error',{reason:'invalid_contact',form:'quiz'});return}
   setSending(true);setStatus('');
   try{await sendLead({contact:method+': '+contact,message:'Quiz: '+summary,context:'praxenai.com · quiz · '+(route.slug||route.page),website});setDone(true);track('generate_lead',{method,form:'quiz',page:location.pathname})}
   catch{setStatus('error');track('form_error',{reason:'send_failed',form:'quiz'})}
@@ -176,13 +177,14 @@ function QuizCapture({summary,onRestart}:{summary:string;onRestart:()=>void}){
  return (
   <form onSubmit={submit} noValidate className="quiz-form">
    <b>Get this plan with your numbers. Where should we send it?</b>
-   <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
+   <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
    <div className="quiz-row">
-    <input name="contact" value={contact} onChange={e=>{setStatus('');setContact(formatContact(e.target.value,method))}} aria-label={method==='email'?'Your email':'Your WhatsApp number'} placeholder={method==='email'?'name@company.co.uk':'+44 7700 900 123'} inputMode={method==='email'?'email':'tel'} autoComplete={method==='email'?'email':'tel'} aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>
+    {method==='email'?<input name="contact" value={contact} onChange={e=>{setStatus('');setContact(formatContact(e.target.value,method))}} aria-label="Your email" placeholder="name@company.co.uk" inputMode="email" autoComplete="email" aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>
+    :<PhoneInput lang="en" invalid={status==='invalid'} onChange={(full,ok)=>{setStatus('');setContact(full);setPhoneOk(ok)}} label="Your WhatsApp number"/>}
     <button type="submit" disabled={sending} className="btn btn-primary">{sending?'Sending…':'Send'}<Icon name="arrow-right" size={16}/></button>
    </div>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
-   {status&&<p role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter a full number, e.g. +44 7700 900 123.'):'Something went wrong. Please message us on WhatsApp.'}</p>}
+   {status&&<p role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter the full phone number.'):'Something went wrong. Please message us on WhatsApp.'}</p>}
    <div className="quiz-alt"><BookLink className="ulink">Or book a free call<Icon name="calendar-check" size={16}/></BookLink><button type="button" onClick={onRestart} className="ix-textbtn">Start again</button></div>
   </form>
  );
@@ -751,14 +753,14 @@ export function Faq({items,title}:{items:Pair[];title:string}){
 export function Contact(){
  const {cta,painsKey,route,context,setContext}=useIx();
  const opts=pains[painsKey]||pains.default;
- const [chosen,setChosen]=useState<string[]>([]),[method,setMethod]=useState<'whatsapp'|'email'|'phone'>('whatsapp'),[contact,setContact]=useState(''),[message,setMessage]=useState(''),[showMsg,setShowMsg]=useState(false),[website,setWebsite]=useState('');
+ const [chosen,setChosen]=useState<string[]>([]),[method,setMethod]=useState<'whatsapp'|'email'|'phone'>('whatsapp'),[contact,setContact]=useState(''),[phoneOk,setPhoneOk]=useState(false),[message,setMessage]=useState(''),[showMsg,setShowMsg]=useState(false),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState(false);
  const started=useRef(false);
  const start=()=>{if(!started.current){started.current=true;track('form_start',{page:location.pathname})}};
  const change=(v:string)=>{start();setStatus('');setContact(formatContact(v,method))};
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
-  if(!validContact(contact,method)){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
+  if(method==='email'?!validContact(contact,method):!phoneOk){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
   setSending(true);setStatus('');
   try{await sendLead({contact:method+': '+contact,message,tasks:chosen,context:'praxenai.com · '+(route.slug||route.page)+(context?' · '+context:''),website});setDone(true);track('generate_lead',{method,options:chosen.length,page:location.pathname})}
   catch{setStatus('error');track('form_error',{reason:'send_failed'})}
@@ -792,13 +794,14 @@ export function Contact(){
       {context&&<div className="context-chip"><span><span className="muted">About:</span> <b>{context}</b></span><button type="button" onClick={()=>setContext('')} aria-label="Remove topic"><Icon name="x" size={15}/></button></div>}
       <div className="field">
        <span className="ix-label">How should we reply?</span>
-       <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email'],['phone','Phone']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
+       <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email'],['phone','Phone']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       </div>
-      <label className="field">{label}<input name="contact" value={contact} onChange={e=>change(e.target.value)} placeholder={method==='email'?'name@company.co.uk':'+44 7700 900 123'} inputMode={method==='email'?'email':'tel'} autoComplete={method==='email'?'email':'tel'} aria-invalid={status==='invalid'} aria-describedby={status?'form-status':undefined} className={status==='invalid'?'is-invalid':''}/></label>
+      {method==='email'?<label className="field">{label}<input name="contact" value={contact} onChange={e=>change(e.target.value)} placeholder="name@company.co.uk" inputMode="email" autoComplete="email" aria-invalid={status==='invalid'} aria-describedby={status?'form-status':undefined} className={status==='invalid'?'is-invalid':''}/></label>
+      :<div className="field"><span>{label}</span><PhoneInput key={method} lang="en" invalid={status==='invalid'} onChange={(full,ok)=>{start();setStatus('');setContact(full);setPhoneOk(ok)}} label={label} describedBy={status?'form-status':undefined}/></div>}
       {showMsg?<label className="field fade-in">Message (optional)<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)}/></label>
        :<button type="button" onClick={()=>setShowMsg(true)} className="ix-textbtn ix-accent-text"><Icon name="plus" size={14}/>Add a message (optional)</button>}
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
-      {status&&<p id="form-status" role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter a full number, e.g. +44 7700 900 123.'):'Something went wrong. Please write to '+contacts.email+' or message us on WhatsApp.'}</p>}
+      {status&&<p id="form-status" role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter the full phone number.'):'Something went wrong. Please write to '+contacts.email+' or message us on WhatsApp.'}</p>}
       <div className="submit-row">
        <button type="submit" disabled={sending} className="btn btn-primary submit-btn">{sending?'Sending…':cta}<Icon name="arrow-right" size={16}/></button>
        <small>Your contact is used only to reply to this enquiry. See our <a href={link('privacy')} className="ix-inline">privacy policy</a>.</small>

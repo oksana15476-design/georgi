@@ -114,7 +114,7 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
     <span className="step-label">{f.where}</span>
     <div role="radiogroup" aria-label={f.where} className="methods">{f.methods.map((lb,k)=><button key={lb} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k as 0|1|2);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
     {method===0?<input name="contact" required aria-label={f.methods[method]} value={contact} onChange={e=>change(e.target.value)} placeholder={f.tgPh} autoComplete="off" aria-invalid={invalid} aria-describedby={status?id+'-status':undefined} className={'wb-contact'+(invalid?' is-invalid':'')}/>
-    :<PhoneInput key={method} lang={lang} invalid={invalid} onChange={changePhone} className="wb-contact-phone"/>}
+    :<PhoneInput key={method} lang={lang} invalid={invalid} onChange={changePhone} label={f.methods[method]} describedBy={status?id+'-status':undefined} className="wb-contact-phone"/>}
    </div>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
    {status&&<p id={id+'-status'} role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{invalid?f.invalid:f.error}</p>}
