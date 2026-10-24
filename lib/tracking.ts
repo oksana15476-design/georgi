@@ -1,6 +1,6 @@
 import {isIntl} from '@/lib/market';
 
-// Analytics and ad platform IDs. Each one is optional; nothing loads until the visitor accepts cookies.
+// Analytics and ad platform IDs. Each one is optional; when each loads is decided in components/analytics.tsx.
 export const tracking = {
  // Public IDs of the live site; an environment variable overrides them.
  // praxenai.com has its own GA4 property, so its traffic is not mixed with praxenai.ge.

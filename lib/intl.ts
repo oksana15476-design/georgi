@@ -384,7 +384,7 @@ const meta:Partial<Record<IntlPage,[string,string]>>={
  about:['About Praxen AI: a team that builds what it recommends','Praxen AI implements practical AI for businesses in the UK, US and EU. One accountable lead from audit to launch, calls in UK working hours.'],
  security:['Security and UK GDPR: how Praxen AI handles your data','Enterprise APIs that never train on your data, a DPA as standard, role-based access, full logs and retention you control. Subprocessors listed.'],
  partners:['Partner with Praxen AI: referral and delivery partners','For accountants, IT providers and agencies: refer clients for AI implementation or deliver larger projects with us.'],
- privacy:['Privacy policy | Praxen AI','How Praxen AI collects and uses personal data under UK GDPR: enquiries, call bookings, analytics with consent and your rights.'],
+ privacy:['Privacy policy | Praxen AI','How Praxen AI collects and uses personal data under UK GDPR: enquiries, call bookings, analytics and your rights.'],
  blog:['Blog: practical AI for business | Praxen AI','Costs, checklists and how-tos for businesses using AI: AI receptionists, automation, chatbots and team training, with real prices.'],
  terms:['Terms of service | Praxen AI','How Praxen AI works with business customers: proposals, payment, monthly plans and cancellation, ownership, data protection and liability.'],
 };
