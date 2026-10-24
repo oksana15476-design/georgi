@@ -38,7 +38,7 @@ export function Header({lang,c,s,page,rest,langRest,toContact,menu,setMenu}:Prop
  // Short labels keep six items on one line; breadcrumbs and page titles use the full section names.
  const navLabel=(k:string)=>({solutions:c('Решения','Solutions','გადაწყვეტები'),departments:c('Отделы','Departments','განყოფილებები'),cases:c('Кейсы','Cases','ქეისები')} as Record<string,string>)[k]||sectionLabel(c,k);
  const dropList=drop==='industries'?industries:departments;
- const langs=([['en','EN'],['ka','GE'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
+ const langs=([['en','EN'],['ka','KA'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
  const action=s.actionHeader;
  return (
   <header className={'site-header'+(scrolled||menu?' is-scrolled':'')+(drop?' has-drop':'')} onMouseLeave={()=>{clearTimeout(leave.current);leave.current=setTimeout(()=>setDrop(''),160)}}>

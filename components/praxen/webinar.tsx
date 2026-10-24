@@ -8,6 +8,7 @@ import {absolute,pageUrl} from '@/lib/seo';
 import {webinar as w,webinarCopy,webinarEvents,type WebinarCopy} from '@/lib/webinar';
 import {offerPath} from '@/lib/webinar-offer';
 import {Icon} from './icon';
+import {PhoneInput} from './phone-input';
 import {Flag,MotionRoot,Wordmark} from './ui';
 
 type L='ru'|'en'|'ka';
@@ -84,22 +85,16 @@ function Done({c,lang,contact}:{c:WebinarCopy;lang:L;contact:string}){
 
 function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
  const f=c.form;
- const [name,setName]=useState(''),[method,setMethod]=useState<0|1|2>(0),[contact,setContact]=useState(''),[website,setWebsite]=useState('');
+ const [name,setName]=useState(''),[method,setMethod]=useState<0|1|2>(0),[contact,setContact]=useState(''),[phoneOk,setPhoneOk]=useState(false),[website,setWebsite]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'error'>(''),[sending,setSending]=useState(false),[done,setDone]=useState('');
  const started=useRef(false);
  const keys=['telegram','whatsapp','phone'] as const;
  const start=()=>{if(!started.current){started.current=true;track('form_start',{form:'webinar',page:location.pathname})}};
- const change=(value:string)=>{
-  start();setStatus('');
-  if(method===0){setContact(value.replace(/\s/g,''));return}
-  const d=value.replace(/\D/g,'').slice(0,15);
-  if(d.startsWith('995')){const r=d.slice(3);setContact('+995'+(r?' '+r.slice(0,3):'')+(r.length>3?' '+r.slice(3,6):'')+(r.length>6?' '+r.slice(6,9):''))}
-  else setContact((value.startsWith('+')?'+':'')+d);
- };
+ const change=(value:string)=>{start();setStatus('');setContact(value.replace(/\s/g,''))};
+ const changePhone=(full:string,ok:boolean)=>{start();setStatus('');setContact(full);setPhoneOk(ok)};
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
-  const plain=contact.replace(/\D/g,'');
-  const bad=method===0?!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,'')):plain.length<7||plain.length>15;
+  const bad=method===0?!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,'')):!phoneOk;
   if(bad){setStatus('invalid');track('form_error',{form:'webinar',reason:'invalid_contact'});return}
   setSending(true);setStatus('');
   const full=keys[method]+': '+contact;
@@ -117,8 +112,9 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
    <label className="field">{f.name}<input name="name" required maxLength={100} value={name} onChange={e=>{start();setName(e.target.value)}} autoComplete="given-name"/></label>
    <div className="field">
     <span className="step-label">{f.where}</span>
-    <div role="radiogroup" aria-label={f.where} className="methods">{f.methods.map((lb,k)=><button key={lb} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k as 0|1|2);setContact('');setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
-    <input name="contact" required aria-label={f.methods[method]} value={contact} onChange={e=>change(e.target.value)} placeholder={method===0?f.tgPh:f.phonePh} inputMode={method===0?'text':'tel'} autoComplete={method===0?'off':'tel'} aria-invalid={invalid} aria-describedby={status?id+'-status':undefined} className={'wb-contact'+(invalid?' is-invalid':'')}/>
+    <div role="radiogroup" aria-label={f.where} className="methods">{f.methods.map((lb,k)=><button key={lb} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k as 0|1|2);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
+    {method===0?<input name="contact" required aria-label={f.methods[method]} value={contact} onChange={e=>change(e.target.value)} placeholder={f.tgPh} autoComplete="off" aria-invalid={invalid} aria-describedby={status?id+'-status':undefined} className={'wb-contact'+(invalid?' is-invalid':'')}/>
+    :<PhoneInput key={method} lang={lang} invalid={invalid} onChange={changePhone} className="wb-contact-phone"/>}
    </div>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
    {status&&<p id={id+'-status'} role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{invalid?f.invalid:f.error}</p>}
@@ -194,7 +190,7 @@ function DemoMock({c}:{c:WebinarCopy}){
 const langLabel={ru:'Язык страницы',en:'Page language',ka:'გვერდის ენა'};
 export function WbLangs({lang,path}:{lang:L;path:string}){
  return <div role="group" aria-label={langLabel[lang]} className="langs wb-langs">
-  {([['en','EN'],['ka','GE'],['ru','RU']] as [L,string][]).map(([code,lb])=><a key={code} href={base+langPath(code)+path} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
+  {([['en','EN'],['ka','KA'],['ru','RU']] as [L,string][]).map(([code,lb])=><a key={code} href={base+langPath(code)+path} lang={code} hrefLang={code} aria-current={code===lang?'true':undefined} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}
  </div>;
 }
 

@@ -1689,6 +1689,14 @@ main{outline:none}
 .wb .wb-contact{margin-top:8px}
 .wb .wb-form .field input:focus,.wb .wb-contact:focus{border-color:var(--wb-ink)}
 .wb .wb-contact.is-invalid{border-color:#b42318}
+.wb .phone{display:flex;gap:8px}
+.wb .wb-contact-phone{margin-top:8px}
+.wb .phone input{flex:1;min-width:0;width:100%}
+.wb .phone-cc{position:relative;flex:none;display:flex;align-items:center;height:52px;padding:0 32px 0 14px;border:2px solid #cdd6e3;border-radius:12px;background:#fff;font-size:16px;font-weight:600;color:var(--wb-ink);white-space:nowrap}
+.wb .phone-cc::after{content:'';position:absolute;right:13px;top:50%;width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.wb .phone-cc select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+.wb .phone-cc:focus-within{border-color:var(--wb-ink)}
+.wb .phone-cc.is-invalid,.wb .wb-form .phone input.is-invalid{border-color:#b42318}
 .wb .wb-form .methods{height:52px;border:2px solid #cdd6e3;border-radius:12px;padding:4px}
 .wb .wb-form .methods button{border-radius:8px;font-weight:700}
 .wb .wb-events{height:auto!important;min-height:52px}

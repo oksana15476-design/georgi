@@ -88,7 +88,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
   {title:sectionLabel(c,'departments'),links:departments.slice(0,4).map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
   {title:sectionLabel(c,'industries'),links:[...industries.slice(0,4).map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
  ];
- const langs=([['en','EN'],['ka','GE'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
+ const langs=([['en','EN'],['ka','KA'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
  // An article that has no version in a language links to that language's blog list instead.
  const langRest=(code:Lang)=>isBlog&&slug&&!geArticle(slug)?.langs[code]?'/blog':rest;
 

@@ -8,6 +8,7 @@ import {offerCopy,offerPath,type OfferCopy,type TariffKey} from '@/lib/webinar-o
 import {seller,termsPath} from '@/lib/webinar-terms';
 import {BONUS_END,DEPOSIT,OFFER_END,TARIFFS,bonusActive,offerActive,tariffPrice} from '@/lib/webinar-offer-order.mjs';
 import {Icon} from './icon';
+import {PhoneInput} from './phone-input';
 import {MotionRoot,Wordmark} from './ui';
 import {Questions,WbLangs,pad,participantCode,useCountdown,useSalesSwitch} from './webinar';
 
@@ -67,12 +68,12 @@ function Checkout({c,lang,order,now,onClose}:{c:OfferCopy;lang:'ru'|'en'|'ka';or
  const k=c.checkout,t=order.tariff,name0=c.tariffs.items[t.key as TariffKey].name;
  const special=offerActive(now),price=tariffPrice(t,now),amount=order.mode==='book'?DEPOSIT:price;
  const from=t.from&&order.mode==='buy'&&c.tariffs.from?c.tariffs.from+' ':'';
- const [name,setName]=useState(''),[email,setEmail]=useState(''),[phone,setPhone]=useState(''),[accepted,setAccepted]=useState(false),[website,setWebsite]=useState('');
+ const [name,setName]=useState(''),[email,setEmail]=useState(''),[phone,setPhone]=useState(''),[phoneOk,setPhoneOk]=useState(false),[accepted,setAccepted]=useState(false),[website,setWebsite]=useState('');
  const [pay,setPay]=useState<'card'|'invoice'>('card'),[payer,setPayer]=useState(''),[payerId,setPayerId]=useState('');
  const [status,setStatus]=useState<''|'invalid'|'payer'|'accept'|'error'>(''),[sending,setSending]=useState(''),[result,setResult]=useState<Result|null>(null);
  const submit=async(e:React.FormEvent)=>{
   e.preventDefault();if(sending)return;
-  if(!name.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())||phone.replace(/\D/g,'').length<7){setStatus('invalid');track('form_error',{form:'offer',reason:'invalid'});return}
+  if(!name.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())||!phoneOk){setStatus('invalid');track('form_error',{form:'offer',reason:'invalid'});return}
   if(pay==='invoice'&&!payer.trim()){setStatus('payer');return}
   if(!accepted){setStatus('accept');return}
   setSending(k.sending);setStatus('');
@@ -100,7 +101,7 @@ function Checkout({c,lang,order,now,onClose}:{c:OfferCopy;lang:'ru'|'en'|'ka';or
    </div>
    <label className="field">{k.name}<input name="name" required maxLength={100} value={name} onChange={e=>{setName(e.target.value);setStatus('')}} autoComplete="name"/></label>
    <label className="field">{k.email}<input name="email" type="email" required maxLength={160} value={email} onChange={e=>{setEmail(e.target.value);setStatus('')}} placeholder={k.emailPh} autoComplete="email" aria-invalid={status==='invalid'}/></label>
-   <label className="field">{k.phone}<input name="phone" type="tel" required maxLength={40} value={phone} onChange={e=>{setPhone(e.target.value);setStatus('')}} placeholder="+995 5XX XXX XXX" autoComplete="tel" aria-invalid={status==='invalid'}/></label>
+   <div role="group" aria-label={k.phone} className="field"><span>{k.phone}</span><PhoneInput lang={lang} invalid={status==='invalid'&&!phoneOk} onChange={(full,ok)=>{setPhone(full);setPhoneOk(ok);setStatus('')}}/></div>
    <fieldset className="wb-co-methods"><legend>{k.payLabel}</legend>
     {(['card','invoice'] as const).map(m=><label key={m} className={'wb-co-method'+(pay===m?' is-on':'')}><input type="radio" name="pay" value={m} checked={pay===m} onChange={()=>{setPay(m);setStatus('')}}/><Icon name={m==='card'?'lock':'file-text'} size={18}/><span><b>{k.methods[m][0]}</b>{k.methods[m][1]}</span></label>)}
    </fieldset>

@@ -9,8 +9,8 @@ import {contacts} from '@/lib/contacts';
 
 export function Hero({x}:{x:X}){
  const {s,c}=x;
- const proof=casesVerified?[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]]
-  :[['24/7',c('ответы клиентам в WhatsApp, Instagram и Telegram','replies to customers on WhatsApp, Instagram and Telegram','პასუხები კლიენტებს WhatsApp‑ში, Instagram‑სა და Telegram‑ში')],[c('2⁠–⁠4 нед.','2⁠–⁠4 wks','2⁠–⁠4 კვ.'),c('пилот на ваших реальных данных','pilot on your real data','პილოტი თქვენს რეალურ მონაცემებზე')],[c('3 языка','3 languages','3 ენა'),c('GE · EN · RU в каждом решении','GE · EN · RU in every solution','GE · EN · RU ყველა გადაწყვეტილებაში')]];
+ const proof=casesVerified?[['60%',c('ответов гостям автоматизировано · сеть отелей','of guest replies automated · hotel network','ავტომატიზებული პასუხები · სასტუმროები')],[c('40 ч','40 h','40 სთ'),c('экономии в месяц · оптовый дистрибьютор','saved monthly · wholesale distributor','დაზოგილი თვეში · დისტრიბუტორი')],[c('3 языка','3 languages','3 ენა'),c('KA · EN · RU в каждом решении','KA · EN · RU in every solution','KA · EN · RU ყველა გადაწყვეტილებაში')]]
+  :[['24/7',c('ответы клиентам в WhatsApp, Instagram и Telegram','replies to customers on WhatsApp, Instagram and Telegram','პასუხები კლიენტებს WhatsApp‑ში, Instagram‑სა და Telegram‑ში')],[c('2⁠–⁠4 нед.','2⁠–⁠4 wks','2⁠–⁠4 კვ.'),c('пилот на ваших реальных данных','pilot on your real data','პილოტი თქვენს რეალურ მონაცემებზე')],[c('3 языка','3 languages','3 ენა'),c('KA · EN · RU в каждом решении','KA · EN · RU in every solution','KA · EN · RU ყველა გადაწყვეტილებაში')]];
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
