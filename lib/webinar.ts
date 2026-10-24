@@ -63,8 +63,9 @@ export const webinar={
  path:'/webinar',
  // Gift for registering, also sent by the bot: public/webinar/checklist-<lang>.pdf.
  checklist:{ru:'/webinar/checklist-ru.pdf',en:'/webinar/checklist-en.pdf',ka:'/webinar/checklist-ru.pdf'} as Record<'ru'|'en'|'ka',string>,
- // @praxenaiweb_bot in WinWinBot (bot 239763): the start link opens the greeting with the registration.
- bot:'https://t.me/praxenaiweb_bot?start=5bd6b43b-2d96-4108-92e8-691af09f73ea',
+ // @praxenaiweb_bot in WinWinBot (bot 239763): landing «Сайт: уже записан на 12 ноября (RU)» registers the visitor for the
+ // 12 November session and starts its reminders, skipping the general greeting that invites to register.
+ bot:'https://t.me/praxenaiweb_bot?start=a30eb8e2-96e8-4003-aae4-36445d6423de',
 };
 
 type Pair=[string,string];type Tri=[string,string,string];
