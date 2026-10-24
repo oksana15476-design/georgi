@@ -5,7 +5,7 @@ import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {absolute,pageUrl} from '@/lib/seo';
-import {webinar as w,webinarCopy,webinarEvents,wbYourTime,wbZones,type WebinarCopy} from '@/lib/webinar';
+import {webinar as w,wbCities,webinarCopy,webinarEvents,wbOffsetCities,wbYourTime,wbZones,type WebinarCopy} from '@/lib/webinar';
 import {offerPath} from '@/lib/webinar-offer';
 import {Icon} from './icon';
 import {PhoneInput} from './phone-input';
@@ -14,24 +14,29 @@ import {Flag,MotionRoot,Wordmark} from './ui';
 type L='ru'|'en'|'ka';
 const ev=webinarEvents.ru;
 
-// Workshop time for the form: Tbilisi, plus the visitor's city (or «your time») when it differs.
-// The server and the first render show Tbilisi only; the browser adds the visitor's zone after hydration.
+// Workshop time for the visitor, from the device's time zone (no location request): one of our five cities, another known
+// city, a well-known city with the same offset, or «your time». The server and the first render show Tbilisi;
+// the browser switches after hydration.
 const at=(tz:string,o:Intl.DateTimeFormatOptions)=>{try{return new Intl.DateTimeFormat('en-GB',{...o,timeZone:tz}).format(new Date(ev.start))}catch{return ''}};
 const hm=(tz:string)=>at(tz,{hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
 const dm=(tz:string)=>at(tz,{day:'2-digit',month:'2-digit'}).replace('/','.');
 const noop=()=>()=>{};
 const visitorZone=()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone||'Asia/Tbilisi'}catch{return 'Asia/Tbilisi'}};
+const gmt=(tz:string)=>{try{return new Intl.DateTimeFormat('en-US',{timeZone:tz,timeZoneName:'shortOffset'}).formatToParts(new Date(ev.start)).find(p=>p.type==='timeZoneName')?.value||''}catch{return ''}};
+const offsetMin=(g:string)=>{const m=/^GMT([+-])(\d{1,2})(?::(\d{2}))?$/.exec(g);return g==='GMT'?0:m?(m[1]==='-'?-1:1)*(+m[2]*60+(+(m[3]||0))):NaN};
 function useSlot(lang:L){
- const tz=useSyncExternalStore(noop,visitorZone,()=>'Asia/Tbilisi');
- const z=wbZones.find(x=>x.tz===tz||x.also?.includes(tz));
- const zone=z?z.tz:tz,time=hm(zone)||hm('Asia/Tbilisi');
- const tb=hm('Asia/Tbilisi')+' '+wbZones[0].by[lang];
- return {by:zone==='Asia/Tbilisi'?tb:tb+' ('+time+' '+(z||wbYourTime).by[lang]+(dm(zone)&&dm(zone)!==dm('Asia/Tbilisi')?', '+dm(zone):'')+')'};
+ const raw=useSyncExternalStore(noop,visitorZone,()=>'Asia/Tbilisi');
+ const main=wbZones.find(x=>x.tz===raw||x.also?.includes(raw));
+ const tz=main?main.tz:hm(raw)?raw:'Asia/Tbilisi',g=gmt(tz)||'GMT+4';
+ const name=main?main.name:wbCities.find(x=>x.tz.includes(tz))?.name||wbOffsetCities[offsetMin(g)]||null;
+ const time=hm(tz),date=dm(tz),tb=hm('Asia/Tbilisi')+' '+wbZones[0].by[lang],other=date!==dm('Asia/Tbilisi')?', '+date:'';
+ const by=tz==='Asia/Tbilisi'?tb:tb+' ('+(main?time+' '+main.by[lang]:name?time+', '+name[lang]:time+' '+wbYourTime.by[lang])+other+')';
+ return {tz,date,time,label:(name||wbYourTime.name)[lang]+', '+(g==='GMT'?'GMT+0':g),by,main};
 }
 // Caption under the hero box: the other cities; cities with the same time share a slot (Astana and Tashkent).
-function zoneLine(lang:L){
+function zoneLine(lang:L,shown:string){
  const out:[string,string][]=[];
- for(const z of wbZones.slice(1)){const t=hm(z.tz),same=out.find(([,x])=>x===t);if(same)same[0]+=', '+z.name[lang];else out.push([z.name[lang],t])}
+ for(const z of wbZones.filter(x=>x.tz!==shown)){const t=hm(z.tz),same=out.find(([,x])=>x===t);if(same)same[0]+=', '+z.name[lang];else out.push([z.name[lang],t])}
  return out;
 }
 const evTitle={ru:'Воркшоп «ИИ в отделе продаж» — Praxen AI',en:'Workshop: AI for your sales team — Praxen AI',ka:'ვორქშოპი „AI გაყიდვების განყოფილებაში“ — Praxen AI'};
@@ -257,7 +262,7 @@ export function useSalesSwitch(onState:(state:'open'|'closed'|'unknown')=>void){
 }
 
 export function Webinar({lang='ru'}:{lang?:Lang}){
- const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L];
+ const L=(lang in webinarCopy?lang:'ru') as L,c=webinarCopy[L],slot=useSlot(L);
  const [sticky,setSticky]=useState(false),[modal,setModal]=useState(false);
  // When the owner opens sales during the workshop, everyone on the landing goes to the offer page (UTM tags kept).
  useSalesSwitch(state=>{if(state==='open')location.replace(base+langPath(L)+offerPath+location.search)});
@@ -286,8 +291,8 @@ export function Webinar({lang='ru'}:{lang?:Lang}){
      <div className="wb-hero-row">
       <p className="wb-lead">{c.hero.sub}</p>
       <div className="wb-when">
-       <dl className="wb-info">{c.hero.info.map(([k,val])=><div key={k}><dt>{k}</dt><dd>{val}</dd></div>)}</dl>
-       <p className="wb-zones"><Icon name="clock" size={14}/>{zoneLine(L).map(([city,t])=><span key={city}>{city} <b>{t}</b></span>)}</p>
+       <dl className="wb-info">{c.hero.info.map(([k,val],i)=>{const [dt,dd]=i===0?[k,slot.date]:i===1?[slot.label,slot.time]:[k,val];return <div key={i}><dt>{dt}</dt><dd>{dd}</dd></div>})}</dl>
+       <p className="wb-zones"><Icon name="clock" size={14}/>{zoneLine(L,slot.main?slot.tz:'').map(([city,t])=><span key={city}>{city} <b>{t}</b></span>)}</p>
       </div>
      </div>
      <div className="wb-hero-cta">

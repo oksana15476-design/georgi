@@ -14,8 +14,8 @@ export const webinarEvents={
 };
 export type WebinarEvent=keyof typeof webinarEvents;
 
-// Workshop time in the cities of our audience (owner's decision, 24 October). The hero shows Tbilisi time and the other
-// cities in a caption; {time} in the form copy is Tbilisi time plus the visitor's own (their city or «your time»).
+// Workshop time in the cities of our audience (owner's decision, 24 October). The hero shows the visitor's city and time
+// (Tbilisi on the server) and the other cities in a caption; {time} in the form copy is Tbilisi time plus the visitor's own.
 type ZL={ru:string;en:string;ka:string};
 export const wbZones:{tz:string;name:ZL;by:ZL;also?:string[]}[]=[
  {tz:'Asia/Tbilisi',name:{ru:'Тбилиси',en:'Tbilisi',ka:'თბილისი'},by:{ru:'по Тбилиси',en:'Tbilisi time',ka:'თბილისით'}},
@@ -24,6 +24,39 @@ export const wbZones:{tz:string;name:ZL;by:ZL;also?:string[]}[]=[
  {tz:'Asia/Tashkent',name:{ru:'Ташкент',en:'Tashkent',ka:'ტაშკენტი'},by:{ru:'по Ташкенту',en:'Tashkent time',ka:'ტაშკენტით'},also:['Asia/Samarkand']},
  {tz:'Europe/London',name:{ru:'Лондон',en:'London',ka:'ლონდონი'},by:{ru:'по Лондону',en:'London time',ka:'ლონდონით'},also:['Europe/Belfast']},
 ];
+// Other cities recognised by time zone (shown in the hero; in the form as «20:00, Yekaterinburg»).
+const city=(tz:string|string[],ru:string,en:string,ka:string)=>({tz:([] as string[]).concat(tz),name:{ru,en,ka}});
+export const wbCities=[
+ city('Asia/Yekaterinburg','Екатеринбург','Yekaterinburg','ეკატერინბურგი'),city('Asia/Omsk','Омск','Omsk','ომსკი'),
+ city(['Asia/Novosibirsk','Asia/Barnaul','Asia/Tomsk'],'Новосибирск','Novosibirsk','ნოვოსიბირსკი'),city('Asia/Krasnoyarsk','Красноярск','Krasnoyarsk','კრასნოიარსკი'),
+ city('Asia/Irkutsk','Иркутск','Irkutsk','ირკუტსკი'),city(['Asia/Yakutsk','Asia/Chita'],'Якутск','Yakutsk','იაკუტსკი'),
+ city('Asia/Vladivostok','Владивосток','Vladivostok','ვლადივოსტოკი'),city(['Asia/Magadan','Asia/Sakhalin'],'Магадан','Magadan','მაგადანი'),city('Asia/Kamchatka','Камчатка','Kamchatka','კამჩატკა'),
+ city(['Europe/Samara','Europe/Ulyanovsk','Europe/Saratov','Europe/Astrakhan'],'Самара','Samara','სამარა'),city('Europe/Kaliningrad','Калининград','Kaliningrad','კალინინგრადი'),
+ city('Europe/Minsk','Минск','Minsk','მინსკი'),city(['Europe/Kyiv','Europe/Kiev'],'Киев','Kyiv','კიევი'),city('Europe/Chisinau','Кишинёв','Chisinau','კიშინიოვი'),
+ city('Asia/Yerevan','Ереван','Yerevan','ერევანი'),city('Asia/Baku','Баку','Baku','ბაქო'),city('Asia/Bishkek','Бишкек','Bishkek','ბიშკეკი'),
+ city('Asia/Dushanbe','Душанбе','Dushanbe','დუშანბე'),city('Asia/Ashgabat','Ашхабад','Ashgabat','აშხაბადი'),
+ city('Europe/Istanbul','Стамбул','Istanbul','სტამბოლი'),city('Asia/Dubai','Дубай','Dubai','დუბაი'),city(['Asia/Jerusalem','Asia/Tel_Aviv'],'Тель-Авив','Tel Aviv','თელ-ავივი'),
+ city(['Asia/Nicosia','Europe/Nicosia','Asia/Famagusta'],'Кипр','Cyprus','კვიპროსი'),city('Europe/Athens','Афины','Athens','ათენი'),
+ city('Europe/Riga','Рига','Riga','რიგა'),city('Europe/Vilnius','Вильнюс','Vilnius','ვილნიუსი'),city('Europe/Tallinn','Таллин','Tallinn','ტალინი'),
+ city('Europe/Berlin','Берлин','Berlin','ბერლინი'),city('Europe/Paris','Париж','Paris','პარიზი'),city('Europe/Warsaw','Варшава','Warsaw','ვარშავა'),
+ city('Europe/Prague','Прага','Prague','პრაღა'),city('Europe/Vienna','Вена','Vienna','ვენა'),city('Europe/Rome','Рим','Rome','რომი'),
+ city('Europe/Madrid','Мадрид','Madrid','მადრიდი'),city('Europe/Amsterdam','Амстердам','Amsterdam','ამსტერდამი'),city('Europe/Belgrade','Белград','Belgrade','ბელგრადი'),
+ city('Europe/Dublin','Дублин','Dublin','დუბლინი'),city('Europe/Lisbon','Лиссабон','Lisbon','ლისაბონი'),
+ city('America/New_York','Нью-Йорк','New York','ნიუ-იორკი'),city('America/Toronto','Торонто','Toronto','ტორონტო'),city('America/Chicago','Чикаго','Chicago','ჩიკაგო'),
+ city('America/Denver','Денвер','Denver','დენვერი'),city('America/Los_Angeles','Лос-Анджелес','Los Angeles','ლოს-ანჯელესი'),
+ city('Asia/Kolkata','Дели','Delhi','დელი'),city('Asia/Bangkok','Бангкок','Bangkok','ბანგკოკი'),city('Asia/Makassar','Бали','Bali','ბალი'),
+ city('Asia/Singapore','Сингапур','Singapore','სინგაპური'),city('Asia/Tokyo','Токио','Tokyo','ტოკიო'),city('Asia/Seoul','Сеул','Seoul','სეული'),
+];
+// Unknown zone: a well-known city with the same offset on the workshop day (minutes from GMT), else «your time».
+// East of Astana the audience is mostly Russian-speaking, so Russian cities come first there.
+export const wbOffsetCities:Record<number,{ru:string;en:string;ka:string}>={
+ [-480]:{ru:'Лос-Анджелес',en:'Los Angeles',ka:'ლოს-ანჯელესი'},[-420]:{ru:'Денвер',en:'Denver',ka:'დენვერი'},[-360]:{ru:'Чикаго',en:'Chicago',ka:'ჩიკაგო'},
+ [-300]:{ru:'Нью-Йорк',en:'New York',ka:'ნიუ-იორკი'},0:{ru:'Лондон',en:'London',ka:'ლონდონი'},60:{ru:'Берлин',en:'Berlin',ka:'ბერლინი'},
+ 120:{ru:'Афины',en:'Athens',ka:'ათენი'},180:{ru:'Москва',en:'Moscow',ka:'მოსკოვი'},240:{ru:'Тбилиси',en:'Tbilisi',ka:'თბილისი'},
+ 300:{ru:'Астана',en:'Astana',ka:'ასტანა'},330:{ru:'Дели',en:'Delhi',ka:'დელი'},360:{ru:'Омск',en:'Omsk',ka:'ომსკი'},
+ 420:{ru:'Новосибирск',en:'Novosibirsk',ka:'ნოვოსიბირსკი'},480:{ru:'Иркутск',en:'Irkutsk',ka:'ირკუტსკი'},540:{ru:'Якутск',en:'Yakutsk',ka:'იაკუტსკი'},
+ 600:{ru:'Владивосток',en:'Vladivostok',ka:'ვლადივოსტოკი'},660:{ru:'Магадан',en:'Magadan',ka:'მაგადანი'},720:{ru:'Камчатка',en:'Kamchatka',ka:'კამჩატკა'},
+};
 export const wbYourTime={name:{ru:'Ваше время',en:'Your time',ka:'თქვენი დრო'},by:{ru:'по вашему времени',en:'your time',ka:'თქვენი დროით'}};
 
 export const webinar={
