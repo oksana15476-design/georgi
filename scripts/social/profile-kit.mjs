@@ -87,7 +87,7 @@ const story=(id,bg,kicker,title,sub,extra='')=>items['story-'+id+'-1080x1920']=[
    <div style="font-size:44px;font-weight:700;line-height:1.3">${sub}</div>${extra}</div></div>`];
 story('today','grad','Сегодня, 12 ноября','Воркшоп <span style="color:#ffd166">«ИИ в отделе продаж»</span>','19:00 Тбилиси · 20:00 Астана · 18:00 Москва<br>Последний шанс записаться',`<div style="margin-top:20px">${cal(380,'сегодня · онлайн')}</div>`);
 story('30min','ink','Через 30 минут','Начинаем <span style="color:#ffd166">в 19:00</span>','Ссылка на эфир — в нашем Telegram-боте',`<div style="font-size:300px;font-weight:800;color:#ffd166;line-height:1;letter-spacing:-.05em">30:00</div>`);
-story('new-post','white','Новый пост','Клиенты пишут ночью, <span class="gt">а вы отвечаете утром?</span>','Разбираем в новом посте — листайте ленту',`<div style="font-size:44px">${info}</div>`);
+story('new-post','white','Новый пост','Где ваш отдел продаж <span class="gt">теряет заявки?</span>','Ночью, в переписке, на одних и тех же вопросах. Разбираем в новом посте — листайте ленту',`<div style="font-size:44px">${info}</div>`);
 story('checklist','yel','Подарок за регистрацию','Чек-лист <span class="gt">«10 вопросов»</span>','Покажет, где ваш отдел продаж теряет заявки.<br>Придёт в Telegram сразу после записи');
 
 const page=b=>`<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap"><style>${css}</style></head><body>${b}</body></html>`;
