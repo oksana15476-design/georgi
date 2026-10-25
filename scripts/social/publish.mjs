@@ -46,7 +46,11 @@ function captions(batch,id){
  return out;
 }
 const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
-const due=post=>Date.parse(`${post.date}T${post.time||'11:00'}:00+04:00`)<=Date.now();
+const at=post=>Date.parse(`${post.date}T${post.time||'11:00'}:00+04:00`);
+const due=post=>at(post)<=Date.now();
+// A post more than two days late is not sent on schedule (a channel that comes back after a pause must not dump the backlog);
+// it can still be sent by hand with --only.
+const stale=post=>Date.now()-at(post)>2*864e5;
 
 async function call(url,params,method='POST'){
  const r=await fetch(method==='GET'?url+'?'+new URLSearchParams(params):url,method==='GET'?{}:{method,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(params)});
@@ -129,7 +133,7 @@ for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
  for(const post of batch.posts){
   if(b.only&&!b.only.includes(post.id))continue;
-  if(ONLY?post.id!==ONLY:!due(post))continue;
+  if(ONLY?post.id!==ONLY:!due(post)||stale(post))continue;
   const c=captions(name,post.id),imgs=images(name,post);
   for(const ch of b.channels){
    if(ONLY_CH&&ch!==ONLY_CH)continue;
