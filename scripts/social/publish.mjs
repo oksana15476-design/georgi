@@ -121,6 +121,7 @@ const send={
 
 const log=[];
 try{await metaSetup()}catch(e){log.push('ERROR meta setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}
+if(DRY)log.push(`meta: page ${env.META_PAGE_ID||'none'}, instagram ${env.META_IG_USER_ID||'none'}; threads ${env.THREADS_TOKEN?'set':'none'}; telegram ${env.TELEGRAM_SOCIAL_BOT_TOKEN?'set':'none'}`);
 for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
  for(const post of batch.posts){
