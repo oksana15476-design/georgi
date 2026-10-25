@@ -203,6 +203,15 @@ for(const post of posts){
  const md=[`# ${post.id} · ${post.date} · ${post.pillar}`,''];
  for(const l of langs) md.push(`## ${l}`,'',tr(post.text,l).replace('{link}',link(l)),'');
  // Facebook page default: Georgian slides, one caption in Georgian then Russian (tracked link in the Georgian part, plain praxenai.ge/ru in the Russian).
+  // "channels": one ready caption per network, each with its own utm_source. Instagram captions have no clickable links,
+ // Threads takes the short "threads" text (500 characters with the link), Telegram goes without hashtags.
+ if(batch.channels) for(const ch of batch.channels){
+  const l=langs[0],url=link(l).replace(/utm_source=[^&]+/,'utm_source='+ch),full=tr(post.text,l);
+  const tags=full.match(/\n\n(#[^\n]+)\s*$/),body=tags?full.slice(0,tags.index):full;
+  const t=ch==='instagram'?full.replace('{link}','ссылка в шапке профиля'):ch==='threads'?tr(post.threads||post.text,l).replace('{link}',url):ch==='telegram'?body.replace('{link}',url):ch==='linkedin'?body.replace('{link}',url)+(tags?'\n\n'+tags[1].split(' ').slice(0,3).join(' '):''):full.replace('{link}',url);
+  if(ch==='threads'&&t.length>500) throw new Error(post.id+': Threads text '+t.length+' > 500');
+  md.push(`## ${ch}`+(post.time?` · ${post.date} ${post.time} (Тбилиси)`:''),'',t,'');
+ }
  if(langs.includes('ka')&&langs.includes('ru')) md.push('## facebook: ka + ru','',tr(post.text,'ka').replace('{link}',link('ka')),'','—','',tr(post.text,'ru').replace('{link}','praxenai.ge/ru'),'');
  writeFileSync(join(dir,'captions.md'),md.join('\n'));
  console.log(`${post.id}: ${post.slides.length} slide(s) × ${langs.length} lang`);
