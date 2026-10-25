@@ -61,8 +61,30 @@ p.big{font-size:calc(var(--u)*${w?8.4:tall?8.6:7.6});line-height:1.08;font-weigh
 .badge{background:#fff;color:var(--ink)}.foot .cta{background:var(--y);color:var(--ink);box-shadow:none}</style>
 <div class="wrap">${logo(true)}<p class="big">Клиент написал в <span class="yy">23:40.</span> Вы ответили в <span class="rr">09:30.</span> <span class="mut">За это время он уже написал конкурентам.</span></p>
 <div class="foot"><div><span class="badge">Бесплатный онлайн-воркшоп</span><h3>ИИ в отделе продаж: отвечаем ночью и в выходные</h3><p class="t">12 ноября · <b>20:00 по Астане</b> · 45 минут</p></div>${cta()}</div></div>`}
+// D — заявки живут где угодно, кроме CRM (жёлтый фон)
+function D(W,H){const w=wide(W,H),tall=H>W;return `<style>${base(W,H)}
+body{background:var(--y)}.wrap{position:absolute;inset:0;padding:calc(var(--u)*7);display:flex;flex-direction:column;justify-content:space-between}
+h1{font-size:calc(var(--u)*${w?7.6:tall?9:8});line-height:1;font-weight:800;letter-spacing:-.035em;text-transform:uppercase;margin-top:calc(var(--u)*2.4)}
+.notes{display:flex;flex-wrap:wrap;gap:calc(var(--u)*1.8);${w?'max-width:70%':''}}
+.note{background:#fff;border:calc(var(--u)*.3) solid var(--ink);border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.4) calc(var(--u)*2.2);font-size:calc(var(--u)*2.8);font-weight:800;box-shadow:calc(var(--u)*.9) calc(var(--u)*.9) 0 var(--ink)}
+.note:nth-child(2){transform:rotate(2deg)}.note:nth-child(3){transform:rotate(-2deg)}.note.x{background:var(--ink);color:#fff;text-decoration:line-through}
+.row{display:flex;${w?'align-items:center;gap:calc(var(--u)*4)':'flex-direction:column;align-items:flex-start;gap:calc(var(--u)*3)'}}</style>
+<div class="wrap">${logo()}<div><span class="badge">Бесплатный онлайн-воркшоп</span><h1>Половины заявок <span class="grad">нет в CRM?</span></h1></div>
+<div class="notes"><span class="note">в переписке</span><span class="note">в блокноте</span><span class="note">в голове менеджера</span><span class="note x">в CRM</span></div>
+<div class="row">${info}${cta()}</div></div>`}
+// E — одни и те же вопросы весь день (тёмный фон)
+function E(W,H){const w=wide(W,H),tall=H>W;return `<style>${base(W,H)}
+body{background:var(--ink);color:#fff}.wrap{position:absolute;inset:0;padding:calc(var(--u)*7);display:${w?'grid;grid-template-columns:1.1fr 1fr;gap:calc(var(--u)*5);align-items:center':'flex;flex-direction:column;justify-content:space-between'}}
+h1{font-size:calc(var(--u)*${w?7:tall?8.6:7.4});line-height:1.02;font-weight:800;letter-spacing:-.035em;text-transform:uppercase;margin:calc(var(--u)*2.6) 0}
+.yy{color:var(--y)}.badge{background:#fff;color:var(--ink)}.t{font-size:calc(var(--u)*2.8);font-weight:700;color:#ffffffd9}
+.chat{display:flex;flex-direction:column;gap:calc(var(--u)*1.3);background:#efeae2;border-radius:calc(var(--u)*3);padding:calc(var(--u)*2.4);color:#111b21;${w?'':'margin:calc(var(--u)*2) 0'}}
+.m{max-width:80%;padding:calc(var(--u)*1.2) calc(var(--u)*1.8);border-radius:calc(var(--u)*1.6);background:#fff;font-size:calc(var(--u)*2.3);font-weight:600}.m i{font-style:normal;color:#667781;font-size:.7em;margin-left:.6em}
+.m.o{align-self:flex-end;background:#d9fdd3}.cta{background:var(--y);color:var(--ink);box-shadow:none}</style>
+<div class="wrap"><div>${logo(true)}<div style="margin-top:calc(var(--u)*4)"><span class="badge">Бесплатный онлайн-воркшоп</span><h1>«Сколько стоит?» <span class="yy">в 10-й раз за день</span></h1><p class="t">Ассистент отвечает по вашему прайсу. 12 ноября · <b class="yy">20:00 по Астане</b></p></div>${w?`<div style="margin-top:calc(var(--u)*4)">${cta()}</div>`:''}</div>
+<div class="chat"><div class="m">Сколько стоит доставка?<i>10:12</i></div><div class="m">А доставка сколько?<i>12:40</i></div><div class="m">Подскажите цену доставки<i>15:05</i></div><div class="m o">Доставка по городу — по вашему прайсу. Куда везём?<i>15:05</i></div></div>
+${w?'':`<div>${cta()}</div>`}</div>`}
 const b=await chromium.launch();const pg=await b.newPage();
-for(const [cn,fn] of Object.entries({A,B,C}))for(const [sn,[W,H]] of Object.entries(SIZES)){
+for(const [cn,fn] of Object.entries({A,B,C,D,E}))for(const [sn,[W,H]] of Object.entries(SIZES)){
  await pg.setViewportSize({width:W,height:H});const f=`${DIR}tmp.html`;writeFileSync(f,`<!doctype html><meta charset="utf-8">${fn(W,H)}`);
  await pg.goto('file://'+f);await pg.evaluate(()=>document.fonts.ready);await pg.waitForTimeout(150);
  const over=await pg.evaluate(()=>[...document.querySelectorAll('body *')].some(e=>{const r=e.getBoundingClientRect();return r.right>innerWidth+1||r.bottom>innerHeight+1})&&'overflow');
