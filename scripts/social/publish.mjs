@@ -9,7 +9,9 @@
 // State: content/social/published.json on the branch "social-state" (the workflow checks it out and pushes it back), so a post
 // never goes out twice. A channel without its secrets is skipped silently; an error in one channel does not stop the others.
 //
-// Secrets (environment): META_PAGE_TOKEN, META_PAGE_ID, META_IG_USER_ID — Facebook page and Instagram (Graph API);
+// Secrets (environment): META_TOKEN — a never-expiring system user token of the business portfolio with the page and
+// Instagram assigned; the page token, page id and Instagram id are looked up from it (or set META_PAGE_TOKEN, META_PAGE_ID,
+// META_IG_USER_ID directly);
 // THREADS_TOKEN, THREADS_USER_ID — Threads; TELEGRAM_SOCIAL_BOT_TOKEN, TELEGRAM_CHANNEL — Telegram channel (@name or -100… id).
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {join,dirname,resolve} from 'node:path';
@@ -21,7 +23,7 @@ const G='https://graph.facebook.com/v21.0',T='https://graph.threads.net/v1.0';
 // Which batches go out automatically and to which channels; "stories" posts go to Instagram stories.
 export const BATCHES=[
  {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram']},
- {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
+ {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','05-process','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
  {file:'stories-2026-11.json',channels:['instagram_story']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
@@ -59,6 +61,16 @@ async function ready(base,id,token,field='status_code'){
  throw new Error('media '+id+' not ready');
 }
 
+// Facebook page and Instagram ids and the page token from one system user token (pages_show_list, pages_manage_posts,
+// instagram_basic, instagram_content_publish, business_management).
+async function metaSetup(){
+ if(env.META_PAGE_TOKEN&&env.META_PAGE_ID)return;
+ if(!env.META_TOKEN)return;
+ const pages=(await call(`${G}/me/accounts`,{fields:'id,name,access_token,instagram_business_account',access_token:env.META_TOKEN},'GET')).data||[];
+ const page=pages.find(p=>/praxen/i.test(p.name))||pages[0];
+ if(!page)throw new Error('the Meta token sees no Facebook page');
+ env.META_PAGE_ID||=page.id;env.META_PAGE_TOKEN||=page.access_token;env.META_IG_USER_ID||=page.instagram_business_account?.id||'';
+}
 const send={
  async facebook(imgs,c){
   if(!env.META_PAGE_TOKEN||!env.META_PAGE_ID)return 'skip';
@@ -108,6 +120,7 @@ const send={
 };
 
 const log=[];
+try{await metaSetup()}catch(e){log.push('ERROR meta setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}
 for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
  for(const post of batch.posts){
