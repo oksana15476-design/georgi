@@ -24,7 +24,7 @@ const G='https://graph.facebook.com/v21.0',T='https://graph.threads.net/v1.0';
 // Which batches go out automatically and to which channels; "stories" posts go to Instagram stories.
 export const BATCHES=[
  {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram']},
- {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','05-process','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
+ {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
  {file:'stories-2026-11.json',channels:['instagram_story']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
