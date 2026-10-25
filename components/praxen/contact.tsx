@@ -54,7 +54,9 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
   try{
    const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,source:getAttribution(),website})});
    if(!r.ok)throw new Error();
-   setDone(true);track('generate_lead',{method,options:chosen.length,page:location.pathname});
+   // The tariff a visitor came from (context set by the pricing buttons, components/praxen/inner.tsx) or the training page names the service.
+   const service=/^(Обучение|Training|სწავლება)/.test(context)||location.pathname.endsWith('/training')?'training':/^(Внедрение|Implementation|დანერგვა)/.test(context)?'implementation':/^(Разработка|Development|შემუშავება)/.test(context)?'development':/^(Ведение|Maintenance|მომსახურება)/.test(context)?'maintenance':undefined;
+   setDone(true);track('generate_lead',{method,options:chosen.length,page:location.pathname,service});
   }catch{setStatus('error');track('form_error',{reason:'send_failed'})}
   finally{setSending(false)}
  };

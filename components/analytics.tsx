@@ -29,7 +29,10 @@ export function track(event:string,params:Record<string,string|number|undefined>
  // funnel (form_start → lead → booking_done) counts only service enquiries; "contact" matches every contact_* id.
  const ws=params.form==='webinar'||params.label==='webinar_register';
  const goal=event==='generate_lead'?(ws?'workshop_lead':'lead'):event==='form_start'?(ws?'workshop_form':'form_start'):event==='calculator_use'?'calculator':event==='quiz_start'||event==='quiz_complete'?event:event==='booking_complete'?'booking_done':event==='begin_checkout'?'checkout_start':event==='purchase'?'purchase':event==='cta_click'?(ws?'workshop_cta':'cta'):event.endsWith('_click')?'contact_'+event.slice(0,-6):'';
- if(tracking.ym&&goal)window.ym?.(Number(tracking.ym),'reachGoal',goal,params);
+ // order_price makes Metrica count the payment as revenue (widget «Выручка после воркшопа»).
+ if(tracking.ym&&goal)window.ym?.(Number(tracking.ym),'reachGoal',goal,event==='purchase'?{...params,order_price:params.value}:params);
+ // A service enquiry also reaches its own goal: «Обучение команды · заявка» (lead_training) and so on.
+ if(tracking.ym&&goal==='lead'&&params.service)window.ym?.(Number(tracking.ym),'reachGoal','lead_'+params.service,params);
  if(event==='generate_lead'){
   window.fbq?.('track','Lead');
   if(adsOn&&tracking.ads&&tracking.adsLeadLabel)window.gtag?.('event','conversion',{send_to:tracking.ads+'/'+tracking.adsLeadLabel});
