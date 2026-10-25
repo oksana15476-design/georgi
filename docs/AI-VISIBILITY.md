@@ -33,7 +33,7 @@
 | 1 | **Google Business Profile** (Батуми, категория «Консультант по ИИ» / «Software company»), логотип и обложка — `brand/gbp-*` | Gemini и Google Maps; главный сигнал «компания существует» | 15 мин + подтверждение |
 | 2 | **Bing Places for Business** — импорт из Google Business Profile | ChatGPT и Copilot берут местные компании из Bing | 10 мин |
 | 3 | **LinkedIn**: страница компании Praxen AI + в профиле основателя место работы Praxen AI | LinkedIn цитируют все ассистенты; связь основатель ↔ компания | 30 мин |
-| 4 | **Facebook и Instagram** — страницы компании; посты уже готовы (`content/social/`) | Упоминания и ссылки на сайт | 20 мин |
+| 4 | **Facebook и Instagram** — страницы компании; посты уже готовы (`content/social/`). Facebook: https://www.facebook.com/praxenai/ (25.10, в `lib/profiles.ts`) | Упоминания и ссылки на сайт | 20 мин |
 | 5 | **Каталоги агентств**: Clutch, GoodFirms, TechBehemoths (раздел Tbilisi), Sortlist, DesignRush, F6S, Crunchbase | Подборки «лучшие AI-агентства в Грузии/Батуми» — их цитируют ChatGPT и Perplexity | 15–20 мин на каталог |
 | 6 | **Bing Webmaster** и **Google Search Console** для обоих сайтов: карты сайта, проверка индексации | Скорость попадания в индекс | сделано для .com — проверить .ge |
 | 7 | **Публикации о компании**: деловые СМИ Грузии (например, bm.ge), гостевые статьи, интервью, подкасты | Внешние упоминания с авторитетных сайтов | по мере возможности |
