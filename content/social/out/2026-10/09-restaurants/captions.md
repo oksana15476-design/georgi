@@ -30,6 +30,16 @@ This is an example scenario. More for restaurants: https://praxenai.ge/industrie
 
 #restaurant #cafe #Tbilisi #Batumi #AI
 
+## facebook · 2026-11-18 11:00 (Тбилиси)
+
+Пятница, 20:00. Зал полный, а в WhatsApp и Instagram висят вопросы: «Есть столик на шестерых?», «Есть блюда без глютена?», «До скольки работаете?»
+
+ИИ-ассистент отвечает гостям сразу и на их языке, записывает брони в одну таблицу без накладок, готовит черновики ответов на отзывы в Google и раз в неделю присылает сводку: что спрашивают и на что жалуются.
+
+Это пример сценария. Подробнее для ресторанов: https://praxenai.ge/ru/industries/restaurants?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=09-restaurants
+
+#ресторан #кафе #Тбилиси #Батуми #ИИдлябизнеса
+
 ## instagram · 2026-11-18 11:00 (Тбилиси)
 
 Пятница, 20:00. Зал полный, а в WhatsApp и Instagram висят вопросы: «Есть столик на шестерых?», «Есть блюда без глютена?», «До скольки работаете?»

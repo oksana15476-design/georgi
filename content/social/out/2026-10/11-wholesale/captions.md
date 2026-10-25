@@ -30,6 +30,16 @@ This is an example scenario. More for wholesale: https://praxenai.ge/industries/
 
 #wholesale #distribution #HoReCa #Georgia #AI
 
+## facebook · 2026-11-23 11:00 (Тбилиси)
+
+Заказы в опте приходят как угодно: фото списка от руки, голосовое, Excel, сообщение в WhatsApp. Менеджер вручную ищет позиции и цены, а в пиковые дни растут ошибки.
+
+ИИ распознаёт позиции из любого формата, сверяет их с вашим каталогом и прайсом и готовит черновик счёта за минуты. Менеджер проверяет и отправляет.
+
+Это пример сценария. Подробнее для опта: https://praxenai.ge/ru/industries/wholesale?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=11-wholesale
+
+#опт #дистрибуция #HoReCa #Грузия #ИИдлябизнеса
+
 ## instagram · 2026-11-23 11:00 (Тбилиси)
 
 Заказы в опте приходят как угодно: фото списка от руки, голосовое, Excel, сообщение в WhatsApp. Менеджер вручную ищет позиции и цены, а в пиковые дни растут ошибки.

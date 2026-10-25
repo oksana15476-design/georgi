@@ -1,0 +1,68 @@
+# Publishes due social posts (scripts/social/publish.mjs) to Facebook, Instagram, Threads and the Telegram channel.
+# Runs every 15 minutes; "Run workflow" can publish one post to one channel at once or show a dry run.
+# What has been published is kept in content/social/published.json on the branch "social-state" (not main: no site deploy).
+# Secrets: Settings → Secrets and variables → Actions (names in scripts/social/publish.mjs).
+name: Social publish
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Post id (e.g. w02-faq-routine); empty = everything due"
+        required: false
+      channel:
+        description: "facebook | instagram | threads | telegram | instagram_story; empty = all"
+        required: false
+      dry:
+        description: "Dry run: show what would go out"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Load state
+        run: |
+          git fetch origin social-state 2>/dev/null && git show origin/social-state:content/social/published.json > "$RUNNER_TEMP/published.json" || echo '{}' > "$RUNNER_TEMP/published.json"
+      - name: Publish
+        env:
+          SOCIAL_STATE: ${{ runner.temp }}/published.json
+          META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+          THREADS_TOKEN: ${{ secrets.THREADS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          TELEGRAM_SOCIAL_BOT_TOKEN: ${{ secrets.TELEGRAM_SOCIAL_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+        run: |
+          set -o pipefail
+          node scripts/social/publish.mjs ${{ inputs.dry && '--dry' || '' }} ${{ inputs.only && format('--only {0}', inputs.only) || '' }} ${{ inputs.channel && format('--channel {0}', inputs.channel) || '' }} | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save state
+        if: always() && !inputs.dry
+        run: |
+          cp "$RUNNER_TEMP/published.json" /tmp/published.json
+          if git show origin/social-state:content/social/published.json 2>/dev/null | cmp -s - /tmp/published.json; then echo "state unchanged"; exit 0; fi
+          git config user.name "social-publish"; git config user.email "actions@github.com"
+          git checkout --orphan social-state-tmp
+          git rm -rf --cached . >/dev/null
+          mkdir -p content/social && cp /tmp/published.json content/social/published.json
+          git add content/social/published.json
+          git commit -qm "social state $(date -u +%FT%TZ)" || exit 0
+          git push -f origin social-state-tmp:social-state
