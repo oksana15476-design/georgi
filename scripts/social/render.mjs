@@ -17,6 +17,8 @@ if(!batchPath){console.error('Usage: node scripts/social/render.mjs <batch.json>
 const batch=JSON.parse(readFileSync(resolve(batchPath),'utf8'));
 const langs=(onlyLang?[onlyLang]:batch.langs||['ka','ru','en']);
 // A batch for praxenai.com sets "site" and "contacts"; praxenai.ge batches keep the defaults.
+// "theme":"workshop" draws every slide in the workshop landing style (white, yellow strip with "strip" text, uppercase headings).
+const theme=batch.theme||'',strip=batch.strip||'';
 const siteName=batch.site||'praxenai.ge',contactsLine=batch.contacts||'WhatsApp +995 557 125 497 · praxenai.ge';
 const outDir=join(root,'content/social/out',basename(batchPath,'.json'));
 
@@ -45,11 +47,15 @@ const ui={
  swipe:{ka:'გადაფურცლეთ →',ru:'Листайте →',en:'Swipe →'},
 };
 
-function slideHtml(s,l,i,n){
- const dark=['cover','number','cta'].includes(s.layout);
+// Workshop theme: a slide may set "bg" (white|ink|grad|yellow); cover, number and cta slides take the post's "accent".
+// "info" ([label, value] pairs) adds the landing's date/time/price table to a cover or cta slide.
+const infoHtml=(s,l)=>s.info?`<dl class="info">${s.info.map(([k,v])=>`<div><dt>${esc(tr(k,l))}</dt><dd>${esc(tr(v,l))}</dd></div>`).join('')}</dl>`:'';
+function slideHtml(s,l,i,n,accent){
+ const bg=theme==='workshop'?(s.bg||(['cover','number','cta'].includes(s.layout)&&accent)||'white'):'';
+ const dark=theme==='workshop'?['ink','grad'].includes(bg):['cover','number','cta'].includes(s.layout);
  const body={
   cover:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}
-   <h1 class="fit">${rich(s.title,l)}</h1>${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}`,
+   <h1 class="fit">${rich(s.title,l)}</h1>${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}${infoHtml(s,l)}`,
   list:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h2>${rich(s.title,l)}</h2>
    <ol class="list fit">${(s.items||[]).map((it,k)=>`<li><b>${String(k+1).padStart(2,'0')}</b><span>${rich(it,l)}</span></li>`).join('')}</ol>`,
   number:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<div class="big">${rich(s.value,l)}</div>
@@ -60,11 +66,11 @@ function slideHtml(s,l,i,n){
    <div class="cmp fit"><div><h3>${esc(tr(s.beforeLabel||ui.before,l))}</h3>${(s.before||[]).map(x=>`<p>${rich(x,l)}</p>`).join('')}</div>
    <div class="after"><h3>${esc(tr(s.afterLabel||ui.after,l))}</h3>${(s.after||[]).map(x=>`<p>${rich(x,l)}</p>`).join('')}</div></div>`,
   cta:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h1 class="fit">${rich(s.title,l)}</h1>
-   ${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}<div class="button">${rich(s.button,l)}</div>
+   ${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}${infoHtml(s,l)}<div class="button">${rich(s.button,l)}</div>
    <p class="contacts">${esc(contactsLine)}</p>`,
  }[s.layout];
  if(!body) throw new Error(`Unknown layout "${s.layout}"`);
- return `<section class="slide ${s.layout} ${dark?'dark':'light'}">
+ return `<section class="slide ${s.layout} ${dark?'dark':'light'}${bg?' bg-'+bg:''}">${theme==='workshop'&&strip?`<div class="strip">${esc(strip)}</div>`:''}
   <header><div class="logo">${dark?logoWhite:logoDark}</div>
    <div class="meta">${s.example?`<span class="tag">${esc(tr(ui.example,l))}</span>`:''}${n>1?`<span>${i+1}/${n}</span>`:''}</div></header>
   <main>${body()}</main>
@@ -112,9 +118,55 @@ h2{font-size:70px;line-height:1.08;font-weight:700;letter-spacing:-.03em;margin-
 .contacts{font-size:28px;color:#a9b3c6;margin-top:36px}
 `;
 
+// Workshop landing style (components/praxen/webinar.tsx, docs/direct-kz/creatives): one look for all slides.
+const workshopCss=`
+.slide{background:#fff;color:#121a2b;padding-top:120px}
+.strip{position:absolute;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 84px;background:#ffd166;border-bottom:3px solid #121a2b;font-size:22px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+h1{font-size:88px;line-height:1;font-weight:800;text-transform:uppercase;letter-spacing:-.035em}
+h2{font-size:60px;line-height:1.04;font-weight:800;text-transform:uppercase;letter-spacing:-.03em}
+em,.dark em{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kicker,.dark .kicker{align-self:flex-start;display:inline-flex;align-items:center;gap:14px;background:#121a2b;color:#fff;border-radius:999px;padding:12px 26px;font-size:22px;font-weight:800;letter-spacing:.08em}
+.kicker:before{content:'';width:14px;height:14px;border-radius:50%;background:#ff5a5f;box-shadow:0 0 0 5px #ff5a5f44}
+.sub{color:#3c4658;font-weight:600}
+.list li{font-weight:600;align-items:flex-start}
+.list b{flex:none;min-width:72px;text-align:center;background:#ffd166;border:3px solid #121a2b;border-radius:14px;color:#121a2b;font-size:30px;line-height:52px}
+.big{font-size:230px;background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.label{color:#121a2b;font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
+.note{color:#5d6779;font-weight:600}
+.chat{background:#efeae2;border-radius:32px;padding:32px;border:3px solid #121a2b}
+.msg{background:#fff;color:#111b21;box-shadow:none}
+.msg.bot{background:#d9fdd3;color:#111b21}
+.cmp>div{background:#fff;border:3px solid #121a2b}
+.cmp .after{background:#ffd166;color:#121a2b}
+.cmp h3,.cmp .after h3{color:#3c4658}
+.button{border-radius:999px;background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%);text-transform:uppercase;font-weight:800;letter-spacing:.04em;padding:30px 56px;box-shadow:0 18px 40px -12px #4f66f080}
+.contacts{color:#5d6779}
+.tag{color:#121a2b}
+footer{color:#121a2b}
+.info{display:flex;align-self:flex-start;margin-top:48px;border:3px solid #121a2b;border-radius:24px;overflow:hidden;background:#fff;color:#121a2b}
+.info>div{padding:20px 26px}.info>div+div{border-left:3px solid #121a2b}.info>div:last-child{background:#ffd166}
+.info dt{font-size:18px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}
+.info dd{margin-top:8px;font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.bg-ink{background:#121a2b;color:#fff}
+.bg-grad{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%);color:#fff}
+.bg-yellow{background:#ffd166;color:#121a2b}
+.bg-ink em,.bg-grad em{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#ffd166}
+.bg-ink .big,.bg-grad .big{background:none;color:#ffd166}
+.bg-ink .label,.bg-grad .label,.bg-ink footer,.bg-grad footer,.bg-ink .tag,.bg-grad .tag{color:#fff}
+.bg-ink .sub,.bg-grad .sub,.bg-ink .note,.bg-grad .note,.bg-ink .contacts,.bg-grad .contacts{color:#ffffffd9}
+.bg-ink .kicker{background:#fff;color:#121a2b}
+.bg-grad .kicker{background:#ffd166;color:#121a2b;border-radius:12px;transform:rotate(-2deg)}
+.bg-grad .kicker:before{display:none}
+.bg-ink .button,.bg-grad .button{background:#ffd166;color:#121a2b;box-shadow:none}
+.bg-ink .button em,.bg-grad .button em{color:#121a2b}
+.bg-yellow .strip{background:#121a2b;color:#ffd166;border-bottom-color:#121a2b}
+.bg-yellow .sub,.bg-yellow .note{color:#3c4658}
+.bg-yellow .info>div:last-child{background:#121a2b;color:#fff}.bg-yellow .info>div:last-child dt{color:#ffd166}
+`;
+
 const page=(slides,l)=>`<!doctype html><html lang="${l}"><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap">
-<style>${css}</style></head><body>${slides}</body></html>`;
+<style>${css}${theme==='workshop'?workshopCss:''}</style></head><body>${slides}</body></html>`;
 
 // Shrinks text marked .fit until the slide content fits; Georgian runs longer than Russian or English.
 const fitScript=()=>{
@@ -139,7 +191,7 @@ for(const post of posts){
  mkdirSync(dir,{recursive:true});
  for(const l of langs){
   for(const [i,s] of post.slides.entries()){
-   await pageObj.setContent(page(slideHtml(s,l,i,post.slides.length),l),{waitUntil:'networkidle'});
+   await pageObj.setContent(page(slideHtml(s,l,i,post.slides.length,post.accent),l),{waitUntil:'networkidle'});
    await pageObj.evaluate(()=>document.fonts.ready);
    await pageObj.evaluate(fitScript);
    await pageObj.screenshot({path:join(dir,`${l}-${i+1}.jpg`),type:'jpeg',quality:90});
