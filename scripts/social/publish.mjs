@@ -13,7 +13,7 @@
 // Secrets (environment): META_TOKEN — a never-expiring system user token of the business portfolio with the page and
 // Instagram assigned; the page token, page id and Instagram id are looked up from it (or set META_PAGE_TOKEN, META_PAGE_ID,
 // META_IG_USER_ID directly);
-// THREADS_TOKEN, THREADS_USER_ID — Threads; TELEGRAM_SOCIAL_BOT_TOKEN, TELEGRAM_CHANNEL — Telegram channel (@name or -100… id).
+// THREADS_TOKEN — Threads (long-lived, 60 days; the user id is looked up from it, or set THREADS_USER_ID); TELEGRAM_SOCIAL_BOT_TOKEN, TELEGRAM_CHANNEL — Telegram channel (@name or -100… id).
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {join,dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -131,6 +131,8 @@ const send={
 };
 
 const log=[];
+// Threads: the user id is looked up from the token when THREADS_USER_ID is not set.
+if(env.THREADS_TOKEN&&!env.THREADS_USER_ID){try{env.THREADS_USER_ID=(await call(`${T}/me`,{fields:'id,username',access_token:env.THREADS_TOKEN},'GET')).id||''}catch(e){log.push('ERROR threads setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}}
 try{await metaSetup()}catch(e){log.push('ERROR meta setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}
 if(DRY)log.push(`meta: page ${env.META_PAGE_ID||'none'}, instagram ${env.META_IG_USER_ID||'none'}; threads ${env.THREADS_TOKEN?'set':'none'}; telegram ${env.TELEGRAM_SOCIAL_BOT_TOKEN?'set':'none'}`);
 for(const b of BATCHES){
