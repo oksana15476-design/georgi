@@ -19,6 +19,8 @@ const langs=(onlyLang?[onlyLang]:batch.langs||['ka','ru','en']);
 // A batch for praxenai.com sets "site" and "contacts"; praxenai.ge batches keep the defaults.
 // "theme":"workshop" draws every slide in the workshop landing style (white, yellow strip with "strip" text, uppercase headings).
 const theme=batch.theme||'',strip=batch.strip||'';
+// "size":"story" renders 1080×1920 (stories, Instagram highlights) instead of the 1080×1350 feed card.
+const [W,H]=batch.size==='story'?[1080,1920]:[1080,1350];
 const siteName=batch.site||'praxenai.ge',contactsLine=batch.contacts||'WhatsApp +995 557 125 497 · praxenai.ge';
 const outDir=join(root,'content/social/out',basename(batchPath,'.json'));
 
@@ -77,6 +79,13 @@ function slideHtml(s,l,i,n,accent){
   compare:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h2>${rich(s.title,l)}</h2>
    <div class="cmp fit"><div><h3>${esc(tr(s.beforeLabel||ui.before,l))}</h3>${(s.before||[]).map(x=>`<p>${rich(x,l)}</p>`).join('')}</div>
    <div class="after"><h3>${esc(tr(s.afterLabel||ui.after,l))}</h3>${(s.after||[]).map(x=>`<p>${rich(x,l)}</p>`).join('')}</div></div>`,
+  // Own memes in the site style (no third-party images): chat, expect (ожидание / реальность), buttons, levels.
+  meme:()=>{const m=s.meme||{};const t=x=>rich(x,l);return `${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}${s.title?`<h2 class="meme-top">${rich(s.title,l)}</h2>`:''}${{
+   chat:()=>`<div class="vis v-chat">${(m.messages||[]).map(x=>`<div class="msg ${x.from}"><small>${esc(x.time||'')}${x.who?' · '+esc(tr(x.who,l)):''}</small>${t(x.text)}</div>`).join('')}</div>`,
+   expect:()=>`<div class="m-expect"><div><span>${t(m.aLabel||{ru:'Ожидание',ka:'მოლოდინი',en:'Expectation'})}</span><p>${t(m.a)}</p></div><div class="real"><span>${t(m.bLabel||{ru:'Реальность',ka:'რეალობა',en:'Reality'})}</span><p>${t(m.b)}</p></div></div>`,
+   buttons:()=>`<div class="m-buttons"><div class="btn2"><i></i><p>${t(m.a)}</p></div><div class="btn2"><i></i><p>${t(m.b)}</p></div></div>${m.under?`<p class="m-under">${t(m.under)}</p>`:''}`,
+   levels:()=>`<div class="m-levels">${(m.items||[]).map((x,k)=>`<div class="lv lv${k}"><b>${k+1}</b><p>${t(x)}</p></div>`).join('')}</div>`,
+  }[m.type]?.()||''}${s.bottom?`<p class="meme-bottom">${rich(s.bottom,l)}</p>`:''}`},
   cta:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h1 class="fit">${rich(s.title,l)}</h1>
    ${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}${infoHtml(s,l)}<div class="button">${rich(s.button,l)}</div>
    <p class="contacts">${esc(contactsLine)}</p>`,
@@ -86,13 +95,13 @@ function slideHtml(s,l,i,n,accent){
   <header><div class="logo">${dark?logoWhite:logoDark}</div>
    <div class="meta">${s.example?`<span class="tag">${esc(tr(ui.example,l))}</span>`:''}${n>1?`<span>${i+1}/${n}</span>`:''}</div></header>
   <main>${body()}</main>
-  <footer><span>${esc(siteName)}</span>${n>1&&i<n-1?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
+  <footer><span>${esc(siteName)}</span>${n>1&&i<n-1&&batch.size!=='story'?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
 }
 
 const css=`
 *{box-sizing:border-box;margin:0;padding:0}
-body{width:1080px;height:1350px;font-family:Manrope,'Noto Sans Georgian',sans-serif;-webkit-font-smoothing:antialiased}
-.slide{width:1080px;height:1350px;padding:72px 84px 64px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+body{width:${W}px;height:${H}px;font-family:Manrope,'Noto Sans Georgian',sans-serif;-webkit-font-smoothing:antialiased}
+.slide{width:${W}px;height:${H}px;padding:72px 84px 64px;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .dark{background:radial-gradient(120% 80% at 100% 0%,#24346b 0%,#121a2b 55%);color:#fff}
 .light{background:#f5f7fb;color:#121a2b}
 header{display:flex;justify-content:space-between;align-items:center;height:56px}
@@ -193,6 +202,19 @@ footer{color:#121a2b}
 .c-foot{font-size:28px;font-weight:800;padding:0 0 26px;color:#3c4658}
 .c-side{font-size:46px;font-weight:800;line-height:1.25;text-transform:uppercase}
 .bg-ink .c-side,.bg-grad .c-side{color:#fff}
+.meme-top{font-size:56px;margin-bottom:36px}.meme .v-chat{padding-top:30px}.meme-bottom{margin-top:40px;font-size:40px;font-weight:800;line-height:1.2}
+.m-expect{display:grid;grid-template-rows:1fr 1fr;gap:24px}
+.m-expect>div{background:#fff;border:3px solid #121a2b;border-radius:28px;padding:30px 34px;box-shadow:12px 12px 0 #121a2b}.m-expect .real{background:#ffd166}
+.m-expect span{font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}.m-expect p{margin-top:12px;font-size:40px;font-weight:700;line-height:1.25}
+.m-buttons{display:flex;gap:36px;justify-content:center}
+.btn2{flex:1;text-align:center}.btn2 i{display:block;margin:0 auto 22px;width:200px;height:120px;border-radius:50%/40%;background:#ff5a5f;border:4px solid #121a2b;box-shadow:0 18px 0 #b8383c,0 18px 0 4px #121a2b}
+.btn2 p{background:#fff;border:3px solid #121a2b;border-radius:20px;padding:22px;font-size:34px;font-weight:800;line-height:1.2;box-shadow:10px 10px 0 #121a2b}
+.m-under{margin-top:48px;text-align:center;font-size:40px;font-weight:800}
+.m-levels{display:flex;flex-direction:column;gap:18px}
+.lv{display:flex;align-items:center;gap:26px;border:3px solid #121a2b;border-radius:24px;padding:22px 28px;background:#fff;box-shadow:10px 10px 0 #121a2b}
+.lv b{flex:none;width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:#121a2b;color:#fff;font-size:34px}
+.lv p{font-size:36px;font-weight:700;line-height:1.2}.lv:last-child{background:#ffd166}.lv:last-child p{font-weight:800}
+.bg-ink .meme-bottom,.bg-grad .meme-bottom,.bg-ink .m-under,.bg-grad .m-under{color:#fff}
 .info{display:flex;align-self:flex-start;margin-top:48px;border:3px solid #121a2b;border-radius:24px;overflow:hidden;background:#fff;color:#121a2b}
 .info>div{padding:20px 26px}.info>div+div{border-left:3px solid #121a2b}.info>div:last-child{background:#ffd166}
 .info dt{font-size:18px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}
@@ -214,9 +236,12 @@ footer{color:#121a2b}
 .bg-yellow .info>div:last-child{background:#121a2b;color:#fff}.bg-yellow .info>div:last-child dt{color:#ffd166}
 `;
 
+// Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
+const storyCss=`.slide{padding:250px 84px 330px}.strip{top:180px}`;
+
 const page=(slides,l)=>`<!doctype html><html lang="${l}"><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap">
-<style>${css}${theme==='workshop'?workshopCss:''}</style></head><body>${slides}</body></html>`;
+<style>${css}${theme==='workshop'?workshopCss:''}${batch.size==='story'?storyCss:''}</style></head><body>${slides}</body></html>`;
 
 // Shrinks text marked .fit until the slide content fits; Georgian runs longer than Russian or English.
 const fitScript=()=>{
@@ -232,7 +257,7 @@ const fitScript=()=>{
 
 const {chromium}=await loadPlaywright();
 const browser=await chromium.launch();
-const ctx=await browser.newContext({viewport:{width:1080,height:1350},deviceScaleFactor:1});
+const ctx=await browser.newContext({viewport:{width:W,height:H},deviceScaleFactor:1});
 const pageObj=await ctx.newPage();
 const posts=batch.posts.filter(p=>!onlyId||p.id===onlyId);
 for(const post of posts){
@@ -256,8 +281,13 @@ for(const post of posts){
   // "channels": one ready caption per network, each with its own utm_source. Instagram captions have no clickable links,
  // Threads takes the short "threads" text (500 characters with the link), Telegram goes without hashtags.
  if(batch.channels) for(const ch of batch.channels){
-  const l=langs[0],url=link(l).replace(/utm_source=[^&]+/,'utm_source='+ch),full=tr(post.text,l);
+  const l=batch.channelLang||langs[0],url=link(l).replace(/utm_source=[^&]+/,'utm_source='+ch),full=tr(post.text,l);
   const tags=full.match(/\n\n(#[^\n]+)\s*$/),body=tags?full.slice(0,tags.index):full;
+  // Threads: a thread of 3–6 posts, numbered, each ≤500 characters; the link goes where {link} stands (the last post).
+  const thread=Array.isArray(post.threads)?post.threads:null;
+  if(ch==='threads'&&thread){const parts=thread.map((x,k)=>`${k+1}/${thread.length} `+tr(x,l).replace('{link}',url));
+   parts.forEach((x,k)=>{if(x.length>500)throw new Error(`${post.id}: Threads ${k+1} is ${x.length} > 500`)});
+   md.push(`## threads · ветка из ${parts.length}`+(post.time?` · ${post.date} ${post.time} (Тбилиси)`:''),'',parts.join('\n\n---\n\n'),'');continue;}
   const t=ch==='instagram'?full.replace('{link}','ссылка в шапке профиля'):ch==='threads'?tr(post.threads||post.text,l).replace('{link}',url):ch==='telegram'?body.replace('{link}',url):ch==='linkedin'?body.replace('{link}',url)+(tags?'\n\n'+tags[1].split(' ').slice(0,3).join(' '):''):full.replace('{link}',url);
   if(ch==='threads'&&t.length>500) throw new Error(post.id+': Threads text '+t.length+' > 500');
   md.push(`## ${ch}`+(post.time?` · ${post.date} ${post.time} (Тбилиси)`:''),'',t,'');
