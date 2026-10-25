@@ -1,4 +1,4 @@
-# 10-quiz · 2026-10-30 · offer
+# 10-quiz · 2026-11-20 · offer
 
 ## ka
 
@@ -41,7 +41,7 @@ Most companies start with one of three:
 
 To see what pays off first for you, take the mini audit on our site: 4 questions, 2 minutes. You see your first scenario, format and price right away; leaving a contact is optional.
 
-https://praxenai.ge/en?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=10-quiz#quiz
+https://praxenai.ge/?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=10-quiz#quiz
 
 #AI #Georgia #automation
 

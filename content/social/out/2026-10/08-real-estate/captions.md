@@ -1,4 +1,4 @@
-# 08-real-estate · 2026-10-26 · usecase
+# 08-real-estate · 2026-11-16 · usecase
 
 ## ka
 
@@ -26,7 +26,7 @@ A buyer abroad writes in the evening: “Looking for a 1-bed in Batumi under $70
 
 An AI assistant pulls listings from your CRM or feed and sends current options within minutes: layouts, floors, prices, instalments. It checks budget and timing and hands a warm lead to your manager with a summary.
 
-This is an example scenario. More for real estate: https://praxenai.ge/en/industries/real-estate?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=08-real-estate
+This is an example scenario. More for real estate: https://praxenai.ge/industries/real-estate?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=08-real-estate
 
 #BatumiRealEstate #developer #Georgia #AI
 

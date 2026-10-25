@@ -1,4 +1,4 @@
-# 11-wholesale · 2026-11-02 · usecase
+# 11-wholesale · 2026-11-23 · usecase
 
 ## ka
 
@@ -26,7 +26,7 @@ Wholesale orders arrive in every format: a photo of a handwritten list, a voice 
 
 AI reads the items from any format, matches them to your catalogue and prices, and prepares a draft invoice in minutes. The manager checks it and sends it.
 
-This is an example scenario. More for wholesale: https://praxenai.ge/en/industries/wholesale?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=11-wholesale
+This is an example scenario. More for wholesale: https://praxenai.ge/industries/wholesale?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=11-wholesale
 
 #wholesale #distribution #HoReCa #Georgia #AI
 

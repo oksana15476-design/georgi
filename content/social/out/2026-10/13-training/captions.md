@@ -1,4 +1,4 @@
-# 13-training · 2026-11-06 · offer
+# 13-training · 2026-11-27 · offer
 
 ## ka
 
@@ -38,7 +38,7 @@ Your company pays for ChatGPT but the results aren’t showing? That’s common,
 
 Team training fixes this: practice on your real tasks, a prompt library for each department and clear rules for client data. From 1,900 ₾, from 1 week.
 
-https://praxenai.ge/en?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=13-training
+https://praxenai.ge/?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=13-training
 
 #training #AI #ChatGPT #Georgia
 

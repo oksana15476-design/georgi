@@ -1,4 +1,4 @@
-# w07-faq · 2026-11-07 · process
+# w07-faq · 2026-11-06 · process
 
 ## ru
 
@@ -18,7 +18,7 @@
 
 #ИИвпродажах #воркшоп #CRM
 
-## facebook · 2026-11-07 11:00 (Тбилиси)
+## facebook · 2026-11-06 11:00 (Тбилиси)
 
 Частые вопросы о воркшопе 12 ноября.
 
@@ -36,7 +36,7 @@
 
 #ИИвпродажах #воркшоп #CRM
 
-## instagram · 2026-11-07 11:00 (Тбилиси)
+## instagram · 2026-11-06 11:00 (Тбилиси)
 
 Частые вопросы о воркшопе 12 ноября.
 
@@ -54,7 +54,7 @@
 
 #ИИвпродажах #воркшоп #CRM
 
-## threads · 2026-11-07 11:00 (Тбилиси)
+## threads · 2026-11-06 11:00 (Тбилиси)
 
 Частые вопросы о воркшопе 12 ноября.
 Бесплатно? Да.
@@ -64,7 +64,7 @@
 
 https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=workshop_nov12&utm_content=w07-faq
 
-## telegram · 2026-11-07 11:00 (Тбилиси)
+## telegram · 2026-11-06 11:00 (Тбилиси)
 
 Частые вопросы о воркшопе 12 ноября.
 
@@ -80,7 +80,7 @@ https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign
 
 Записаться: https://praxenai.ge/ru/webinar?utm_source=telegram&utm_medium=social&utm_campaign=workshop_nov12&utm_content=w07-faq
 
-## linkedin · 2026-11-07 11:00 (Тбилиси)
+## linkedin · 2026-11-06 11:00 (Тбилиси)
 
 Частые вопросы о воркшопе 12 ноября.
 

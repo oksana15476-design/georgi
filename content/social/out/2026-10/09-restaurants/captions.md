@@ -1,4 +1,4 @@
-# 09-restaurants · 2026-10-28 · usecase
+# 09-restaurants · 2026-11-18 · usecase
 
 ## ka
 
@@ -26,7 +26,7 @@ Friday, 8 pm. The room is full, and WhatsApp and Instagram are piling up with qu
 
 An AI assistant answers guests right away in their language, logs bookings in one table with no double-booking, drafts replies to Google reviews and sends you a weekly summary of what guests ask and complain about.
 
-This is an example scenario. More for restaurants: https://praxenai.ge/en/industries/restaurants?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=09-restaurants
+This is an example scenario. More for restaurants: https://praxenai.ge/industries/restaurants?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=09-restaurants
 
 #restaurant #cafe #Tbilisi #Batumi #AI
 

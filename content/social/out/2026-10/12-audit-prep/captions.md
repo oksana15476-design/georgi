@@ -1,4 +1,4 @@
-# 12-audit-prep · 2026-11-04 · process
+# 12-audit-prep · 2026-11-25 · process
 
 ## ka
 
@@ -35,7 +35,7 @@ How to get the most from a free audit — 4 questions, 10 minutes of prep:
 3. Where does your data live: sheets, CRM, messengers?
 4. How will you know it got better: hours, leads, errors?
 
-Don’t know the answers? That’s fine — we’ll work it out together. The audit is free, 30 minutes, online. Pick a time on our site: https://praxenai.ge/en?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=12-audit-prep#contact
+Don’t know the answers? That’s fine — we’ll work it out together. The audit is free, 30 minutes, online. Pick a time on our site: https://praxenai.ge/?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-10&utm_content=12-audit-prep#contact
 
 #AI #Georgia #audit
 
