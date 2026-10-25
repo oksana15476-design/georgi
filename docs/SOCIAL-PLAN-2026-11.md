@@ -73,6 +73,7 @@
 
 ## Где что лежит
 
+- Оформление профилей (обложки, описания, «Актуальное», сторис, закрепы): `docs/SOCIAL-PROFILES.md`, картинки — `brand/social-2026-11/`.
 - Воркшоп: тексты — `content/social/workshop-2026-11.json`, карточки и подписи по каналам — `content/social/out/workshop-2026-11/<пост>/`, календарь с инструкцией по отложенной публикации — `content/social/out/workshop-2026-11/PLAN.md`.
 - Услуги: `content/social/2026-10.json`, `content/social/out/2026-10/<пост>/`.
 
