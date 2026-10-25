@@ -82,7 +82,7 @@ const visualHtml=(v,l)=>{if(!v)return '';const t=x=>rich(x,l);return {
  calendar:()=>`<div class="vis v-cal"><div class="cal"><div class="c-head">${t(v.month)}</div><b>${esc(v.day)}</b><div class="c-foot">${t(v.foot)}</div></div>${v.side?`<div class="c-side">${[].concat(v.side).map(t).join('<br>')}</div>`:''}</div>`,
 }[v.type]?.()||'';};
 const infoHtml=(s,l)=>s.info?`<dl class="info">${s.info.map(([k,v])=>`<div><dt>${esc(tr(k,l))}</dt><dd>${esc(tr(v,l))}</dd></div>`).join('')}</dl>`:'';
-function slideHtml(s,l,i,n,accent){
+function slideHtml(s,l,i,n,accent,fb){
  const bg=theme==='workshop'?(s.bg||((i===0||['cover','number','cta'].includes(s.layout))&&accent)||'white'):'';
  const dark=theme==='workshop'?['ink','grad'].includes(bg):['cover','number','cta'].includes(s.layout);
  const body={
@@ -108,7 +108,7 @@ function slideHtml(s,l,i,n,accent){
    brain:()=>`<div class="m-brain">${(m.items||[]).map((x,k,a)=>`<div class="br br${k}"><p>${t(x)}</p><span style="font-size:${56+k*30}px">🧠</span></div>`).join('')}</div>`,
    changemind:()=>`<div class="m-mind"><div class="sign">${t(m.sign)}<b>${t(m.cta||{ru:'Переубедите меня',ka:'დამარწმუნეთ საპირისპიროში',en:'Change my mind'})}</b></div><div class="desk"><span>☕</span></div></div>`,
    yell:()=>`<div class="m-yell"><div class="side"><span class="em">${esc(m.leftEmoji||'😫')}</span><p>${t(m.left)}</p></div><div class="side cat"><span class="em">${esc(m.rightEmoji||'😾')}</span><p>${t(m.right)}</p></div></div>`,
-   img:()=>{const T=MEMES[m.tpl];const w=Math.min(912,(m.maxH||760)*T.r);return `<div class="m-img" style="width:${w}px;height:${w/T.r}px"><img src="${memeImg(T.f)}">${T.boxes.map((b,k)=>m.labels?.[k]?`<div class="mb ${b[4]} fitbox" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%;${b[5]?`transform:rotate(${b[5]}deg);`:''}font-size:${m.size||Math.round(w/(b[4]==='plain'?14:20))}px"><span>${t(m.labels[k])}</span></div>`:'').join('')}</div>`},
+   img:()=>{const T=MEMES[m.tpl];const w=Math.min(912,(fb?Math.min(m.maxH||760,590):m.maxH||760)*T.r);return `<div class="m-img" style="width:${w}px;height:${w/T.r}px"><img src="${memeImg(T.f)}">${T.boxes.map((b,k)=>m.labels?.[k]?`<div class="mb ${b[4]} fitbox" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%;${b[5]?`transform:rotate(${b[5]}deg);`:''}font-size:${m.size||Math.round(w/(b[4]==='plain'?14:20))}px"><span>${t(m.labels[k])}</span></div>`:'').join('')}</div>`},
    reaction:()=>`<div class="m-react"><span class="em">${esc(m.emoji||'😴')}</span><p>${t(m.text)}</p></div>`,
    levels:()=>`<div class="m-levels">${(m.items||[]).map((x,k)=>`<div class="lv lv${k}"><b>${k+1}</b><p>${t(x)}</p></div>`).join('')}</div>`,
   }[m.type]?.()||''}${s.bottom?`<p class="meme-bottom">${rich(s.bottom,l)}</p>`:''}`},
@@ -117,10 +117,10 @@ function slideHtml(s,l,i,n,accent){
    <p class="contacts">${esc(contactsLine)}</p>`,
  }[s.layout];
  if(!body) throw new Error(`Unknown layout "${s.layout}"`);
- return `<section class="slide ${s.layout} ${dark?'dark':'light'}${bg?' bg-'+bg:''}${s.visual?' has-vis':''}">${theme==='workshop'&&strip?`<div class="strip">${esc(strip)}</div>`:''}
+ return `<section class="slide ${s.layout} ${dark?'dark':'light'}${fb?' fb':''}${bg?' bg-'+bg:''}${s.visual?' has-vis':''}">${theme==='workshop'&&strip?`<div class="strip">${esc(strip)}</div>`:''}
   <header><div class="logo">${dark?logoWhite:logoDark}</div>
    <div class="meta">${s.example?`<span class="tag">${esc(tr(ui.example,l))}</span>`:''}${n>1?`<span>${i+1}/${n}</span>`:''}</div></header>
-  <main>${body()}</main>
+  <main>${body()}</main>${fb&&batch.fbCta?`<div class="fb-cta"><b>${rich(batch.fbCta.title,l)}</b>${batch.fbCta.sub?`<span>${rich(batch.fbCta.sub,l)}</span>`:''}</div>`:''}
   <footer><span>${esc(siteName)}</span>${n>1&&i<n-1&&batch.size!=='story'?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
 }
 
@@ -228,7 +228,14 @@ footer{color:#121a2b}
 .c-foot{font-size:28px;font-weight:800;padding:0 0 26px;color:#3c4658}
 .c-side{font-size:46px;font-weight:800;line-height:1.25;text-transform:uppercase}
 .bg-ink .c-side,.bg-grad .c-side{color:#fff}
-.meme-top{font-size:56px;margin-bottom:36px}.meme .v-chat{padding-top:30px}.meme-bottom{margin-top:40px;font-size:40px;font-weight:800;line-height:1.2}
+.meme-top{font-size:56px;margin-bottom:36px}
+/* Facebook cover (<lang>-fb.jpg): bigger headline and the batch "fbCta" block (what, when, where to sign up) under the picture. */
+.fb .meme-top{font-size:68px;margin-bottom:32px}
+.fb-cta{margin-top:36px;background:#121a2b;color:#fff;border-radius:28px;padding:30px 40px;display:flex;flex-direction:column;gap:8px}
+.fb-cta b{font-size:40px;font-weight:800;line-height:1.1;text-transform:uppercase;letter-spacing:-.01em}.fb-cta b em{color:#ffd166}
+.fb-cta span{font-size:28px;font-weight:600;color:#c9d1e3}
+.dark .fb-cta{background:#ffd166;color:#121a2b}.dark .fb-cta span{color:#3a4257}.dark .fb-cta b em{color:#315bf5}
+.fb footer{display:none}.meme .v-chat{padding-top:30px}.meme-bottom{margin-top:40px;font-size:40px;font-weight:800;line-height:1.2}
 .m-expect{display:grid;grid-template-rows:1fr 1fr;gap:24px}
 .m-expect>div{background:#fff;border:3px solid #121a2b;border-radius:28px;padding:30px 34px;box-shadow:12px 12px 0 #121a2b}.m-expect .real{background:#ffd166}
 .m-expect span{font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}.m-expect p{margin-top:12px;font-size:40px;font-weight:700;line-height:1.25}
@@ -322,7 +329,7 @@ for(const post of posts){
  for(const l of langs){
   // Facebook gets the cover alone (several photos are cropped into a grid): <lang>-fb.jpg, without "1/3" and "Swipe".
   if(batch.size!=='story'&&post.slides.length>1){
-   await pageObj.setContent(page(slideHtml(post.slides[0],l,0,1,post.accent),l),{waitUntil:'networkidle'});
+   await pageObj.setContent(page(slideHtml(post.slides[0],l,0,1,post.accent,true),l),{waitUntil:'networkidle'});
    await pageObj.evaluate(()=>document.fonts.ready);
    await pageObj.evaluate(fitScript);
    await pageObj.screenshot({path:join(dir,`${l}-fb.jpg`),type:'jpeg',quality:90});
