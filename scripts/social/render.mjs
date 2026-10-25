@@ -3,7 +3,7 @@
 //   node scripts/social/render.mjs content/social/2026-10.json            all posts, all languages
 //   node scripts/social/render.mjs content/social/2026-10.json w1-2 ka    one post, one language
 //
-// Output: content/social/out/<batch>/<post id>/<lang>-<slide>.jpg and captions.md next to them.
+// Output: content/social/out/<batch>/<post id>/<lang>-<slide>.jpg, <lang>-fb.jpg (Facebook cover) and captions.md next to them.
 // Links in captions carry utm_source=facebook; set UTM_SOURCE=instagram (linkedin, telegram…) for other channels.
 // Playwright is taken from the project or from the global install (npm root -g).
 import {readFileSync,writeFileSync,mkdirSync,rmSync} from 'node:fs';
@@ -13,6 +13,8 @@ import {execSync} from 'node:child_process';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const [batchPath,onlyId,onlyLang]=process.argv.slice(2);
+// COVER_ONLY=1 renders just the Facebook covers (<lang>-fb.jpg) and leaves the slides and captions as they are.
+const coverOnly=!!process.env.COVER_ONLY;
 if(!batchPath){console.error('Usage: node scripts/social/render.mjs <batch.json> [post id] [ka|ru|en]');process.exit(1);}
 const batch=JSON.parse(readFileSync(resolve(batchPath),'utf8'));
 const langs=(onlyLang?[onlyLang]:batch.langs||['ka','ru','en']);
@@ -315,9 +317,17 @@ const pageObj=await ctx.newPage();
 const posts=batch.posts.filter(p=>!onlyId||p.id===onlyId);
 for(const post of posts){
  const dir=join(outDir,post.id);
- if(!onlyLang) rmSync(dir,{recursive:true,force:true});
+ if(!onlyLang&&!coverOnly) rmSync(dir,{recursive:true,force:true});
  mkdirSync(dir,{recursive:true});
  for(const l of langs){
+  // Facebook gets the cover alone (several photos are cropped into a grid): <lang>-fb.jpg, without "1/3" and "Swipe".
+  if(batch.size!=='story'&&post.slides.length>1){
+   await pageObj.setContent(page(slideHtml(post.slides[0],l,0,1,post.accent),l),{waitUntil:'networkidle'});
+   await pageObj.evaluate(()=>document.fonts.ready);
+   await pageObj.evaluate(fitScript);
+   await pageObj.screenshot({path:join(dir,`${l}-fb.jpg`),type:'jpeg',quality:90});
+  }
+  if(coverOnly) continue;
   for(const [i,s] of post.slides.entries()){
    await pageObj.setContent(page(slideHtml(s,l,i,post.slides.length,post.accent),l),{waitUntil:'networkidle'});
    await pageObj.evaluate(()=>document.fonts.ready);
@@ -325,6 +335,7 @@ for(const post of posts){
    await pageObj.screenshot({path:join(dir,`${l}-${i+1}.jpg`),type:'jpeg',quality:90});
   }
  }
+ if(coverOnly){console.log(`${post.id}: Facebook cover`);continue;}
  // Captions with the tracked link, ready to paste.
  const link=(l)=>{const u=new URL(post.link||'https://'+siteName+'/'+l);if(!post.link) u.pathname=l==='en'?'/':'/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)(?=\/|$)/,l==='en'?'':'/'+l)||'/';
   u.searchParams.set('utm_source',process.env.UTM_SOURCE||'facebook');u.searchParams.set('utm_medium','social');u.searchParams.set('utm_campaign',batch.campaign||'organic');u.searchParams.set('utm_content',post.id);return u.toString();};

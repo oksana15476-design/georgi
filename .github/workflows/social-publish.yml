@@ -19,6 +19,10 @@ on:
         description: "Dry run: show what would go out"
         type: boolean
         default: false
+      replace:
+        description: "With a post id: delete its earlier Facebook post and publish it again"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -54,7 +58,7 @@ jobs:
           TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
         run: |
           set -o pipefail
-          node scripts/social/publish.mjs ${{ inputs.dry && '--dry' || '' }} ${{ inputs.only && format('--only {0}', inputs.only) || '' }} ${{ inputs.channel && format('--channel {0}', inputs.channel) || '' }} | tee -a "$GITHUB_STEP_SUMMARY"
+          node scripts/social/publish.mjs ${{ inputs.dry && '--dry' || '' }} ${{ inputs.only && format('--only {0}', inputs.only) || '' }} ${{ inputs.channel && format('--channel {0}', inputs.channel) || '' }} ${{ inputs.replace && '--replace' || '' }} | tee -a "$GITHUB_STEP_SUMMARY"
       - name: Save state
         if: always() && !inputs.dry
         run: |

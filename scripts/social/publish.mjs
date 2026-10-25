@@ -3,6 +3,7 @@
 //   node scripts/social/publish.mjs                      publish everything that is due and not yet published
 //   node scripts/social/publish.mjs --dry                show what would go out, call nothing
 //   node scripts/social/publish.mjs --only w02-faq-routine --channel telegram   one post, one channel, ignoring the schedule
+//   node scripts/social/publish.mjs --only 01-intro --channel facebook --replace  delete the earlier Facebook post and send it again
 //
 // Sources: the batches in BATCHES (dates and times are Tbilisi time), captions from content/social/out/<batch>/<post>/captions.md,
 // images from https://praxenai.ge/social/<batch>/<post>/ru-N.jpg (copied into public/ by scripts/social/stage-public.mjs).
@@ -27,7 +28,7 @@ export const BATCHES=[
  {file:'stories-2026-11.json',channels:['instagram_story']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
-const DRY=flag('--dry'),ONLY=opt('--only'),ONLY_CH=opt('--channel');
+const DRY=flag('--dry'),ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
 const statePath=process.env.SOCIAL_STATE||join(root,'content/social/published.json');
 const state=existsSync(statePath)?JSON.parse(readFileSync(statePath,'utf8')):{};
 const env=process.env;
@@ -46,6 +47,8 @@ function captions(batch,id){
  return out;
 }
 const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
+// Facebook: the cover alone, without "1/3" and "Swipe" (render.mjs makes ru-fb.jpg for every carousel).
+const fbImage=(batch,post)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`;
 const at=post=>Date.parse(`${post.date}T${post.time||'11:00'}:00+04:00`);
 const due=post=>at(post)<=Date.now();
 // A post more than two days late is not sent on schedule (a channel that comes back after a pause must not dump the backlog);
@@ -53,7 +56,8 @@ const due=post=>at(post)<=Date.now();
 const stale=post=>Date.now()-at(post)>2*864e5;
 
 async function call(url,params,method='POST'){
- const r=await fetch(method==='GET'?url+'?'+new URLSearchParams(params):url,method==='GET'?{}:{method,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(params)});
+ const q=method==='GET'||method==='DELETE';
+ const r=await fetch(q?url+'?'+new URLSearchParams(params):url,q?{method}:{method,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(params)});
  const j=await r.json().catch(()=>({}));
  if(!r.ok||j.error||j.ok===false)throw new Error(`${new URL(url).host}${new URL(url).pathname} ${r.status}: ${JSON.stringify(j.error||j.description||j).slice(0,300)}`);
  return j;
@@ -81,10 +85,9 @@ async function metaSetup(){
 const send={
  async facebook(imgs,c){
   if(!env.META_PAGE_TOKEN||!env.META_PAGE_ID)return 'skip';
-  // Facebook crops several photos into a grid and the carousel cards get cut; the feed gets the cover alone, the story is in the text.
-  const ids=[];for(const url of imgs.slice(0,1))ids.push((await call(`${G}/${env.META_PAGE_ID}/photos`,{url,published:'false',access_token:env.META_PAGE_TOKEN})).id);
-  const p={message:c.facebook||c.instagram||'',access_token:env.META_PAGE_TOKEN};ids.forEach((id,i)=>p[`attached_media[${i}]`]=JSON.stringify({media_fbid:id}));
-  return (await call(`${G}/${env.META_PAGE_ID}/feed`,p)).id;
+  // Facebook crops several photos into a grid and the carousel cards get cut: the feed gets one cover, the story is in the text.
+  const r=await call(`${G}/${env.META_PAGE_ID}/photos`,{url:c.fbImage||imgs[0],message:c.facebook||c.instagram||'',access_token:env.META_PAGE_TOKEN});
+  return r.post_id||r.id;
  },
  async instagram(imgs,c){
   if(!env.META_PAGE_TOKEN||!env.META_IG_USER_ID)return 'skip';
@@ -135,11 +138,13 @@ for(const b of BATCHES){
  for(const post of batch.posts){
   if(b.only&&!b.only.includes(post.id))continue;
   if(ONLY?post.id!==ONLY:!due(post)||stale(post))continue;
-  const c=captions(name,post.id),imgs=images(name,post);
+  const c={...captions(name,post.id),fbImage:fbImage(name,post)},imgs=images(name,post);
   for(const ch of b.channels){
    if(ONLY_CH&&ch!==ONLY_CH)continue;
    const key=`${name}/${post.id}/${ch}`;
    if(state[key]&&!ONLY)continue;
+   // --replace (with --only): remove the earlier Facebook post first, then send the new one.
+   if(REPLACE&&ONLY&&ch==='facebook'&&state[key]&&!DRY){try{await call(`${G}/${state[key].id}`,{access_token:env.META_PAGE_TOKEN},'DELETE');log.push(`deleted ${key} ${state[key].id}`);}catch(e){log.push(`ERROR delete ${key}: ${String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…')}`);continue;}}
    if(DRY){log.push(`would publish ${key} (${imgs.length} images)`);continue;}
    try{const id=await send[ch](imgs,c);if(id==='skip'){log.push(`skip ${key}: no secrets`);continue;}
     state[key]={id,at:new Date().toISOString()};log.push(`published ${key} → ${id}`);}

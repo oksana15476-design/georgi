@@ -17,6 +17,8 @@ for(const b of BATCHES){
   const dir=join(root,'public/social',name,post.id);mkdirSync(dir,{recursive:true});
   post.slides.forEach((_,i)=>{const src=join(root,'content/social/out',name,post.id,`ru-${i+1}.jpg`);
    if(!existsSync(src))throw new Error('missing '+src);copyFileSync(src,join(dir,`ru-${i+1}.jpg`));n++;});
+  // Facebook cover (render.mjs, <lang>-fb.jpg): one picture without "1/3" and "Swipe".
+  const fb=join(root,'content/social/out',name,post.id,'ru-fb.jpg');if(existsSync(fb)){copyFileSync(fb,join(dir,'ru-fb.jpg'));n++;}
  }
 }
 console.log(`public/social: ${n} images`);
