@@ -34,7 +34,7 @@ WORKDIR /app
 ENV NODE_ENV=production PORT=3000
 COPY --from=build /app/out ./out
 COPY server ./server
-COPY lib/lead-delivery.mjs ./lib/lead-delivery.mjs
+COPY lib/*.mjs ./lib/
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s CMD wget -qO- http://127.0.0.1:3000/healthz || exit 1
