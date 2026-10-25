@@ -70,6 +70,9 @@ async function metaSetup(){
  const page=pages.find(p=>/praxen/i.test(p.name))||pages[0];
  if(!page)throw new Error('the Meta token sees no Facebook page');
  env.META_PAGE_ID||=page.id;env.META_PAGE_TOKEN||=page.access_token;env.META_IG_USER_ID||=page.instagram_business_account?.id||'';
+ // The list may leave the Instagram account out; ask the page itself.
+ if(!env.META_IG_USER_ID){const p=await call(`${G}/${env.META_PAGE_ID}`,{fields:'instagram_business_account,connected_instagram_account',access_token:env.META_PAGE_TOKEN},'GET');env.META_IG_USER_ID=p.instagram_business_account?.id||p.connected_instagram_account?.id||'';}
+ if(DRY)log.push('meta permissions: '+((await call(`${G}/me/permissions`,{access_token:env.META_TOKEN},'GET').catch(()=>({}))).data||[]).filter(x=>x.status==='granted').map(x=>x.permission).join(', '));
 }
 const send={
  async facebook(imgs,c){
