@@ -22,7 +22,7 @@ const icon={msg:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1
 const ico=(k)=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icon[k]}</svg>`;
 
 const css=`*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Manrope,sans-serif;-webkit-font-smoothing:antialiased;color:#121a2b;overflow:hidden}
+body{font-family:Manrope,'Noto Sans Georgian',sans-serif;-webkit-font-smoothing:antialiased;color:#121a2b;overflow:hidden}
 .c{position:relative;overflow:hidden;background:#fff}
 .strip{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;background:#ffd166;border-bottom:3px solid #121a2b;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
 .grad{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%)}
@@ -72,6 +72,24 @@ const items={
     <div style="font-size:40px;margin-top:30px">${info}</div></div>
    ${cal(300)}</div></div>`],
 };
+// General Facebook page cover (the page is the whole business, the workshop goes into a pinned post): site hero text, three facts, chat → CRM card.
+const brand={
+ ru:{badge:'Практический ИИ для бизнеса',h:'ИИ отвечает клиентам <span class="gt">за секунды</span> и сам заполняет CRM',facts:[['Ответы','24/7'],['Пилот','2–4 нед.'],['Аудит','Бесплатно']],chat:['Здравствуйте! Есть свободные даты?','Да, подскажу. На сколько человек?'],crm:'Новая сделка в CRM'},
+ ka:{badge:'პრაქტიკული AI ბიზნესისთვის',h:'AI კლიენტებს <span class="gt">წამებში</span> პასუხობს და CRM-ს თავად ავსებს',facts:[['პასუხები','24/7'],['პილოტი','2–4 კვ.'],['აუდიტი','უფასო']],chat:['გამარჯობა! თავისუფალი თარიღები გაქვთ?','დიახ, დაგეხმარებით. რამდენი ადამიანი?'],crm:'ახალი გარიგება CRM-ში'},
+ en:{badge:'Practical AI for business',h:'AI answers your customers <span class="gt">in seconds</span> and fills in your CRM',facts:[['Replies','24/7'],['Pilot','2–4 wks'],['Audit','Free']],chat:['Hi! Do you have free dates?','Yes, happy to help. For how many people?'],crm:'New deal in CRM'},
+};
+for(const [lang,b] of Object.entries(brand)) items[`facebook-cover-brand-${lang}-1640x624`]=[1640,624,`<div class="c" style="width:1640px;height:624px">
+  <div class="strip" style="height:54px;padding-left:40px;font-size:22px">${('Praxen AI ● praxenai.ge ● WhatsApp +995 557 125 497 ● ').repeat(4)}</div>
+  <div style="position:absolute;left:230px;right:230px;top:92px;display:flex;align-items:center;justify-content:space-between;gap:44px">
+   <div style="flex:1"><span class="badge" style="font-size:19px;padding:10px 20px">${b.badge}</span>
+    <h1 style="font-size:${lang==='ka'?50:58}px;margin-top:20px">${b.h}</h1>
+    <div style="font-size:38px;margin-top:24px"><dl class="info">${b.facts.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div></div>
+   <div style="flex:none;width:330px;background:#efeae2;border:3px solid #121a2b;border-radius:28px;box-shadow:12px 12px 0 #121a2b;overflow:hidden;font-size:19px">
+    <div style="background:#075e54;color:#fff;font-weight:800;padding:12px 18px">WhatsApp</div>
+    <div style="padding:14px;display:flex;flex-direction:column;gap:10px"><div style="background:#fff;border-radius:14px;padding:10px 14px;max-width:88%;font-weight:600">${b.chat[0]}</div>
+    <div style="background:#d9fdd3;border-radius:14px;padding:10px 14px;max-width:88%;align-self:flex-end;font-weight:600">${b.chat[1]}</div>
+    <div style="background:#fff;border:3px solid #121a2b;border-radius:14px;padding:10px 14px;font-weight:800;color:#2755ec">✓ ${b.crm}</div></div></div>
+  </div></div>`];
 // Instagram highlight covers: the icon must sit inside the centre circle.
 const hl=[['hl-workshop','cal','Воркшоп','grad'],['hl-how','steps','Как работаем','ink'],['hl-solutions','bot','Решения','yel'],['hl-prices','tag','Цены','grad'],['hl-faq','help','Вопросы','ink'],['hl-contacts','phone','Контакты','yel']];
 for(const [id,k,label,bg] of hl) items['instagram-'+id+'-1080x1920']=[1080,1920,`<div class="c ${bg}" style="width:1080px;height:1920px;display:flex;align-items:center;justify-content:center">
@@ -90,7 +108,7 @@ story('30min','ink','Через 30 минут','Начинаем <span style="co
 story('new-post','white','Новый пост','Где ваш отдел продаж <span class="gt">теряет заявки?</span>','Ночью, в переписке, на одних и тех же вопросах. Разбираем в новом посте — листайте ленту',`<div style="font-size:44px">${info}</div>`);
 story('checklist','yel','Подарок за регистрацию','Чек-лист <span class="gt">«10 вопросов»</span>','Покажет, где ваш отдел продаж теряет заявки.<br>Придёт в Telegram сразу после записи');
 
-const page=b=>`<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap"><style>${css}</style></head><body>${b}</body></html>`;
+const page=b=>`<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+Georgian:wght@500;600;700;800&display=swap"><style>${css}</style></head><body>${b}</body></html>`;
 const {chromium}=await loadPlaywright();
 const browser=await chromium.launch();const pg=await browser.newPage();
 for(const [name,[w,h,html]] of Object.entries(items)){
