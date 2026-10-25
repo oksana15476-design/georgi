@@ -6,7 +6,8 @@ name: Social publish
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    # Off the round minutes: GitHub delays or drops scheduled runs at :00 under load.
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
     inputs:
       only:
