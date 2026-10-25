@@ -5,7 +5,7 @@
 // each other. Add a URL as soon as a profile is live (docs/AI-VISIBILITY.md lists them).
 import type {Market} from './market';
 
-export const companyProfiles:Record<Market,string[]>={ge:['https://www.facebook.com/praxenai/'],intl:[]};
+export const companyProfiles:Record<Market,string[]>={ge:['https://www.facebook.com/praxenai/','https://www.instagram.com/praxenai/'],intl:[]};
 export const founderProfiles:Record<Market,string[]>={ge:[],intl:[]};
 
 export const sameAsFor=(m:Market,extra:string[]=[])=>[...extra,...companyProfiles[m]];
