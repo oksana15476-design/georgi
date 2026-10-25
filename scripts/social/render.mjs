@@ -53,6 +53,22 @@ const ui={
 // "info" ([label, value] pairs) adds the landing's date/time/price table to a cover or cta slide.
 // Workshop covers can carry a "visual": chat | clock | paper | flow | versus | bubbles | calendar — the eye-catching half of the card.
 const icon={msg:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/>',bot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 17h5"/>',crm:'<ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'};
+// Famous meme templates (content/social/memes/*.jpg, blank versions from imgflip) with our captions placed over them.
+// Boxes are in % of the image: [x, y, w, h, style, rotation]; style "plain" = black text on the template's white area, "pill" = label.
+const MEMES={
+ drake:{f:'drake.jpg',r:1,boxes:[[51,2,47,46,'plain'],[51,52,47,46,'plain']]},
+ boyfriend:{f:'boyfriend.jpg',r:1.5,boxes:[[50,16,30,18,'pill'],[0,56,36,18,'pill'],[66,40,33,18,'pill']]},
+ buttons:{f:'buttons.jpg',r:600/908,boxes:[[6,6,38,12,'pill',-12],[48,3,38,12,'pill',-12],[4,84,92,13,'pill']]},
+ changemind:{f:'changemind.jpg',r:482/361,boxes:[[40,40,48,30,'pill',-3]]},
+ brain:{f:'brain.jpg',r:857/1202,boxes:[[1,1,46,23,'plain'],[1,26,46,23,'plain'],[1,51,46,23,'plain'],[1,76,46,23,'plain']]},
+ thisfine:{f:'thisfine.jpg',r:580/282,boxes:[[2,4,44,24,'pill'],[54,74,44,22,'pill']]},
+ yellcat:{f:'yellcat.jpg',r:680/438,boxes:[[2,3,46,22,'pill'],[52,3,46,22,'pill']]},
+ pikachu:{f:'pikachu.jpg',r:1,boxes:[[3,1,94,30,'plain']]},
+ harold:{f:'harold.jpg',r:480/601,boxes:[[3,38,94,10,'pill'],[3,88,94,10,'pill']]},
+ pigeon:{f:'pigeon.jpg',r:1587/1425,boxes:[[64,6,34,14,'pill'],[4,56,40,12,'pill'],[6,84,88,12,'pill']]},
+};
+const memeSrc={};
+const memeImg=f=>memeSrc[f]??=`data:image/jpeg;base64,${readFileSync(join(root,'content/social/memes',f)).toString('base64')}`;
 const ico=(k,cls='')=>`<svg class="ico ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${icon[k]}</svg>`;
 const visualHtml=(v,l)=>{if(!v)return '';const t=x=>rich(x,l);return {
  chat:()=>`<div class="vis v-chat"><div class="ph-head">${ico('msg')}<span>WhatsApp</span></div>${(v.messages||[]).map(m=>`<div class="msg ${m.from}"><small>${esc(m.time||'')}</small>${t(m.text)}</div>`).join('')}${v.badge?`<span class="v-badge">${t(v.badge)}</span>`:''}</div>`,
@@ -65,7 +81,7 @@ const visualHtml=(v,l)=>{if(!v)return '';const t=x=>rich(x,l);return {
 }[v.type]?.()||'';};
 const infoHtml=(s,l)=>s.info?`<dl class="info">${s.info.map(([k,v])=>`<div><dt>${esc(tr(k,l))}</dt><dd>${esc(tr(v,l))}</dd></div>`).join('')}</dl>`:'';
 function slideHtml(s,l,i,n,accent){
- const bg=theme==='workshop'?(s.bg||(['cover','number','cta'].includes(s.layout)&&accent)||'white'):'';
+ const bg=theme==='workshop'?(s.bg||((i===0||['cover','number','cta'].includes(s.layout))&&accent)||'white'):'';
  const dark=theme==='workshop'?['ink','grad'].includes(bg):['cover','number','cta'].includes(s.layout);
  const body={
   cover:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}
@@ -83,7 +99,15 @@ function slideHtml(s,l,i,n,accent){
   meme:()=>{const m=s.meme||{};const t=x=>rich(x,l);return `${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}${s.title?`<h2 class="meme-top">${rich(s.title,l)}</h2>`:''}${{
    chat:()=>`<div class="vis v-chat">${(m.messages||[]).map(x=>`<div class="msg ${x.from}"><small>${esc(x.time||'')}${x.who?' · '+esc(tr(x.who,l)):''}</small>${t(x.text)}</div>`).join('')}</div>`,
    expect:()=>`<div class="m-expect"><div><span>${t(m.aLabel||{ru:'Ожидание',ka:'მოლოდინი',en:'Expectation'})}</span><p>${t(m.a)}</p></div><div class="real"><span>${t(m.bLabel||{ru:'Реальность',ka:'რეალობა',en:'Reality'})}</span><p>${t(m.b)}</p></div></div>`,
-   buttons:()=>`<div class="m-buttons"><div class="btn2"><i></i><p>${t(m.a)}</p></div><div class="btn2"><i></i><p>${t(m.b)}</p></div></div>${m.under?`<p class="m-under">${t(m.under)}</p>`:''}`,
+   buttons:()=>`<div class="m-buttons"><div class="btn2"><i></i><p>${t(m.a)}</p></div><div class="btn2"><i></i><p>${t(m.b)}</p></div></div>${m.face?`<div class="m-face">${esc(m.face)}</div>`:''}${m.under?`<p class="m-under">${t(m.under)}</p>`:''}`,
+   // Recognisable famous formats rebuilt with open-licence emoji (Noto Color Emoji) and our captions; no original photos or film stills.
+   drake:()=>`<div class="m-drake"><div class="row"><span class="em">${esc(m.noEmoji||'🙅')}</span><p>${t(m.no)}</p></div><div class="row yes"><span class="em">${esc(m.yesEmoji||'👉')}</span><p>${t(m.yes)}</p></div></div>`,
+   thisfine:()=>`<div class="m-fine"><div class="fires">🔥🔥🔥🔥🔥🔥</div><div class="room"><span class="say">${t(m.say||{ru:'Всё нормально',ka:'ყველაფერი რიგზეა',en:'This is fine'})}</span><span class="dog">🐶</span><span class="cup">☕</span>${m.badge?`<span class="v-badge">${t(m.badge)}</span>`:''}</div><div class="fires">🔥🔥🔥🔥🔥🔥</div></div>`,
+   brain:()=>`<div class="m-brain">${(m.items||[]).map((x,k,a)=>`<div class="br br${k}"><p>${t(x)}</p><span style="font-size:${56+k*30}px">🧠</span></div>`).join('')}</div>`,
+   changemind:()=>`<div class="m-mind"><div class="sign">${t(m.sign)}<b>${t(m.cta||{ru:'Переубедите меня',ka:'დამარწმუნეთ საპირისპიროში',en:'Change my mind'})}</b></div><div class="desk"><span>☕</span></div></div>`,
+   yell:()=>`<div class="m-yell"><div class="side"><span class="em">${esc(m.leftEmoji||'😫')}</span><p>${t(m.left)}</p></div><div class="side cat"><span class="em">${esc(m.rightEmoji||'😾')}</span><p>${t(m.right)}</p></div></div>`,
+   img:()=>{const T=MEMES[m.tpl];const w=Math.min(912,(m.maxH||760)*T.r);return `<div class="m-img" style="width:${w}px;height:${w/T.r}px"><img src="${memeImg(T.f)}">${T.boxes.map((b,k)=>m.labels?.[k]?`<div class="mb ${b[4]} fitbox" style="left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%;${b[5]?`transform:rotate(${b[5]}deg);`:''}font-size:${m.size||Math.round(w/(b[4]==='plain'?14:20))}px"><span>${t(m.labels[k])}</span></div>`:'').join('')}</div>`},
+   reaction:()=>`<div class="m-react"><span class="em">${esc(m.emoji||'😴')}</span><p>${t(m.text)}</p></div>`,
    levels:()=>`<div class="m-levels">${(m.items||[]).map((x,k)=>`<div class="lv lv${k}"><b>${k+1}</b><p>${t(x)}</p></div>`).join('')}</div>`,
   }[m.type]?.()||''}${s.bottom?`<p class="meme-bottom">${rich(s.bottom,l)}</p>`:''}`},
   cta:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h1 class="fit">${rich(s.title,l)}</h1>
@@ -209,7 +233,35 @@ footer{color:#121a2b}
 .m-buttons{display:flex;gap:36px;justify-content:center}
 .btn2{flex:1;text-align:center}.btn2 i{display:block;margin:0 auto 22px;width:200px;height:120px;border-radius:50%/40%;background:#ff5a5f;border:4px solid #121a2b;box-shadow:0 18px 0 #b8383c,0 18px 0 4px #121a2b}
 .btn2 p{background:#fff;border:3px solid #121a2b;border-radius:20px;padding:22px;font-size:34px;font-weight:800;line-height:1.2;box-shadow:10px 10px 0 #121a2b}
-.m-under{margin-top:48px;text-align:center;font-size:40px;font-weight:800}
+.m-under{margin-top:28px;text-align:center;font-size:40px;font-weight:800}
+.m-img{position:relative;align-self:center;border:3px solid #121a2b;border-radius:24px;overflow:hidden;box-shadow:14px 14px 0 #121a2b;flex:none}
+.m-img img{width:100%;height:100%;display:block;object-fit:cover}
+.mb{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;font-weight:800;line-height:1.12;color:#121a2b}
+.mb.pill span{background:#fff;border:3px solid #121a2b;border-radius:14px;padding:.25em .45em;box-shadow:5px 5px 0 #121a2b}
+.mb.plain{padding:4%}
+.m-face{margin-top:30px;text-align:center;font-size:150px;line-height:1}
+.m-drake{display:flex;flex-direction:column;border:3px solid #121a2b;border-radius:28px;overflow:hidden;box-shadow:14px 14px 0 #121a2b;background:#fff}
+.m-drake .row{display:flex;align-items:center;min-height:250px}.m-drake .row+.row{border-top:3px solid #121a2b}
+.m-drake .em{flex:none;width:250px;align-self:stretch;display:grid;place-items:center;font-size:150px;background:#efeae2;border-right:3px solid #121a2b}
+.m-drake .yes .em{background:#ffd166}.m-drake p{padding:28px 34px;font-size:40px;font-weight:800;line-height:1.2;color:#121a2b}
+.m-fine{border:3px solid #121a2b;border-radius:28px;overflow:hidden;box-shadow:14px 14px 0 #121a2b;background:#ffb24a}
+.m-fine .fires{font-size:96px;line-height:1.1;letter-spacing:-12px;white-space:nowrap;overflow:hidden;padding:0 10px}
+.m-fine .room{position:relative;height:300px;background:#ffd59a;border-top:3px solid #121a2b;border-bottom:3px solid #121a2b}
+.m-fine .dog{position:absolute;left:250px;bottom:20px;font-size:190px;line-height:1}.m-fine .cup{position:absolute;left:470px;bottom:30px;font-size:100px}
+.m-fine .say{position:absolute;left:40px;top:26px;background:#fff;border:3px solid #121a2b;border-radius:24px;padding:14px 24px;font-size:40px;font-weight:800;color:#121a2b}
+.m-fine .v-badge{top:30px;right:24px}
+.m-brain{display:flex;flex-direction:column;gap:14px}
+.br{display:flex;align-items:center;justify-content:space-between;gap:20px;border:3px solid #121a2b;border-radius:24px;padding:14px 28px;background:#fff;box-shadow:10px 10px 0 #121a2b;min-height:120px}
+.br p{font-size:34px;font-weight:700;line-height:1.2;color:#121a2b}.br span{line-height:1;flex:none}
+.br:last-child{background:#121a2b}.br:last-child p{color:#ffd166;font-weight:800}.br:last-child span{filter:drop-shadow(0 0 22px #7b95ff) drop-shadow(0 0 40px #ffd166)}
+.m-mind{display:flex;flex-direction:column;align-items:center}
+.m-mind .sign{width:92%;background:#fff;border:4px solid #121a2b;border-radius:16px;padding:40px 44px;font-size:44px;font-weight:800;line-height:1.2;text-align:center;color:#121a2b;box-shadow:12px 12px 0 #121a2b;transform:rotate(-1.5deg)}
+.m-mind .sign b{display:block;margin-top:22px;font-size:34px;color:#ff5a5f;text-transform:uppercase;letter-spacing:.04em}
+.m-mind .desk{width:100%;height:110px;margin-top:-14px;background:#8a5a33;border:3px solid #121a2b;border-radius:14px;position:relative}.m-mind .desk span{position:absolute;right:60px;top:-70px;font-size:90px}
+.m-yell{display:flex;gap:18px}
+.m-yell .side{flex:1;border:3px solid #121a2b;border-radius:28px;background:#fff;box-shadow:12px 12px 0 #121a2b;padding:28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
+.m-yell .cat{background:#ffd166}.m-yell .em{font-size:170px;line-height:1}.m-yell p{font-size:36px;font-weight:800;line-height:1.2;color:#121a2b}
+.m-react{display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}.m-react .em{font-size:280px;line-height:1}.m-react p{font-size:46px;font-weight:800;line-height:1.2}
 .m-levels{display:flex;flex-direction:column;gap:18px}
 .lv{display:flex;align-items:center;gap:26px;border:3px solid #121a2b;border-radius:24px;padding:22px 28px;background:#fff;box-shadow:10px 10px 0 #121a2b}
 .lv b{flex:none;width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:#121a2b;color:#fff;font-size:34px}
@@ -245,6 +297,7 @@ const page=(slides,l)=>`<!doctype html><html lang="${l}"><head><meta charset="ut
 
 // Shrinks text marked .fit until the slide content fits; Georgian runs longer than Russian or English.
 const fitScript=()=>{
+ for(const el of document.querySelectorAll('.fitbox')){let g=30;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&g--){el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*0.92)+'px'}}
  for(const el of document.querySelectorAll('.fit')){
   const main=el.closest('main');let guard=40;
   while(main.scrollHeight>main.clientHeight+1&&guard--){

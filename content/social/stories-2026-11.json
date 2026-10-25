@@ -1,0 +1,191 @@
+{
+ "campaign": "workshop_stories",
+ "langs": [
+  "ru"
+ ],
+ "size": "story",
+ "theme": "workshop",
+ "strip": "Бесплатный воркшоп ● 12 ноября ● 19:00 Тбилиси ● 20:00 Астана ● 18:00 Москва ● 45 минут онлайн ●",
+ "posts": [
+  {
+   "id": "s01-poll-reply",
+   "date": "2026-10-27",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "tips",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Опрос",
+     "title": "Клиент пишет в 23:40. *Когда вы отвечаете?*",
+     "visual": {
+      "type": "chat",
+      "messages": [
+       {
+        "from": "client",
+        "time": "23:40",
+        "text": "Здравствуйте! Сколько стоит?"
+       }
+      ],
+      "badge": "Ждёт ответа"
+     }
+    }
+   ]
+  },
+  {
+   "id": "s02-pigeon",
+   "date": "2026-10-29",
+   "time": "13:00",
+   "accent": "yellow",
+   "pillar": "myths",
+   "text": "",
+   "slides": [
+    {
+     "layout": "meme",
+     "title": "Узнали?",
+     "meme": {
+      "type": "img",
+      "tpl": "pigeon",
+      "maxH": 900,
+      "labels": [
+       "Автоответ «Мы скоро свяжемся»",
+       "Владелец бизнеса",
+       "Это ИИ-ассистент?"
+      ]
+     }
+    },
+    {
+     "layout": "cover",
+     "bg": "grad",
+     "kicker": "Нет",
+     "title": "Ассистент отвечает *по делу*",
+     "sub": "Выясняет задачу, бюджет и срок и передаёт менеджеру готовую заявку. 12 ноября покажу разницу вживую."
+    }
+   ]
+  },
+  {
+   "id": "s03-questions",
+   "date": "2026-10-31",
+   "time": "13:00",
+   "accent": "ink",
+   "pillar": "process",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Вопрос к эфиру",
+     "title": "Что разобрать на воркшопе *12 ноября?*",
+     "visual": {
+      "type": "bubbles",
+      "items": [
+       "Как ассистент поймёт прайс?",
+       "Что с заявками из Instagram?",
+       "Какая CRM нужна?",
+       "Сколько это стоит?"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "s04-9days",
+   "date": "2026-11-03",
+   "time": "13:00",
+   "accent": "grad",
+   "pillar": "offer",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Воркшоп «ИИ в отделе продаж»",
+     "title": "До начала *9 дней*",
+     "visual": {
+      "type": "calendar",
+      "month": "Ноябрь",
+      "day": "12",
+      "foot": "четверг · онлайн",
+      "side": [
+       "19:00 Тбилиси",
+       "20:00 Астана",
+       "18:00 Москва"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "s05-poll-crm",
+   "date": "2026-11-05",
+   "time": "13:00",
+   "accent": "yellow",
+   "pillar": "tips",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Опрос",
+     "title": "Где у вас *живут заявки?*",
+     "visual": {
+      "type": "bubbles",
+      "items": [
+       "amoCRM",
+       "Bitrix24",
+       "Таблица",
+       "Только в переписке"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "s06-drake",
+   "date": "2026-11-07",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "myths",
+   "text": "",
+   "slides": [
+    {
+     "layout": "meme",
+     "title": "Где у вас прайс?",
+     "meme": {
+      "type": "img",
+      "tpl": "drake",
+      "maxH": 900,
+      "labels": [
+       "В голове у одного менеджера",
+       "Записан, и по нему отвечает ассистент"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "s07-2days",
+   "date": "2026-11-10",
+   "time": "13:00",
+   "accent": "ink",
+   "pillar": "offer",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Воркшоп «ИИ в отделе продаж»",
+     "title": "Через *2 дня*",
+     "visual": {
+      "type": "calendar",
+      "month": "Ноябрь",
+      "day": "12",
+      "foot": "четверг · онлайн",
+      "side": [
+       "19:00 Тбилиси",
+       "20:00 Астана",
+       "18:00 Москва"
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}
