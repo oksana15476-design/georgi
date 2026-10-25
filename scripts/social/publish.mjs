@@ -81,7 +81,8 @@ async function metaSetup(){
 const send={
  async facebook(imgs,c){
   if(!env.META_PAGE_TOKEN||!env.META_PAGE_ID)return 'skip';
-  const ids=[];for(const url of imgs)ids.push((await call(`${G}/${env.META_PAGE_ID}/photos`,{url,published:'false',access_token:env.META_PAGE_TOKEN})).id);
+  // Facebook crops several photos into a grid and the carousel cards get cut; the feed gets the cover alone, the story is in the text.
+  const ids=[];for(const url of imgs.slice(0,1))ids.push((await call(`${G}/${env.META_PAGE_ID}/photos`,{url,published:'false',access_token:env.META_PAGE_TOKEN})).id);
   const p={message:c.facebook||c.instagram||'',access_token:env.META_PAGE_TOKEN};ids.forEach((id,i)=>p[`attached_media[${i}]`]=JSON.stringify({media_fbid:id}));
   return (await call(`${G}/${env.META_PAGE_ID}/feed`,p)).id;
  },
