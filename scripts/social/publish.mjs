@@ -21,11 +21,11 @@ import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const SITE='https://praxenai.ge';
 const G='https://graph.facebook.com/v21.0',T='https://graph.threads.net/v1.0';
-// Which batches go out automatically and to which channels; "stories" posts go to Instagram stories.
+// Which batches go out automatically and to which channels; the stories batch goes to Instagram and Facebook page stories.
 export const BATCHES=[
  {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram']},
  {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
- {file:'stories-2026-11.json',channels:['instagram_story']},
+ {file:'stories-2026-11.json',channels:['instagram_story','facebook_story']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
 const DRY=flag('--dry'),ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
@@ -105,6 +105,14 @@ const send={
   if(!env.META_PAGE_TOKEN||!env.META_IG_USER_ID)return 'skip';
   const tok=env.META_PAGE_TOKEN,u=env.META_IG_USER_ID,ids=[];
   for(const url of imgs){const id=(await call(`${G}/${u}/media`,{image_url:url,media_type:'STORIES',access_token:tok})).id;await ready(G,id,tok);ids.push((await call(`${G}/${u}/media_publish`,{creation_id:id,access_token:tok})).id);}
+  return ids.join(',');
+ },
+ // Facebook page story: the picture is uploaded unpublished, then posted as a story (pages_manage_posts).
+ async facebook_story(imgs){
+  if(!env.META_PAGE_TOKEN||!env.META_PAGE_ID)return 'skip';
+  const ids=[];
+  for(const url of imgs){const photo=(await call(`${G}/${env.META_PAGE_ID}/photos`,{url,published:'false',access_token:env.META_PAGE_TOKEN})).id;
+   ids.push((await call(`${G}/${env.META_PAGE_ID}/photo_stories`,{photo_id:photo,access_token:env.META_PAGE_TOKEN})).post_id||photo);}
   return ids.join(',');
  },
  async threads(imgs,c){

@@ -14,7 +14,7 @@ on:
         description: "Post id (e.g. w02-faq-routine); empty = everything due"
         required: false
       channel:
-        description: "facebook | instagram | threads | telegram | instagram_story; empty = all"
+        description: "facebook | instagram | threads | telegram | instagram_story | facebook_story; empty = all"
         required: false
       dry:
         description: "Dry run: show what would go out"
