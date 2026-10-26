@@ -71,18 +71,18 @@ Don’t know the answers? That’s fine — we’ll work it out together. The au
 
 ---
 
-2/4 1. Какой процесс отнимает больше всего времени команды?
+1. Какой процесс отнимает больше всего времени команды?
 2. Сколько обращений или документов в неделю?
 3. Где сейчас живут данные: таблицы, CRM, мессенджеры?
 4. Как вы поймёте, что стало лучше: часы, заявки, ошибки?
 
 ---
 
-3/4 Не знаете ответов, тоже нормально, разберёмся вместе. Аудит бесплатный, 30 минут, онлайн.
+Не знаете ответов, тоже нормально, разберёмся вместе. Аудит бесплатный, 30 минут, онлайн.
 
 ---
 
-4/4 Время можно выбрать прямо на сайте: https://praxenai.ge/ru?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-10&utm_content=12-audit-prep#contact
+Время можно выбрать прямо на сайте: https://praxenai.ge/ru?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-10&utm_content=12-audit-prep#contact
 
 ## telegram · 2026-11-25 11:00 (Тбилиси)
 

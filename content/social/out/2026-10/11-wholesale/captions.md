@@ -56,15 +56,15 @@ This is an example scenario. More for wholesale: https://praxenai.ge/industries/
 
 ---
 
-2/4 Пример сценария: ИИ распознаёт позиции из любого формата и сверяет их с вашим каталогом и прайсом.
+Пример сценария: ИИ распознаёт позиции из любого формата и сверяет их с вашим каталогом и прайсом.
 
 ---
 
-3/4 Через минуты готов черновик счёта. Менеджер проверяет и отправляет, вместо того чтобы перебивать список руками.
+Через минуты готов черновик счёта. Менеджер проверяет и отправляет, вместо того чтобы перебивать список руками.
 
 ---
 
-4/4 Подробнее о сценариях для опта: https://praxenai.ge/ru/industries/wholesale?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-10&utm_content=11-wholesale
+Подробнее о сценариях для опта: https://praxenai.ge/ru/industries/wholesale?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-10&utm_content=11-wholesale
 
 ## telegram · 2026-11-23 11:00 (Тбилиси)
 

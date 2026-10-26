@@ -354,9 +354,9 @@ for(const post of posts){
  if(batch.channels) for(const ch of batch.channels){
   const l=batch.channelLang||langs[0],url=link(l).replace(/utm_source=[^&]+/,'utm_source='+ch),full=tr(post.text,l);
   const tags=full.match(/\n\n(#[^\n]+)\s*$/),body=tags?full.slice(0,tags.index):full;
-  // Threads: a thread of 3–6 posts, numbered, each ≤500 characters; the link goes where {link} stands (the last post).
+  // Threads: a thread of 3–6 posts (not numbered, owner 26 October), each ≤500 characters; the link goes where {link} stands (the last post).
   const thread=Array.isArray(post.threads)?post.threads:null;
-  if(ch==='threads'&&thread){const parts=thread.map((x,k)=>`${k+1}/${thread.length} `+tr(x,l).replace('{link}',url));
+  if(ch==='threads'&&thread){const parts=thread.map(x=>tr(x,l).replace('{link}',url));
    parts.forEach((x,k)=>{if(x.length>500)throw new Error(`${post.id}: Threads ${k+1} is ${x.length} > 500`)});
    md.push(`## threads · ветка из ${parts.length}`+(post.time?` · ${post.date} ${post.time} (Тбилиси)`:''),'',parts.join('\n\n---\n\n'),'');continue;}
   const t=ch==='instagram'?full.replace('{link}','ссылка в шапке профиля'):ch==='threads'?tr(post.threads||post.text,l).replace('{link}',url):ch==='telegram'?body.replace('{link}',url):ch==='linkedin'?body.replace('{link}',url)+(tags?'\n\n'+tags[1].split(' ').slice(0,3).join(' '):''):full.replace('{link}',url);

@@ -43,7 +43,8 @@ function captions(batch,id){
   if(key)out[key]+=line+'\n';
  }
  for(const k of Object.keys(out))out[k]=out[k].trim();
- if(out.threads)out.threadParts=out.threads.split(/\n+---\n+/).map(s=>s.trim()).filter(Boolean);
+ // Thread posts go out without the "1/4" numbering (owner, 26 October).
+ if(out.threads)out.threadParts=out.threads.split(/\n+---\n+/).map(s=>s.trim().replace(/^\d+\/\d+\s+/,'')).filter(Boolean);
  return out;
 }
 const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);

@@ -81,17 +81,17 @@ Pick an audit time: https://praxenai.ge/?utm_source=facebook&utm_medium=social&u
 
 ---
 
-2/4 1. Аудит, 30 минут: выбираем один процесс с понятной метрикой.
+1. Аудит, 30 минут: выбираем один процесс с понятной метрикой.
 2. Расчёт: что меняем, сколько стоит и как проверим результат.
 
 ---
 
-3/4 3. Пилот 2–4 недели на ваших реальных данных.
+3. Пилот 2–4 недели на ваших реальных данных.
 4. Запуск и обучение команды. Ведение после запуска — по желанию.
 
 ---
 
-4/4 Всё работает на ваших аккаунтах. Выбрать время аудита: https://praxenai.ge/ru?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-10&utm_content=05-process#contact
+Всё работает на ваших аккаунтах. Выбрать время аудита: https://praxenai.ge/ru?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-10&utm_content=05-process#contact
 
 ## telegram · 2026-10-25 17:30 (Тбилиси)
 
