@@ -124,10 +124,15 @@ const send={
  async telegram(imgs,c){
   if(!env.TELEGRAM_SOCIAL_BOT_TOKEN||!env.TELEGRAM_CHANNEL)return 'skip';
   const api=`https://api.telegram.org/bot${env.TELEGRAM_SOCIAL_BOT_TOKEN}`,chat=env.TELEGRAM_CHANNEL;
-  // Album first, then the text as its own message: a caption is limited to 1 024 characters.
-  if(imgs.length>1)await call(`${api}/sendMediaGroup`,{chat_id:chat,media:JSON.stringify(imgs.slice(0,10).map(u=>({type:'photo',media:u})))});
-  else await call(`${api}/sendPhoto`,{chat_id:chat,photo:imgs[0]});
-  return String((await call(`${api}/sendMessage`,{chat_id:chat,text:c.telegram||'',link_preview_options:JSON.stringify({is_disabled:true})})).result.message_id);
+  // One message (owner, 26 October): the Facebook cover with the text. Links show as praxenai.ge/… and keep the tracking.
+  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const html=esc(c.telegram||'').replace(/https?:\/\/[^\s<]+/g,u=>{const x=new URL(u.replace(/&amp;/g,'&'));return `<a href="${esc(x.href)}">${esc(x.host+x.pathname.replace(/\/$/,''))}</a>`;});
+  const img=c.fbImage||imgs[0];
+  // A photo caption holds 1 024 characters; a longer text goes as a message with the picture as a large preview above it.
+  const r=html.replace(/<[^>]+>/g,'').length<=1024
+   ?await call(`${api}/sendPhoto`,{chat_id:chat,photo:img,caption:html,parse_mode:'HTML'})
+   :await call(`${api}/sendMessage`,{chat_id:chat,text:html,parse_mode:'HTML',link_preview_options:JSON.stringify({url:img,prefer_large_media:true,show_above_text:true})});
+  return String(r.result.message_id);
  },
 };
 
@@ -149,6 +154,9 @@ for(const b of BATCHES){
    const key=`${name}/${post.id}/${ch}`;
    if(state[key]&&!ONLY)continue;
    // --replace (with --only): remove the earlier Facebook post first, then send the new one.
+   // --replace for Telegram: delete the earlier message(s); posts from before 26 October were an album plus a text (ids id-n … id).
+   if(REPLACE&&ONLY&&ch==='telegram'&&state[key]&&!DRY){const last=Number(state[key].id),ids=state[key].ids||(state[key].at<'2026-10-26T07:20'?Array.from({length:Math.min(imgs.length,10)+1},(_,k)=>last-k):[last]);
+    try{await call(`https://api.telegram.org/bot${env.TELEGRAM_SOCIAL_BOT_TOKEN}/deleteMessages`,{chat_id:env.TELEGRAM_CHANNEL,message_ids:JSON.stringify(ids)});log.push(`deleted ${key} ${ids.join(',')}`);}catch(e){log.push(`ERROR delete ${key}: ${String(e.message||e).replace(/bot\d+:[\w-]+/g,'bot…')}`);continue;}}
    if(REPLACE&&ONLY&&ch==='facebook'&&state[key]&&!DRY){try{await call(`${G}/${state[key].id}`,{access_token:env.META_PAGE_TOKEN},'DELETE');log.push(`deleted ${key} ${state[key].id}`);}catch(e){log.push(`ERROR delete ${key}: ${String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…')}`);continue;}}
    if(DRY){log.push(`would publish ${key} (${imgs.length} images)`);continue;}
    try{const id=await send[ch](imgs,c);if(id==='skip'){log.push(`skip ${key}: no secrets`);continue;}
