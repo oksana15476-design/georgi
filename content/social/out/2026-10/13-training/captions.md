@@ -72,7 +72,7 @@ https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organi
 
 ## threads · ветка из 4 · 2026-11-27 11:00 (Тбилиси)
 
-1/4 Подписка на ChatGPT в компании есть, а пользы пока не видно? Так бывает почти всегда.
+Подписка на ChatGPT в компании есть, а пользы пока не видно? Так бывает почти всегда.
 
 ---
 
