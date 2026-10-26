@@ -134,6 +134,8 @@ const log=[];
 // Threads: the user id is looked up from the token when THREADS_USER_ID is not set.
 if(env.THREADS_TOKEN&&!env.THREADS_USER_ID){try{env.THREADS_USER_ID=(await call(`${T}/me`,{fields:'id,username',access_token:env.THREADS_TOKEN},'GET')).id||''}catch(e){log.push('ERROR threads setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}}
 try{await metaSetup()}catch(e){log.push('ERROR meta setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}
+// Dry run: can the Meta system user token also reach Threads (graph.threads.net)?
+if(DRY&&!env.THREADS_TOKEN&&env.META_TOKEN)log.push('threads via META_TOKEN: '+await call(`${T}/me`,{fields:'id,username',access_token:env.META_TOKEN},'GET').then(j=>JSON.stringify(j)).catch(e=>String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…').slice(0,200)));
 if(DRY)log.push(`meta: page ${env.META_PAGE_ID||'none'}, instagram ${env.META_IG_USER_ID||'none'}; threads ${env.THREADS_TOKEN?'set':'none'}; telegram ${env.TELEGRAM_SOCIAL_BOT_TOKEN?'set':'none'}`);
 for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
