@@ -48,8 +48,10 @@ const nextConfig: NextConfig = pages
           { source: "/en", destination: "/", permanent: true },
           { source: "/en/:path*", destination: "/:path*", permanent: true },
           privacyDot,
-          // An ad link that lost "webinar?" (/ru/utm_source=…, 27 October 2026) lands on the workshop page instead of a 404.
-          { source: "/:lang(ru|ka)/:tag(utm_source=.*)", destination: "/:lang/webinar?utm_source=meta_broken_link", permanent: false },
+          // Ad links that lost the "?" (/ru/utm_source=…, 27 October 2026) land on a page instead of a 404:
+          // workshop ads on the workshop page, the rest on the language home page.
+          { source: "/:lang(ru|ka)/:tag(utm_source=.*workshop.*)", destination: "/:lang/webinar?utm_source=meta_broken_link", permanent: false },
+          { source: "/:lang(ru|ka)/:tag(utm_source=.*)", destination: "/:lang?utm_source=meta_broken_link", permanent: false },
         ];
         return [
           { source: "/en", destination: "/", permanent: true },
