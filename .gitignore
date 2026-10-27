@@ -51,3 +51,4 @@ next-env.d.ts
 # Local Cloudflare secrets
 .dev.vars
 .dev.vars.*
+__pycache__/
