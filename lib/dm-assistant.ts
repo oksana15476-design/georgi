@@ -85,6 +85,13 @@ const cache=()=>(caches as unknown as {default:Cache}).default;
 const key=(kind:string,id:string)=>new Request('https://dm-state.praxenai.ge/'+kind+'/'+encodeURIComponent(id));
 const mark=(kind:string,id:string,hours:number)=>cache().put(key(kind,id),new Response('1',{headers:{'Cache-Control':'max-age='+hours*3600}}));
 const has=async(kind:string,id:string)=>!!(await cache().match(key(kind,id)));
+// The last outcomes (no message text or contacts), shown by the settings check, so a missing lead can be traced.
+async function note(event:string){
+ const k=key('log','recent');
+ const list=await cache().match(k).then(r=>r?r.json() as Promise<string[]>:[]).catch(()=>[] as string[]);
+ await cache().put(k,new Response(JSON.stringify([new Date().toISOString().slice(0,19)+' '+event.slice(0,200),...list].slice(0,20)),{headers:{'Cache-Control':'max-age=604800'}}));
+}
+const recent=()=>cache().match(key('log','recent')).then(r=>r?r.json() as Promise<string[]>:[]).catch(()=>[] as string[]);
 
 async function graph(path:string,token:string,init?:{method:string;body:Record<string,unknown>}){
  const url=G+path+(path.includes('?')?'&':'?')+'access_token='+encodeURIComponent(token);
@@ -133,8 +140,9 @@ async function profileName(env:Env,platform:Platform,user:string){
 async function toTeam(env:Env,platform:Platform,user:string,a:{name?:string;contact?:string;task:string;title:string}){
  const where=platform==='instagram'?'Instagram':'Facebook';
  const who=await profileName(env,platform,user);
- await deliverLead({name:a.name||who,contact:a.contact||where+': '+who,method:a.contact?'':where.toLowerCase(),value:a.contact||who,message:a.task,tasks:[],
+ const r=await deliverLead({name:a.name||who,contact:a.contact||where+': '+who,method:a.contact?'':where.toLowerCase(),value:a.contact||who,message:a.task,tasks:[],
   context:'Директ '+where,lang:'ru',page:platform==='instagram'?'https://www.instagram.com/praxenai/':'https://www.facebook.com/praxenai/',source:'ИИ-ассистент в директе · '+who,title:a.title},env);
+ await note(platform+' '+a.title+': '+r.status+(r.errors.length?' '+r.errors.join('; '):''));
 }
 
 type Messaging={sender?:{id:string};recipient?:{id:string};message?:{mid?:string;text?:string;is_echo?:boolean;attachments?:unknown[]}};
@@ -161,11 +169,16 @@ export async function handleWebhook(env:Env,body:{object?:string;entry?:{messagi
    const who=await profileName(env,platform,user);
    if(who!==user)turns[0].content='[Имя в профиле: '+who+']\n'+turns[0].content;
    const a=await answer(env,turns);
+   await note(platform+' reply '+(a?'ok':'none')+(a?.lead?' +lead':'')+(a?.handoff?' +handoff':''));
    if(!a){await toTeam(env,platform,user,{task:'Ассистент не смог ответить, ответьте сами',title:'Директ: нужен ответ человека'});await mark('pause',user,PAUSE_HOURS);continue;}
    if(a.reply)await send(env,platform,user,a.reply);
    if(a.lead)await toTeam(env,platform,user,{...a.lead,title:'Praxen AI — заявка из директа'});
    if(a.handoff){await toTeam(env,platform,user,{task:a.handoff,title:'Директ: нужен ответ человека'});await mark('pause',user,PAUSE_HOURS);}
-  }catch(e){console.error('meta dm',String((e as Error)?.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}
+  }catch(e){
+   const msg=String((e as Error)?.message||e).replace(/access_token=[^&\s]+/g,'access_token=…');
+   console.error('meta dm',msg);
+   await note(platform+' error '+msg);
+  }
  }
 }
 
@@ -173,6 +186,7 @@ export async function handleWebhook(env:Env,body:{object?:string;entry?:{messagi
 export async function status(env:Env){
  const out:Record<string,string|boolean>={anthropicKey:!!env.ANTHROPIC_API_KEY,appSecret:!!env.META_APP_SECRET,metaToken:!!env.META_TOKEN};
  if(env.META_TOKEN)out.page=await page(env).then(pg=>'ok '+pg.id+(pg.ig?' ig '+pg.ig:' no ig')).catch(e=>'error: '+String(e?.message||e).slice(0,160));
+ out.recent=(await recent()).join('\n');
  if(env.ANTHROPIC_API_KEY)out.claude=await new Anthropic({apiKey:env.ANTHROPIC_API_KEY}).models.retrieve('claude-opus-5-5').then(()=>'ok').catch(e=>'error: '+String(e?.status||e?.message||e).slice(0,120));
  return out;
 }
