@@ -4,6 +4,8 @@
 //   status <ACTIVE|PAUSED> <id,id…>   switch campaigns, ad sets or ads on or off
 //   end <iso time> <adset id,…>       set the end time of ad sets
 //   start <iso time> <adset id,…>     set the start time of ad sets (e.g. now, to start a scheduled one)
+//   list                               campaigns and their ad sets with ids, status, end time and placements (no spend)
+//   placements <adset id,…>           keep only Facebook and Instagram feeds, stories and reels (no WhatsApp, Threads, Messenger, Audience Network)
 //   scopes                             list the permissions of META_TOKEN (no secrets printed)
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
@@ -27,6 +29,20 @@ if(cmd==='status'){
  for(const id of a2.split(','))console.log(id,'end',a1,JSON.stringify(await api('/'+id,{end_time:a1})));
 }else if(cmd==='start'){
  for(const id of a2.split(','))console.log(id,'start',a1,JSON.stringify(await api('/'+id,{start_time:a1})));
+}else if(cmd==='list'){
+ const act=a1||'act_1572744140745644';
+ for(const c of (await api(`/${act}/campaigns`,{fields:'id,name,effective_status',limit:50},'GET')).data||[]){
+  console.log('campaign',c.id,c.effective_status,c.name);
+  for(const s of (await api(`/${c.id}/adsets`,{fields:'id,name,effective_status,end_time,targeting{publisher_platforms,facebook_positions,instagram_positions,messenger_positions,audience_network_positions,threads_positions,whatsapp_positions}',limit:50},'GET')).data||[])
+   console.log('  adset',s.id,s.effective_status,'end',s.end_time||'-',JSON.stringify(s.targeting||{}));
+ }
+}else if(cmd==='placements'){
+ for(const id of a1.split(',')){
+  const t=(await api('/'+id,{fields:'targeting'},'GET')).targeting||{};
+  for(const k of ['messenger_positions','audience_network_positions','threads_positions','whatsapp_positions'])delete t[k];
+  Object.assign(t,{publisher_platforms:['facebook','instagram'],facebook_positions:['feed','story','facebook_reels'],instagram_positions:['stream','story','reels']});
+  console.log(id,'placements',JSON.stringify(await api('/'+id,{targeting:t})));
+ }
 }else if(cmd==='scopes'){
  const d=(await api('/debug_token',{input_token:tok},'GET')).data||{};
  console.log('valid',d.is_valid,'type',d.type,'expires',d.expires_at,'app',d.app_id);
@@ -61,4 +77,4 @@ if(cmd==='status'){
    console.log('created',c.name,JSON.stringify({campaign:camp,adset,creative,ad}));
   }catch(e){console.log('ERROR',c.name,e.message);process.exitCode=1;}
  }
-}else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids> | start <iso> <adset ids> | subscribe | scopes');process.exit(1);}
+}else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids> | start <iso> <adset ids> | subscribe | scopes | list | placements <adset ids>');process.exit(1);}
