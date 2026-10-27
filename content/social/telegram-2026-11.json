@@ -1,0 +1,88 @@
+{
+ "about": "Telegram channel posts written for Telegram (text and polls), between the plan posts that also go to the channel. Text: content/social/out/telegram-2026-11/<id>/captions.md, section telegram. A post with \"poll\" is sent as a native Telegram poll.",
+ "posts": [
+  {
+   "id": "tg01-prompts",
+   "date": "2026-10-29",
+   "time": "18:00",
+   "slides": []
+  },
+  {
+   "id": "tg02-poll-leads",
+   "date": "2026-10-31",
+   "time": "12:00",
+   "slides": [],
+   "poll": {
+    "question": "Где у вас чаще всего теряются заявки?",
+    "options": [
+     "Ночью и в выходные",
+     "Днём, когда менеджер занят",
+     "Забываем перезвонить",
+     "Не попадают в CRM",
+     "Не теряются, всё под контролем"
+    ]
+   }
+  },
+  {
+   "id": "tg03-five-minutes",
+   "date": "2026-11-01",
+   "time": "12:00",
+   "slides": []
+  },
+  {
+   "id": "tg04-mistakes",
+   "date": "2026-11-03",
+   "time": "18:00",
+   "slides": []
+  },
+  {
+   "id": "tg05-poll-crm",
+   "date": "2026-11-05",
+   "time": "12:00",
+   "slides": [],
+   "poll": {
+    "question": "В чём вы ведёте клиентов?",
+    "options": [
+     "amoCRM",
+     "Bitrix24",
+     "Google-таблица или Excel",
+     "Только в переписке",
+     "Другая CRM"
+    ]
+   }
+  },
+  {
+   "id": "tg06-five-tasks",
+   "date": "2026-11-07",
+   "time": "18:00",
+   "slides": []
+  },
+  {
+   "id": "tg07-poll-workshop",
+   "date": "2026-11-08",
+   "time": "12:00",
+   "slides": [],
+   "poll": {
+    "question": "Что разобрать на воркшопе 12 ноября подробнее?",
+    "options": [
+     "Как научить ассистента отвечать по прайсу",
+     "Как данные из переписки попадают в CRM",
+     "Что ассистент должен передавать менеджеру",
+     "Сколько это стоит в месяц"
+    ]
+   }
+  },
+  {
+   "id": "tg08-prepare",
+   "date": "2026-11-10",
+   "time": "18:00",
+   "slides": []
+  },
+  {
+   "id": "tg09-starting",
+   "date": "2026-11-12",
+   "time": "18:30",
+   "slides": []
+  }
+ ]
+}

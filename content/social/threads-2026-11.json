@@ -1,6 +1,101 @@
 {
  "about": "Text-only Threads posts between the plan posts (live voice). Captions: content/social/out/threads-2026-11/<id>/captions.md, section threads, parts split by ---.",
  "posts": [
-  {"id": "t01-what-stops", "date": "2026-10-27", "time": "14:00", "slides": []}
+  {
+   "id": "t01-what-stops",
+   "date": "2026-10-27",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t02-unpopular",
+   "date": "2026-10-28",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t03-prompt",
+   "date": "2026-10-29",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t04-first-reply",
+   "date": "2026-10-30",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t05-hello",
+   "date": "2026-10-31",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t06-never-trust",
+   "date": "2026-11-01",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t07-monday",
+   "date": "2026-11-02",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t08-price-in-head",
+   "date": "2026-11-03",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t09-checklist",
+   "date": "2026-11-04",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t10-voice",
+   "date": "2026-11-05",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t11-pilot",
+   "date": "2026-11-06",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t12-saturday",
+   "date": "2026-11-07",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t13-tokens",
+   "date": "2026-11-08",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t14-workshop-q",
+   "date": "2026-11-09",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t15-tomorrow",
+   "date": "2026-11-11",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t16-today",
+   "date": "2026-11-12",
+   "time": "14:00",
+   "slides": []
+  }
  ]
 }

@@ -7,7 +7,7 @@ import {fileURLToPath} from 'node:url';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 // Same list as in publish.mjs (kept here without importing it: publish.mjs runs on import).
-const BATCHES=[{file:'workshop-2026-11.json'},{file:'2026-10.json',only:['01-intro','05-process','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},{file:'stories-2026-11.json'}];
+const BATCHES=[{file:'workshop-2026-11.json'},{file:'2026-10.json',only:['01-intro','05-process','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},{file:'stories-2026-11.json'},{file:'feed-2026-11.json'}];
 rmSync(join(root,'public/social'),{recursive:true,force:true});
 let n=0;
 for(const b of BATCHES){

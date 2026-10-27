@@ -112,6 +112,9 @@ function slideHtml(s,l,i,n,accent,fb){
    reaction:()=>`<div class="m-react"><span class="em">${esc(m.emoji||'😴')}</span><p>${t(m.text)}</p></div>`,
    levels:()=>`<div class="m-levels">${(m.items||[]).map((x,k)=>`<div class="lv lv${k}"><b>${k+1}</b><p>${t(x)}</p></div>`).join('')}</div>`,
   }[m.type]?.()||''}${s.bottom?`<p class="meme-bottom">${rich(s.bottom,l)}</p>`:''}`},
+  // A ready-to-copy prompt for ChatGPT or Claude: the card people save. "prompt" is the text, "note" a short how-to line.
+  prompt:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h2>${rich(s.title,l)}</h2>
+   <div class="pr-card fit"><span class="pr-tag">${esc(tr({ru:'Скопируйте',ka:'დააკოპირეთ',en:'Copy'},l))}</span><p>${rich(s.prompt,l)}</p></div>${s.note?`<p class="pr-note">${rich(s.note,l)}</p>`:''}`,
   cta:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h1 class="fit">${rich(s.title,l)}</h1>
    ${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}${infoHtml(s,l)}<div class="button">${rich(s.button,l)}</div>
    <p class="contacts">${esc(contactsLine)}</p>`,
@@ -280,6 +283,12 @@ footer{color:#121a2b}
 .info>div{padding:20px 26px}.info>div+div{border-left:3px solid #121a2b}.info>div:last-child{background:#ffd166}
 .info dt{font-size:18px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}
 .info dd{margin-top:8px;font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.pr-card{position:relative;background:#121a2b;color:#eef1ff;border:3px solid #121a2b;border-radius:28px;padding:64px 48px 44px;box-shadow:10px 10px 0 #ffd166;overflow:hidden}
+.pr-card p{font-family:'DejaVu Sans Mono','Noto Sans Mono',monospace;font-size:34px;line-height:1.45;font-weight:500}
+.pr-card em{color:#ffd166}
+.pr-tag{position:absolute;top:18px;left:48px;font-size:20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd166}
+.pr-note{margin-top:36px;font-size:32px;line-height:1.35;font-weight:600;color:#3c4658}
+.bg-ink .pr-card,.bg-grad .pr-card{background:#fff;color:#121a2b;border-color:#fff}.bg-ink .pr-card em,.bg-grad .pr-card em{color:#315bf5}.bg-ink .pr-tag,.bg-grad .pr-tag{color:#315bf5}.bg-ink .pr-note,.bg-grad .pr-note{color:#ffffffd9}
 .bg-ink{background:#121a2b;color:#fff}
 .bg-grad{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%);color:#fff}
 .bg-yellow{background:#ffd166;color:#121a2b}

@@ -26,6 +26,9 @@ export const BATCHES=[
  {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram']},
  {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
  {file:'stories-2026-11.json',channels:['instagram_story','facebook_story']},
+ // Content plan of 27 October (docs/SMM-PLAN-2026-11.md): feed posts between the workshop posts, and Telegram's own texts and polls.
+ {file:'feed-2026-11.json',channels:['facebook','instagram']},
+ {file:'telegram-2026-11.json',channels:['telegram']},
  // Text-only threads (live voice between plan posts): content/social/threads-2026-11.json, captions written by hand.
  {file:'threads-2026-11.json',channels:['threads']},
 ];
@@ -51,7 +54,7 @@ function captions(batch,id){
 }
 const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
 // Facebook: the cover alone, without "1/3" and "Swipe" (render.mjs makes ru-fb.jpg for every carousel).
-const fbImage=(batch,post)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`;
+const fbImage=(batch,post)=>post.slides.length?`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`:'';
 const at=post=>Date.parse(`${post.date}T${post.time||'11:00'}:00+04:00`);
 const due=post=>at(post)<=Date.now();
 // A post more than two days late is not sent on schedule (a channel that comes back after a pause must not dump the backlog);
@@ -138,9 +141,13 @@ const send={
   // One message (owner, 26 October): the Facebook cover with the text. Links show as praxenai.ge/… and keep the tracking.
   const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const html=esc(c.telegram||'').replace(/https?:\/\/[^\s<]+/g,u=>{const x=new URL(u.replace(/&amp;/g,'&'));return `<a href="${esc(x.href)}">${esc(x.host+x.pathname.replace(/\/$/,''))}</a>`;});
+  // A post with "poll" goes out as a native Telegram poll (anonymous, one answer).
+  if(c.poll)return String((await call(`${api}/sendPoll`,{chat_id:chat,question:c.poll.question,options:JSON.stringify(c.poll.options.map(text=>({text}))),is_anonymous:'true'})).result.message_id);
   const img=c.fbImage||imgs[0];
+  // A text-only post (no slides) goes as a plain message; Telegram shows the preview of its first link.
   // A photo caption holds 1 024 characters; a longer text goes as a message with the picture as a large preview above it.
-  const r=html.replace(/<[^>]+>/g,'').length<=1024
+  const r=!img?await call(`${api}/sendMessage`,{chat_id:chat,text:html,parse_mode:'HTML'})
+   :html.replace(/<[^>]+>/g,'').length<=1024
    ?await call(`${api}/sendPhoto`,{chat_id:chat,photo:img,caption:html,parse_mode:'HTML'})
    :await call(`${api}/sendMessage`,{chat_id:chat,text:html,parse_mode:'HTML',link_preview_options:JSON.stringify({url:img,prefer_large_media:true,show_above_text:true})});
   return String(r.result.message_id);
@@ -159,7 +166,7 @@ for(const b of BATCHES){
  for(const post of batch.posts){
   if(b.only&&!b.only.includes(post.id))continue;
   if(ONLY?post.id!==ONLY:!due(post)||stale(post))continue;
-  const c={...captions(name,post.id),fbImage:fbImage(name,post)},imgs=images(name,post);
+  const c={...captions(name,post.id),fbImage:fbImage(name,post),poll:post.poll},imgs=images(name,post);
   for(const ch of b.channels){
    if(ONLY_CH&&ch!==ONLY_CH)continue;
    const key=`${name}/${post.id}/${ch}`;
