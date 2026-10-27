@@ -6,7 +6,7 @@
 //   node scripts/social/publish.mjs --only 01-intro --channel facebook --replace  delete the earlier Facebook post and send it again
 //
 // Sources: the batches in BATCHES (dates and times are Tbilisi time), captions from content/social/out/<batch>/<post>/captions.md,
-// images from https://praxenai.ge/social/<batch>/<post>/ru-N.jpg (copied into public/ by scripts/social/stage-public.mjs).
+//   images from the public repository: raw.githubusercontent.com/…/content/social/out/<batch>/<post>/ru-N.jpg (nothing is copied to the site).
 // State: content/social/published.json on the branch "social-state" (the workflow checks it out and pushes it back), so a post
 // never goes out twice. A channel without its secrets is skipped silently; an error in one channel does not stop the others.
 //
@@ -19,7 +19,8 @@ import {join,dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
-const SITE='https://praxenai.ge';
+// Images are served from the public repository (raw GitHub), not from the site: nothing extra is deployed to praxenai.ge.
+const SITE='https://raw.githubusercontent.com/oksana15476-design/georgi/main/content/social/out';
 const G='https://graph.facebook.com/v21.0',T='https://graph.threads.net/v1.0';
 // Which batches go out automatically and to which channels; the stories batch goes to Instagram and Facebook page stories.
 export const BATCHES=[
@@ -53,9 +54,9 @@ function captions(batch,id){
  if(out.threads)out.threadParts=out.threads.split(/\n+---\n+/).map(s=>s.trim().replace(/^\d+\/\d+\s+/,'')).filter(Boolean);
  return out;
 }
-const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
+const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
 // Facebook: the cover alone, without "1/3" and "Swipe" (render.mjs makes ru-fb.jpg for every carousel).
-const fbImage=(batch,post)=>post.slides.length?`${SITE}/social/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`:'';
+const fbImage=(batch,post)=>post.slides.length?`${SITE}/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`:'';
 const at=post=>Date.parse(`${post.date}T${post.time||'11:00'}:00+04:00`);
 const due=post=>at(post)<=Date.now();
 // A post more than two days late is not sent on schedule (a channel that comes back after a pause must not dump the backlog);
