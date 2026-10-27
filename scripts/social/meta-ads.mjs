@@ -6,6 +6,7 @@
 //   start <iso time> <adset id,…>     set the start time of ad sets (e.g. now, to start a scheduled one)
 //   list                               campaigns and their ad sets with ids, status, end time and placements (no spend)
 //   placements <adset id,…>           keep only Facebook and Instagram feeds, stories and reels (no WhatsApp, Threads, Messenger, Audience Network)
+//   testimg <image url>                Instagram fetches the image into an unpublished container (nothing is posted)
 //   scopes                             list the permissions of META_TOKEN (no secrets printed)
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
@@ -43,6 +44,11 @@ if(cmd==='status'){
   Object.assign(t,{publisher_platforms:['facebook','instagram'],facebook_positions:['feed','story','facebook_reels'],instagram_positions:['stream','story','reels']});
   console.log(id,'placements',JSON.stringify(await api('/'+id,{targeting:t})));
  }
+}else if(cmd==='testimg'){
+ const pg=((await api('/me/accounts',{fields:'id,name,instagram_business_account'},'GET')).data||[]).find(x=>/praxen/i.test(x.name));
+ const ig=pg?.instagram_business_account?.id;if(!ig){console.log('no instagram');process.exit(1);}
+ const id=(await api(`/${ig}/media`,{image_url:a1,caption:'test, not published'})).id;
+ for(let i=0;i<10;i++){const st=(await api('/'+id,{fields:'status_code'},'GET')).status_code;console.log('container',id,st);if(st!=='IN_PROGRESS')break;await new Promise(r=>setTimeout(r,3000));}
 }else if(cmd==='scopes'){
  const d=(await api('/debug_token',{input_token:tok},'GET')).data||{};
  console.log('valid',d.is_valid,'type',d.type,'expires',d.expires_at,'app',d.app_id);
