@@ -86,10 +86,15 @@ if(cmd==='status'){
    if(camp)for(const a of (await api(`/${camp}/adsets`,{fields:'id',limit:50},'GET')).data||[])await api('/'+a.id,{},'DELETE');
    camp??=(await api(`/${act}/campaigns`,{name:c.name,objective:c.objective,status:'PAUSED',special_ad_categories:[],is_adset_budget_sharing_enabled:false})).id;
    console.log('campaign',c.name,camp);
-   const adset=(await api(`/${act}/adsets`,{name:c.name,campaign_id:camp,status:'PAUSED',daily_budget:c.daily_budget,billing_event:'IMPRESSIONS',bid_strategy:'LOWEST_COST_WITHOUT_CAP',optimization_goal:c.optimization_goal,...(c.destination_type?{destination_type:c.destination_type}:{}),start_time:c.start_time,end_time:c.end_time,targeting:c.targeting})).id;
-   const creative=(await api(`/${act}/adcreatives`,{name:c.name,object_story_spec:c.object_story_spec})).id;
-   const ad=(await api(`/${act}/ads`,{name:c.name,adset_id:adset,creative:{creative_id:creative},status:'PAUSED'})).id;
-   console.log('created',c.name,JSON.stringify({campaign:camp,adset,creative,ad}));
+   const adset=(await api(`/${act}/adsets`,{name:c.name,campaign_id:camp,status:'PAUSED',daily_budget:c.daily_budget,billing_event:'IMPRESSIONS',bid_strategy:'LOWEST_COST_WITHOUT_CAP',optimization_goal:c.optimization_goal,...(c.destination_type?{destination_type:c.destination_type}:{}),...(c.promoted_object?{promoted_object:c.promoted_object}:{}),start_time:c.start_time,end_time:c.end_time,targeting:c.targeting})).id;
+   // "ads": existing page posts as ads ({name, object_story_id}); otherwise one ad from "object_story_spec".
+   const items=c.ads||[{name:c.name,spec:c.object_story_spec}],made=[];
+   for(const it of items){
+    const creative=(await api(`/${act}/adcreatives`,it.object_story_id?{name:it.name,object_story_id:it.object_story_id,...(c.instagram_user_id?{instagram_user_id:c.instagram_user_id}:{})}:{name:it.name,object_story_spec:it.spec})).id;
+    const ad=(await api(`/${act}/ads`,{name:it.name,adset_id:adset,creative:{creative_id:creative},status:'PAUSED'})).id;
+    made.push({creative,ad});
+   }
+   console.log('created',c.name,JSON.stringify({campaign:camp,adset,ads:made}));
   }catch(e){console.log('ERROR',c.name,e.message);process.exitCode=1;}
  }
 }else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids> | start <iso> <adset ids> | subscribe | scopes | list | placements <adset ids>');process.exit(1);}

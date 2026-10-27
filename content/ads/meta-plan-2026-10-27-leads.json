@@ -1,0 +1,30 @@
+{
+ "about": "Workshop campaign optimised for registrations (pixel Lead) instead of link clicks, owner's decision of 27 October. Same three posts, audience, placements and budget as the boosted campaign «Публикация: Пятница, 23:40…», which is paused when this one starts.",
+ "account": "act_1572744140745644",
+ "campaigns": [
+  {
+   "name": "Воркшоп 12.11 · регистрации · СНГ RU",
+   "objective": "OUTCOME_LEADS",
+   "optimization_goal": "OFFSITE_CONVERSIONS",
+   "promoted_object": {"pixel_id": "4732417260323563", "custom_event_type": "LEAD"},
+   "destination_type": "WEBSITE",
+   "daily_budget": 1000,
+   "start_time": "2026-10-27T20:00:00+0400",
+   "end_time": "2026-11-12T18:00:00+0400",
+   "instagram_user_id": "17841470007169101",
+   "targeting": {
+    "geo_locations": {"countries": ["GE", "KZ", "UZ", "AM", "AZ"]},
+    "age_min": 25, "age_max": 55, "locales": [17],
+    "targeting_automation": {"advantage_audience": 0},
+    "publisher_platforms": ["facebook", "instagram"],
+    "facebook_positions": ["feed", "story", "facebook_reels"],
+    "instagram_positions": ["stream", "story", "reels"]
+   },
+   "ads": [
+    {"name": "Регистрации · «Пятница, 23:40»", "object_story_id": "1431418180049547_122113649067499562"},
+    {"name": "Регистрации · «Менеджер в десятый раз»", "object_story_id": "1431418180049547_122113940517499562"},
+    {"name": "Регистрации · «Бесплатный воркшоп по ИИ»", "object_story_id": "1431418180049547_122114482695499562"}
+   ]
+  }
+ ]
+}
