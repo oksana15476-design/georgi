@@ -1,0 +1,42 @@
+# Social and Meta ads statistics (scripts/social/meta-report.mjs), run by hand.
+# The repository is public, so the report is encrypted with the RSA public key passed as input
+# (base64 of the PEM): only the holder of the private key can read it. Without a key nothing is printed.
+name: Social report
+
+on:
+  workflow_dispatch:
+    inputs:
+      pubkey:
+        description: "Base64 of an RSA public key (PEM); the report is encrypted with it"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Report (encrypted)
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+          THREADS_TOKEN: ${{ secrets.THREADS_TOKEN }}
+          TELEGRAM_SOCIAL_BOT_TOKEN: ${{ secrets.TELEGRAM_SOCIAL_BOT_TOKEN }}
+          TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+          PUBKEY: ${{ inputs.pubkey }}
+        run: |
+          set -euo pipefail
+          umask 077
+          echo "$PUBKEY" | base64 -d > "$RUNNER_TEMP/pub.pem"
+          node scripts/social/meta-report.mjs > "$RUNNER_TEMP/report.json"
+          openssl rand -hex 32 > "$RUNNER_TEMP/k"
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in "$RUNNER_TEMP/report.json" -pass file:"$RUNNER_TEMP/k" | base64 -w0 > "$RUNNER_TEMP/r.b64"
+          openssl pkeyutl -encrypt -pubin -inkey "$RUNNER_TEMP/pub.pem" -pkeyopt rsa_padding_mode:oaep -in "$RUNNER_TEMP/k" | base64 -w0 > "$RUNNER_TEMP/k.b64"
+          echo "KEY:$(cat "$RUNNER_TEMP/k.b64")"
+          echo "DATA:$(cat "$RUNNER_TEMP/r.b64")"
+          rm -f "$RUNNER_TEMP/report.json" "$RUNNER_TEMP/k"
