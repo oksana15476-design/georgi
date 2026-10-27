@@ -4,6 +4,7 @@
 //   status <ACTIVE|PAUSED> <id,id…>   switch campaigns, ad sets or ads on or off
 //   end <iso time> <adset id,…>       set the end time of ad sets
 //   start <iso time> <adset id,…>     set the start time of ad sets (e.g. now, to start a scheduled one)
+//   scopes                             list the permissions of META_TOKEN (no secrets printed)
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
@@ -26,6 +27,11 @@ if(cmd==='status'){
  for(const id of a2.split(','))console.log(id,'end',a1,JSON.stringify(await api('/'+id,{end_time:a1})));
 }else if(cmd==='start'){
  for(const id of a2.split(','))console.log(id,'start',a1,JSON.stringify(await api('/'+id,{start_time:a1})));
+}else if(cmd==='scopes'){
+ const d=(await api('/debug_token',{input_token:tok},'GET')).data||{};
+ console.log('valid',d.is_valid,'type',d.type,'expires',d.expires_at,'app',d.app_id);
+ console.log('scopes',(d.scopes||[]).join(','));
+ for(const g of d.granular_scopes||[])console.log('granular',g.scope,(g.target_ids||[]).join(','));
 }else if(cmd==='subscribe'){
  const pg=((await api('/me/accounts',{fields:'id,name,access_token'},'GET')).data||[]).find(x=>/praxen/i.test(x.name));
  if(!pg){console.log('page not found');process.exit(1);}
@@ -55,4 +61,4 @@ if(cmd==='status'){
    console.log('created',c.name,JSON.stringify({campaign:camp,adset,creative,ad}));
   }catch(e){console.log('ERROR',c.name,e.message);process.exitCode=1;}
  }
-}else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids> | start <iso> <adset ids> | subscribe');process.exit(1);}
+}else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids> | start <iso> <adset ids> | subscribe | scopes');process.exit(1);}

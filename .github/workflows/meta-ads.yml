@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "create | status | end | start | subscribe"
+        description: "create | status | end | start | subscribe | scopes"
         required: true
       arg1:
         description: "plan file (create), ACTIVE/PAUSED (status) or ISO time (end, start)"
