@@ -1,0 +1,35 @@
+# Meta ads changes on the owner's command (scripts/social/meta-ads.mjs). Run by hand only.
+name: Meta ads
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "create | status | end"
+        required: true
+      arg1:
+        description: "plan file (create), ACTIVE/PAUSED (status) or ISO end time (end)"
+        required: true
+      arg2:
+        description: "ids, comma separated (status, end)"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Meta ads
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+          CMD: ${{ inputs.command }}
+          ARG1: ${{ inputs.arg1 }}
+          ARG2: ${{ inputs.arg2 }}
+        run: node scripts/social/meta-ads.mjs "$CMD" "$ARG1" "$ARG2"

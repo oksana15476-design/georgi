@@ -1,0 +1,183 @@
+{
+ "account": "act_1572744140745644",
+ "audiences": [
+  {
+   "key": "ig_engaged_365",
+   "params": {
+    "name": "IG @praxenai — взаимодействовали 365 дней",
+    "subtype": "ENGAGEMENT",
+    "prefill": true,
+    "rule": {
+     "inclusions": {
+      "operator": "or",
+      "rules": [
+       {
+        "event_sources": [
+         {
+          "id": "17841470007169101",
+          "type": "ig_business"
+         }
+        ],
+        "retention_seconds": 31536000,
+        "filter": {
+         "operator": "and",
+         "filters": [
+          {
+           "field": "event",
+           "operator": "eq",
+           "value": "ig_business_profile_all"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "key": "site_visitors_180",
+   "params": {
+    "name": "Сайт praxenai.ge — посетители 180 дней",
+    "prefill": true,
+    "rule": {
+     "inclusions": {
+      "operator": "or",
+      "rules": [
+       {
+        "event_sources": [
+         {
+          "id": "4732417260323563",
+          "type": "pixel"
+         }
+        ],
+        "retention_seconds": 15552000,
+        "filter": {
+         "operator": "and",
+         "filters": [
+          {
+           "field": "url",
+           "operator": "i_contains",
+           "value": "praxenai.ge"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "campaigns": [
+  {
+   "name": "Сайт · ИИ-ассистент · СНГ RU",
+   "objective": "OUTCOME_TRAFFIC",
+   "optimization_goal": "LANDING_PAGE_VIEWS",
+   "daily_budget": 500,
+   "start_time": "2026-10-27T18:00:00+0400",
+   "end_time": "2026-11-03T23:00:00+0400",
+   "targeting": {
+    "geo_locations": {
+     "countries": [
+      "GE",
+      "KZ",
+      "UZ",
+      "AM",
+      "AZ"
+     ]
+    },
+    "age_min": 25,
+    "age_max": 55,
+    "locales": [
+     17
+    ],
+    "targeting_automation": {
+     "advantage_audience": 0
+    },
+    "publisher_platforms": [
+     "facebook",
+     "instagram"
+    ],
+    "facebook_positions": [
+     "feed",
+     "story",
+     "facebook_reels"
+    ],
+    "instagram_positions": [
+     "stream",
+     "story",
+     "reels",
+     "explore"
+    ]
+   },
+   "object_story_spec": {
+    "page_id": "1431418180049547",
+    "instagram_user_id": "17841470007169101",
+    "link_data": {
+     "link": "https://praxenai.ge/ru?utm_source=meta&utm_medium=paid&utm_campaign=site_meta&utm_content=ad_site_v1",
+     "picture": "https://praxenai.ge/ads/site-v1.jpg",
+     "message": "Клиент написал в WhatsApp вечером, а менеджер ответит только утром? ИИ-ассистент отвечает за секунды на языке клиента, выясняет задачу и бюджет и сам заносит заявку в CRM. Утром менеджер получает готовую сделку.\n\nНачинаем с бесплатного аудита на 30 минут. Пилот — 2–4 недели на ваших данных.",
+     "name": "ИИ-ассистент для продаж в WhatsApp и Telegram",
+     "description": "Аудит бесплатно · пилот 2–4 недели",
+     "call_to_action": {
+      "type": "LEARN_MORE",
+      "value": {
+       "link": "https://praxenai.ge/ru?utm_source=meta&utm_medium=paid&utm_campaign=site_meta&utm_content=ad_site_v1"
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Instagram · посещения профиля · СНГ RU",
+   "objective": "OUTCOME_TRAFFIC",
+   "optimization_goal": "VISIT_INSTAGRAM_PROFILE",
+   "destination_type": "INSTAGRAM_PROFILE",
+   "daily_budget": 500,
+   "start_time": "2026-10-27T18:00:00+0400",
+   "end_time": "2026-11-03T23:00:00+0400",
+   "targeting": {
+    "geo_locations": {
+     "countries": [
+      "GE",
+      "KZ",
+      "UZ",
+      "AM",
+      "AZ"
+     ]
+    },
+    "age_min": 25,
+    "age_max": 55,
+    "locales": [
+     17
+    ],
+    "targeting_automation": {
+     "advantage_audience": 0
+    },
+    "publisher_platforms": [
+     "instagram"
+    ],
+    "instagram_positions": [
+     "stream",
+     "story",
+     "reels",
+     "explore"
+    ]
+   },
+   "object_story_spec": {
+    "page_id": "1431418180049547",
+    "instagram_user_id": "17841470007169101",
+    "link_data": {
+     "link": "https://www.instagram.com/praxenai/",
+     "picture": "https://praxenai.ge/ads/ig-follow-v1.jpg",
+     "message": "Пишем про ИИ в продажах простыми словами: как отвечать клиентам сразу, не терять заявки и навести порядок в CRM. Три поста в неделю, чек-листы и разборы. Подписывайтесь на @praxenai.",
+     "name": "Praxen AI в Instagram",
+     "call_to_action": {
+      "type": "VIEW_INSTAGRAM_PROFILE"
+     }
+    }
+   }
+  }
+ ]
+}
