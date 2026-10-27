@@ -5,13 +5,13 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "create | status | end"
+        description: "create | status | end | start"
         required: true
       arg1:
-        description: "plan file (create), ACTIVE/PAUSED (status) or ISO end time (end)"
+        description: "plan file (create), ACTIVE/PAUSED (status) or ISO time (end, start)"
         required: true
       arg2:
-        description: "ids, comma separated (status, end)"
+        description: "ids, comma separated (status, end, start)"
         required: false
 
 permissions:

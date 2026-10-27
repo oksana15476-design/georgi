@@ -3,6 +3,7 @@
 //                            safe to run again: audiences and campaigns with the same name are reused, finished ones skipped
 //   status <ACTIVE|PAUSED> <id,id…>   switch campaigns, ad sets or ads on or off
 //   end <iso time> <adset id,…>       set the end time of ad sets
+//   start <iso time> <adset id,…>     set the start time of ad sets (e.g. now, to start a scheduled one)
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
 const G='https://graph.facebook.com/v21.0',tok=process.env.META_TOKEN;
@@ -22,6 +23,8 @@ if(cmd==='status'){
  for(const id of a2.split(','))console.log(id,a1,JSON.stringify(await api('/'+id,{status:a1})));
 }else if(cmd==='end'){
  for(const id of a2.split(','))console.log(id,'end',a1,JSON.stringify(await api('/'+id,{end_time:a1})));
+}else if(cmd==='start'){
+ for(const id of a2.split(','))console.log(id,'start',a1,JSON.stringify(await api('/'+id,{start_time:a1})));
 }else if(cmd==='create'){
  const plan=JSON.parse(readFileSync(a1,'utf8')),act=plan.account,out={};
  const list=async edge=>(await api(`/${act}/${edge}`,{fields:'id,name',limit:200},'GET')).data||[];
@@ -45,4 +48,4 @@ if(cmd==='status'){
    console.log('created',c.name,JSON.stringify({campaign:camp,adset,creative,ad}));
   }catch(e){console.log('ERROR',c.name,e.message);process.exitCode=1;}
  }
-}else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids>');process.exit(1);}
+}else{console.log('Use: create <plan> | status <ACTIVE|PAUSED> <ids> | end <iso> <adset ids> | start <iso> <adset ids>');process.exit(1);}
