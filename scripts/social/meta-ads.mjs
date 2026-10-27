@@ -39,7 +39,7 @@ if(cmd==='status'){
 }else if(cmd==='placements'){
  for(const id of a1.split(',')){
   const t=(await api('/'+id,{fields:'targeting'},'GET')).targeting||{};
-  for(const k of ['messenger_positions','audience_network_positions','threads_positions','whatsapp_positions'])delete t[k];
+  for(const k of ['messenger_positions','audience_network_positions','threads_positions','whatsapp_positions','targeting_optimization'])delete t[k];
   Object.assign(t,{publisher_platforms:['facebook','instagram'],facebook_positions:['feed','story','facebook_reels'],instagram_positions:['stream','story','reels']});
   console.log(id,'placements',JSON.stringify(await api('/'+id,{targeting:t})));
  }
