@@ -48,6 +48,8 @@ const nextConfig: NextConfig = pages
           { source: "/en", destination: "/", permanent: true },
           { source: "/en/:path*", destination: "/:path*", permanent: true },
           privacyDot,
+          // An ad link that lost "webinar?" (/ru/utm_source=…, 27 October 2026) lands on the workshop page instead of a 404.
+          { source: "/:lang(ru|ka)/:tag(utm_source=.*)", destination: "/:lang/webinar?utm_source=meta_broken_link", permanent: false },
         ];
         return [
           { source: "/en", destination: "/", permanent: true },
