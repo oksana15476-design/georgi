@@ -26,6 +26,8 @@ export const BATCHES=[
  {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram']},
  {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
  {file:'stories-2026-11.json',channels:['instagram_story','facebook_story']},
+ // Text-only threads (live voice between plan posts): content/social/threads-2026-11.json, captions written by hand.
+ {file:'threads-2026-11.json',channels:['threads']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
 const DRY=flag('--dry'),ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
@@ -120,7 +122,8 @@ const send={
   const tok=env.THREADS_TOKEN,u=env.THREADS_USER_ID,parts=c.threadParts||[c.threads||''];
   const kids=[];for(const url of imgs.slice(0,10))kids.push((await call(`${T}/${u}/threads`,{media_type:'IMAGE',image_url:url,is_carousel_item:'true',access_token:tok})).id);
   for(const k of kids)await ready(T,k,tok,'status');
-  let id=(await call(`${T}/${u}/threads`,{media_type:'CAROUSEL',children:kids.join(','),text:parts[0],access_token:tok})).id;
+  // A post without slides (threads-only batch) starts the thread with plain text.
+  let id=(await call(`${T}/${u}/threads`,kids.length?{media_type:'CAROUSEL',children:kids.join(','),text:parts[0],access_token:tok}:{media_type:'TEXT',text:parts[0],access_token:tok})).id;
   await ready(T,id,tok,'status');
   let prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;const first=prev;
   for(const text of parts.slice(1)){
