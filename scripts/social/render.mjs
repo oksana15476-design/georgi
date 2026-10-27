@@ -238,7 +238,7 @@ footer{color:#121a2b}
 .fb footer{display:none}.meme .v-chat{padding-top:30px}.meme-bottom{margin-top:40px;font-size:40px;font-weight:800;line-height:1.2}
 .m-expect{display:grid;grid-template-rows:1fr 1fr;gap:24px}
 .m-expect>div{background:#fff;border:3px solid #121a2b;border-radius:28px;padding:30px 34px;box-shadow:12px 12px 0 #121a2b}.m-expect .real{background:#ffd166}
-.m-expect span{font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}.m-expect p{margin-top:12px;font-size:40px;font-weight:700;line-height:1.25}
+.m-expect span{font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#5d6779}.m-expect p{margin-top:12px;font-size:40px;font-weight:700;line-height:1.25;color:#121a2b}
 .m-buttons{display:flex;gap:36px;justify-content:center}
 .btn2{flex:1;text-align:center}.btn2 i{display:block;margin:0 auto 22px;width:200px;height:120px;border-radius:50%/40%;background:#ff5a5f;border:4px solid #121a2b;box-shadow:0 18px 0 #b8383c,0 18px 0 4px #121a2b}
 .btn2 p{background:#fff;border:3px solid #121a2b;border-radius:20px;padding:22px;font-size:34px;font-weight:800;line-height:1.2;box-shadow:10px 10px 0 #121a2b}
