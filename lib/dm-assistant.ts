@@ -160,6 +160,14 @@ export async function handleWebhook(env:Env,body:{object?:string;entry?:{messagi
  }
 }
 
+/** Which settings are in place and whether Meta and Claude accept the keys (no secrets in the answer). */
+export async function status(env:Env){
+ const out:Record<string,string|boolean>={anthropicKey:!!env.ANTHROPIC_API_KEY,appSecret:!!env.META_APP_SECRET,metaToken:!!env.META_TOKEN};
+ if(env.META_TOKEN)out.page=await page(env).then(pg=>'ok '+pg.id+(pg.ig?' ig '+pg.ig:' no ig')).catch(e=>'error: '+String(e?.message||e).slice(0,160));
+ if(env.ANTHROPIC_API_KEY)out.claude=await new Anthropic({apiKey:env.ANTHROPIC_API_KEY}).models.retrieve('claude-opus-5-5').then(()=>'ok').catch(e=>'error: '+String(e?.status||e?.message||e).slice(0,120));
+ return out;
+}
+
 /** Checks X-Hub-Signature-256: an HMAC-SHA256 of the raw body with the app secret. */
 export async function signatureOk(env:Env,raw:string,header:string|null){
  if(!env.META_APP_SECRET||!header?.startsWith('sha256='))return false;
