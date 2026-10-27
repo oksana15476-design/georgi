@@ -1887,6 +1887,9 @@ main{outline:none}
 .wb .wb-head-r{display:flex;align-items:center;gap:20px}
 .wb .wb-langs a{font-weight:800}
 @media(max-width:600px){.wb .wb-head-r{gap:12px}.wb .wb-head-cta{padding:0 14px;font-size:12px}.wb .wb-langs{gap:8px}.wb .wb-langs .flag{display:none}}
+/* Phones up to 430px: logo, languages and the header button do not fit in one row (the button was cut off);
+   the hero right below has the big «Занять место» button, so the header one is hidden there. */
+@media(max-width:430px){.wb .wb-head-cta{display:none}}
 /* Workshop public offer (/ru/webinar/terms): a plain document. */
 .wb .wb-doc{max-width:860px;padding-top:24px;padding-bottom:88px}
 .wb .wb-doc-back{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#315bf5}
