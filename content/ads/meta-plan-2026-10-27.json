@@ -5,7 +5,6 @@
    "key": "ig_engaged_365",
    "params": {
     "name": "IG @praxenai — взаимодействовали 365 дней",
-    "subtype": "ENGAGEMENT",
     "prefill": true,
     "rule": {
      "inclusions": {
@@ -107,8 +106,7 @@
     "instagram_positions": [
      "stream",
      "story",
-     "reels",
-     "explore"
+     "reels"
     ]
    },
    "object_story_spec": {
@@ -161,8 +159,7 @@
     "instagram_positions": [
      "stream",
      "story",
-     "reels",
-     "explore"
+     "reels"
     ]
    },
    "object_story_spec": {
