@@ -1,0 +1,163 @@
+{
+ "campaign": "stories_nov_b",
+ "about": "Stories after the workshop (13–30 November), neutral strip.",
+ "langs": [
+  "ru"
+ ],
+ "size": "story",
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ в продажах без воды ● промпты ● разборы ● praxenai.ge ●",
+ "posts": [
+  {
+   "id": "s17-thanks",
+   "date": "2026-11-13",
+   "time": "13:00",
+   "accent": "grad",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Спасибо",
+     "title": "Спасибо всем, кто был *на воркшопе*",
+     "sub": "Вопросы, которые не успели разобрать, присылайте в директ"
+    }
+   ]
+  },
+  {
+   "id": "s18-new-prompts",
+   "date": "2026-11-17",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "prompt",
+     "bg": "white",
+     "kicker": "Новый пост",
+     "title": "Протокол встречи за минуту",
+     "prompt": "Вот мои заметки со встречи: [вставьте]. Сделай протокол: что решили, кто что делает и до какого числа.",
+     "note": "Ещё 2 промпта — в посте в профиле"
+    }
+   ]
+  },
+  {
+   "id": "s19-game",
+   "date": "2026-11-19",
+   "time": "13:00",
+   "accent": "yellow",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Игра",
+     "title": "Где ответил ИИ, *а где человек?*",
+     "sub": "Новая карусель в профиле. Угадайте до последнего слайда"
+    }
+   ]
+  },
+  {
+   "id": "s20-types",
+   "date": "2026-11-21",
+   "time": "13:00",
+   "accent": "yellow",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "meme",
+     "title": "Тип №8",
+     "meme": {
+      "type": "reaction",
+      "emoji": "👻",
+      "text": "Спросил цену и пропал. Две галочки, ноль ответа"
+     }
+    }
+   ]
+  },
+  {
+   "id": "s21-price",
+   "date": "2026-11-24",
+   "time": "13:00",
+   "accent": "ink",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Честно о деньгах",
+     "title": "Токены, WhatsApp, сервер — *напрямую*",
+     "sub": "Без нашей наценки, на ваших аккаунтах. Разбор цены — в посте в профиле"
+    }
+   ]
+  },
+  {
+   "id": "s22-audit",
+   "date": "2026-11-26",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Бесплатный аудит",
+     "title": "30 минут → *1 документ*",
+     "sub": "Карта процессов, расчёт эффекта и цена пилота. Запись — ссылка в шапке профиля"
+    }
+   ]
+  },
+  {
+   "id": "s23-weekend",
+   "date": "2026-11-28",
+   "time": "13:00",
+   "accent": "yellow",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Вопрос",
+     "title": "Кто отвечает клиентам *в выходные?*",
+     "visual": {
+      "type": "bubbles",
+      "items": [
+       "Я сам",
+       "Дежурный менеджер",
+       "Никто до понедельника",
+       "Ассистент"
+      ]
+     },
+     "sub": "Ответьте в директ — нам правда интересно"
+    }
+   ]
+  },
+  {
+   "id": "s24-month",
+   "date": "2026-11-30",
+   "time": "13:00",
+   "accent": "grad",
+   "pillar": "fun",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Итоги ноября",
+     "title": "Сохраните *лучшее за месяц*",
+     "visual": {
+      "type": "bubbles",
+      "items": [
+       "6 промптов",
+       "Словарик из 13 слов",
+       "2 игры",
+       "Цена ассистента"
+      ]
+     },
+     "sub": "Всё в ленте профиля"
+    }
+   ]
+  }
+ ]
+}

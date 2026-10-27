@@ -96,6 +96,96 @@
    "date": "2026-11-12",
    "time": "14:00",
    "slides": []
+  },
+  {
+   "id": "t17-thanks",
+   "date": "2026-11-13",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t18-myth",
+   "date": "2026-11-14",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t19-realestate",
+   "date": "2026-11-16",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t20-prompt-kp",
+   "date": "2026-11-17",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t21-restaurant",
+   "date": "2026-11-18",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t22-game",
+   "date": "2026-11-19",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t23-quiz",
+   "date": "2026-11-20",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t24-types",
+   "date": "2026-11-21",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t25-wholesale",
+   "date": "2026-11-23",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t26-tokens",
+   "date": "2026-11-24",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t27-contractor",
+   "date": "2026-11-25",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t28-audit",
+   "date": "2026-11-26",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t29-training",
+   "date": "2026-11-27",
+   "time": "19:00",
+   "slides": []
+  },
+  {
+   "id": "t30-weekend",
+   "date": "2026-11-28",
+   "time": "14:00",
+   "slides": []
+  },
+  {
+   "id": "t31-month",
+   "date": "2026-11-30",
+   "time": "14:00",
+   "slides": []
   }
  ]
 }

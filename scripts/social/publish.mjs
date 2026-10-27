@@ -29,6 +29,7 @@ export const BATCHES=[
  // Content plan of 27 October (docs/SMM-PLAN-2026-11.md): feed posts between the workshop posts, and Telegram's own texts and polls.
  {file:'feed-2026-11.json',channels:['facebook','instagram']},
  {file:'telegram-2026-11.json',channels:['telegram']},
+ {file:'stories-2026-11b.json',channels:['instagram_story','facebook_story']},
  // Text-only threads (live voice between plan posts): content/social/threads-2026-11.json, captions written by hand.
  {file:'threads-2026-11.json',channels:['threads']},
 ];
