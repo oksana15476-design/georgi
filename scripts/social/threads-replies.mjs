@@ -2,6 +2,8 @@
 // Run by hand through .github/workflows/threads-replies.yml; uses THREADS_TOKEN (needs threads_keyword_search and threads_manage_replies).
 //   check                          who the token is and whether keyword search and replies are allowed (nothing secret printed)
 //   search "<q1>|<q2>|…" [days]    recent posts for the queries, as JSON on stdout (the workflow encrypts it: the repository is public)
+//   mine                           our last posts with ids and times
+//   delete <id>                    delete one of our posts (needs threads_delete)
 //   reply <base64 JSON>            [{"to":"<post id>","text":"…"}, …]: posts each reply unless we already replied to that post
 const T='https://graph.threads.net/v1.0',tok=process.env.THREADS_TOKEN;
 const hide=s=>String(s).replace(/access_token=[^&\s"]+/g,'access_token=…');
@@ -30,6 +32,10 @@ if(cmd==='check'){
   }catch(e){out.push({q,error:e.message});}
  }
  console.log(JSON.stringify(out));
+}else if(cmd==='mine'){
+ for(const p of (await api(`/${me.id}/threads`,{fields:'id,text,timestamp,permalink',limit:'10'})).data||[])console.log(p.id,p.timestamp,p.permalink,JSON.stringify((p.text||'').slice(0,60)));
+}else if(cmd==='delete'){
+ console.log('delete',a1,JSON.stringify(await api('/'+a1,{},'DELETE')));
 }else if(cmd==='reply'){
  const list=JSON.parse(Buffer.from(a1,'base64').toString('utf8'));
  const done=new Set(((await api(`/${me.id}/replies`,{fields:'id,replied_to',limit:'100'})).data||[]).map(x=>x.replied_to?.id).filter(Boolean));

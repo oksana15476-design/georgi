@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "check | search | reply"
+        description: "check | search | reply | mine | delete"
         required: true
       arg:
-        description: "queries separated by | (search) or base64 JSON of replies (reply)"
+        description: "queries separated by | (search), base64 JSON of replies (reply) or a post id (delete)"
         required: false
       days:
         description: "how many days back to search (default 2)"

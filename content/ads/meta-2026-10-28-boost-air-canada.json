@@ -1,0 +1,56 @@
+{
+ "account": "act_1572744140745644",
+ "about": "28 October, owner's yes: boost the Air Canada story post for 3 days, engagement, $3/day.",
+ "audiences": [],
+ "campaigns": [
+  {
+   "name": "Пост · Air Canada · вовлечённость · СНГ RU",
+   "objective": "OUTCOME_ENGAGEMENT",
+   "optimization_goal": "POST_ENGAGEMENT",
+   "destination_type": "ON_POST",
+   "daily_budget": 300,
+   "start_time": "2026-10-28T12:20:00+0400",
+   "end_time": "2026-10-31T12:20:00+0400",
+   "targeting": {
+    "geo_locations": {
+     "countries": [
+      "GE",
+      "KZ",
+      "UZ",
+      "AM",
+      "AZ"
+     ]
+    },
+    "age_min": 25,
+    "age_max": 55,
+    "locales": [
+     17
+    ],
+    "targeting_automation": {
+     "advantage_audience": 0
+    },
+    "publisher_platforms": [
+     "facebook",
+     "instagram"
+    ],
+    "facebook_positions": [
+     "feed",
+     "story",
+     "facebook_reels"
+    ],
+    "instagram_positions": [
+     "stream",
+     "story",
+     "reels"
+    ]
+   },
+   "instagram_user_id": "17841470007169101",
+   "ads": [
+    {
+     "name": "Air Canada · история",
+     "object_story_id": "1431418180049547_122114907909499562"
+    }
+   ]
+  }
+ ]
+}
