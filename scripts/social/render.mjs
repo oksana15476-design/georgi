@@ -69,6 +69,9 @@ const MEMES={
  yellcat:{f:'yellcat.jpg',r:680/438,boxes:[[2,3,46,22,'pill'],[52,3,46,22,'pill']]},
  pikachu:{f:'pikachu.jpg',r:1,boxes:[[3,1,94,30,'plain']]},
  harold:{f:'harold.jpg',r:480/601,boxes:[[3,38,94,10,'pill'],[3,88,94,10,'pill']]},
+ gru:{f:'gru.jpg',r:700/449,boxes:[[28,10,19,38,'plain'],[78,10,20,38,'plain'],[28,58,19,38,'plain'],[78,58,20,38,'plain']]},
+ monkey:{f:'monkey.jpg',r:907/506,boxes:[[2,78,96,18,'pill']]},
+ leo:{f:'leo.jpg',r:1.5,boxes:[[3,4,62,18,'pill'],[3,78,94,18,'pill']]},
  pigeon:{f:'pigeon.jpg',r:1587/1425,boxes:[[64,6,34,14,'pill'],[4,56,40,12,'pill'],[6,84,88,12,'pill']]},
 };
 const memeSrc={};
@@ -342,6 +345,7 @@ const skinCss=`
 .sty-notes .vis *,.sty-notes .msg,.sty-notes .cmp>div,.sty-notes .pr-card,.sty-notes .lv,.sty-notes .m-expect>div,.sty-notes .chat{box-shadow:none!important}
 .sty-notes .v-paper,.sty-notes .cmp>div,.sty-notes .pr-card,.sty-notes .m-expect>div,.sty-notes .lv,.sty-notes .v-clock .tile,.sty-notes .cal,.sty-notes .v-versus .side{border:0!important;background:#f2f2f6!important;color:#1c1c1e!important;transform:none!important;border-radius:22px}
 .sty-notes .m-expect .real,.sty-notes .cmp .after,.sty-notes .lv:last-child{background:#fff4c2!important}
+.sty-notes .pr-tag{color:#c99400!important}
 .sty-notes .box{border-radius:50%;border-color:#d9a400}.sty-notes .box.on{background:#d9a400;color:#fff}
 .sty-notes .big{background:none!important;color:#d9a400!important;font-family:Inter,sans-serif}
 .sty-notes .label{text-transform:none;color:#1c1c1e!important}

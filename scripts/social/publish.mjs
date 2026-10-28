@@ -173,6 +173,8 @@ for(const b of BATCHES){
   const c={...captions(name,post.id),fbImage:fbImage(name,post),poll:post.poll},imgs=images(name,post);
   for(const ch of b.channels){
    if(ONLY_CH&&ch!==ONLY_CH)continue;
+   // A post can leave out channels of its batch: "skip":["telegram"] (memes and tools stay off the Telegram channel, which has its own plan).
+   if((post.skip||[]).includes(ch))continue;
    const key=`${name}/${post.id}/${ch}`;
    if(state[key]&&!ONLY)continue;
    // --replace (with --only): remove the earlier Facebook post first, then send the new one.
