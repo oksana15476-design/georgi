@@ -61,7 +61,7 @@ if(cmd==='status'){
  for(const id of a1.split(',')){
   const s=await api('/'+id,{fields:'name,effective_status,configured_status,start_time,end_time,daily_budget,optimization_goal,billing_event,bid_strategy,destination_type,issues_info,learning_stage_info,recommendations'},'GET');
   console.log('adset',JSON.stringify(s).slice(0,1500));
-  const est=await api(`/${id}/delivery_estimate`,{fields:'estimate_dau,estimate_mau_lower_bound,estimate_mau_upper_bound,estimate_ready'},'GET').catch(e=>({error:e.message}));
+  const est=await api(`/${id}/delivery_estimate`,{fields:'estimate_mau_lower_bound,estimate_mau_upper_bound,estimate_ready'},'GET').catch(e=>({error:e.message}));
   console.log('estimate',JSON.stringify(est).slice(0,500));
   for(const ad of (await api(`/${id}/ads`,{fields:'name,effective_status,configured_status,issues_info,ad_review_feedback,recommendations'},'GET')).data||[])console.log('ad',JSON.stringify(ad).slice(0,1000));
  }
