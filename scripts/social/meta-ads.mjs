@@ -155,10 +155,10 @@ if(cmd==='status'){
    camp??=(await api(`/${act}/campaigns`,{name:c.name,objective:c.objective,status:'PAUSED',special_ad_categories:[],is_adset_budget_sharing_enabled:false})).id;
    console.log('campaign',c.name,camp);
    const adset=(await api(`/${act}/adsets`,{name:c.name,campaign_id:camp,status:'PAUSED',daily_budget:c.daily_budget,billing_event:'IMPRESSIONS',bid_strategy:'LOWEST_COST_WITHOUT_CAP',optimization_goal:c.optimization_goal,...(c.destination_type?{destination_type:c.destination_type}:{}),...(c.promoted_object?{promoted_object:c.promoted_object}:{}),start_time:c.start_time,end_time:c.end_time,targeting:c.targeting})).id;
-   // "ads": existing page posts as ads ({name, object_story_id}); otherwise one ad from "object_story_spec".
+   // "ads": existing page posts ({name, object_story_id}) or Instagram posts ({name, instagram_media_id}, needs page_id) as ads; otherwise one ad from "object_story_spec".
    const items=c.ads||[{name:c.name,spec:c.object_story_spec}],made=[];
    for(const it of items){
-    const creative=(await api(`/${act}/adcreatives`,it.object_story_id?{name:it.name,object_story_id:it.object_story_id,...(c.instagram_user_id?{instagram_user_id:c.instagram_user_id}:{})}:{name:it.name,object_story_spec:it.spec})).id;
+    const creative=(await api(`/${act}/adcreatives`,it.instagram_media_id?{name:it.name,object_id:c.page_id,instagram_user_id:c.instagram_user_id,source_instagram_media_id:it.instagram_media_id}:it.object_story_id?{name:it.name,object_story_id:it.object_story_id,...(c.instagram_user_id?{instagram_user_id:c.instagram_user_id}:{})}:{name:it.name,object_story_spec:it.spec})).id;
     const ad=(await api(`/${act}/ads`,{name:it.name,adset_id:adset,creative:{creative_id:creative},status:'PAUSED'})).id;
     made.push({creative,ad});
    }

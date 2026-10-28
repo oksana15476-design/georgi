@@ -1,0 +1,30 @@
+{
+ "account": "act_1572744140745644",
+ "about": "28 October, owner's request: the Instagram profile-visits goal is not available to this ad account, so the follow campaign becomes an engagement boost of the intro post in Instagram only, $5/day, to 3 November.",
+ "audiences": [],
+ "campaigns": [
+  {
+   "name": "Instagram · подписка · вовлечённость · СНГ RU",
+   "objective": "OUTCOME_ENGAGEMENT",
+   "optimization_goal": "POST_ENGAGEMENT",
+   "destination_type": "ON_POST",
+   "daily_budget": 500,
+   "start_time": "2026-10-28T22:30:00+0400",
+   "end_time": "2026-11-03T23:00:00+0400",
+   "targeting": {
+    "geo_locations": {"countries": ["GE", "KZ", "UZ", "AM", "AZ"]},
+    "age_min": 25,
+    "age_max": 55,
+    "locales": [17],
+    "targeting_automation": {"advantage_audience": 0},
+    "publisher_platforms": ["instagram"],
+    "instagram_positions": ["stream", "explore"]
+   },
+   "page_id": "1431418180049547",
+   "instagram_user_id": "17841470007169101",
+   "ads": [
+    {"name": "Подписка · пост «Кто мы»", "instagram_media_id": "18117680464807244"}
+   ]
+  }
+ ]
+}
