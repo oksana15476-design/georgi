@@ -5,13 +5,13 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "create | status | end | start | subscribe | scopes | list | placements | testimg | diag"
+        description: "create | status | end | start | subscribe | scopes | list | placements | testimg | diag | delpost"
         required: true
       arg1:
-        description: "plan file (create), ACTIVE/PAUSED (status) or ISO time (end, start)"
+        description: "plan file (create), ACTIVE/PAUSED (status), ISO time (end, start) or text start (delpost)"
         required: false
       arg2:
-        description: "ids, comma separated (status, end, start)"
+        description: "ids, comma separated (status, end, start, delpost)"
         required: false
 
 permissions:

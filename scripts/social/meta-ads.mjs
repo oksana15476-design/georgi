@@ -10,6 +10,7 @@
 //   diag <adset id,…>                 delivery state of ad sets and their ads: status, issues, learning, audience estimate (no spend)
 //   scopes                             list the permissions of META_TOKEN (no secrets printed)
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
+//   delpost <text start> <post id|instagram link,…>   delete page or Instagram posts, only those whose text starts with <text start>
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
 const G='https://graph.facebook.com/v21.0',tok=process.env.META_TOKEN;
@@ -69,6 +70,21 @@ if(cmd==='status'){
  const r=await fetch(`${G}/${pg.id}/subscribed_apps`,{method:'POST',body:new URLSearchParams({subscribed_fields:'messages,messaging_postbacks,message_echoes',access_token:pg.access_token})}).then(x=>x.json());
  console.log('subscribe',pg.id,JSON.stringify(r).slice(0,300));
  if(r.error)process.exitCode=1;
+}else if(cmd==='delpost'){
+ const pg=((await api('/me/accounts',{fields:'id,name,access_token,instagram_business_account'},'GET')).data||[]).find(x=>/praxen/i.test(x.name));
+ if(!pg||!a1){console.log('page or text not found');process.exit(1);}
+ const pt=tok=>(p,q={},m='POST')=>{const b=new URLSearchParams({...q,access_token:tok}),g=m!=='POST';return fetch(G+p+(g?'?'+b:''),g?{method:m}:{method:m,body:b}).then(r=>r.json());};
+ const page=pt(pg.access_token),ig=pg.instagram_business_account?.id;
+ for(const ref of a2.split(',')){
+  let id=ref,text;
+  if(/instagram\.com/.test(ref)){
+   const code=ref.match(/\/(?:p|reel)\/([^/?]+)/)?.[1];
+   const m=((await page(`/${ig}/media`,{fields:'id,caption,permalink',limit:'50'},'GET')).data||[]).find(x=>x.permalink?.includes('/'+code+'/'));
+   id=m?.id;text=m?.caption;
+  }else text=(await page('/'+id,{fields:'message'},'GET')).message;
+  if(!id||!(text||'').startsWith(a1)){console.log('skip',ref,'text does not match:',JSON.stringify((text||'').slice(0,80)));process.exitCode=1;continue;}
+  console.log('delete',ref,JSON.stringify(text.slice(0,80)),JSON.stringify(await page('/'+id,{},'DELETE')).slice(0,300));
+ }
 }else if(cmd==='create'){
  const plan=JSON.parse(readFileSync(a1,'utf8')),act=plan.account,out={};
  const list=async edge=>(await api(`/${act}/${edge}`,{fields:'id,name',limit:200},'GET')).data||[];
