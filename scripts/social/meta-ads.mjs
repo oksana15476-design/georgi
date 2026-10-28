@@ -10,6 +10,8 @@
 //   diag <adset id,…>                 delivery state of ad sets and their ads: status, issues, learning, audience estimate (no spend)
 //   scopes                             list the permissions of META_TOKEN (no secrets printed)
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
+//   addads <plan.json>               add ads to an existing ad set (Instagram posts or reels by link, or an object_story_spec), ACTIVE,
+//                                     then pause the ads listed in "pause"
 //   delpost <text start> <post id|instagram link,…>   delete page or Instagram posts, only those whose text starts with <text start>
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
@@ -85,6 +87,27 @@ if(cmd==='status'){
   if(!id||!(text||'').startsWith(a1)){console.log('skip',ref,'text does not match:',JSON.stringify((text||'').slice(0,80)));process.exitCode=1;continue;}
   console.log('delete',ref,JSON.stringify(text.slice(0,80)),JSON.stringify(await page('/'+id,{},'DELETE')).slice(0,300));
  }
+}else if(cmd==='addads'){
+ const plan=JSON.parse(readFileSync(a1,'utf8')),act=plan.account;
+ const pg=((await api('/me/accounts',{fields:'id,name,access_token,instagram_business_account'},'GET')).data||[]).find(x=>/praxen/i.test(x.name));
+ const ig=pg?.instagram_business_account?.id;
+ const media=ig?((await fetch(`${G}/${ig}/media?`+new URLSearchParams({fields:'id,permalink',limit:'50',access_token:pg.access_token})).then(r=>r.json())).data||[]):[];
+ let made=0;
+ for(const it of plan.ads){
+  try{
+   let params;
+   if(it.instagram_link){
+    const code=it.instagram_link.match(/\/(?:p|reel)\/([^/?]+)/)?.[1],m=media.find(x=>x.permalink?.includes('/'+code+'/'));
+    if(!m)throw new Error('instagram post not found: '+it.instagram_link);
+    params={name:it.name,object_id:pg.id,instagram_user_id:ig,source_instagram_media_id:m.id,...(it.call_to_action?{call_to_action:it.call_to_action}:{})};
+   }else params={name:it.name,object_story_spec:it.spec};
+   const creative=(await api(`/${act}/adcreatives`,params)).id;
+   const ad=(await api(`/${act}/ads`,{name:it.name,adset_id:plan.adset,creative:{creative_id:creative},status:'ACTIVE'})).id;
+   console.log('added',it.name,JSON.stringify({creative,ad}));made++;
+  }catch(e){console.log('ERROR',it.name,e.message);process.exitCode=1;}
+ }
+ if(made===plan.ads.length)for(const id of plan.pause||[])console.log(id,'PAUSED',JSON.stringify(await api('/'+id,{status:'PAUSED'})));
+ else if(plan.pause?.length)console.log('not all ads were added, old ads left as they are');
 }else if(cmd==='create'){
  const plan=JSON.parse(readFileSync(a1,'utf8')),act=plan.account,out={};
  const list=async edge=>(await api(`/${act}/${edge}`,{fields:'id,name',limit:200},'GET')).data||[];

@@ -1,22 +1,89 @@
 {
- "langs": ["ru"],
+ "langs": [
+  "ru"
+ ],
  "theme": "workshop",
  "strip": "Praxen AI ● praxenai.ge ● WhatsApp +995 557 125 497 ● Praxen AI ● praxenai.ge ● WhatsApp +995 557 125 497 ●",
  "campaign": "site_meta",
  "posts": [
-  {"id": "ad-site-v1", "date": "2026-10-27", "pillar": "ad", "accent": "white", "slides": [
-   {"layout": "cover", "example": true, "kicker": "ИИ-ассистент для продаж",
-    "title": "ИИ отвечает клиентам *за секунды* и сам заполняет CRM",
-    "sub": "WhatsApp и Telegram, круглосуточно. Пилот 2–4 недели, аудит бесплатно",
-    "visual": {"type": "chat", "messages": [
-     {"from": "client", "time": "23:41", "text": "Здравствуйте! Сколько стоит доставка в Алматы?"},
-     {"from": "bot", "time": "23:41", "text": "Здравствуйте! Доставка 2–3 дня. Подскажите, какой объём заказа?"}]}}
-  ], "text": ""},
-  {"id": "ad-ig-follow-v1", "date": "2026-10-27", "pillar": "ad", "accent": "grad", "slides": [
-   {"layout": "cover", "kicker": "Instagram · @praxenai",
-    "title": "ИИ в продажах *без теории*: 3 поста в неделю",
-    "sub": "Сценарии для WhatsApp и CRM, чек-листы и разборы ошибок. Подписывайтесь",
-    "visual": {"type": "bubbles", "items": ["Ответ клиенту ночью", "Заявки в CRM", "Сколько стоит?", "Чек-лист «10 вопросов»"]}}
-  ], "text": ""}
+  {
+   "id": "ad-site-v1",
+   "date": "2026-10-27",
+   "pillar": "ad",
+   "accent": "white",
+   "slides": [
+    {
+     "layout": "cover",
+     "example": true,
+     "kicker": "ИИ-ассистент для продаж",
+     "title": "ИИ отвечает клиентам *за секунды* и сам заполняет CRM",
+     "sub": "WhatsApp и Telegram, круглосуточно. Пилот 2–4 недели, аудит бесплатно",
+     "visual": {
+      "type": "chat",
+      "messages": [
+       {
+        "from": "client",
+        "time": "23:41",
+        "text": "Здравствуйте! Сколько стоит доставка в Алматы?"
+       },
+       {
+        "from": "bot",
+        "time": "23:41",
+        "text": "Здравствуйте! Доставка 2–3 дня. Подскажите, какой объём заказа?"
+       }
+      ]
+     }
+    }
+   ],
+   "text": ""
+  },
+  {
+   "id": "ad-ig-follow-v1",
+   "date": "2026-10-27",
+   "pillar": "ad",
+   "accent": "grad",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Instagram · @praxenai",
+     "title": "ИИ в продажах *без теории*: 3 поста в неделю",
+     "sub": "Сценарии для WhatsApp и CRM, чек-листы и разборы ошибок. Подписывайтесь",
+     "visual": {
+      "type": "bubbles",
+      "items": [
+       "Ответ клиенту ночью",
+       "Заявки в CRM",
+       "Сколько стоит?",
+       "Чек-лист «10 вопросов»"
+      ]
+     }
+    }
+   ],
+   "text": ""
+  },
+  {
+   "id": "ad-ig-follow-v2",
+   "date": "2026-10-28",
+   "pillar": "ad",
+   "accent": "grad",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Instagram · @praxenai",
+     "title": "ИИ в бизнесе *по-честному*",
+     "sub": "Реальные истории компаний, полезные инструменты и промпты. Каждый день по делу",
+     "visual": {
+      "type": "bubbles",
+      "items": [
+       "Чат-бот и Tahoe за $1",
+       "NotebookLM за 5 минут",
+       "Промпт для вакансии",
+       "Мемы про ИИ"
+      ]
+     }
+    }
+   ],
+   "text": ""
+  }
  ]
 }

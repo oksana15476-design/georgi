@@ -1,0 +1,36 @@
+{
+ "account": "act_1572744140745644",
+ "adset": "120250496387820328",
+ "about": "28 October, owner's yes: the reel of 27 October as a second ad and a new picture with the current topics in the Instagram profile campaign; the old picture ad is paused.",
+ "ads": [
+  {
+   "name": "Подписка · Reels «Бесплатный воркшоп»",
+   "instagram_link": "https://www.instagram.com/reel/De_chf3oaTx/",
+   "call_to_action": {
+    "type": "VIEW_INSTAGRAM_PROFILE",
+    "value": {
+     "link": "https://www.instagram.com/praxenai/"
+    }
+   }
+  },
+  {
+   "name": "Подписка · ИИ в бизнесе по-честному",
+   "spec": {
+    "page_id": "1431418180049547",
+    "instagram_user_id": "17841470007169101",
+    "link_data": {
+     "link": "https://www.instagram.com/praxenai/",
+     "picture": "https://raw.githubusercontent.com/oksana15476-design/georgi/main/content/social/out/meta-2026-10-27/ad-ig-follow-v2/ru-1.jpg",
+     "message": "Реальные истории ИИ в компаниях, полезные инструменты и промпты для бизнеса. Каждый день по делу, без воды. Подписывайтесь на @praxenai.",
+     "name": "Praxen AI в Instagram",
+     "call_to_action": {
+      "type": "VIEW_INSTAGRAM_PROFILE"
+     }
+    }
+   }
+  }
+ ],
+ "pause": [
+  "120250496388760328"
+ ]
+}
