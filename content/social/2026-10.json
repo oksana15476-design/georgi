@@ -922,7 +922,8 @@
     "Подробнее о сценариях для недвижимости: {link}"
    ],
    "time": "11:00",
-   "accent": "white"
+   "accent": "white",
+   "style": "memeblack"
   },
   {
    "id": "09-restaurants",
@@ -1066,7 +1067,8 @@
     "Подробнее о сценариях для ресторанов: {link}"
    ],
    "time": "11:00",
-   "accent": "yellow"
+   "accent": "yellow",
+   "style": "post"
   },
   {
    "id": "10-quiz",
@@ -1172,7 +1174,8 @@
     "Пройти мини-аудит: {link}"
    ],
    "time": "11:00",
-   "accent": "grad"
+   "accent": "grad",
+   "style": "poster"
   },
   {
    "id": "11-wholesale",
@@ -1312,7 +1315,8 @@
     "Подробнее о сценариях для опта: {link}"
    ],
    "time": "11:00",
-   "accent": "ink"
+   "accent": "ink",
+   "style": "post"
   },
   {
    "id": "12-audit-prep",
@@ -1429,7 +1433,8 @@
     "Время можно выбрать прямо на сайте: {link}"
    ],
    "time": "11:00",
-   "accent": "yellow"
+   "accent": "yellow",
+   "style": "memeblack"
   },
   {
    "id": "13-training",
@@ -1528,7 +1533,7 @@
        "en": "Rules for handling client data"
       },
       {
-       "ru": "От 1 900 ₾, от 1 недели",
+       "ru": "От 1 900 лари, от 1 недели",
        "ka": "1 900 ₾-დან, 1 კვირიდან",
        "en": "From 1,900 ₾, from 1 week"
       }
@@ -1555,7 +1560,8 @@
     "От 1 900 ₾, от 1 недели. Подробнее: {link}"
    ],
    "time": "11:00",
-   "accent": "grad"
+   "accent": "grad",
+   "style": "post"
   }
  ],
  "channels": [
