@@ -23,8 +23,7 @@
      "sub": "Вопросы, которые не успели разобрать, присылайте в директ"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "notebook"
   },
   {
    "id": "s18-new-prompts",
@@ -43,8 +42,7 @@
      "note": "Ещё 2 промпта — в посте в профиле"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "terminal"
   },
   {
    "id": "s19-game",
@@ -61,8 +59,7 @@
      "sub": "Новая карусель в профиле. Угадайте до последнего слайда"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "chat"
   },
   {
    "id": "s20-types",
@@ -82,8 +79,7 @@
      }
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "memeblack"
   },
   {
    "id": "s21-price",
@@ -100,8 +96,7 @@
      "sub": "Без нашей наценки, на ваших аккаунтах. Разбор цены — в посте в профиле"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "report"
   },
   {
    "id": "s22-audit",
@@ -118,8 +113,7 @@
      "sub": "Карта процессов, расчёт эффекта и цена пилота. Запись — ссылка в шапке профиля"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "poster"
   },
   {
    "id": "s23-weekend",
@@ -145,8 +139,7 @@
      "sub": "Ответьте в директ — нам правда интересно"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "post"
   },
   {
    "id": "s24-month",
@@ -172,8 +165,7 @@
      "sub": "Всё в ленте профиля"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "notes"
   }
  ]
 }

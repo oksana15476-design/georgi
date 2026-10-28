@@ -23,8 +23,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "poster"
   },
   {
    "id": "i02-10-29",
@@ -41,8 +40,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "notes"
   },
   {
    "id": "i03-10-30",
@@ -59,8 +57,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "post"
   },
   {
    "id": "i04-10-31",
@@ -77,8 +74,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "notebook"
   },
   {
    "id": "i05-11-01",
@@ -95,8 +91,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "report"
   },
   {
    "id": "i06-11-02",
@@ -113,8 +108,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "chat"
   },
   {
    "id": "i07-11-03",
@@ -131,8 +125,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "poster"
   },
   {
    "id": "i08-11-04",
@@ -149,8 +142,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "notebook"
   },
   {
    "id": "i09-11-05",
@@ -167,8 +159,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "notes"
   },
   {
    "id": "i10-11-06",
@@ -185,8 +176,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "terminal"
   },
   {
    "id": "i11-11-07",
@@ -203,8 +193,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "notebook"
   },
   {
    "id": "i12-11-08",
@@ -221,8 +210,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "report"
   },
   {
    "id": "i13-11-09",
@@ -239,8 +227,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "post"
   },
   {
    "id": "i14-11-10",
@@ -257,8 +244,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "dark"
+   "style": "poster"
   },
   {
    "id": "i15-11-11",
@@ -275,8 +261,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "olive"
+   "style": "memeblack"
   },
   {
    "id": "i16-11-12",
@@ -293,8 +278,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "editorial",
-   "tone": "light"
+   "style": "poster"
   }
  ]
 }
