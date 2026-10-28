@@ -24,8 +24,10 @@ const SITE='https://raw.githubusercontent.com/oksana15476-design/georgi/main/con
 const G='https://graph.facebook.com/v21.0',T='https://graph.threads.net/v1.0';
 // Which batches go out automatically and to which channels; the stories batch goes to Instagram and Facebook page stories.
 export const BATCHES=[
- {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram']},
- {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro','08-real-estate','09-restaurants','10-quiz','11-wholesale','12-audit-prep','13-training']},
+ // From 28 October the workshop memes w03–w09 and the industry posts 08–13 are replaced by cases-2026-11 (owner: every post was about the same thing).
+ {file:'workshop-2026-11.json',channels:['facebook','instagram','threads','telegram'],only:['w01-announce','w01b-agenda','w02-faq-routine']},
+ {file:'2026-10.json',channels:['facebook','instagram','threads','telegram'],only:['01-intro']},
+ {file:'cases-2026-11.json',channels:['facebook','instagram','threads','telegram']},
  {file:'stories-2026-11.json',channels:['instagram_story','facebook_story']},
  // Content plan of 27 October (docs/SMM-PLAN-2026-11.md): feed posts between the workshop posts, and Telegram's own texts and polls.
  {file:'feed-2026-11.json',channels:['facebook','instagram']},

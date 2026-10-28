@@ -319,6 +319,7 @@ const chromeHtml=(sty,l,i,n)=>({
  post:`<div class="ch-post"><span class="av">${logoMark}</span><span class="nm"><b>praxenai</b><small>Praxen AI</small></span><span class="dots">···</span></div><div class="ch-post-foot"><span>♡</span><span>💬</span><span>↻</span><span>➤</span></div>`,
  report:`<div class="ch-report"><span>Praxen AI · ${esc(tr({ru:'Разбор исследования',ka:'კვლევის განხილვა',en:'Research brief'},l))}</span>${n>1?`<span>${i+1} / ${n}</span>`:''}</div>`,
  terminal:`<div class="ch-term"><i></i><i></i><i></i><span>prompts.txt</span></div>`,
+ news:`<div class="ch-news"><b>${esc(tr({ru:'Истории ИИ',ka:'AI ისტორიები',en:'AI stories'},l))}</b><span>Praxen AI${n>1?` · ${i+1}/${n}`:''}</span></div>`,
  chat:`<div class="ch-chat"><span class="bk">‹</span><span class="av">${esc(tr({ru:'К',ka:'კ',en:'C'},l))}</span><span class="nm"><b>${esc(tr(ui.client,l))}</b><small>${esc(tr({ru:'в сети',ka:'ონლაინ',en:'online'},l))}</small></span></div>`,
 }[sty]||'');
 const skinCss=`
@@ -483,6 +484,27 @@ const skinCss=`
 .sty-notebook .button{background:#1f2a55!important;color:#fff!important;border-radius:14px;text-transform:none;box-shadow:none;font-family:Caveat,cursive;font-size:56px;letter-spacing:0}
 .sty-notebook footer,.sty-notebook .contacts{color:#1f2a55!important;font-family:Inter,sans-serif}
 .sty-notebook .fb-cta{background:#1f2a55;color:#fff;border:0;box-shadow:none}
+/* news: real AI stories as a newspaper page */
+.sty-news.slide{background:#fbfaf6!important;color:#111!important;font-family:'PT Serif',Georgia,serif;padding-top:170px}
+.sty-news header{display:none}
+.ch-news{position:absolute;top:56px;left:84px;right:84px;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:6px double #111;padding-bottom:14px}
+.ch-news b{background:none!important;border:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;color:#111!important;line-height:1!important;font:800 46px Unbounded,sans-serif!important;letter-spacing:-.03em;text-transform:uppercase}.ch-news span{font:600 24px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#555}
+.sty-news h1,.sty-news h2,.sty-news .meme-top{font-family:'PT Serif',serif;font-weight:700;text-transform:none;letter-spacing:-.015em;color:#111;line-height:1.05}
+.sty-news h1{font-size:92px}.sty-news h2{font-size:66px}
+.sty-news em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#111!important;box-shadow:inset 0 -.32em 0 #ffd84d}
+.sty-news .kicker{background:none!important;color:#c0261c!important;padding:0;border:0;font:700 26px Inter,sans-serif;letter-spacing:.12em;transform:none}
+.sty-news .kicker:before{display:none}
+.sty-news .sub{font-family:'PT Serif',serif;font-style:italic;color:#333!important;font-weight:400;font-size:40px}
+.sty-news .list{gap:34px}
+.sty-news .list li{font-family:'PT Serif',serif;font-weight:400;font-size:41px;line-height:1.3;border-top:2px solid #111;padding-top:22px}
+.sty-news .list b{background:none;border:0;color:#c0261c;font:700 30px Inter,sans-serif;min-width:64px;text-align:left;line-height:1.7}
+.sty-news .note{font-family:Inter,sans-serif;font-size:24px;color:#555!important}
+.sty-news .big{font-family:'PT Serif',serif;background:none!important;color:#c0261c!important}
+.sty-news .label{font-family:'PT Serif',serif;text-transform:none;font-weight:400;color:#111!important}
+.sty-news .button{background:#111!important;color:#fbfaf6!important;text-transform:none;letter-spacing:0;box-shadow:none;border-radius:4px;font-family:Inter,sans-serif}
+.sty-news .button em{color:#fbfaf6!important;box-shadow:none}
+.sty-news footer,.sty-news .contacts{color:#555!important;font-family:Inter,sans-serif}
+.sty-news .fb-cta{background:#111;color:#fbfaf6;border:0;border-radius:4px;box-shadow:none}.sty-news .fb-cta em{color:#fbfaf6!important;box-shadow:none}
 /* chat: a WhatsApp screen */
 .sty-chat.slide{background-color:#efe7dd!important;background-image:radial-gradient(#00000010 2px,transparent 2px)!important;background-size:40px 40px!important;color:#111b21!important;font-family:Inter,sans-serif;padding-top:200px}
 .sty-chat header{display:none}
@@ -513,7 +535,7 @@ const skinCss=`
 // Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
 const storyCss=`.slide{padding:250px 84px 330px}.strip{top:180px}
 .sty.slide{padding-top:400px!important;padding-bottom:360px!important}
-.ch-notes,.ch-post,.ch-report{top:200px}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
+.ch-notes,.ch-post,.ch-report,.ch-news{top:200px}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
 .sty.slide h1{font-size:108px}.sty.slide h2,.sty.slide .meme-top{font-size:88px}
 .sty-poster.slide h1{font-size:100px}.sty-poster.slide h2{font-size:84px}
 .sty-chat.slide h1{font-size:80px}.sty-notebook.slide h1{font-size:150px}.sty-notebook.slide h2,.sty-notebook.slide .meme-top{font-size:120px}
