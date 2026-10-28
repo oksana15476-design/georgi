@@ -59,7 +59,7 @@ if(cmd==='status'){
  const acc=await api('/act_1572744140745644',{fields:'account_status,disable_reason,timezone_name,is_prepay_account,funding_source_details{type,display_string},business{verification_status},user_tasks'},'GET').catch(e=>({error:e.message}));
  console.log('account',JSON.stringify({timezone:acc.timezone_name,status:acc.account_status,disable_reason:acc.disable_reason,prepay:acc.is_prepay_account,funding:acc.funding_source_details?.type,funding_text:acc.funding_source_details?.display_string?.replace(/\d{4}/g,'••••'),business_verification:acc.business?.verification_status,error:acc.error}));
  for(const id of a1.split(',')){
-  const s=await api('/'+id,{fields:'name,effective_status,configured_status,start_time,end_time,daily_budget,optimization_goal,billing_event,bid_strategy,destination_type,issues_info,learning_stage_info,recommendations,failed_delivery_checks'},'GET');
+  const s=await api('/'+id,{fields:'name,effective_status,configured_status,start_time,end_time,daily_budget,optimization_goal,billing_event,bid_strategy,destination_type,issues_info,learning_stage_info,recommendations'},'GET');
   console.log('adset',JSON.stringify(s).slice(0,1500));
   const est=await api(`/${id}/delivery_estimate`,{fields:'estimate_mau_lower_bound,estimate_mau_upper_bound,estimate_ready'},'GET').catch(e=>({error:e.message}));
   console.log('estimate',JSON.stringify(est).slice(0,500));
