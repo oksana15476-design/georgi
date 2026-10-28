@@ -24,18 +24,11 @@
    "link": "https://praxenai.ge/ru/webinar",
    "slides": [
     {
-     "layout": "cover",
+     "layout": "prompt",
      "kicker": "Сохраните",
      "title": "3 промпта для *отдела продаж*",
-     "sub": "Копируете в ChatGPT или Claude и сразу пользуетесь",
-     "visual": {
-      "type": "bubbles",
-      "items": [
-       "Клиент пишет «дорого»",
-       "Разбор переписки",
-       "Ответы на частые вопросы"
-      ]
-     }
+     "prompt": "Клиент написал: «[его сообщение]». Предложи 3 ответа: короткий, с вопросом о его задаче и с вариантом подешевле.",
+     "note": "Полные тексты всех трёх — листайте"
     },
     {
      "layout": "prompt",
@@ -79,18 +72,26 @@
    "link": "https://praxenai.ge/ru",
    "slides": [
     {
-     "layout": "cover",
+     "layout": "dialog",
      "kicker": "Суббота",
      "title": "Узнали *своих клиентов?*",
-     "visual": {
-      "type": "bubbles",
-      "items": [
-       "«Цена?»",
-       "Голосовое на 4 минуты",
-       "«А скидка будет?»",
-       "Пишет в 3 ночи"
-      ]
-     }
+     "messages": [
+      {
+       "from": "client",
+       "time": "03:12",
+       "text": "Цена?"
+      },
+      {
+       "from": "client",
+       "time": "03:14",
+       "text": "🎙️ Голосовое · 4:07"
+      },
+      {
+       "from": "client",
+       "time": "03:15",
+       "text": "А скидка будет?"
+      }
+     ]
     },
     {
      "layout": "meme",
@@ -151,10 +152,11 @@
    "link": "https://praxenai.ge/ru/webinar",
    "slides": [
     {
-     "layout": "cover",
-     "kicker": "Исследование",
-     "title": "Почему заявку надо брать *в первый час*",
-     "sub": "Harvard Business Review изучил ответы компаний на онлайн-заявки. Цифры — на следующих слайдах"
+     "layout": "number",
+     "kicker": "Исследование HBR",
+     "value": "1 час",
+     "label": "Почему заявку надо брать в первый час: цифры Harvard Business Review",
+     "note": "Листайте: 3 цифры и что с ними делать"
     },
     {
      "layout": "number",
@@ -335,18 +337,11 @@
    "link": "https://praxenai.ge/ru",
    "slides": [
     {
-     "layout": "cover",
+     "layout": "number",
      "kicker": "Сохраните",
-     "title": "7 слов про ИИ в продажах *простыми словами*",
-     "visual": {
-      "type": "bubbles",
-      "items": [
-       "Промпт",
-       "База знаний",
-       "Токены",
-       "Интеграция"
-      ]
-     }
+     "value": "7",
+     "label": "слов про ИИ в продажах простыми словами",
+     "note": "Промпт, база знаний, токены и ещё четыре"
     },
     {
      "layout": "list",
@@ -391,7 +386,18 @@
      "layout": "cover",
      "kicker": "Цифры недели",
      "title": "ИИ в компаниях: *что показывают исследования*",
-     "sub": "McKinsey, Microsoft и Salesforce — коротко и с источниками"
+     "sub": "McKinsey, Microsoft и Salesforce",
+     "visual": {
+      "type": "clock",
+      "from": [
+       "78%",
+       "2024"
+      ],
+      "to": [
+       "88%",
+       "2025"
+      ]
+     }
     },
     {
      "layout": "number",
@@ -566,18 +572,18 @@
    "link": "https://praxenai.ge/ru",
    "slides": [
     {
-     "layout": "cover",
-     "kicker": "Сохраните",
-     "title": "Ещё 3 промпта *для продаж*",
-     "sub": "Коммерческое предложение, протокол встречи, ответ на отзыв",
-     "visual": {
-      "type": "bubbles",
+     "layout": "meme",
+     "title": "Как пишут *коммерческое предложение*",
+     "meme": {
+      "type": "levels",
       "items": [
-       "КП за 2 минуты",
-       "Протокол встречи",
-       "Ответ на отзыв"
+       "С нуля, за час",
+       "Копирую старое и меняю имя",
+       "Беру шаблон из интернета",
+       "Промпт: черновик за 2 минуты"
       ]
-     }
+     },
+     "bottom": "Ещё 3 промпта для продаж — листайте"
     },
     {
      "layout": "prompt",
@@ -621,10 +627,16 @@
    "link": "https://praxenai.ge/ru",
    "slides": [
     {
-     "layout": "cover",
+     "layout": "meme",
      "kicker": "Игра",
      "title": "Где ответил *ИИ, а где человек?*",
-     "sub": "Два ответа на один вопрос клиента. Листайте"
+     "meme": {
+      "type": "buttons",
+      "a": "Ответ А",
+      "b": "Ответ Б",
+      "face": "🤔",
+      "under": "Угадайте до того, как листать"
+     }
     },
     {
      "layout": "dialog",
@@ -692,16 +704,15 @@
    "link": "https://praxenai.ge/ru",
    "slides": [
     {
-     "layout": "cover",
-     "kicker": "Часть 2",
+     "layout": "meme",
      "title": "Ещё 4 клиента *из каждого чата*",
-     "visual": {
-      "type": "bubbles",
-      "items": [
+     "meme": {
+      "type": "img",
+      "tpl": "pigeon",
+      "labels": [
        "«Я подумаю»",
-       "Скриншот конкурента",
-       "Пишет везде сразу",
-       "Пропал после цены"
+       "Менеджер",
+       "Это почти продажа?"
       ]
      }
     },
@@ -875,21 +886,23 @@
    "date": "2026-11-28",
    "time": "12:00",
    "pillar": "explain",
-   "accent": "yellow",
+   "accent": "white",
    "link": "https://praxenai.ge/ru",
    "slides": [
     {
      "layout": "cover",
      "kicker": "Сохраните",
-     "title": "Словарик, часть 2: *ещё 6 слов*",
+     "title": "Словарик, *часть 2*",
      "visual": {
-      "type": "bubbles",
+      "type": "paper",
+      "title": "Ещё 6 слов",
       "items": [
        "Галлюцинация",
        "Чат-бот",
        "API",
        "Журнал"
-      ]
+      ],
+      "checked": 0
      }
     },
     {

@@ -277,7 +277,7 @@ footer{color:#121a2b}
 .m-levels{display:flex;flex-direction:column;gap:18px}
 .lv{display:flex;align-items:center;gap:26px;border:3px solid #121a2b;border-radius:24px;padding:22px 28px;background:#fff;box-shadow:10px 10px 0 #121a2b}
 .lv b{flex:none;width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:#121a2b;color:#fff;font-size:34px}
-.lv p{font-size:36px;font-weight:700;line-height:1.2}.lv:last-child{background:#ffd166}.lv:last-child p{font-weight:800}
+.lv p{font-size:36px;font-weight:700;line-height:1.2;color:#121a2b}.lv:last-child{background:#ffd166}.lv:last-child p{font-weight:800}
 .bg-ink .meme-bottom,.bg-grad .meme-bottom,.bg-ink .m-under,.bg-grad .m-under{color:#fff}
 .info{display:flex;align-self:flex-start;margin-top:48px;border:3px solid #121a2b;border-radius:24px;overflow:hidden;background:#fff;color:#121a2b}
 .info>div{padding:20px 26px}.info>div+div{border-left:3px solid #121a2b}.info>div:last-child{background:#ffd166}
