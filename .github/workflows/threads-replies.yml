@@ -1,0 +1,52 @@
+# Replies in other people's Threads (scripts/social/threads-replies.mjs), run by hand.
+# Search results are other people's posts: they are encrypted with the RSA public key passed as input, like the social report.
+name: Threads replies
+
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "check | search | reply"
+        required: true
+      arg:
+        description: "queries separated by | (search) or base64 JSON of replies (reply)"
+        required: false
+      days:
+        description: "how many days back to search (default 2)"
+        required: false
+      pubkey:
+        description: "Base64 of an RSA public key (PEM), required for search"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Threads
+        env:
+          THREADS_TOKEN: ${{ secrets.THREADS_TOKEN }}
+          CMD: ${{ inputs.command }}
+          ARG: ${{ inputs.arg }}
+          DAYS: ${{ inputs.days }}
+          PUBKEY: ${{ inputs.pubkey }}
+        run: |
+          set -euo pipefail
+          umask 077
+          if [ "$CMD" != "search" ]; then node scripts/social/threads-replies.mjs "$CMD" "$ARG" "$DAYS"; exit 0; fi
+          [ -n "$PUBKEY" ] || { echo "search needs pubkey"; exit 1; }
+          echo "$PUBKEY" | base64 -d > "$RUNNER_TEMP/pub.pem"
+          node scripts/social/threads-replies.mjs search "$ARG" "$DAYS" > "$RUNNER_TEMP/r.json"
+          openssl rand -hex 32 > "$RUNNER_TEMP/k"
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in "$RUNNER_TEMP/r.json" -pass file:"$RUNNER_TEMP/k" | base64 -w0 > "$RUNNER_TEMP/r.b64"
+          openssl pkeyutl -encrypt -pubin -inkey "$RUNNER_TEMP/pub.pem" -pkeyopt rsa_padding_mode:oaep -in "$RUNNER_TEMP/k" | base64 -w0 > "$RUNNER_TEMP/k.b64"
+          echo "KEY:$(cat "$RUNNER_TEMP/k.b64")"
+          echo "DATA:$(cat "$RUNNER_TEMP/r.b64")"
+          rm -f "$RUNNER_TEMP/r.json" "$RUNNER_TEMP/k"
