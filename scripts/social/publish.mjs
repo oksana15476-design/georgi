@@ -133,9 +133,18 @@ const send={
   let id=(await call(`${T}/${u}/threads`,kids.length?{media_type:'CAROUSEL',children:kids.join(','),text:parts[0],access_token:tok}:{media_type:'TEXT',text:parts[0],access_token:tok})).id;
   await ready(T,id,tok,'status');
   let prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;const first=prev;
+  // The first post is already out: a failed reply must not make the next run post the whole thread again (28 October,
+  // "Invalid Link Attachment" on the link reply gave a duplicate). One retry after a pause, then the rest is reported and skipped.
   for(const text of parts.slice(1)){
-   id=(await call(`${T}/${u}/threads`,{media_type:'TEXT',text,reply_to_id:prev,access_token:tok})).id;
-   await ready(T,id,tok,'status');prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;
+   let done=false;
+   for(let attempt=0;attempt<2&&!done;attempt++){
+    try{
+     if(attempt)await wait(15000);
+     id=(await call(`${T}/${u}/threads`,{media_type:'TEXT',text,reply_to_id:prev,access_token:tok})).id;
+     await ready(T,id,tok,'status');prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;done=true;
+    }catch(e){if(attempt)console.log('ERROR threads reply after '+first+': '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'));}
+   }
+   if(!done)break;
   }
   return first;
  },
