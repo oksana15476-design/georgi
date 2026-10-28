@@ -494,6 +494,8 @@ const skinCss=`
 .sty-chat em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#008069!important}
 .sty-chat .kicker{align-self:center;background:#ffffffd0!important;color:#54656f!important;transform:none;border-radius:14px;font:600 24px Inter,sans-serif;letter-spacing:.04em;padding:10px 22px}
 .sty-chat .kicker:before{display:none}
+.sty-chat h1,.sty-chat h2{max-width:100%}
+.sty-notes .c-side,.sty-post .c-side{color:#1c1c1e!important}
 .sty-chat .m-react{align-self:flex-end;background:#d9fdd3;padding:28px 34px;border-radius:28px 0 28px 28px;box-shadow:0 2px 0 #0000001a;max-width:88%}
 .sty-chat .m-react p{color:#111b21}
 .sty-chat .chat,.sty-chat .v-chat{background:transparent!important;border:0!important;box-shadow:none!important;padding:0}
@@ -509,7 +511,14 @@ const skinCss=`
 `;
 
 // Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
-const storyCss=`.slide{padding:250px 84px 330px}.strip{top:180px}`;
+const storyCss=`.slide{padding:250px 84px 330px}.strip{top:180px}
+.sty.slide{padding-top:400px!important;padding-bottom:360px!important}
+.ch-notes,.ch-post,.ch-report{top:200px}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
+.sty.slide h1{font-size:108px}.sty.slide h2,.sty.slide .meme-top{font-size:88px}
+.sty-poster.slide h1{font-size:100px}.sty-poster.slide h2{font-size:84px}
+.sty-chat.slide h1{font-size:80px}.sty-notebook.slide h1{font-size:150px}.sty-notebook.slide h2,.sty-notebook.slide .meme-top{font-size:120px}
+.sty.slide .sub,.sty.slide .pr-note{font-size:46px}.sty.slide .bub{font-size:46px}.sty.slide .pr-card p{font-size:44px}
+.sty.slide .msg,.sty.slide .v-chat .msg{font-size:42px}.sty.slide .m-react p{font-size:52px}.sty.slide .list li{font-size:50px}`;
 
 const page=(slides,l)=>`<!doctype html><html lang="${l}"><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap">
