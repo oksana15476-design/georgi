@@ -7,7 +7,8 @@
 //   list                               campaigns and their ad sets with ids, status, end time and placements (no spend)
 //   placements <adset id,…>           keep only Facebook and Instagram feeds, stories and reels (no WhatsApp, Threads, Messenger, Audience Network)
 //   testimg <image url>                Instagram fetches the image into an unpublished container (nothing is posted)
-//   diag <adset id,…>                 delivery state of ad sets and their ads: status, issues, learning, audience estimate (no spend)
+//   diag <adset id,…>                 delivery state of ad sets and their ads: status, issues, learning, audience estimate (no spend),
+//                                     and the account's own state (status, disable reason, payment method type, prepay)
 //   scopes                             list the permissions of META_TOKEN (no secrets printed)
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
 //   addads <plan.json>               add ads to an existing ad set (Instagram posts or reels by link, or an object_story_spec), ACTIVE,
@@ -55,12 +56,14 @@ if(cmd==='status'){
  const id=(await api(`/${ig}/media`,{image_url:a1,caption:'test, not published'})).id;
  for(let i=0;i<10;i++){const st=(await api('/'+id,{fields:'status_code'},'GET')).status_code;console.log('container',id,st);if(st!=='IN_PROGRESS')break;await new Promise(r=>setTimeout(r,3000));}
 }else if(cmd==='diag'){
+ const acc=await api('/act_1572744140745644',{fields:'account_status,disable_reason,is_prepay_account,funding_source_details{type,display_string},business{verification_status},user_tasks'},'GET').catch(e=>({error:e.message}));
+ console.log('account',JSON.stringify({status:acc.account_status,disable_reason:acc.disable_reason,prepay:acc.is_prepay_account,funding:acc.funding_source_details?.type,funding_text:acc.funding_source_details?.display_string?.replace(/\d{4}/g,'••••'),business_verification:acc.business?.verification_status,error:acc.error}));
  for(const id of a1.split(',')){
   const s=await api('/'+id,{fields:'name,effective_status,configured_status,start_time,end_time,daily_budget,optimization_goal,billing_event,bid_strategy,destination_type,issues_info,learning_stage_info,recommendations'},'GET');
   console.log('adset',JSON.stringify(s).slice(0,1500));
   const est=await api(`/${id}/delivery_estimate`,{fields:'estimate_dau,estimate_mau_lower_bound,estimate_mau_upper_bound,estimate_ready'},'GET').catch(e=>({error:e.message}));
   console.log('estimate',JSON.stringify(est).slice(0,500));
-  for(const ad of (await api(`/${id}/ads`,{fields:'name,effective_status,configured_status,issues_info,ad_review_feedback,recommendations'},'GET')).data||[])console.log('ad',JSON.stringify(ad).slice(0,1000));
+  for(const ad of (await api(`/${id}/ads`,{fields:'name,effective_status,configured_status,issues_info,ad_review_feedback,recommendations,delivery_info'},'GET')).data||[])console.log('ad',JSON.stringify(ad).slice(0,1000));
  }
 }else if(cmd==='scopes'){
  const d=(await api('/debug_token',{input_token:tok},'GET')).data||{};
