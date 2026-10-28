@@ -83,7 +83,7 @@
    "date": "2026-10-30",
    "time": "12:00",
    "pillar": "fun",
-   "style": "memeblack",
+   "style": "post",
    "link": "https://praxenai.ge/ru",
    "skip": [
     "telegram"
@@ -103,14 +103,14 @@
     },
     {
      "layout": "cover",
-     "bg": "ink",
+     "bg": "white",
      "kicker": "Это правда",
      "title": "«Десятки миллионов долларов, *потраченных не зря*»",
      "sub": "Так в апреле 2025 года Альтман ответил на вопрос, во сколько OpenAI обходятся «пожалуйста» и «спасибо» пользователей"
     },
     {
      "layout": "cover",
-     "bg": "ink",
+     "bg": "white",
      "kicker": "Ваш ход",
      "title": "А вы пишете ИИ *«спасибо»?*",
      "sub": "Да, нет или только когда помог. Пишите в комментариях"
@@ -492,7 +492,7 @@
    "date": "2026-11-20",
    "time": "12:00",
    "pillar": "fun",
-   "style": "memeblack",
+   "style": "post",
    "link": "https://praxenai.ge/ru",
    "skip": [
     "telegram"
@@ -511,7 +511,7 @@
     },
     {
      "layout": "list",
-     "bg": "ink",
+     "bg": "white",
      "title": "Чтобы не оказаться на его месте",
      "items": [
       "У ассистента есть список того, что он не обещает: скидки, сроки, возвраты",
@@ -521,7 +521,7 @@
     },
     {
      "layout": "cover",
-     "bg": "ink",
+     "bg": "white",
      "kicker": "Помните?",
      "title": "Air Canada за такое *заплатила*",
      "sub": "Разбор — в посте от 28 октября"
@@ -640,7 +640,7 @@
    "date": "2026-11-27",
    "time": "11:00",
    "pillar": "tips",
-   "style": "terminal",
+   "style": "notes",
    "link": "https://praxenai.ge/ru",
    "skip": [
     "telegram"

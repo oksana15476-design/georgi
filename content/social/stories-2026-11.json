@@ -78,7 +78,7 @@
      "sub": "Выясняет задачу, бюджет и срок и передаёт менеджеру готовую заявку. 12 ноября покажу разницу вживую."
     }
    ],
-   "style": "memeblack"
+   "style": "post"
   },
   {
    "id": "s09-prompt",
@@ -97,7 +97,7 @@
      "note": "Ещё два промпта — в посте в профиле"
     }
    ],
-   "style": "terminal"
+   "style": "notes"
   },
   {
    "id": "s03-questions",
@@ -277,7 +277,7 @@
      }
     }
    ],
-   "style": "memeblack"
+   "style": "post"
   },
   {
    "id": "s13-glossary",
@@ -300,7 +300,7 @@
    "id": "s07-2days",
    "date": "2026-11-10",
    "time": "13:00",
-   "accent": "ink",
+   "accent": "grad",
    "pillar": "offer",
    "text": "",
    "slides": [
@@ -354,7 +354,7 @@
    "id": "s15-today",
    "date": "2026-11-12",
    "time": "12:00",
-   "accent": "ink",
+   "accent": "grad",
    "pillar": "offer",
    "text": "",
    "slides": [

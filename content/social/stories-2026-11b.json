@@ -42,7 +42,7 @@
      "note": "Ещё 2 промпта — в посте в профиле"
     }
    ],
-   "style": "terminal"
+   "style": "notes"
   },
   {
    "id": "s19-game",
@@ -79,7 +79,7 @@
      }
     }
    ],
-   "style": "memeblack"
+   "style": "post"
   },
   {
    "id": "s21-price",

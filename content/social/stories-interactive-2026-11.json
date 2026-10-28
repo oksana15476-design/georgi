@@ -12,7 +12,7 @@
    "id": "i01-10-28",
    "date": "2026-10-28",
    "time": "15:00",
-   "accent": "ink",
+   "accent": "grad",
    "sticker": "Опрос: «Да» / «Нет, утром»",
    "text": "",
    "slides": [
@@ -176,7 +176,7 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "terminal"
+   "style": "notes"
   },
   {
    "id": "i11-11-07",
@@ -261,13 +261,13 @@
      "sub": "↓ ответьте ниже"
     }
    ],
-   "style": "memeblack"
+   "style": "post"
   },
   {
    "id": "i16-11-12",
    "date": "2026-11-12",
    "time": "15:00",
-   "accent": "ink",
+   "accent": "grad",
    "sticker": "Опрос: «Я буду» / «Посмотрю запись». Плюс стикер-ссылка",
    "text": "",
    "slides": [
