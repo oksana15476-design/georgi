@@ -12,6 +12,7 @@
 //   subscribe                          subscribe the Praxen AI page to the app's message webhooks (lib/dm-assistant.ts)
 //   addads <plan.json>               add ads to an existing ad set (Instagram posts or reels by link, or an object_story_spec), ACTIVE,
 //                                     then pause the ads listed in "pause"
+//   ads                                every ad of every reachable ad account: status, campaign, and the Instagram post or reel it promotes (no spend)
 //   delpost <text start> <post id|instagram link,…>   delete page or Instagram posts, only those whose text starts with <text start>
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
@@ -86,6 +87,13 @@ if(cmd==='status'){
   }else text=(await page('/'+id,{fields:'message'},'GET')).message;
   if(!id||!(text||'').startsWith(a1)){console.log('skip',ref,'text does not match:',JSON.stringify((text||'').slice(0,80)));process.exitCode=1;continue;}
   console.log('delete',ref,JSON.stringify(text.slice(0,80)),JSON.stringify(await page('/'+id,{},'DELETE')).slice(0,300));
+ }
+}else if(cmd==='ads'){
+ const accs=(await api('/me/adaccounts',{fields:'id,name,account_status',limit:50},'GET')).data||[];
+ for(const a of accs){
+  console.log('account',a.id,a.account_status,a.name);
+  const ads=(await api(`/${a.id}/ads`,{fields:'id,name,effective_status,configured_status,campaign{id,name,effective_status},adset{id,name},creative{id,effective_object_story_id,effective_instagram_media_id,instagram_permalink_url,source_instagram_media_id}',limit:200},'GET').catch(e=>({data:[],err:e.message}))).data||[];
+  for(const ad of ads){const c=ad.creative||{};console.log(' ad',ad.id,ad.effective_status,'|',ad.name,'| campaign',ad.campaign?.id,ad.campaign?.effective_status,ad.campaign?.name,'| adset',ad.adset?.id,'| ig',c.instagram_permalink_url||'-',c.effective_instagram_media_id||c.source_instagram_media_id||'','| post',c.effective_object_story_id||'-');}
  }
 }else if(cmd==='addads'){
  const plan=JSON.parse(readFileSync(a1,'utf8')),act=plan.account;
