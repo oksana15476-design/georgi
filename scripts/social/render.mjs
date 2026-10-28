@@ -75,6 +75,8 @@ const MEMES={
  pigeon:{f:'pigeon.jpg',r:1587/1425,boxes:[[64,6,34,14,'pill'],[4,56,40,12,'pill'],[6,84,88,12,'pill']]},
 };
 const memeSrc={};
+// Cover photos (CC0, content/social/photos/SOURCES.md), embedded like the memes.
+const photoSrc=f=>`data:image/jpeg;base64,${readFileSync(join(root,'content/social/photos',f)).toString('base64')}`;
 const memeImg=f=>memeSrc[f]??=`data:image/jpeg;base64,${readFileSync(join(root,'content/social/memes',f)).toString('base64')}`;
 const ico=(k,cls='')=>`<svg class="ico ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${icon[k]}</svg>`;
 const visualHtml=(v,l)=>{if(!v)return '';const t=x=>rich(x,l);return {
@@ -87,7 +89,7 @@ const visualHtml=(v,l)=>{if(!v)return '';const t=x=>rich(x,l);return {
  calendar:()=>`<div class="vis v-cal"><div class="cal"><div class="c-head">${t(v.month)}</div><b>${esc(v.day)}</b><div class="c-foot">${t(v.foot)}</div></div>${v.side?`<div class="c-side">${[].concat(v.side).map(t).join('<br>')}</div>`:''}</div>`,
 }[v.type]?.()||'';};
 const infoHtml=(s,l)=>s.info?`<dl class="info">${s.info.map(([k,v])=>`<div><dt>${esc(tr(k,l))}</dt><dd>${esc(tr(v,l))}</dd></div>`).join('')}</dl>`:'';
-function slideHtml(s,l,i,n,accent,fb,sty){
+function slideHtml(s,l,i,n,accent,fb,sty,post){
  const bg=theme==='workshop'?(s.bg||((i===0||['cover','number','cta'].includes(s.layout))&&accent)||'white'):'';
  const dark=theme==='workshop'?['ink','grad'].includes(bg):['cover','number','cta'].includes(s.layout);
  const body={
@@ -125,8 +127,8 @@ function slideHtml(s,l,i,n,accent,fb,sty){
    <p class="contacts">${esc(contactsLine)}</p>`,
  }[s.layout];
  if(!body) throw new Error(`Unknown layout "${s.layout}"`);
- return `<section class="slide ${s.layout} ${dark?'dark':'light'}${fb?' fb':''}${bg?' bg-'+bg:''}${s.visual?' has-vis':''}${sty?` sty sty-${sty}${i===0?' first':''}`:''}">${theme==='workshop'&&strip&&!sty?`<div class="strip">${esc(strip)}</div>`:''}${sty?chromeHtml(sty,l,i,n):''}
-  <header><div class="logo">${(sty?['terminal','memeblack'].includes(sty)||(sty==='poster'&&bg==='ink'):dark)?logoWhite:logoDark}</div>
+ return `<section class="slide ${s.layout} ${dark?'dark':'light'}${fb?' fb':''}${bg?' bg-'+bg:''}${s.visual?' has-vis':''}${sty?` sty sty-${sty}${i===0?' first':''}${i===0&&post?.tone?' tone-'+post.tone:''}${i===0&&post?.photo?' has-photo':''}`:''}"${i===0&&post?.photo?` style="background-image:url(${photoSrc(post.photo)})"`:''}>${theme==='workshop'&&strip&&!sty?`<div class="strip">${esc(strip)}</div>`:''}${sty?chromeHtml(sty,l,i,n):''}
+  <header><div class="logo">${(sty?['terminal','memeblack'].includes(sty)||(sty==='poster'&&bg==='ink')||(sty==='editorial'&&(i===0&&post?.tone?(post.photo||['dark','olive'].includes(post.tone)):(bg==='ink'||(i===0&&post?.photo)))):dark)?logoWhite:logoDark}</div>
    <div class="meta">${s.example?`<span class="tag">${esc(tr(ui.example,l))}</span>`:''}${n>1?`<span>${i+1}/${n}</span>`:''}</div></header>
   <main>${body()}</main>${fb&&batch.fbCta?`<div class="fb-cta"><b>${rich(batch.fbCta.title,l)}</b>${batch.fbCta.sub?`<span>${rich(batch.fbCta.sub,l)}</span>`:''}</div>`:''}
   <footer><span>${esc(siteName)}</span>${n>1&&i<n-1&&batch.size!=='story'?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
@@ -454,7 +456,7 @@ const skinCss=`
 /* memeblack */
 .sty-memeblack.slide{background:#000!important;color:#fff!important;font-family:Inter,sans-serif}
 .sty-memeblack .strip{display:none}
-.sty-memeblack .logo svg,.sty-poster.bg-ink .logo svg{filter:brightness(0) invert(1)}
+.sty-memeblack .logo svg,.sty-poster.bg-ink .logo svg,.sty-editorial.tone-dark .logo svg,.sty-editorial.tone-olive .logo svg,.sty-editorial.bg-ink:not(.tone-light) .logo svg,.sty-editorial.has-photo .logo svg{filter:brightness(0) invert(1)}
 .sty-memeblack h1,.sty-memeblack h2,.sty-memeblack .meme-top{font-family:Inter,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;color:#fff;text-align:center;line-height:1.05}
 .sty-memeblack .meme-top{font-size:62px}
 .sty-memeblack em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#ffe600!important}
@@ -509,6 +511,71 @@ const skinCss=`
 .sty-news .button em{color:#fbfaf6!important;box-shadow:none}
 .sty-news footer,.sty-news .contacts{color:#555!important;font-family:Inter,sans-serif}
 .sty-news .fb-cta{background:#111;color:#fbfaf6;border:0;border-radius:4px;box-shadow:none}.sty-news .fb-cta em{color:#fbfaf6!important;box-shadow:none}
+/* editorial: one calm look for the whole grid (owner 28 October: "симпатично, органично и эстетично").
+   Warm cream, warm ink and olive tiles, Lora headings in sentence case, Inter text, terracotta italic accents, no frames or shadows.
+   The cover tone comes from the post's "tone" (light | dark | olive), a "photo" (content/social/photos) fills the cover. */
+.sty-editorial.slide{--bg:#f3eee6;--fg:#23211e;--mut:#6f685f;--acc:#b5523b;--card:#faf7f2;--line:#23211e1f;background:var(--bg)!important;color:var(--fg)!important;font-family:Inter,'Noto Sans Georgian',sans-serif;padding:150px 96px 84px}
+.sty-editorial.slide.bg-ink{--bg:#23211e;--fg:#f3eee6;--mut:#b9b0a4;--acc:#e0a383;--card:#2f2c28;--line:#f3eee61f}
+.sty-editorial.slide.tone-light{--bg:#f3eee6;--fg:#23211e;--mut:#6f685f;--acc:#b5523b;--card:#faf7f2;--line:#23211e1f}
+.sty-editorial.slide.tone-dark{--bg:#23211e;--fg:#f3eee6;--mut:#b9b0a4;--acc:#e0a383;--card:#2f2c28;--line:#f3eee61f}
+.sty-editorial.slide.tone-olive{--bg:#46503f;--fg:#f3eee6;--mut:#cfd3c4;--acc:#f0c9a8;--card:#525d4a;--line:#f3eee624}
+.sty-editorial header{position:absolute;top:64px;left:96px;right:96px;height:auto}
+.sty-editorial .logo svg{height:34px}
+.sty-editorial .meta{color:var(--mut);opacity:1;font-size:22px;font-weight:500;letter-spacing:.06em}
+.sty-editorial .meta .tag{border:0;padding:0;color:var(--mut)!important;font-size:20px;letter-spacing:.1em;text-transform:uppercase}
+.sty-editorial footer{color:var(--mut)!important;opacity:1;font-size:22px;font-weight:500;letter-spacing:.04em}
+.sty-editorial h1,.sty-editorial h2,.sty-editorial .meme-top{font-family:Lora,'PT Serif',serif;font-weight:500;text-transform:none;letter-spacing:-.015em;color:var(--fg)!important;line-height:1.12}
+.sty-editorial h1{font-size:84px}.sty-editorial h2,.sty-editorial .meme-top{font-size:60px;margin-bottom:40px}
+.sty-editorial.has-vis h1{font-size:72px}
+.sty-editorial em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:var(--acc)!important;font-style:italic;box-shadow:none!important}
+.sty-editorial .kicker{align-self:flex-start;display:flex;align-items:center;gap:18px;background:none!important;color:var(--mut)!important;padding:0;border:0;border-radius:0;transform:none;font:600 22px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;margin-bottom:34px}
+.sty-editorial .kicker:before{content:'';display:block;width:48px;height:2px;border-radius:0;background:var(--acc);box-shadow:none}
+.sty-editorial .sub,.sty-editorial .note,.sty-editorial .pr-note,.sty-editorial .contacts,.sty-editorial .label{color:var(--mut)!important;font-weight:400;text-transform:none}
+.sty-editorial .sub{font-size:36px;line-height:1.4;margin-top:34px}
+.sty-editorial .label{font-family:Lora,serif;font-size:46px;line-height:1.3;color:var(--fg)!important}
+.sty-editorial .note{font-size:24px;border-top:1px solid var(--line);padding-top:18px}
+.sty-editorial .big{font-family:Lora,serif;font-weight:500;background:none!important;color:var(--acc)!important;font-size:220px;letter-spacing:-.03em}
+.sty-editorial .list{gap:0}
+.sty-editorial .list li{font-weight:400;font-size:38px;line-height:1.38;color:var(--fg);border-top:1px solid var(--line);padding:26px 0}
+.sty-editorial .list li:last-child{border-bottom:1px solid var(--line)}
+.sty-editorial .list b{background:none;border:0;border-radius:0;color:var(--acc);font:italic 500 30px Lora,serif;min-width:64px;text-align:left;line-height:1.75}
+/* cards and visuals: soft paper, no frames */
+.sty-editorial .vis{color:var(--fg)}
+.sty-editorial .v-chat,.sty-editorial .chat,.sty-editorial .v-paper,.sty-editorial .pr-card,.sty-editorial .cmp>div,.sty-editorial .m-expect>div,.sty-editorial .lv,.sty-editorial .tile,.sty-editorial .cal,.sty-editorial .side,.sty-editorial .info>div{background:var(--card)!important;color:var(--fg)!important;border:0!important;box-shadow:none!important;transform:none!important;border-radius:28px}
+.sty-editorial .v-chat .ph-head{background:transparent;color:var(--mut);border-bottom:1px solid var(--line);font-weight:600}
+.sty-editorial .msg{box-shadow:none;background:var(--bg);color:var(--fg)}.sty-editorial .msg.bot{background:#dfe6d6;color:#23211e}
+.sty-editorial .v-badge{background:var(--acc);border:0;transform:rotate(0);border-radius:999px;font-size:22px}
+.sty-editorial .bub{position:static;display:inline-block;margin:0 14px 18px 0;transform:none!important;box-shadow:none!important;border:1px solid var(--line)!important;background:transparent!important;color:var(--fg)!important;font-weight:500;border-radius:999px}
+.sty-editorial .v-bubbles{height:auto}
+.sty-editorial .p-head,.sty-editorial .v-clock small,.sty-editorial .cmp h3,.sty-editorial .m-expect span{color:var(--mut)!important}
+.sty-editorial .box{border:1.5px solid var(--mut);border-radius:50%}.sty-editorial .box.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.sty-editorial .v-clock b,.sty-editorial .cal b{font-family:Lora,serif;font-weight:500}.sty-editorial .v-clock .late b{color:var(--acc)}
+.sty-editorial .v-arrow{color:var(--acc)}
+.sty-editorial .cal b,.sty-editorial .c-foot{color:var(--fg)!important}.sty-editorial .c-foot{color:var(--mut)!important}
+.sty-editorial .c-head{color:#fff;background:var(--acc);font-family:Inter,sans-serif;letter-spacing:.14em}
+.sty-editorial .c-side{font-family:Lora,serif;font-weight:500;text-transform:none;color:var(--fg)}
+.sty-editorial .dot{background:var(--card);border:0;box-shadow:none;color:var(--acc)}
+.sty-editorial .v-flow .step{font-weight:500}
+.sty-editorial .vs{color:var(--acc)}
+.sty-editorial .cmp .after,.sty-editorial .m-expect .real,.sty-editorial .lv:last-child{background:#e9d9c8!important;color:#23211e!important}
+.sty-editorial .lv b{background:var(--fg);color:var(--bg)}.sty-editorial .lv p{color:inherit;font-weight:500}
+.sty-editorial .pr-card p{font-family:'JetBrains Mono',monospace;font-size:31px;color:var(--fg)}.sty-editorial .pr-tag{color:var(--acc)!important}
+.sty-editorial .info dt{color:var(--mut)}
+.sty-editorial .m-img{border:0!important;border-radius:22px!important;overflow:hidden;box-shadow:none!important;margin:0 auto}
+.sty-editorial .mb.pill{box-shadow:none}
+.sty-editorial .m-react{background:var(--card);border-radius:28px;padding:44px}.sty-editorial .m-react .em{font-size:84px!important}.sty-editorial .m-react p{font-family:Lora,serif;font-style:italic;font-weight:400;font-size:44px;color:var(--fg)}
+.sty-editorial .meme-bottom{color:var(--fg)!important;font-family:Lora,serif;font-weight:500}
+.sty-editorial .m-buttons .btn2 p{font-family:Inter,sans-serif}
+.sty-editorial .button{background:var(--fg)!important;color:var(--bg)!important;border-radius:999px;text-transform:none;letter-spacing:0;font-weight:600;box-shadow:none;font-family:Inter,sans-serif}
+.sty-editorial .button em{color:var(--bg)!important;font-style:normal}
+.sty-editorial .fb-cta{background:var(--card);color:var(--fg);border:0;box-shadow:none;border-radius:24px}
+.sty-editorial .fb-cta em{font-style:italic}
+/* photo cover */
+.sty-editorial.has-photo{background-size:cover!important;background-position:center!important}
+.sty-editorial.has-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#00000040 0%,#0000 30%,#0000 42%,#1a1714d9 100%);z-index:0}
+.sty-editorial.has-photo>*{position:relative;z-index:1}.sty-editorial.has-photo header{position:absolute}
+.sty-editorial.has-photo{--fg:#f6f1ea;--mut:#e7dfd4;--acc:#f2c7a5}
+.sty-editorial.has-photo main{justify-content:flex-end}
 /* chat: a WhatsApp screen */
 .sty-chat.slide{background-color:#efe7dd!important;background-image:radial-gradient(#00000010 2px,transparent 2px)!important;background-size:40px 40px!important;color:#111b21!important;font-family:Inter,sans-serif;padding-top:200px}
 .sty-chat header{display:none}
@@ -539,7 +606,7 @@ const skinCss=`
 // Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
 const storyCss=`.slide{padding:250px 84px 330px}.strip{top:180px}
 .sty.slide{padding-top:400px!important;padding-bottom:360px!important}
-.ch-notes,.ch-post,.ch-report,.ch-news{top:200px}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
+.ch-notes,.ch-post,.ch-report,.ch-news{top:200px}.sty-editorial header{top:190px!important}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
 .sty.slide h1{font-size:108px}.sty.slide h2,.sty.slide .meme-top{font-size:88px}
 .sty-poster.slide h1{font-size:100px}.sty-poster.slide h2{font-size:84px}
 .sty-chat.slide h1{font-size:80px}.sty-notebook.slide h1{font-size:150px}.sty-notebook.slide h2,.sty-notebook.slide .meme-top{font-size:120px}
@@ -575,14 +642,14 @@ for(const post of posts){
  for(const l of langs){
   // Facebook gets the cover alone (several photos are cropped into a grid): <lang>-fb.jpg, without "1/3" and "Swipe".
   if(batch.size!=='story'&&post.slides.length>1){
-   await pageObj.setContent(page(slideHtml(post.slides[0],l,0,1,post.accent,true,post.style),l),{waitUntil:'networkidle'});
+   await pageObj.setContent(page(slideHtml(post.slides[0],l,0,1,post.accent,true,post.style,post),l),{waitUntil:'networkidle'});
    await pageObj.evaluate(()=>document.fonts.ready);
    await pageObj.evaluate(fitScript);
    await pageObj.screenshot({path:join(dir,`${l}-fb.jpg`),type:'jpeg',quality:90});
   }
   if(coverOnly) continue;
   for(const [i,s] of post.slides.entries()){
-   await pageObj.setContent(page(slideHtml(s,l,i,post.slides.length,post.accent,false,post.style),l),{waitUntil:'networkidle'});
+   await pageObj.setContent(page(slideHtml(s,l,i,post.slides.length,post.accent,false,post.style,post),l),{waitUntil:'networkidle'});
    await pageObj.evaluate(()=>document.fonts.ready);
    await pageObj.evaluate(fitScript);
    await pageObj.screenshot({path:join(dir,`${l}-${i+1}.jpg`),type:'jpeg',quality:90});

@@ -46,7 +46,8 @@
      "sub": "История Air Canada и три правила для своего ассистента — в ленте"
     }
    ],
-   "style": "news"
+   "style": "editorial",
+   "tone": "light"
   },
   {
    "id": "s02-pigeon",
@@ -78,7 +79,8 @@
      "sub": "Выясняет задачу, бюджет и срок и передаёт менеджеру готовую заявку. 12 ноября покажу разницу вживую."
     }
    ],
-   "style": "memeblack"
+   "style": "editorial",
+   "tone": "dark"
   },
   {
    "id": "s09-prompt",
@@ -97,7 +99,8 @@
      "note": "Ещё два промпта — в посте в профиле"
     }
    ],
-   "style": "terminal"
+   "style": "editorial",
+   "tone": "olive"
   },
   {
    "id": "s03-questions",
@@ -122,7 +125,8 @@
      }
     }
    ],
-   "style": "post"
+   "style": "editorial",
+   "tone": "light"
   },
   {
    "id": "s10-monday",
@@ -142,7 +146,8 @@
      }
     }
    ],
-   "style": "chat"
+   "style": "editorial",
+   "tone": "dark"
   },
   {
    "id": "s04-9days",
@@ -169,7 +174,8 @@
      }
     }
    ],
-   "style": "poster"
+   "style": "editorial",
+   "tone": "olive"
   },
   {
    "id": "s11-how",
@@ -195,7 +201,8 @@
      "sub": "Подробно — в посте в профиле"
     }
    ],
-   "style": "notebook"
+   "style": "editorial",
+   "tone": "light"
   },
   {
    "id": "s05-poll-crm",
@@ -220,7 +227,8 @@
      }
     }
    ],
-   "style": "post"
+   "style": "editorial",
+   "tone": "dark"
   },
   {
    "id": "s12-game",
@@ -253,7 +261,8 @@
      "sub": "Ответы — в посте вчера"
     }
    ],
-   "style": "chat"
+   "style": "editorial",
+   "tone": "olive"
   },
   {
    "id": "s06-drake",
@@ -277,7 +286,8 @@
      }
     }
    ],
-   "style": "memeblack"
+   "style": "editorial",
+   "tone": "light"
   },
   {
    "id": "s13-glossary",
@@ -294,7 +304,8 @@
      "sub": "Единицы, за которые платят поставщику ИИ за каждый ответ. Ещё 6 слов — в словарике в профиле"
     }
    ],
-   "style": "notebook"
+   "style": "editorial",
+   "tone": "dark"
   },
   {
    "id": "s07-2days",
@@ -321,7 +332,8 @@
      }
     }
    ],
-   "style": "poster"
+   "style": "editorial",
+   "tone": "olive"
   },
   {
    "id": "s14-tomorrow",
@@ -348,7 +360,8 @@
      }
     }
    ],
-   "style": "notes"
+   "style": "editorial",
+   "tone": "light"
   },
   {
    "id": "s15-today",
@@ -379,7 +392,8 @@
      ]
     }
    ],
-   "style": "poster"
+   "style": "editorial",
+   "tone": "dark"
   },
   {
    "id": "s16-30min",
@@ -396,7 +410,8 @@
      "sub": "Ссылка на эфир — в Telegram-боте у всех, кто зарегистрировался"
     }
    ],
-   "style": "post"
+   "style": "editorial",
+   "tone": "olive"
   }
  ]
 }
