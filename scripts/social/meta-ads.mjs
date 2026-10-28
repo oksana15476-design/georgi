@@ -14,7 +14,7 @@
 //   addads <plan.json>               add ads to an existing ad set (Instagram posts or reels by link, or an object_story_spec), ACTIVE,
 //                                     then pause the ads listed in "pause"
 //   ads                                every ad of every reachable ad account: status, campaign, and the Instagram post or reel it promotes (no spend)
-//   copy <campaign id>              copy a campaign with its ad sets and ads, the copy ACTIVE, then pause the original
+//   copy <campaign id,…>            copy each campaign with its ad sets and ads, the copy ACTIVE, then pause the original
 //   delpost <text start> <post id|instagram link,…>   delete page or Instagram posts, only those whose text starts with <text start>
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
@@ -78,7 +78,8 @@ if(cmd==='status'){
  console.log('subscribe',pg.id,JSON.stringify(r).slice(0,300));
  if(r.error)process.exitCode=1;
 }else if(cmd==='copy'){
- const st='ACTIVE';
+ const st='ACTIVE',a1All=a1;
+ for(const a1 of a1All.split(',')){
  const camp=(await api(`/${a1}/copies`,{deep_copy:false,status_option:st,rename_options:{rename_suffix:' · копия'}})).copied_campaign_id;
  console.log('campaign',a1,'→',camp);
  for(const s of (await api(`/${a1}/adsets`,{fields:'id,name'},'GET')).data||[]){
@@ -92,6 +93,7 @@ if(cmd==='status'){
  }
  await api('/'+a1,{status:'PAUSED'});
  console.log('original paused',a1);
+ }
 }else if(cmd==='delpost'){
  const pg=((await api('/me/accounts',{fields:'id,name,access_token,instagram_business_account'},'GET')).data||[]).find(x=>/praxen/i.test(x.name));
  if(!pg||!a1){console.log('page or text not found');process.exit(1);}
