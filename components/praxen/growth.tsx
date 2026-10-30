@@ -84,9 +84,21 @@ export function AuditReport({x}:{x:X}){
 // Partner programme page body.
 export function Partners({x}:{x:X}){
  const {c,s}=x;
+ const go=()=>x.go(c('Партнёрство','Partnership','პარტნიორობა'));
+ const tiers=[
+  ['30%',c('Привлечение · разово','Referral · one-off','მოზიდვა · ერთჯერადად'),c('С суммы первого контракта клиента.','Of the client’s first contract.','კლიენტის პირველი კონტრაქტიდან.'),c('Пилот, внедрение или разработка — что клиент оплатит первым.','A pilot, implementation or custom build, whichever the client pays for first.','პილოტი, დანერგვა ან შემუშავება — რასაც კლიენტი პირველად გადაიხდის.')],
+  ['20%',c('Сопровождение · пожизненно','Ongoing · for life','მომსახურება · უვადოდ'),c('Со всех дальнейших оплат клиента.','Of every later payment from the client.','კლიენტის ყველა შემდგომი გადახდიდან.'),c('Ведение, новые этапы и проекты — пока мы работаем с этой компанией.','Support, new stages and projects, for as long as we work with that company.','მომსახურება, ახალი ეტაპები და პროექტები — სანამ ამ კომპანიასთან ვმუშაობთ.')],
+  ['5%',c('Сеть партнёров','Partner network','პარტნიორების ქსელი'),c('Со сделок партнёров, которых привели вы.','Of deals closed by partners you bring in.','თქვენ მიერ მოყვანილი პარტნიორების გარიგებებიდან.'),c('Доход идёт и тогда, когда клиента к нам приводите не вы.','You earn even when someone else brings the client.','შემოსავალი მოდის მაშინაც, როცა კლიენტს სხვა მოიყვანს.')]];
+ const imp=prices.implementation.gel,sup=prices.support.gel,dev=prices.development.gel,g=(n:number)=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₾';
+ const rows=[
+  [c('Внедрение у клиента','Client implementation','კლიენტთან დანერგვა'),g(imp),'30%',g(imp*.3),c('разово','one-off','ერთჯერადად')],
+  [c('Ведение у того же клиента','Support for the same client','იმავე კლიენტის მომსახურება'),g(sup)+c(' в месяц',' a month',' თვეში'),'20%',g(sup*.2),c('каждый месяц','every month','ყოველთვიურად')],
+  [c('Разработка у привлечённого вами партнёра','Custom build closed by a partner you referred','შემუშავება თქვენ მიერ მოყვანილ პარტნიორთან'),g(dev),'5%',g(dev*.05),c('со сделки','per deal','გარიგებიდან')]];
+ const formats=[
+  ['share-2',c('Рекомендация','Referral','რეკომენდაცია'),c('Вы знакомите нас с клиентом. Дальше работаем мы.','You introduce the client. We take it from there.','თქვენ გვაცნობთ კლიენტს. შემდეგ ჩვენ ვმუშაობთ.'),c('Знакомство и короткая встреча с клиентом','An introduction and a short meeting with the client','გაცნობა და მოკლე შეხვედრა კლიენტთან'),c('Аудит, предложение, внедрение и ведение','Audit, proposal, implementation and support','აუდიტი, შეთავაზება, დანერგვა და მომსახურება')],
+  ['handshake',c('Совместный проект','Joint project','ერთობლივი პროექტი'),c('Для тех, кто уже ведёт проект у клиента. Мы добавляем в него ИИ.','For partners already running a project for the client. We add AI to it.','მათთვის, ვინც უკვე უძღვება პროექტს კლიენტთან. ჩვენ მას AI-ს ვამატებთ.'),c('Диагностика бизнеса и отношения с клиентом','Business diagnostics and the client relationship','ბიზნესის დიაგნოსტიკა და ურთიერთობა კლიენტთან'),c('ИИ-решение, пилот и внедрение','The AI solution, pilot and implementation','AI გადაწყვეტა, პილოტი და დანერგვა')]];
  const who=[['plug',c('Интеграторы 1С и CRM','1C and CRM integrators','1C და CRM ინტეგრატორები'),c('Добавьте ИИ к своим внедрениям amoCRM, Bitrix24 и 1С.','Add AI to your amoCRM, Bitrix24 and 1C projects.','დაამატეთ AI თქვენს amoCRM, Bitrix24 და 1C პროექტებს.')],['calculator',c('Бухгалтерские и юридические фирмы','Accounting and law firms','საბუღალტრო და იურიდიული ფირმები'),c('Клиентам с горой документов — автоматизация первички и сверок.','For clients buried in paperwork — automated documents and reconciliations.','კლიენტებისთვის, ვისაც ბევრი დოკუმენტი აქვს — პირველადი დოკუმენტების ავტომატიზაცია.')],['megaphone',c('Маркетинговые и digital-агентства','Marketing and digital agencies','მარკეტინგული და ციფრული სააგენტოები'),c('Чат-боты, обработка лидов и контент для ваших клиентов.','Chatbots, lead handling and content for your clients.','ჩატბოტები, ლიდების დამუშავება და კონტენტი თქვენი კლიენტებისთვის.')],['briefcase',c('Бизнес-консультанты','Business consultants','ბიზნეს-კონსულტანტები'),c('Предложите клиенту измеримую автоматизацию после диагностики.','Offer clients measurable automation after your diagnostics.','შესთავაზეთ კლიენტს გაზომვადი ავტომატიზაცია დიაგნოსტიკის შემდეგ.')]];
- const perks=[['wallet',c('Вознаграждение с каждого проекта','A reward on every project','ანაზღაურება ყოველ პროექტზე'),c('Процент с оплаченного проекта и ведения. Размер обсуждаем индивидуально.','A share of each paid project and support plan. We agree the rate individually.','პროცენტი ყოველი გადახდილი პროექტიდან და მხარდაჭერიდან. ოდენობას ინდივიდუალურად ვათანხმებთ.')],['handshake',c('Совместные продажи','Joint sales','ერთობლივი გაყიდვები'),c('Выходим к клиенту вместе или работаем под вашим брендом.','We meet clients together or deliver under your brand.','კლიენტთან ერთად გავდივართ ან თქვენი ბრენდით ვმუშაობთ.')],['graduation-cap',c('Обучение и материалы','Training and materials','სწავლება და მასალები'),c('Демо, кейсы и презентации на трёх языках для ваших продаж.','Demos, case studies and decks in three languages for your sales.','დემოები, ქეისები და პრეზენტაციები სამ ენაზე.')]];
- const steps=[c('Вы рекомендуете клиента или приводите его на встречу.','You refer a client or bring them to a meeting.','თქვენ გვირჩევთ კლიენტს ან მოგყავთ შეხვედრაზე.'),c('Мы проводим бесплатный аудит и запускаем пилот.','We run the free audit and launch a pilot.','ვატარებთ უფასო აუდიტს და ვიწყებთ პილოტს.'),c('Вы получаете вознаграждение после оплаты клиентом.','You are paid once the client pays.','ანაზღაურებას იღებთ კლიენტის გადახდის შემდეგ.')];
+ const steps=[c('Подписываем партнёрский договор. Вступительного взноса нет.','We sign a partner agreement. There is no entry fee.','ვაფორმებთ პარტნიორულ ხელშეკრულებას. გაწევრიანების გადასახადი არ არის.'),c('Вы знакомите нас с клиентом или приводите его на встречу.','You introduce the client or bring them to a meeting.','გვაცნობთ კლიენტს ან მოგყავთ შეხვედრაზე.'),c('Проводим бесплатный аудит и пилот. Цену фиксируем до старта.','We run the free audit and a pilot. The price is fixed before work starts.','ვატარებთ უფასო აუდიტს და პილოტს. ფასს დაწყებამდე ვაფიქსირებთ.'),c('Платим ваш процент после каждой оплаты клиента.','We pay your share after every client payment.','თქვენს პროცენტს ვიხდით კლიენტის ყოველი გადახდის შემდეგ.')];
  return (<>
   <section className="inner-hero">
    <div className="wrap inner-pad">
@@ -94,26 +106,46 @@ export function Partners({x}:{x:X}){
     <div className="inner-grid">
      <div className="min0 mw860">
       <h1 data-reveal="" className="inner-h1">{c('Зарабатывайте на ИИ вместе с нами.','Earn from AI with us.','გამოიმუშავეთ AI-ით ჩვენთან ერთად.')}</h1>
-      <div data-reveal="" style={rd(140)} className="inner-lead"><p>{c('Партнёрская программа для тех, у кого уже есть клиенты в Грузии: вы приводите компанию, мы внедряем ИИ, вы получаете вознаграждение.','A partner programme for anyone who already serves companies in Georgia: you bring the client, we implement AI, you earn a reward.','პარტნიორული პროგრამა მათთვის, ვისაც უკვე ჰყავს კლიენტები საქართველოში: თქვენ მოგყავთ კომპანია, ჩვენ ვნერგავთ AI-ს, თქვენ იღებთ ანაზღაურებას.')}</p><button type="button" onClick={()=>x.go(c('Партнёрство','Partnership','პარტნიორობა'))} className="btn btn-primary mt24">{c('Стать партнёром','Become a partner','გახდით პარტნიორი')}<Icon name="arrow-right" size={16}/></button></div>
+      <div data-reveal="" style={rd(140)} className="inner-lead"><p>{c('Партнёрская программа для тех, у кого уже есть клиенты в Грузии: вы приводите компанию, мы внедряем ИИ, вы получаете процент с каждой её оплаты.','A partner programme for anyone who already serves companies in Georgia: you bring the client, we implement AI, you earn a share of every payment they make.','პარტნიორული პროგრამა მათთვის, ვისაც უკვე ჰყავს კლიენტები საქართველოში: თქვენ მოგყავთ კომპანია, ჩვენ ვნერგავთ AI-ს, თქვენ იღებთ პროცენტს მისი ყოველი გადახდიდან.')}</p><button type="button" onClick={go} className="btn btn-primary mt24">{c('Стать партнёром','Become a partner','გახდით პარტნიორი')}<Icon name="arrow-right" size={16}/></button></div>
      </div>
-     <ul data-reveal="" style={rd(220)} className="facts">{perks.map(([icon,t])=><li key={t}><span className="tile-icon"><Icon name={icon} size={19}/></span>{t}</li>)}</ul>
+     <div data-reveal="" style={rd(220)} className="pt-terms" data-screen-label="Partner terms">
+      <p className="pt-terms-h">{c('Условия программы','Programme terms','პროგრამის პირობები')}</p>
+      <ul>{tiers.map(([n,,t])=><li key={n}><b>{n}</b><span>{t}</span></li>)}</ul>
+      <p className="pt-terms-f"><Icon name="check" size={15}/>{c('Без вступительного взноса · выплата после оплаты клиентом','No entry fee · paid after the client pays','გაწევრიანების გადასახადი არ არის · ანაზღაურება კლიენტის გადახდის შემდეგ')}</p>
+     </div>
     </div>
    </div>
   </section>
-  <section className="wrap sec">
-   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Кому подходит.','Who it is for.','ვისთვისაა.')}</h2></div></div>
-   <div className="grid-c4" data-stagger="">{who.map(([icon,t,d])=><article key={t} className="card partner-card"><span className="tile-icon"><Icon name={icon} size={20}/></span><h3>{t}</h3><p>{d}</p></article>)}</div>
+  <section className="wrap sec" data-screen-label="Partner tiers">
+   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Три уровня вознаграждения.','Three levels of reward.','ანაზღაურების სამი დონე.')}</h2><p className="lead">{c('Уровни складываются: за одного клиента вы получаете и первый процент, и второй.','The levels add up: for one client you earn both the first share and the second.','დონეები ჯამდება: ერთ კლიენტზე იღებთ პირველ პროცენტსაც და მეორესაც.')}</p></div></div>
+   <div className="pt-tiers" data-stagger="">{tiers.map(([n,l,t,d],i)=><article key={n} className={'pt-tier'+(i===1?' pt-tier-dark':'')}><span className="pt-tier-l">{l}</span><b className="pt-tier-n">{n}</b><h3>{t}</h3><p>{d}</p></article>)}</div>
   </section>
-  <section className="band-white bordered">
+  <section className="band-white bordered" data-screen-label="Partner example">
    <div className="wrap sec split">
-    <div data-reveal=""><h2 className="h2">{c('Что вы получаете.','What you get.','რას იღებთ.')}</h2></div>
-    <div className="grid-c3">{perks.map(([icon,t,d],i)=><div key={t} data-reveal="" style={rd(i*90)} className="trust-point"><span className="tile-icon"><Icon name={icon} size={19}/></span><div><h3>{t}</h3><p>{d}</p></div></div>)}</div>
+    <div data-reveal=""><h2 className="h2">{c('Пример расчёта.','A worked example.','გაანგარიშების მაგალითი.')}</h2><p className="lead">{c('Клиент заказал внедрение и остался на ведении. Ещё вы привели партнёра, и он закрыл сделку на разработку.','A client orders an implementation and stays on support. You also brought in a partner who closed a custom build.','კლიენტმა შეუკვეთა დანერგვა და დარჩა მომსახურებაზე. ასევე მოიყვანეთ პარტნიორი, რომელმაც შემუშავების გარიგება დადო.')}</p></div>
+    <div data-reveal="" style={rd(120)}>
+     <div className="pt-calc" role="table" aria-label={c('Пример расчёта','Worked example','გაანგარიშების მაგალითი')}>
+      {rows.map(([what,sum,pct,res,when])=><div key={pct} role="row" className="pt-row"><span role="cell" className="pt-what">{what}<small>{sum}</small></span><span role="cell" className="pt-pct">{pct}</span><span role="cell" className="pt-res">{res}<small>{when}</small></span></div>)}
+     </div>
+     <p className="pt-fine">{c('Пример на наших базовых ценах. Реальная сумма зависит от проекта клиента.','An example on our base prices. The actual amount depends on the client’s project.','მაგალითი ჩვენს საბაზისო ფასებზეა. რეალური თანხა კლიენტის პროექტზეა დამოკიდებული.')}</p>
+    </div>
    </div>
   </section>
-  <section className="wrap sec">
+  <section className="wrap sec" data-screen-label="Partner formats">
+   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Два формата работы.','Two ways to work.','მუშაობის ორი ფორმატი.')}</h2><p className="lead">{c('Вознаграждение в обоих одинаковое.','The reward is the same in both.','ანაზღაურება ორივეში ერთნაირია.')}</p></div></div>
+   <div className="pt-formats" data-stagger="">{formats.map(([icon,t,d,you,we])=><article key={t} className="card pt-format"><span className="tile-icon"><Icon name={icon} size={20}/></span><h3>{t}</h3><p>{d}</p><dl className="pt-roles"><div><dt>{c('Вы','You','თქვენ')}</dt><dd>{you}</dd></div><div><dt>{c('Мы','We','ჩვენ')}</dt><dd>{we}</dd></div></dl></article>)}</div>
+  </section>
+  <section className="band-white bordered" data-screen-label="Partner fit">
+   <div className="wrap sec">
+    <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Кому подходит.','Who it is for.','ვისთვისაა.')}</h2></div></div>
+    <div className="grid-c4" data-stagger="">{who.map(([icon,t,d])=><article key={t} className="card partner-card"><span className="tile-icon"><Icon name={icon} size={20}/></span><h3>{t}</h3><p>{d}</p></article>)}</div>
+   </div>
+  </section>
+  <section className="wrap sec" data-screen-label="Partner steps">
    <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Как это работает.','How it works.','როგორ მუშაობს.')}</h2></div></div>
    <div data-reveal="line" aria-hidden="true" className="process-line"/>
-   <ol className="process process-3">{steps.map((st,i)=><li key={st}><div data-reveal="" style={rd(i*110)}><span className="step-num">{'0'+(i+1)}</span><p className="partner-step">{st}</p></div></li>)}</ol>
+   <ol className="process">{steps.map((st,i)=><li key={st}><div data-reveal="" style={rd(i*110)}><span className="step-num">{'0'+(i+1)}</span><p className="partner-step">{st}</p></div></li>)}</ol>
+   <p data-reveal="" className="pt-note"><Icon name="shield-check" size={17}/>{c('Данные ваших клиентов передаём и используем только с их согласия.','We share and use your clients’ data only with their consent.','თქვენი კლიენტების მონაცემებს მხოლოდ მათი თანხმობით ვაზიარებთ და ვიყენებთ.')}</p>
   </section>
  </>);
 }

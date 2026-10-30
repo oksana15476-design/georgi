@@ -1940,3 +1940,39 @@ main{outline:none}
 .wb .wb-co-accept a{color:#315bf5;text-decoration:underline}
 .wb .wb-co-accept.is-invalid{color:#b42318}
 .wb .wb-done-ico.is-warn{background:#fff;border-color:#d14343;color:#d14343}
+/* Partners page (.ge): terms card, reward tiers, worked example, formats */
+.pt-terms{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 26px;box-shadow:0 24px 50px -36px #243d8255}
+.pt-terms-h{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pt-terms ul{list-style:none;margin:10px 0 0;padding:0}
+.pt-terms li{display:grid;grid-template-columns:88px 1fr;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line3)}
+.pt-terms li b{font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.pt-terms li span{font-size:15.5px;font-weight:600;line-height:1.4;color:var(--ink)}
+.pt-terms-f{display:flex;align-items:flex-start;gap:8px;margin-top:14px;font-size:14px;line-height:1.5;color:var(--body)}
+.pt-terms-f svg{flex-shrink:0;margin-top:3px;color:var(--accent)}
+.pt-tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+.pt-tier{display:flex;flex-direction:column;padding:28px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.pt-tier-l{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.pt-tier-n{font-size:64px;font-weight:600;letter-spacing:-.04em;line-height:1;margin:18px 0 16px;color:var(--accent);font-variant-numeric:tabular-nums}
+.pt-tier h3{font-size:18px;font-weight:600;line-height:1.35;letter-spacing:-.015em;color:var(--ink)}
+.pt-tier p{font-size:15px;line-height:1.55;color:var(--body);margin-top:8px}
+.pt-tier-dark{background:var(--ink);border-color:var(--ink)}
+.pt-tier-dark .pt-tier-l{color:#aab4c8}.pt-tier-dark .pt-tier-n{color:#8fa8ff}.pt-tier-dark h3{color:#fff}.pt-tier-dark p{color:#d3d9e5}
+.pt-calc{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.pt-row{display:grid;grid-template-columns:minmax(0,1fr) 64px 132px;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line3)}
+.pt-row:last-child{border-bottom:0}
+.pt-what{font-size:15.5px;font-weight:600;line-height:1.4;color:var(--ink)}
+.pt-what small,.pt-res small{display:block;font-size:13.5px;font-weight:500;color:var(--muted);margin-top:3px}
+.pt-pct{font-size:15px;font-weight:600;color:var(--accent);text-align:center;background:var(--tint);border-radius:999px;padding:4px 0}
+.pt-res{font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.pt-fine{font-size:13.5px;line-height:1.5;color:var(--muted);margin-top:12px}
+.pt-formats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
+.pt-format h3{font-size:20px;font-weight:600;letter-spacing:-.02em;margin:16px 0 8px;color:var(--ink)}
+.pt-format>p{font-size:15px;line-height:1.55;color:var(--body)}
+.pt-roles{width:100%;margin:20px 0 0;display:flex;flex-direction:column;gap:10px}
+.pt-roles div{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:baseline;padding-top:10px;border-top:1px solid var(--line3)}
+.pt-roles dt{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.pt-roles dd{margin:0;font-size:15px;line-height:1.5;color:var(--ink)}
+.pt-note{display:flex;align-items:center;gap:10px;margin-top:32px;font-size:15px;color:var(--body)}
+.pt-note svg{flex-shrink:0;color:var(--accent)}
+@media(max-width:900px){.pt-tiers{grid-template-columns:1fr}.pt-tier-n{font-size:52px;margin:12px 0 10px}.pt-formats{grid-template-columns:1fr}}
+@media(max-width:600px){.pt-terms{padding:20px}.pt-terms li{grid-template-columns:72px 1fr}.pt-terms li b{font-size:28px}.pt-row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:16px 18px}.pt-pct{grid-column:2;grid-row:1;padding:3px 10px}.pt-res{grid-column:1/-1;text-align:left}.pt-note{align-items:flex-start}.pt-note svg{margin-top:2px}}

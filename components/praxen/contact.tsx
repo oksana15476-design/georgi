@@ -9,7 +9,7 @@ import type {X} from './types';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
-export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
+export function Faq({x,items,title,sub}:{x:X;items:[string,string][];title:string;sub?:string}){
  const {s}=x;
  const [open,setOpen]=useState(0);
  const card=(q:string,a:string,i:number)=>{
@@ -24,7 +24,7 @@ export function Faq({x,items,title}:{x:X;items:[string,string][];title:string}){
   <section data-screen-label="FAQ" className="wrap sec">
    <div className="faq-head">
     <div data-reveal=""><p className="kicker">FAQ</p><h2 className="h2">{title}</h2></div>
-    <p data-reveal="" style={rd(100)} className="faq-sub">{s.faqSub}</p>
+    <p data-reveal="" style={rd(100)} className="faq-sub">{sub??s.faqSub}</p>
    </div>
    <div className="faq-grid">
     <div className="faq-col">{items.map(([q,a],i)=>i%2===0&&card(q,a,i))}</div>
