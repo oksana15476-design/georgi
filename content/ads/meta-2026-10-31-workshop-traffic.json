@@ -1,0 +1,62 @@
+{
+ "about": "31 October, managed by Claude with the owner's go-ahead: the conversions campaign gave $0.81 clicks and 4-second visits, so the workshop moves to a landing-page-views campaign, feeds and stories only (no Reels, fewer accidental taps), $10/day; the conversions campaign is paused.",
+ "account": "act_1572744140745644",
+ "campaigns": [
+  {
+   "name": "Воркшоп 12.11 · переходы на сайт · СНГ RU",
+   "objective": "OUTCOME_TRAFFIC",
+   "optimization_goal": "LANDING_PAGE_VIEWS",
+   "destination_type": "WEBSITE",
+   "daily_budget": 1000,
+   "start_time": "2026-10-31T08:30:00+0400",
+   "end_time": "2026-11-12T18:00:00+0400",
+   "instagram_user_id": "17841470007169101",
+   "targeting": {
+    "geo_locations": {
+     "countries": [
+      "GE",
+      "KZ",
+      "UZ",
+      "AM",
+      "AZ"
+     ]
+    },
+    "age_min": 25,
+    "age_max": 55,
+    "locales": [
+     17
+    ],
+    "targeting_automation": {
+     "advantage_audience": 0
+    },
+    "publisher_platforms": [
+     "facebook",
+     "instagram"
+    ],
+    "facebook_positions": [
+     "feed",
+     "story"
+    ],
+    "instagram_positions": [
+     "stream",
+     "story"
+    ]
+   },
+   "ads": [
+    {
+     "name": "Переходы · «Пятница, 23:40»",
+     "object_story_id": "1431418180049547_122113649067499562"
+    },
+    {
+     "name": "Переходы · «Менеджер в десятый раз»",
+     "object_story_id": "1431418180049547_122113940517499562"
+    },
+    {
+     "name": "Переходы · «Бесплатный воркшоп по ИИ»",
+     "object_story_id": "1431418180049547_122114482695499562"
+    }
+   ]
+  }
+ ],
+ "audiences": []
+}
