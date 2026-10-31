@@ -1,5 +1,5 @@
 {
- "about": "Second daily Threads layer (owner, 31 October: post on Threads several times a day). Text-only, 11:00 and 17:00 Tbilisi. Captions: content/social/out/threads-2026-11b/<id>/captions.md, section threads, parts split by ---.",
+ "about": "Second daily Threads layer (owner, 31 October: post on Threads several times a day). Text-only, 11:00 and 17:00 Tbilisi to 7 Nov, then 2–3 a day around the plan posts to 12 Nov. Captions: content/social/out/threads-2026-11b/<id>/captions.md, section threads, parts split by ---.",
  "posts": [
   {
    "id": "a01-friday",
@@ -75,6 +75,51 @@
    "id": "a15-before-hiring",
    "date": "2026-11-07",
    "time": "17:00"
+  },
+  {
+   "id": "b01-sunday-messages",
+   "date": "2026-11-08",
+   "time": "11:00"
+  },
+  {
+   "id": "b02-what-annoys",
+   "date": "2026-11-08",
+   "time": "17:00"
+  },
+  {
+   "id": "b03-before-after-crm",
+   "date": "2026-11-09",
+   "time": "11:00"
+  },
+  {
+   "id": "b04-best-manager",
+   "date": "2026-11-09",
+   "time": "16:00"
+  },
+  {
+   "id": "b05-stress-test",
+   "date": "2026-11-10",
+   "time": "11:00"
+  },
+  {
+   "id": "b06-ill-get-back",
+   "date": "2026-11-10",
+   "time": "15:00"
+  },
+  {
+   "id": "b07-how-many",
+   "date": "2026-11-10",
+   "time": "18:00"
+  },
+  {
+   "id": "b08-too-expensive",
+   "date": "2026-11-11",
+   "time": "17:00"
+  },
+  {
+   "id": "b09-changed-my-mind",
+   "date": "2026-11-12",
+   "time": "11:00"
   }
  ]
 }
