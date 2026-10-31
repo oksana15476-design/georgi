@@ -188,6 +188,9 @@ for(const b of BATCHES){
    if((post.skip||[]).includes(ch))continue;
    const key=`${name}/${post.id}/${ch}`;
    if(state[key]&&!ONLY)continue;
+   // Instagram "action blocked" (code 4 / 2207051): pause Instagram for 6 hours instead of retrying every hour, which can extend the block.
+   const pauseKey='_pause/instagram';
+   if(ch.startsWith('instagram')&&!ONLY&&state[pauseKey]&&state[pauseKey].until>new Date().toISOString()){if(!log.includes(`instagram paused until ${state[pauseKey].until}`))log.push(`instagram paused until ${state[pauseKey].until}`);continue;}
    // --replace (with --only): remove the earlier Facebook post first, then send the new one.
    // --replace for Telegram: delete the earlier message(s); posts from before 26 October were an album plus a text (ids id-n … id).
    if(REPLACE&&ONLY&&ch==='telegram'&&state[key]&&!DRY){const last=Number(state[key].id),ids=state[key].ids||(state[key].at<'2026-10-26T07:20'?Array.from({length:Math.min(imgs.length,10)+1},(_,k)=>last-k):[last]);
@@ -196,7 +199,8 @@ for(const b of BATCHES){
    if(DRY){log.push(`would publish ${key} (${imgs.length} images)`);continue;}
    try{const id=await send[ch](imgs,c);if(id==='skip'){log.push(`skip ${key}: no secrets`);continue;}
     state[key]={id,at:new Date().toISOString()};log.push(`published ${key} → ${id}`);}
-   catch(e){log.push(`ERROR ${key}: ${String(e.message||e).replace(/bot\d+:[\w-]+/g,'bot…').replace(/access_token=[^&\s]+/g,'access_token=…')}`);}
+   catch(e){const msg=String(e.message||e);log.push(`ERROR ${key}: ${msg.replace(/bot\d+:[\w-]+/g,'bot…').replace(/access_token=[^&\s]+/g,'access_token=…')}`);
+    if(ch.startsWith('instagram')&&/2207051|request limit reached/i.test(msg))state['_pause/instagram']={until:new Date(Date.now()+6*3600e3).toISOString(),reason:'action blocked'};}
   }
  }
 }
