@@ -1,0 +1,80 @@
+{
+ "about": "Second daily Threads layer (owner, 31 October: post on Threads several times a day). Text-only, 11:00 and 17:00 Tbilisi. Captions: content/social/out/threads-2026-11b/<id>/captions.md, section threads, parts split by ---.",
+ "posts": [
+  {
+   "id": "a01-friday",
+   "date": "2026-10-31",
+   "time": "17:00"
+  },
+  {
+   "id": "a02-crm-field",
+   "date": "2026-11-01",
+   "time": "11:00"
+  },
+  {
+   "id": "a03-daily-task",
+   "date": "2026-11-01",
+   "time": "17:00"
+  },
+  {
+   "id": "a04-voice-notes",
+   "date": "2026-11-02",
+   "time": "11:00"
+  },
+  {
+   "id": "a05-unnoticed",
+   "date": "2026-11-02",
+   "time": "17:00"
+  },
+  {
+   "id": "a06-first-reply-template",
+   "date": "2026-11-03",
+   "time": "11:00"
+  },
+  {
+   "id": "a07-think-about-it",
+   "date": "2026-11-03",
+   "time": "17:00"
+  },
+  {
+   "id": "a08-test-yourself",
+   "date": "2026-11-04",
+   "time": "11:00"
+  },
+  {
+   "id": "a09-three-languages",
+   "date": "2026-11-04",
+   "time": "17:00"
+  },
+  {
+   "id": "a10-too-small",
+   "date": "2026-11-05",
+   "time": "11:00"
+  },
+  {
+   "id": "a11-three-numbers",
+   "date": "2026-11-05",
+   "time": "17:00"
+  },
+  {
+   "id": "a12-workshop",
+   "date": "2026-11-06",
+   "time": "11:00"
+  },
+  {
+   "id": "a13-main-channel",
+   "date": "2026-11-06",
+   "time": "17:00"
+  },
+  {
+   "id": "a14-price-pdf",
+   "date": "2026-11-07",
+   "time": "11:00"
+  },
+  {
+   "id": "a15-before-hiring",
+   "date": "2026-11-07",
+   "time": "17:00"
+  }
+ ]
+}

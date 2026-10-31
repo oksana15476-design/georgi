@@ -35,6 +35,8 @@ export const BATCHES=[
  {file:'stories-2026-11b.json',channels:['instagram_story','facebook_story']},
  // Text-only threads (live voice between plan posts): content/social/threads-2026-11.json, captions written by hand.
  {file:'threads-2026-11.json',channels:['threads']},
+ // Second Threads layer (owner, 31 October: several posts a day): 11:00 and 17:00 Tbilisi.
+ {file:'threads-2026-11b.json',channels:['threads']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
 const DRY=flag('--dry'),ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
