@@ -59,6 +59,7 @@ if(env.META_TOKEN){
     review:x.ad_review_feedback,issues:x.issues_info,
     post_links:x.creative?.effective_object_story_id&&page?await safe(()=>get(`${G}/${x.creative.effective_object_story_id}`,{fields:'call_to_action,attachments{unshimmed_url,url}',access_token:page.access_token}).then(j=>[...new Set(JSON.stringify(j).match(/https?:[^"\\]+/g)||[])].map(decodeURIComponent).filter(u=>/praxenai|instagram\.com\/praxenai/.test(u)))):undefined}))))),
    insights_7d:await safe(()=>get(`${G}/${a.id}/insights`,{level:'ad',date_preset:'last_7d',fields:'ad_name,spend,impressions,reach,clicks,inline_link_clicks,ctr,cpc,actions',limit:50,access_token:tok}).then(j=>j.data)),
+   insights_yesterday:await safe(()=>get(`${G}/${a.id}/insights`,{level:'ad',date_preset:'yesterday',fields:'ad_name,spend,impressions,reach,inline_link_clicks,ctr,cpc,actions',limit:50,access_token:tok}).then(j=>j.data)),
    insights_today:await safe(()=>get(`${G}/${a.id}/insights`,{level:'ad',date_preset:'today',fields:'ad_name,spend,impressions,inline_link_clicks,ctr,cpc',limit:50,access_token:tok}).then(j=>j.data)),
   })));
  });
