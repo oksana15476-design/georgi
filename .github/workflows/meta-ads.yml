@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "create | status | end | start | subscribe | scopes | list | placements | testimg | diag | delpost | addads | ads | copy"
+        description: "create | status | end | start | subscribe | scopes | list | placements | testimg | diag | delpost | delthreads | addads | ads | copy"
         required: true
       arg1:
         description: "plan file (create, addads), ACTIVE/PAUSED (status), ISO time (end, start) , text start (delpost) or campaign id (copy)"
@@ -29,6 +29,7 @@ jobs:
       - name: Meta ads
         env:
           META_TOKEN: ${{ secrets.META_TOKEN }}
+          THREADS_TOKEN: ${{ secrets.THREADS_TOKEN }}
           CMD: ${{ inputs.command }}
           ARG1: ${{ inputs.arg1 }}
           ARG2: ${{ inputs.arg2 }}

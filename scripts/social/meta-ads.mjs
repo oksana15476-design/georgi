@@ -16,6 +16,7 @@
 //   ads                                every ad of every reachable ad account: status, campaign, and the Instagram post or reel it promotes (no spend)
 //   copy <campaign id,…>            copy each campaign with its ad sets and ads, the copy ACTIVE, then pause the original
 //   delpost <text start> <post id|instagram link,…>   delete page or Instagram posts, only those whose text starts with <text start>
+//   delthreads <text start> <threads link,…>   delete our Threads posts (and our replies under them), only those whose text starts with <text start>; uses THREADS_TOKEN
 // Uses META_TOKEN (system user praxen-publisher). Prints the created ids; nothing secret goes to the log.
 import {readFileSync} from 'node:fs';
 const G='https://graph.facebook.com/v21.0',tok=process.env.META_TOKEN;
@@ -108,6 +109,18 @@ if(cmd==='status'){
   }else text=(await page('/'+id,{fields:'message'},'GET')).message;
   if(!id||!(text||'').startsWith(a1)){console.log('skip',ref,'text does not match:',JSON.stringify((text||'').slice(0,80)));process.exitCode=1;continue;}
   console.log('delete',ref,JSON.stringify(text.slice(0,80)),JSON.stringify(await page('/'+id,{},'DELETE')).slice(0,300));
+ }
+}else if(cmd==='delthreads'){
+ const T='https://graph.threads.net/v1.0',tt=process.env.THREADS_TOKEN;
+ const th=(p,q={},m='GET')=>fetch(T+p+'?'+new URLSearchParams({...q,access_token:tt}),{method:m}).then(r=>r.json());
+ if(!tt||!a1){console.log('no THREADS_TOKEN or text');process.exit(1);}
+ const posts=(await th('/me/threads',{fields:'id,text,permalink',limit:'100'})).data||[];
+ const replies=(await th('/me/replies',{fields:'id,text,root_post',limit:'100'})).data||[];
+ for(const ref of a2.split(',')){
+  const code=ref.match(/\/post\/([^/?]+)/)?.[1],m=posts.find(x=>code&&x.permalink?.includes('/post/'+code));
+  if(!m||!(m.text||'').startsWith(a1)){console.log('skip',ref,'text does not match:',JSON.stringify((m?.text||'').slice(0,80)));process.exitCode=1;continue;}
+  for(const r of replies.filter(r=>r.root_post?.id===m.id))console.log(' delete reply',r.id,JSON.stringify((r.text||'').slice(0,50)),JSON.stringify(await th('/'+r.id,{},'DELETE')).slice(0,200));
+  console.log('delete',ref,JSON.stringify(m.text.slice(0,60)),JSON.stringify(await th('/'+m.id,{},'DELETE')).slice(0,200));
  }
 }else if(cmd==='ads'){
  const accs=(await api('/me/adaccounts',{fields:'id,name,account_status',limit:50},'GET')).data||[];

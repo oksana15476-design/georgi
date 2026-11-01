@@ -27,6 +27,8 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npx tsc --noEmit -p .
       - run: npm run lint
+      # Every social post of every batch can be prepared (captions, images, dates): a broken post fails here, not at publishing time.
+      - run: node scripts/social/publish.mjs --check
 
   docker:
     runs-on: ubuntu-latest

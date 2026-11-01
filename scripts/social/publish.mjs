@@ -39,7 +39,7 @@ export const BATCHES=[
  {file:'threads-2026-11b.json',channels:['threads']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
-const DRY=flag('--dry'),ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
+const CHECK=flag('--check'),DRY=flag('--dry')||CHECK,ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
 const statePath=process.env.SOCIAL_STATE||join(root,'content/social/published.json');
 const state=existsSync(statePath)?JSON.parse(readFileSync(statePath,'utf8')):{};
 const env=process.env;
@@ -182,8 +182,14 @@ for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
  for(const post of batch.posts){
   if(b.only&&!b.only.includes(post.id))continue;
-  if(ONLY?post.id!==ONLY:!due(post)||stale(post))continue;
-  const c={...captions(name,post.id),fbImage:fbImage(name,post),poll:post.poll},imgs=images(name,post);
+  if(!CHECK&&(ONLY?post.id!==ONLY:!due(post)||stale(post)))continue;
+  // A post that cannot be prepared is reported and skipped; the others still go out.
+  let c,imgs;
+  try{c={...captions(name,post.id),fbImage:fbImage(name,post),poll:post.poll};imgs=images(name,post);
+   if(isNaN(at(post)))throw new Error('bad date/time');
+   if(CHECK){for(const ch of b.channels){if((post.skip||[]).includes(ch)||ch.endsWith('_story'))continue;
+     const ok=ch==='threads'?c.threadParts?.length:ch==='telegram'?(c.telegram||c.poll):c[ch];if(!ok)throw new Error('no '+ch+' text');}continue;}
+  }catch(e){log.push(`ERROR ${name}/${post.id}: ${String(e.message||e)}`);continue;}
   for(const ch of b.channels){
    if(ONLY_CH&&ch!==ONLY_CH)continue;
    // A post can leave out channels of its batch: "skip":["telegram"] (memes and tools stay off the Telegram channel, which has its own plan).
