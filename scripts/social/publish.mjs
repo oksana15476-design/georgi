@@ -58,9 +58,9 @@ function captions(batch,id){
  if(out.threads)out.threadParts=out.threads.split(/\n+---\n+/).map(s=>s.trim().replace(/^\d+\/\d+\s+/,'')).filter(Boolean);
  return out;
 }
-const images=(batch,post)=>post.slides.map((_,i)=>`${SITE}/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
+const images=(batch,post)=>(post.slides||[]).map((_,i)=>`${SITE}/${batch.replace(/\.json$/,'')}/${post.id}/ru-${i+1}.jpg`);
 // Facebook: the cover alone, without "1/3" and "Swipe" (render.mjs makes ru-fb.jpg for every carousel).
-const fbImage=(batch,post)=>post.slides.length?`${SITE}/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`:'';
+const fbImage=(batch,post)=>(post.slides||[]).length?`${SITE}/${batch.replace(/\.json$/,'')}/${post.id}/${post.slides.length>1?'ru-fb':'ru-1'}.jpg`:'';
 const at=post=>Date.parse(`${post.date}T${post.time||'11:00'}:00+04:00`);
 const due=post=>at(post)<=Date.now();
 // A post more than two days late is not sent on schedule (a channel that comes back after a pause must not dump the backlog);
@@ -176,6 +176,8 @@ try{await metaSetup()}catch(e){log.push('ERROR meta setup: '+String(e.message||e
 // Dry run: can the Meta system user token also reach Threads (graph.threads.net)?
 if(DRY&&!env.THREADS_TOKEN&&env.META_TOKEN)log.push('threads via META_TOKEN: '+await call(`${T}/me`,{fields:'id,username',access_token:env.META_TOKEN},'GET').then(j=>JSON.stringify(j)).catch(e=>String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…').slice(0,200)));
 if(DRY)log.push(`meta: page ${env.META_PAGE_ID||'none'}, instagram ${env.META_IG_USER_ID||'none'}; threads ${env.THREADS_TOKEN?'set':'none'}; telegram ${env.TELEGRAM_SOCIAL_BOT_TOKEN?'set':'none'}`);
+// Whatever happens below, the state is saved: a crash after a post went out must not send it again next run (31 October: a missing "slides" field crashed every run after publishing).
+try{
 for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
  for(const post of batch.posts){
@@ -204,6 +206,7 @@ for(const b of BATCHES){
   }
  }
 }
+}catch(e){log.push('ERROR crash: '+String(e.stack||e).replace(/bot\d+:[\w-]+/g,'bot…').replace(/access_token=[^&\s]+/g,'access_token=…'))}
 if(!DRY)writeFileSync(statePath,JSON.stringify(state,null,1)+'\n');
 console.log(log.join('\n')||'nothing due');
 if(log.some(l=>l.startsWith('ERROR')))process.exitCode=1;

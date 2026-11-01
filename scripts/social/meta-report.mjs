@@ -25,13 +25,13 @@ if(page){
  out.facebook={
   page:await safe(()=>get(`${G}/${page.id}`,{fields:'name,fan_count,followers_count,link',access_token:pt})),
   insights_28d:await safe(()=>get(`${G}/${page.id}/insights`,{metric:'page_impressions_unique,page_post_engagements,page_views_total,page_daily_follows_unique',period:'day',since,until,access_token:pt}).then(j=>Object.fromEntries((j.data||[]).map(m=>[m.name,m.values.reduce((s,v)=>s+(+v.value||0),0)])))),
-  posts:await safe(()=>get(`${G}/${page.id}/posts`,{fields:'created_time,message,permalink_url,reactions.summary(true).limit(0),comments.summary(true).limit(0),shares',limit:15,access_token:pt}).then(j=>(j.data||[]).map(p=>({at:p.created_time,text:(p.message||'').slice(0,60),url:p.permalink_url,reactions:p.reactions?.summary?.total_count||0,comments:p.comments?.summary?.total_count||0,shares:p.shares?.count||0})))),
+  posts:await safe(()=>get(`${G}/${page.id}/posts`,{fields:'created_time,message,permalink_url,reactions.summary(true).limit(0),comments.summary(true).limit(0),shares',limit:25,access_token:pt}).then(j=>(j.data||[]).map(p=>({at:p.created_time,text:(p.message||'').slice(0,60),url:p.permalink_url,reactions:p.reactions?.summary?.total_count||0,comments:p.comments?.summary?.total_count||0,shares:p.shares?.count||0})))),
  };
  const ig=page.instagram_business_account?.id;
  if(ig)out.instagram={
   account:await safe(()=>get(`${G}/${ig}`,{fields:'username,followers_count,follows_count,media_count',access_token:pt})),
   insights_28d:await safe(()=>get(`${G}/${ig}/insights`,{metric:'reach,profile_views,website_clicks,accounts_engaged,total_interactions',period:'day',metric_type:'total_value',since,until,access_token:pt}).then(j=>Object.fromEntries((j.data||[]).map(m=>[m.name,m.total_value?.value??m.values?.reduce((s,v)=>s+(+v.value||0),0)])))),
-  media:await safe(async()=>{const j=await get(`${G}/${ig}/media`,{fields:'id,timestamp,caption,media_type,media_product_type,permalink,like_count,comments_count',limit:15,access_token:pt});
+  media:await safe(async()=>{const j=await get(`${G}/${ig}/media`,{fields:'id,timestamp,caption,media_type,media_product_type,permalink,like_count,comments_count',limit:25,access_token:pt});
    return Promise.all((j.data||[]).map(async m=>({at:m.timestamp,type:m.media_product_type||m.media_type,text:(m.caption||'').slice(0,60),url:m.permalink,likes:m.like_count,comments:m.comments_count,
     insights:await safe(()=>get(`${G}/${m.id}/insights`,{metric:m.media_product_type==='STORY'?'reach,replies,navigation':'reach,saved,shares,views',access_token:pt}).then(r=>Object.fromEntries((r.data||[]).map(x=>[x.name,x.values?.[0]?.value??x.total_value?.value]))))})));}),
  };
@@ -40,7 +40,7 @@ if(env.THREADS_TOKEN){
  out.threads={
   profile:await safe(()=>get(`${T}/me`,{fields:'id,username',access_token:env.THREADS_TOKEN})),
   insights_28d:await safe(()=>get(`${T}/me/threads_insights`,{metric:'views,likes,replies,reposts,followers_count',since,until,access_token:env.THREADS_TOKEN}).then(j=>Object.fromEntries((j.data||[]).map(m=>[m.name,m.total_value?.value??m.values?.reduce((s,v)=>s+(+v.value||0),0)])))),
-  posts:await safe(()=>get(`${T}/me/threads`,{fields:'id,timestamp,text,permalink',limit:10,access_token:env.THREADS_TOKEN}).then(j=>(j.data||[]).map(p=>({at:p.timestamp,text:(p.text||'').slice(0,60),url:p.permalink})))),
+  posts:await safe(()=>get(`${T}/me/threads`,{fields:'id,timestamp,text,permalink',limit:40,access_token:env.THREADS_TOKEN}).then(j=>(j.data||[]).map(p=>({at:p.timestamp,text:(p.text||'').slice(0,60),url:p.permalink})))),
  };
 }
 if(env.TELEGRAM_SOCIAL_BOT_TOKEN&&env.TELEGRAM_CHANNEL){
