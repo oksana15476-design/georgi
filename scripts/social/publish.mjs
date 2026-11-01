@@ -110,7 +110,13 @@ const send={
    for(const k of kids)await ready(G,k,tok);
    creation=(await call(`${G}/${u}/media`,{media_type:'CAROUSEL',children:kids.join(','),caption:c.instagram||'',access_token:tok})).id;}
   await ready(G,creation,tok);
-  return (await call(`${G}/${u}/media_publish`,{creation_id:creation,access_token:tok})).id;
+  // Instagram can answer "action blocked" (2207051) and still publish the post (31 October and 1 November).
+  // Before reporting a failure, look for a post with the same caption from the last 10 minutes.
+  try{return (await call(`${G}/${u}/media_publish`,{creation_id:creation,access_token:tok})).id;}
+  catch(e){await wait(20000);
+   const recent=(await call(`${G}/${u}/media`,{fields:'id,caption,timestamp',limit:'5',access_token:tok},'GET').catch(()=>({}))).data||[];
+   const m=recent.find(x=>(x.caption||'').trim().slice(0,80)===(c.instagram||'').trim().slice(0,80)&&Date.now()-Date.parse(x.timestamp)<10*60e3);
+   if(m)return m.id;throw e;}
  },
  async instagram_story(imgs){
   if(!env.META_PAGE_TOKEN||!env.META_IG_USER_ID)return 'skip';
