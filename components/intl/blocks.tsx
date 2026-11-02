@@ -815,10 +815,12 @@ export function Contact(){
 }
 
 // ---------- Blog ----------
+// Newest article first (owner, 2 November); articles of the same day: the one added last comes first.
+const newestFirst=posts.map((p,i)=>({p,i})).sort((a,b)=>b.p.date.localeCompare(a.p.date)||b.i-a.i).map(x=>x.p);
 export function BlogList(){
  return (
   <section data-screen-label="Blog list" className="wrap sec">
-   <div className="ix-cards" data-stagger="">{posts.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
+   <div className="ix-cards" data-stagger="">{newestFirst.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
     <span className="ix-post-cat">{p.cat}</span>
     <h2>{p.title}</h2>
     <p>{p.excerpt}</p>

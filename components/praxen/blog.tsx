@@ -14,7 +14,9 @@ const langName:Record<Lang,string>={ru:'Русский',en:'English',ka:'ქა�
 export function BlogList({x}:{x:X}){
  const {c,lang}=x;
  // A language without its own version lists the other languages' versions, marked by language.
- const items=geArticles.flatMap(a=>{const own=a.langs[lang];if(own)return [{a,post:own,l:lang}];return (['ru','en'] as Lang[]).filter(l=>a.langs[l]).map(l=>({a,post:a.langs[l]!,l}))});
+ // Newest article first (owner, 2 November); articles of the same day: the one added last comes first.
+ const newest=geArticles.map((a,i)=>({a,i})).sort((p,q)=>q.a.date.localeCompare(p.a.date)||q.i-p.i).map(x=>x.a);
+ const items=newest.flatMap(a=>{const own=a.langs[lang];if(own)return [{a,post:own,l:lang}];return (['ru','en'] as Lang[]).filter(l=>a.langs[l]).map(l=>({a,post:a.langs[l]!,l}))});
  return (<>
   <section data-screen-label="Inner hero" className="inner-hero">
    <div className="wrap inner-pad">
