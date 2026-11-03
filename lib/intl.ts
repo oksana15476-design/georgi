@@ -319,7 +319,7 @@ export const examples:{over:string;title:string;body:string;nums:Pair[];href:str
 ];
 
 export const homeFaq=(cur:Cur):Pair[]=>[
- ['How much does an AI receptionist cost?','Setup is '+fmt(price('rcSetup',cur),cur)+' and the monthly fee is '+fmt(price('rcMonth',cur),cur)+'. Both are 30% off during our launch offer. Call minutes are billed at cost on your own account, typically '+curInfo[cur].usage+' a minute.'],
+ ['How much does an AI receptionist cost?','Setup is '+fmt(price('rcSetup',cur),cur)+' and the monthly fee is '+fmt(price('rcMonth',cur),cur)+'. During our launch offer both are 30% off: '+fmt(promo(price('rcSetup',cur)),cur)+' setup and '+fmt(promo(price('rcMonth',cur)),cur)+' a month. Call minutes are billed at cost on your own account, typically '+curInfo[cur].usage+' a minute.'],
  ['Do you work in UK hours?','Yes. We work remotely and schedule calls in UK working hours. Email and WhatsApp replies come the same working day.'],
  ['Is our data safe?','We process data under UK GDPR with a data processing agreement. Your data stays on your accounts and is never used to train public models.'],
  ['What if the AI makes a mistake?','Every workflow has rules, review points and a handover to a person. In the pilot we test on your real cases before anything goes live.'],
