@@ -7,6 +7,7 @@ import {contacts} from '@/lib/contacts';
 import {partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {posts,type Post} from '@/lib/intl-blog';
 import {ArticleBlock} from '@/components/article-blocks';
+import {entityGuides} from '@/lib/intl-guides';
 import {Icon} from './icon';
 import {PhoneInput} from '@/components/praxen/phone-input';
 import {Scene} from './scene';
@@ -572,6 +573,19 @@ export function Tabs({entity,group}:{entity:Entity;group:string}){
      </article>
     </div>
    </div>
+  </section>
+ );
+}
+
+// Page-specific detail for department and industry pages (lib/intl-guides.ts): the week before and after,
+// tools, what stays with people and how a pilot runs there. Rendered with the blog's article blocks.
+export function EntityGuide({entity}:{entity:Entity}){
+ const guide=entityGuides[entity.slug];
+ if(!guide)return null;
+ return (
+  <section data-screen-label="Guide" className="wrap sec ix-split">
+   <h2 data-reveal="" className="h2">How it works in {entity.name.toLowerCase().replace(/^hr$/,'HR')}.</h2>
+   <div className="ix-article-body ix-guide">{guide.map(b=><section key={b.h}><ArticleBlock b={b}/></section>)}</div>
   </section>
  );
 }

@@ -12,7 +12,7 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
-import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,PilotPlan,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
+import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,EntityGuide,PilotPlan,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
 // Same menu as praxenai.ge (Solutions, Departments, Industries, Training, Cases, Blog). The Solutions menu
@@ -96,7 +96,7 @@ function Page({route}:{route:IntlRoute}){
  const group=page==='training'?'services':page;
  if(page==='home')return <><Hero/><Marquee/><Results/><Quiz/><Pricing/><SmallStrip/><Trust/><AuditReport/><Team/></>;
  if(page==='ai-for-small-business')return <><Hero small/><SmallPerks/><SmallScenarios/><SmallPricing/></>;
- if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><PilotPlan entity={e} group={group}/><ShortAnswer entity={e}/></>;
+ if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><EntityGuide entity={e}/><PilotPlan entity={e} group={group}/><ShortAnswer entity={e}/></>;
  if(page==='cases')return <><InnerHero/><CaseDetails/></>;
  if(page==='services'||page==='industries'||page==='departments')return <><InnerHero/><Cards page={page}/>{page==='departments'&&<OneSystem/>}</>;
  if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/></>;
