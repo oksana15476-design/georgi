@@ -19,7 +19,9 @@ html[lang=ka]{--h1:clamp(36px,3.4vw,50px);--h1ls:-.01em;--h2:clamp(30px,3vw,44px
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:88px}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,'Noto Sans Georgian',system-ui,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+/* Fallback sized like Manrope (avg width, ascent, descent), so text does not reflow when Manrope loads: layout shift on the .com home was 0.197 (3 Nov 2026). */
+@font-face{font-family:'Manrope Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans'),local('Roboto');size-adjust:104.28%;ascent-override:102.23%;descent-override:28.77%;line-gap-override:0%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,'Manrope Fallback','Noto Sans Georgian',system-ui,sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,h3,h4,p,dl,dd,dt,ul,ol,blockquote,fieldset,figure{margin:0}
 ul,ol{padding:0}
 fieldset{border:0;padding:0;min-width:0}
