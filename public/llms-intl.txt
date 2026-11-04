@@ -47,6 +47,7 @@ Key facts:
 - [AI for leadership: an AI plan and weekly briefings](https://praxenai.com/departments/leadership): A ranked list of where AI pays back, a usage policy for your team and a Monday briefing from your own numbers. Then one pilot with a clear payback.
 
 ## Blog
+- [WhatsApp chatbot: what it does and how to plan one](https://praxenai.com/blog/whatsapp-chatbot-for-business): What a WhatsApp chatbot does for a business, menu bot or AI assistant, the jobs to give it first and how to plan a WhatsApp bot that customers keep using.
 - [AI accounting software: Xero, QuickBooks and Sage](https://praxenai.com/blog/ai-accounting-software): AI accounting software explained: what the AI in Xero, QuickBooks and Sage does for UK businesses today, what is still to come and which jobs it leaves to you.
 - [WhatsApp Business API: what it is and how to get it](https://praxenai.com/blog/whatsapp-business-api): What the WhatsApp Business API is, how it differs from the free app, the two ways to get access, how per-message pricing works and the rules to plan for.
 - [How much does an AI receptionist cost in the UK?](https://praxenai.com/blog/ai-receptionist-cost-uk): Setup, monthly fee and call minutes explained, with a simple way to check whether an AI receptionist pays for itself in your business.
