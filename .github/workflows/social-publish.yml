@@ -24,6 +24,9 @@ on:
         description: "With a post id: delete its earlier Facebook post and publish it again"
         type: boolean
         default: false
+      tg_delete:
+        description: "Telegram channel message ids to delete, comma separated (duplicates only, on the owner's word); nothing is published in this run"
+        required: false
 
 permissions:
   contents: write
@@ -57,6 +60,7 @@ jobs:
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           TELEGRAM_SOCIAL_BOT_TOKEN: ${{ secrets.TELEGRAM_SOCIAL_BOT_TOKEN }}
           TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
+          TG_DELETE: ${{ inputs.tg_delete }}
         run: |
           set -o pipefail
           node scripts/social/publish.mjs ${{ inputs.dry && '--dry' || '' }} ${{ inputs.only && format('--only {0}', inputs.only) || '' }} ${{ inputs.channel && format('--channel {0}', inputs.channel) || '' }} ${{ inputs.replace && '--replace' || '' }} | tee -a "$GITHUB_STEP_SUMMARY"

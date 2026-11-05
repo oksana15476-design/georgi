@@ -176,6 +176,14 @@ const send={
 };
 
 const log=[];
+// Delete Telegram channel messages by id (duplicates, on the owner's word) and stop: nothing else runs (TG_DELETE="20,21").
+if(env.TG_DELETE){
+ const ids=env.TG_DELETE.split(',').map(x=>x.trim()).filter(Boolean);
+ if(!ids.every(x=>/^\d+$/.test(x)))throw new Error('TG_DELETE: message ids must be numbers');
+ const r=await call(`https://api.telegram.org/bot${env.TELEGRAM_SOCIAL_BOT_TOKEN}/deleteMessages`,{chat_id:env.TELEGRAM_CHANNEL,message_ids:JSON.stringify(ids.map(Number))}).catch(e=>({error:String(e.message||e).replace(/bot\d+:[\w-]+/g,'bot…')}));
+ console.log('telegram delete',ids.join(','),'→',JSON.stringify(r).slice(0,200));
+ process.exit(r.error?1:0);
+}
 // Threads: the user id is looked up from the token when THREADS_USER_ID is not set.
 if(env.THREADS_TOKEN&&!env.THREADS_USER_ID){try{env.THREADS_USER_ID=(await call(`${T}/me`,{fields:'id,username',access_token:env.THREADS_TOKEN},'GET')).id||''}catch(e){log.push('ERROR threads setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}}
 try{await metaSetup()}catch(e){log.push('ERROR meta setup: '+String(e.message||e).replace(/access_token=[^&\s]+/g,'access_token=…'))}
