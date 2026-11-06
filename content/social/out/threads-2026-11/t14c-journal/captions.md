@@ -12,4 +12,4 @@
 
 ---
 
-Как выглядит журнал и как по нему править ответы, покажу 12 декабря на бесплатном воркшопе, 19:00 по Тбилиси: https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=workshop_dec12&utm_content=t14c-journal
+Как выглядит журнал и как по нему проверять ответы, покажу 12 декабря на бесплатном воркшопе, 19:00 по Тбилиси: https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=workshop_dec12&utm_content=t14c-journal
