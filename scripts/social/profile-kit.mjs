@@ -15,7 +15,7 @@ const svg=f=>readFileSync(join(root,'brand',f),'utf8');
 const logoDark=svg('praxen-logo.svg'),logoWhite=svg('praxen-logo-white.svg'),markWhite=svg('praxen-mark-white.svg');
 async function loadPlaywright(){try{return await import('playwright');}catch{}const g=execSync('npm root -g').toString().trim();return import(pathToFileURL(join(g,'playwright/index.mjs')).href);}
 
-const strip='Бесплатный воркшоп ● 12 ноября ● 19:00 Тбилиси ● 20:00 Астана ● 18:00 Москва ● 45 минут онлайн ● ИИ в отделе продаж ●';
+const strip='Бесплатный воркшоп ● 12 декабря ● 19:00 Тбилиси ● 20:00 Астана ● 18:00 Москва ● 45 минут онлайн ● ИИ в отделе продаж ●';
 const icon={msg:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/>',bot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 17h5"/>',
  steps:'<path d="M4 6h16M4 12h10M4 18h6"/>',tag:'<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="8.5" r="1.5"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5h.01"/>',
  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'};
@@ -38,7 +38,7 @@ h1{font-weight:800;text-transform:uppercase;letter-spacing:-.035em;line-height:.
 .cal .h{background:#ff5a5f;color:#fff;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.cal b{display:block;font-weight:800;letter-spacing:-.06em;line-height:1.05}.cal .f{font-weight:800;color:#3c4658}
 .ico{width:1em;height:1em}
 .logo svg{height:100%;width:auto;display:block}`;
-const info=`<dl class="info"><div><dt>Дата</dt><dd>12.11</dd></div><div><dt>Тбилиси</dt><dd>19:00</dd></div><div><dt>Астана</dt><dd>20:00</dd></div><div><dt>Вход</dt><dd>Бесплатно</dd></div></dl>`;
+const info=`<dl class="info"><div><dt>Дата</dt><dd>12.12</dd></div><div><dt>Тбилиси</dt><dd>19:00</dd></div><div><dt>Астана</dt><dd>20:00</dd></div><div><dt>Вход</dt><dd>Бесплатно</dd></div></dl>`;
 const cal=(sz,foot='четверг · онлайн')=>`<div class="cal" style="width:${sz}px"><div class="h" style="font-size:${sz*.09}px;padding:${sz*.045}px">Ноябрь</div><b style="font-size:${sz*.56}px">12</b><div class="f" style="font-size:${sz*.07}px;padding-bottom:${sz*.07}px">${foot}</div></div>`;
 
 const items={
@@ -53,7 +53,7 @@ const items={
  // LinkedIn company page: the logo covers the left part, text goes right.
  'linkedin-company-cover-1128x191':[1128,191,`<div class="c grad" style="width:1128px;height:191px;color:#fff">
   <div style="position:absolute;right:48px;top:0;bottom:0;display:flex;align-items:center;gap:30px">
-   <div style="text-align:right"><div style="font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd166">Бесплатный воркшоп · 12 ноября · онлайн</div>
+   <div style="text-align:right"><div style="font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd166">Бесплатный воркшоп · 12 декабря · онлайн</div>
     <h1 style="font-size:38px;margin-top:8px;color:#fff">ИИ в отделе продаж</h1>
     <div style="font-size:17px;font-weight:700;margin-top:8px;opacity:.9">19:00 Тбилиси · 20:00 Астана · 18:00 Москва · praxenai.ge</div></div></div></div>`],
  // LinkedIn personal profile: the photo sits bottom left, text goes right.
@@ -103,7 +103,7 @@ const story=(id,bg,kicker,title,sub,extra='')=>items['story-'+id+'-1080x1920']=[
    <span class="badge" style="align-self:flex-start;font-size:28px;padding:14px 28px;${bg!=='white'?'background:#fff;color:#121a2b':''}">${kicker}</span>
    <h1 style="font-size:112px">${title}</h1>
    <div style="font-size:44px;font-weight:700;line-height:1.3">${sub}</div>${extra}</div></div>`];
-story('today','grad','Сегодня, 12 ноября','Воркшоп <span style="color:#ffd166">«ИИ в отделе продаж»</span>','19:00 Тбилиси · 20:00 Астана · 18:00 Москва<br>Последний шанс записаться',`<div style="margin-top:20px">${cal(380,'сегодня · онлайн')}</div>`);
+story('today','grad','Сегодня, 12 декабря','Воркшоп <span style="color:#ffd166">«ИИ в отделе продаж»</span>','19:00 Тбилиси · 20:00 Астана · 18:00 Москва<br>Последний шанс записаться',`<div style="margin-top:20px">${cal(380,'сегодня · онлайн')}</div>`);
 story('30min','ink','Через 30 минут','Начинаем <span style="color:#ffd166">в 19:00</span>','Ссылка на эфир — в нашем Telegram-боте',`<div style="font-size:300px;font-weight:800;color:#ffd166;line-height:1;letter-spacing:-.05em">30:00</div>`);
 story('new-post','white','Новый пост','Где ваш отдел продаж <span class="gt">теряет заявки?</span>','Ночью, в переписке, на одних и тех же вопросах. Разбираем в новом посте — листайте ленту',`<div style="font-size:44px">${info}</div>`);
 story('checklist','yel','Подарок за регистрацию','Чек-лист <span class="gt">«10 вопросов»</span>','Покажет, где ваш отдел продаж теряет заявки.<br>Придёт в Telegram сразу после записи');

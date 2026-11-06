@@ -7,10 +7,10 @@ import type {Lang} from '@/lib/content';
 // the checklist and reminders. Georgian texts need a native speaker's read-through.
 export const webinarLangs:Lang[]=['ru','en','ka'];
 
-// One session (owner's decision, 14 October): 12 November, 19:00 Tbilisi time (UTC+4, no daylight saving), 45 minutes, in Russian.
+// One session (owner's decision, 14 October; moved from 12 November to 12 December by the owner on 6 November): 12 December, 19:00 Tbilisi time (UTC+4, no daylight saving), 45 minutes, in Russian.
 // The English and Georgian pages invite to the same session and say it is in Russian.
 export const webinarEvents={
- ru:{start:'2026-11-12T19:00:00+04:00',end:'2026-11-12T19:45:00+04:00',cal:'20261112T150000Z/20261112T154500Z',ics:['20261112T150000Z','20261112T154500Z']},
+ ru:{start:'2026-12-12T19:00:00+04:00',end:'2026-12-12T19:45:00+04:00',cal:'20261212T150000Z/20261212T154500Z',ics:['20261212T150000Z','20261212T154500Z']},
 };
 export type WebinarEvent=keyof typeof webinarEvents;
 
@@ -64,7 +64,7 @@ export const webinar={
  // Gift for registering, also sent by the bot: public/webinar/checklist-<lang>.pdf.
  checklist:{ru:'/webinar/checklist-ru.pdf',en:'/webinar/checklist-en.pdf',ka:'/webinar/checklist-ru.pdf'} as Record<'ru'|'en'|'ka',string>,
  // @praxenaiweb_bot in WinWinBot (bot 239763): landing «Сайт: уже записан на 12 ноября (RU)» registers the visitor for the
- // 12 November session and starts its reminders, skipping the general greeting that invites to register.
+ // 12 December session and starts its reminders, skipping the general greeting that invites to register.
  bot:'https://t.me/praxenaiweb_bot?start=a30eb8e2-96e8-4003-aae4-36445d6423de',
 };
 
@@ -91,9 +91,9 @@ export type WebinarCopy={
 
 const ru:WebinarCopy={
  event:'ru',
- title:'Воркшоп «ИИ в отделе продаж» 12 ноября — Praxen AI',
- description:'Бесплатный онлайн-воркшоп 12 ноября в 19:00 по Тбилиси: рабочие связки мессенджер → ИИ-ассистент → CRM → менеджер, каждую покажем вживую.',
- marquee:['Бесплатный воркшоп','12 ноября','19:00 Тбилиси','18:00 Москва','20:00 Астана и Ташкент','15:00 Лондон','45 минут онлайн','Одна рабочая связка — вживую'],
+ title:'Воркшоп «ИИ в отделе продаж» 12 декабря — Praxen AI',
+ description:'Бесплатный онлайн-воркшоп 12 декабря в 19:00 по Тбилиси: рабочие связки мессенджер → ИИ-ассистент → CRM → менеджер, каждую покажем вживую.',
+ marquee:['Бесплатный воркшоп','12 декабря','19:00 Тбилиси','18:00 Москва','20:00 Астана и Ташкент','15:00 Лондон','45 минут онлайн','Одна рабочая связка — вживую'],
  head:{cta:'Участвовать',home:'Praxen AI — главная'},
  hero:{badge:'Бесплатный онлайн-воркшоп',host:'',h1:'Как перестать терять заявки',h1Grad:'ночью и в выходные',sub:'За 45 минут вживую соберём одну рабочую связку: мессенджер → ИИ-ассистент → CRM → менеджер. Шаг за шагом — чтобы вы повторили у себя.',info:[['Дата','12.11'],['Тбилиси, GMT+4','19:00'],['Цена','Бесплатно']],cta:'Занять место',gift:'Подарок за регистрацию — чек-лист для отдела продаж'},
  manifest:{a:'Клиент написал в ',hl1:'23:40.',b:' Вы ответили в ',hl2:'09:30.',c:' За это время он уже написал конкурентам.',painLabel:'Боль',pains:['Клиенты пишут вечером и в выходные, а отвечаете вы только утром','Пока менеджер занят, клиент уже написал конкурентам','В CRM половины заявок нет, и непонятно, кому перезвонить','Менеджеры по десять раз в день отвечают на одни и те же вопросы']},
@@ -104,18 +104,18 @@ const ru:WebinarCopy={
  host:{k:'Ведущий',name:'Евгений Будников',role:'Основатель Praxen AI',bio:'Отвечает за то, чтобы ИИ приносил бизнесу измеримый результат: разбирает процессы продаж и считает эффект в деньгах и часах.',quote:['«Сначала выручка, ','потом технология»'],principles:[['target','Считаем эффект.','Сначала — где ИИ даст результат в деньгах и часах, потом инструмент.'],['play','Только практика.','Собираем связку на экране, без слайдов с теорией.'],['message-circle','Ответы вживую.','Задавайте вопросы по ходу — разберём на ваших примерах.']]},
  reg:{h:'Регистрация',hGift:'+ 3 подарка',giftLabel:'Подарок',gifts:[['Чек-лист «10 вопросов»','Покажет, где ваш отдел продаж теряет заявки. Сразу после записи — в Telegram.'],['Запись воркшопа','В течение суток — всем, кто зарегистрировался.'],['Пошаговая схема связки','PDF со всеми шагами воркшопа, чтобы собрать связку у себя.']],countLabel:'До начала воркшопа',units:['дней','часов','минут','секунд']},
  faq:{h:'Вопросы',items:[['Правда бесплатно?','Да, участие бесплатное.'],['Нужны технические знания?','Нет. Рассказываем простыми словами и показываем каждый шаг на экране.'],['С какими CRM это работает?','На воркшопе покажем на тестовой CRM. Связка работает с amoCRM, Bitrix24, HubSpot, 1С и другими системами, у которых есть API.'],['Что с данными клиентов?','На воркшопе работаем на тестовых данных. В рабочей связке переписка и карточки остаются на ваших аккаунтах, а ассистент подключается через официальные API.'],['Что, если не смогу прийти?','Запись пришлём в Telegram в течение суток всем, кто зарегистрировался.']]},
- final:{k:'Следующая заявка придёт сегодня вечером',h:'12 ноября. Онлайн.',cta:'Занять место бесплатно'},
- sticky:{label:'Воркшоп 12 ноября',until:'До начала:',d:'д',cta:'Занять место'},
- form:{title:'Занять место',sub:'12 ноября, {time} · бесплатно',name:'Имя',where:'Куда прислать ссылку',methods:['Telegram','WhatsApp','Телефон'],tgPh:'@username или номер',submit:'Хочу на воркшоп',sending:'Отправляем…',consent:'Нажимая кнопку, вы соглашаетесь на обработку данных и сообщения о воркшопе.',privacy:'Политика конфиденциальности',invalid:'Проверьте контакт: номер телефона или @username в Telegram.',error:'Не получилось отправить. Попробуйте ещё раз или напишите нам в WhatsApp.',
-  doneTitle:'Вы записаны!',doneText:'12 ноября, {time}. Чек-лист, ссылку и напоминания пришлёт наш бот в Telegram — откройте его.',bot:'Открыть бота в Telegram',pdf:'Скачать чек-лист сразу',calGoogle:'Google Календарь',calIcs:'Файл календаря',share:'Пригласить коллегу',copied:'Ссылка скопирована',qTitle:'Какой вопрос разобрать на воркшопе?',qPh:'Например: как ассистент поймёт наш прайс?',industryLabel:'Ваша сфера',industries:['Услуги','Недвижимость','Туризм и отели','Клиника','Интернет-магазин','Другое'],qSend:'Отправить вопрос',qDone:'Спасибо! Разберём на воркшопе.',context:'Воркшоп 12 ноября (RU)'},
+ final:{k:'Следующая заявка придёт сегодня вечером',h:'12 декабря. Онлайн.',cta:'Занять место бесплатно'},
+ sticky:{label:'Воркшоп 12 декабря',until:'До начала:',d:'д',cta:'Занять место'},
+ form:{title:'Занять место',sub:'12 декабря, {time} · бесплатно',name:'Имя',where:'Куда прислать ссылку',methods:['Telegram','WhatsApp','Телефон'],tgPh:'@username или номер',submit:'Хочу на воркшоп',sending:'Отправляем…',consent:'Нажимая кнопку, вы соглашаетесь на обработку данных и сообщения о воркшопе.',privacy:'Политика конфиденциальности',invalid:'Проверьте контакт: номер телефона или @username в Telegram.',error:'Не получилось отправить. Попробуйте ещё раз или напишите нам в WhatsApp.',
+  doneTitle:'Вы записаны!',doneText:'12 декабря, {time}. Чек-лист, ссылку и напоминания пришлёт наш бот в Telegram — откройте его.',bot:'Открыть бота в Telegram',pdf:'Скачать чек-лист сразу',calGoogle:'Google Календарь',calIcs:'Файл календаря',share:'Пригласить коллегу',copied:'Ссылка скопирована',qTitle:'Какой вопрос разобрать на воркшопе?',qPh:'Например: как ассистент поймёт наш прайс?',industryLabel:'Ваша сфера',industries:['Услуги','Недвижимость','Туризм и отели','Клиника','Интернет-магазин','Другое'],qSend:'Отправить вопрос',qDone:'Спасибо! Разберём на воркшопе.',context:'Воркшоп 12 декабря (RU)'},
  foot:{location:'Батуми, Грузия',privacy:'Конфиденциальность'},close:'Закрыть',
 };
 
 const en:WebinarCopy={
  event:'ru',
- title:'Workshop: AI for your sales team, 12 November — Praxen AI',
- description:'Free online workshop in Russian on 12 November at 19:00 Tbilisi time: one working set-up from messenger to AI assistant to CRM to manager, built live.',
- marquee:['Free workshop','In Russian','12 November','19:00 Tbilisi','18:00 Moscow','20:00 Astana and Tashkent','15:00 London','45 minutes online','One working set-up, built live'],
+ title:'Workshop: AI for your sales team, 12 December — Praxen AI',
+ description:'Free online workshop in Russian on 12 December at 19:00 Tbilisi time: one working set-up from messenger to AI assistant to CRM to manager, built live.',
+ marquee:['Free workshop','In Russian','12 December','19:00 Tbilisi','18:00 Moscow','20:00 Astana and Tashkent','15:00 London','45 minutes online','One working set-up, built live'],
  head:{cta:'Join',home:'Praxen AI — home'},
  hero:{badge:'Free online workshop',host:'',h1:'Stop losing enquiries',h1Grad:'at night and at weekends',sub:'In 45 minutes we build one working set-up live: messenger → AI assistant → CRM → manager. Step by step, so you can repeat it.',info:[['Date','12.11'],['Tbilisi, GMT+4','19:00'],['Price','Free']],cta:'Save my seat',gift:'Gift for registering: a checklist for your sales team'},
  manifest:{a:'A client wrote at ',hl1:'23:40.',b:' You replied at ',hl2:'09:30.',c:' By then they had already written to a competitor.',painLabel:'Pain',pains:['Clients write in the evening and at weekends, and you reply the next morning','While your manager is busy, the client is already talking to a competitor','Half of the enquiries never make it into the CRM','Managers answer the same questions ten times a day']},
@@ -126,10 +126,10 @@ const en:WebinarCopy={
  host:{k:'Host',name:'Evgeny Budnikov',role:'Founder, Praxen AI',bio:'Makes sure AI brings measurable results: maps sales processes and estimates the impact in money and hours.',quote:['“Revenue first, ','technology second”'],principles:[['target','We measure the impact.','First where AI pays off in money and hours, then the tool.'],['play','Practice only.','We build the set-up on screen, with no theory slides.'],['message-circle','Answers live.','Ask as we go, and we work through your examples.']]},
  reg:{h:'Register',hGift:'+ 3 gifts',giftLabel:'Gift',gifts:[['Checklist: 10 questions','Shows where your sales team loses enquiries. Sent in Telegram right after you register.'],['Workshop recording','Within 24 hours, for everyone who registers.'],['Step-by-step set-up guide','A PDF with every step of the workshop, so you can build it yourself.']],countLabel:'Workshop starts in',units:['days','hours','min','sec']},
  faq:{h:'Questions',items:[['Is it really free?','Yes, it is free to join.'],['Do I need technical knowledge?','No. We explain in plain words and show every step on screen.'],['Which CRMs does it work with?','At the workshop we use a test CRM. The set-up works with amoCRM, Bitrix24, HubSpot, 1C and other systems with an API.'],['What about client data?','At the workshop we use test data. In a working set-up, chats and records stay on your accounts, and the assistant connects through official APIs.'],['What language is the workshop in?','Russian. The checklist you get for registering is in English.'],['What if I cannot attend?','Everyone who registers gets the recording in Telegram within 24 hours.']]},
- final:{k:'The next enquiry will arrive tonight',h:'12 November. Online.',cta:'Save my seat for free'},
- sticky:{label:'Workshop 12 November',until:'Starts in:',d:'d',cta:'Save my seat'},
- form:{title:'Save my seat',sub:'12 November, {time} · in Russian · free',name:'Name',where:'Where should we send the link?',methods:['Telegram','WhatsApp','Phone'],tgPh:'@username or number',submit:'Join the workshop',sending:'Sending…',consent:'By registering you agree to the processing of your data and to messages about the workshop.',privacy:'Privacy policy',invalid:'Please check the contact: a phone number or a Telegram @username.',error:'Something went wrong. Please try again or message us on WhatsApp.',
-  doneTitle:'You are registered!',doneText:'12 November, {time}, in Russian. Our Telegram bot sends the checklist, the link and reminders — open it.',bot:'Open the bot in Telegram',pdf:'Download the checklist now',calGoogle:'Google Calendar',calIcs:'Calendar file',share:'Invite a colleague',copied:'Link copied',qTitle:'What should we cover at the workshop?',qPh:'For example: how will the assistant learn our price list?',industryLabel:'Your industry',industries:['Services','Real estate','Travel and hotels','Clinic','Online shop','Other'],qSend:'Send the question',qDone:'Thank you! We will cover it live.',context:'Воркшоп 12 ноября (RU), страница EN'},
+ final:{k:'The next enquiry will arrive tonight',h:'12 December. Online.',cta:'Save my seat for free'},
+ sticky:{label:'Workshop 12 December',until:'Starts in:',d:'d',cta:'Save my seat'},
+ form:{title:'Save my seat',sub:'12 December, {time} · in Russian · free',name:'Name',where:'Where should we send the link?',methods:['Telegram','WhatsApp','Phone'],tgPh:'@username or number',submit:'Join the workshop',sending:'Sending…',consent:'By registering you agree to the processing of your data and to messages about the workshop.',privacy:'Privacy policy',invalid:'Please check the contact: a phone number or a Telegram @username.',error:'Something went wrong. Please try again or message us on WhatsApp.',
+  doneTitle:'You are registered!',doneText:'12 December, {time}, in Russian. Our Telegram bot sends the checklist, the link and reminders — open it.',bot:'Open the bot in Telegram',pdf:'Download the checklist now',calGoogle:'Google Calendar',calIcs:'Calendar file',share:'Invite a colleague',copied:'Link copied',qTitle:'What should we cover at the workshop?',qPh:'For example: how will the assistant learn our price list?',industryLabel:'Your industry',industries:['Services','Real estate','Travel and hotels','Clinic','Online shop','Other'],qSend:'Send the question',qDone:'Thank you! We will cover it live.',context:'Воркшоп 12 декабря (RU), страница EN'},
  foot:{location:'Batumi, Georgia',privacy:'Privacy'},close:'Close',
 };
 
@@ -137,8 +137,8 @@ const en:WebinarCopy={
 const ka:WebinarCopy={
  event:'ru',
  title:'ვორქშოპი „AI გაყიდვების განყოფილებაში“ — Praxen AI',
- description:'უფასო ონლაინ ვორქშოპი რუსულ ენაზე, 12 ნოემბერს 19:00-ზე: მესენჯერი → AI ასისტენტი → CRM → მენეჯერი — ერთ სამუშაო კავშირს პირდაპირ ავაწყობთ.',
- marquee:['უფასო ვორქშოპი','რუსულ ენაზე','12 ნოემბერი','19:00 თბილისი','18:00 მოსკოვი','20:00 ასტანა და ტაშკენტი','15:00 ლონდონი','45 წუთი ონლაინ','ერთი სამუშაო კავშირი — პირდაპირ'],
+ description:'უფასო ონლაინ ვორქშოპი რუსულ ენაზე, 12 დეკემბერს 19:00-ზე: მესენჯერი → AI ასისტენტი → CRM → მენეჯერი — ერთ სამუშაო კავშირს პირდაპირ ავაწყობთ.',
+ marquee:['უფასო ვორქშოპი','რუსულ ენაზე','12 დეკემბერი','19:00 თბილისი','18:00 მოსკოვი','20:00 ასტანა და ტაშკენტი','15:00 ლონდონი','45 წუთი ონლაინ','ერთი სამუშაო კავშირი — პირდაპირ'],
  head:{cta:'მონაწილეობა',home:'Praxen AI — მთავარი'},
  hero:{badge:'უფასო ონლაინ ვორქშოპი',host:'',h1:'როგორ შევწყვიტოთ მოთხოვნების დაკარგვა',h1Grad:'ღამით და შაბათ-კვირას',sub:'45 წუთში პირდაპირ ავაწყობთ ერთ სამუშაო კავშირს: მესენჯერი → AI ასისტენტი → CRM → მენეჯერი. ნაბიჯ-ნაბიჯ — რომ თქვენთან გაიმეოროთ. ვორქშოპი რუსულ ენაზე ჩატარდება.',info:[['თარიღი','12.11'],['თბილისი, GMT+4','19:00'],['ფასი','უფასო']],cta:'ადგილის დაკავება',gift:'საჩუქარი რეგისტრაციისთვის — ჩეკლისტი გაყიდვების განყოფილებისთვის'},
  manifest:{a:'კლიენტმა მოგწერათ ',hl1:'23:40-ზე.',b:' თქვენ უპასუხეთ ',hl2:'09:30-ზე.',c:' ამ დროს ის უკვე კონკურენტს წერდა.',painLabel:'პრობლემა',pains:['კლიენტები საღამოს და შაბათ-კვირას გწერენ, თქვენ კი მხოლოდ დილით პასუხობთ','სანამ მენეჯერი დაკავებულია, კლიენტი უკვე კონკურენტს წერს','მოთხოვნების ნახევარი CRM-ში არ ხვდება','მენეჯერები დღეში ათჯერ პასუხობენ ერთსა და იმავე კითხვებს']},
@@ -149,10 +149,10 @@ const ka:WebinarCopy={
  host:{k:'წამყვანი',name:'ევგენი ბუდნიკოვი',role:'Praxen AI-ის დამფუძნებელი',bio:'პასუხობს იმაზე, რომ AI-მ ბიზნესს გაზომვადი შედეგი მოუტანოს: აანალიზებს გაყიდვების პროცესებს და ითვლის ეფექტს ფულსა და საათებში.',quote:['„ჯერ შემოსავალი, ','შემდეგ ტექნოლოგია“'],principles:[['target','ვითვლით ეფექტს.','ჯერ — სად მოიტანს AI შედეგს ფულსა და საათებში, შემდეგ ინსტრუმენტი.'],['play','მხოლოდ პრაქტიკა.','კავშირს ეკრანზე ვაწყობთ, თეორიული სლაიდების გარეშე.'],['message-circle','პასუხები პირდაპირ.','კითხვები დასვით ვორქშოპის დროს — თქვენს მაგალითებზე განვიხილავთ.']]},
  reg:{h:'რეგისტრაცია',hGift:'+ 3 საჩუქარი',giftLabel:'საჩუქარი',gifts:[['ჩეკლისტი „10 კითხვა“','გაჩვენებთ, სად კარგავს მოთხოვნებს თქვენი გაყიდვების განყოფილება. რეგისტრაციისთანავე — Telegram-ში.'],['ვორქშოპის ჩანაწერი','24 საათში — ყველას, ვინც დარეგისტრირდა.'],['კავშირის ნაბიჯ-ნაბიჯ სქემა','PDF ვორქშოპის ყველა ნაბიჯით, რომ კავშირი თქვენთან ააწყოთ.']],countLabel:'ვორქშოპის დაწყებამდე',units:['დღე','საათი','წუთი','წამი']},
  faq:{h:'კითხვები',items:[['მართლა უფასოა?','დიახ, მონაწილეობა უფასოა.'],['ტექნიკური ცოდნა საჭიროა?','არა. ვყვებით მარტივად და ყველა ნაბიჯს ეკრანზე ვაჩვენებთ.'],['რომელ CRM-ებთან მუშაობს?','ვორქშოპზე ვაჩვენებთ სატესტო CRM-ზე. კავშირი მუშაობს amoCRM-თან, Bitrix24-თან, HubSpot-თან, 1C-თან და სხვა სისტემებთან, რომლებსაც API აქვთ.'],['რა ხდება კლიენტების მონაცემებთან?','ვორქშოპზე სატესტო მონაცემებით ვმუშაობთ. სამუშაო კავშირში მიმოწერა და ბარათები თქვენს ანგარიშებზე რჩება, ასისტენტი კი ოფიციალური API-ით უკავშირდება.'],['ვორქშოპი რომელ ენაზეა?','რუსულ ენაზე. ქართულად ვორქშოპი არ იქნება.']]},
- final:{k:'შემდეგი მოთხოვნა დღეს საღამოს მოვა',h:'12 ნოემბერი. ონლაინ.',cta:'ადგილის უფასოდ დაკავება'},
- sticky:{label:'ვორქშოპი 12 ნოემბერს',until:'დაწყებამდე:',d:'დ',cta:'ადგილის დაკავება'},
- form:{title:'ადგილის დაკავება',sub:'12 ნოემბერი, {time} · რუსულ ენაზე · უფასოდ',name:'სახელი',where:'სად გამოგიგზავნოთ ბმული',methods:['Telegram','WhatsApp','ტელეფონი'],tgPh:'@username ან ნომერი',submit:'მინდა ვორქშოპზე',sending:'იგზავნება…',consent:'ღილაკზე დაჭერით ეთანხმებით მონაცემების დამუშავებას და შეტყობინებებს ვორქშოპის შესახებ.',privacy:'კონფიდენციალურობის პოლიტიკა',invalid:'შეამოწმეთ კონტაქტი: ტელეფონის ნომერი ან Telegram-ის @username.',error:'ვერ გაიგზავნა. სცადეთ თავიდან ან მოგვწერეთ WhatsApp-ში.',
-  doneTitle:'დარეგისტრირდით!',doneText:'12 ნოემბერი, {time}, რუსულ ენაზე. ჩეკლისტს, ბმულს და შეხსენებებს გამოგიგზავნით ჩვენი Telegram ბოტით — გახსენით.',bot:'ბოტის გახსნა Telegram-ში',pdf:'ჩეკლისტის ჩამოტვირთვა ახლავე',calGoogle:'Google Calendar',calIcs:'კალენდრის ფაილი',share:'კოლეგის მოწვევა',copied:'ბმული დაკოპირდა',qTitle:'რა საკითხი განვიხილოთ ვორქშოპზე?',qPh:'მაგალითად: როგორ ისწავლის ასისტენტი ჩვენს ფასებს?',industryLabel:'თქვენი სფერო',industries:['მომსახურება','უძრავი ქონება','ტურიზმი და სასტუმროები','კლინიკა','ონლაინ მაღაზია','სხვა'],qSend:'კითხვის გაგზავნა',qDone:'გმადლობთ! ვორქშოპზე განვიხილავთ.',context:'Воркшоп 12 ноября (RU), страница KA'},
+ final:{k:'შემდეგი მოთხოვნა დღეს საღამოს მოვა',h:'12 დეკემბერი. ონლაინ.',cta:'ადგილის უფასოდ დაკავება'},
+ sticky:{label:'ვორქშოპი 12 დეკემბერს',until:'დაწყებამდე:',d:'დ',cta:'ადგილის დაკავება'},
+ form:{title:'ადგილის დაკავება',sub:'12 დეკემბერი, {time} · რუსულ ენაზე · უფასოდ',name:'სახელი',where:'სად გამოგიგზავნოთ ბმული',methods:['Telegram','WhatsApp','ტელეფონი'],tgPh:'@username ან ნომერი',submit:'მინდა ვორქშოპზე',sending:'იგზავნება…',consent:'ღილაკზე დაჭერით ეთანხმებით მონაცემების დამუშავებას და შეტყობინებებს ვორქშოპის შესახებ.',privacy:'კონფიდენციალურობის პოლიტიკა',invalid:'შეამოწმეთ კონტაქტი: ტელეფონის ნომერი ან Telegram-ის @username.',error:'ვერ გაიგზავნა. სცადეთ თავიდან ან მოგვწერეთ WhatsApp-ში.',
+  doneTitle:'დარეგისტრირდით!',doneText:'12 დეკემბერი, {time}, რუსულ ენაზე. ჩეკლისტს, ბმულს და შეხსენებებს გამოგიგზავნით ჩვენი Telegram ბოტით — გახსენით.',bot:'ბოტის გახსნა Telegram-ში',pdf:'ჩეკლისტის ჩამოტვირთვა ახლავე',calGoogle:'Google Calendar',calIcs:'კალენდრის ფაილი',share:'კოლეგის მოწვევა',copied:'ბმული დაკოპირდა',qTitle:'რა საკითხი განვიხილოთ ვორქშოპზე?',qPh:'მაგალითად: როგორ ისწავლის ასისტენტი ჩვენს ფასებს?',industryLabel:'თქვენი სფერო',industries:['მომსახურება','უძრავი ქონება','ტურიზმი და სასტუმროები','კლინიკა','ონლაინ მაღაზია','სხვა'],qSend:'კითხვის გაგზავნა',qDone:'გმადლობთ! ვორქშოპზე განვიხილავთ.',context:'Воркшоп 12 декабря (RU), страница KA'},
  foot:{location:'ბათუმი, საქართველო',privacy:'კონფიდენციალურობა'},close:'დახურვა',
 };
 

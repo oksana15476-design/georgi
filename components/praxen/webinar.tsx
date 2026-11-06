@@ -126,7 +126,7 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
   const full=keys[method]+': '+contact;
   try{
    await sendLead({name,contact:full,context:f.context,lang,website});
-   setDone(full);track('generate_lead',{form:'webinar',method:keys[method],event:'2026-11-12',page:location.pathname});
+   setDone(full);track('generate_lead',{form:'webinar',method:keys[method],event:'2026-12-12',page:location.pathname});
   }catch{setStatus('error');track('form_error',{form:'webinar',reason:'send_failed'})}
   finally{setSending(false)}
  };

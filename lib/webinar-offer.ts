@@ -1,6 +1,6 @@
 import type {Lang} from '@/lib/content';
 
-// Copy for the offer page after the 12 November workshop: /ru/webinar/offer, /webinar/offer and /ka/webinar/offer.
+// Copy for the offer page after the 12 December workshop: /ru/webinar/offer, /webinar/offer and /ka/webinar/offer.
 // Participants come from all three language pages, so the offer is in all three languages (owner's decision, 14 October).
 // Reachable only by the link sent after the workshop: noindex, not in the sitemap or the menus. Georgian texts need a native speaker's read-through.
 // Layout and Russian copy follow the design handoff «Workshop funnel — landing + offer page» (14 October 2026).
@@ -33,11 +33,11 @@ export type OfferCopy={
 
 const ru:OfferCopy={
  title:'Спецпредложение для участников воркшопа — Praxen AI',
- description:'Обучение команды, внедрение и разработка ИИ-решений по ценам для участников воркшопа 12 ноября. Спеццены до 14 ноября, 19:45.',
- marquee:['Только для участников воркшопа','Спеццены до 14 ноября, 19:45','Места на ноябрь ограничены'],
+ description:'Обучение команды, внедрение и разработка ИИ-решений по ценам для участников воркшопа 12 декабря. Спеццены до 14 декабря, 19:45.',
+ marquee:['Только для участников воркшопа','Спеццены до 14 декабря, 19:45','Места на декабрь ограничены'],
  head:{cta:'Выбрать тариф',home:'Praxen AI — главная'},
- hero:{badge:'Для участников воркшопа',h1:'Одна связка —',h1Grad:'только начало',sub:'Научим команду работать с ИИ на ваших задачах — и, если нужно, внедрим готовые инструменты или разработаем решение под ваш процесс. Цены для участников — ниже, чем на сайте.',countLabel:'До конца спеццены',countEnded:'Спеццена закончилась',units:['дней','часов','минут','секунд'],seats:'Количество мест на ноябрь ограничено',seatsSub:'Купите сразу или забронируйте спеццену за 500 ₾'},
- tariffs:{h:'Три формата',note:'Обучение команды — в основе каждого тарифа. Дальше — внедрение готовых инструментов или своя разработка. Цену фиксируем до старта, решение работает на ваших аккаунтах.',label:'Тариф',from:'от',after:'После 14 ноября —',sticker:'Выбор участников',book:'Забронировать за 500 ₾',
+ hero:{badge:'Для участников воркшопа',h1:'Одна связка —',h1Grad:'только начало',sub:'Научим команду работать с ИИ на ваших задачах — и, если нужно, внедрим готовые инструменты или разработаем решение под ваш процесс. Цены для участников — ниже, чем на сайте.',countLabel:'До конца спеццены',countEnded:'Спеццена закончилась',units:['дней','часов','минут','секунд'],seats:'Количество мест на декабрь ограничено',seatsSub:'Купите сразу или забронируйте спеццену за 500 ₾'},
+ tariffs:{h:'Три формата',note:'Обучение команды — в основе каждого тарифа. Дальше — внедрение готовых инструментов или своя разработка. Цену фиксируем до старта, решение работает на ваших аккаунтах.',label:'Тариф',from:'от',after:'После 14 декабря —',sticker:'Выбор участников',book:'Забронировать за 500 ₾',
   pay:['Безопасная оплата','Visa · Mastercard · Apple Pay · Google Pay','Счёт для юрлица — по запросу','Токены ИИ и серверы — на вашем аккаунте, оплачиваете провайдерам напрямую'],
   items:{
    training:{name:'Обучение команды',sub:'Практика на задачах ваших сотрудников. ИИ становится рабочим навыком команды.',features:['4 практических занятия за 1–2 недели — онлайн или в вашем офисе','Программа под ваш отдел: документы, обращения, данные','Рабочие шаблоны и правила проверки результата','Инструкции и записи занятий остаются у вас','Ответы на вопросы команды — 30 дней'],muted:'Интеграции настраиваете вы',note:['Апгрейд в течение 30 дней.','Перейдёте на внедрение или разработку — стоимость обучения засчитаем.'],buy:'Купить обучение'},
@@ -64,11 +64,11 @@ const ru:OfferCopy={
 
 const en:OfferCopy={
  title:'Special offer for workshop participants — Praxen AI',
- description:'Team training, implementation and custom AI development at prices for participants of the 12 November workshop. Special prices until 14 November, 19:45.',
- marquee:['For workshop participants only','Special prices until 14 November, 19:45','Limited places in November'],
+ description:'Team training, implementation and custom AI development at prices for participants of the 12 December workshop. Special prices until 14 December, 19:45.',
+ marquee:['For workshop participants only','Special prices until 14 December, 19:45','Limited places in December'],
  head:{cta:'Choose a plan',home:'Praxen AI — home'},
- hero:{badge:'For workshop participants',h1:'One set-up is',h1Grad:'just the start',sub:'We train your team to use AI on your own tasks and, if you need it, set up ready-made tools or build a solution for your process. Participants pay less than the prices on our site.',countLabel:'Special prices end in',countEnded:'Special prices have ended',units:['days','hours','min','sec'],seats:'Places in November are limited',seatsSub:'Buy now or hold the special price for 500 ₾'},
- tariffs:{h:'Three plans',note:'Team training is the base of every plan. On top of it: implementing ready-made tools or building your own. The price is fixed before work starts, and everything runs on your accounts.',label:'Plan',from:'from',after:'After 14 November:',sticker:'Participants’ choice',book:'Hold for 500 ₾',
+ hero:{badge:'For workshop participants',h1:'One set-up is',h1Grad:'just the start',sub:'We train your team to use AI on your own tasks and, if you need it, set up ready-made tools or build a solution for your process. Participants pay less than the prices on our site.',countLabel:'Special prices end in',countEnded:'Special prices have ended',units:['days','hours','min','sec'],seats:'Places in December are limited',seatsSub:'Buy now or hold the special price for 500 ₾'},
+ tariffs:{h:'Three plans',note:'Team training is the base of every plan. On top of it: implementing ready-made tools or building your own. The price is fixed before work starts, and everything runs on your accounts.',label:'Plan',from:'from',after:'After 14 December:',sticker:'Participants’ choice',book:'Hold for 500 ₾',
   pay:['Secure payment','Visa · Mastercard · Apple Pay · Google Pay','Invoice for a company on request','AI tokens and servers run on your account; you pay the providers directly'],
   items:{
    training:{name:'Team training',sub:'Practice on your staff’s real tasks. AI becomes a working skill of the team.',features:['4 hands-on sessions over 1–2 weeks, online or at your office','A programme for your team: documents, requests, data','Working templates and rules for checking results','Guides and session recordings stay with you','Answers to the team’s questions for 30 days'],muted:'You set up integrations yourself',note:['Upgrade within 30 days.','Move to implementation or development and we credit the training fee.'],buy:'Buy training'},
@@ -95,11 +95,11 @@ const en:OfferCopy={
 
 const ka:OfferCopy={
  title:'სპეციალური შეთავაზება ვორქშოპის მონაწილეებისთვის — Praxen AI',
- description:'გუნდის სწავლება, AI-ის დანერგვა და შემუშავება 12 ნოემბრის ვორქშოპის მონაწილეებისთვის სპეციალურ ფასად. სპეციალური ფასები — 14 ნოემბრის 19:45-მდე.',
- marquee:['მხოლოდ ვორქშოპის მონაწილეებისთვის','სპეციალური ფასები 14 ნოემბრის 19:45-მდე','ნოემბრისთვის ადგილები შეზღუდულია'],
+ description:'გუნდის სწავლება, AI-ის დანერგვა და შემუშავება 12 დეკემბრის ვორქშოპის მონაწილეებისთვის სპეციალურ ფასად. სპეციალური ფასები — 14 დეკემბრის 19:45-მდე.',
+ marquee:['მხოლოდ ვორქშოპის მონაწილეებისთვის','სპეციალური ფასები 14 დეკემბრის 19:45-მდე','დეკემბრისთვის ადგილები შეზღუდულია'],
  head:{cta:'ტარიფის არჩევა',home:'Praxen AI — მთავარი'},
- hero:{badge:'ვორქშოპის მონაწილეებისთვის',h1:'ერთი კავშირი —',h1Grad:'მხოლოდ დასაწყისია',sub:'ვასწავლით თქვენს გუნდს AI-თან მუშაობას თქვენსავე ამოცანებზე და, საჭიროების შემთხვევაში, დავნერგავთ მზა ინსტრუმენტებს ან შევიმუშავებთ გადაწყვეტას თქვენი პროცესისთვის. მონაწილეებისთვის ფასები საიტზე მითითებულზე დაბალია.',countLabel:'სპეციალური ფასის დასრულებამდე',countEnded:'სპეციალური ფასი დასრულდა',units:['დღე','საათი','წუთი','წამი'],seats:'ნოემბრისთვის ადგილების რაოდენობა შეზღუდულია',seatsSub:'იყიდეთ ახლავე ან დაჯავშნეთ სპეციალური ფასი 500 ₾-ად'},
- tariffs:{h:'სამი ფორმატი',note:'გუნდის სწავლება ყველა ტარიფის საფუძველია. შემდეგ — მზა ინსტრუმენტების დანერგვა ან საკუთარი შემუშავება. ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ, გადაწყვეტა თქვენს ანგარიშებზე მუშაობს.',label:'ტარიფი',from:'',after:'14 ნოემბრის შემდეგ —',sticker:'მონაწილეების არჩევანი',book:'დაჯავშნა 500 ₾-ად',
+ hero:{badge:'ვორქშოპის მონაწილეებისთვის',h1:'ერთი კავშირი —',h1Grad:'მხოლოდ დასაწყისია',sub:'ვასწავლით თქვენს გუნდს AI-თან მუშაობას თქვენსავე ამოცანებზე და, საჭიროების შემთხვევაში, დავნერგავთ მზა ინსტრუმენტებს ან შევიმუშავებთ გადაწყვეტას თქვენი პროცესისთვის. მონაწილეებისთვის ფასები საიტზე მითითებულზე დაბალია.',countLabel:'სპეციალური ფასის დასრულებამდე',countEnded:'სპეციალური ფასი დასრულდა',units:['დღე','საათი','წუთი','წამი'],seats:'დეკემბრისთვის ადგილების რაოდენობა შეზღუდულია',seatsSub:'იყიდეთ ახლავე ან დაჯავშნეთ სპეციალური ფასი 500 ₾-ად'},
+ tariffs:{h:'სამი ფორმატი',note:'გუნდის სწავლება ყველა ტარიფის საფუძველია. შემდეგ — მზა ინსტრუმენტების დანერგვა ან საკუთარი შემუშავება. ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ, გადაწყვეტა თქვენს ანგარიშებზე მუშაობს.',label:'ტარიფი',from:'',after:'14 დეკემბრის შემდეგ —',sticker:'მონაწილეების არჩევანი',book:'დაჯავშნა 500 ₾-ად',
   pay:['უსაფრთხო გადახდა','Visa · Mastercard · Apple Pay · Google Pay','ინვოისი კომპანიისთვის — მოთხოვნით','AI ტოკენები და სერვერები თქვენს ანგარიშზეა, პროვაიდერებს პირდაპირ უხდით'],
   items:{
    training:{name:'გუნდის სწავლება',sub:'პრაქტიკა თქვენი თანამშრომლების ამოცანებზე. AI გუნდის სამუშაო უნარად იქცევა.',features:['4 პრაქტიკული შეხვედრა 1–2 კვირაში — ონლაინ ან თქვენს ოფისში','პროგრამა თქვენი განყოფილებისთვის: დოკუმენტები, მომართვები, მონაცემები','სამუშაო შაბლონები და შედეგის შემოწმების წესები','ინსტრუქციები და შეხვედრების ჩანაწერები თქვენთან რჩება','გუნდის კითხვებზე პასუხები — 30 დღე'],muted:'ინტეგრაციებს თავად აწყობთ',note:['განახლება 30 დღის განმავლობაში.','გადახვალთ დანერგვაზე ან შემუშავებაზე — სწავლების ღირებულებას ჩავთვლით.'],buy:'სწავლების ყიდვა'},
