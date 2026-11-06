@@ -2,7 +2,7 @@
 
 ## threads · ветка из 3 · 2026-11-09 19:00 (Тбилиси)
 
-12 ноября провожу бесплатный воркшоп по ИИ в продажах. 45 минут, без теории, собираем одну связку: мессенджер → ассистент → CRM.
+12 декабря провожу бесплатный воркшоп по ИИ в продажах. 45 минут, без теории, собираем одну связку: мессенджер → ассистент → CRM.
 
 ---
 
@@ -10,4 +10,4 @@
 
 ---
 
-Регистрация: https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=workshop_nov12&utm_content=t14-workshop-q
+Регистрация: https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=workshop_dec12&utm_content=t14-workshop-q
