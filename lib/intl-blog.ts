@@ -11,7 +11,7 @@ const training=fmt(price('training')),trainingP=fmt(promo(price('training'))),ca
 const usage=curInfo.gbp.usage;
 
 export const posts:Post[]=[
- {slug:'n8n-vs-zapier-vs-make',cat:'Automation',date:'2026-11-05',dateLabel:'5 November 2026',minutes:8,
+ {slug:'n8n-vs-zapier-vs-make',cat:'Automation',date:'2026-11-06',dateLabel:'6 November 2026',minutes:8,
   title:'n8n vs Zapier vs Make: which one fits your business',
   description:'n8n vs Zapier vs Make compared for a UK business: how each one bills, where your data runs, who can build in it and which workflows suit which tool.',
   excerpt:'Tasks, operations or executions: what each tool counts, where your data goes and which workflows suit Zapier, Make or n8n.',
@@ -161,7 +161,7 @@ export const posts:Post[]=[
    {h:'What it costs and how long it takes',p:['A pilot on one workflow costs '+pilot+' ('+pilotP+' with the launch offer) and takes 2–4 weeks, including a test on last month’s real cases. Linking several workflows with AI agents starts at '+custom+' ('+customP+'). Ongoing care is '+care+' a month ('+careP+'). Model usage is charged by the providers at cost and runs on your accounts. Prices exclude VAT.','To check payback, multiply the hours a workflow takes each month by the hourly cost of the people doing it. For example, order entry that takes a coordinator six hours a week at £20 an hour costs about £520 a month in staff time. These figures are illustrative; use your own from a normal week. Then compare the result with the pilot price and the monthly care fee.'],table:[['Format','What you get','Timeline','Price (launch offer)'],['Pilot','One workflow from the list above, on your real data','2–4 weeks',pilotP],['Custom solution','Several workflows linked, with AI agents and approval screens','From 4 weeks','from '+customP],['Ongoing care','Monitoring, rule changes and fixes','Monthly',careP+'/mo']]},
   ],
   faq:[['What is the difference between workflow automation and AI automation?','Workflow automation moves structured data between tools by fixed rules. AI automation adds reading and drafting: it takes an email or a PDF, pulls out the details and prepares the next step for a person to check.'],['Can we automate a workflow if our software has no API?','Often, yes. The workflow can run through email, a shared folder or a scheduled export. We confirm the route in the free audit before we quote.'],['How many workflows should we start with?','One. Measure it for a month, then add the next. The second workflow reuses the same connections and access rules, so it is quicker to build.'],['Do we need technical staff to run it?','No. We set it up, document it and show the person who owns the workflow how to check results and change simple rules. Larger changes are part of ongoing care.']],
-  links:[['services/ai-automation','AI automation'],['services/ai-agents','AI agents'],['blog/ai-implementation-cost','How much does AI implementation cost?']]},
+  links:[['services/ai-automation','AI automation'],['services/ai-agents','AI agents'],['blog/ai-implementation-cost','How much does AI implementation cost?'],['blog/n8n-vs-zapier-vs-make','n8n vs Zapier vs Make: which tool to choose']]},
  {slug:'ai-for-law-firms',cat:'Law firms',date:'2026-10-08',dateLabel:'8 October 2026',minutes:7,
   title:'AI for law firms: intake, documents and research',
   description:'Where AI helps a law firm with client intake, document review, drafting and research support, what stays with solicitors, and what a first pilot costs.',
