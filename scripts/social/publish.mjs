@@ -196,6 +196,8 @@ for(const b of BATCHES){
  const batch=JSON.parse(readFileSync(join(root,'content/social',b.file),'utf8')),name=b.file.replace(/\.json$/,'');
  for(const post of batch.posts){
   if(b.only&&!b.only.includes(post.id))continue;
+  // A post marked "off" (with the reason) is out of the plan and never goes out automatically (owner, 6 November: workshop cancelled).
+  if(post.off&&!ONLY)continue;
   if(!CHECK&&(ONLY?post.id!==ONLY:!due(post)||stale(post)))continue;
   // A post that cannot be prepared is reported and skipped; the others still go out.
   let c,imgs;
