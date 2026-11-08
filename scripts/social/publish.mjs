@@ -138,9 +138,24 @@ const send={
   const kids=[];for(const url of imgs.slice(0,10))kids.push((await call(`${T}/${u}/threads`,{media_type:'IMAGE',image_url:url,is_carousel_item:'true',access_token:tok})).id);
   for(const k of kids)await ready(T,k,tok,'status');
   // A post without slides (threads-only batch) starts the thread with plain text.
-  let id=(await call(`${T}/${u}/threads`,kids.length?{media_type:'CAROUSEL',children:kids.join(','),text:parts[0],access_token:tok}:{media_type:'TEXT',text:parts[0],access_token:tok})).id;
+  const head=kids.length?{media_type:'CAROUSEL',children:kids.join(','),text:parts[0],access_token:tok}:{media_type:'TEXT',text:parts[0],access_token:tok};
+  let id=(await call(`${T}/${u}/threads`,head)).id;
   await ready(T,id,tok,'status');
-  let prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;const first=prev;
+  // Threads sometimes answers threads_publish with "Media Not Found" (subcode 4279009) although the container was ready
+  // (6 and 8 November; nothing was posted either time). Look for the post first so a retry never doubles it, then build a
+  // fresh container and publish once more.
+  let prev;
+  try{prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;}
+  catch(e){
+   if(!/4279009|Media Not Found/.test(String(e.message||e)))throw e;
+   await wait(20000);
+   const key=parts[0].slice(0,80),since=Date.now()-10*60e3;
+   const recent=await call(`${T}/${u}/threads`,{fields:'id,text,timestamp',limit:'10',access_token:tok},'GET').catch(()=>({data:[]}));
+   const hit=(recent.data||[]).find(x=>(x.text||'').startsWith(key)&&Date.parse(x.timestamp)>since);
+   if(hit)prev=hit.id;
+   else{id=(await call(`${T}/${u}/threads`,head)).id;await ready(T,id,tok,'status');await wait(5000);prev=(await call(`${T}/${u}/threads_publish`,{creation_id:id,access_token:tok})).id;}
+  }
+  const first=prev;
   // The first post is already out: a failed reply must not make the next run post the whole thread again (28 October,
   // "Invalid Link Attachment" on the link reply gave a duplicate). One retry after a pause, then the rest is reported and skipped.
   for(const text of parts.slice(1)){
