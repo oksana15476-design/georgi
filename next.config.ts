@@ -23,7 +23,7 @@ const intl = process.env.NEXT_PUBLIC_MARKET === "intl";
 const sections = ["ai-for-small-business", "services", "industries", "departments", "solutions", "training", "cases", "about", "security", "partners", "privacy", "terms", "blog"];
 const withSlugs = ["services", "industries", "departments", "blog"];
 // praxenai.ge top-level sections; keep in sync with geSections in app/[lang]/[[...section]]/page.tsx.
-const geSections = ["industries", "departments", "training", "solutions", "cases", "partners", "privacy", "about", "security", "blog"];
+const geSections = ["industries", "departments", "training", "solutions", "cases", "partners", "privacy", "about", "security", "blog", "chatbot"];
 const geWithSlugs = ["industries", "departments", "blog"];
 const pages = githubPages || process.env.STATIC_EXPORT === "1";
 
