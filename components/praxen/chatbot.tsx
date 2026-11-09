@@ -74,7 +74,9 @@ export function ChatbotPage({x}:{x:X}){
     <div className="formats-grid">
      {p.pricing.rows.map((r,i)=><div key={r.price} data-reveal="" style={rd(i*100)}><article className="format">
       <h3>{tr(r.name)}</h3>
-      <p className="cb-price">{(r.from?from:'')+money(prices[r.price],'gel')+' ($'+prices[r.price].usd+')'+(r.monthly?perMonth:'')}</p>
+      <p className="cb-price">{lang==='ka'
+       ?money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.from?'-დან':'')+(r.monthly?perMonth:'')
+       :(r.from?from:'')+money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.monthly?perMonth:'')}</p>
       <p>{tr(r.what)}</p>
       <p className="format-time"><span>{s.timelineT}: <b>{tr(r.time)}</b></span></p>
       <button type="button" onClick={()=>x.go(label+': '+tr(r.name))} className="ulink mt-auto">{s.action}<Icon name="arrow-right" size={16}/></button>
