@@ -47,6 +47,8 @@ Key facts:
 - [AI for leadership: an AI plan and weekly briefings](https://praxenai.com/departments/leadership): A ranked list of where AI pays back, a usage policy for your team and a Monday briefing from your own numbers. Then one pilot with a clear payback.
 
 ## Blog
+- [Microsoft Copilot training: what to teach staff](https://praxenai.com/blog/copilot-training-for-staff): Copilot training for staff in the first month: what to teach in Outlook, Teams, Word, Excel and PowerPoint, the permissions check and how to measure results.
+- [ChatGPT for business: plans, settings and first uses](https://praxenai.com/blog/chatgpt-for-business): ChatGPT for business explained for UK teams: which plan to choose, the data and admin settings to switch on, first uses with examples and a 30-day rollout.
 - [n8n vs Zapier vs Make: which one fits your business](https://praxenai.com/blog/n8n-vs-zapier-vs-make): n8n vs Zapier vs Make compared for a UK business: how each one bills, where your data runs, who can build in it and which workflows suit which tool.
 - [WhatsApp chatbot: what it does and how to plan one](https://praxenai.com/blog/whatsapp-chatbot-for-business): What a WhatsApp chatbot does for a business, menu bot or AI assistant, the jobs to give it first and how to plan a WhatsApp bot that customers keep using.
 - [AI accounting software: Xero, QuickBooks and Sage](https://praxenai.com/blog/ai-accounting-software): AI accounting software explained: what the AI in Xero, QuickBooks and Sage does for UK businesses today, what is still to come and which jobs it leaves to you.
