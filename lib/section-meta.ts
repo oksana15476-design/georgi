@@ -1,4 +1,5 @@
 import type {Copy} from './content';
+import {chatbotPage} from './chatbot-page';
 
 // Search titles and descriptions for the home page and section pages, per language [ru, en, ka].
 export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
@@ -46,4 +47,5 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
   title:['Политика конфиденциальности — Praxen AI','Privacy policy — Praxen AI','კონფიდენციალურობის პოლიტიკა — Praxen AI'],
   description:['Какие данные собирает Praxen AI, зачем, кому передаёт и как долго хранит. Ваши права по закону Грузии о защите персональных данных.','What data Praxen AI collects, why, who receives it and how long we keep it. Your rights under the Georgian personal data protection law.','რა მონაცემებს აგროვებს Praxen AI, რისთვის, ვის გადასცემს და რამდენ ხანს ინახავს. თქვენი უფლებები საქართველოს კანონით.'],
  },
+ chatbot:{title:chatbotPage.title,description:chatbotPage.description},
 };

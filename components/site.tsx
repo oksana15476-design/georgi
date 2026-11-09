@@ -25,6 +25,8 @@ import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
 import type {X} from '@/components/praxen/types';
 import {pageJsonLd} from '@/lib/seo';
 import {geFaq} from '@/lib/ge-faq';
+import {ChatbotPage,chatbotLabel} from '@/components/praxen/chatbot';
+import {chatbotPage} from '@/lib/chatbot-page';
 
 type Props={lang?:Lang;section?:string;slug?:string;data?:PageData};
 
@@ -32,7 +34,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const c=copyFn(lang);
  const profile=data.profile;
  const ent=slug?(industries.find(i=>i.slug===slug)||departments.find(i=>i.slug===slug)):undefined;
- const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isCompany=section==='about'||section==='security',isBlog=section==='blog',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners&&!isCompany&&!isBlog;
+ const isDetail=!!(profile&&ent),isHome=section==='home'&&!isDetail,isPrivacy=section==='privacy',isPartners=section==='partners',isCompany=section==='about'||section==='security',isBlog=section==='blog',isChatbot=section==='chatbot',isList=!isHome&&!isDetail&&!isPrivacy&&!isPartners&&!isCompany&&!isBlog&&!isChatbot;
  const post=isBlog&&slug?geArticle(slug)?.langs[lang]:undefined;
  const s=siteCopy(c,isDetail?slug:undefined);
  const root=homeHref(lang),link=(p:string)=>pageHref(lang,p);
@@ -66,14 +68,14 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  // Each list and company page has its own questions (lib/ge-faq.ts), so FAQ blocks do not repeat between pages.
  const g=geFaq(c),[,costFaq,,trainingFaq,systemsFaq,mistakeFaq,langFaq]=genFaq;
  const pageFaq:Record<string,[string,string][]>={home:[aboutFaq,costFaq,agentFaq,langFaq],solutions:[g.excluded,g.support,g.pilotPrice],training:[trainingFaq,g.trainingHow,g.trainingLang],cases:[g.casesReal,g.measure],industries:[g.notListed,systemsFaq],departments:deptFaq.filter(([,a])=>a!==costAnswer),about:[g.who,g.onSite],security:[mistakeFaq,g.dataTraining,g.whoSees]};
- const faqItems:[string,string][]=isBlog?(post?post.faq:[]):isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:pageFaq[section]||genFaq;
+ const faqItems:[string,string][]=isChatbot?chatbotPage.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string]):isBlog?(post?post.faq:[]):isPartners?partnerFaq:isDetail?[...(ov?ov.faq:profile!.faq.map(([q,a])=>[t(q,lang),t(a,lang)] as [string,string])),detailCost]:pageFaq[section]||genFaq;
  const faqTitle=isPartners?c('Вопросы партнёров.','Partner questions.','პარტნიორების კითხვები.'):isDetail?c('Вопросы по делу.','Practical questions.','პრაქტიკული კითხვები.'):c('До первого разговора.','Before our first conversation.','პირველ საუბრამდე.');
 
- const sectionName=isBlog?blogLabel(x):section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
+ const sectionName=isChatbot?chatbotLabel(x):isBlog?blogLabel(x):section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
   crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[]),...(post?[[post.title,rest] as [string,string]]:[])],
   article:post?{title:post.title,description:post.description,date:geArticle(slug!)!.date,path:rest}:undefined,
-  service:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
+  service:isChatbot?{name:chatbotLabel(x),description:t(chatbotPage.description,lang),path:rest}:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail
   ?(ov?ov.chips:[...profile!.scenarios.map(q=>t(q.title,lang)),...profile!.extra.map(v=>t(v,lang))])
@@ -105,6 +107,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {section==='about'&&<><About x={x}/><Process x={x}/><Team x={x}/></>}
     {section==='security'&&<Security x={x}/>}
     {isBlog&&(post?<GeArticle x={x} post={post}/>:<BlogList x={x}/>)}
+    {isChatbot&&<ChatbotPage x={x}/>}
     {isList&&<InnerHero x={x} page={section}/>}
     {isDetail&&<DetailHero x={x} slug={slug!} page={section}/>}
     {section==='industries'&&!isDetail&&<IndustriesGrid x={x}/>}

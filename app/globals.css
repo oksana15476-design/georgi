@@ -1978,3 +1978,13 @@ main{outline:none}
 .pt-note svg{flex-shrink:0;color:var(--accent)}
 @media(max-width:900px){.pt-tiers{grid-template-columns:1fr}.pt-tier-n{font-size:52px;margin:12px 0 10px}.pt-formats{grid-template-columns:1fr}}
 @media(max-width:600px){.pt-terms{padding:20px}.pt-terms li{grid-template-columns:72px 1fr}.pt-terms li b{font-size:28px}.pt-row{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:16px 18px}.pt-pct{grid-column:2;grid-row:1;padding:3px 10px}.pt-res{grid-column:1/-1;text-align:left}.pt-note{align-items:flex-start}.pt-note svg{margin-top:2px}}
+/* Chatbot page (components/praxen/chatbot.tsx) */
+.cb-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 32px;margin-top:8px}
+.cb-list li{display:flex;gap:12px;align-items:flex-start;font-size:17px;line-height:1.55;color:var(--body)}
+.cb-list li svg{flex:none;margin-top:4px;color:var(--accent)}
+.cb-note{margin-top:40px;padding:24px 28px;border-left:3px solid var(--accent);background:var(--soft);border-radius:12px}
+.cb-note h3{font-size:22px;font-weight:500;letter-spacing:-.02em;margin-bottom:8px}
+.cb-note p{font-size:16px;line-height:1.6;color:var(--body)}
+.cb-price{font-size:22px!important;font-weight:600;color:var(--ink)!important;margin-bottom:8px}
+.cb-links{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:14px 32px}
+@media (max-width:760px){.cb-list{grid-template-columns:1fr}.cb-note{padding:20px}}

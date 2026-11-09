@@ -21,7 +21,7 @@ for(const p of posts){
  for(const [h] of p.links)if(!comOk.has(h)||h==='blog/'+p.slug)bad(`com/${p.slug}: link ${h} does not exist`);
 }
 // praxenai.ge: ru, en and ka for every article; " — Praxen AI" is added only to titles up to 50 characters.
-const geOk=new Set(['solutions','training','cases','about','security','industries','departments','blog',...geInds.map(i=>'industries/'+i.slug),...geDepts.map(d=>'departments/'+d.slug),...geArticles.map(a=>'blog/'+a.slug)]);
+const geOk=new Set(['solutions','training','cases','about','security','industries','departments','blog','chatbot',...geInds.map(i=>'industries/'+i.slug),...geDepts.map(d=>'departments/'+d.slug),...geArticles.map(a=>'blog/'+a.slug)]);
 for(const a of geArticles)for(const l of ['ru','en','ka'] as const){
  const p=a.langs[l];if(!p){bad(`ge/${a.slug}: no ${l} version`);continue}
  if(p.title.length>70)bad(`ge/${a.slug}/${l}: title is ${p.title.length} characters, keep it within 70`);
