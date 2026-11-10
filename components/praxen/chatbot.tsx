@@ -1,7 +1,7 @@
 'use client';
 // praxenai.ge commercial page «Чат-бот для бизнеса» (/ru/chatbot, /chatbot, /ka/chatbot; owner, 9 November 2026).
 // Copy lives in lib/chatbot-page.ts; the layout reuses the inner-page blocks (hero, formats, process) and their CSS.
-import {homeHref,pageHref} from '@/lib/base';
+import {base,homeHref,pageHref} from '@/lib/base';
 import {t} from '@/lib/content';
 import {chatbotPage as p} from '@/lib/chatbot-page';
 import {money,prices} from '@/lib/pricing';
@@ -9,6 +9,12 @@ import {Icon} from '@/components/praxen/icon';
 import type {X} from '@/components/praxen/types';
 
 const rd=(ms:number)=>({transitionDelay:ms+'ms'});
+// Brand marks from public/logos for the messengers; the website channel gets a globe icon.
+const logoFile:Record<string,string>={WhatsApp:'whatsapp.svg',Telegram:'telegram.svg',Instagram:'instagram.svg'};
+function ChannelMark({name,size=22}:{name:string;size?:number}){
+ const f=Object.entries(logoFile).find(([k])=>name.startsWith(k))?.[1];
+ return f?<img src={base+'/logos/'+f} alt="" width={size} height={size} loading="lazy" decoding="async" style={{display:'block',width:size,height:size,flex:'none'}}/>:<Icon name="globe-2" size={size}/>;
+}
 
 export const chatbotLabel=(x:X)=>x.c('Чат-бот для бизнеса','Chatbot for business','ჩატბოტი ბიზნესისთვის');
 
@@ -27,7 +33,7 @@ export function ChatbotPage({x}:{x:X}){
       <div data-reveal="" style={rd(140)} className="inner-lead"><p>{tr(p.lead)}</p><button type="button" onClick={()=>x.go(label)} className="btn btn-primary mt24">{tr(p.cta.button)}<Icon name="arrow-right" size={16}/></button></div>
      </div>
      <ul data-reveal="" style={rd(220)} className="facts">
-      {p.channels.items.map(ch=><li key={ch.name[1]}><Icon name="message-circle" size={18}/><span>{tr(ch.name)}</span></li>)}
+      {p.channels.items.map(ch=><li key={ch.name[1]}><ChannelMark name={ch.name[1]}/><span>{tr(ch.name)}</span></li>)}
      </ul>
     </div>
    </div>
@@ -38,7 +44,7 @@ export function ChatbotPage({x}:{x:X}){
     <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{tr(p.channels.h)}</h2></div></div>
     <div className="formats-grid">
      {p.channels.items.map((ch,i)=><div key={ch.name[1]} data-reveal="" style={rd(i*90)}><article className="format">
-      <h3>{tr(ch.name)}</h3>
+      <h3 className="cb-ch"><ChannelMark name={ch.name[1]} size={28}/>{tr(ch.name)}</h3>
       <p>{tr(ch.text)}</p>
      </article></div>)}
     </div>

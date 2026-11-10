@@ -1988,3 +1988,4 @@ main{outline:none}
 .cb-price{font-size:22px!important;font-weight:600;color:var(--ink)!important;margin-bottom:8px}
 .cb-links{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:14px 32px}
 @media (max-width:760px){.cb-list{grid-template-columns:1fr}.cb-note{padding:20px}}
+.cb-ch{display:flex;align-items:center;gap:12px}
