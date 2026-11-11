@@ -227,7 +227,7 @@ export function Pricing(){
    </div>
    <p className="tariff-example ix-rc-line"><Icon name="phone-call" size={16}/><span>AI receptionist: <b>{fmt(promo(price('rcSetup',cur)),cur)}</b> setup + <b>{fmt(promo(price('rcMonth',cur)),cur)}/mo</b> with the launch offer. Call minutes at cost, typically {curInfo[cur].usage} per minute. <a href={link('services/ai-receptionist')} className="ix-inline">See the AI receptionist</a></span></p>
    <p className="tariff-example"><Icon name="calculator" size={16}/><span>For example: implementation pilot <b>{fmt(promo(price('pilot',cur)),cur)}</b> once. Ongoing care: <b>{fmt(promo(price('care',cur)),cur)}/mo</b>. You pay AI usage directly to the providers. The audit is free.</span></p>
-   <p className="tariff-example"><Icon name="badge-check" size={16}/><span><b>{resultsCheck[0]}.</b> {resultsCheck[1]}</span></p>
+   <p className="tariff-example tariff-check"><Icon name="badge-check" size={16}/><span><b>{resultsCheck[0]}.</b> {resultsCheck[1]}</span></p>
    <p className="ix-vat">{vatNote}</p>
   </section>
  );
@@ -616,6 +616,8 @@ export function PilotPlan({entity,group}:{entity:Entity;group:string}){
  const [,first,firstDesc]=entity.scenarios[0];
  const training=entity.slug==='ai-training';
  const rc=entity.slug==='ai-receptionist';
+ // AI agents are a custom build: the plan shows the custom term and price, as the rest of the page does.
+ const agents=entity.slug==='ai-agents';
  const steps:[string,string,string][]=training?[
   ['phone-call','Short call','We learn which tools your team uses, what they already do with AI and where the rules are unclear.'],
   ['graduation-cap','Half-day session','Hands-on work on your own tasks: '+entity.scenarios.slice(0,3).map(x=>lc(x[1])).join(', ')+'.'],
@@ -627,8 +629,8 @@ export function PilotPlan({entity,group}:{entity:Entity;group:string}){
   ['workflow','Connected and tested','Connected to '+toolList+', then tested on your real cases before anything goes live.'],
   ['line-chart','Measured',entity.measure||'One metric agreed upfront and compared with how the work runs today.'],
  ];
- const time=training?'From 1 week to the session':rc?'Live in about 2 weeks':'2–4 weeks';
- const cost=training?fmt(promo(price('training',cur)),cur)+' per session':rc?fmt(promo(price('rcSetup',cur)),cur)+' setup + '+fmt(promo(price('rcMonth',cur)),cur)+'/mo':fmt(promo(price('pilot',cur)),cur)+' fixed price';
+ const time=training?'From 1 week to the session':rc?'Live in about 2 weeks':agents?'From 4 weeks':'2–4 weeks';
+ const cost=training?fmt(promo(price('training',cur)),cur)+' per session':rc?fmt(promo(price('rcSetup',cur)),cur)+' setup + '+fmt(promo(price('rcMonth',cur)),cur)+'/mo':agents?'from '+fmt(promo(price('custom',cur)),cur):fmt(promo(price('pilot',cur)),cur)+' fixed price';
  const title=training?'How the training runs.':rc?'How we launch your AI receptionist.':group==='services'?'Your '+entity.name+' pilot, step by step.':'How a pilot for '+(group==='departments'?'your '+lc(entity.name)+' team':lc(entity.name))+' runs.';
  return (
   <section data-screen-label="Pilot plan" className="band-white bordered">

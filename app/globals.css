@@ -987,7 +987,7 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
  .tariff.is-open .tariff-body{display:block}
  .tariff-meta{margin-top:10px}
  .tariff-cta{margin-top:0;padding-top:16px}
- .tariff-example{display:none}
+ .tariff-example:not(.tariff-check){display:none}
 }
 
 /* Home blocks kept on desktop and hidden on phones */
