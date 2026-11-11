@@ -8,7 +8,7 @@
 
 Из этой истории два вывода. Если ассистент не может помочь, он передаёт разговор человеку, а не ходит по кругу. И после каждого обновления его проверяют тестовыми диалогами, включая провокации.
 
-Завтра в 19:00 по Тбилиси бесплатный воркшоп, покажем, как ассистент передаёт разговор менеджеру: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=cases_nov&utm_content=c07-dpd
+Завтра в 19:00 по Тбилиси бесплатный воркшоп, покажем, как ассистент передаёт разговор менеджеру: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-12&utm_content=c07-dpd
 
 Источник: ITV News, январь 2024.
 
@@ -22,7 +22,7 @@
 
 Из этой истории два вывода. Если ассистент не может помочь, он передаёт разговор человеку, а не ходит по кругу. И после каждого обновления его проверяют тестовыми диалогами, включая провокации.
 
-Завтра в 19:00 по Тбилиси бесплатный воркшоп, покажем, как ассистент передаёт разговор менеджеру: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=cases_nov&utm_content=c07-dpd
+Завтра в 19:00 по Тбилиси бесплатный воркшоп, покажем, как ассистент передаёт разговор менеджеру: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-12&utm_content=c07-dpd
 
 Источник: ITV News, январь 2024.
 
@@ -48,7 +48,7 @@
 
 ---
 
-DPD отключила ИИ в чате и объяснила всё ошибкой после обновления. Вывод: если ассистент не может помочь, он зовёт человека. Завтра в 19:00 покажем, как это устроить: https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=cases_nov&utm_content=c07-dpd
+DPD отключила ИИ в чате и объяснила всё ошибкой после обновления. Вывод: если ассистент не может помочь, он зовёт человека. Завтра в 19:00 покажем, как это устроить: https://praxenai.ge/ru/webinar?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-12&utm_content=c07-dpd
 
 ## telegram · 2026-12-11 11:00 (Тбилиси)
 
@@ -58,6 +58,6 @@ DPD отключила ИИ в чате и объяснила всё ошибк�
 
 Из этой истории два вывода. Если ассистент не может помочь, он передаёт разговор человеку, а не ходит по кругу. И после каждого обновления его проверяют тестовыми диалогами, включая провокации.
 
-Завтра в 19:00 по Тбилиси бесплатный воркшоп, покажем, как ассистент передаёт разговор менеджеру: https://praxenai.ge/ru/webinar?utm_source=telegram&utm_medium=social&utm_campaign=cases_nov&utm_content=c07-dpd
+Завтра в 19:00 по Тбилиси бесплатный воркшоп, покажем, как ассистент передаёт разговор менеджеру: https://praxenai.ge/ru/webinar?utm_source=telegram&utm_medium=social&utm_campaign=organic_2026-12&utm_content=c07-dpd
 
 Источник: ITV News, январь 2024.

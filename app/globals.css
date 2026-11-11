@@ -704,11 +704,11 @@ main{outline:none}
  .btn{white-space:normal;text-align:center;padding:12px 22px;line-height:1.3}
 }
 @media(max-width:420px){.langs .flag{display:none}.langs a{gap:0}}
-/* Phone language switch: 36x44 tap targets; the underline moves to a pseudo-element so the labels look the same. */
+/* Phone language switch in the site header: 36x44 tap targets; the underline moves to a pseudo-element so the labels look the same. */
 @media(max-width:600px){
- .langs{gap:0;margin:0 -9px}
- .langs a{position:relative;min-height:44px;padding:0 9px;border-bottom:0}
- .langs a.is-current::after{content:"";position:absolute;left:9px;right:9px;bottom:8px;height:1.5px;background:var(--accent)}
+ .langs:not(.wb-langs){gap:0;margin:0 -9px}
+ .langs:not(.wb-langs) a{position:relative;min-height:44px;padding:0 9px;border-bottom:0}
+ .langs:not(.wb-langs) a.is-current::after{content:"";position:absolute;left:9px;right:9px;bottom:8px;height:1.5px;background:var(--accent)}
 }
 
 /* Demo replay, field fill, pricing cards, security badges */
@@ -868,18 +868,18 @@ main{outline:none}
 /* On the workshop page the banner sits on the right so it never covers the sign-up button. */
 @media(min-width:601px){body:has(.wb) .cookie{left:auto;right:16px}}
 @media(max-width:600px){.cookie{left:12px;right:12px;bottom:84px;max-width:none;padding:10px 12px}.cookie p{font-size:12px;line-height:1.4}.cookie-btns{margin-top:8px}.cookie-btns button{min-height:34px;font-size:13px}}
-/* Site pages (not the workshop): the banner is a slim strip at the bottom, and the phone sticky bar
+/* Site pages (not the workshop, which keeps its card above its own bar): the banner is a slim strip at the bottom, and the phone sticky bar
    and the desktop WhatsApp button wait until it is answered, so the first screen stays readable. */
-.site~.cookie{right:16px;max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:10px 12px 10px 20px;border-radius:12px}
-.site~.cookie p{flex:1;min-width:0;font-size:13.5px;line-height:1.45}
-.site~.cookie .cookie-btns{flex-shrink:0;margin-top:0}
-.site~.cookie .cookie-btns button{flex:none;min-height:38px;padding:0 18px}
+.site:not(.wb)~.cookie{right:16px;max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:10px 12px 10px 20px;border-radius:12px}
+.site:not(.wb)~.cookie p{flex:1;min-width:0;font-size:13.5px;line-height:1.45}
+.site:not(.wb)~.cookie .cookie-btns{flex-shrink:0;margin-top:0}
+.site:not(.wb)~.cookie .cookie-btns button{flex:none;min-height:38px;padding:0 18px}
 .site:has(~.cookie) .wa-float.is-shown{opacity:0;visibility:hidden;transform:translateY(16px)}
 @media(max-width:600px){
- .site~.cookie{left:0;right:0;bottom:0;display:block;max-width:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-width:1px 0 0;border-radius:0;box-shadow:0 -12px 28px -18px #121a2b40}
- .site~.cookie p{font-size:12px;line-height:1.35}
- .site~.cookie .cookie-btns{margin-top:6px}
- .site~.cookie .cookie-btns button{flex:1;min-height:36px;font-size:13px}
+ .site:not(.wb)~.cookie{left:0;right:0;bottom:0;display:block;max-width:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-width:1px 0 0;border-radius:0;box-shadow:0 -12px 28px -18px #121a2b40}
+ .site:not(.wb)~.cookie p{font-size:12px;line-height:1.35}
+ .site:not(.wb)~.cookie .cookie-btns{margin-top:6px}
+ .site:not(.wb)~.cookie .cookie-btns button{flex:1;min-height:36px;font-size:13px}
  .ix:has(~.cookie) .sticky-cta.is-shown{transform:translateY(110%)}
 }
 

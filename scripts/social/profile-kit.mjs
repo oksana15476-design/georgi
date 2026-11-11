@@ -1,5 +1,7 @@
-// Profile kit for the workshop period (25 Oct – 12 Nov 2026) in the workshop landing style:
-// Facebook and LinkedIn covers, Instagram highlight covers, stories, Telegram pinned post image.
+// Profile kit in the workshop landing style: Facebook and LinkedIn covers, Instagram highlight covers, stories, Telegram pinned post image.
+// From 11 November (the workshop moved to 12 December and is not promoted in social for now, decision of 10 November) the covers,
+// the Telegram pinned image and the "new post" story speak about Praxen AI itself; the workshop-day stories (today, 30 min,
+// checklist) and the old workshop Facebook cover keep the workshop and show 12 December.
 //
 //   node scripts/social/profile-kit.mjs            → brand/social-2026-11/*.png
 //
@@ -12,16 +14,20 @@ import {execSync} from 'node:child_process';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const out=join(root,'brand/social-2026-11');mkdirSync(out,{recursive:true});
 const svg=f=>readFileSync(join(root,'brand',f),'utf8');
-const logoDark=svg('praxen-logo.svg'),logoWhite=svg('praxen-logo-white.svg'),markWhite=svg('praxen-mark-white.svg');
+const logoDark=svg('praxen-logo.svg'),logoWhite=svg('praxen-logo-white.svg'),logoOnGrad=logoWhite.replace(/fill="#7b95ff"/g,'fill="#ffffffb3"'),markWhite=svg('praxen-mark-white.svg');
 async function loadPlaywright(){try{return await import('playwright');}catch{}const g=execSync('npm root -g').toString().trim();return import(pathToFileURL(join(g,'playwright/index.mjs')).href);}
 
+const brandStrip=('Praxen AI ● praxenai.ge ● WhatsApp +995 557 125 497 ● ').repeat(4);
 const strip='Бесплатный воркшоп ● 12 декабря ● 19:00 Тбилиси ● 20:00 Астана ● 18:00 Москва ● 45 минут онлайн ● ИИ в отделе продаж ●';
 const icon={msg:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.7A8.4 8.4 0 1 1 21 11.5z"/>',bot:'<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 17h5"/>',
  steps:'<path d="M4 6h16M4 12h10M4 18h6"/>',tag:'<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="8.5" r="1.5"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5h.01"/>',
  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'};
 const ico=(k)=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${icon[k]}</svg>`;
 
-const css=`*{box-sizing:border-box;margin:0;padding:0}
+const fontsDir=join(root,'content/social/fonts');
+const fonts=JSON.parse(readFileSync(join(fontsDir,'fonts.json'),'utf8')).filter(f=>f.family==='Manrope')
+ .map(f=>`@font-face{font-family:'Manrope';font-weight:${f.weight||'100 900'};src:url(data:font/woff2;base64,${readFileSync(join(fontsDir,f.file)).toString('base64')}) format('woff2');unicode-range:${f.range}}`).join('\n');
+const css=`${fonts}*{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Manrope,'Noto Sans Georgian',sans-serif;-webkit-font-smoothing:antialiased;color:#121a2b;overflow:hidden}
 .c{position:relative;overflow:hidden;background:#fff}
 .strip{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;background:#ffd166;border-bottom:3px solid #121a2b;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
@@ -39,8 +45,10 @@ h1{font-weight:800;text-transform:uppercase;letter-spacing:-.035em;line-height:.
 .ico{width:1em;height:1em}
 .logo svg{height:100%;width:auto;display:block}`;
 const info=`<dl class="info"><div><dt>Дата</dt><dd>12.12</dd></div><div><dt>Тбилиси</dt><dd>19:00</dd></div><div><dt>Астана</dt><dd>20:00</dd></div><div><dt>Вход</dt><dd>Бесплатно</dd></div></dl>`;
-const cal=(sz,foot='четверг · онлайн')=>`<div class="cal" style="width:${sz}px"><div class="h" style="font-size:${sz*.09}px;padding:${sz*.045}px">Ноябрь</div><b style="font-size:${sz*.56}px">12</b><div class="f" style="font-size:${sz*.07}px;padding-bottom:${sz*.07}px">${foot}</div></div>`;
+const cal=(sz,foot='суббота · онлайн')=>`<div class="cal" style="width:${sz}px"><div class="h" style="font-size:${sz*.09}px;padding:${sz*.045}px">Декабрь</div><b style="font-size:${sz*.56}px">12</b><div class="f" style="font-size:${sz*.07}px;padding-bottom:${sz*.07}px">${foot}</div></div>`;
 
+// Brand facts as on the site and the brand Facebook cover (no workshop).
+const facts=(rows=[['Ответы','24/7'],['Пилот','2–4 нед.'],['Аудит','Бесплатно']])=>`<dl class="info">${rows.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>`;
 const items={
  // Facebook page cover: mobile crops the sides and the page photo covers the bottom centre, so everything sits in the top middle.
  'facebook-cover-1640x624':[1640,624,`<div class="c" style="width:1640px;height:624px">
@@ -53,24 +61,28 @@ const items={
  // LinkedIn company page: the logo covers the left part, text goes right.
  'linkedin-company-cover-1128x191':[1128,191,`<div class="c grad" style="width:1128px;height:191px;color:#fff">
   <div style="position:absolute;right:48px;top:0;bottom:0;display:flex;align-items:center;gap:30px">
-   <div style="text-align:right"><div style="font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd166">Бесплатный воркшоп · 12 декабря · онлайн</div>
-    <h1 style="font-size:38px;margin-top:8px;color:#fff">ИИ в отделе продаж</h1>
-    <div style="font-size:17px;font-weight:700;margin-top:8px;opacity:.9">19:00 Тбилиси · 20:00 Астана · 18:00 Москва · praxenai.ge</div></div></div></div>`],
+   <div style="text-align:right"><div style="font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffd166">Практический ИИ для бизнеса</div>
+    <h1 style="font-size:36px;margin-top:8px;color:#fff">ИИ отвечает клиентам <span style="color:#ffd166">за секунды</span></h1>
+    <div style="font-size:17px;font-weight:700;margin-top:8px;opacity:.9">Ответы 24/7 · Пилот 2–4 недели · Бесплатный аудит · praxenai.ge</div></div></div></div>`],
  // LinkedIn personal profile: the photo sits bottom left, text goes right.
  'linkedin-profile-banner-1584x396':[1584,396,`<div class="c" style="width:1584px;height:396px">
-  <div class="strip" style="height:46px;padding-left:30px;font-size:18px">${strip} ${strip}</div>
-  <div style="position:absolute;right:70px;top:80px;bottom:30px;display:flex;align-items:center;gap:44px">
+  <div class="strip" style="height:46px;padding-left:30px;font-size:18px">${brandStrip}</div>
+  <div style="position:absolute;left:430px;right:70px;top:80px;bottom:30px;display:flex;align-items:center;justify-content:space-between;gap:40px">
    <div><span class="badge" style="font-size:17px;padding:9px 18px">Евгений Будников · основатель Praxen AI</span>
-    <h1 style="font-size:58px;margin-top:18px">ИИ отвечает клиентам <span class="gt">за секунды</span><br>и сам заполняет CRM</h1></div>
-   ${cal(200,'воркшоп · онлайн')}</div></div>`],
+    <h1 style="font-size:48px;margin-top:18px">ИИ отвечает клиентам <span class="gt">за секунды</span><br>и сам заполняет CRM</h1></div>
+   <div style="font-size:30px;flex:none">${facts()}</div></div></div>`],
  // Telegram channel pinned post and link preview (16:9).
  'telegram-pinned-1280x720':[1280,720,`<div class="c ink" style="width:1280px;height:720px">
-  <div class="strip" style="height:56px;padding-left:40px;font-size:22px;color:#121a2b">${strip} ${strip}</div>
+  <div class="strip" style="height:56px;padding-left:40px;font-size:22px;color:#121a2b">${brandStrip}</div>
   <div style="position:absolute;left:70px;right:70px;top:120px;bottom:60px;display:flex;align-items:center;justify-content:space-between;gap:50px">
-   <div><span class="badge" style="font-size:20px;padding:10px 20px;background:#fff;color:#121a2b">Бесплатный онлайн-воркшоп</span>
-    <h1 style="font-size:70px;margin-top:22px;color:#fff">Как перестать терять заявки <span style="color:#ffd166">ночью и в выходные</span></h1>
-    <div style="font-size:40px;margin-top:30px">${info}</div></div>
-   ${cal(300)}</div></div>`],
+   <div><span class="badge" style="font-size:20px;padding:10px 20px;background:#fff;color:#121a2b">Практический ИИ для бизнеса</span>
+    <h1 style="font-size:64px;margin-top:22px;color:#fff">ИИ отвечает клиентам <span style="color:#ffd166">за секунды</span> и сам заполняет CRM</h1>
+    <div style="font-size:40px;margin-top:30px">${facts()}</div></div>
+   <div style="flex:none;width:330px;background:#efeae2;border:3px solid #121a2b;border-radius:28px;box-shadow:12px 12px 0 #ffd166;overflow:hidden;font-size:21px;color:#121a2b">
+    <div style="background:#075e54;color:#fff;font-weight:800;padding:12px 18px">WhatsApp</div>
+    <div style="padding:14px;display:flex;flex-direction:column;gap:10px"><div style="background:#fff;border-radius:14px;padding:10px 14px;max-width:88%;font-weight:600">Здравствуйте! Есть свободные даты?</div>
+    <div style="background:#d9fdd3;border-radius:14px;padding:10px 14px;max-width:88%;align-self:flex-end;font-weight:600">Да, подскажу. На сколько человек?</div>
+    <div style="background:#fff;border:3px solid #121a2b;border-radius:14px;padding:10px 14px;font-weight:800;color:#2755ec">✓ Новая сделка в CRM</div></div></div></div></div>`],
 };
 // General Facebook page cover (the page is the whole business, the workshop goes into a pinned post): site hero text, three facts, chat → CRM card.
 const brand={
@@ -96,16 +108,16 @@ for(const [id,k,label,bg] of hl) items['instagram-'+id+'-1080x1920']=[1080,1920,
   <div style="width:560px;height:560px;border-radius:50%;background:${bg==='yel'?'#121a2b':'#fff'};color:${bg==='yel'?'#ffd166':'#2755ec'};display:grid;place-items:center;font-size:300px;border:6px solid #121a2b">${ico(k)}</div>
   <div style="position:absolute;bottom:420px;left:0;right:0;text-align:center;font-size:64px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:${bg==='yel'?'#121a2b':'#fff'}">${label}</div></div>`];
 // Stories: nothing important in the top 250 px and the bottom 340 px (Instagram UI).
-const story=(id,bg,kicker,title,sub,extra='')=>items['story-'+id+'-1080x1920']=[1080,1920,`<div class="c ${bg}" style="width:1080px;height:1920px;${bg==='ink'||bg==='grad'?'color:#fff':''}">
-  <div class="strip" style="top:250px;height:64px;padding-left:40px;font-size:24px;color:#121a2b">${strip} ${strip}</div>
+const story=(id,bg,kicker,title,sub,extra='',line=`${strip} ${strip}`)=>items['story-'+id+'-1080x1920']=[1080,1920,`<div class="c ${bg}" style="width:1080px;height:1920px;${bg==='ink'||bg==='grad'?'color:#fff':''}">
+  <div class="strip" style="top:250px;height:64px;padding-left:40px;font-size:24px;color:#121a2b">${line}</div>
   <div style="position:absolute;left:80px;right:80px;top:400px;bottom:360px;display:flex;flex-direction:column;justify-content:center;gap:40px">
-   <div style="height:56px" class="logo">${bg==='ink'||bg==='grad'?logoWhite:logoDark}</div>
+   <div style="height:56px" class="logo">${bg==='grad'?logoOnGrad:bg==='ink'?logoWhite:logoDark}</div>
    <span class="badge" style="align-self:flex-start;font-size:28px;padding:14px 28px;${bg!=='white'?'background:#fff;color:#121a2b':''}">${kicker}</span>
    <h1 style="font-size:112px">${title}</h1>
    <div style="font-size:44px;font-weight:700;line-height:1.3">${sub}</div>${extra}</div></div>`];
 story('today','grad','Сегодня, 12 декабря','Воркшоп <span style="color:#ffd166">«ИИ в отделе продаж»</span>','19:00 Тбилиси · 20:00 Астана · 18:00 Москва<br>Последний шанс записаться',`<div style="margin-top:20px">${cal(380,'сегодня · онлайн')}</div>`);
 story('30min','ink','Через 30 минут','Начинаем <span style="color:#ffd166">в 19:00</span>','Ссылка на эфир — в нашем Telegram-боте',`<div style="font-size:300px;font-weight:800;color:#ffd166;line-height:1;letter-spacing:-.05em">30:00</div>`);
-story('new-post','white','Новый пост','Где ваш отдел продаж <span class="gt">теряет заявки?</span>','Ночью, в переписке, на одних и тех же вопросах. Разбираем в новом посте — листайте ленту',`<div style="font-size:44px">${info}</div>`);
+story('new-post','white','Новый пост','Где ваш отдел продаж <span class="gt">теряет заявки?</span>','Ночью, в переписке, на одних и тех же вопросах. Разбираем в новом посте — листайте ленту',`<div style="font-size:44px">${facts()}</div>`,brandStrip);
 story('checklist','yel','Подарок за регистрацию','Чек-лист <span class="gt">«10 вопросов»</span>','Покажет, где ваш отдел продаж теряет заявки.<br>Придёт в Telegram сразу после записи');
 
 const page=b=>`<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+Georgian:wght@500;600;700;800&display=swap"><style>${css}</style></head><body>${b}</body></html>`;

@@ -37,6 +37,9 @@ async function loadPlaywright(){
 
 const svg=f=>readFileSync(join(root,'brand',f),'utf8');
 const logoWhite=svg('praxen-logo-white.svg'), logoDark=svg('praxen-logo.svg');
+// On the blue gradient the blue square of the mark disappears and the dark bar looks like a stray stick (11 November):
+// the logo goes all white there, the square in translucent white as in the avatar mark below.
+const logoOnGrad=logoWhite.replace(/fill="#7b95ff"/g,'fill="#ffffffb3"');
 // The logo mark alone (white), for the round avatar of the "post" style.
 const logoMark='<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" fill="#fff"/><rect x="12" y="3" width="9" height="9" fill="#ffffff99"/></svg>';
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -95,6 +98,8 @@ const infoHtml=(s,l)=>s.info?`<dl class="info">${s.info.map(([k,v])=>`<div><dt>$
 function slideHtml(s,l,i,n,accent,fb,sty,post){
  const bg=theme==='workshop'?(s.bg||((i===0||['cover','number','cta'].includes(s.layout))&&accent)||'white'):'';
  const dark=theme==='workshop'?['ink','grad'].includes(bg):['cover','number','cta'].includes(s.layout);
+ // The poster style paints its first slide and grad/yellow slides with the blue gradient (unless the slide is ink).
+ const gradBg=sty==='poster'?bg!=='ink'&&(i===0||['grad','yellow'].includes(bg)):!sty&&bg==='grad';
  const body={
   cover:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}
    <h1 class="fit">${rich(s.title,l)}</h1>${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}${infoHtml(s,l)}${visualHtml(s.visual,l)}`,
@@ -131,7 +136,7 @@ function slideHtml(s,l,i,n,accent,fb,sty,post){
  }[s.layout];
  if(!body) throw new Error(`Unknown layout "${s.layout}"`);
  return `<section class="slide ${s.layout} ${dark?'dark':'light'}${fb?' fb':''}${bg?' bg-'+bg:''}${s.visual?' has-vis':''}${sty?` sty sty-${sty}${i===0?' first':''}${i===0&&post?.tone?' tone-'+post.tone:''}${i===0&&post?.photo?' has-photo':''}`:''}"${i===0&&post?.photo?` style="background-image:url(${photoSrc(post.photo)})"`:''}>${theme==='workshop'&&strip&&!sty?`<div class="strip">${esc(strip)}</div>`:''}${sty?chromeHtml(sty,l,i,n):''}
-  <header><div class="logo">${(sty?['terminal','memeblack'].includes(sty)||(sty==='poster'&&bg==='ink')||(sty==='editorial'&&(i===0&&post?.tone?(post.photo||['dark','olive'].includes(post.tone)):(bg==='ink'||(i===0&&post?.photo)))):dark)?logoWhite:logoDark}</div>
+  <header><div class="logo">${gradBg?logoOnGrad:((sty?['terminal','memeblack'].includes(sty)||(sty==='poster'&&bg==='ink')||(sty==='editorial'&&(i===0&&post?.tone?(post.photo||['dark','olive'].includes(post.tone)):(bg==='ink'||(i===0&&post?.photo)))):dark)?logoWhite:logoDark)}</div>
    <div class="meta">${s.example?`<span class="tag">${esc(tr(ui.example,l))}</span>`:''}${n>1?`<span>${i+1}/${n}</span>`:''}</div></header>
   <main>${body()}</main>${fb&&batch.fbCta?`<div class="fb-cta"><b>${rich(batch.fbCta.title,l)}</b>${batch.fbCta.sub?`<span>${rich(batch.fbCta.sub,l)}</span>`:''}</div>`:''}
   <footer><span>${esc(siteName)}</span>${n>1&&i<n-1&&batch.size!=='story'?`<span>${esc(tr(ui.swipe,l))}</span>`:''}</footer></section>`;
@@ -246,8 +251,9 @@ footer{color:#121a2b}
 .fb .meme-top{font-size:68px;margin-bottom:32px}
 .fb-cta{margin-top:36px;background:#121a2b;color:#fff;border-radius:28px;padding:30px 40px;display:flex;flex-direction:column;gap:8px}
 .fb-cta b{font-size:40px;font-weight:800;line-height:1.1;text-transform:uppercase;letter-spacing:-.01em}.fb-cta b em{color:#ffd166}
-.fb-cta span{font-size:28px;font-weight:600;color:#c9d1e3}
-.dark .fb-cta{background:#ffd166;color:#121a2b}.dark .fb-cta span{color:#3a4257}.dark .fb-cta b em{color:#315bf5}
+/* ">span": the sub line only; a hyphenated word in the title is also a span (.nw) and must keep the title size and colour */
+.fb-cta>span{font-size:28px;font-weight:600;color:#c9d1e3}
+.dark:not(.sty) .fb-cta{background:#ffd166;color:#121a2b}.dark:not(.sty) .fb-cta>span{color:#3a4257}
 .fb footer{display:none}.meme .v-chat{padding-top:30px}.meme-bottom{margin-top:40px;font-size:40px;font-weight:800;line-height:1.2}
 .m-expect{display:grid;grid-template-rows:1fr 1fr;gap:24px}
 .m-expect>div{background:#fff;border:3px solid #121a2b;border-radius:28px;padding:30px 34px;box-shadow:12px 12px 0 #121a2b}.m-expect .real{background:#ffd166}
@@ -342,7 +348,7 @@ const skinCss=`
 .sty-notes h1,.sty-notes h2,.sty-notes .meme-top{font-family:Manrope,sans-serif;text-transform:none;letter-spacing:-.025em;color:#121a2b;font-weight:800}
 .sty-notes h1{font-size:80px}.sty-notes h2{font-size:60px}
 .sty-notes em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#315bf5!important}
-.sty-notes .kicker{background:none!important;color:#5d6779!important;padding:0;transform:none;font:600 26px Manrope,sans-serif;letter-spacing:.02em;text-transform:none}
+.sty-notes .kicker{background:none!important;color:#3c4658!important;padding:0;transform:none;font:600 26px Manrope,sans-serif;letter-spacing:.02em;text-transform:none}
 .sty-notes .kicker:before{display:none}
 .sty-notes .sub,.sty-notes .note,.sty-notes .pr-note{color:#3c4658!important;font-weight:500}
 .sty-notes .list li{border-bottom:2px solid #dfe5ee;padding-bottom:26px;font-weight:500}
@@ -355,14 +361,14 @@ const skinCss=`
 .sty-notes .big{background:none!important;color:#315bf5!important;font-family:Manrope,sans-serif}
 .sty-notes .label{text-transform:none;color:#121a2b!important}
 .sty-notes .button{background:#315bf5!important;color:#fff!important;text-transform:none;box-shadow:none;letter-spacing:0}
-.sty-notes footer{color:#5d6779!important;opacity:1}
-.sty-notes .fb-cta{background:#f6f8fb;color:#121a2b;border:0;box-shadow:none}
+.sty-notes footer{color:#3c4658!important;opacity:1}
+.sty-notes .fb-cta{background:#f6f8fb;color:#121a2b;border:0;box-shadow:none}.sty-notes .fb-cta>span{color:#3c4658}
 /* post: a Threads post */
 .sty-post.slide{background:#fff!important;color:#121a2b;font-family:Manrope,'Noto Sans Manropen',sans-serif;padding:200px 84px 150px}
 .sty-post header{display:none}
 .ch-post{position:absolute;top:60px;left:84px;right:84px;display:flex;align-items:center;gap:24px}
 .ch-post .av{width:96px;height:96px;border-radius:50%;background:#121a2b;display:grid;place-items:center}.ch-post .av svg{width:46px;height:46px}
-.ch-post .nm{display:flex;flex-direction:column;font:700 36px Manrope,sans-serif}.ch-post .nm small{font-weight:500;font-size:28px;color:#5d6779}
+.ch-post .nm{display:flex;flex-direction:column;font:700 36px Manrope,sans-serif}.ch-post .nm small{font-weight:500;font-size:28px;color:#3c4658}
 .ch-post .dots{margin-left:auto;font-size:44px;color:#5d6779}
 .ch-post-foot{position:absolute;left:84px;bottom:70px;display:flex;gap:44px;font-size:44px;color:#3c4658;filter:grayscale(1)}
 .sty-post footer{display:none}
@@ -370,18 +376,18 @@ const skinCss=`
 .ch-post .nm b{background:none;border:0;color:#121a2b;font-size:36px;padding:0;min-width:0;text-align:left;line-height:1.2}
 .sty-post .bub,.sty-notes .bub{position:static;display:inline-block;margin:0 14px 18px 0;transform:none!important;box-shadow:none!important;border:0!important;background:#eef3ff!important;color:#121a2b!important;font-weight:600;border-radius:999px}
 .sty-post .v-bubbles,.sty-notes .v-bubbles{height:auto}
-.sty-post .fb-cta span{color:#3c4658}
+.sty-post .fb-cta>span{color:#3c4658}
 .sty-post h1,.sty-post h2,.sty-post .meme-top{font-family:Manrope,sans-serif;text-transform:none;font-weight:600;letter-spacing:-.015em;color:#121a2b;line-height:1.18}
 .sty-post h1{font-size:74px}.sty-post h2,.sty-post .meme-top{font-size:60px;margin-bottom:40px}
 .sty-post .list li{font-size:46px}
 .sty-post em{background:linear-gradient(transparent 58%,#ffd166 58%)!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#121a2b!important}
-.sty-post .kicker{background:none!important;color:#5d6779!important;padding:0;font:500 30px Manrope,sans-serif;letter-spacing:0;text-transform:none;transform:none}
+.sty-post .kicker{background:none!important;color:#3c4658!important;padding:0;font:500 30px Manrope,sans-serif;letter-spacing:0;text-transform:none;transform:none}
 .sty-post .kicker:before{display:none}
 .sty-post .m-img{border-radius:28px;overflow:hidden;border:2px solid #dfe5ee;box-shadow:none!important}
 .sty-post .vis,.sty-post .cmp>div,.sty-post .msg,.sty-post .pr-card,.sty-post .m-expect>div,.sty-post .lv{box-shadow:none!important}
 .sty-post .v-chat,.sty-post .cmp>div,.sty-post .m-expect>div,.sty-post .v-paper,.sty-post .lv,.sty-post .chat{border:2px solid #dfe5ee!important;transform:none!important}
 .sty-post .sub,.sty-post .note,.sty-post .label{color:#3c4658!important;text-transform:none;font-weight:500}
-.sty-post .list li{font-weight:500}.sty-post .list b{background:none;border:0;color:#5d6779;font-weight:600;text-align:left;min-width:56px}
+.sty-post .list li{font-weight:500}.sty-post .list b{background:none;border:0;color:#3c4658;font-weight:600;text-align:left;min-width:56px}
 .sty-post .big{background:none!important;color:#121a2b!important;font-family:Manrope,sans-serif}
 .sty-post .button{background:#121a2b!important;color:#fff!important;text-transform:none;letter-spacing:0;box-shadow:none;border-radius:999px}
 .sty-post .fb-cta{background:#f6f8fb;border:0;box-shadow:none;color:#121a2b}
@@ -420,7 +426,7 @@ const skinCss=`
 .sty-report .kicker:before{display:none}
 .sty-report .big{font-family:Manrope,sans-serif;background:none!important;color:#315bf5!important;font-size:250px;letter-spacing:-.03em}
 .sty-report .label{font-family:Manrope,sans-serif;font-weight:400;text-transform:none;color:#121a2b!important;font-size:50px;line-height:1.25}
-.sty-report .note{font-family:Manrope,sans-serif;font-size:24px;color:#5d6779!important;border-top:2px solid #1d1d1b33;padding-top:18px}
+.sty-report .note{font-family:Manrope,sans-serif;font-size:24px;color:#3c4658!important;border-top:2px solid #1d1d1b33;padding-top:18px}
 .sty-report .sub{font-family:Manrope,sans-serif;font-style:italic;color:#3c4658!important;font-weight:400}
 .sty-report .list li{font-family:Manrope,sans-serif;font-weight:400;font-size:42px}
 .sty-report .list b{background:none;border:0;color:#315bf5;font-family:Manrope,sans-serif;font-size:42px;line-height:1.3;text-align:left;min-width:60px}
@@ -428,8 +434,8 @@ const skinCss=`
 .sty-report .v-clock b{font-family:Manrope,sans-serif;color:#121a2b}.sty-report .v-clock .late b{color:#315bf5}
 .sty-report .v-arrow{color:#121a2b}
 .sty-report .button{background:#121a2b!important;color:#f6f8fb!important;text-transform:none;box-shadow:none;border-radius:6px;font-family:Manrope,sans-serif;letter-spacing:0}
-.sty-report footer{color:#5d6779!important;font-family:Manrope,sans-serif}
-.sty-report .contacts{color:#5d6779!important}
+.sty-report footer{color:#3c4658!important;opacity:1;font-family:Manrope,sans-serif}
+.sty-report .contacts{color:#3c4658!important}
 .sty-report .fb-cta{background:#121a2b;color:#f6f8fb;border:0;border-radius:6px;box-shadow:none}
 /* terminal: prompts */
 .sty-terminal.slide{background:#121a2b!important;color:#eef2fa!important;font-family:Manrope,sans-serif;padding-top:160px}
@@ -473,7 +479,7 @@ const skinCss=`
 .sty-memeblack .list b{background:#ffd166;border:0;color:#121a2b}
 .sty-memeblack .button{background:#ffd166!important;color:#121a2b!important;box-shadow:none}
 .sty-memeblack .button em{color:#121a2b!important}
-.sty-memeblack .fb-cta{background:#ffd166;color:#121a2b;border:0;box-shadow:none}
+.sty-memeblack .fb-cta{background:#ffd166;color:#121a2b;border:0;box-shadow:none}.sty-memeblack .fb-cta>span{color:#3a4257}
 /* notebook: handwriting on squared paper */
 .sty-notebook.slide{background-color:#ffffff!important;background-image:linear-gradient(#e6ebf5 2px,transparent 2px),linear-gradient(90deg,#e6ebf5 2px,transparent 2px)!important;background-size:60px 60px!important;color:#121a2b!important;font-family:Manrope,'Noto Sans Manropen',sans-serif}
 .sty-notebook h1,.sty-notebook h2,.sty-notebook .meme-top{font-family:Manrope,sans-serif;font-weight:700;text-transform:none;letter-spacing:0;color:#121a2b;line-height:1}
@@ -491,13 +497,13 @@ const skinCss=`
 .sty-notebook .m-img{padding:18px;background:#fff!important;transform:rotate(2deg)}
 .sty-notebook .m-react{padding:30px 40px;transform:rotate(-2deg)}.sty-notebook .m-react p{font-family:Manrope,sans-serif;font-size:38px;font-weight:600;color:#121a2b}
 .sty-notebook .button{background:#121a2b!important;color:#fff!important;border-radius:14px;text-transform:none;box-shadow:none;font-family:Manrope,sans-serif;font-size:36px;letter-spacing:0}
-.sty-notebook footer,.sty-notebook .contacts{color:#121a2b!important;font-family:Manrope,sans-serif}
+.sty-notebook footer,.sty-notebook .contacts{color:#3c4658!important;opacity:1;font-family:Manrope,sans-serif}
 .sty-notebook .fb-cta{background:#121a2b;color:#fff;border:0;box-shadow:none}
 /* news: real AI stories as a newspaper page */
 .sty-news.slide{background:#ffffff!important;color:#121a2b!important;font-family:Manrope,'Noto Sans Manropen',sans-serif;padding-top:170px}
 .sty-news header{display:none}
 .ch-news{position:absolute;top:56px;left:84px;right:84px;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:6px double #121a2b;padding-bottom:14px}
-.ch-news b{background:none!important;border:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;color:#121a2b!important;line-height:1!important;font:800 46px Manrope,sans-serif!important;letter-spacing:-.03em;text-transform:uppercase}.ch-news span{font:600 24px Manrope,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#5d6779}
+.ch-news b{background:none!important;border:0!important;padding:0!important;min-width:0!important;width:auto!important;height:auto!important;color:#121a2b!important;line-height:1!important;font:800 46px Manrope,sans-serif!important;letter-spacing:-.03em;text-transform:uppercase}.ch-news span{font:600 24px Manrope,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#3c4658}
 .sty-news h1,.sty-news h2,.sty-news .meme-top{font-family:Manrope,sans-serif;font-weight:700;text-transform:none;letter-spacing:-.015em;color:#121a2b;line-height:1.05}
 .sty-news h1{font-size:92px}.sty-news h2{font-size:66px}
 .sty-news em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#121a2b!important;box-shadow:inset 0 -.32em 0 #ffd166}
@@ -507,12 +513,12 @@ const skinCss=`
 .sty-news .list{gap:34px}
 .sty-news .list li{font-family:Manrope,sans-serif;font-weight:400;font-size:41px;line-height:1.3;border-top:2px solid #121a2b;padding-top:22px}
 .sty-news .list b{background:none;border:0;color:#ff5a5f;font:700 30px Manrope,sans-serif;min-width:64px;text-align:left;line-height:1.7}
-.sty-news .note{font-family:Manrope,sans-serif;font-size:24px;color:#5d6779!important}
+.sty-news .note{font-family:Manrope,sans-serif;font-size:24px;color:#3c4658!important}
 .sty-news .big{font-family:Manrope,sans-serif;background:none!important;color:#ff5a5f!important}
 .sty-news .label{font-family:Manrope,sans-serif;text-transform:none;font-weight:400;color:#121a2b!important}
 .sty-news .button{background:#121a2b!important;color:#ffffff!important;text-transform:none;letter-spacing:0;box-shadow:none;border-radius:4px;font-family:Manrope,sans-serif}
 .sty-news .button em{color:#ffffff!important;box-shadow:none}
-.sty-news footer,.sty-news .contacts{color:#5d6779!important;font-family:Manrope,sans-serif}
+.sty-news footer,.sty-news .contacts{color:#3c4658!important;opacity:1;font-family:Manrope,sans-serif}
 .sty-news .fb-cta{background:#121a2b;color:#ffffff;border:0;border-radius:4px;box-shadow:none}.sty-news .fb-cta em{color:#ffffff!important;box-shadow:none}
 /* editorial: one calm look for the whole grid (owner 28 October: "симпатично, органично и эстетично").
    Warm cream, warm ink and olive tiles, Lora headings in sentence case, Inter text, terracotta italic accents, no frames or shadows.
@@ -572,7 +578,7 @@ const skinCss=`
 .sty-editorial .button{background:var(--fg)!important;color:var(--bg)!important;border-radius:999px;text-transform:none;letter-spacing:0;font-weight:600;box-shadow:none;font-family:Inter,sans-serif}
 .sty-editorial .button em{color:var(--bg)!important;font-style:normal}
 .sty-editorial .fb-cta{background:var(--card);color:var(--fg);border:0;box-shadow:none;border-radius:24px}
-.sty-editorial .fb-cta em{font-style:italic}
+.sty-editorial .fb-cta em{font-style:italic}.sty-editorial .fb-cta>span{color:var(--mut)}
 /* photo cover */
 .sty-editorial.has-photo{background-size:cover!important;background-position:center!important}
 .sty-editorial.has-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#00000040 0%,#0000 30%,#0000 42%,#1a1714d9 100%);z-index:0}
@@ -602,7 +608,7 @@ const skinCss=`
 .sty-chat .list b{background:#315bf5;border:0;color:#fff;border-radius:50%}
 .sty-chat .button{background:#315bf5!important;color:#fff!important;text-transform:none;box-shadow:none;letter-spacing:0}
 .sty-chat .button em{color:#fff!important}
-.sty-chat footer{color:#54656f!important}
+.sty-chat footer{color:#3b4a54!important;opacity:1}
 .sty-chat .fb-cta{background:#121a2b;color:#fff;border:0;box-shadow:none}.sty-chat .fb-cta em{color:#d9fdd3!important}
 
 /* Praxen palette and type for all the styles (owner 28 October: the site and workshop colours, Manrope) */
@@ -611,6 +617,10 @@ const skinCss=`
 .sty:not(.sty-editorial) .big,.sty:not(.sty-editorial) .label,.sty:not(.sty-editorial) .list li,.sty:not(.sty-editorial) .sub{font-family:Manrope,'Noto Sans Georgian',sans-serif}
 .sty-report em,.sty-news em,.sty-news .sub,.sty-report .sub{font-style:normal}
 .sty-report .big{font-weight:800}
+/* Facebook cover call-to-action (11 November): accent words on a solid yellow chip with dark text in every style.
+   The half-height highlight put dark text on the dark card and cut through the letters; white text on yellow was unreadable. */
+.slide .fb-cta b em{background:#ffd166!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#121a2b!important;box-shadow:none!important;font-style:normal!important;padding:0 .16em;border-radius:6px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.slide.sty-memeblack .fb-cta b em,.slide.dark:not(.sty) .fb-cta b em{background:#121a2b!important;color:#ffd166!important}
 `;
 
 // Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
