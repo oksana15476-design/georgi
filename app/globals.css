@@ -576,7 +576,7 @@ main{outline:none}
 .faq-ring{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-top:-2px;border-radius:50%;background:var(--soft);color:var(--accent);transition:transform .35s var(--spring),background .2s}
 .faq-card.is-open .faq-ring{background:var(--accent);color:#fff;transform:rotate(45deg)}
 .faq-a{font-size:15px;line-height:1.65;color:var(--body);padding:0 22px 22px;margin-top:-4px;max-width:640px;animation:px-fade .3s ease-out}
-@media(max-width:900px){.faq-head{flex-direction:column;align-items:flex-start}.faq-grid{display:flex;flex-direction:column}.faq-col{display:contents}}
+@media(max-width:900px){.faq-head{flex-direction:column;align-items:flex-start}.faq-grid{display:flex;flex-direction:column;align-items:stretch}.faq-col{display:contents}.faq-card{width:100%}}
 @media(max-width:600px){.faq-card button{font-size:16px}}
 
 /* Contact */
@@ -704,6 +704,12 @@ main{outline:none}
  .btn{white-space:normal;text-align:center;padding:12px 22px;line-height:1.3}
 }
 @media(max-width:420px){.langs .flag{display:none}.langs a{gap:0}}
+/* Phone language switch: 36x44 tap targets; the underline moves to a pseudo-element so the labels look the same. */
+@media(max-width:600px){
+ .langs{gap:0;margin:0 -9px}
+ .langs a{position:relative;min-height:44px;padding:0 9px;border-bottom:0}
+ .langs a.is-current::after{content:"";position:absolute;left:9px;right:9px;bottom:8px;height:1.5px;background:var(--accent)}
+}
 
 /* Demo replay, field fill, pricing cards, security badges */
 @keyframes px-fill{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
@@ -862,6 +868,20 @@ main{outline:none}
 /* On the workshop page the banner sits on the right so it never covers the sign-up button. */
 @media(min-width:601px){body:has(.wb) .cookie{left:auto;right:16px}}
 @media(max-width:600px){.cookie{left:12px;right:12px;bottom:84px;max-width:none;padding:10px 12px}.cookie p{font-size:12px;line-height:1.4}.cookie-btns{margin-top:8px}.cookie-btns button{min-height:34px;font-size:13px}}
+/* Site pages (not the workshop): the banner is a slim strip at the bottom, and the phone sticky bar
+   and the desktop WhatsApp button wait until it is answered, so the first screen stays readable. */
+.site~.cookie{right:16px;max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:10px 12px 10px 20px;border-radius:12px}
+.site~.cookie p{flex:1;min-width:0;font-size:13.5px;line-height:1.45}
+.site~.cookie .cookie-btns{flex-shrink:0;margin-top:0}
+.site~.cookie .cookie-btns button{flex:none;min-height:38px;padding:0 18px}
+.site:has(~.cookie) .wa-float.is-shown{opacity:0;visibility:hidden;transform:translateY(16px)}
+@media(max-width:600px){
+ .site~.cookie{left:0;right:0;bottom:0;display:block;max-width:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-width:1px 0 0;border-radius:0;box-shadow:0 -12px 28px -18px #121a2b40}
+ .site~.cookie p{font-size:12px;line-height:1.35}
+ .site~.cookie .cookie-btns{margin-top:6px}
+ .site~.cookie .cookie-btns button{flex:1;min-height:36px;font-size:13px}
+ .site:has(~.cookie) .sticky-cta.is-shown{transform:translateY(110%)}
+}
 
 /* WhatsApp and booking */
 .ask-wa{background:#1fa855}
@@ -888,6 +908,8 @@ main{outline:none}
 .sec-sources a{color:var(--body);text-decoration:underline;text-underline-offset:2px}
 /* The pilot line under the hero headline: same h1, smaller size so the buttons stay above the fold */
 .hero .h1 .accent-line{display:block;margin-top:.35em;font-size:.58em;line-height:1.15}
+/* The h1 tracking is inherited in px, which is too tight at this size for Cyrillic and Georgian. */
+html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter-spacing:0}
 
 /* Pricing: one-off launch (three tariffs) + monthly platform */
 .tariffs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 44px minmax(0,1fr);column-gap:16px;row-gap:0}

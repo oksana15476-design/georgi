@@ -52,8 +52,10 @@ const closed=process.env.NEXT_PUBLIC_MARKET==='intl'&&process.env.NEXT_PUBLIC_IN
 if(closed)writeFileSync(join(out,'robots.txt'),'User-agent: *\nDisallow: /\n');
 else writeFileSync(join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /api/\n${cleanParam.map(p=>`Clean-param: ${p}\n`).join('')}\n${aiBots.map(b=>`User-agent: ${b}`).join('\n')}\nAllow: /\nDisallow: /api/\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 
-// llms.txt: a short plain-text guide for language models, built from the English pages' titles
-// and descriptions, with links to the Georgian and Russian versions.
+// llms.txt for the static copy of praxenai.ge (Docker image, GitHub Pages): a short plain-text guide for
+// language models, built from the English pages' titles and descriptions, with links to the Georgian and
+// Russian versions. The Cloudflare Workers of both sites serve their own file from app/llms.txt/route.ts
+// (lib/llms.ts); the export skips that route. The text is about praxenai.ge, so the international build gets none.
 const page=path=>{const u=siteUrl+path,i=info.get(u);return i?`- [${i.title.replace(/ — Praxen AI$/,'')}](${u}): ${i.description}`:null};
 const group=prefix=>entries.map(e=>e[0]).filter(u=>u.startsWith(siteUrl+prefix+'/')).map(u=>page(u.slice(siteUrl.length))).filter(Boolean);
 const llms=`# Praxen AI
@@ -70,13 +72,16 @@ Key facts:
 - Contact: phone and WhatsApp +995 557 125 497, Telegram https://t.me/zheniazikinzik, form at ${siteUrl}/#contact
 
 ## Main pages
-${['','/solutions','/training','/cases','/partners'].map(page).filter(Boolean).join('\n')}
+${['','/solutions','/chatbot','/training','/cases','/about','/security','/partners'].map(page).filter(Boolean).join('\n')}
 
 ## AI by department
 ${[page('/departments'),...group('/departments')].filter(Boolean).join('\n')}
 
 ## AI by industry
 ${[page('/industries'),...group('/industries')].filter(Boolean).join('\n')}
+
+## Blog
+${[page('/blog'),...group('/blog')].filter(Boolean).join('\n')}
 
 ## Other languages
 - [Georgian version](${siteUrl}/ka)
@@ -85,10 +90,7 @@ ${[page('/industries'),...group('/industries')].filter(Boolean).join('\n')}
 ## Optional
 - [Privacy policy](${siteUrl}/privacy)
 `;
-writeFileSync(join(out,'llms.txt'),llms);
-// The Cloudflare Worker build serves public/ as is and does not run this script, so keep a copy there.
-// Only the Georgian build refreshes it; the international site will get its own.
-if(!base&&process.env.NEXT_PUBLIC_MARKET!=='intl')writeFileSync('public/llms.txt',llms);
+if(process.env.NEXT_PUBLIC_MARKET!=='intl')writeFileSync(join(out,'llms.txt'),llms);
 
 // English pages have no /en prefix (lib/base.ts): static hosts serve them from copies at the root,
 // and the Docker server (server/index.mjs) redirects old /en addresses.

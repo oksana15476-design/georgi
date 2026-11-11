@@ -80,8 +80,7 @@ const nextConfig: NextConfig = pages
             { source: "/", destination: "/en" },
             ...sections.map((s) => ({ source: `/${s}`, destination: `/en/${s}` })),
             ...withSlugs.map((s) => ({ source: `/${s}/:slug`, destination: `/en/${s}/:slug` })),
-            // public/llms.txt describes praxenai.ge; praxenai.com serves its own file.
-            { source: "/llms.txt", destination: "/llms-intl.txt" },
+            // /llms.txt is generated for each site by app/llms.txt/route.ts (lib/llms.ts).
           ],
         };
       },
