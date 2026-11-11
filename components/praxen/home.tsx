@@ -151,7 +151,7 @@ export function resultsData(x:X){
 
 // Shared by the home page (key numbers large) and the cases page (all numbers small).
 // Numbers are always final: a count-up showed «0 часов» and «58%» to anyone who saw the card mid-way.
-export function Results({x,count}:{x:X;count:boolean}){
+export function Results({x,big}:{x:X;big:boolean}){
  const {s}=x;
  return (
   <section data-screen-label="Results" className="band-soft">
@@ -165,7 +165,7 @@ export function Results({x,count}:{x:X;count:boolean}){
       <p className="result-body">{r.body}</p>
       {casesVerified&&<figure className="quote"><span className="quote-mark"><Icon name="quote" size={20}/></span><div><blockquote>{r.quote}</blockquote><figcaption><span className="avatar">{r.initials}</span><span><b>{r.who}</b>{r.org}</span></figcaption></div></figure>}
       <div className="result-nums">
-       {r.nums.map(nm=>{const mt=count?/^(\d+)(%|\s\D+)$/.exec(nm.n):null;return <div key={nm.l}>
+       {r.nums.map(nm=>{const mt=big?/^(\d+)(%|\s\D+)$/.exec(nm.n):null;return <div key={nm.l}>
         {mt?<div className="num-big">{nm.n}</div>:<div className="num-s">{nm.n}</div>}
         <p>{nm.l}</p>
        </div>})}

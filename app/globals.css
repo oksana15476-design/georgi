@@ -886,15 +886,16 @@ main{outline:none}
 .site:not(.wb)~.cookie p{flex:1;min-width:0;font-size:13.5px;line-height:1.45}
 .site:not(.wb)~.cookie .cookie-btns{flex-shrink:0;margin-top:0}
 .site:not(.wb)~.cookie .cookie-btns button{flex:none;min-height:38px;padding:0 18px}
-.ix:has(~.cookie) .wa-float{bottom:calc(var(--cookie-h,0px) + 12px)}
-.ix:has(~.cookie) .ix-mobile{padding-bottom:calc(32px + var(--cookie-h,0px))}
+.site:not(.wb):has(~.cookie) .wa-float{bottom:calc(var(--cookie-h,0px) + 12px)}
+/* The full-height phone/tablet menu scrolls its last items above the strip (the compact desktop panel is left alone). */
+@media(max-width:1240px){.site:not(.wb):has(~.cookie) .mobile-menu{padding-bottom:calc(32px + var(--cookie-h,0px))}}
 @media(max-width:600px){
  .site:not(.wb)~.cookie{left:0;right:0;bottom:0;display:block;max-width:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-width:1px 0 0;border-radius:0;box-shadow:0 -12px 28px -18px #121a2b40}
  .site:not(.wb)~.cookie p{font-size:12px;line-height:1.35}
  .site:not(.wb)~.cookie .cookie-btns{margin-top:6px}
  .site:not(.wb)~.cookie .cookie-btns button{flex:1;min-height:36px;font-size:13px}
- .ix .sticky-cta{transition:transform .35s cubic-bezier(.2,.7,.2,1),bottom .3s ease}
- .ix:has(~.cookie) .sticky-cta{bottom:var(--cookie-h,0px);padding-bottom:10px}
+ .site:not(.wb) .sticky-cta{transition:transform .35s cubic-bezier(.2,.7,.2,1),bottom .3s ease}
+ .site:not(.wb):has(~.cookie) .sticky-cta{bottom:var(--cookie-h,0px);padding-bottom:10px}
 }
 
 /* WhatsApp and booking */

@@ -15,6 +15,7 @@ import {Icon} from '@/components/praxen/icon';
 import {AuditReport,Calculator,Partners} from '@/components/praxen/growth';
 import {BookingEmbed} from '@/components/booking';
 import {LeadPopup} from '@/components/praxen/lead-popup';
+import {CookieOffset} from '@/components/cookie-offset';
 import {Privacy} from '@/components/praxen/privacy';
 import {About,Security,aboutLabel,securityLabel} from '@/components/praxen/company';
 import {BlogList,GeArticle,blogLabel} from '@/components/praxen/blog';
@@ -43,7 +44,8 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const [context,setContext]=useState(ent?t(ent.name,lang):'');
  const [menu,setMenu]=useState(false),[sticky,setSticky]=useState(false);
  useEffect(()=>{
-  const onScroll=()=>setSticky(window.scrollY>480);onScroll();
+  // Phones: the sticky bar waits until the first screen is scrolled past, so it never covers the hero.
+  const onScroll=()=>setSticky(window.scrollY>(window.innerWidth>600?480:window.innerHeight));onScroll();
   window.addEventListener('scroll',onScroll,{passive:true});return()=>window.removeEventListener('scroll',onScroll);
  },[]);
  const toContact=useCallback((e?:React.MouseEvent)=>{e?.preventDefault();setMenu(false);setTimeout(()=>scrollToId('contact'),20)},[]);
@@ -99,11 +101,12 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  return (
   <div className="site">
    <MotionRoot/>
+   <CookieOffset/>
    <a href="#main" onClick={e=>{e.preventDefault();document.getElementById('main')?.focus()}} className="skip">{s.skip}</a>
    <Header lang={lang} c={c} s={s} page={isDetail?'':section} rest={rest} langRest={langRest} toContact={toContact} menu={menu} setMenu={setMenu}/>
    <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd).replace(/</g,'\\u003c')}}/>
    <main id="main" tabIndex={-1}>
-    {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} count/><Quiz x={x}/></>}
+    {isHome&&<><Hero x={x}/><Marquee x={x}/><Results x={x} big/><Quiz x={x}/></>}
     {isPrivacy&&<Privacy x={x}/>}
     {isPartners&&<Partners x={x}/>}
     {section==='about'&&<><About x={x}/><Process x={x}/><Team x={x}/></>}
@@ -117,7 +120,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {['home','solutions','training'].includes(section)&&!isDetail&&<Formats x={x} training={section==='training'}/>}
     {['home','solutions'].includes(section)&&!isDetail&&<Calculator x={x}/>}
     {section==='solutions'&&<SolutionExamples x={x}/>}
-    {section==='cases'&&<><CaseExamples x={x}/><Results x={x} count={false}/></>}
+    {section==='cases'&&<><CaseExamples x={x}/><Results x={x} big={false}/></>}
     {isHome&&<Trust x={x}/>}
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
