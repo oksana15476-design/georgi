@@ -24,7 +24,9 @@ if(page){
  const pt=page.access_token;
  out.facebook={
   page:await safe(()=>get(`${G}/${page.id}`,{fields:'name,fan_count,followers_count,link',access_token:pt})),
-  insights_28d:await safe(()=>get(`${G}/${page.id}/insights`,{metric:'page_impressions_unique,page_post_engagements,page_views_total,page_daily_follows_unique',period:'day',since,until,access_token:pt}).then(j=>Object.fromEntries((j.data||[]).map(m=>[m.name,m.values.reduce((s,v)=>s+(+v.value||0),0)])))),
+  // One request per metric: Meta retires Page metrics from time to time, and one invalid name fails the whole call.
+  // Current names: developers.facebook.com/docs/graph-api/reference/insights (retired: …/platforminsights/page/deprecated-metrics).
+  insights_28d:Object.fromEntries(await Promise.all(['page_media_view','page_total_media_view_unique','page_post_engagements','page_views_total','page_daily_follows_unique'].map(async k=>[k,await safe(()=>get(`${G}/${page.id}/insights`,{metric:k,period:'day',since,until,access_token:pt}).then(j=>(j.data||[]).reduce((t,m)=>t+(m.values||[]).reduce((s,v)=>s+(+v.value||0),0),0)))]))),
   posts:await safe(()=>get(`${G}/${page.id}/posts`,{fields:'created_time,message,permalink_url,reactions.summary(true).limit(0),comments.summary(true).limit(0),shares',limit:25,access_token:pt}).then(j=>(j.data||[]).map(p=>({at:p.created_time,text:(p.message||'').slice(0,60),url:p.permalink_url,reactions:p.reactions?.summary?.total_count||0,comments:p.comments?.summary?.total_count||0,shares:p.shares?.count||0})))),
  };
  const ig=page.instagram_business_account?.id;
