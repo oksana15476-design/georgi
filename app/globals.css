@@ -662,6 +662,8 @@ main{outline:none}
  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#f6f8fbf2;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
  .sticky-cta.is-shown{transform:none}
  .sticky-cta .btn{flex:1;min-width:0;min-height:48px;padding:0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+ /* .ge only: one unprefixed declaration so the built CSS keeps the blur for Chrome and Firefox (see the header fix below). */
+ .site:not(.ix) .sticky-cta{backdrop-filter:blur(14px)}
  .sticky-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:48px;min-height:48px;border-radius:8px;border:1px solid var(--line2);background:#fff;color:var(--ink)}
 }
 
@@ -694,6 +696,16 @@ main{outline:none}
 .header-row.is-compact .desktop-nav,.is-compact~.mega{display:none}
 .header-row.is-compact .burger{display:inline-flex}
 .site-header:has(.is-compact) .mobile-menu{display:flex}
+/* praxenai.ge header fixes (11 Nov). Lightning CSS keeps only the -webkit- copy when both backdrop-filter
+   declarations are written, so Chrome and Firefox lost the blur; a single unprefixed declaration is emitted with both.
+   Scoped to .ge (.com keeps its header as is). */
+.site:not(.ix) .site-header{backdrop-filter:saturate(1.4) blur(14px)}
+@media(min-width:1241px){
+ /* Georgian labels are longer: a tighter menu keeps all six items in one row from 1241px up. */
+ html[lang=ka] .header-row{gap:16px}html[lang=ka] .desktop-nav{gap:2px}html[lang=ka] .nav-link{padding:0 6px;font-size:14px}html[lang=ka] .header-actions{gap:14px}
+ /* If the row still overflows (zoom, missing font) the burger menu opens as a compact panel, not a full-width sheet. */
+ .site-header:has(.is-compact) .mobile-menu{left:auto;right:max(var(--px),calc((100% - 1320px)/2 + var(--px)));width:440px;height:auto;max-height:calc(100dvh - var(--headH));padding:8px 28px 28px;border:1px solid var(--line);border-radius:0 0 14px 14px;box-shadow:0 24px 48px -16px #121a2b26}
+}
 
 /* Wrapping fixes found by the layout audit */
 .dept-tab{overflow-wrap:anywhere;hyphens:auto}
@@ -1763,7 +1775,7 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .wb .wb-ghost{align-self:flex-start;border:2px solid var(--wb-ink);border-radius:999px;background:#fff;color:var(--wb-ink);font-weight:800}
 .wb .wb-ghost:disabled{opacity:.45}
 .wb .wb-q-done{display:flex;align-items:center;gap:8px;font-weight:600;color:#315bf5}
-.wb .wb-modal-wrap{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:16px;background:#0d1424b3;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.wb .wb-modal-wrap{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:16px;background:#0d1424b3;backdrop-filter:blur(6px)}
 .wb .wb-modal{position:relative;width:100%;max-width:480px;max-height:calc(100dvh - 32px);overflow:auto;box-shadow:0 40px 80px -20px #000c}
 .wb .wb-modal-x{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid var(--wb-ink);border-radius:50%;background:#fff;color:var(--wb-ink)}
 
