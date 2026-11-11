@@ -13,7 +13,7 @@ API — способ, которым программы передают дан�
 
 Первые семь слов — в посте от 7 ноября. Сохраните оба.
 
-Подробнее о том, как мы работаем: https://praxenai.ge/ru/about?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f15-glossary-2
+Где ассистент отвечает и откуда берёт ответы: https://praxenai.ge/ru/chatbot?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f15-glossary-2
 
 #ИИдлябизнеса #словарь #ИИвпродажах
 
@@ -30,7 +30,7 @@ API — способ, которым программы передают дан�
 
 Первые семь слов — в посте от 7 ноября. Сохраните оба.
 
-Подробнее о том, как мы работаем: https://praxenai.ge/ru/about?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f15-glossary-2
+Где ассистент отвечает и откуда берёт ответы: https://praxenai.ge/ru/chatbot?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f15-glossary-2
 
 #ИИдлябизнеса #словарь #ИИвпродажах
 
@@ -47,6 +47,6 @@ API — способ, которым программы передают дан�
 
 Первые семь слов — в посте от 7 ноября. Сохраните оба.
 
-Подробнее о том, как мы работаем: ссылка в шапке профиля
+Где ассистент отвечает и откуда берёт ответы: ссылка в шапке профиля
 
 #ИИдлябизнеса #словарь #ИИвпродажах

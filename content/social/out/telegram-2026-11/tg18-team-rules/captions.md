@@ -8,4 +8,4 @@
 2. Факты, цены и сроки проверяет человек. ИИ иногда уверенно придумывает то, чего нет. Это называется галлюцинация, и защищает от неё только проверка.
 3. Хорошие промпты — общие. Соберите в одном документе 10 промптов, которые работают у лучших сотрудников, и дайте всем.
 
-Если хотите провести такое обучение на задачах вашей команды, напишите нам: https://praxenai.ge/ru/training?utm_source=telegram&utm_medium=social&utm_campaign=organic_2026-11&utm_content=tg18-team-rules
+Обучение команды работе с ИИ на её задачах: https://praxenai.ge/ru/training?utm_source=telegram&utm_medium=social&utm_campaign=organic_2026-11&utm_content=tg18-team-rules
