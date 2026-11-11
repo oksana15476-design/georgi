@@ -35,7 +35,9 @@ for(const file of pages){
  const canonical=/<link rel="canonical" href="([^"]+)"/.exec(html);
  if(!canonical)continue;
  const alts=[...html.matchAll(/<link rel="alternate" hrefLang="([^"]+)" href="([^"]+)"/g)].map(m=>`<xhtml:link rel="alternate" hreflang="${m[1]}" href="${m[2]}"/>`);
- entries.push([canonical[1],`<url><loc>${canonical[1]}</loc>${alts.join('')}<lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`]);
+ // lastmod: the page's dateModified from its JSON-LD (lib/freshness.ts), the build date when it has none.
+ const modified=/"dateModified":"(\d{4}-\d\d-\d\d)"/.exec(html)?.[1]||today;
+ entries.push([canonical[1],`<url><loc>${canonical[1]}</loc>${alts.join('')}<lastmod>${modified}</lastmod><changefreq>monthly</changefreq></url>`]);
  info.set(canonical[1],{title:decode(/<title>([^<]*)<\/title>/.exec(html)?.[1]||''),description:decode(/<meta name="description" content="([^"]*)"/.exec(html)?.[1]||'')});
 }
 entries.sort((a,b)=>a[0].localeCompare(b[0]));
