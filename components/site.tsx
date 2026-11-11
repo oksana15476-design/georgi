@@ -143,7 +143,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
        <div className="footer-contacts"><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a><a href={contacts.whatsapp} target="_blank" rel="noopener" className="footer-phone"><Icon name="whatsapp" size={16}/>WhatsApp</a><a href={'mailto:'+contacts.email} className="footer-phone"><Icon name="mail" size={16}/>{contacts.email}</a></div>
        <a href="#contact" onClick={toContact} className="btn btn-white">{s.action}<Icon name="arrow-right" size={16}/></a>
       </div>
-      {footerCols.map(col=><div key={col.title}>
+      {footerCols.map((col,i)=><div key={col.title} className={i===2?'footer-col-wide':undefined}>
        <h2 className="footer-h">{col.title}</h2>
        {col.links.map(l=><a key={l.href} href={l.href} onClick={l.contact?toContact:undefined} className="footer-link">{l.label}</a>)}
       </div>)}
