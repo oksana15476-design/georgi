@@ -56,3 +56,83 @@
 ## Резерв, если строка отпадёт после проверки выдачи
 
 ai for financial advisers (30), ai receptionist for dentists (40), automate client onboarding (20), integrate whatsapp into website (30). n8n templates (590) и n8n workflow examples (50) — только после проверки выдачи против `n8n-vs-zapier-vs-make` (владелец «n8n workflow» 1 900) и `ai-workflow-automation-examples`; при 7+ общих URL из 10 — UPDATE одной из них. salesforce einstein взят на 26.11 (11.11).
+
+## Бриф на 12.11 ai-for-construction
+
+SEO-редактор, 11.11.2026. Строка календаря «чт 12.11 NEW `/blog/ai-for-construction`», выход 11.11.2026 по решению координатора. Источники открыты и проверены 11.11.2026.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, DataForSEO, Google Ads UK, среднее за 12 месяцев, замер 02.11.2026):
+- главный: ai for construction 480;
+- в том же кластере: ai in construction 480 · artificial intelligence in construction 480 · ai and construction 480. Одинаковая цифра у близких вариантов — Google Ads считает их одной группой, **не суммировать**;
+- дополнительные: ai in construction industry 50 · ai construction software 30 · construction ai software 20 · ai construction companies 20;
+- на .ge темы нет (`lib/ge-blog.ts`, календарь .ge — строительства нет), повтора между сайтами нет.
+
+**Выдача** (WebSearch 11.11.2026; инструмент даёт выдачу США, поэтому добавлен запрос «ai in construction UK». Это не точный топ Google UK. Точный топ UK — DataForSEO SERP, платно, только с согласия владельца):
+- Формат топа — длинные гайды «AI in construction: benefits, use cases, examples» от вендоров (Oracle, Trimble, Autodesk, Microsoft, OpenSpace, Intuit), списки «15 examples» (OpenAsset), вики (designingbuildings.co.uk), аналитика (McKinsey, RICS, WEF). По «…UK» — практические гайды для британских фирм (spotdev.co.uk, consultancy.uk «Practical uses of AI for builders in the UK»), BDO, BSI, Employment Hero.
+- Подтемы: проектирование и BIM, сметы и обмеры по чертежам, графики и прогноз задержек, камеры на площадке и охрана труда, прогресс по фото, техника, документы и RFI, экология, медленное внедрение в отрасли.
+- Общих адресов в первой десятке двух запросов: 3 одинаковых URL (enlaps, leewayhertz, microsoft) плюс ещё 2 домена (oracle, openspace) с другими адресами. Порог 7 из 10 не достигнут, но запросы — близкие варианты с одним спросом: оба ведут на один URL, второй статьёй не делаем.
+- Пробел, который берём: почти все в топе пишут о крупных проектах. Об офисной работе небольшой строительной фирмы (сметы, бумаги площадки, субподрядчики) — только пара британских гайдов. Цифры в топе — опросы вендоров, их не берём.
+
+**Вопрос читателя:** «Что ИИ реально делает в строительной фирме вроде моей и с чего начать?» Интент информационный, TOFU, британская строительная фирма или подрядчик.
+
+**Коммерческая страница:** `/industries/trades` (Trades & field services). Статья раскрывает строку «Quotes» и линии про субподрядчиков и этапные платежи этой страницы, текст страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 12.11, H1 «AI for construction firms: quotes, site paperwork and subcontractor messages». Issue: на .com `title` — это и H1, и title; 77 знаков, а `blog-check.ts` пропускает не больше 53 (с « | Praxen AI» — 65). Fix: title/H1 «AI for construction firms: quotes and site paperwork» (52); субподрядчики — в description и в H2.
+- [MEDIUM] Location: `/industries/trades` (`lib/intl.ts`, стр. 182–190). Issue: страница забирает запрос «AI receptionist for trades» (ответ на звонки на объекте, запись в календарь, срочные вызовы). Если статья расскажет то же, будет дубль. Fix: о звонках — одна фраза и ссылка на страницу; статья углубляет то, что на странице дано одной строкой: сметы, изменения в работах, бумаги, субподрядчики.
+- [MEDIUM] Location: ссылка `intelligent-document-processing` в строке 12.11. Issue: статьи нет (по календарю выходит 15.11), ссылка будет битой. Fix: заменить на `blog/ai-workflow-automation-examples` (там выбор первого процесса и точки согласования). 15.11 в бриф `intelligent-document-processing` добавить ссылку на `ai-for-construction` (бумаги площадки как пример документов).
+- [MEDIUM] Location: `ai-workflow-automation-examples` (пример 2 «Quote drafts») и `ai-agents-for-business` («Quotes from enquiries»). Issue: общий тезис «черновик сметы по прайсу, человек проверяет» уже есть. Fix: здесь только строительная конкретика: фото и обмеры после осмотра, перечень работ, пункты «нужен осмотр», изменения в работах по ходу. Как устроены согласования — не пересказывать.
+- [MEDIUM] Location: `invoice-automation-ai`. Issue: путь счёта поставщика (почта → чтение → сверка с заказом → коды → согласование → черновик в Xero/QuickBooks/Sage) и проверка смены реквизитов — тезисы этой статьи. Fix: счета от поставщиков стройматериалов — одна фраза и ссылка. Своё в этой статье — только строительное: CIS-данные субподрядчика и пометка «reverse charge».
+- [MEDIUM] Location: CTA `/industries/trades`. Issue: страница про ИИ-ресепшн, а статья — про сметы и бумаги; общий призыв сюда не подойдёт. Fix: последняя фраза последнего раздела называет предмет: что делаем для строителей и мастеров (звонки с объекта, черновики смет по фото) и аудит одного процесса — например, оформления смет.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум, ссылка через `links` или 2 автоматические «Read also»):
+- ответ на звонки на объекте, запись визитов, срочные вызовы → `/industries/trades`, `ai-phone-answering-service`;
+- путь счёта поставщика и проверка смены банковских реквизитов → `invoice-automation-ai`;
+- как ИИ читает документы (шаблонное OCR или языковая модель) → `invoice-automation-ai`, с 15.11 — `intelligent-document-processing`;
+- общее правило «всё, что уходит наружу, согласует человек» и таблица выбора первого процесса → `ai-workflow-automation-examples`;
+- шаги работы агента → `ai-agents-for-business`;
+- доступ к WhatsApp Business API и тарифы Meta → `whatsapp-business-api`; как планировать WhatsApp-бота → `whatsapp-chatbot-for-business`;
+- персональные данные работников и фото людей на площадке → `gdpr-and-ai`, одной фразой;
+- общие оговорки (токены, данные на аккаунтах клиента, бесплатный аудит) — не писать; цена пилота — не писать (см. ниже).
+
+### Мета
+
+- `slug`: `ai-for-construction`; `cat`: `Construction`; `date`: `2026-11-11`; добавить slug в `blogSlugs` (`lib/intl.ts`).
+- `title` (= H1, 52 знака): **AI for construction firms: quotes and site paperwork**
+- `description` (152 знака): **AI for construction firms: draft quotes from site photos, daily diaries, RAMS drafts and subcontractor chasing, and the checks that stay with your team.**
+- `excerpt` (пример): «Draft quotes after a survey, site diaries from voice notes and subcontractor paperwork chased for you, with sign-off staying on site.»
+- «ai in construction» — в первом абзаце или в H2 1, один раз и естественно.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: для строительной фирмы ИИ полезнее всего в офисной части работы: черновик сметы по фото и обмерам после осмотра, дневник площадки из голосовых заметок, сбор документов и подтверждений от субподрядчиков. Факт по теме: по правилам CIS нового субподрядчика нужно верифицировать в HMRC до первой оплаты, и данные должны точно совпадать с его регистрацией — поэтому неполные данные задерживают оплату (источник 2). Крупные инструменты (BIM, камеры на площадке) — для генподрядчиков на больших объектах.
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **Where AI in construction is used today.** Сжато о том, что в топе: проектирование и BIM, графики, камеры и прогресс по фото, техника — кому это подходит (генподрядчики, большие объекты). Для фирмы на 5–50 человек отдача раньше в офисе. Таблица 3 колонки: Area | What AI does | Who it suits (4 строки). Без статистики из вендорских опросов.
+2. **Quotes and variations from photos, drawings and notes.** Пример с пометкой «Example»: осмотр под одноэтажную пристройку → фото, обмеры, заметки голосом → черновик перечня работ и сметы по вашему прайсу, пункты «нужен осмотр конструктора» отмечены. Изменения в работах: просьба клиента в сообщении → черновик изменения со стоимостью и сроком на подпись клиенту. Сметчик проверяет объёмы и расценки. Своя метрика без £: дни от осмотра до отправки сметы (example: 5 дней → в тот же вечер черновик). Обмер по чертежам — оговорка: специализированные программы есть, объёмы проверяет человек.
+3. **Site paperwork: diaries, RAMS drafts and inductions.** Голосовая заметка и фото → запись в дневник (погода, кто на площадке, поставки, задержки). RAMS и method statements — черновик из ваших прошлых документов под конкретный объект. По CDM 2015 генподрядчик (principal contractor) до начала работ готовит письменный construction phase plan, пересматривает его и обеспечивает вводный инструктаж по площадке для всех работников (источник 1): ИИ готовит черновик и ведёт журнал инструктажей, подписывает компетентный человек. ⚖ формулировки об обязанностях — строго по странице HSE.
+4. **Subcontractor messages: documents, start dates and payment applications.** Таблица 3 колонки: Message | What AI prepares | Who approves. Строки: запрос страховки и документов перед выходом на объект; подтверждение даты выхода, когда график сдвинулся; напоминание о заявке на оплату; проверка полноты CIS-данных до верификации (UTR, NI или данные компании); проверка счёта субподрядчика: стоит ли пометка о reverse charge (источник 3). Пример сообщения с пометкой «Example». Канал (email, SMS, WhatsApp Business API) — одной фразой.
+5. **What stays with the site manager and the office.** Только строительное: объёмы и расценки, документы по охране труда, верификация в HMRC и месячные декларации CIS (до 19-го числа после налогового месяца — источник 2, страница file-your-monthly-returns; ⚖ дату писать только так), платежи, споры с субподрядчиками, всё, что клиенту обещают о цене и сроке. Рефрен «люди решают» — один раз и своими словами.
+6. **How a building firm starts with one job.** Нумерованные шаги (заголовок начинается с «How»): выбрать одно (сметы или документы субподрядчиков); собрать 20 прошлых смет с итоговыми ценами; записать правила (наценка, что требует осмотра); две недели параллельно с обычной работой; сравнить по дням до сметы и правкам. Таблицу выбора процесса не повторять — ссылка. **Последняя фраза — CTA:** про страницу `/industries/trades` и аудит оформления смет или звонков с объекта. Цены нет: интент не ценовой (правило 11.11).
+7. **Sources** — последний блок, `{h:'Sources',list:[…]}`.
+
+**FAQ (3–4):** Can AI measure quantities from drawings? · Can AI write our RAMS? · Does it work with the job management software and messaging apps we already use? · Is it worth it for a firm with fewer than 20 people? Ответы короткие, без цен и без пересказа тезисов из списка выше.
+
+### `links` (3 внутренние)
+
+1. `['industries/trades','AI for builders and trades: calls, visits and quotes']` — коммерческая страница и CTA.
+2. `['blog/invoice-automation-ai','Invoice automation: supplier bills from inbox to ledger']`
+3. `['blog/ai-workflow-automation-examples','AI workflow automation: picking the first job']` — замена `intelligent-document-processing`.
+
+**Входящая ссылка в тот же день:** в `links` статьи `invoice-automation-ai` добавить `['blog/ai-for-construction','AI for construction firms: subcontractor paperwork']`.
+
+### Первоисточники (открыты 11.11.2026)
+
+Формат строки — `.claude/skills/praxen-blog/SKILL.md`, «Sources block»; вводная до двоеточия без точек и цифры в конце.
+1. `HSE guide to principal contractor duties (CDM 2015): https://www.hse.gov.uk/construction/cdm/2015/principal-contractors.htm (checked 11 November 2026)` — construction phase plan до начала работ, вводный инструктаж по площадке.
+2. `HMRC guide to verifying CIS subcontractors: https://www.gov.uk/what-you-must-do-as-a-cis-contractor/verify-subcontractors (checked 11 November 2026)` — верификация до первой оплаты, данные должны точно совпадать. Срок месячной декларации (19-е число) — в разделе https://www.gov.uk/what-you-must-do-as-a-cis-contractor/file-your-monthly-returns того же руководства; если дату пишем, даём этот адрес отдельной строкой или не пишем дату.
+3. `HMRC guidance on the VAT domestic reverse charge: https://www.gov.uk/guidance/vat-domestic-reverse-charge-for-building-and-construction-services (checked 11 November 2026)` — reverse charge обязателен для большинства строительных услуг между плательщиками НДС в рамках CIS; бухгалтерская система должна это учитывать.
+
+⚖ CIS, НДС и CDM — правовые факты: только то, что сказано на этих страницах, без толкований и штрафов (решение и правило 4 — сверка с владельцем).
+
+**Примеры:** все сценарии (пристройка, запись в дневнике, сообщение субподрядчику, «5 дней до сметы») — с пометкой «Example». Названий клиентов и статистики нет. Грузия не упоминается, «for businesses», британский английский.

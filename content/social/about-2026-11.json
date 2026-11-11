@@ -1,0 +1,63 @@
+{
+ "campaign": "organic_2026-11",
+ "about": "Feed posts (Instagram and Facebook) added to November by the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 3.1, Н-posts): who we are and how we work, workshop style without \"style\". Week 23–29 November: Н11. Facts only from the site (components/praxen/team.tsx, lib/webinar.ts host).",
+ "langs": [
+  "ru"
+ ],
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "fbCta": {
+  "title": "Подписывайтесь на *Praxen AI*",
+  "sub": "Кто мы и как работаем · praxenai.ge"
+ },
+ "channels": [
+  "facebook",
+  "instagram"
+ ],
+ "posts": [
+  {
+   "id": "f16-who-is-behind",
+   "date": "2026-11-29",
+   "time": "12:00",
+   "pillar": "about",
+   "accent": "white",
+   "link": "https://praxenai.ge/ru/about",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Кто за Praxen AI",
+     "title": "Евгений Будников, *основатель*",
+     "sub": "Разбирает процессы, считает эффект и ведёт внедрение"
+    },
+    {
+     "layout": "cover",
+     "bg": "white",
+     "kicker": "Как работаем · 1",
+     "title": "Сначала выручка, *потом технология*",
+     "sub": "Считаем, где ИИ даст эффект в деньгах и часах. Инструмент выбираем после этого"
+    },
+    {
+     "layout": "cover",
+     "bg": "white",
+     "kicker": "Как работаем · 2",
+     "title": "Один *ответственный*",
+     "sub": "От аудита до запуска с вами работает один человек. Он же отвечает за результат"
+    },
+    {
+     "layout": "cover",
+     "bg": "white",
+     "kicker": "Как работаем · 3",
+     "title": "На связи *напрямую*",
+     "sub": "Вопросы пишете в WhatsApp или Telegram, без менеджеров-посредников"
+    },
+    {
+     "layout": "cta",
+     "title": "Подписывайтесь *на Praxen AI*",
+     "sub": "Как мы работаем и что строим. Контакты Евгения: praxenai.ge/ru/about",
+     "button": "praxenai.ge/ru/about"
+    }
+   ],
+   "text": "Бесплатный аудит в Praxen AI проводит Евгений Будников, основатель компании. Он разбирает процессы, считает эффект и сам ведёт внедрение до запуска.\n\nКак устроена работа с ним:\n\nСначала выручка, потом технология. Считаем, где ИИ даст эффект в деньгах и часах, и только после этого выбираем инструмент.\n\nОдин ответственный. От аудита до запуска с вами работает один человек, и за результат отвечает он же.\n\nНа связи напрямую. Вопросы пишете в WhatsApp или Telegram, без менеджеров-посредников.\n\nКак устроена работа и как связаться с Евгением: {link}\n\nПодписывайтесь на Praxen AI, чтобы видеть, как мы работаем и что строим.\n\n#PraxenAI #ИИдлябизнеса #внедрениеИИ #Батуми"
+  }
+ ]
+}
