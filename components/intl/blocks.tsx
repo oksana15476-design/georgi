@@ -899,7 +899,7 @@ export function Article({post}:{post:Post}){
     <nav aria-label="Contents" className="ix-toc"><small>Contents</small>{post.blocks.map(b=><a key={b.h} href={'#'+anchor(b.h)}>{b.h}</a>)}</nav>
     <div className="ix-article-body">
      <div className="ix-answer-box"><b>Short answer</b><p>{post.answer}</p></div>
-     <div className="ix-article-ask"><p>Every project starts with a free 30-minute audit.</p><BookLink className="btn btn-primary btn-sm">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></div>
+     <div className="ix-article-ask"><p>In 30 minutes we show which tasks to hand to AI and what it saves.</p><BookLink className="btn btn-primary btn-sm">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></div>
      {post.blocks.map(b=><section key={b.h} id={anchor(b.h)}>
       <ArticleBlock b={b}/>
      </section>)}
