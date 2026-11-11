@@ -98,7 +98,7 @@ export function RelatedArticles({x,page,skip,extra}:{x:X;page:string;skip?:strin
  if(!items.length&&!extra)return null;
  return (
   <section data-screen-label="Related articles" className="wrap sec">
-   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Статьи по теме','Related articles','სტატიები თემაზე')}</h2></div></div>
+   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Статьи по теме','Related articles','სტატიები ამ თემაზე')}</h2></div></div>
    {items.length>0&&<div className="ix-cards" data-stagger="">{items.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
     <span className="ix-post-cat">{p.cat}</span>
     <h3>{p.title}</h3>
