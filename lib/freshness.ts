@@ -4,6 +4,7 @@
 // When you change a page's content, put the new date here. Layout, analytics and form changes do not count.
 import type {Lang} from '@/lib/content';
 import {contentUpdated} from '@/lib/proof';
+import {departments,industries,intlUpdated,services} from '@/lib/intl';
 
 export type Dated={date:string;updated?:string};
 // Never earlier than the publication date.
@@ -19,18 +20,23 @@ const months:Record<Lang,string[]>={
 // '2026-11-09' → '9 November 2026' / '9 ноября 2026' / '9 ნოემბერი 2026', the same as dateLabel in the blogs.
 export const dateLabelOf=(iso:string,lang:Lang='en')=>{const [y,m,d]=iso.split('-').map(Number);return d+' '+months[lang][m-1]+' '+y};
 
-// praxenai.com. The site-wide date matches intlUpdated in lib/intl.ts (8 October content pass).
-const intlSite='2026-10-08';
+// praxenai.com. Pages not listed take intlUpdated from lib/intl.ts (8 October content pass).
+// The 11 November text pass covers every service, industry and department page, training, solutions,
+// the home page (results check in the pricing block) and the small-business page (smallPerks). It replaces the
+// earlier dates of those pages (receptionist and trades 23 October, page guides 3 November).
+const textPass='2026-11-11';
+const textPassPaths=[
+ ...services.filter(s=>s.slug!=='ai-training').map(s=>'/services/'+s.slug),
+ ...industries.map(s=>'/industries/'+s.slug),
+ ...departments.map(s=>'/departments/'+s.slug),
+ '/training','/solutions','','/ai-for-small-business',
+];
 const intlPages:Record<string,string>={
- '':'2026-11-03', // home FAQ: standard and launch-offer receptionist prices
- '/services/ai-receptionist':'2026-10-23','/industries/trades':'2026-10-23', // tuned to Search Console queries
  '/privacy':'2026-10-24', // analytics section
- // page-specific guides (lib/intl-guides.ts)
- ...Object.fromEntries(['customer-support','sales','marketing','operations','finance','hr','procurement','leadership'].map(s=>['/departments/'+s,'2026-11-03'])),
- '/industries/hospitality':'2026-11-03',
+ ...Object.fromEntries(textPassPaths.map(p=>[p,textPass])),
 };
 // path: '' for home, '/services/ai-receptionist' and so on; blog pages are dated in lib/intl-seo.ts.
-export const intlPageModified=(path:string)=>intlPages[path]||intlSite;
+export const intlPageModified=(path:string)=>intlPages[path]??intlUpdated;
 
 // praxenai.ge. The site-wide date is the 8 October content pass (pages without repeated blocks, page FAQs);
 // department and industry pages show it as "Updated" (lib/proof.ts).

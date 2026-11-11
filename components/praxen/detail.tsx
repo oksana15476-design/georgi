@@ -8,7 +8,7 @@ import {sectionLabel} from '@/lib/site-copy';
 import {Icon} from './icon';
 import {BrandLogo,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
-import {contentUpdated} from '@/lib/proof';
+import {gePageModified} from '@/lib/freshness';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
@@ -51,13 +51,15 @@ export function DetailHero({x,slug,page}:{x:X;slug:string;page:string}){
 export function DetailAnswer({x,slug}:{x:X;slug:string}){
  const {c,lang}=x;const qa=x.data.answer;
  if(!qa)return null;
- const [y,m,d]=contentUpdated.split('-');
+ // The same date as dateModified in the page's JSON-LD (lib/freshness.ts).
+ const updated=gePageModified((departments.some(e=>e.slug===slug)?'/departments/':'/industries/')+slug);
+ const [y,m,d]=updated.split('-');
  return (
   <section className="wrap sec detail-answer" aria-labelledby="answer-h">
    <div data-reveal="" className="mw820">
     <h2 id="answer-h" className="h2">{t(qa.q,lang)}</h2>
     <p className="answer-p">{t(qa.a,lang)}</p>
-    <p className="answer-meta">{c('Обновлено','Updated','განახლდა')} <time dateTime={contentUpdated}>{d+'.'+m+'.'+y}</time></p>
+    <p className="answer-meta">{c('Обновлено','Updated','განახლდა')} <time dateTime={updated}>{d+'.'+m+'.'+y}</time></p>
    </div>
   </section>
  );
