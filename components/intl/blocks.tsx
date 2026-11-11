@@ -4,7 +4,7 @@ import {createContext,useContext,useRef,useState} from 'react';
 import {getAttribution,setConsent,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
-import {routePath,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {routePath,resultsCheck,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {posts,type Post} from '@/lib/intl-blog';
 import {dateLabelOf,intlPageModified} from '@/lib/freshness';
 import {ArticleBlock} from '@/components/article-blocks';
@@ -227,6 +227,7 @@ export function Pricing(){
    </div>
    <p className="tariff-example ix-rc-line"><Icon name="phone-call" size={16}/><span>AI receptionist: <b>{fmt(promo(price('rcSetup',cur)),cur)}</b> setup + <b>{fmt(promo(price('rcMonth',cur)),cur)}/mo</b> with the launch offer. Call minutes at cost, typically {curInfo[cur].usage} per minute. <a href={link('services/ai-receptionist')} className="ix-inline">See the AI receptionist</a></span></p>
    <p className="tariff-example"><Icon name="calculator" size={16}/><span>For example: implementation pilot <b>{fmt(promo(price('pilot',cur)),cur)}</b> once. Ongoing care: <b>{fmt(promo(price('care',cur)),cur)}/mo</b>. You pay AI usage directly to the providers. The audit is free.</span></p>
+   <p className="tariff-example"><Icon name="badge-check" size={16}/><span><b>{resultsCheck[0]}.</b> {resultsCheck[1]}</span></p>
    <p className="ix-vat">{vatNote}</p>
   </section>
  );

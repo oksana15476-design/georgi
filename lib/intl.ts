@@ -99,8 +99,8 @@ export const services:Entity[]=[
   stats:[['30 min','free first call'],['1 week','audit and shortlist'],['3','workflows ranked by payback']],
   scenarios:[['list-checks','Process audit','Interviews with your team and a ranked list of automation candidates.'],['calculator','Payback estimate','Hours saved, cost and risk for each candidate, in one table.'],['shield-check','AI usage policy','Clear rules on what staff may and may not do with AI tools.']],
   tested:['Estimates use your real volumes.','We tell you when AI is not the right answer.','You keep the audit report whether or not you work with us.'],
-  answer:'AI consultancy helps a business find which processes are worth automating and in what order. Praxen starts with a free 30-minute call and a one-week audit that ends in a ranked shortlist. The top workflow on that list is then built as a 2–4 week pilot, fixed at '+lp('pilot')+' with the launch offer.',
-  faqs:[['How much does AI consultancy cost?','The first step, a 30-minute audit call, is free. The workflow we recommend is then built as a fixed-price pilot: '+lp('pilot')+' with the launch offer, '+sp('pilot')+' standard, excluding VAT. AI usage is paid to the providers at cost on your own accounts.'],['How long does it take to get from audit to a working pilot?','About a week for the audit and shortlist, then 2–4 weeks to build the first workflow and test it on your real cases.'],['How is this different from a big consultancy?','We are small, we build what we recommend, and the audit takes about a week.']]},
+  answer:'AI consultancy helps a business find which processes are worth automating and in what order. Praxen starts with a free 30-minute call and a one-week audit that ends in a ranked shortlist. The audit week is part of the pilot, fixed at '+lp('pilot')+' with the launch offer, and the top workflow on the shortlist is then built in 2–4 weeks.',
+  faqs:[['How much does AI consultancy cost?','The first step, a 30-minute audit call, is free. The one-week audit and the workflow we recommend are covered by one fixed-price pilot: '+lp('pilot')+' with the launch offer, '+sp('pilot')+' standard, excluding VAT. AI usage is paid to the providers at cost on your own accounts.'],['How long does it take to get from audit to a working pilot?','About a week for the audit and shortlist, then 2–4 weeks to build the first workflow and test it on your real cases.'],['How is this different from a big consultancy?','We are small, we build what we recommend, and the audit takes about a week.']]},
  {slug:'ai-chatbot',measure:'Reply time, share of questions answered without staff and leads captured outside working hours.',name:'AI chatbot',icon:'messages-square',desc:'Website chat and WhatsApp replies from your knowledge base',scene:'chat',
   title:'AI chatbot for your website and WhatsApp',question:'What does an AI chatbot do and what does it cost?',
   h1:'An AI chatbot that answers from your own information.',sub:'It replies on your website and WhatsApp in seconds, using your price list, policies and FAQs. Each answer cites its source, and a person takes over when needed.',
@@ -112,11 +112,11 @@ export const services:Entity[]=[
  {slug:'ai-agents',title:'AI agents for business, with approvals and logs',measure:'Time per completed task, share of runs approved without changes and hours handed back to the team.',name:'AI agents',icon:'bot',desc:'Multi-step routine handled with checks and logs',scene:'agent',
   question:'What do AI agents do and what do they cost?',
   h1:'AI agents that do the steps and ask before they act.',sub:'An agent reads, checks, drafts and waits for approval. Every action is logged, access is limited to what it needs, and a person signs off where it matters.',
-  stats:[['4–8 wks','typical build'],['100%','actions logged'],['0','actions without your rules']],
+  stats:[['From 4 wks','to build an agent'],['100%','actions logged'],['0','actions without your rules']],
   scenarios:[['inbox','Order processing','Reads order emails, checks stock and drafts confirmations.'],['users','Candidate screening','Scores CVs against the brief and schedules first calls.'],['receipt','Month-end chasing','Finds unpaid invoices and drafts polite reminders.']],
   tested:['Agents run in a sandbox on past cases before touching live systems.','Role-based access: read-only unless approved.','Human approval points on anything external.'],
-  answer:'AI agents are programs that complete multi-step tasks across your tools, such as reading an email, checking data and drafting a reply. Praxen builds them with approval points and full logs. A typical agent takes 4–8 weeks to build, priced from '+lp('custom')+' with the launch offer.',
-  faqs:[['How much do AI agents cost?','An agent is a custom build, from '+lp('custom')+' with the launch offer ('+sp('custom')+' standard). The exact price is fixed in the plan before work starts. Optional care is '+lp('care')+' a month, and model usage is paid to the AI provider at cost on your own account. Prices exclude VAT.'],['How long does it take to build an agent?','Typically 4–8 weeks. The agent first runs in a sandbox on past cases, then on live work with approval points.'],['Which systems can an agent work in?','Email, your CRM, accounting software and order systems with an API, such as HubSpot, Xero or SAP. Access is read-only unless you approve more.'],['Is it safe to let an agent send emails?','By default agents draft and a person sends. We remove the approval step only where you decide.']]},
+  answer:'AI agents are programs that complete multi-step tasks across your tools, such as reading an email, checking data and drafting a reply. Praxen builds them with approval points and full logs. An agent takes from 4 weeks to build, priced from '+lp('custom')+' with the launch offer.',
+  faqs:[['How much do AI agents cost?','An agent is a custom build, from '+lp('custom')+' with the launch offer ('+sp('custom')+' standard). The exact price is fixed in the plan before work starts. Optional care is '+lp('care')+' a month, and model usage is paid to the AI provider at cost on your own account. Prices exclude VAT.'],['How long does it take to build an agent?','From 4 weeks. The agent first runs in a sandbox on past cases, then on live work with approval points.'],['Which systems can an agent work in?','Email, your CRM, accounting software and order systems with an API, such as HubSpot, Xero or SAP. Access is read-only unless you approve more.'],['Is it safe to let an agent send emails?','By default agents draft and a person sends. We remove the approval step only where you decide.']]},
  {slug:'ai-training',measure:'Hours saved per person a week, measured at the two-week follow-up, and how many people still use the playbook.',name:'AI training',icon:'graduation-cap',desc:'Teach your team to use AI safely and usefully',scene:'playbook',
   title:'AI training for teams: hands-on half-day workshops',question:'What does AI training for teams include and what does it cost?',
   h1:'AI training your team will still use next month.',sub:'A half-day session on your own tasks. Everyone leaves with a playbook of prompts, templates and rules, and we follow up two weeks later.',
@@ -422,6 +422,10 @@ export const faqFor=(route:IntlRoute,entity:Entity|undefined,cur:Cur):{items:[st
  return {items:gen,title:'Before our first conversation.'};
 };
 
+// Results check at 30 days: applies to every client (owner, 11 November 2026). Shown next to the prices
+// (Pricing block, /solutions and home) and on the small business page, where it is marked as not exclusive.
+export const resultsCheck:[string,string]=['Results check at 30 days','We review the agreed metric together. If the pilot falls short, we keep tuning it for another month at no extra cost.'];
+
 // Small business starter terms (/ai-for-small-business): for companies with up to 50 staff.
 export const smallLimit='up to 50 staff';
 export const smallPerks:[string,string,string][]=[
@@ -430,7 +434,7 @@ export const smallPerks:[string,string,string][]=[
  ['life-buoy','First month of care free','Monitoring, fixes and tweaks for the first month after launch are included.'],
  ['graduation-cap','Free team session','A one-hour online session at launch on using AI safely in your business.'],
  ['layers','Ready-made setups','Tested starting points for clinics, trades, agencies and professional services, so you go live sooner.'],
- ['badge-check','Results check at 30 days','We review the agreed metric together. If the pilot falls short, we keep tuning it for another month at no extra cost.'],
+ ['badge-check',resultsCheck[0],'Applies to every client. '+resultsCheck[1]],
 ];
 export const smallScenarios:[string,string,string][]=[
  ['phone-call','Missed calls while you work','An AI receptionist answers when you’re with a customer, on site or closed, and books the job.'],
