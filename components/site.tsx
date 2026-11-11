@@ -151,7 +151,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     <a href="#contact" onClick={toContact} className="btn btn-primary">{c('Бесплатный аудит','Free audit','უფასო აუდიტი')}</a>
     <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" aria-label="WhatsApp" className="sticky-icon sticky-wa"><Icon name="whatsapp" size={20}/></a>
     <a href={'tel:'+contacts.phone} aria-label={contacts.phoneLabel} className="sticky-icon"><Icon name="phone" size={19}/></a>
-    {contacts.telegram?<a href={contacts.telegram} target="_blank" rel="noopener" aria-label={s.telegram} className="sticky-icon"><Icon name="send" size={19}/></a>:<a href={'mailto:'+contacts.email} aria-label={contacts.email} className="sticky-icon"><Icon name="mail" size={19}/></a>}
+    {contacts.telegram?<a href={contacts.telegram} target="_blank" rel="noopener" aria-label={s.telegram} className="sticky-icon"><Icon name="telegram" size={19}/></a>:<a href={'mailto:'+contacts.email} aria-label={contacts.email} className="sticky-icon"><Icon name="mail" size={19}/></a>}
    </div>
    <a href={contacts.whatsapp+'?text='+encodeURIComponent(s.heroWhatsAppText)} target="_blank" rel="noopener" aria-label={c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')} className={'wa-float'+(sticky?' is-shown':'')}><Icon name="whatsapp" size={26}/><span>{c('Написать в WhatsApp','Message on WhatsApp','მოგვწერეთ WhatsApp-ში')}</span></a>
    {!isPrivacy&&<LeadPopup x={x} menu={menu}/>}

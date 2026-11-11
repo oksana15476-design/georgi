@@ -72,7 +72,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
      <div className="contact-links">
       <a href={'tel:'+contacts.phone}><Icon name="phone" size={16}/>{contacts.phoneLabel}</a>
       <a href={contacts.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" size={16}/>WhatsApp</a>
-      {contacts.telegram&&<a href={contacts.telegram} target="_blank" rel="noopener"><Icon name="send" size={16}/>{s.telegram}</a>}
+      {contacts.telegram&&<a href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" size={16}/>{s.telegram}</a>}
       <a href={'mailto:'+contacts.email}><Icon name="mail" size={16}/>{contacts.email}</a>
       <span><Icon name="map-pin" size={16}/>{s.location}</span>
      </div>

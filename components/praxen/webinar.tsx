@@ -92,7 +92,7 @@ function Done({c,lang,contact}:{c:WebinarCopy;lang:L;contact:string}){
    <span className="wb-done-ico"><Icon name="check" size={24}/></span>
    <h3>{f.doneTitle}</h3>
    <p>{doneText}</p>
-   <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="send" size={18}/></a>
+   <a href={w.bot} target="_blank" rel="noopener" className="btn wb-cta wb-wide">{f.bot}<Icon name="telegram" size={18}/></a>
    <div className="wb-done-links">
     <a href={base+w.checklist[lang]} target="_blank" rel="noopener" className="ulink"><Icon name="file-text" size={15}/>{f.pdf}</a>
     <a href={googleCal(lang,details)} target="_blank" rel="noopener" className="ulink"><Icon name="calendar" size={15}/>{f.calGoogle}</a>
