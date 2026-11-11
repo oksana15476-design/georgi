@@ -33,12 +33,14 @@ export function track(event:string,params:Record<string,string|number|undefined>
  if(tracking.ym&&goal)window.ym?.(Number(tracking.ym),'reachGoal',goal,event==='purchase'?{...params,order_price:params.value}:params);
  // A service enquiry also reaches its own goal: «Обучение команды · заявка» (lead_training) and so on.
  if(tracking.ym&&goal==='lead'&&params.service)window.ym?.(Number(tracking.ym),'reachGoal','lead_'+params.service,params);
+ // Meta Pixel: a workshop sign-up is CompleteRegistration, Lead is a service enquiry only (forms, quiz, Cal.com booking),
+ // and Contact is a click on WhatsApp, Telegram, phone or email, not on a call-to-action button.
  if(event==='generate_lead'){
-  window.fbq?.('track','Lead');
+  window.fbq?.('track',params.form==='webinar'?'CompleteRegistration':'Lead');
   if(adsOn&&tracking.ads&&tracking.adsLeadLabel)window.gtag?.('event','conversion',{send_to:tracking.ads+'/'+tracking.adsLeadLabel});
  }else if(event==='begin_checkout')window.fbq?.('track','InitiateCheckout',{value:params.value,currency:params.currency});
  else if(event==='purchase')window.fbq?.('track','Purchase',{value:params.value,currency:params.currency});
- else if(event==='cta_click'||event==='phone_click'||event==='telegram_click'||event==='whatsapp_click'||event==='booking_click'||event==='email_click')window.fbq?.('track','Contact');
+ else if(event==='phone_click'||event==='telegram_click'||event==='whatsapp_click'||event==='email_click')window.fbq?.('track','Contact');
 }
 
 // "utm_source=linkedin; utm_campaign=hotels-oct; ref=google.com" or '' when the visit is direct.

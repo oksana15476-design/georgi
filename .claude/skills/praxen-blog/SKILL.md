@@ -14,7 +14,7 @@ Two blogs, one codebase. The data is plain (heading, paragraphs, list, table); `
 | Articles | `lib/intl-blog.ts` (`posts`) | `lib/ge-blog.ts` (`geArticles`, each with `ru`, `en`, `ka`) |
 | Language | British English | Russian, English, Georgian (Georgian is proofread by the owner's team) |
 | Prices | variables at the top of the file: `pilot`, `pilotP`, `custom`, `customP`, `training`, `trainingP`, `care`, `careP`, `rcSetup`, `rcMonth`, `usage` | `im`, `dev`, `tr`, `sup`, `usd('implementation'…)` |
-| Register | add the slug to `blogSlugs` in `lib/intl.ts`, then `NEXT_PUBLIC_MARKET=intl npx tsx scripts/seo/llms-intl.ts` | nothing else: sitemap, hreflang and the list pick it up |
+| Register | add the slug to `blogSlugs` in `lib/intl.ts`; nothing else: sitemap, llms.txt (`lib/llms.ts`) and the list pick it up | nothing else: sitemap, hreflang, llms.txt and the list pick it up |
 | Topics | the month's calendar `docs/blog-com/CALENDAR-ГГГГ-ММ.md` | the month's calendar `docs/blog-ge/CALENDAR-ГГГГ-ММ.md` (demand from Yandex Wordstat, `docs/seo-data/ge-cis-semantics-2026-11.md`) |
 
 ## Topic rules

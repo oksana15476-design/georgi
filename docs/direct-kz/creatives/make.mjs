@@ -6,7 +6,7 @@ const face=w=>['cyrillic','latin'].map(s=>`@font-face{font-family:M;font-weight:
 const SIZES={sq:[1080,1080],wide:[1920,1080],tall:[1080,1440],land:[1440,1080]};
 const mark=(dark)=>`<svg viewBox="0 0 22 24" style="height:1em;width:auto;display:block"><rect width="8" height="24" fill="${dark?'#fff':'#121a2b'}"/><rect x="10" width="12" height="12" fill="${dark?'#7b95ff':'#315bf5'}"/></svg>`;
 const logo=(dark)=>`<div class="logo">${mark(dark)}<span>praxen<i>ai</i></span></div>`;
-const info=`<dl class="info"><div><dt>Дата</dt><dd>12.11</dd></div><div><dt>Астана</dt><dd>20:00</dd></div><div class="y"><dt>Вход</dt><dd>Бесплатно</dd></div></dl>`;
+const info=`<dl class="info"><div><dt>Дата</dt><dd>12.12</dd></div><div><dt>Астана</dt><dd>20:00</dd></div><div class="y"><dt>Вход</dt><dd>Бесплатно</dd></div></dl>`;
 const cta=(t='Занять место')=>`<span class="cta">${t}<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
 const base=(W,H)=>{const u=Math.min(W,H)/100;return `${face(500)}${face(700)}${face(800)}
 *{box-sizing:border-box;margin:0;padding:0}body{width:${W}px;height:${H}px;overflow:hidden;font-family:M,sans-serif;color:#121a2b;-webkit-font-smoothing:antialiased}
@@ -29,7 +29,7 @@ function A(W,H){const w=wide(W,H),tall=H>W;return `<style>${base(W,H)}
 body{background:#fff}.wrap{position:absolute;inset:calc(var(--u)*5.6) 0 0 0;padding:${tall?'calc(var(--u)*7) calc(var(--u)*7)':'calc(var(--u)*5) calc(var(--u)*7)'};display:flex;flex-direction:column;justify-content:space-between}
 h1{font-size:calc(var(--u)*${w?8.6:tall?10.6:9.4});line-height:.98;font-weight:800;letter-spacing:-.035em;text-transform:uppercase;margin:calc(var(--u)*3) 0}
 .row{display:flex;${w?'align-items:center;gap:calc(var(--u)*4)':'flex-direction:column;align-items:flex-start;gap:calc(var(--u)*3.4)'}}</style>
-<div class="strip">Бесплатный воркшоп ● 12 ноября ● 20:00 по Астане ● 45 минут онлайн ● ИИ в отделе продаж ● Бесплатный воркшоп</div>
+<div class="strip">Бесплатный воркшоп ● 12 декабря ● 20:00 по Астане ● 45 минут онлайн ● ИИ в отделе продаж ● Бесплатный воркшоп</div>
 <div class="wrap">${logo()}<div><span class="badge">Бесплатный онлайн-воркшоп</span><h1>Как перестать терять заявки <span class="grad">ночью и в выходные</span></h1></div><div class="row">${info}${cta()}</div></div>`}
 // B — переписка и CRM
 function B(W,H){const w=wide(W,H),tall=H>W;return `<style>${base(W,H)}
@@ -46,7 +46,7 @@ h2{font-size:calc(var(--u)*${w?7.6:tall?8.6:7.4});line-height:1;font-weight:800;
 .crm{position:absolute;right:calc(var(--u)*-2.4);bottom:calc(var(--u)*-3);width:62%;background:#fff;border-radius:calc(var(--u)*2);padding:calc(var(--u)*2) calc(var(--u)*2.4);box-shadow:0 calc(var(--u)*2) calc(var(--u)*5) #0b145340;color:var(--ink)}
 .crm b{display:block;color:#2755ec;font-size:calc(var(--u)*2);font-weight:800;margin-bottom:calc(var(--u)*1)}.crm p{font-size:calc(var(--u)*1.9);font-weight:700;line-height:1.5}.crm span{color:#5d6779;font-weight:500}
 .bottom{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*3)}.cta{background:var(--y);color:var(--ink);box-shadow:none}</style>
-<div class="wrap"><div>${logo(true)}<div style="margin-top:calc(var(--u)*${w?5:4})"><span class="st">Покажем вживую на воркшопе</span><h2>Ответ за секунды. Сделка — уже в CRM.</h2><p class="when">Бесплатно · 12 ноября · <b>20:00 по Астане</b></p></div>${w?`<div style="margin-top:calc(var(--u)*5)">${cta()}</div>`:''}</div>
+<div class="wrap"><div>${logo(true)}<div style="margin-top:calc(var(--u)*${w?5:4})"><span class="st">Покажем вживую на воркшопе</span><h2>Ответ за секунды. Сделка — уже в CRM.</h2><p class="when">Бесплатно · 12 декабря · <b>20:00 по Астане</b></p></div>${w?`<div style="margin-top:calc(var(--u)*5)">${cta()}</div>`:''}</div>
 <div class="phone"><div class="ph"><span class="dot">✓</span><div>WhatsApp<small>ассистент на связи</small></div></div><div class="msgs">
 <div class="m">Здравствуйте! Сколько стоит ремонт кухни 12 м²?<i>23:40</i></div><div class="m o">Здравствуйте! Подскажу. Какой у вас бюджет и к какому сроку нужно закончить?<i>23:40</i></div></div>
 <div class="crm"><b>Новая сделка в CRM</b><p><span>Клиент:</span> Анна, WhatsApp<br><span>Задача:</span> ремонт кухни<br><span>Шаг:</span> позвонить утром</p></div></div>
@@ -60,7 +60,7 @@ p.big{font-size:calc(var(--u)*${w?8.4:tall?8.6:7.6});line-height:1.08;font-weigh
 .foot h3{font-size:calc(var(--u)*3.6);font-weight:800;letter-spacing:-.02em;margin:calc(var(--u)*2) 0 calc(var(--u)*1)}.foot .t{font-size:calc(var(--u)*2.8);font-weight:700;color:#ffffffd9}.foot .t b{color:var(--y)}
 .badge{background:#fff;color:var(--ink)}.foot .cta{background:var(--y);color:var(--ink);box-shadow:none}</style>
 <div class="wrap">${logo(true)}<p class="big">Клиент написал в <span class="yy">23:40.</span> Вы ответили в <span class="rr">09:30.</span> <span class="mut">За это время он уже написал конкурентам.</span></p>
-<div class="foot"><div><span class="badge">Бесплатный онлайн-воркшоп</span><h3>ИИ в отделе продаж: отвечаем ночью и в выходные</h3><p class="t">12 ноября · <b>20:00 по Астане</b> · 45 минут</p></div>${cta()}</div></div>`}
+<div class="foot"><div><span class="badge">Бесплатный онлайн-воркшоп</span><h3>ИИ в отделе продаж: отвечаем ночью и в выходные</h3><p class="t">12 декабря · <b>20:00 по Астане</b> · 45 минут</p></div>${cta()}</div></div>`}
 // D — заявки живут где угодно, кроме CRM (жёлтый фон)
 function D(W,H){const w=wide(W,H),tall=H>W;return `<style>${base(W,H)}
 body{background:var(--y)}.wrap{position:absolute;inset:0;padding:calc(var(--u)*7);display:flex;flex-direction:column;justify-content:space-between}
@@ -80,7 +80,7 @@ h1{font-size:calc(var(--u)*${w?7:tall?8.6:7.4});line-height:1.02;font-weight:800
 .chat{display:flex;flex-direction:column;gap:calc(var(--u)*1.3);background:#efeae2;border-radius:calc(var(--u)*3);padding:calc(var(--u)*2.4);color:#111b21;${w?'':'margin:calc(var(--u)*2) 0'}}
 .m{max-width:80%;padding:calc(var(--u)*1.2) calc(var(--u)*1.8);border-radius:calc(var(--u)*1.6);background:#fff;font-size:calc(var(--u)*2.3);font-weight:600}.m i{font-style:normal;color:#667781;font-size:.7em;margin-left:.6em}
 .m.o{align-self:flex-end;background:#d9fdd3}.cta{background:var(--y);color:var(--ink);box-shadow:none}</style>
-<div class="wrap"><div>${logo(true)}<div style="margin-top:calc(var(--u)*4)"><span class="badge">Бесплатный онлайн-воркшоп</span><h1>«Сколько стоит?» <span class="yy">в 10-й раз за день</span></h1><p class="t">Ассистент отвечает по вашему прайсу. 12 ноября · <b class="yy">20:00 по Астане</b></p></div>${w?`<div style="margin-top:calc(var(--u)*4)">${cta()}</div>`:''}</div>
+<div class="wrap"><div>${logo(true)}<div style="margin-top:calc(var(--u)*4)"><span class="badge">Бесплатный онлайн-воркшоп</span><h1>«Сколько стоит?» <span class="yy">в 10-й раз за день</span></h1><p class="t">Ассистент отвечает по вашему прайсу. 12 декабря · <b class="yy">20:00 по Астане</b></p></div>${w?`<div style="margin-top:calc(var(--u)*4)">${cta()}</div>`:''}</div>
 <div class="chat"><div class="m">Сколько стоит доставка?<i>10:12</i></div><div class="m">А доставка сколько?<i>12:40</i></div><div class="m">Подскажите цену доставки<i>15:05</i></div><div class="m o">Доставка по городу — по вашему прайсу. Куда везём?<i>15:05</i></div></div>
 ${w?'':`<div>${cta()}</div>`}</div>`}
 const b=await chromium.launch();const pg=await b.newPage();

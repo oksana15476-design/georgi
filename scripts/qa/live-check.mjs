@@ -2,7 +2,9 @@
 // Run after every deploy: node scripts/qa/live-check.mjs [https://praxenai.ge https://praxenai.com]
 // The sitemap lists each address once with reciprocal hreflang; every sitemap URL must answer 200 with a canonical pointing to itself, no noindex, one <title> and an <h1>;
 // titles must be unique; robots.txt must not block the site and must list the sitemap; llms.txt must
-// answer 200 and an unknown address 404. Exit code 1 when anything fails.
+// answer 200 and an unknown address 404. Each site has its own llms.txt (app/llms.txt/route.ts): the praxenai.com
+// file never mentions praxenai.ge, Georgia, GEL or Batumi, and praxenai.ge has no /llms-intl.txt.
+// Exit code 1 when anything fails.
 const sites=process.argv.slice(2).length?process.argv.slice(2):['https://praxenai.ge','https://praxenai.com'];
 let fail=0;
 const bad=(m)=>{fail++;console.log('FAIL '+m)};
@@ -16,7 +18,17 @@ for(const site of sites){
   if(/User-Agent:\s*\*\s*\n(?:[^\n]*\n)*?Disallow:\s*\/\s*(\n|$)/i.test(robots.text))bad(`${site}/robots.txt blocks the whole site`);
   if(!/Sitemap:\s*https?:\/\//i.test(robots.text))bad(`${site}/robots.txt has no Sitemap line`);
  }
- for(const p of ['/llms.txt']){const r=await get(site+p);if(r.status!==200)bad(`${site}${p} answers ${r.status}`)}
+ const llms=await get(site+'/llms.txt');
+ if(llms.status!==200)bad(`${site}/llms.txt answers ${llms.status}`);
+ else if(!/^# Praxen AI/.test(llms.text))bad(`${site}/llms.txt does not start with "# Praxen AI"`);
+ if(/praxenai\.com/.test(new URL(site).hostname)){
+  // Owner rule: praxenai.com and praxenai.ge are separate companies; .com does not mention Georgia.
+  for(const [word,re] of [['praxenai.ge',/praxenai\.ge/i],['Georgia',/Georgia/i],['GEL',/\bGEL\b/],['Batumi',/Batumi/i]])if(re.test(llms.text))bad(`${site}/llms.txt mentions ${word}`);
+ }
+ if(/praxenai\.ge/.test(new URL(site).hostname)){
+  const old=await get(site+'/llms-intl.txt');
+  if(old.status!==404)bad(`${site}/llms-intl.txt answers ${old.status}, expected 404`);
+ }
  const missing=await get(site+'/no-such-page-'+Date.now());
  if(missing.status!==404)bad(`${site} unknown address answers ${missing.status}, expected 404`);
  const sm=await get(site+'/sitemap.xml');
