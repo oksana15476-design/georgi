@@ -1,10 +1,18 @@
 import type {Copy} from './content';
+import {money,prices} from './pricing';
 
 // Self-contained answer under the hero of each department and industry page [ru, en, ka]:
-// what AI does there in Georgia, integrations (examples, checked per project), control,
-// timeline, price and the pilot metric. Written to be quoted by AI search as a whole passage.
-// Prices follow lib/pricing.ts: training, implementation, development and monthly support.
-export const detailAnswers:Record<string,{q:Copy;a:Copy}>={
+// what AI does there in Georgia, integrations (examples, checked per project), control
+// and the pilot metric. Written to be quoted by AI search as a whole passage.
+// `cost` answers "How much does it cost" in the page FAQ (and FAQPage markup): price, pilot length
+// and what the pilot covers on this page. The price lives only there, so a page names it once.
+// Prices come from lib/pricing.ts.
+type P=keyof typeof prices;
+const commas=(n:number)=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const ru=(k:P)=>money(prices[k],'gel')+' ('+money(prices[k],'usd')+')';
+const en=(k:P)=>commas(prices[k].gel)+' ₾ ($'+commas(prices[k].usd)+')';
+const ka=(k:P)=>money(prices[k],'gel')+'‑დან ('+money(prices[k],'usd')+')';
+export const detailAnswers:Record<string,{q:Copy;a:Copy;cost:Copy}>={
  sales:{
   q:['Что ИИ делает в отделе продаж и сколько это стоит?','What does AI do for a sales team, and what does it cost?','რას აკეთებს AI გაყიდვების განყოფილებაში და რა ღირს?'],
   a:['ИИ-ассистент отвечает на заявки в WhatsApp, Telegram и на сайте за секунды, на грузинском, английском или русском. Он уточняет задачу, объём, бюджет и сроки, создаёт сделку в CRM (например, amoCRM, Bitrix24 или HubSpot) и передаёт менеджеру тёплого клиента с резюме переписки. Ночью и в выходные заявки не теряются, а утром менеджер видит готовый список. Скидки и условия ассистент берёт только из ваших правил, сделку ведёт человек. Внедрение одного сценария с интеграцией в вашу систему стоит от 3 200 ₾, дополнительное ведение — от 550 ₾ в месяц. Пилот на реальных заявках занимает 2–4 недели. Результат измеряем по времени первого ответа, полноте карточек в CRM и доле заявок, дошедших до встречи.',
