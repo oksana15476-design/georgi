@@ -866,7 +866,7 @@ export function Article({post}:{post:Post}){
       <div className="ix-author">
        {/* eslint-disable-next-line @next/next/no-img-element */}
        <img src={base+'/team/evgeny.jpg'} alt="" width={40} height={40}/>
-       <span><b>Evgeny Budnikov</b>Founder, Praxen AI · {post.dateLabel}{post.updated&&post.updated>post.date&&<> · Updated <time dateTime={post.updated}>{dateLabelOf(post.updated)}</time></>} · {post.minutes} min read</span>
+       <span><b>Evgeny Budnikov</b>Founder, Praxen AI · {post.dateLabel}{post.updated&&post.updated>post.date&&<> · <span className="nowrap">Updated <time dateTime={post.updated}>{dateLabelOf(post.updated)}</time></span></>} · {post.minutes} min read</span>
       </div>
      </div>
     </div>

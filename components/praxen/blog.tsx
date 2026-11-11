@@ -59,7 +59,7 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
       <div className="ix-author">
        {/* eslint-disable-next-line @next/next/no-img-element */}
        <img src={base+'/team/evgeny.jpg'} alt="" width={40} height={40}/>
-       <span><b>{c('Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი')}</b>{c('Основатель Praxen AI','Founder, Praxen AI','Praxen AI-ის დამფუძნებელი')} · {post.dateLabel}{updated&&<> · {c('Обновлено','Updated','განახლდა')} <time dateTime={updated}>{dateLabelOf(updated,lang)}</time></>} · {post.minutes} {c('мин чтения','min read','წთ')}</span>
+       <span><b>{c('Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი')}</b>{c('Основатель Praxen AI','Founder, Praxen AI','Praxen AI-ის დამფუძნებელი')} · {post.dateLabel}{updated&&<> · <span className="nowrap">{c('Обновлено','Updated','განახლდა')} <time dateTime={updated}>{dateLabelOf(updated,lang)}</time></span></>} · {post.minutes} {c('мин чтения','min read','წთ')}</span>
       </div>
      </div>
     </div>
