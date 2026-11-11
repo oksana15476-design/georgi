@@ -13,4 +13,4 @@
 
 По желанию — ведение от 550 ₾ в месяц: обновляем базу знаний, проверяем ответы, исправляем ошибки. Без него решение тоже работает.
 
-Ежемесячная сумма зависит от числа переписок, поэтому называть её «в среднем» нечестно. Считаем на ваших объёмах на бесплатном аудите, до начала работ: https://praxenai.ge/ru?utm_source=telegram&utm_medium=social&utm_campaign=organic_nov&utm_content=tg15-monthly-cost
+Ежемесячная сумма зависит от числа переписок, поэтому называть её «в среднем» нечестно. Считаем на ваших объёмах на бесплатном аудите, до начала работ: https://praxenai.ge/ru?utm_source=telegram&utm_medium=social&utm_campaign=organic_2026-11&utm_content=tg15-monthly-cost#contact

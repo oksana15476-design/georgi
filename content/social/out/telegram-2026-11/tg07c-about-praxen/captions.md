@@ -14,4 +14,4 @@
 
 5. После запуска. Передаём доступы, код и инструкции и обучаем тех, кто будет отвечать за решение у вас. Дальше по желанию дополнительное ведение — от 550 ₾ в месяц: обновляем базу знаний, проверяем ответы, исправляем ошибки и дорабатываем сценарии.
 
-Начать можно с аудита, время выбираете в календаре на сайте: https://praxenai.ge/ru?utm_source=telegram&utm_medium=social&utm_campaign=about_nov&utm_content=tg07c-about-praxen
+Начать можно с аудита, время выбираете в календаре на сайте: https://praxenai.ge/ru?utm_source=telegram&utm_medium=social&utm_campaign=organic_2026-11&utm_content=tg07c-about-praxen#contact

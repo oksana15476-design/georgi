@@ -8,7 +8,7 @@
 
 После созвона у вас остаётся документ: карта процессов, расчёт эффекта и план пилота. Решение принимаете вы, обязательств никаких.
 
-Записаться можно в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f14-audit-inside#contact
+Записаться можно в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f14-audit-inside#contact
 
 #аудит #ИИдлябизнеса #внедрениеИИ
 
@@ -20,7 +20,7 @@
 
 После созвона у вас остаётся документ: карта процессов, расчёт эффекта и план пилота. Решение принимаете вы, обязательств никаких.
 
-Записаться можно в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f14-audit-inside#contact
+Записаться можно в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f14-audit-inside#contact
 
 #аудит #ИИдлябизнеса #внедрениеИИ
 

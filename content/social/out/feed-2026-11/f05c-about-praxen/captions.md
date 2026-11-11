@@ -11,7 +11,7 @@ Praxen AI внедряет ИИ в работу компаний. Делаем �
 3. Всё работает на ваших аккаунтах. Доступы, код и инструкции остаются у вас.
 4. Деньги, обещания клиентам и исключения остаются за сотрудником. ИИ готовит, человек решает.
 
-Первый шаг — бесплатный аудит на 30 минут. Время выбираете в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f05c-about-praxen
+Первый шаг — бесплатный аудит на 30 минут. Время выбираете в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f05c-about-praxen#contact
 
 #ИИдлябизнеса #внедрениеИИ #ИИассистент #PraxenAI
 
@@ -26,7 +26,7 @@ Praxen AI внедряет ИИ в работу компаний. Делаем �
 3. Всё работает на ваших аккаунтах. Доступы, код и инструкции остаются у вас.
 4. Деньги, обещания клиентам и исключения остаются за сотрудником. ИИ готовит, человек решает.
 
-Первый шаг — бесплатный аудит на 30 минут. Время выбираете в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f05c-about-praxen
+Первый шаг — бесплатный аудит на 30 минут. Время выбираете в календаре на сайте: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f05c-about-praxen#contact
 
 #ИИдлябизнеса #внедрениеИИ #ИИассистент #PraxenAI
 

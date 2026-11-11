@@ -1,5 +1,5 @@
 {
- "campaign": "cases_nov",
+ "campaign": "organic_{month}",
  "about": "Content plan rewrite of 28 October (owner: posts were all about one thing). Real stories of AI in companies with sources, tools of the week, memes on different subjects, prompts beyond sales. Each post has its own style.",
  "langs": [
   "ru"
@@ -323,6 +323,7 @@
   },
   {
    "id": "c07-dpd",
+   "campaign": "cases_nov",
    "date": "2026-12-11",
    "time": "11:00",
    "pillar": "story",
@@ -582,7 +583,7 @@
    "time": "11:00",
    "pillar": "story",
    "style": "news",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru#contact",
    "slides": [
     {
      "layout": "cover",

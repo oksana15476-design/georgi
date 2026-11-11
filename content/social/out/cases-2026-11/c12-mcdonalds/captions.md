@@ -8,7 +8,7 @@
 
 Что отсюда взять: начинать с того, что легко проверить. Текст надёжнее голоса. Сначала один процесс и понятная метрика точности, потом масштаб. Пока точность не устраивает, ответы проверяет человек.
 
-С чего начать именно вам, посчитаем на бесплатном аудите: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=cases_nov&utm_content=c12-mcdonalds
+С чего начать именно вам, посчитаем на бесплатном аудите: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=c12-mcdonalds#contact
 
 Источники: Nation's Restaurant News и CNBC, июнь 2024.
 
@@ -22,7 +22,7 @@
 
 Что отсюда взять: начинать с того, что легко проверить. Текст надёжнее голоса. Сначала один процесс и понятная метрика точности, потом масштаб. Пока точность не устраивает, ответы проверяет человек.
 
-С чего начать именно вам, посчитаем на бесплатном аудите: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=cases_nov&utm_content=c12-mcdonalds
+С чего начать именно вам, посчитаем на бесплатном аудите: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=c12-mcdonalds#contact
 
 Источники: Nation's Restaurant News и CNBC, июнь 2024.
 
@@ -58,6 +58,6 @@ McDonald's с 2021 года тестировал с IBM голосовой ИИ 
 
 Что отсюда взять: начинать с того, что легко проверить. Текст надёжнее голоса. Сначала один процесс и понятная метрика точности, потом масштаб. Пока точность не устраивает, ответы проверяет человек.
 
-С чего начать именно вам, посчитаем на бесплатном аудите: https://praxenai.ge/ru?utm_source=telegram&utm_medium=social&utm_campaign=cases_nov&utm_content=c12-mcdonalds
+С чего начать именно вам, посчитаем на бесплатном аудите: https://praxenai.ge/ru?utm_source=telegram&utm_medium=social&utm_campaign=organic_2026-11&utm_content=c12-mcdonalds#contact
 
 Источники: Nation's Restaurant News и CNBC, июнь 2024.
