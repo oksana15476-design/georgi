@@ -73,6 +73,8 @@ async function handleLead(req,res,order=false){
  if(order){const r=await createCheckout(raw,'https://'+host,process.env,Date.now());return json(res,r.status,r.body)}
  const {lead,error}=parseLead(raw);
  if(!lead)return json(res,400,{error});
+ // The Docker image serves one site; its market comes from the build setting, like lib/market.ts.
+ lead.market=process.env.NEXT_PUBLIC_MARKET==='intl'?'com':'ge';
  const result=await deliverLead(lead,process.env);
  if(result.errors.length)console.error('lead delivery errors:',result.errors.join('; '));
  if(result.status==='ok')return json(res,200,{ok:true});

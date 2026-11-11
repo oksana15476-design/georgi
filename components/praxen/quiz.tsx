@@ -3,7 +3,7 @@ import {useRef,useState} from 'react';
 import {base} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {prices} from '@/lib/pricing';
-import {getAttribution,track} from '@/components/analytics';
+import {getAttribution,leadAttribution,track} from '@/components/analytics';
 import {Icon} from './icon';
 import {PhoneInput} from './phone-input';
 import type {X} from './types';
@@ -57,7 +57,7 @@ export function Quiz({x}:{x:X}){
   if(!ok){setStatus('invalid');track('form_error',{reason:'invalid_contact',form:'quiz'});return}
   setSending(true);setStatus('');
   try{
-   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact:method+': '+contact.trim(),message:c('Мини-аудит: ','Mini audit: ','მინი-აუდიტი: ')+answerText,context:c('Квиз: ','Quiz: ','ქვიზი: ')+scenarios[task][0],tasks:questions.map(([,o],i)=>o[answers[i]]),lang,page:location.pathname,source:getAttribution(),website})});
+   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact:method+': '+contact.trim(),message:c('Мини-аудит: ','Mini audit: ','მინი-აუდიტი: ')+answerText,context:c('Квиз: ','Quiz: ','ქვიზი: ')+scenarios[task][0],tasks:questions.map(([,o],i)=>o[answers[i]]),lang,page:location.pathname,source:getAttribution(),attribution:leadAttribution(),website})});
    if(!r.ok)throw new Error();
    setDone(true);track('generate_lead',{method,form:'quiz',page:location.pathname});
   }catch{setStatus('error');track('form_error',{reason:'send_failed',form:'quiz'})}

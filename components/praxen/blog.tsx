@@ -5,6 +5,8 @@ import {base,homeHref,pageHref} from '@/lib/base';
 import {ArticleBlock} from '@/components/article-blocks';
 import {geArticles,type GePost} from '@/lib/ge-blog';
 import {dateLabelOf} from '@/lib/freshness';
+import {geRelated} from '@/lib/related-articles';
+import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {Icon} from './icon';
 import type {X} from './types';
@@ -68,13 +70,42 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
     <nav aria-label={c('Содержание','Contents','შინაარსი')} className="ix-toc"><small>{c('Содержание','Contents','შინაარსი')}</small>{post.blocks.map((b,i)=><a key={b.h} href={'#'+anchor(b.h,i)}>{b.h}</a>)}</nav>
     <div className="ix-article-body">
      <div className="ix-answer-box"><b>{c('Коротко','Short answer','მოკლედ')}</b><p>{post.answer}</p></div>
+     <div className="ix-article-ask"><p>{c('Бесплатный аудит за 30 минут: покажем, что передать ИИ и сколько это сэкономит.','A free 30-minute audit: what to hand over to AI and what it saves.','უფასო აუდიტი 30 წუთში: რა გადავცეთ AI-ს და რამდენს დაზოგავს.')}</p><button type="button" onClick={()=>x.go(post.cat)} className="btn btn-primary btn-sm">{x.s.actionHeader}<Icon name="arrow-right" size={16}/></button></div>
      {post.blocks.map((b,i)=><section key={b.h} id={anchor(b.h,i)}>
       <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>{c('Хотите такой расчёт для своего бизнеса?','Want these numbers for your business?','გსურთ ასეთი გათვლა თქვენი ბიზნესისთვის?')}</b><p>{c('Бесплатный аудит покажет, сколько часов освободит ИИ и сколько будет стоить пилот.','A free audit shows how many hours AI frees up and what a pilot costs.','უფასო აუდიტი გაჩვენებთ, რამდენ საათს გაათავისუფლებს AI და რა ეღირება პილოტი.')}</p><button type="button" onClick={()=>x.go(post.cat)} className="btn btn-primary">{x.s.action}<Icon name="arrow-right" size={16}/></button></aside>
      <div className="ix-article-links"><b>{c('Читайте также','Related pages','ასევე წაიკითხეთ')}</b>{[...post.links,...related].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
+    {/* Wide screens only: the empty right column holds the audit and WhatsApp; phones have the bottom bar. */}
+    <aside aria-label={c('Бесплатный аудит, 30 минут','Free audit, 30 minutes','უფასო აუდიტი, 30 წუთი')} className="ix-article-side">
+     <b>{c('Бесплатный аудит, 30 минут','Free audit, 30 minutes','უფასო აუდიტი, 30 წუთი')}</b>
+     <button type="button" onClick={()=>x.go(post.cat)} className="btn btn-primary btn-block">{c('Записаться на аудит','Book an audit','აუდიტზე ჩაწერა')}<Icon name="arrow-right" size={16}/></button>
+     <a href={contacts.whatsapp+'?text='+encodeURIComponent(x.s.heroWhatsAppText)} target="_blank" rel="noopener" className="btn btn-ghost btn-block ix-side-wa"><Icon name="whatsapp" size={18}/>WhatsApp</a>
+     <p>{c('Напишите в WhatsApp — подскажем, с чего начать.','Message us on WhatsApp and we will suggest where to start.','მოგვწერეთ WhatsApp-ში — გეტყვით, საიდან დაიწყოთ.')}</p>
+    </aside>
    </div>
   </article>
+ );
+}
+
+// «Статьи по теме» on department, industry and chatbot pages (lib/related-articles.ts): articles in this language
+// that link to the page come first. `extra` is a plain link line under the cards (the chatbot page on sales,
+// support, hotels, clinics, restaurants and retail); `skip` drops articles the page already links to.
+export function RelatedArticles({x,page,skip,extra}:{x:X;page:string;skip?:string[];extra?:[string,string]}){
+ const {c,lang,link}=x;
+ const items=geRelated(geArticles,page,lang,skip);
+ if(!items.length&&!extra)return null;
+ return (
+  <section data-screen-label="Related articles" className="wrap sec">
+   <div className="sec-head"><div data-reveal=""><h2 className="h2 mw820">{c('Статьи по теме','Related articles','სტატიები თემაზე')}</h2></div></div>
+   {items.length>0&&<div className="ix-cards" data-stagger="">{items.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
+    <span className="ix-post-cat">{p.cat}</span>
+    <h3>{p.title}</h3>
+    <p>{p.excerpt}</p>
+    <small>{p.dateLabel} · {p.minutes} {c('мин чтения','min read','წთ')}</small>
+   </a>)}</div>}
+   {extra&&<a href={link(extra[0])} className="ulink mt24">{extra[1]}<Icon name="arrow-right" size={16}/></a>}
+  </section>
  );
 }

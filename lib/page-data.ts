@@ -10,7 +10,7 @@ export type PageData={
  ov?:PageCopy;
  profile?:Profile;
  headline?:Copy;
- answer?:{q:Copy;a:Copy};
+ answer?:{q:Copy;a:Copy;cost:Copy};
  // Scenarios of the related industries, already in the page language: [title, body].
  related?:Record<string,[string,string][]>;
  examples?:Record<string,Profile['scenarios'][number]>;

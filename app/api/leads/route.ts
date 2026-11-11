@@ -1,5 +1,6 @@
 import {env} from 'cloudflare:workers';
 import {MAX_BODY,deliverLead,parseLead} from '@/lib/lead-delivery.mjs';
+import {isIntl} from '@/lib/market';
 
 // Cloudflare Workers entry for the lead form; the Docker build uses server/index.mjs instead.
 export async function POST(request:Request){
@@ -11,6 +12,8 @@ export async function POST(request:Request){
  if(!lead)return Response.json({error},{status:400});
  // Full page address, so the lead shows which site (praxenai.ge or praxenai.com) it came from.
  if(lead.page.startsWith('/'))lead.page=new URL(request.url).origin+lead.page;
+ // Market of the site that took the enquiry (each Worker is built for one), not the page language: English pages of praxenai.ge are «ge».
+ lead.market=isIntl?'com':'ge';
  const result=await deliverLead(lead,env as unknown as Record<string,string|undefined>);
  // Channels that failed while another worked are named in «warn» (never secrets) and reported to the team chat.
  if(result.status==='ok')return Response.json(result.errors.length?{ok:true,warn:result.errors}:{ok:true});

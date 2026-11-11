@@ -1,6 +1,6 @@
 'use client';
 import {useEffect,useRef,useState,useSyncExternalStore} from 'react';
-import {getAttribution,track} from '@/components/analytics';
+import {getAttribution,leadAttribution,track} from '@/components/analytics';
 import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
@@ -69,7 +69,7 @@ export function participantCode(){
 }
 
 async function sendLead(body:Record<string,unknown>){
- const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,code:participantCode(),page:location.pathname,source:getAttribution()})});
+ const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,code:participantCode(),page:location.pathname,source:getAttribution(),attribution:leadAttribution()})});
  if(!r.ok)throw new Error();
 }
 

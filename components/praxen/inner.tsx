@@ -10,6 +10,7 @@ import {industryIcon} from './header';
 import {Icon} from './icon';
 import type {X} from './types';
 import {casesVerified} from '@/lib/proof';
+import {chatbotLabel} from './chatbot';
 
 const rd=(ms:number|string)=>({'--rd':ms+'ms'} as React.CSSProperties);
 
@@ -154,6 +155,8 @@ export function Formats({x,training}:{x:X;training:boolean}){
       </article>)}
     </div>
     <p className="tariff-example"><Icon name="calculator" size={16}/><span>{c('Например: внедрение ','For example: implementation ','მაგალითად: დანერგვა ')}<b>{money(prices.implementation,cur)}</b>{c(' один раз. Дополнительное ведение — ',' once. Ongoing maintenance: ',' ერთხელ. დამატებითი მომსახურება — ')}<b>{money(prices.support,cur)}{perMonth}</b>{c('. Токены ИИ и серверы вы оплачиваете провайдерам напрямую. Аудит бесплатный.','. You pay AI tokens and servers directly to the providers. The audit is free.','. AI ტოკენებსა და სერვერებს პირდაპირ პროვაიდერებს უხდით. აუდიტი უფასოა.')}</span></p>
+    {/* A chatbot is the most asked-for format: its own page with prices (work plan 2.2). */}
+    <a href={x.link('chatbot')} className="ulink mt24">{chatbotLabel(x)}<Icon name="arrow-right" size={16}/></a>
     </>}
    </div>
   </section>

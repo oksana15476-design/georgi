@@ -1,7 +1,7 @@
 'use client';
 // praxenai.com sections, built from the Claude Design handoff v4 on the praxenai.ge design system.
 import {createContext,useContext,useRef,useState} from 'react';
-import {getAttribution,setConsent,track} from '@/components/analytics';
+import {getAttribution,leadAttribution,setConsent,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {routePath,resultsCheck,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
@@ -9,6 +9,7 @@ import {posts,type Post} from '@/lib/intl-blog';
 import {dateLabelOf,intlPageModified} from '@/lib/freshness';
 import {ArticleBlock} from '@/components/article-blocks';
 import {entityGuides} from '@/lib/intl-guides';
+import {intlRelated} from '@/lib/related-articles';
 import {Icon} from './icon';
 import {PhoneInput} from '@/components/praxen/phone-input';
 import {Scene} from './scene';
@@ -53,7 +54,7 @@ export const formatContact=(v:string,method:string)=>{
 };
 export const validContact=(v:string,method:string)=>{const d=v.replace(/\D/g,'');return method==='email'?/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v):d.length>=10&&d.length<=15};
 async function sendLead(body:Record<string,unknown>){
- const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:'en',page:location.pathname,source:getAttribution(),...body})});
+ const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:'en',page:location.pathname,source:getAttribution(),attribution:leadAttribution(),...body})});
  if(!r.ok)throw new Error();
 }
 
@@ -673,6 +674,24 @@ export function ShortAnswer({entity}:{entity:Entity}){
  );
 }
 
+// Blog articles that cover this page's topic (lib/related-articles.ts): the ones linking here, newest first.
+export function RelatedGuides(){
+ const {route}=useIx();
+ const items=intlRelated(posts,routePath(route).slice(1));
+ if(!items.length)return null;
+ return (
+  <section data-screen-label="Related guides" className="wrap sec">
+   <h2 data-reveal="" className="h2">Related guides</h2>
+   <div className="ix-cards mt28" data-stagger="">{items.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
+    <span className="ix-post-cat">{p.cat}</span>
+    <h3>{p.title}</h3>
+    <p>{p.excerpt}</p>
+    <small>{p.dateLabel} · {p.minutes} min read</small>
+   </a>)}</div>
+  </section>
+ );
+}
+
 // ---------- About, security, legal ----------
 export function AboutStory(){
  return (
@@ -857,6 +876,8 @@ function relatedPosts(post:Post):[string,string][]{
 }
 
 export function Article({post}:{post:Post}){
+ const {waText}=useIx();
+ const wa=contacts.whatsapp+'?text='+encodeURIComponent(waText);
  return (
   <article data-screen-label="Article" className="ix-article">
    <header className="ix-inner"><div aria-hidden="true" className="ix-inner-glow"/>
@@ -878,12 +899,20 @@ export function Article({post}:{post:Post}){
     <nav aria-label="Contents" className="ix-toc"><small>Contents</small>{post.blocks.map(b=><a key={b.h} href={'#'+anchor(b.h)}>{b.h}</a>)}</nav>
     <div className="ix-article-body">
      <div className="ix-answer-box"><b>Short answer</b><p>{post.answer}</p></div>
+     <div className="ix-article-ask"><p>Every project starts with a free 30-minute audit.</p><BookLink className="btn btn-primary btn-sm">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></div>
      {post.blocks.map(b=><section key={b.h} id={anchor(b.h)}>
       <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>In 30 minutes we estimate the hours AI could save you and give you a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></aside>
      <div className="ix-article-links"><b>Related pages</b>{[...post.links,...relatedPosts(post)].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
+    {/* Wide screens only: the empty right column holds the audit and WhatsApp; phones have the bottom bar. */}
+    <aside aria-label="Free 30-minute audit" className="ix-article-side">
+     <b>Free 30-minute audit</b>
+     <BookLink className="btn btn-primary btn-block">Book a free call<Icon name="arrow-right" size={16}/></BookLink>
+     <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost btn-block ix-side-wa"><Icon name="whatsapp" size={18}/>WhatsApp</a>
+     <p>Message us on WhatsApp and we will suggest where to start.</p>
+    </aside>
    </div>
   </article>
  );

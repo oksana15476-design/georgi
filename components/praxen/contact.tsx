@@ -1,6 +1,6 @@
 'use client';
 import {useRef,useState} from 'react';
-import {getAttribution,track} from '@/components/analytics';
+import {getAttribution,leadAttribution,track} from '@/components/analytics';
 import {base} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {Icon} from './icon';
@@ -52,7 +52,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
   if(method==='telegram'&&!/^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(contact)&&!/^\+[0-9]{7,15}$/.test(contact.replace(/[\s()-]/g,''))){setStatus('invalid');track('form_error',{reason:'invalid_contact'});return}
   setSending(true);setStatus('');
   try{
-   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,source:getAttribution(),website})});
+   const r=await fetch(base+'/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,contact:method+': '+contact,context,lang,tasks:chosen.map(i=>options[i]),page:location.pathname,source:getAttribution(),attribution:leadAttribution(),website})});
    if(!r.ok)throw new Error();
    // The tariff a visitor came from (context set by the pricing buttons, components/praxen/inner.tsx) or the training page names the service.
    const service=/^(Обучение|Training|სწავლება)/.test(context)||location.pathname.endsWith('/training')?'training':/^(Внедрение|Implementation|დანერგვა)/.test(context)?'implementation':/^(Разработка|Development|შემუშავება)/.test(context)?'development':/^(Ведение|Maintenance|მომსახურება)/.test(context)?'maintenance':undefined;

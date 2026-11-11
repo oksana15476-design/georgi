@@ -5,6 +5,8 @@ import {base,homeHref,pageHref} from '@/lib/base';
 import {t} from '@/lib/content';
 import {chatbotPage as p} from '@/lib/chatbot-page';
 import {money,prices} from '@/lib/pricing';
+import {geArticles} from '@/lib/ge-blog';
+import {geRelated} from '@/lib/related-articles';
 import {Icon} from '@/components/praxen/icon';
 import type {X} from '@/components/praxen/types';
 
@@ -96,6 +98,8 @@ export function ChatbotPage({x}:{x:X}){
    <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{c('Читайте также','Read next','ასევე წაიკითხეთ')}</h2></div></div>
    <ul className="cb-links">
     {p.links.map(l=><li key={l.href}><a href={pageHref(lang,l.href.replace(/^\//,''))} className="ulink">{tr(l.label)}<Icon name="arrow-right" size={16}/></a></li>)}
+    {/* New articles that link to this page join the list on their own (lib/related-articles.ts). */}
+    {geRelated(geArticles,'chatbot',lang,p.links.map(l=>l.href.replace(/^\/blog\//,''))).map(a=><li key={a.slug}><a href={pageHref(lang,'blog/'+a.slug)} className="ulink">{a.title}<Icon name="arrow-right" size={16}/></a></li>)}
    </ul>
   </section>
  </>);
