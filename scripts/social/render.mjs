@@ -46,7 +46,8 @@ const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>
 // Text fields are {ka,ru,en} or a plain string shared by all languages. *word* marks the accent colour.
 const tr=(v,l)=>v==null?'':typeof v==='string'?v:(v[l]??v.en??'');
 // Numbers stay whole (1 900 ₾) and hyphenated words (23:40-ზე, WhatsApp-ში) never split at the hyphen.
-const rich=(v,l)=>esc(tr(v,l)).replace(/(\d) (?=\d{3}|₾)/g,'$1\u00a0')
+// A one-letter Russian word (в, к, с, у, о, и, а, я) stays with the next word: no hanging "В" at the end of a headline line.
+const rich=(v,l)=>esc(tr(v,l)).replace(/(\d) (?=\d{3}|₾)/g,'$1\u00a0').replace(/(?<=^|[\s(«*])([А-Яа-яЁё]) (?=\S)/g,'$1\u00a0')
  .replace(/([^\s*]+-[^\s*]+)/g,'<span class="nw">$1</span>')
  .replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');
 
@@ -642,7 +643,10 @@ const fitScript=()=>{
  for(const el of document.querySelectorAll('.fitbox')){let g=30;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&g--){el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*0.92)+'px'}}
  for(const el of document.querySelectorAll('.fit')){
   const main=el.closest('main');let guard=40;
-  while(main.scrollHeight>main.clientHeight+1&&guard--){
+  // A list, chat or card clips its own overflow (overflow:hidden), so main can look fitting while the last item is cut:
+  // check the box too. Headings are left out: their glyphs sit a few px above line-height 1 and would shrink for nothing.
+  const box=el.matches('ol,.chat,.cmp,.pr-card');
+  while((main.scrollHeight>main.clientHeight+1||(box&&el.scrollHeight>el.clientHeight+1))&&guard--){
    for(const t of [el,...el.querySelectorAll('li,.msg,p')]){
     const fs=parseFloat(getComputedStyle(t).fontSize);t.style.fontSize=(fs*0.95)+'px';
    }
