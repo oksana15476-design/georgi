@@ -1,0 +1,54 @@
+{
+ "campaign": "organic_2026-11",
+ "about": "Stories added to November by the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 3.1): week 23–29 November, Н9 and Н12. Workshop style without \"style\". Stickers and links are not available in the API; the address is in the footer.",
+ "langs": [
+  "ru"
+ ],
+ "size": "story",
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "posts": [
+  {
+   "id": "s25-departments",
+   "date": "2026-11-25",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "about",
+   "text": "",
+   "slides": [
+    {
+     "layout": "list",
+     "bg": "white",
+     "kicker": "Для отделов · praxenai.ge/ru/departments",
+     "title": "Что ИИ готовит *в каждом отделе*",
+     "items": [
+      "Продажи: разбор входящих заявок и приоритет",
+      "Сервис: ответы по проверенной базе знаний",
+      "Маркетинг: черновики по брифу и правилам бренда",
+      "Операции: данные из документов и писем",
+      "HR: ответы по внутренним правилам",
+      "Бухгалтерия: реквизиты и суммы из документов",
+      "Закупки: цены и условия из предложений",
+      "Руководство: сводки по данным компании"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s26-founder-post",
+   "date": "2026-11-29",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "about",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Новый пост",
+     "title": "Кто за *Praxen AI*",
+     "sub": "Основатель и три правила, по которым мы работаем. Карусель в ленте профиля"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "campaign": "organic_2026-11",
+ "about": "Backgrounds for interactive stories added to November by the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 3.1): Н8 and Н10. Stickers are added by hand in the Instagram app (polls, quizzes, questions are not available in the API). Not in the publisher.",
+ "langs": [
+  "ru"
+ ],
+ "size": "story",
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "posts": [
+  {
+   "id": "i18-11-23",
+   "date": "2026-11-23",
+   "time": "15:00",
+   "accent": "white",
+   "sticker": "Опрос: «Как мы работаем» / «Что внедряем» / «Закулисье». По ответам выбираем темы декабря",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Опрос",
+     "title": "О чём нам рассказывать *в декабре?*",
+     "sub": "Пока мы больше пишем о том, как работаем. Чего не хватает? ↓"
+    }
+   ]
+  },
+  {
+   "id": "i19-11-27",
+   "date": "2026-11-27",
+   "time": "15:00",
+   "accent": "white",
+   "sticker": "Стикер «Вопросы»: «Спросите про внедрение ИИ». Ответы — в сторис 29.11 (ответ на стикер в приложении, после поста «Кто за Praxen AI»)",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Вопрос основателю",
+     "title": "Что спросить у основателя *о внедрении ИИ?*",
+     "sub": "Сроки, цены, проверка ответов, данные. Ответы — в сторис в воскресенье, 29 ноября ↓"
+    }
+   ]
+  }
+ ]
+}

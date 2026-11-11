@@ -37,6 +37,11 @@ export const BATCHES=[
  {file:'threads-2026-11.json',channels:['threads']},
  // Second Threads layer (owner, 31 October: several posts a day): 11:00 and 17:00 Tbilisi.
  {file:'threads-2026-11b.json',channels:['threads']},
+ // Plan to 31 December (docs/SMM-PLAN-2026-12.md, approved 9 November): November additions about the company (Н-posts) from 23 November.
+ // Interactive story backgrounds (about-interactive-2026-11.json) are posted by hand with stickers and are not here.
+ {file:'about-2026-11.json',channels:['facebook','instagram']},
+ {file:'about-stories-2026-11.json',channels:['instagram_story','facebook_story']},
+ {file:'about-threads-2026-11.json',channels:['threads']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
 const CHECK=flag('--check'),DRY=flag('--dry')||CHECK,ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');
