@@ -6,7 +6,7 @@
 
 За 45 минут вживую соберём связку: мессенджер → ИИ-ассистент → CRM → менеджер. Каждый шаг можно повторить у себя.
 
-Ещё не зарегистрировались? Успеваете, ссылку на эфир пришлёт Telegram-бот: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-12&utm_content=f07-today
+Ещё не зарегистрировались? Успеваете, ссылку на эфир пришлёт Telegram-бот: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f07-today
 
 #воркшоп #ИИвпродажах #сегодня
 
@@ -16,7 +16,7 @@
 
 За 45 минут вживую соберём связку: мессенджер → ИИ-ассистент → CRM → менеджер. Каждый шаг можно повторить у себя.
 
-Ещё не зарегистрировались? Успеваете, ссылку на эфир пришлёт Telegram-бот: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-12&utm_content=f07-today
+Ещё не зарегистрировались? Успеваете, ссылку на эфир пришлёт Telegram-бот: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f07-today
 
 #воркшоп #ИИвпродажах #сегодня
 

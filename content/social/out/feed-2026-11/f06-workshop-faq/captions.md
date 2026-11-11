@@ -10,7 +10,7 @@
 Нужно что-то уметь? Нет. Показываем по шагам, повторить сможет любой, кто пользуется WhatsApp.
 Будет запись? Да, участники получат её вместе с чек-листом.
 
-12 декабря, 19:00 по Тбилиси, 18:00 по Москве, 20:00 по Астане. После регистрации Telegram-бот пришлёт ссылку на эфир и напомнит перед началом: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-12&utm_content=f06-workshop-faq
+12 декабря, 19:00 по Тбилиси, 18:00 по Москве, 20:00 по Астане. После регистрации Telegram-бот пришлёт ссылку на эфир и напомнит перед началом: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f06-workshop-faq
 
 #воркшоп #ИИвпродажах #отделпродаж #бесплатно
 
@@ -24,7 +24,7 @@
 Нужно что-то уметь? Нет. Показываем по шагам, повторить сможет любой, кто пользуется WhatsApp.
 Будет запись? Да, участники получат её вместе с чек-листом.
 
-12 декабря, 19:00 по Тбилиси, 18:00 по Москве, 20:00 по Астане. После регистрации Telegram-бот пришлёт ссылку на эфир и напомнит перед началом: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-12&utm_content=f06-workshop-faq
+12 декабря, 19:00 по Тбилиси, 18:00 по Москве, 20:00 по Астане. После регистрации Telegram-бот пришлёт ссылку на эфир и напомнит перед началом: https://praxenai.ge/ru/webinar?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f06-workshop-faq
 
 #воркшоп #ИИвпродажах #отделпродаж #бесплатно
 

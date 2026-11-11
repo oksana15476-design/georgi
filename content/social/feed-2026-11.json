@@ -570,6 +570,7 @@
   },
   {
    "id": "f06-workshop-faq",
+   "campaign": "feed_nov",
    "date": "2026-12-10",
    "time": "11:00",
    "pillar": "offer",
@@ -616,6 +617,7 @@
   },
   {
    "id": "f07-today",
+   "campaign": "feed_nov",
    "date": "2026-12-12",
    "time": "11:00",
    "pillar": "offer",
