@@ -659,9 +659,11 @@ main{outline:none}
 /* Mobile sticky call to action */
 .sticky-cta{display:none}
 @media(max-width:600px){
- .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#f6f8fbf2;backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+ .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#f6f8fbf2;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
  .sticky-cta.is-shown{transform:none}
  .sticky-cta .btn{flex:1;min-width:0;min-height:48px;padding:0 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+ /* .ge only: one unprefixed declaration so the built CSS keeps the blur for Chrome and Firefox (see the header fix below). */
+ .site:not(.ix) .sticky-cta{backdrop-filter:blur(14px)}
  .sticky-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:48px;min-height:48px;border-radius:8px;border:1px solid var(--line2);background:#fff;color:var(--ink)}
 }
 
@@ -700,7 +702,7 @@ main{outline:none}
 .site:not(.ix) .site-header{backdrop-filter:saturate(1.4) blur(14px)}
 @media(min-width:1241px){
  /* Georgian labels are longer: a tighter menu keeps all six items in one row from 1241px up. */
- html[lang=ka] .header-row{gap:24px}html[lang=ka] .desktop-nav{gap:2px}html[lang=ka] .nav-link{padding:0 8px;font-size:14px}html[lang=ka] .header-actions{gap:14px}
+ html[lang=ka] .header-row{gap:16px}html[lang=ka] .desktop-nav{gap:2px}html[lang=ka] .nav-link{padding:0 6px;font-size:14px}html[lang=ka] .header-actions{gap:14px}
  /* If the row still overflows (zoom, missing font) the burger menu opens as a compact panel, not a full-width sheet. */
  .site-header:has(.is-compact) .mobile-menu{left:auto;right:max(var(--px),calc((100% - 1320px)/2 + var(--px)));width:440px;height:auto;max-height:calc(100dvh - var(--headH));padding:8px 28px 28px;border:1px solid var(--line);border-radius:0 0 14px 14px;box-shadow:0 24px 48px -16px #121a2b26}
 }

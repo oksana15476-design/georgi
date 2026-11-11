@@ -4,12 +4,12 @@
 import {useState} from 'react';
 import {usePathname} from 'next/navigation';
 import {homeHref,pageHref} from '@/lib/base';
-import {languages,Lang} from '@/lib/content';
+import type {Lang} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
-import {copyFn,sectionLabel,siteCopy} from '@/lib/site-copy';
+import {copyFn,siteCopy} from '@/lib/site-copy';
 import {Header} from './header';
 
-const langOf=(path:string):Lang=>{const m=/^\/(ka|ru)(\/|$)/.exec(path);return m&&languages.includes(m[1] as Lang)?m[1] as Lang:'en'};
+const langOf=(path:string):Lang=>{const m=/^\/(ka|ru)(\/|$)/.exec(path);return m?m[1] as Lang:'en'};
 
 export function GeNotFound(){
  const lang=langOf(usePathname()||'/');
@@ -17,10 +17,11 @@ export function GeNotFound(){
  const [menu,setMenu]=useState(false);
  // There is no contact form on this page: the header buttons lead to the form on the home page.
  const toContact=(e?:React.MouseEvent)=>{e?.preventDefault();setMenu(false);window.location.assign(homeHref(lang)+'#contact')};
+ // Same short labels as the header menu (components/praxen/header.tsx).
  const links:[string,string][]=[
   [homeHref(lang),s.home],
-  [pageHref(lang,'solutions'),sectionLabel(c,'solutions')],
-  [pageHref(lang,'industries'),sectionLabel(c,'industries')],
+  [pageHref(lang,'solutions'),c('Решения','Solutions','გადაწყვეტები')],
+  [pageHref(lang,'industries'),c('Отрасли','Industries','ინდუსტრიები')],
   [pageHref(lang,'cases'),c('Кейсы','Cases','ქეისები')],
  ];
  return (
