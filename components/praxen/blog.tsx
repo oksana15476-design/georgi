@@ -4,6 +4,7 @@
 import {base,homeHref,pageHref} from '@/lib/base';
 import {ArticleBlock} from '@/components/article-blocks';
 import {geArticles,type GePost} from '@/lib/ge-blog';
+import {dateLabelOf,modifiedOf} from '@/lib/freshness';
 import type {Lang} from '@/lib/content';
 import {Icon} from './icon';
 import type {X} from './types';
@@ -43,6 +44,8 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
  const {c,lang,link}=x;
  // Two more articles in this language (the next ones in the list) that the post does not already link to.
  const i=geArticles.findIndex(a=>a.langs[lang]===post),seen=new Set(post.links.map(([h])=>h));
+ // Shown only when the article was revised after publication.
+ const meta=geArticles[i],updated=meta&&meta.updated&&modifiedOf(meta)!==meta.date?meta.updated:'';
  const related:[string,string][]=[...geArticles.slice(i+1),...geArticles.slice(0,Math.max(i,0))].filter(a=>a.langs[lang]&&!seen.has('blog/'+a.slug)).slice(0,2).map(a=>['blog/'+a.slug,a.langs[lang]!.title]);
  return (
   <article data-screen-label="Article" className="ix-article">
@@ -56,7 +59,7 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
       <div className="ix-author">
        {/* eslint-disable-next-line @next/next/no-img-element */}
        <img src={base+'/team/evgeny.jpg'} alt="" width={40} height={40}/>
-       <span><b>{c('Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი')}</b>{c('Основатель Praxen AI','Founder, Praxen AI','Praxen AI-ის დამფუძნებელი')} · {post.dateLabel} · {post.minutes} {c('мин чтения','min read','წთ')}</span>
+       <span><b>{c('Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი')}</b>{c('Основатель Praxen AI','Founder, Praxen AI','Praxen AI-ის დამფუძნებელი')} · {post.dateLabel}{updated&&<> · {c('Обновлено','Updated','განახლდა')} <time dateTime={updated}>{dateLabelOf(updated,lang)}</time></>} · {post.minutes} {c('мин чтения','min read','წთ')}</span>
       </div>
      </div>
     </div>

@@ -4,8 +4,9 @@ import {createContext,useContext,useRef,useState} from 'react';
 import {getAttribution,setConsent,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
-import {partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,intlUpdatedLabel,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {routePath,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import {posts,type Post} from '@/lib/intl-blog';
+import {dateLabelOf,intlPageModified} from '@/lib/freshness';
 import {ArticleBlock} from '@/components/article-blocks';
 import {entityGuides} from '@/lib/intl-guides';
 import {Icon} from './icon';
@@ -186,7 +187,7 @@ function QuizCapture({summary,onRestart}:{summary:string;onRestart:()=>void}){
    </div>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
    {status&&<p role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter the full phone number.'):'Something went wrong. Please message us on WhatsApp.'}</p>}
-   <div className="quiz-alt"><BookLink className="ulink">Or book a free call<Icon name="calendar-check" size={16}/></BookLink><button type="button" onClick={onRestart} className="ix-textbtn">Start again</button></div>
+   <div className="quiz-alt"><BookLink className="ulink">Or book a free 30-minute audit<Icon name="calendar-check" size={16}/></BookLink><button type="button" onClick={onRestart} className="ix-textbtn">Start again</button></div>
   </form>
  );
 }
@@ -197,7 +198,7 @@ export function CurSwitch(){
  return <div role="group" aria-label="Currency" className="ix-cur">{curs.map(k=><button key={k} type="button" onClick={()=>setCur(k)} aria-pressed={cur===k} className={cur===k?'is-on':''}>{curInfo[k].sym} {curInfo[k].label}</button>)}</div>;
 }
 export function Pricing(){
- const {cur,go}=useIx();
+ const {cur,go,route}=useIx();
  const [open,setOpen]=useState<string[]>([]);
  const card=(t:typeof tariffs[number])=>{
   const on=open.includes(t.key),per=t.monthly?'/mo':'';
@@ -214,7 +215,8 @@ export function Pricing(){
  return (
   <section id="pricing" data-screen-label="Formats" className="wrap sec">
    <div className="ix-head">
-    <div data-reveal=""><h2 className="h2">What does AI implementation cost?</h2><p className="lead">Pay once for the launch and, if you want, monthly for care. Tools and AI usage stay on your own accounts. All prices exclude VAT.</p></div>
+    {/* /solutions already asks the cost question in its H1, so the H2 there names the two price steps instead. */}
+    <div data-reveal=""><h2 className="h2">{route.page==='solutions'?'Launch prices and monthly care.':'What does AI implementation cost?'}</h2><p className="lead">Pay once for the launch and, if you want, monthly for care. Tools and AI usage stay on your own accounts. All prices exclude VAT.</p></div>
     <CurSwitch/>
    </div>
    <div className="tariffs mt28">
@@ -266,7 +268,7 @@ export function SolutionExamples(){
  return (
   <section data-screen-label="Solution examples" className="wrap sec">
    <h2 data-reveal="" className="h2">Solution examples.</h2>
-   <div className="grid-c3w mt28" data-stagger="">{services.map(x=>{const [b,r]=splitB(x.desc+'. '+(x.answer||'').split('. ')[0]+'.');return <a key={x.slug} href={link(servicePath(x.slug))} className="card ix-card-lift ix-scard">
+   <div className="grid-c3w mt28" data-stagger="">{services.map(x=>{const [b,r]=splitB(x.desc+'. '+(x.answer||'').split('. ')[0].replace(/\.$/,'')+'.');return <a key={x.slug} href={link(servicePath(x.slug))} className="card ix-card-lift ix-scard">
     <span className="tile-icon tile-44 r12"><Icon name={x.icon} size={22}/></span><h3>{x.name}</h3><p><strong>{b}</strong>{r}</p></a>})}</div>
   </section>
  );
@@ -444,7 +446,7 @@ export function SmallPricing(){
     {c.monthly&&<p className="ix-small-month">then <b>{c.monthly}/mo</b>, cancel with 30 days’ notice</p>}
     <p>{c.body}</p>
     <p className="tariff-meta">{c.meta}</p>
-    <a href="#contact" onClick={e=>{e.preventDefault();go('Small business: '+c.name)}} className="btn btn-primary mt-auto">Get a free AI audit<Icon name="arrow-right" size={16}/></a>
+    <a href="#contact" onClick={e=>{e.preventDefault();go('Small business: '+c.name)}} className="btn btn-primary mt-auto">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></a>
    </article>)}</div>
    <p className="ix-vat">{vatNote}</p>
   </section>
@@ -638,7 +640,7 @@ export function PilotPlan({entity,group}:{entity:Entity;group:string}){
 }
 
 export function ShortAnswer({entity}:{entity:Entity}){
- const {cur,cta,go}=useIx();
+ const {cur,cta,go,route}=useIx();
  const tools=(logoSets[entity.slug]||defaultLogoSet).slice(0,4);
  const q=entity.question||'What does AI do for '+lc(entity.name)+' and what does it cost?';
  const lead=entity.answer||entity.name+' teams use AI to answer routine questions, move data between systems and prepare drafts for review.';
@@ -652,7 +654,7 @@ export function ShortAnswer({entity}:{entity:Entity}){
   <section data-screen-label="Short answer" className="wrap sec">
    <div data-reveal="" className="ix-ans">
     <div className="ix-ans-main">
-     <p className="ix-answer-kick">Short answer · updated {intlUpdatedLabel}</p>
+     <p className="ix-answer-kick">Short answer · updated {dateLabelOf(intlPageModified(routePath(route)))}</p>
      <h2>{q}</h2>
      <p>{lead}</p>
      <p className="ix-ans-tools">Works with {tools.join(', ')} and the other tools you already use. Every project starts with a free 30-minute audit.</p>
@@ -787,7 +789,7 @@ export function Contact(){
    <div className="wrap sec contact-grid">
     <div>
      <div data-reveal=""><h2 className="h2">Take routine work off your team’s hands.</h2><p className="lead mw460">Tick what takes the most time. We’ll reply with how AI could help and what a pilot would cost.</p></div>
-     <BookLink className="booking ix-booking"><span className="tile-icon ix-tile-solid"><Icon name="calendar-plus" size={20}/></span><span><b>Book a free 30-minute call</b><small>Pick a slot in UK time.</small></span><Icon name="arrow-right" size={18}/></BookLink>
+     <BookLink className="booking ix-booking"><span className="tile-icon ix-tile-solid"><Icon name="calendar-plus" size={20}/></span><span><b>Book a free 30-minute audit</b><small>Pick a slot in UK time.</small></span><Icon name="arrow-right" size={18}/></BookLink>
      <div className="contact-links">
       <a href={contacts.whatsapp} target="_blank" rel="noopener"><Icon name="whatsapp" size={16}/>WhatsApp</a>
       <a href={'mailto:'+contacts.email}><Icon name="mail" size={16}/>{contacts.email}</a>
@@ -864,7 +866,7 @@ export function Article({post}:{post:Post}){
       <div className="ix-author">
        {/* eslint-disable-next-line @next/next/no-img-element */}
        <img src={base+'/team/evgeny.jpg'} alt="" width={40} height={40}/>
-       <span><b>Evgeny Budnikov</b>Founder, Praxen AI · {post.dateLabel} · {post.minutes} min read</span>
+       <span><b>Evgeny Budnikov</b>Founder, Praxen AI · {post.dateLabel}{post.updated&&post.updated>post.date&&<> · Updated <time dateTime={post.updated}>{dateLabelOf(post.updated)}</time></>} · {post.minutes} min read</span>
       </div>
      </div>
     </div>
@@ -876,7 +878,7 @@ export function Article({post}:{post:Post}){
      {post.blocks.map(b=><section key={b.h} id={anchor(b.h)}>
       <ArticleBlock b={b}/>
      </section>)}
-     <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>A free 30-minute audit gives you the hours saved and a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free call<Icon name="arrow-right" size={16}/></BookLink></aside>
+     <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>In 30 minutes we estimate the hours AI could save you and give you a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></aside>
      <div className="ix-article-links"><b>Related pages</b>{[...post.links,...relatedPosts(post)].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
    </div>

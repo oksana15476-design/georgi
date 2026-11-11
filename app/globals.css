@@ -576,7 +576,7 @@ main{outline:none}
 .faq-ring{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-top:-2px;border-radius:50%;background:var(--soft);color:var(--accent);transition:transform .35s var(--spring),background .2s}
 .faq-card.is-open .faq-ring{background:var(--accent);color:#fff;transform:rotate(45deg)}
 .faq-a{font-size:15px;line-height:1.65;color:var(--body);padding:0 22px 22px;margin-top:-4px;max-width:640px;animation:px-fade .3s ease-out}
-@media(max-width:900px){.faq-head{flex-direction:column;align-items:flex-start}.faq-grid{display:flex;flex-direction:column;align-items:stretch}.faq-col{display:contents}.faq-card{width:100%}}
+@media(max-width:900px){.faq-head{flex-direction:column;align-items:flex-start}.faq-grid{display:flex;flex-direction:column;align-items:stretch}.faq-col{display:contents}}
 @media(max-width:600px){.faq-card button{font-size:16px}}
 
 /* Contact */
@@ -868,19 +868,21 @@ main{outline:none}
 /* On the workshop page the banner sits on the right so it never covers the sign-up button. */
 @media(min-width:601px){body:has(.wb) .cookie{left:auto;right:16px}}
 @media(max-width:600px){.cookie{left:12px;right:12px;bottom:84px;max-width:none;padding:10px 12px}.cookie p{font-size:12px;line-height:1.4}.cookie-btns{margin-top:8px}.cookie-btns button{min-height:34px;font-size:13px}}
-/* Site pages (not the workshop, which keeps its card above its own bar): the banner is a slim strip at the bottom, and the phone sticky bar
-   and the desktop WhatsApp button wait until it is answered, so the first screen stays readable. */
+/* Site pages (not the workshop, which keeps its card above its own bar): the banner is a slim strip at the bottom.
+   While it is open, the phone sticky bar and the desktop WhatsApp button sit just above it (--cookie-h from CookieOffset). */
 .site:not(.wb)~.cookie{right:16px;max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:10px 12px 10px 20px;border-radius:12px}
 .site:not(.wb)~.cookie p{flex:1;min-width:0;font-size:13.5px;line-height:1.45}
 .site:not(.wb)~.cookie .cookie-btns{flex-shrink:0;margin-top:0}
 .site:not(.wb)~.cookie .cookie-btns button{flex:none;min-height:38px;padding:0 18px}
-.site:has(~.cookie) .wa-float.is-shown{opacity:0;visibility:hidden;transform:translateY(16px)}
+.ix:has(~.cookie) .wa-float{bottom:calc(var(--cookie-h,0px) + 12px)}
+.ix:has(~.cookie) .ix-mobile{padding-bottom:calc(32px + var(--cookie-h,0px))}
 @media(max-width:600px){
  .site:not(.wb)~.cookie{left:0;right:0;bottom:0;display:block;max-width:none;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-width:1px 0 0;border-radius:0;box-shadow:0 -12px 28px -18px #121a2b40}
  .site:not(.wb)~.cookie p{font-size:12px;line-height:1.35}
  .site:not(.wb)~.cookie .cookie-btns{margin-top:6px}
  .site:not(.wb)~.cookie .cookie-btns button{flex:1;min-height:36px;font-size:13px}
- .ix:has(~.cookie) .sticky-cta.is-shown{transform:translateY(110%)}
+ .ix .sticky-cta{transition:transform .35s cubic-bezier(.2,.7,.2,1),bottom .3s ease}
+ .ix:has(~.cookie) .sticky-cta{bottom:var(--cookie-h,0px);padding-bottom:10px}
 }
 
 /* WhatsApp and booking */

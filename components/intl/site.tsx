@@ -9,6 +9,7 @@ import {ctaFor,departments,entityOf,faqFor,industries,services,servicePath,type 
 import {BookingEmbed} from '@/components/booking';
 import {MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
 import {LeadPopup} from '@/components/praxen/lead-popup';
+import {CookieOffset} from '@/components/cookie-offset';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
@@ -150,6 +151,7 @@ export default function IntlSite({route}:{route:IntlRoute}){
     <a href={wa} target="_blank" rel="noopener" aria-label="Message us on WhatsApp" className={'wa-float'+(sticky&&!menu?' is-shown':'')}><Icon name="whatsapp" size={26}/><span>Message us on WhatsApp</span></a>
     <LeadPopup x={popupX} menu={menu}/>
     <MotionRoot/>
+    <CookieOffset/>
     <BookingEmbed/>
    </div>
   </IntlCtx.Provider>

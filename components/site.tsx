@@ -18,7 +18,8 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import {Privacy} from '@/components/praxen/privacy';
 import {About,Security,aboutLabel,securityLabel} from '@/components/praxen/company';
 import {BlogList,GeArticle,blogLabel} from '@/components/praxen/blog';
-import {geArticle} from '@/lib/ge-blog';
+import {geArticle,geArticles} from '@/lib/ge-blog';
+import {modifiedOf,newestOf} from '@/lib/freshness';
 import {Quiz} from '@/components/praxen/quiz';
 import {Team} from '@/components/praxen/team';
 import {Flag,MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
@@ -75,6 +76,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
   crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[]),...(post?[[post.title,rest] as [string,string]]:[])],
   article:post?{title:post.title,description:post.description,date:geArticle(slug!)!.date,path:rest}:undefined,
+  modified:post?modifiedOf(geArticle(slug!)!):isBlog?newestOf(geArticles):undefined,
   service:isChatbot?{name:chatbotLabel(x),description:t(chatbotPage.description,lang),path:rest}:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];
  const options=[...(isDetail

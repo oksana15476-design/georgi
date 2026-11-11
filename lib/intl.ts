@@ -23,7 +23,7 @@ export const fmt=(n:number,cur:Cur='gbp')=>curInfo[cur].sym+Math.round(n).toLoca
 export const price=(k:PriceKey,cur:Cur='gbp')=>prices[k][cur];
 export const usageNote=(cur:Cur='gbp')=>'Call minutes and AI usage are billed at provider cost on your own accounts, typically '+curInfo[cur].usage+' per minute of calls.';
 export const vatNote='All prices exclude VAT. We work with businesses only. UK and EU business customers account for VAT under the reverse charge.';
-// Content review date shown in the short answers and used as dateModified.
+// Site-wide content date: the terms page shows it; per-page dates for the sitemap, dateModified and the short answers are in lib/freshness.ts.
 // The legal entity behind praxenai.com; shown only in the privacy policy and terms.
 export const legalEntity={name:'Individual Entrepreneur Evgenii Budnikov',country:'Georgia',address:'9 Nizharadze Street, Apartment 124, Batumi, Georgia'};
 export const intlUpdated='2026-10-08';
@@ -45,8 +45,8 @@ export const offers:Offer[]=[
 // Pricing block: step 1 one-off launch formats, step 2 monthly care.
 export const tariffs:{key:PriceKey;name:string;body:string;time:string;cta:string;popular?:boolean;from?:boolean;monthly?:boolean}[]=[
  {key:'training',name:'Team training',body:'Hands-on session on your own tasks: prompts, templates and safe-use rules. Half a day, up to 12 people.',time:'from 1 week',cta:'Get a training plan'},
- {key:'pilot',name:'Implementation pilot',body:'One workflow on your real data: chat assistant, CRM updates, documents or invoices, connected to your tools.',time:'2–4 weeks',cta:'Find the right tools',popular:true},
- {key:'custom',name:'Custom AI solution',body:'AI agents, internal assistants on your knowledge base and custom integrations.',time:'from 4 weeks',cta:'Request an estimate',from:true},
+ {key:'pilot',name:'Implementation pilot',body:'One workflow on your real data: chat assistant, CRM updates, documents or invoices, connected to your tools.',time:'2–4 weeks',cta:'Free 30-minute audit',popular:true},
+ {key:'custom',name:'Custom AI solution',body:'AI agents, internal assistants on your knowledge base and custom integrations.',time:'from 4 weeks',cta:'Free 30-minute audit',from:true},
  {key:'care',name:'Ongoing care',body:'We update the knowledge base, review answers, fix errors and improve workflows.',time:'AI usage and servers stay on your account, paid directly',cta:'Discuss care',monthly:true},
 ];
 
@@ -115,7 +115,7 @@ export const services:Entity[]=[
   stats:[['4–8 wks','typical build'],['100%','actions logged'],['0','actions without your rules']],
   scenarios:[['inbox','Order processing','Reads order emails, checks stock and drafts confirmations.'],['users','Candidate screening','Scores CVs against the brief and schedules first calls.'],['receipt','Month-end chasing','Finds unpaid invoices and drafts polite reminders.']],
   tested:['Agents run in a sandbox on past cases before touching live systems.','Role-based access: read-only unless approved.','Human approval points on anything external.'],
-  answer:'AI agents are programs that complete multi-step tasks across your tools, such as reading an email, checking data and drafting a reply. Praxen builds them with approval points and full logs. A typical agent takes 4–8 weeks to build, priced from '+lp('custom')+' at the launch offer.',
+  answer:'AI agents are programs that complete multi-step tasks across your tools, such as reading an email, checking data and drafting a reply. Praxen builds them with approval points and full logs. A typical agent takes 4–8 weeks to build, priced from '+lp('custom')+' with the launch offer.',
   faqs:[['How much do AI agents cost?','An agent is a custom build, from '+lp('custom')+' with the launch offer ('+sp('custom')+' standard). The exact price is fixed in the plan before work starts. Optional care is '+lp('care')+' a month, and model usage is paid to the AI provider at cost on your own account. Prices exclude VAT.'],['How long does it take to build an agent?','Typically 4–8 weeks. The agent first runs in a sandbox on past cases, then on live work with approval points.'],['Which systems can an agent work in?','Email, your CRM, accounting software and order systems with an API, such as HubSpot, Xero or SAP. Access is read-only unless you approve more.'],['Is it safe to let an agent send emails?','By default agents draft and a person sends. We remove the approval step only where you decide.']]},
  {slug:'ai-training',measure:'Hours saved per person a week, measured at the two-week follow-up, and how many people still use the playbook.',name:'AI training',icon:'graduation-cap',desc:'Teach your team to use AI safely and usefully',scene:'playbook',
   title:'AI training for teams: hands-on half-day workshops',question:'What does AI training for teams include and what does it cost?',
@@ -243,7 +243,7 @@ export const departments:Entity[]=[
   stats:[['Coded','supplier invoices ready to approve'],['Matched','bank lines with suggested entries'],['On time','reminders for every overdue invoice']],
   scenarios:[['file-text','Invoice processing','Supplier invoices read, coded to the right nominal and sent to Xero, QuickBooks or Sage for approval.'],['git-compare','Bank reconciliation','Bank lines matched to invoices and payments, with suggestions for the ones that don’t match.'],['bell-ring','Credit control','Polite reminders 1, 7 and 14 days after the due date, in your tone, with the invoice attached.'],['receipt','Expenses','Receipts photographed by staff are read, categorised and checked against your policy.'],['line-chart','Month-end summary','Cash, debtors and spend against budget explained in plain English.'],['help-circle','Supplier queries','“Has my invoice been paid?” answered from the ledger, without anyone looking it up.']],
   tested:['The pilot runs on last month’s invoices and is compared with what your team posted.','Nothing is posted to the ledger or paid without approval.','Unusual amounts, new suppliers and changed bank details are always flagged to a person.'],
-  answer:'Finance teams use AI to read and code supplier invoices, match bank lines and chase overdue customers. It connects to Xero, QuickBooks and Sage, and finance approves every posting. Invoice coding is usually piloted on last month’s invoices over 2–4 weeks, for '+lp('pilot')+' with the launch offer.',
+  answer:'Finance teams use AI to read and code supplier invoices, match bank lines and chase overdue customers. It connects to Xero, QuickBooks and Sage, and finance approves every posting. Invoice coding is piloted on last month’s invoices over 2–4 weeks, for '+lp('pilot')+' with the launch offer.',
   faqs:[['Can it make payments or change bank details?','No. It prepares entries and reminders. Payments stay with your team, and any change to a supplier’s bank details is flagged as a fraud risk.'],['Which accounting systems do you support?','Xero, QuickBooks and Sage, and SAP or Microsoft Dynamics through their APIs.'],['How accurate is invoice coding?','We measure it in the pilot on your own invoices. Anything below the confidence level you set goes to a person.']]},
  {slug:'procurement',title:'AI for procurement: quotes compared in minutes',desc2:'Supplier quotes in any format turned into like-for-like tables, price changes flagged against your last order and supplier emails drafted.',measure:'Time to compare quotes, price changes caught and buyer hours per order.',name:'Procurement',icon:'truck',desc:'Supplier quotes compared and summarised',scene:'compare',
   question:'What can AI do for procurement, and what does it cost?',
@@ -277,9 +277,12 @@ export const logoSets:Record<string,string[]>={accounting:['Xero','QuickBooks','
 export const defaultLogoSet=['HubSpot','Microsoft 365','Google Workspace','WhatsApp','Slack'];
 
 // ---- Copy shared by several pages ----
-// Page-specific primary CTA (one accent colour, wording per page). The header always says "Book a free call".
-export const ctas:Record<string,string>={home:'Get a free AI audit','ai-receptionist':'Audit my phone line','ai-automation':'Audit my manual work','ai-consultancy':'Get a free AI audit','ai-chatbot':'Audit my enquiries','ai-agents':'Audit my workflows','ai-training':'Get a training plan',accounting:'Audit my client admin',recruitment:'Audit my screening','law-firms':'Audit my intake',hospitality:'Audit my guest messages','estate-agents':'Audit my viewings',clinics:'Audit my front desk',trades:'Audit my call handling',sales:'Audit my sales process','customer-support':'Audit my helpdesk',marketing:'Audit our marketing',operations:'Audit our operations',hr:'Audit our onboarding',finance:'Audit our invoices',procurement:'Automate quote comparison',leadership:'Get an AI roadmap',partners:'Become a partner'};
-export const ctaFor=(key:string)=>ctas[key]||'Get a free AI audit';
+// Primary CTA: one name for the free step on every page (voice profile: "Book a free 30-minute audit").
+// The short form is used because the same label fills the mobile sticky bar; the header (site.tsx) still says "Book a free call".
+// Training and partners keep their own step.
+export const ctaAudit='Free 30-minute audit';
+export const ctas:Record<string,string>={'ai-training':'Get a training plan',partners:'Become a partner'};
+export const ctaFor=(key:string)=>ctas[key]||ctaAudit;
 
 // Page-specific options for the short form.
 export const pains:Record<string,string[]>={
