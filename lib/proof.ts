@@ -4,4 +4,4 @@
 export const casesVerified=false;
 
 // Content review date shown on department and industry pages and used as dateModified.
-export const contentUpdated='2026-10-05';
+export const contentUpdated='2026-10-08';
