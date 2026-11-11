@@ -11,7 +11,7 @@
 
 Какой бесит больше? Пишите номер. Первые четыре типа — в посте от 31 октября.
 
-Кстати, седьмого лечит один общий ящик для всех мессенджеров, а восьмого — вежливое напоминание через день. И то и другое умеет делать ассистент: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f12-client-types-2
+Кстати, седьмого лечит один общий ящик для всех мессенджеров, а восьмого — вежливое напоминание через день. И то и другое умеет делать ассистент: https://praxenai.ge/ru/departments/sales?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f12-client-types-2
 
 #отделпродаж #клиенты #юморпродаж
 
@@ -26,7 +26,7 @@
 
 Какой бесит больше? Пишите номер. Первые четыре типа — в посте от 31 октября.
 
-Кстати, седьмого лечит один общий ящик для всех мессенджеров, а восьмого — вежливое напоминание через день. И то и другое умеет делать ассистент: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f12-client-types-2
+Кстати, седьмого лечит один общий ящик для всех мессенджеров, а восьмого — вежливое напоминание через день. И то и другое умеет делать ассистент: https://praxenai.ge/ru/departments/sales?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f12-client-types-2
 
 #отделпродаж #клиенты #юморпродаж
 

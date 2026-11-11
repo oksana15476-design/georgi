@@ -6,19 +6,23 @@
 |---|---|---|---|
 | Отправил форму | `generate_lead` | Заявка (`lead`) | Lead |
 | Начал заполнять форму | `form_start` | Начало заполнения формы (`form_start`) | — |
-| Нажал «Записаться на аудит» (открыл календарь) | `booking_click` | Запись на аудит (`contact_booking`) | Contact |
+| Нажал «Записаться на аудит» (открыл календарь) | `booking_click` | Запись на аудит (`contact_booking`) | — |
 | Забронировал время в Cal.com | `booking_complete` + `generate_lead` (параметр `method: booking`) | Запись в Cal.com (`booking_done`) + Заявка (`lead`) | Lead |
 | Нажал WhatsApp | `whatsapp_click` | WhatsApp (`contact_whatsapp`) | Contact |
 | Нажал Telegram | `telegram_click` | Telegram (`contact_telegram`) | Contact |
 | Нажал телефон | `phone_click` | Звонок (`contact_phone`) | Contact |
-| Нажал «Бесплатный аудит» / основную кнопку | `cta_click` | Клик «Бесплатный аудит» (`cta`) | Contact |
+| Нажал «Бесплатный аудит» / основную кнопку | `cta_click` | Клик «Бесплатный аудит» (`cta`) | — |
 | Двигал калькулятор | `calculator_use` | Калькулятор (`calculator`) | — |
 | Начал квиз «Мини-аудит» | `quiz_start` | Квиз: начал (`quiz_start`) | — |
 | Дошёл до результата квиза | `quiz_complete` | Квиз: получил результат (`quiz_complete`) | — |
 | Оставил контакт в квизе | `generate_lead` (параметр `form: quiz`) | Заявка (`lead`) | Lead |
+| Записался на бесплатный воркшоп | `generate_lead` (параметр `form: webinar`) | Воркшоп: запись (`workshop_lead`) | CompleteRegistration |
+| Нажал почту (mailto) | `email_click` | — (на .ge почты в кнопках нет) | Contact |
 | Увидел / закрыл попап | `popup_view` / `popup_close` (параметр `type`: `exit` или `idle`) | — | — |
 
-Цели Метрики с 25 октября — раздел «Метрика: цели» ниже. Форма воркшопа шлёт в Метрику свои события (`workshop_cta`, `workshop_form`, `workshop_lead`), а не `cta`, `form_start`, `lead`; события GA4 и Meta Pixel не менялись.
+Цели Метрики с 25 октября — раздел «Метрика: цели» ниже. Форма воркшопа шлёт в Метрику свои события (`workshop_cta`, `workshop_form`, `workshop_lead`), а не `cta`, `form_start`, `lead`; события GA4 не менялись.
+
+**Meta Pixel с 11 ноября:** запись на воркшоп — стандартное событие `CompleteRegistration`, `Lead` — только заявки на услуги (формы, квиз, бронь в Cal.com), `Contact` — только клики по WhatsApp, Telegram, телефону и почте. Клики по кнопкам «Бесплатный аудит» и открытие календаря Cal.com в пиксель не уходят.
 
 Клики внутри попапа считаются обычными целями (WhatsApp, запись, CTA); в параметре `section` — `Popup exit` или `Popup idle`.
 

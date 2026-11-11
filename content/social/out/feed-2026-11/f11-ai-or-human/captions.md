@@ -8,7 +8,7 @@
 
 Подсказка: обычно ассистента выдаёт совсем не стиль. Это пример сценария, ресторан условный.
 
-Как ассистент может работать с бронями в вашем заведении: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f11-ai-or-human
+Как ассистент может работать с бронями в вашем заведении: https://praxenai.ge/ru/industries/restaurants?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f11-ai-or-human
 
 #ИИвпродажах #рестораны #сервис #игра
 
@@ -20,7 +20,7 @@
 
 Подсказка: обычно ассистента выдаёт совсем не стиль. Это пример сценария, ресторан условный.
 
-Как ассистент может работать с бронями в вашем заведении: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f11-ai-or-human
+Как ассистент может работать с бронями в вашем заведении: https://praxenai.ge/ru/industries/restaurants?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f11-ai-or-human
 
 #ИИвпродажах #рестораны #сервис #игра
 

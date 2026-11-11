@@ -6,4 +6,4 @@
 
 ---
 
-Если хотите посчитать, что ИИ даст вашему бизнесу, бесплатный аудит здесь: https://praxenai.ge/ru?utm_source=threads&utm_medium=social&utm_campaign=organic_nov&utm_content=t31-month
+Если хотите посчитать, что ИИ даст вашему бизнесу, бесплатный аудит здесь: https://praxenai.ge/ru?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-11&utm_content=t31-month#contact

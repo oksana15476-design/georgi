@@ -10,7 +10,7 @@
 
 Работают в ChatGPT и в Claude. Цены, сроки и обещания в черновиках проверяйте сами: ИИ пишет быстро, но отвечаете перед клиентом вы.
 
-Сохраните пост. Если хотите, чтобы ИИ работал так у всей команды, у нас есть обучение на ваших задачах: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f10-prompts-2
+Сохраните пост. Если хотите, чтобы ИИ работал так у всей команды, у нас есть обучение на ваших задачах: https://praxenai.ge/ru/training?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f10-prompts-2
 
 #промпты #ИИвпродажах #ChatGPT #Claude
 
@@ -24,7 +24,7 @@
 
 Работают в ChatGPT и в Claude. Цены, сроки и обещания в черновиках проверяйте сами: ИИ пишет быстро, но отвечаете перед клиентом вы.
 
-Сохраните пост. Если хотите, чтобы ИИ работал так у всей команды, у нас есть обучение на ваших задачах: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f10-prompts-2
+Сохраните пост. Если хотите, чтобы ИИ работал так у всей команды, у нас есть обучение на ваших задачах: https://praxenai.ge/ru/training?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f10-prompts-2
 
 #промпты #ИИвпродажах #ChatGPT #Claude
 

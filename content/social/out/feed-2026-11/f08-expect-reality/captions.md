@@ -9,7 +9,7 @@
 
 Скучнее, чем в рекламе нейросетей, зато клиент не услышит от бота скидку, которой нет.
 
-Начать можно с бесплатного аудита на 30 минут: выберем процесс и посчитаем эффект. https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f08-expect-reality
+Начать можно с бесплатного аудита на 30 минут: выберем процесс и посчитаем эффект. https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f08-expect-reality#contact
 
 #ИИдлябизнеса #внедрениеИИ #ожиданиереальность
 
@@ -22,7 +22,7 @@
 
 Скучнее, чем в рекламе нейросетей, зато клиент не услышит от бота скидку, которой нет.
 
-Начать можно с бесплатного аудита на 30 минут: выберем процесс и посчитаем эффект. https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f08-expect-reality
+Начать можно с бесплатного аудита на 30 минут: выберем процесс и посчитаем эффект. https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f08-expect-reality#contact
 
 #ИИдлябизнеса #внедрениеИИ #ожиданиереальность
 

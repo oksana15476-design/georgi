@@ -1,5 +1,5 @@
 {
- "campaign": "feed_nov",
+ "campaign": "organic_{month}",
  "about": "Instagram and Facebook posts between the workshop posts (content plan of 27 October, docs/SMM-PLAN-2026-11.md): useful (prompts, glossary), entertaining (client types, expectation vs reality), engaging (find the mistake) and explaining (how the assistant works). The workshop batch carries the selling posts.",
  "langs": [
   "ru"
@@ -526,7 +526,7 @@
    "time": "11:00",
    "pillar": "about",
    "accent": "grad",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru#contact",
    "slides": [
     {
      "layout": "cover",
@@ -659,7 +659,7 @@
    "time": "12:00",
    "pillar": "fun",
    "accent": "yellow",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru#contact",
    "slides": [
     {
      "layout": "meme",
@@ -697,7 +697,7 @@
    "time": "11:00",
    "pillar": "tips",
    "accent": "grad",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru/training",
    "slides": [
     {
      "layout": "meme",
@@ -753,7 +753,7 @@
    "time": "11:00",
    "pillar": "engage",
    "accent": "yellow",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru/industries/restaurants",
    "slides": [
     {
      "layout": "meme",
@@ -831,7 +831,7 @@
    "time": "12:00",
    "pillar": "fun",
    "accent": "yellow",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru/departments/sales",
    "slides": [
     {
      "layout": "meme",
@@ -903,7 +903,7 @@
    "time": "12:00",
    "pillar": "about",
    "accent": "white",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru#contact",
    "slides": [
     {
      "layout": "cover",
@@ -1086,7 +1086,7 @@
    "time": "12:00",
    "pillar": "explain",
    "accent": "white",
-   "link": "https://praxenai.ge/ru",
+   "link": "https://praxenai.ge/ru/about",
    "slides": [
     {
      "layout": "cover",

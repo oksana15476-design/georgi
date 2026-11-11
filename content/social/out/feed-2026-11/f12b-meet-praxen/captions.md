@@ -12,7 +12,7 @@
 
 Начинаем с бесплатного аудита на 30 минут. На нём выбираем один процесс и метрику, по которой проверим результат. Потом пилот на 2–4 недели, цену называем до старта. Продолжать или нет, решаете вы, когда видите цифры пилота.
 
-Записаться на аудит: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f12b-meet-praxen
+Записаться на аудит: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f12b-meet-praxen#contact
 
 #PraxenAI #ИИдлябизнеса #внедрениеИИ #Батуми
 
@@ -28,7 +28,7 @@
 
 Начинаем с бесплатного аудита на 30 минут. На нём выбираем один процесс и метрику, по которой проверим результат. Потом пилот на 2–4 недели, цену называем до старта. Продолжать или нет, решаете вы, когда видите цифры пилота.
 
-Записаться на аудит: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=feed_nov&utm_content=f12b-meet-praxen
+Записаться на аудит: https://praxenai.ge/ru?utm_source=facebook&utm_medium=social&utm_campaign=organic_2026-11&utm_content=f12b-meet-praxen#contact
 
 #PraxenAI #ИИдлябизнеса #внедрениеИИ #Батуми
 

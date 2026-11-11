@@ -5,6 +5,9 @@
 //
 // Output: content/social/out/<batch>/<post id>/<lang>-<slide>.jpg, <lang>-fb.jpg (Facebook cover) and captions.md next to them.
 // Links in captions carry utm_source=facebook; set UTM_SOURCE=instagram (linkedin, telegram…) for other channels.
+// One UTM scheme (plan 3.1, 11 November 2026): utm_source=<network>, utm_medium=social, utm_campaign=organic_<yyyy-mm>
+// (batch "campaign":"organic_{month}" takes the month from the post date; a post's own "campaign", e.g. workshop_dec12, wins),
+// utm_content=<post id>. The link itself ("link") goes to the page of the post's topic, not to the home page.
 // Playwright is taken from the project or from the global install (npm root -g).
 import {readFileSync,writeFileSync,mkdirSync,rmSync} from 'node:fs';
 import {join,dirname,basename,resolve} from 'node:path';
@@ -665,7 +668,7 @@ for(const post of posts){
  if(coverOnly){console.log(`${post.id}: Facebook cover`);continue;}
  // Captions with the tracked link, ready to paste.
  const link=(l)=>{const u=new URL(post.link||'https://'+siteName+'/'+l);if(!post.link) u.pathname=l==='en'?'/':'/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)(?=\/|$)/,l==='en'?'':'/'+l)||'/';
-  u.searchParams.set('utm_source',process.env.UTM_SOURCE||'facebook');u.searchParams.set('utm_medium','social');u.searchParams.set('utm_campaign',batch.campaign||'organic');u.searchParams.set('utm_content',post.id);return u.toString();};
+  u.searchParams.set('utm_source',process.env.UTM_SOURCE||'facebook');u.searchParams.set('utm_medium','social');u.searchParams.set('utm_campaign',(post.campaign||batch.campaign||'organic_{month}').replace('{month}',String(post.date).slice(0,7)));u.searchParams.set('utm_content',post.id);return u.toString();};
  const md=[`# ${post.id} · ${post.date} · ${post.pillar}`,''];
  for(const l of langs) md.push(`## ${l}`,'',tr(post.text,l).replace('{link}',link(l)),'');
  // Facebook page default: Georgian slides, one caption in Georgian then Russian (tracked link in the Georgian part, plain praxenai.ge/ru in the Russian).
