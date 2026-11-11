@@ -3,7 +3,7 @@
 import {fmt,price,promo,curInfo} from '@/lib/intl';
 
 export type Block={h:string;p?:string[];list?:string[];table?:[string[],...string[][]]};
-export type Post={slug:string;cat:string;title:string;description:string;excerpt:string;date:string;dateLabel:string;minutes:number;answer:string;blocks:Block[];faq:[string,string][];links:[string,string][]};
+export type Post={slug:string;cat:string;title:string;description:string;excerpt:string;date:string;updated?:string;dateLabel:string;minutes:number;answer:string;blocks:Block[];faq:[string,string][];links:[string,string][]};
 
 const rcSetup=fmt(price('rcSetup')),rcMonth=fmt(price('rcMonth')),rcSetupP=fmt(promo(price('rcSetup'))),rcMonthP=fmt(promo(price('rcMonth')));
 const pilot=fmt(price('pilot')),pilotP=fmt(promo(price('pilot'))),custom=fmt(price('custom')),customP=fmt(promo(price('custom')));
@@ -43,7 +43,7 @@ export const posts:Post[]=[
   ],
   faq:[['Are Microsoft’s own Copilot courses enough to train staff?','They are a good start: they explain what Copilot does in each app, with general examples. A session on your own documents adds practice on each person’s weekly tasks and covers what your permissions check found.'],['Should staff with only Copilot Chat join the session?','Yes. Naming sources, asking where each point came from and keeping an error log are the same habits in Copilot Chat. The app exercises become useful if they get the paid licence later, and the prompts they wrote carry over.'],['What should someone do if Copilot shows them a file they should not see?','Stop, do not forward or copy it, and tell the contact named during the permissions check, with the file name and the question that brought it up. The site owner then fixes the sharing. Say in the training that reporting is expected, so nobody keeps quiet for fear of blame.'],['Does Microsoft use our prompts to train its models?','Microsoft states that prompts and responses from work accounts fall under its enterprise data protection and are not used to train the underlying models. Your own rules on what staff may type in still apply, and they belong in your usage policy.']],
   links:[['training','Half-day AI training for your team, Copilot included'],['blog/ai-training-for-teams','AI training for teams: prompt library and usage policy'],['blog/how-to-implement-ai','How to implement AI: a 90-day plan with baselines'],['blog/chatgpt-for-business','ChatGPT for business: plans and data settings'],['blog/gdpr-and-ai','GDPR and AI: a DPIA and vendor terms for AI tools']]},
- {slug:'chatgpt-for-business',cat:'Training',date:'2026-11-09',dateLabel:'9 November 2026',minutes:7,
+ {slug:'chatgpt-for-business',cat:'Training',date:'2026-11-09',updated:'2026-11-10',dateLabel:'9 November 2026',minutes:7,
   title:'ChatGPT for business: plans, settings and first uses',
   description:'ChatGPT for business explained for UK teams: which plan to choose, the data and admin settings to switch on, first uses with examples and a 30-day rollout.',
   excerpt:'Business or Enterprise, the workspace settings to switch on before staff log in, the UK GDPR points to settle and a 30-day plan with first uses.',
@@ -290,7 +290,7 @@ export const posts:Post[]=[
   ],
   faq:[['Do callers know they are speaking to AI?','The agent says so in its greeting, and we recommend keeping it that way. Callers can ask for a person at any point in the call.'],['Can we keep our current phone number?','Yes. The number stays with your current provider, and calls are forwarded to the agent on rules you choose, for example after 6 pm or when nobody answers within 20 seconds.'],['What happens if the agent misunderstands a caller?','It asks again in different words and reads the details back to confirm. After two failed attempts it transfers the call or takes a message, and the transcript shows your team where it went wrong.']],
   links:[['services/ai-receptionist','AI receptionist: setup, pricing and call types'],['blog/ai-phone-answering-service','AI phone answering service vs human receptionists'],['industries/trades','AI for trades: calls answered on the job']]},
- {slug:'ai-phone-answering-service',cat:'Voice AI',date:'2026-10-09',dateLabel:'9 October 2026',minutes:8,
+ {slug:'ai-phone-answering-service',cat:'Voice AI',date:'2026-10-09',updated:'2026-11-09',dateLabel:'9 October 2026',minutes:8,
   title:'AI phone answering service vs human receptionists',
   description:'A fair comparison of an AI phone answering service and a human answering service: what each does well, monthly costs side by side and when to use both.',
   excerpt:'Where AI answering does better, where people still win, and how the monthly costs compare on the same calls.',

@@ -6,7 +6,7 @@ import {money,prices} from '@/lib/pricing';
 
 export type GeBlock={h:string;p?:string[];list?:string[];table?:[string[],...string[][]]};
 export type GePost={cat:string;title:string;description:string;excerpt:string;dateLabel:string;minutes:number;answer:string;blocks:GeBlock[];faq:[string,string][];links:[string,string][]};
-export type GeArticle={slug:string;date:string;langs:Partial<Record<Lang,GePost>>};
+export type GeArticle={slug:string;date:string;updated?:string;langs:Partial<Record<Lang,GePost>>};
 
 const gel=(k:keyof typeof prices)=>money(prices[k],'gel'),usd=(k:keyof typeof prices)=>money(prices[k],'usd');
 const tr=gel('training'),im=gel('implementation'),dev=gel('development'),sup=gel('support');
