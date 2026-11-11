@@ -880,7 +880,7 @@ main{outline:none}
  .site~.cookie p{font-size:12px;line-height:1.35}
  .site~.cookie .cookie-btns{margin-top:6px}
  .site~.cookie .cookie-btns button{flex:1;min-height:36px;font-size:13px}
- .site:has(~.cookie) .sticky-cta.is-shown{transform:translateY(110%)}
+ .ix:has(~.cookie) .sticky-cta.is-shown{transform:translateY(110%)}
 }
 
 /* WhatsApp and booking */

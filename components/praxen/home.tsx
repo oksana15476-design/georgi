@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {logo,marqueeLogos} from '@/lib/logos';
 import {Icon} from './icon';
-import {BrandLogo,CountUp,Mark,useReducedMotion} from './ui';
+import {BrandLogo,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
 import {casesVerified} from '@/lib/proof';
 import {contacts} from '@/lib/contacts';
@@ -149,7 +149,8 @@ export function resultsData(x:X){
  ];
 }
 
-// Shared by the home page (numbers count up) and the cases page (static numbers).
+// Shared by the home page (key numbers large) and the cases page (all numbers small).
+// Numbers are always final: a count-up showed «0 часов» and «58%» to anyone who saw the card mid-way.
 export function Results({x,count}:{x:X;count:boolean}){
  const {s}=x;
  return (
@@ -165,7 +166,7 @@ export function Results({x,count}:{x:X;count:boolean}){
       {casesVerified&&<figure className="quote"><span className="quote-mark"><Icon name="quote" size={20}/></span><div><blockquote>{r.quote}</blockquote><figcaption><span className="avatar">{r.initials}</span><span><b>{r.who}</b>{r.org}</span></figcaption></div></figure>}
       <div className="result-nums">
        {r.nums.map(nm=>{const mt=count?/^(\d+)(%|\s\D+)$/.exec(nm.n):null;return <div key={nm.l}>
-        {mt?<div className="num-big"><CountUp to={+mt[1]} suffix={mt[2]}/></div>:<div className="num-s">{nm.n}</div>}
+        {mt?<div className="num-big">{nm.n}</div>:<div className="num-s">{nm.n}</div>}
         <p>{nm.l}</p>
        </div>})}
       </div>

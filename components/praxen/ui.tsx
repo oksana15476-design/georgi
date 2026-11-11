@@ -38,17 +38,6 @@ export function BrandLogo({info,size,tile,variant='inline'}:{info:LogoInfo;size:
  return <img key={src} ref={ref} src={src} alt="" width={size} height={size} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={()=>setIdx(i=>i+1)} style={{display:'block',width:size,height:size}}/>;
 }
 
-export function CountUp({to,suffix}:{to:number;suffix:string}){
- const ref=useRef<HTMLSpanElement>(null);const [v,setV]=useState(to);
- useEffect(()=>{
-  const el=ref.current;if(!el||reducedMotion()||!('IntersectionObserver' in window))return;
-  let raf=0;setV(0);
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.disconnect();const t0=performance.now();const f=(t:number)=>{const k=Math.min(1,(t-t0)/1400);setV(to*(1-Math.pow(1-k,3)));if(k<1)raf=requestAnimationFrame(f)};raf=requestAnimationFrame(f)}),{threshold:.4});
-  io.observe(el);return()=>{io.disconnect();cancelAnimationFrame(raf)};
- },[to]);
- return <span ref={ref}>{Math.round(v)+suffix}</span>;
-}
-
 // Scroll reveal for [data-reveal] blocks, the process line ([data-reveal="line"]) and staggered grids ([data-stagger]).
 // Hidden states only apply under html.js (set before paint) and without reduced motion, so content never stays hidden.
 export function MotionRoot(){

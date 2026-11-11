@@ -16,8 +16,8 @@
 | Начал квиз «Мини-аудит» | `quiz_start` | Квиз: начал (`quiz_start`) | — |
 | Дошёл до результата квиза | `quiz_complete` | Квиз: получил результат (`quiz_complete`) | — |
 | Оставил контакт в квизе | `generate_lead` (параметр `form: quiz`) | Заявка (`lead`) | Lead |
-| Записался на бесплатный воркшоп | `generate_lead` (параметр `form: webinar`) | Воркшоп: запись (`workshop_lead`) | CompleteRegistration |
-| Нажал почту (mailto) | `email_click` | — (на .ge почты в кнопках нет) | Contact |
+| Записался на бесплатный воркшоп | `generate_lead` (параметр `form: webinar`) | Воркшоп · зарегистрировался (`workshop_lead`) | CompleteRegistration |
+| Нажал почту (mailto) | `email_click` | событие `contact_email` | Contact |
 | Увидел / закрыл попап | `popup_view` / `popup_close` (параметр `type`: `exit` или `idle`) | — | — |
 
 Цели Метрики с 25 октября — раздел «Метрика: цели» ниже. Форма воркшопа шлёт в Метрику свои события (`workshop_cta`, `workshop_form`, `workshop_lead`), а не `cta`, `form_start`, `lead`; события GA4 не менялись.

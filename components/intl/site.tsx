@@ -115,7 +115,8 @@ export default function IntlSite({route}:{route:IntlRoute}){
  const cur=local||stored;
  const setCur=useCallback((c:Cur)=>{setLocal(c);storeCur(c)},[]);
  const [menu,setMenu]=useState(false),[sticky,setSticky]=useState(false);
- useEffect(()=>{const on=()=>setSticky(window.scrollY>480);on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[]);
+ // Phones: the sticky bar waits until the first screen is scrolled past, so it never covers the hero.
+ useEffect(()=>{const on=()=>setSticky(window.scrollY>(window.innerWidth>600?480:window.innerHeight));on();window.addEventListener('scroll',on,{passive:true});return()=>window.removeEventListener('scroll',on)},[]);
  const toContact=useCallback((e?:React.MouseEvent)=>{e?.preventDefault();setMenu(false);setTimeout(()=>scrollToId('contact'),20)},[]);
  const e=entityOf(route);
  const [context,setContext]=useState('');
