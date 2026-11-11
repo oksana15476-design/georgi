@@ -4,15 +4,16 @@ import {pageHref} from '@/lib/base';
 import type {Lang} from '@/lib/content';
 import {isIntl} from '@/lib/market';
 import {tracking} from '@/lib/tracking';
-import {CLICK_KEYS,TTL_DAYS,type Attribution,type Touch} from '@/lib/lead-attribution.mjs';
+import {CLICK_KEYS,TTL_DAYS,utmOk,type Attribution,type Touch} from '@/lib/lead-attribution.mjs';
 import {waHref} from '@/lib/whatsapp';
 
 // Analytics (GA4; Yandex Metrica on praxenai.ge only) loads straight away unless the visitor declined, on both sites
 // (owner's decision, 24 October 2026). Until the visitor accepts cookies, GA4 runs with Google signals and ad
 // personalisation off, and Meta Pixel and Google Ads do not load. Only the configured IDs load.
 // Lead source: the first and the last visit with a source (UTM tags, ad click ids gclid/fbclid/yclid/msclkid, referrer,
-// landing page) are kept for 90 days in this site's own storage and sent only with an enquiry to /api/leads
-// (lib/lead-attribution.mjs), whatever the cookie choice: they are needed to handle the enquiry and go to no third party.
+// landing page) are kept for 90 days in this site's own storage (praxenai.ge unless declined, praxenai.com only after «Accept»)
+// and sent with an enquiry to /api/leads (lib/lead-attribution.mjs). The enquiry reaches the team's Telegram, email and amoCRM,
+// and a yclid also Yandex Metrica.
 // yclid (Yandex Direct click id) lets the server report the lead to Metrica as an offline conversion (lib/metrika-offline.mjs);
 // it goes first in the short source line because the lead keeps only its first 300 characters.
 const utmKeys=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'] as const;
@@ -52,17 +53,39 @@ export function track(event:string,params:Record<string,string|number|undefined>
 }
 
 type Stored={first?:Touch,last?:Touch};
-// Kept in memory too, for browsers that block storage (the enquiry still gets this visit's source).
-let memory:Stored={};
+// The source of this page view always lives in memory, so an enquiry from this page gets it whatever the cookie choice.
+// It is written to the browser's storage only where allowed (storeAllowed), and «Decline» deletes it.
+let memory:Stored={},memoryCampaign='';
 const fresh=(t:Touch|undefined)=>t&&typeof t.at==='number'&&Date.now()-t.at<ttl?t:undefined;
-function readStored():Stored{
- try{const s=JSON.parse(localStorage.getItem(storeKey)||'{}') as Stored;return {first:fresh(s.first),last:fresh(s.last)}}catch{return {first:fresh(memory.first),last:fresh(memory.last)}}
+// praxenai.ge: kept unless the visitor declined (legitimate interest); praxenai.com (UK and EU rules): only after «Accept».
+const storeAllowed=(c:Consent=readConsent())=>c!=='denied'&&(!isIntl||c==='granted');
+function forgetAttribution(){
+ try{localStorage.removeItem(storeKey);sessionStorage.removeItem(campaignKey);localStorage.removeItem('praxen_attribution');sessionStorage.removeItem('praxen_attribution')}catch{}
 }
+function saveAttribution(){
+ if(!storeAllowed())return;
+ try{
+  if(memory.first||memory.last)localStorage.setItem(storeKey,JSON.stringify(memory));
+  if(memoryCampaign)sessionStorage.setItem(campaignKey,memoryCampaign);
+ }catch{}
+}
+// Reads the stored visits; an entry older than 90 days is removed from storage at once.
+function loadStored():Stored{
+ if(!storeAllowed())return {};
+ try{
+  const raw=localStorage.getItem(storeKey);if(!raw)return {};
+  const s=JSON.parse(raw) as Stored,out={first:fresh(s.first),last:fresh(s.last)};
+  if(!out.first&&!out.last)localStorage.removeItem(storeKey);
+  else if(out.first!==s.first||out.last!==s.last)localStorage.setItem(storeKey,JSON.stringify(out));
+  return out;
+ }catch{return {}}
+}
+const current=():Stored=>({first:fresh(memory.first),last:fresh(memory.last)});
 
 // The last visit with a source as a short line, "yclid=123; utm_source=linkedin; utm_campaign=hotels-oct; ref=google.com",
 // or '' when the visit is direct. Read by the server for Metrica (yclid) and the workshop deal fields (UTM).
 export function getAttribution(){
- const t=readStored().last;
+ const t=current().last;
  if(!t)return '';
  const parts:string[]=sourceKeys.filter(k=>t[k]).map(k=>k+'='+t[k]!.slice(0,80));
  if(t.ref)parts.push('ref='+t.ref);
@@ -70,32 +93,33 @@ export function getAttribution(){
 }
 
 const cookie=(name:string)=>{try{return document.cookie.split('; ').find(c=>c.startsWith(name+'='))?.slice(name.length+1)||''}catch{return ''}};
-// Sent with every enquiry next to source: both visits, plus Meta's own _fbc/_fbp cookies when the pixel set them (after consent).
+// Sent with every enquiry next to source: both visits, Meta's own _fbc/_fbp cookies when the pixel set them (after consent),
+// and the cookie choice, shown to the team with the enquiry.
 export function leadAttribution():Attribution{
- const s=readStored(),fbc=cookie('_fbc'),fbp=cookie('_fbp');
- return {...s,...(fbc?{fbc}:{}),...(fbp?{fbp}:{})};
+ const fbc=cookie('_fbc'),fbp=cookie('_fbp'),c=readConsent();
+ return {...current(),...(fbc?{fbc}:{}),...(fbp?{fbp}:{}),consent:c==='server'?'unset':c};
 }
 
 function rememberAttribution(){
  try{
   const q=new URLSearchParams(location.search);
   const t:Touch={};
-  for(const k of [...utmKeys,...CLICK_KEYS]){const v=q.get(k);if(v)t[k]=v.slice(0,k==='gclid'||k==='fbclid'?250:100)}
+  for(const k of [...utmKeys,...CLICK_KEYS]){const v=q.get(k)?.slice(0,k==='gclid'||k==='fbclid'?250:100);if(v&&(!k.startsWith('utm_')||utmOk(v)))t[k]=v}
   const host=document.referrer?new URL(document.referrer).host:'';
   if(host&&host!==location.host&&!ownReturn.test(host))t.ref=host;
   const hasSource=Object.keys(t).length>0;
   t.landing=location.pathname.slice(0,200);t.at=Date.now();
   // The first visit stays for 90 days; the last is replaced by each visit that has a source (a direct visit keeps it).
-  const s=readStored();
+  const s=loadStored();
   memory={first:s.first||t,last:hasSource?t:s.last||t};
-  localStorage.setItem(storeKey,JSON.stringify(memory));
+  memoryCampaign=t.utm_campaign?.slice(0,60)||(storeAllowed()?sessionStorage.getItem(campaignKey)||'':'');
   try{localStorage.removeItem('praxen_attribution');sessionStorage.removeItem('praxen_attribution')}catch{}
-  if(t.utm_campaign)sessionStorage.setItem(campaignKey,t.utm_campaign.slice(0,60));
+  saveAttribution();
  }catch{}
 }
 
 // The ad campaign of this visit for the WhatsApp text: from the address, or from the page the visitor landed on in this tab.
-const campaign=()=>{try{return new URLSearchParams(location.search).get('utm_campaign')||sessionStorage.getItem(campaignKey)||''}catch{return ''}};
+const campaign=()=>{try{return new URLSearchParams(location.search).get('utm_campaign')||memoryCampaign}catch{return ''}};
 // Completes a WhatsApp link with the text and the page code just before it opens (lib/whatsapp.ts). React may set a new
 // address later (the calculator text changes); the original is kept so the code is never added twice.
 function prepareWhatsApp(a:HTMLAnchorElement,lang:Lang){
@@ -109,6 +133,8 @@ type Consent='granted'|'denied'|'unset'|'server';
 const readConsent=():Consent=>{try{const v=localStorage.getItem(consentKey);return v==='granted'||v==='denied'?v:'unset'}catch{return 'unset'}};
 export function setConsent(v:'granted'|'denied'|'unset'){
  try{if(v==='unset')localStorage.removeItem(consentKey);else localStorage.setItem(consentKey,v)}catch{}
+ // The kept lead source follows the choice: saved after «Accept», deleted after «Decline» (and on praxenai.com when reset).
+ if(storeAllowed(v))saveAttribution();else forgetAttribution();
  window.dispatchEvent(new Event(consentEvent));
 }
 const subscribe=(cb:()=>void)=>{window.addEventListener(consentEvent,cb);window.addEventListener('storage',cb);return()=>{window.removeEventListener(consentEvent,cb);window.removeEventListener('storage',cb)}};
@@ -149,6 +175,8 @@ function loadTrackers(ads:boolean){
  }
 }
 
+// A WhatsApp chat link: the host must be exactly wa.me (not a page that only mentions it in its address).
+const isWa=(href:string)=>{try{return !!href&&new URL(href,location.href).hostname==='wa.me'}catch{return false}};
 const label=(el:Element)=>(el.textContent||el.getAttribute('aria-label')||'').trim().replace(/\s+/g,' ').slice(0,80);
 
 // Analytics already runs; the banner asks about advertising cookies and lets the visitor turn everything off.
@@ -173,17 +201,18 @@ export function Analytics({lang}:{lang:Lang}){
   const onClick=(e:MouseEvent)=>{
    const el=(e.target as Element|null)?.closest('a,button');if(!el)return;
    const href=el.getAttribute('href')||'';
-   if(href.includes('wa.me/'))prepareWhatsApp(el as HTMLAnchorElement,lang);
+   const wa=isWa(href);
+   if(wa)prepareWhatsApp(el as HTMLAnchorElement,lang);
    const section=el.closest('[data-screen-label]')?.getAttribute('data-screen-label')||(el.closest('header')?'Header':el.closest('footer')?'Footer':el.closest('.sticky-cta')?'Sticky':'');
    if(href.startsWith('tel:'))track('phone_click',{section});
    else if(href.includes('t.me/'))track('telegram_click',{section});
-   else if(href.includes('wa.me/'))track('whatsapp_click',{section});
+   else if(wa)track('whatsapp_click',{section});
    else if(href.includes('cal.com/'))track('booking_click',{section});
    else if(href.startsWith('mailto:'))track('email_click',{section});
    else if(href==='#contact'||el.classList.contains('btn-primary'))track('cta_click',{label:label(el),section});
   };
   // Middle click, right click («open in new tab», «copy link»): the link is completed too, without an analytics event.
-  const onOther=(e:MouseEvent)=>{const a=(e.target as Element|null)?.closest('a[href*="wa.me/"]');if(a)prepareWhatsApp(a as HTMLAnchorElement,lang)};
+  const onOther=(e:MouseEvent)=>{const a=(e.target as Element|null)?.closest('a[href]');if(a&&isWa(a.getAttribute('href')||''))prepareWhatsApp(a as HTMLAnchorElement,lang)};
   document.addEventListener('click',onClick,{capture:true});
   document.addEventListener('auxclick',onOther,{capture:true});
   document.addEventListener('contextmenu',onOther,{capture:true});
