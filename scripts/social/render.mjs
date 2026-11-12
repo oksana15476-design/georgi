@@ -709,8 +709,8 @@ body{width:${w}px;height:${h}px;font-family:Manrope,'Noto Sans Georgian',sans-se
 .t.grad{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%)}
 .t.yellow{background:#ffd166;color:#121a2b}
 .t>*{position:relative;z-index:1}
-.t-mark{position:absolute!important;z-index:0!important;fill:#7b95ff;opacity:.13}.t-mark .sq{fill:#ffd166}
-.t.grad .t-mark{fill:#fff;opacity:.14}.t.yellow .t-mark{fill:#121a2b;opacity:.08}.t.grad .t-mark .sq,.t.yellow .t-mark .sq{fill:inherit}
+.t-mark{position:absolute!important;z-index:0!important;fill:#315bf5;opacity:.22}.t-mark .sq{fill:#7b95ff}
+.t.grad .t-mark{fill:#fff;opacity:.12}.t.yellow .t-mark{fill:#121a2b;opacity:.07}.t.grad .t-mark .sq,.t.yellow .t-mark .sq{fill:inherit}
 header{display:flex;justify-content:space-between;align-items:center}
 .logo svg{display:block;width:auto}
 .t-meta{display:flex;gap:16px;align-items:center;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#c9d1e3}
@@ -734,20 +734,20 @@ footer{display:flex;justify-content:space-between;align-items:center}
 ${{
  // 4:5 feed card
  feed:`.t{padding:72px 84px 68px}.logo svg{height:44px}.t-meta{font-size:22px}
- .t-mark{width:760px;height:760px;right:-250px;top:-60px}
+ .t-mark{width:560px;height:560px;right:-170px;top:-140px}
  .t-rubric{font-size:24px;padding:12px 26px;margin-bottom:40px}
  .t-title{font-size:88px}
  .t-benefit{gap:24px;margin-top:48px;font-size:38px;max-width:880px}.t-benefit i{width:56px;height:56px;margin-top:2px}
  footer{border-top:2px solid #ffffff26;padding-top:36px}.t-domain{font-size:34px}.t-read{font-size:28px;padding:18px 30px}`,
  // 9:16 story: header below the Instagram bar (y ≥ 270), the sticker band y ≈ 1320–1520, nothing in the bottom 340 px
  story:kind==='reels'?`.t{padding:300px 84px 430px}.logo svg{height:52px}
- .t-mark{width:900px;height:900px;right:-330px;top:120px}
+ .t-mark{width:700px;height:700px;right:-220px;top:-100px}
  .t-rubric{font-size:30px;padding:14px 30px;margin-bottom:44px}
  .t-title{font-size:150px;line-height:1;text-transform:uppercase;letter-spacing:-.04em}
  .t.grad .t-rubric{transform:rotate(-2deg);border-radius:14px}
  footer{font-size:34px}.t-domain{font-size:34px;opacity:.85}`
  :`.t{padding:270px 84px 340px}.logo svg{height:52px}.t-meta{font-size:24px}
- .t-mark{width:900px;height:900px;right:-330px;top:240px}
+ .t-mark{width:540px;height:540px;right:-160px;top:-60px}
  .t-rubric{font-size:28px;padding:14px 30px;margin-bottom:44px}
  .t-title{font-size:104px}
  .t-benefit{gap:26px;margin-top:52px;font-size:44px}.t-benefit i{width:64px;height:64px;margin-top:2px}
@@ -755,7 +755,7 @@ ${{
  footer{justify-content:center}.t-domain{font-size:36px;opacity:.85}`,
  // 16:9 Telegram picture
  tg:`.t{padding:52px 72px 48px}.logo svg{height:38px}.t-meta{font-size:18px}
- .t-mark{width:620px;height:620px;right:-150px;top:30px}
+ .t-mark{width:420px;height:420px;right:-100px;top:-90px}
  .t-rubric{font-size:19px;padding:9px 20px;margin-bottom:26px}
  .t-title{font-size:64px;max-width:1040px}
  .t-benefit{gap:18px;margin-top:28px;font-size:29px;max-width:1000px}.t-benefit i{width:42px;height:42px;margin-top:0}
