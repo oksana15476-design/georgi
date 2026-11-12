@@ -52,3 +52,6 @@ next-env.d.ts
 .dev.vars
 .dev.vars.*
 __pycache__/
+
+# share cards drawn by every build (build/og-images.mjs)
+/public/og/pages/

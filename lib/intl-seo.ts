@@ -5,6 +5,7 @@ import {absolute,pageUrl} from '@/lib/seo';
 import {posts} from '@/lib/intl-blog';
 import {foundingDate,founderProfiles,sameAsFor} from '@/lib/profiles';
 import {modifiedOf,newestOf,intlPageModified} from '@/lib/freshness';
+import {ogPageImage} from '@/lib/og-image';
 import {curs,entityOf,faqFor,intlMeta,legalEntity,offers,price,promo,routePath,sectionName,type IntlRoute} from '@/lib/intl';
 
 const org=()=>absolute('/#organization');
@@ -43,7 +44,7 @@ export function intlPageJsonLd(r:IntlRoute){
  }
  if(crumbs.length>1)graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map(([name,p],i)=>({'@type':'ListItem',position:i+1,name,item:pageUrl('en',p)}))});
  const faq=post?post.faq:r.page==='privacy'||r.page==='terms'||r.page==='blog'?[]:faqFor(r,e,'gbp').items;
- if(post)graph.push({'@type':'BlogPosting',headline:post.title,description:post.description,datePublished:post.date,dateModified:modified,inLanguage:'en-GB',mainEntityOfPage:url,url,image:absolute('/og/og-intl.png'),author:{'@id':absolute('/#founder')},publisher:{'@id':org()}});
+ if(post)graph.push({'@type':'BlogPosting',headline:post.title,description:post.description,datePublished:post.date,dateModified:modified,inLanguage:'en-GB',mainEntityOfPage:url,url,image:absolute(ogPageImage('en',path)||'/og/og-intl.png'),author:{'@id':absolute('/#founder')},publisher:{'@id':org()}});
  if(faq.length)graph.push({'@type':'FAQPage',mainEntity:faq.map(([q,a])=>({'@type':'Question',name:q,acceptedAnswer:{'@type':'Answer',text:a}}))});
  if(e){
   const rc=e.slug==='ai-receptionist';

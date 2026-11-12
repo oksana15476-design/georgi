@@ -4,6 +4,7 @@ import hostingConfig from "./.openai/hosting.json";
 import { readExecutionProfile } from "./scripts/execution-profile.mjs";
 import { sites } from "./build/sites-vite-plugin";
 import { connectorPreview } from "./build/connector-preview-plugin.mjs";
+import { ogImages } from "./build/og-images.mjs";
 
 const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
@@ -66,6 +67,8 @@ export default defineConfig(async ({ command }) => {
         : {}),
     },
     plugins: [
+      // Share cards of articles and commercial pages, drawn once per build into public/og/pages/ (lib/og-image.ts).
+      ogImages(),
       vinext(),
       sites({ mockAuth: !managedLinux }),
       connectorPreview(),
