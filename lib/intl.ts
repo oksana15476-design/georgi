@@ -28,8 +28,8 @@ export const vatNote='All prices exclude VAT. We work with businesses only. UK a
 export const legalEntity={name:'Individual Entrepreneur Evgenii Budnikov',country:'Georgia',address:'9 Nizharadze Street, Apartment 124, Batumi, Georgia'};
 export const intlUpdated='2026-10-08';
 export const intlUpdatedLabel='8 October 2026';
-// Last change of the privacy policy (outbound B2B emails section, 21 October 2026).
-export const privacyUpdatedLabel='21 October 2026';
+// Last change of the privacy policy (enquiry source section and CRM transfer, 12 November 2026).
+export const privacyUpdatedLabel='12 November 2026';
 
 // Offers for JSON-LD and the receptionist price block.
 export type Offer={key:string;name:string;price:PriceKey;setup?:PriceKey;monthly?:boolean;body:string;includes:string[];path:string};

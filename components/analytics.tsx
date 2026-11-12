@@ -93,10 +93,11 @@ export function getAttribution(){
 }
 
 const cookie=(name:string)=>{try{return document.cookie.split('; ').find(c=>c.startsWith(name+'='))?.slice(name.length+1)||''}catch{return ''}};
-// Sent with every enquiry next to source: both visits, Meta's own _fbc/_fbp cookies when the pixel set them (after consent),
-// and the cookie choice, shown to the team with the enquiry.
+// Sent with every enquiry next to source: both visits, the cookie choice (shown to the team with the enquiry) and Meta's
+// own _fbc/_fbp cookies only while the choice is «Accept»: after «Decline» they may still sit in the browser (the pixel
+// manages them, the site leaves them alone) but are not read.
 export function leadAttribution():Attribution{
- const fbc=cookie('_fbc'),fbp=cookie('_fbp'),c=readConsent();
+ const c=readConsent(),ads=c==='granted',fbc=ads?cookie('_fbc'):'',fbp=ads?cookie('_fbp'):'';
  return {...current(),...(fbc?{fbc}:{}),...(fbp?{fbp}:{}),consent:c==='server'?'unset':c};
 }
 
@@ -182,7 +183,7 @@ const label=(el:Element)=>(el.textContent||el.getAttribute('aria-label')||'').tr
 // Analytics already runs; the banner asks about advertising cookies and lets the visitor turn everything off.
 const bannerCopy={
  ru:['Мы используем Яндекс Метрику и Google Analytics, чтобы понимать, какие страницы полезны. Рекламные cookie загружаются только с вашего согласия.','Подробнее','Принять','Отклонить'],
- en:isIntl?['We use Google Analytics to learn which pages are useful. Advertising cookies load only with your consent.','Learn more','Accept','Decline']
+ en:isIntl?['We use Google Analytics to learn which pages are useful. If you click Accept, we also load advertising cookies and remember which link or ad brought you here, so we can see where enquiries come from.','Learn more','Accept','Decline']
   :['We use Yandex Metrica and Google Analytics to learn which pages are useful. Advertising cookies load only with your consent.','Learn more','Accept','Decline'],
  ka:['ვიყენებთ Yandex Metrica-სა და Google Analytics-ს, რომ გავიგოთ, რომელი გვერდებია სასარგებლო. სარეკლამო cookie-ები მხოლოდ თქვენი თანხმობით იტვირთება.','დეტალურად','თანხმობა','უარი'],
 };
