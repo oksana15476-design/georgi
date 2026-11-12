@@ -3,8 +3,7 @@ import {contacts} from '@/lib/contacts';
 import {setConsent} from '@/components/analytics';
 import type {X} from './types';
 
-// Privacy policy. Legal entity details are filled in once the company provides them; have a lawyer
-// review the final text before running paid campaigns.
+// Privacy policy. Texts: docs/legal/PRIVACY-ATTRIBUTION-DRAFT-2026-11.md, section 3.1 (v3, published 12 November 2026).
 type Block=[string,string[]];
 const updated='2026-11-12';
 
