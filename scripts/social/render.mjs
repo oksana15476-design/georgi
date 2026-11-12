@@ -644,7 +644,7 @@ const skinCss=`
 // Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
 // The workshop strip sat at y 180–240, under the Instagram header (plan 3.3, 12 November): it now runs at y 270–330
 // and the content starts below it.
-const storyCss=`.slide{padding:${strip?370:250}px 84px 330px}.strip{top:270px}
+const storyCss=`.slide{padding:${strip?"370px 84px 340px":"250px 84px 330px"}}.strip{top:270px}
 .sty.slide{padding-top:400px!important;padding-bottom:360px!important}
 .ch-notes,.ch-post,.ch-report,.ch-news{top:200px}.sty-editorial header{top:190px!important}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
 .sty.slide h1{font-size:108px}.sty.slide h2,.sty.slide .meme-top{font-size:88px}
