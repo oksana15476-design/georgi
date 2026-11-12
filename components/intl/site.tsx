@@ -99,7 +99,7 @@ function Page({route}:{route:IntlRoute}){
  const group=page==='training'?'services':page;
  if(page==='home')return <><Hero/><Marquee/><Results/><Quiz/><Pricing/><SmallStrip/><Trust/><AuditReport/><Team/></>;
  if(page==='ai-for-small-business')return <><Hero small/><SmallPerks/><SmallScenarios/><SmallPricing/></>;
- if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><EntityGuide entity={e}/><PilotPlan entity={e} group={group}/><ShortAnswer entity={e}/><RelatedGuides/></>;
+ if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><EntityGuide entity={e}/><PilotPlan entity={e} group={group}/>{e.slug==='ai-receptionist'&&<Calculator pilot={false}/>}<ShortAnswer entity={e}/><RelatedGuides/></>;
  if(page==='cases')return <><InnerHero/><CaseDetails/></>;
  if(page==='services'||page==='industries'||page==='departments')return <><InnerHero/><Cards page={page}/>{page==='departments'&&<OneSystem/>}</>;
  if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/></>;

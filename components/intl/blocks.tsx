@@ -234,7 +234,8 @@ export function Pricing(){
  );
 }
 
-export function Calculator(){
+// pilot=false (AI receptionist page): the payback line names the pilot and care prices, which are a different offer there, so it is left out.
+export function Calculator({pilot=true}:{pilot?:boolean}){
  const {cur,go}=useIx();
  const [c,setC]=useState({items:600,min:6,cost:18,share:60,lost:8,deal:400});
  const used=useRef(false);
@@ -246,7 +247,7 @@ export function Calculator(){
  return (
   <section data-screen-label="Calculator" className="band-white bordered">
    <div className="wrap sec">
-    <div data-reveal=""><h2 className="h2 mw820">How much could you save?</h2><p className="lead">Enter your numbers to see the hours AI could free up, the revenue from leads you lose today and how fast a pilot pays back.</p></div>
+    <div data-reveal=""><h2 className="h2 mw820">How much could you save?</h2><p className="lead">{pilot?'Enter your numbers to see the hours AI could free up, the revenue from leads you lose today and how fast a pilot pays back.':'Enter your numbers to see the hours AI could free up and the revenue from leads you lose today.'}</p></div>
     <div className="ix-calc mt28">
      <div className="ix-calc-inputs">{inputs.map(([k,l,mn,mx,st,d])=><label key={k} className="calc-field"><span className="calc-label">{l}<b>{d}</b></span>
       <input type="range" min={mn} max={mx} step={st} value={c[k]} style={{'--p':((c[k]-mn)/(mx-mn))*100+'%'} as React.CSSProperties} onChange={e=>{if(!used.current){used.current=true;track('calculator_use')}setC({...c,[k]:+e.target.value})}}/></label>)}</div>
@@ -256,7 +257,7 @@ export function Calculator(){
        <div><small>Savings per month</small><b>{fmt(money,cur)}</b></div>
        <div className="ix-span"><small>Revenue from lost leads</small><b className="ix-mid">+{fmt(leads,cur)}</b><small>if one in five becomes a customer</small></div>
       </div>
-      <p className="ix-payback">A pilot from <b>{fmt(promo(price('pilot',cur)),cur)}</b> pays back, even with care at {fmt(promo(price('care',cur)),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>
+      {pilot&&<p className="ix-payback">A pilot from <b>{fmt(promo(price('pilot',cur)),cur)}</b> pays back, even with care at {fmt(promo(price('care',cur)),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>}
       <a href="#contact" onClick={e=>{e.preventDefault();go('Savings estimate: '+hours+' h and '+fmt(money,cur)+' a month')}} className="btn btn-primary ix-btn-48">Discuss my estimate<Icon name="arrow-right" size={16}/></a>
       <p className="ix-calc-note">An estimate based on your inputs. We measure the real effect in a pilot.</p>
      </div>
