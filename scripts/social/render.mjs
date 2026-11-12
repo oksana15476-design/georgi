@@ -257,6 +257,8 @@ footer{color:#121a2b}
 .bub{position:absolute;background:#fff;border:3px solid #121a2b;border-radius:30px;padding:26px 34px;font-size:39px;font-weight:700;box-shadow:10px 10px 0 #121a2b;white-space:nowrap}
 .bub.b0{left:0;top:0;transform:rotate(-3deg)}.bub.b1{right:0;top:120px;transform:rotate(3deg);background:#ffd166}
 .bub.b2{left:30px;top:250px;transform:rotate(2deg)}.bub.b3{right:20px;top:385px;transform:rotate(-2deg);background:#121a2b;color:#fff}
+/* on an ink slide the ink bubble lost its card (12 November): it turns brand blue there */
+.bg-ink .bub.b3{background:#315bf5}
 .v-cal{display:flex;align-items:center;gap:44px}
 .cal{width:420px;flex:none;background:#fff;border:3px solid #121a2b;border-radius:32px;overflow:hidden;box-shadow:14px 14px 0 #121a2b;text-align:center;color:#121a2b}
 .c-head{background:#ff5a5f;color:#fff;font-size:34px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:18px}

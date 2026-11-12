@@ -4,7 +4,7 @@ import {pageHref} from '@/lib/base';
 import type {Lang} from '@/lib/content';
 import {isIntl} from '@/lib/market';
 import {tracking} from '@/lib/tracking';
-import {CLICK_KEYS,TTL_DAYS,utmOk,type Attribution,type Touch} from '@/lib/lead-attribution.mjs';
+import {CLICK_KEYS,TOUCH_KEYS,TTL_DAYS,utmOk,type Attribution,type Touch} from '@/lib/lead-attribution.mjs';
 import {waHref} from '@/lib/whatsapp';
 
 // Analytics (GA4; Yandex Metrica on praxenai.ge only) loads straight away unless the visitor declined, on both sites
@@ -55,12 +55,22 @@ export function track(event:string,params:Record<string,string|number|undefined>
 type Stored={first?:Touch,last?:Touch};
 // The source of this page view always lives in memory, so an enquiry from this page gets it whatever the cookie choice.
 // It is written to the browser's storage only where allowed (storeAllowed), and «Decline» deletes it.
-let memory:Stored={},memoryCampaign='';
-const fresh=(t:Touch|undefined)=>t&&typeof t.at==='number'&&Date.now()-t.at<ttl?t:undefined;
+// thisVisit is the page load itself: after «Decline» only it stays in memory, the stored earlier visits are dropped.
+let memory:Stored={},memoryCampaign='',thisVisit:Touch|undefined;
+// A stored visit counts only if it is recent and every kept value is text (storage can be edited by hand or by another script).
+const fresh=(t:Touch|undefined):Touch|undefined=>{
+ if(!t||typeof t!=='object'||typeof t.at!=='number'||!(Date.now()-t.at<ttl))return undefined;
+ const out:Touch={at:t.at};
+ for(const k of TOUCH_KEYS){const v=(t as Record<string,unknown>)[k];if(typeof v==='string'&&v)out[k]=v.slice(0,250)}
+ return out;
+};
 // praxenai.ge: kept unless the visitor declined (legitimate interest); praxenai.com (UK and EU rules): only after «Accept».
 const storeAllowed=(c:Consent=readConsent())=>c!=='denied'&&(!isIntl||c==='granted');
 function forgetAttribution(){
  try{localStorage.removeItem(storeKey);sessionStorage.removeItem(campaignKey);localStorage.removeItem('praxen_attribution');sessionStorage.removeItem('praxen_attribution')}catch{}
+ // Earlier visits read from storage leave memory too; an enquiry sent right after «Decline» carries only this page load.
+ memory=thisVisit?{first:thisVisit,last:thisVisit}:{};
+ memoryCampaign=thisVisit?.utm_campaign?.slice(0,60)||'';
 }
 function saveAttribution(){
  if(!storeAllowed())return;
@@ -76,7 +86,7 @@ function loadStored():Stored{
   const raw=localStorage.getItem(storeKey);if(!raw)return {};
   const s=JSON.parse(raw) as Stored,out={first:fresh(s.first),last:fresh(s.last)};
   if(!out.first&&!out.last)localStorage.removeItem(storeKey);
-  else if(out.first!==s.first||out.last!==s.last)localStorage.setItem(storeKey,JSON.stringify(out));
+  else if(JSON.stringify(out)!==JSON.stringify({first:s.first,last:s.last}))localStorage.setItem(storeKey,JSON.stringify(out));
   return out;
  }catch{return {}}
 }
@@ -84,12 +94,15 @@ const current=():Stored=>({first:fresh(memory.first),last:fresh(memory.last)});
 
 // The last visit with a source as a short line, "yclid=123; utm_source=linkedin; utm_campaign=hotels-oct; ref=google.com",
 // or '' when the visit is direct. Read by the server for Metrica (yclid) and the workshop deal fields (UTM).
+// Never throws: an enquiry is sent even if the kept data is broken.
 export function getAttribution(){
- const t=current().last;
- if(!t)return '';
- const parts:string[]=sourceKeys.filter(k=>t[k]).map(k=>k+'='+t[k]!.slice(0,80));
- if(t.ref)parts.push('ref='+t.ref);
- return parts.join('; ');
+ try{
+  const t=current().last;
+  if(!t)return '';
+  const parts:string[]=sourceKeys.filter(k=>t[k]).map(k=>k+'='+t[k]!.slice(0,80));
+  if(t.ref)parts.push('ref='+t.ref);
+  return parts.join('; ');
+ }catch{return ''}
 }
 
 const cookie=(name:string)=>{try{return document.cookie.split('; ').find(c=>c.startsWith(name+'='))?.slice(name.length+1)||''}catch{return ''}};
@@ -97,8 +110,10 @@ const cookie=(name:string)=>{try{return document.cookie.split('; ').find(c=>c.st
 // own _fbc/_fbp cookies only while the choice is «Accept»: after «Decline» they may still sit in the browser (the pixel
 // manages them, the site leaves them alone) but are not read.
 export function leadAttribution():Attribution{
- const c=readConsent(),ads=c==='granted',fbc=ads?cookie('_fbc'):'',fbp=ads?cookie('_fbp'):'';
- return {...current(),...(fbc?{fbc}:{}),...(fbp?{fbp}:{}),consent:c==='server'?'unset':c};
+ try{
+  const c=readConsent(),ads=c==='granted',fbc=ads?cookie('_fbc'):'',fbp=ads?cookie('_fbp'):'';
+  return {...current(),...(fbc?{fbc}:{}),...(fbp?{fbp}:{}),consent:c==='server'?'unset':c};
+ }catch{return {}}
 }
 
 function rememberAttribution(){
@@ -112,6 +127,7 @@ function rememberAttribution(){
   t.landing=location.pathname.slice(0,200);t.at=Date.now();
   // The first visit stays for 90 days; the last is replaced by each visit that has a source (a direct visit keeps it).
   const s=loadStored();
+  thisVisit=t;
   memory={first:s.first||t,last:hasSource?t:s.last||t};
   memoryCampaign=t.utm_campaign?.slice(0,60)||(storeAllowed()?sessionStorage.getItem(campaignKey)||'':'');
   try{localStorage.removeItem('praxen_attribution');sessionStorage.removeItem('praxen_attribution')}catch{}
