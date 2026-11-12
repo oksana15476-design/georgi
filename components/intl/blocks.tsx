@@ -9,6 +9,7 @@ import {posts,type Post} from '@/lib/intl-blog';
 import {dateLabelOf,intlPageModified} from '@/lib/freshness';
 import {ArticleBlock} from '@/components/article-blocks';
 import {entityGuides} from '@/lib/intl-guides';
+import {intlRelated} from '@/lib/related-articles';
 import {Icon} from './icon';
 import {PhoneInput} from '@/components/praxen/phone-input';
 import {Scene} from './scene';
@@ -233,7 +234,8 @@ export function Pricing(){
  );
 }
 
-export function Calculator(){
+// pilot=false (AI receptionist page): the payback line names the pilot and care prices, which are a different offer there, so it is left out.
+export function Calculator({pilot=true}:{pilot?:boolean}){
  const {cur,go}=useIx();
  const [c,setC]=useState({items:600,min:6,cost:18,share:60,lost:8,deal:400});
  const used=useRef(false);
@@ -245,7 +247,7 @@ export function Calculator(){
  return (
   <section data-screen-label="Calculator" className="band-white bordered">
    <div className="wrap sec">
-    <div data-reveal=""><h2 className="h2 mw820">How much could you save?</h2><p className="lead">Enter your numbers to see the hours AI could free up, the revenue from leads you lose today and how fast a pilot pays back.</p></div>
+    <div data-reveal=""><h2 className="h2 mw820">How much could you save?</h2><p className="lead">{pilot?'Enter your numbers to see the hours AI could free up, the revenue from leads you lose today and how fast a pilot pays back.':'Enter your numbers to see the hours AI could free up and the revenue from leads you lose today.'}</p></div>
     <div className="ix-calc mt28">
      <div className="ix-calc-inputs">{inputs.map(([k,l,mn,mx,st,d])=><label key={k} className="calc-field"><span className="calc-label">{l}<b>{d}</b></span>
       <input type="range" min={mn} max={mx} step={st} value={c[k]} style={{'--p':((c[k]-mn)/(mx-mn))*100+'%'} as React.CSSProperties} onChange={e=>{if(!used.current){used.current=true;track('calculator_use')}setC({...c,[k]:+e.target.value})}}/></label>)}</div>
@@ -255,7 +257,7 @@ export function Calculator(){
        <div><small>Savings per month</small><b>{fmt(money,cur)}</b></div>
        <div className="ix-span"><small>Revenue from lost leads</small><b className="ix-mid">+{fmt(leads,cur)}</b><small>if one in five becomes a customer</small></div>
       </div>
-      <p className="ix-payback">A pilot from <b>{fmt(promo(price('pilot',cur)),cur)}</b> pays back, even with care at {fmt(promo(price('care',cur)),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>
+      {pilot&&<p className="ix-payback">A pilot from <b>{fmt(promo(price('pilot',cur)),cur)}</b> pays back, even with care at {fmt(promo(price('care',cur)),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>}
       <a href="#contact" onClick={e=>{e.preventDefault();go('Savings estimate: '+hours+' h and '+fmt(money,cur)+' a month')}} className="btn btn-primary ix-btn-48">Discuss my estimate<Icon name="arrow-right" size={16}/></a>
       <p className="ix-calc-note">An estimate based on your inputs. We measure the real effect in a pilot.</p>
      </div>
@@ -673,6 +675,24 @@ export function ShortAnswer({entity}:{entity:Entity}){
  );
 }
 
+// Blog articles that cover this page's topic (lib/related-articles.ts): the ones linking here, newest first.
+export function RelatedGuides(){
+ const {route}=useIx();
+ const items=intlRelated(posts,routePath(route).slice(1));
+ if(!items.length)return null;
+ return (
+  <section data-screen-label="Related guides" className="wrap sec">
+   <h2 data-reveal="" className="h2">Related guides</h2>
+   <div className="ix-cards mt28" data-stagger="">{items.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
+    <span className="ix-post-cat">{p.cat}</span>
+    <h3>{p.title}</h3>
+    <p>{p.excerpt}</p>
+    <small>{p.dateLabel} · {p.minutes} min read</small>
+   </a>)}</div>
+  </section>
+ );
+}
+
 // ---------- About, security, legal ----------
 export function AboutStory(){
  return (
@@ -857,6 +877,8 @@ function relatedPosts(post:Post):[string,string][]{
 }
 
 export function Article({post}:{post:Post}){
+ const {waText}=useIx();
+ const wa=contacts.whatsapp+'?text='+encodeURIComponent(waText);
  return (
   <article data-screen-label="Article" className="ix-article">
    <header className="ix-inner"><div aria-hidden="true" className="ix-inner-glow"/>
@@ -878,12 +900,20 @@ export function Article({post}:{post:Post}){
     <nav aria-label="Contents" className="ix-toc"><small>Contents</small>{post.blocks.map(b=><a key={b.h} href={'#'+anchor(b.h)}>{b.h}</a>)}</nav>
     <div className="ix-article-body">
      <div className="ix-answer-box"><b>Short answer</b><p>{post.answer}</p></div>
+     <div className="ix-article-ask"><p>In 30 minutes we show which tasks to hand to AI and what it saves.</p><BookLink className="btn btn-primary btn-sm">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></div>
      {post.blocks.map(b=><section key={b.h} id={anchor(b.h)}>
       <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>In 30 minutes we estimate the hours AI could save you and give you a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></aside>
      <div className="ix-article-links"><b>Related pages</b>{[...post.links,...relatedPosts(post)].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
+    {/* Wide screens only: the empty right column holds the audit and WhatsApp; phones have the bottom bar. */}
+    <aside aria-label="Free 30-minute audit" className="ix-article-side">
+     <b>Free 30-minute audit</b>
+     <BookLink className="btn btn-primary btn-block">Book a free call<Icon name="arrow-right" size={16}/></BookLink>
+     <a href={wa} target="_blank" rel="noopener" className="btn btn-ghost btn-block ix-side-wa"><Icon name="whatsapp" size={18}/>WhatsApp</a>
+     <p>Message us on WhatsApp and we will suggest where to start.</p>
+    </aside>
    </div>
   </article>
  );

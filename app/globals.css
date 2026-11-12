@@ -654,6 +654,8 @@ main{outline:none}
 .footer-langs a{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:#a9b3c6}
 .footer-langs a.is-current,.footer-langs a:hover{color:#fff}
 @media(max-width:1100px){.footer-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.footer-brand{grid-column:1 / -1}}
+/* .ge footer: twelve industries take the full width in two columns on phones. */
+@media(max-width:600px){.footer-col-wide{grid-column:1 / -1;columns:2;column-gap:20px}.footer-col-wide .footer-h{column-span:all}.footer-col-wide .footer-link{break-inside:avoid}}
 @media(max-width:600px){.footer-in{padding-top:44px}.footer-grid{grid-template-columns:1fr 1fr;gap:36px 20px;padding-bottom:32px}.footer-bottom{flex-direction:column;align-items:flex-start}}
 
 /* Mobile sticky call to action */
@@ -1276,6 +1278,7 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .ix-foot-legal a{color:#a9b3c6}
 .ix-foot-legal a:hover{color:#fff}
 .ix .footer .btn-white{margin-top:26px}
+.ix .footer-grid{grid-template-columns:minmax(0,4fr) repeat(4,minmax(0,2fr))}
 @media(max-width:1100px){.ix .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ix .footer-grid>div:first-child{grid-column:1 / -1}}
 @media(max-width:600px){.ix .footer-grid{grid-template-columns:1fr}.ix .footer-bottom{flex-direction:column;align-items:flex-start}}
 
@@ -1472,7 +1475,7 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 @media(prefers-reduced-motion:reduce){.sc-in{opacity:1;transform:none}}
 
 /* praxenai.com blog */
-.ix-post h2{font-size:21px;font-weight:600;line-height:1.3;letter-spacing:-.02em;margin:12px 0 8px}
+.ix-post h2,.ix-post h3{font-size:21px;font-weight:600;line-height:1.3;letter-spacing:-.02em;margin:12px 0 8px}
 .ix-post p{font-size:15px;line-height:1.6;color:var(--body)}
 .ix-post small{margin-top:auto;padding-top:16px;font-size:13px;color:var(--muted)}
 .ix-post-cat{font-size:13px;font-weight:600;color:var(--accent)}
@@ -1540,6 +1543,18 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .ix-article-cta p{margin:8px 0 18px;font-size:15px;line-height:1.55;color:var(--body)}
 .ix-article-links{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .ix-article-links b{font-size:17px}
+/* Short call to action under the short answer, and the sticky audit / WhatsApp card in the right column (wide screens). */
+.ix-article-ask{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-top:-16px;padding:14px 18px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.ix-article-ask p{flex:1 1 260px;font-size:15.5px;line-height:1.5;color:var(--ink);font-weight:500}
+.ix-article-side{display:none}
+@media(min-width:1280px){
+ .ix-article-grid{grid-template-columns:220px minmax(0,1fr) 232px}
+ .ix-article-side{position:sticky;top:96px;display:flex;flex-direction:column;gap:12px;padding:22px 20px;border-radius:16px;background:radial-gradient(ellipse at 100% 0%,#dfe7ff,transparent 60%),var(--soft);border:1px solid #d6e0f5}
+ .ix-article-side b{font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+ .ix-article-side .btn-block{margin-top:0;padding:0 12px;white-space:normal;text-align:center}
+ .ix-article-side .ix-side-wa{gap:8px;background:#fff}
+ .ix-article-side p{font-size:14px;line-height:1.5;color:var(--body)}
+}
 @media(max-width:1100px){.ix-article-grid{grid-template-columns:1fr}.ix-toc{display:none}}
 @media(max-width:600px){.ix-article-body h2{font-size:24px}.ix-article-body section p,.ix-article-body ul,.ix-answer-box p{font-size:17px}}
 

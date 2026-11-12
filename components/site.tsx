@@ -18,7 +18,7 @@ import {LeadPopup} from '@/components/praxen/lead-popup';
 import {CookieOffset} from '@/components/cookie-offset';
 import {Privacy} from '@/components/praxen/privacy';
 import {About,Security,aboutLabel,securityLabel} from '@/components/praxen/company';
-import {BlogList,GeArticle,blogLabel} from '@/components/praxen/blog';
+import {BlogList,GeArticle,RelatedArticles,blogLabel} from '@/components/praxen/blog';
 import {geArticle,geArticles} from '@/lib/ge-blog';
 import {modifiedOf,newestOf} from '@/lib/freshness';
 import {Quiz} from '@/components/praxen/quiz';
@@ -31,6 +31,8 @@ import {ChatbotPage,chatbotLabel} from '@/components/praxen/chatbot';
 import {chatbotPage} from '@/lib/chatbot-page';
 
 type Props={lang?:Lang;section?:string;slug?:string;data?:PageData};
+// Department and industry pages where a chatbot is the usual first step: they also link to the chatbot page.
+const chatbotTopics=['support','sales','hotels','clinics','restaurants','retail'];
 
 export default function Site({lang='en',section='home',slug,data={}}:Props){
  const c=copyFn(lang);
@@ -67,7 +69,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  ];
  const partnerFaq:[string,string][]=[[c('Сколько я получу?','How much will I earn?','რამდენს მივიღებ?'),c('30% с суммы первого контракта клиента и 20% со всех его дальнейших оплат, пока мы с ним работаем. Если вы привели к нам другого партнёра, получаете 5% с его сделок. Условия фиксируем в партнёрском договоре.','30% of the client’s first contract and 20% of every later payment for as long as we work with them. If you bring in another partner, you earn 5% of their deals. The terms are fixed in a partner agreement.','30% კლიენტის პირველი კონტრაქტიდან და 20% მისი ყველა შემდგომი გადახდიდან, სანამ მასთან ვმუშაობთ. თუ სხვა პარტნიორს მოიყვანთ, მიიღებთ 5%-ს მისი გარიგებებიდან. პირობებს პარტნიორულ ხელშეკრულებაში ვაფიქსირებთ.')],[c('Нужно ли платить за участие?','Is there a fee to join?','მონაწილეობა ფასიანია?'),c('Нет. Вступительного взноса нет: вы получаете деньги только с оплат клиентов.','No. There is no entry fee: you only earn from client payments.','არა. გაწევრიანების გადასახადი არ არის: შემოსავალს მხოლოდ კლიენტების გადახდებიდან იღებთ.')],[c('Нужно ли разбираться в ИИ?','Do I need to know AI?','AI‑ში უნდა ვერკვეოდე?'),c('Нет. Достаточно знать задачи клиента. Аудит, расчёт и внедрение берём на себя, а вам даём презентации для клиентов.','No. Knowing the client’s needs is enough. We handle the audit, estimate and delivery and give you presentations for your clients.','არა. საკმარისია კლიენტის ამოცანების ცოდნა. აუდიტს, გათვლასა და დანერგვას ჩვენ ვაკეთებთ, თქვენ კი კლიენტებისთვის პრეზენტაციებს გაძლევთ.')],[c('Можно работать под нашим брендом?','Can you deliver under our brand?','შეიძლება ჩვენი ბრენდით?'),c('Да, для агентств и интеграторов делаем внедрения под вашим брендом. Условия обсуждаем отдельно.','Yes, for agencies and integrators we deliver under your brand. Terms are agreed separately.','დიახ, სააგენტოებისა და ინტეგრატორებისთვის ვმუშაობთ თქვენი ბრენდით. პირობებს ცალკე ვათანხმებთ.')],[c('Когда выплачивается вознаграждение?','When am I paid?','როდის ხდება ანაზღაურება?'),c('После каждой оплаты клиента: пилота, внедрения, разработки или месяца ведения.','After every client payment: a pilot, implementation, custom build or month of support.','კლიენტის ყოველი გადახდის შემდეგ: პილოტის, დანერგვის, შემუშავების ან მომსახურების თვის.')]];
  const detailHead=slug==='leadership'?c('ИИ-стратегия','an AI strategy','AI სტრატეგია'):isDetail?(ov?.h1.split(':')[0].trim()||t(ent!.name,lang)):'';
- const detailCost:[string,string]=[c('Сколько стоит '+detailHead+'?','How much does '+detailHead+' cost?','რა ღირს '+detailHead+'?'),c('Внедрение готовых инструментов — от 3 200 ₾ ($1 200): пилот на одном процессе за 2–4 недели на ваших реальных данных. Если нужна разработка под ваши системы — от 6 700 ₾ ($2 500), дополнительное ведение — от 550 ₾ в месяц. Аудит бесплатный, цену пилота фиксируем до старта.','Implementing ready tools starts at 3,200 ₾ ($1,200): a pilot on one workflow in 2–4 weeks on your real data. Custom development for your systems starts at 6,700 ₾ ($2,500), ongoing maintenance from 550 ₾ a month. The audit is free and the pilot price is fixed before work begins.','მზა ინსტრუმენტების დანერგვა — 3 200 ₾‑დან ($1 200): პილოტი ერთ პროცესზე 2–4 კვირაში თქვენს რეალურ მონაცემებზე. თქვენს სისტემებზე მორგებული შემუშავება — 6 700 ₾‑დან ($2 500), დამატებითი მომსახურება — 550 ₾‑დან თვეში. აუდიტი უფასოა, პილოტის ფასს სამუშაოს დაწყებამდე ვაფიქსირებთ.')];
+ const detailCost:[string,string]=[c('Сколько стоит '+detailHead+'?','How much does '+detailHead+' cost?','რა ღირს '+detailHead+'?'),data.answer?t(data.answer.cost,lang):costAnswer];
  // Each list and company page has its own questions (lib/ge-faq.ts), so FAQ blocks do not repeat between pages.
  const g=geFaq(c),[,costFaq,,trainingFaq,systemsFaq,mistakeFaq,langFaq]=genFaq;
  const pageFaq:Record<string,[string,string][]>={home:[aboutFaq,costFaq,agentFaq,langFaq],solutions:[g.excluded,g.support,g.pilotPrice],training:[trainingFaq,g.trainingHow,g.trainingLang],cases:[g.casesReal,g.measure],industries:[g.notListed,systemsFaq],departments:deptFaq.filter(([,a])=>a!==costAnswer),about:[g.who,g.onSite],security:[mistakeFaq,g.dataTraining,g.whoSees]};
@@ -89,10 +91,11 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
   :section==='departments'?[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Бэк-офис','Back office','ბექ‑ოფისი'),'HR',c('Маркетинг','Marketing','მარკეტინგი'),c('Финансы','Finance','ფინანსები'),c('Закупки','Procurement','შესყიდვები')]
   :defaultOptions),s.other];
 
+ // The footer lists every department and industry, so each detail page is linked from every page (header menus open on demand).
  const footerCols=[
-  {title:s.footerExplore,links:[...['solutions','training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:link('about'),label:c('О нас','About','ჩვენ შესახებ'),contact:false},{href:link('blog'),label:c('Блог','Blog','ბლოგი'),contact:false},{href:link('security'),label:c('Безопасность и данные','Security and data','უსაფრთხოება და მონაცემები'),contact:false},{href:'#contact',label:s.action,contact:true}]},
-  {title:sectionLabel(c,'departments'),links:departments.slice(0,4).map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
-  {title:sectionLabel(c,'industries'),links:[...industries.slice(0,4).map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
+  {title:s.footerExplore,links:[{href:link('solutions'),label:sectionLabel(c,'solutions'),contact:false},{href:link('chatbot'),label:chatbotLabel(x),contact:false},...['training','cases'].map(k=>({href:link(k),label:sectionLabel(c,k),contact:false})),{href:link('partners'),label:c('Партнёрам','Partners','პარტნიორებს'),contact:false},{href:link('about'),label:c('О нас','About','ჩვენ შესახებ'),contact:false},{href:link('blog'),label:c('Блог','Blog','ბლოგი'),contact:false},{href:link('security'),label:c('Безопасность и данные','Security and data','უსაფრთხოება და მონაცემები'),contact:false},{href:'#contact',label:s.action,contact:true}]},
+  {title:sectionLabel(c,'departments'),links:departments.map(d=>({href:link('departments/'+d.slug),label:t(d.name,lang),contact:false}))},
+  {title:sectionLabel(c,'industries'),links:[...industries.map(i=>({href:link('industries/'+i.slug),label:t(i.name,lang),contact:false})),{href:link('industries'),label:s.allIndustries,contact:false}]}
  ];
  const langs=([['en','EN'],['ka','KA'],['ru','RU']] as [Lang,string][]).filter(([code])=>languages.includes(code));
  // An article that has no version in a language links to that language's blog list instead.
@@ -125,7 +128,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
     {section==='solutions'&&!isDetail&&<AuditReport x={x}/>}
     {isHome&&<div className="desktop-only"><AuditReport x={x}/></div>}
     {isHome&&<Team x={x}/>}
-    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/>{section==='industries'&&<IndustryDepartments x={x} slug={slug!}/>}<PilotSteps x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/></>}
+    {isDetail&&<><Scenarios x={x} slug={slug!}/><Tested x={x} slug={slug!}/><Related x={x} slug={slug!}/>{section==='industries'&&<IndustryDepartments x={x} slug={slug!}/>}<PilotSteps x={x} slug={slug!}/><DetailAnswer x={x} slug={slug!}/><RelatedArticles x={x} page={section+'/'+slug} extra={chatbotTopics.includes(slug!)?['chatbot',chatbotLabel(x)]:undefined}/></>}
     {!isPrivacy&&<>{faqItems.length>0&&<Faq x={x} items={faqItems} title={faqTitle} sub={isPartners?c('Про вознаграждение, выплаты и формат работы. Остальное обсудим на созвоне.','On rewards, payouts and how we work together. Everything else we cover on a call.','ანაზღაურებაზე, გადახდებსა და თანამშრომლობის ფორმატზე. დანარჩენს ზარზე განვიხილავთ.'):undefined}/>}
     <Contact x={x} options={options} context={context} setContext={setContext}/></>}
    </main>
@@ -140,13 +143,13 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
        <div className="footer-contacts"><a href={'tel:'+contacts.phone} className="footer-phone"><Icon name="phone" size={16}/>{contacts.phoneLabel}</a><a href={contacts.whatsapp} target="_blank" rel="noopener" className="footer-phone"><Icon name="whatsapp" size={16}/>WhatsApp</a><a href={'mailto:'+contacts.email} className="footer-phone"><Icon name="mail" size={16}/>{contacts.email}</a></div>
        <a href="#contact" onClick={toContact} className="btn btn-white">{s.action}<Icon name="arrow-right" size={16}/></a>
       </div>
-      {footerCols.map(col=><div key={col.title}>
+      {footerCols.map((col,i)=><div key={col.title} className={i===2?'footer-col-wide':undefined}>
        <h2 className="footer-h">{col.title}</h2>
        {col.links.map(l=><a key={l.href} href={l.href} onClick={l.contact?toContact:undefined} className="footer-link">{l.label}</a>)}
       </div>)}
      </div>
      <div className="footer-bottom">
-      <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a> · <a href={base+langPath(lang)+'/webinar/terms'} className="footer-privacy">{c('Оферта','Public offer','ოფერტა')}</a></span><span>{s.footerServices}</span>
+      <span>© 2026 Praxen AI · {s.location} · <a href={link('privacy')} className="footer-privacy">{c('Конфиденциальность','Privacy','კონფიდენციალურობა')}</a></span><span>{s.footerServices}</span>
       {langs.length>1&&<div className="footer-langs">{langs.map(([code,lb])=><a key={code} href={base+langPath(code)+langRest(code)||'/'} lang={code} hrefLang={code} className={code===lang?'is-current':''}><Flag code={code}/>{lb}</a>)}</div>}
      </div>
     </div>

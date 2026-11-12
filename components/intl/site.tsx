@@ -1,5 +1,6 @@
 'use client';
 // praxenai.com shell: header with mega-menus, page composition, footer, mobile sticky bar.
+// Footer lists every service, department and industry, so each detail page is linked from all pages (header menus open on demand).
 // Layout and blocks follow the Claude Design handoff v4; pages are server-rendered in GBP and the
 // visitor can switch the pricing block to $ or € (one currency per page, remembered on this device).
 import {useCallback,useEffect,useRef,useState,useSyncExternalStore} from 'react';
@@ -13,7 +14,7 @@ import {CookieOffset} from '@/components/cookie-offset';
 import type {X} from '@/components/praxen/types';
 import {copyFn,type SiteCopy} from '@/lib/site-copy';
 import {Icon} from './icon';
-import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,EntityGuide,PilotPlan,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
+import {AboutStory,Article,AuditReport,BlogList,BookLink,Calculator,Cards,CaseDetails,TrainingPrice,Contact,Doc,Faq,Partners,Hero,InnerHero,IntlCtx,EntityGuide,PilotPlan,Marquee,OneSystem,Pricing,Process,Quiz,ReceptionistPrice,RelatedGuides,Results,Scenarios,Security,ShortAnswer,SmallPerks,SmallPricing,SmallScenarios,SmallStrip,SolutionExamples,Team,Tabs,Tested,Trust,link} from './blocks';
 
 type Drop='services'|'industries'|'departments';
 // Same menu as praxenai.ge (Solutions, Departments, Industries, Training, Cases, Blog). The Solutions menu
@@ -70,6 +71,7 @@ function Header({route,open,setOpen}:{route:IntlRoute;open:boolean;setOpen:(v:bo
 function Footer(){
  const cols:[string,[string,string][]][]=[
   ['Services',services.map(x=>[x.name,servicePath(x.slug)])],
+  ['Departments',departments.map(x=>[x.name,'departments/'+x.slug])],
   ['Industries',industries.map(x=>[x.name,'industries/'+x.slug])],
   ['Company',[['Pricing','solutions'],['Small businesses','ai-for-small-business'],['Cases','cases'],['About','about'],['Blog','blog'],['Partners','partners']]],
  ];
@@ -97,7 +99,7 @@ function Page({route}:{route:IntlRoute}){
  const group=page==='training'?'services':page;
  if(page==='home')return <><Hero/><Marquee/><Results/><Quiz/><Pricing/><SmallStrip/><Trust/><AuditReport/><Team/></>;
  if(page==='ai-for-small-business')return <><Hero small/><SmallPerks/><SmallScenarios/><SmallPricing/></>;
- if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><EntityGuide entity={e}/><PilotPlan entity={e} group={group}/><ShortAnswer entity={e}/></>;
+ if(e)return <><InnerHero entity={e}/>{e.pricing&&<ReceptionistPrice/>}{e.slug==='ai-training'&&<TrainingPrice/>}<Scenarios entity={e} group={group}/>{e.slug==='ai-consultancy'&&<AuditReport variant="consultancy"/>}{e.slug!=='ai-training'&&<Tabs entity={e} group={group}/>}<Tested entity={e}/><EntityGuide entity={e}/><PilotPlan entity={e} group={group}/>{e.slug==='ai-receptionist'&&<Calculator pilot={false}/>}<ShortAnswer entity={e}/><RelatedGuides/></>;
  if(page==='cases')return <><InnerHero/><CaseDetails/></>;
  if(page==='services'||page==='industries'||page==='departments')return <><InnerHero/><Cards page={page}/>{page==='departments'&&<OneSystem/>}</>;
  if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/></>;
