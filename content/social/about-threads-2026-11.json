@@ -1,12 +1,11 @@
 {
- "about": "Threads posts added to November by the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 3.1): week 23–29 November, Н13 and Н14. Text-only, rules of docs/THREADS-PLAYBOOK.md. Captions: content/social/out/about-threads-2026-11/<id>/captions.md, section threads, parts split by ---.",
+ "about": "Threads posts added to November by the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 3.1): week 23–29 November, Н13 and Н14. Н13 «Почему Батуми» (t32-why-batumi) replaced by the owner's decision of 12 November with t32b-quick-replies (tool of the week). Text-only, rules of docs/THREADS-PLAYBOOK.md. Captions: content/social/out/about-threads-2026-11/<id>/captions.md, section threads, parts split by ---.",
  "posts": [
   {
-   "id": "t32-why-batumi",
+   "id": "t32b-quick-replies",
    "date": "2026-11-29",
    "time": "11:00",
-   "slides": [],
-   "off": "Ждёт фактов владельца (план, раздел 6, метка [Ф]): почему Praxen AI в Батуми. Без них пост не выходит"
+   "slides": []
   },
   {
    "id": "t33-what-worries",
