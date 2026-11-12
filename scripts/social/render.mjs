@@ -673,6 +673,118 @@ const fitScript=()=>{
  }
 };
 
+// Templates for posts with "type" (see the head of the file): the blog article preview and the Reels cover.
+const TPL={feed:[1080,1350],story:[1080,1920],tg:[1280,720]};
+const tplUi={
+ blog:{ka:'ბლოგის სტატია',ru:'Статья в блоге',en:'Blog article'},
+ read:{ka:'წაიკითხეთ',ru:'Читать статью',en:'Read the article'},
+ min:{ka:'წთ კითხვა',ru:'мин чтения',en:'min read'},
+ sticker:{ka:'სტატია ბმულზე',ru:'Статья по ссылке',en:'Article at the link'},
+};
+// The logo mark drawn large behind the text (brand shapes: the bar and the square).
+const bigMark='<svg class="t-mark" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18"/><rect x="12" y="3" width="9" height="9" class="sq"/></svg>';
+const arrowSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+function tplHtml(post,l,fmt){
+ const s=post.slides?.[0]||{},[w,h]=TPL[fmt],kind=post.type;
+ const accent=s.accent||(kind==='reels'?'grad':'ink');
+ const logo=accent==='yellow'?logoDark:accent==='grad'?logoOnGrad:logoWhite;
+ const domain=esc(s.domain||siteName);
+ let body;
+ if(kind==='article'){
+  const meta=`<span class="t-tag">${esc(tr(tplUi.blog,l))}</span>${s.minutes?`<span class="t-min">${esc(s.minutes)} ${esc(tr(tplUi.min,l))}</span>`:''}`;
+  body=`${bigMark}<header><div class="logo">${logo}</div><div class="t-meta">${meta}</div></header>
+  <main><div class="t-rubric">${rich(s.rubric,l)}</div><h1 class="t-title">${rich(s.title,l)}</h1>
+  ${s.benefit?`<p class="t-benefit"><i>${arrowSvg}</i><span>${rich(s.benefit,l)}</span></p>`:''}</main>
+  ${fmt==='story'?`<div class="t-sticker"><span>${esc(tr(tplUi.sticker,l))}</span><b>↓</b></div>`:''}
+  <footer><span class="t-domain">${domain}</span>${fmt==='story'?'':`<span class="t-read">${esc(tr(tplUi.read,l))} ${arrowSvg}</span>`}</footer>`;
+ }else if(kind==='reels'){
+  body=`${bigMark}<header><div class="logo">${logo}</div></header>
+  <main>${s.kicker?`<div class="t-rubric">${rich(s.kicker,l)}</div>`:''}<h1 class="t-title">${rich(s.title,l)}</h1></main>
+  <footer><span class="t-domain">${domain}</span></footer>`;
+ }else throw new Error(`${post.id}: unknown type "${kind}"`);
+ const css=`*{box-sizing:border-box;margin:0;padding:0}
+body{width:${w}px;height:${h}px;font-family:Manrope,'Noto Sans Georgian',sans-serif;-webkit-font-smoothing:antialiased}
+.t{width:${w}px;height:${h}px;position:relative;overflow:hidden;display:flex;flex-direction:column;color:#fff}
+.t.ink{background:radial-gradient(120% 80% at 100% 0%,#24346b 0%,#121a2b 55%)}
+.t.grad{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%)}
+.t.yellow{background:#ffd166;color:#121a2b}
+.t>*{position:relative;z-index:1}
+.t-mark{position:absolute!important;z-index:0!important;fill:#7b95ff;opacity:.13}.t-mark .sq{fill:#ffd166}
+.t.grad .t-mark{fill:#fff;opacity:.14}.t.yellow .t-mark{fill:#121a2b;opacity:.08}.t.grad .t-mark .sq,.t.yellow .t-mark .sq{fill:inherit}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo svg{display:block;width:auto}
+.t-meta{display:flex;gap:16px;align-items:center;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#c9d1e3}
+.t-tag{border:2px solid #ffffff59;border-radius:999px;padding:8px 20px}
+.t-min{color:#a9b3c6}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.t-rubric{align-self:flex-start;background:#ffd166;color:#121a2b;border-radius:999px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+.t.yellow .t-rubric{background:#121a2b;color:#ffd166}
+.t-title{font-weight:800;letter-spacing:-.035em;line-height:1.04;overflow-wrap:normal}
+.t-title em{font-style:normal;color:#ffd166}.t.yellow .t-title em{color:#2755ec}
+.t-benefit{display:flex;align-items:flex-start;color:#dfe4f0;font-weight:600;line-height:1.3}
+.t-benefit i{flex:none;display:grid;place-items:center;border-radius:50%;background:#315bf5;color:#fff}
+.t-benefit i svg{width:55%;height:55%}
+.t-benefit em{font-style:normal;color:#ffd166}
+footer{display:flex;justify-content:space-between;align-items:center}
+.t-domain{font-weight:800;letter-spacing:-.01em}
+.t-read{display:inline-flex;align-items:center;gap:.45em;background:#ffd166;color:#121a2b;border-radius:999px;font-weight:800}
+.t-read svg{width:1.1em;height:1.1em}
+.t-sticker{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;color:#c9d1e3;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.t-sticker b{font-size:1.6em;line-height:1;color:#ffd166}
+${{
+ // 4:5 feed card
+ feed:`.t{padding:72px 84px 68px}.logo svg{height:44px}.t-meta{font-size:22px}
+ .t-mark{width:760px;height:760px;right:-250px;top:-60px}
+ .t-rubric{font-size:24px;padding:12px 26px;margin-bottom:40px}
+ .t-title{font-size:88px}
+ .t-benefit{gap:24px;margin-top:48px;font-size:38px;max-width:880px}.t-benefit i{width:56px;height:56px;margin-top:2px}
+ footer{border-top:2px solid #ffffff26;padding-top:36px}.t-domain{font-size:34px}.t-read{font-size:28px;padding:18px 30px}`,
+ // 9:16 story: header below the Instagram bar (y ≥ 270), the sticker band y ≈ 1320–1520, nothing in the bottom 340 px
+ story:kind==='reels'?`.t{padding:300px 84px 430px}.logo svg{height:52px}
+ .t-mark{width:900px;height:900px;right:-330px;top:120px}
+ .t-rubric{font-size:30px;padding:14px 30px;margin-bottom:44px}
+ .t-title{font-size:150px;line-height:1;text-transform:uppercase;letter-spacing:-.04em}
+ .t.grad .t-rubric{transform:rotate(-2deg);border-radius:14px}
+ footer{font-size:34px}.t-domain{font-size:34px;opacity:.85}`
+ :`.t{padding:270px 84px 340px}.logo svg{height:52px}.t-meta{font-size:24px}
+ .t-mark{width:900px;height:900px;right:-330px;top:240px}
+ .t-rubric{font-size:28px;padding:14px 30px;margin-bottom:44px}
+ .t-title{font-size:104px}
+ .t-benefit{gap:26px;margin-top:52px;font-size:44px}.t-benefit i{width:64px;height:64px;margin-top:2px}
+ .t-sticker{height:240px;font-size:26px;padding-top:24px}
+ footer{justify-content:center}.t-domain{font-size:36px;opacity:.85}`,
+ // 16:9 Telegram picture
+ tg:`.t{padding:52px 72px 48px}.logo svg{height:38px}.t-meta{font-size:18px}
+ .t-mark{width:620px;height:620px;right:-150px;top:30px}
+ .t-rubric{font-size:19px;padding:9px 20px;margin-bottom:26px}
+ .t-title{font-size:64px;max-width:1040px}
+ .t-benefit{gap:18px;margin-top:28px;font-size:29px;max-width:1000px}.t-benefit i{width:42px;height:42px;margin-top:0}
+ footer{padding-top:24px;border-top:2px solid #ffffff26}.t-domain{font-size:28px}.t-read{font-size:22px;padding:13px 24px}`,
+}[fmt]}`;
+ return `<!doctype html><html lang="${l}"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap">
+<style>${css}</style></head><body><section class="t ${accent} f-${fmt}">${body}</section></body></html>`;
+}
+// Shrinks the title (and the benefit line) until main fits and no word sticks out sideways.
+const tplFitScript=()=>{
+ const main=document.querySelector('main'),t=document.querySelector('.t-title'),b=document.querySelector('.t-benefit');let g=60;
+ const over=()=>main.scrollHeight>main.clientHeight+1||t.scrollWidth>t.clientWidth+1||(b&&b.scrollWidth>b.clientWidth+1);
+ while(over()&&g--){for(const el of [t,b].filter(Boolean)){const fs=parseFloat(getComputedStyle(el).fontSize);el.style.fontSize=(el===t?fs*0.95:Math.max(fs*0.97,fs-1))+'px'}}
+};
+async function renderTemplate(pageObj,post,l,dir){
+ const main=post.format||(batch.size==='story'?'story':'feed');
+ const fmts=post.type==='reels'?[['story','1']]:[['feed','feed'],['story','story'],['tg','tg'],[main,'1']];
+ for(const [fmt,name] of fmts){
+  const [w,h]=TPL[fmt];
+  await pageObj.setViewportSize({width:w,height:h});
+  await pageObj.setContent(tplHtml(post,l,fmt),{waitUntil:'networkidle'});
+  await pageObj.evaluate(()=>document.fonts.ready);
+  await pageObj.evaluate(tplFitScript);
+  await pageObj.screenshot({path:join(dir,`${l}-${name}.jpg`),type:'jpeg',quality:90});
+ }
+ await pageObj.setViewportSize({width:W,height:H});
+}
+
 const {chromium}=await loadPlaywright();
 const browser=await chromium.launch();
 const ctx=await browser.newContext({viewport:{width:W,height:H},deviceScaleFactor:1});
@@ -683,6 +795,7 @@ for(const post of posts){
  if(!onlyLang&&!coverOnly) rmSync(dir,{recursive:true,force:true});
  mkdirSync(dir,{recursive:true});
  for(const l of langs){
+  if(post.type){await renderTemplate(pageObj,post,l,dir);continue;}
   // Facebook gets the cover alone (several photos are cropped into a grid): <lang>-fb.jpg, without "1/3" and "Swipe".
   if(batch.size!=='story'&&post.slides.length>1){
    await pageObj.setContent(page(slideHtml(post.slides[0],l,0,1,post.accent,true,post.style,post),l),{waitUntil:'networkidle'});
@@ -699,6 +812,7 @@ for(const post of posts){
   }
  }
  if(coverOnly){console.log(`${post.id}: Facebook cover`);continue;}
+ if(post.type&&!post.text){console.log(`${post.id}: ${post.type} template`);continue;}
  // Captions with the tracked link, ready to paste.
  const link=(l)=>{const u=new URL(post.link||'https://'+siteName+'/'+l);if(!post.link) u.pathname=l==='en'?'/':'/'+l;else u.pathname=u.pathname.replace(/^\/(ka|ru|en)(?=\/|$)/,l==='en'?'':'/'+l)||'/';
   u.searchParams.set('utm_source',process.env.UTM_SOURCE||'facebook');u.searchParams.set('utm_medium','social');u.searchParams.set('utm_campaign',(post.campaign||batch.campaign||'organic_{month}').replace('{month}',String(post.date).slice(0,7)));u.searchParams.set('utm_content',post.id);return u.toString();};
