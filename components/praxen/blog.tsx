@@ -3,9 +3,8 @@
 // The article layout reuses the praxenai.com article classes in globals.css.
 import {base,homeHref,pageHref} from '@/lib/base';
 import {ArticleBlock} from '@/components/article-blocks';
-import {geArticles,type GePost} from '@/lib/ge-blog';
-import {dateLabelOf} from '@/lib/freshness';
-import {geRelated} from '@/lib/related-articles';
+import type {GePost} from '@/lib/ge-blog';
+import {dateLabelOf} from '@/lib/dates';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
 import {Icon} from './icon';
@@ -16,10 +15,9 @@ const langName:Record<Lang,string>={ru:'Русский',en:'English',ka:'ქა�
 
 export function BlogList({x}:{x:X}){
  const {c,lang}=x;
- // A language without its own version lists the other languages' versions, marked by language.
- // Newest article first (owner, 2 November); articles of the same day: the one added last comes first.
- const newest=geArticles.map((a,i)=>({a,i})).sort((p,q)=>q.a.date.localeCompare(p.a.date)||q.i-p.i).map(x=>x.a);
- const items=newest.flatMap(a=>{const own=a.langs[lang];if(own)return [{a,post:own,l:lang}];return (['ru','en'] as Lang[]).filter(l=>a.langs[l]).map(l=>({a,post:a.langs[l]!,l}))});
+ // The cards come from the server (lib/page-data.ts): newest first; a language without its own version
+ // lists the other languages' versions, marked by language.
+ const items=x.data.cards||[];
  return (<>
   <section data-screen-label="Inner hero" className="inner-hero">
    <div className="wrap inner-pad">
@@ -31,12 +29,12 @@ export function BlogList({x}:{x:X}){
    </div>
   </section>
   <section data-screen-label="Blog list" className="wrap sec">
-   <div className="ix-cards" data-stagger="">{items.map(({a,post,l})=><a key={a.slug+l} href={pageHref(l,'blog/'+a.slug)} hrefLang={l} className="card ix-card-lift ix-post">
+   <div className="ix-cards" data-stagger="">{items.map(post=>{const l=post.l;return <a key={post.slug+l} href={pageHref(l,'blog/'+post.slug)} hrefLang={l} className="card ix-card-lift ix-post">
     <span className="ix-post-cat">{post.cat}{l!==lang?' · '+langName[l]:''}</span>
     <h2 lang={l}>{post.title}</h2>
     <p lang={l}>{post.excerpt}</p>
     <small>{post.dateLabel} · {post.minutes} {c('мин чтения','min read','წთ')}</small>
-   </a>)}</div>
+   </a>})}</div>
   </section>
  </>);
 }
@@ -44,11 +42,9 @@ export function BlogList({x}:{x:X}){
 const anchor=(h:string,i:number)=>'s'+(i+1);
 export function GeArticle({x,post}:{x:X;post:GePost}){
  const {c,lang,link}=x;
- // Two more articles in this language (the next ones in the list) that the post does not already link to.
- const i=geArticles.findIndex(a=>a.langs[lang]===post),seen=new Set(post.links.map(([h])=>h));
- // Shown only when the article was revised after publication.
- const meta=geArticles[i],updated=meta&&meta.updated&&meta.updated>meta.date?meta.updated:'';
- const related:[string,string][]=[...geArticles.slice(i+1),...geArticles.slice(0,Math.max(i,0))].filter(a=>a.langs[lang]&&!seen.has('blog/'+a.slug)).slice(0,2).map(a=>['blog/'+a.slug,a.langs[lang]!.title]);
+ // Two more articles in this language that the post does not already link to, and the revision date
+ // (shown only when the article was revised after publication); both from the server (lib/page-data.ts).
+ const related=x.data.postMore||[],updated=x.data.postUpdated||'';
  return (
   <article data-screen-label="Article" className="ix-article">
    <header className="inner-hero">
@@ -89,12 +85,12 @@ export function GeArticle({x,post}:{x:X;post:GePost}){
  );
 }
 
-// «Статьи по теме» on department, industry and chatbot pages (lib/related-articles.ts): articles in this language
-// that link to the page come first. `extra` is a plain link line under the cards (the chatbot page on sales,
-// support, hotels, clinics, restaurants and retail); `skip` drops articles the page already links to.
-export function RelatedArticles({x,page,skip,extra}:{x:X;page:string;skip?:string[];extra?:[string,string]}){
- const {c,lang,link}=x;
- const items=geRelated(geArticles,page,lang,skip);
+// «Статьи по теме» on department and industry pages (lib/related-articles.ts, picked on the server in lib/page-data.ts):
+// articles in this language that link to the page come first. `extra` is a plain link line under the cards
+// (the chatbot page on sales, support, hotels, clinics, restaurants and retail).
+export function RelatedArticles({x,extra}:{x:X;extra?:[string,string]}){
+ const {c,link}=x;
+ const items=x.data.articles||[];
  if(!items.length&&!extra)return null;
  return (
   <section data-screen-label="Related articles" className="wrap sec">

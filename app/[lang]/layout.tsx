@@ -39,10 +39,7 @@ export default async function RootLayout({children,params}:Readonly<{children:Re
         <link rel="apple-touch-icon" href={base+'/apple-touch-icon.png'} sizes="180x180"/>
         {/* Meta domain verification of praxenai.ge for the business portfolio 2199775080882690; in <head> for the same reason as the icons. */}
         {!isIntl&&<meta name="facebook-domain-verification" content="k3f518fbiuxbbxbwojy10j85ewj1m9"/>}
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=""/>
-        {/* praxenai.com is English only and does not need the Georgian font. */}
-        <link rel="stylesheet" href={isIntl?'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap':'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap'}/>
+        {/* Fonts are served from this site (@font-face in app/globals.css, files in app/fonts). */}
       </head>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(isIntl?intlOrganizationJsonLd():organizationJsonLd(isLang(lang)?lang:defaultLang)).replace(/</g,'\\u003c')}}/>

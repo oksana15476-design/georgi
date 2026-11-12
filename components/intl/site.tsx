@@ -5,7 +5,8 @@
 // visitor can switch the pricing block to $ or € (one currency per page, remembered on this device).
 import {useCallback,useEffect,useRef,useState,useSyncExternalStore} from 'react';
 import {contacts} from '@/lib/contacts';
-import {posts} from '@/lib/intl-blog';
+import type {Post} from '@/lib/intl-blog';
+import type {RelatedArticle} from '@/lib/related-articles';
 import {ctaFor,departments,entityOf,faqFor,industries,services,servicePath,type Cur,type IntlRoute} from '@/lib/intl';
 import {BookingEmbed} from '@/components/booking';
 import {MotionRoot,Wordmark,scrollToId} from '@/components/praxen/ui';
@@ -93,7 +94,10 @@ function Footer(){
  );
 }
 
-function Page({route}:{route:IntlRoute}){
+// The blog slice this page shows, picked on the server (components/intl/route.tsx).
+export type IntlBlog={post?:Post;more?:[string,string][];cards?:RelatedArticle[];guides?:RelatedArticle[]};
+
+function Page({route,post}:{route:IntlRoute;post?:Post}){
  const e=entityOf(route);
  const {page}=route;
  const group=page==='training'?'services':page;
@@ -105,13 +109,13 @@ function Page({route}:{route:IntlRoute}){
  if(page==='solutions')return <><InnerHero/><Pricing/><Calculator/><SolutionExamples/></>;
  if(page==='about')return <><InnerHero/><AboutStory/><Team variant="about"/><Process/></>;
  if(page==='security')return <><InnerHero/><Security/></>;
- if(page==='blog'){const post=posts.find(p=>p.slug===route.slug);return post?<Article post={post}/>:<><InnerHero/><BlogList/></>}
+ if(page==='blog')return post?<Article post={post}/>:<><InnerHero/><BlogList/></>;
  if(page==='partners')return <><InnerHero/><Partners/></>;
  if(page==='privacy'||page==='terms')return <><InnerHero/><Doc page={page}/></>;
  return null;
 }
 
-export default function IntlSite({route}:{route:IntlRoute}){
+export default function IntlSite({route,blog}:{route:IntlRoute;blog:IntlBlog}){
  const stored=useSyncExternalStore(subscribeCur,readCur,()=>'gbp' as Cur);
  // Without storage (private mode) the switch still works for this page view.
  const [local,setLocal]=useState<Cur|null>(null);
@@ -132,15 +136,15 @@ export default function IntlSite({route}:{route:IntlRoute}){
  const key=e?.slug||route.page;
  const cta=ctaFor(key);
  const docPage=route.page==='privacy'||route.page==='terms'||(route.page==='blog'&&!route.slug);
- const post=route.page==='blog'?posts.find(p=>p.slug===route.slug):undefined;
+ const post=route.page==='blog'?blog.post:undefined;
  const faq=post?{items:post.faq,title:'Questions on this topic.'}:faqFor(route,e,cur);
  return (
-  <IntlCtx.Provider value={{route,cur,setCur,cta,painsKey:key,toContact,go,context,setContext,waText}}>
+  <IntlCtx.Provider value={{route,cur,setCur,cta,painsKey:key,toContact,go,context,setContext,waText,blog}}>
    <div className="site ix">
     <a href="#main" className="skip">Skip to content</a>
     <Header route={route} open={menu} setOpen={setMenu}/>
     <main id="main" tabIndex={-1}>
-     <Page route={route}/>
+     <Page route={route} post={post}/>
      {!docPage&&<Faq items={faq.items} title={faq.title}/>}
      <Contact/>
     </main>

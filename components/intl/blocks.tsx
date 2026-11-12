@@ -5,18 +5,18 @@ import {getAttribution,leadAttribution,setConsent,track} from '@/components/anal
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import {routePath,resultsCheck,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
-import {posts,type Post} from '@/lib/intl-blog';
+import type {Post} from '@/lib/intl-blog';
+import type {IntlBlog} from './site';
 import {dateLabelOf,intlPageModified} from '@/lib/freshness';
 import {ArticleBlock} from '@/components/article-blocks';
 import {entityGuides} from '@/lib/intl-guides';
-import {intlRelated} from '@/lib/related-articles';
 import {Icon} from './icon';
-import {PhoneInput} from '@/components/praxen/phone-input';
+import {PhoneInput,loadPhone} from '@/components/praxen/phone-field';
 import {Scene} from './scene';
 
 // Page context: currency (switched in the pricing block, one currency per page), the page CTA and links.
 // go(topic) scrolls to the form with the topic shown above it and sent with the enquiry; waText pre-fills WhatsApp.
-export type Ctx={route:IntlRoute;cur:Cur;setCur:(c:Cur)=>void;cta:string;painsKey:string;toContact:(e?:React.MouseEvent)=>void;go:(topic:string)=>void;context:string;setContext:(v:string)=>void;waText:string};
+export type Ctx={route:IntlRoute;cur:Cur;setCur:(c:Cur)=>void;cta:string;painsKey:string;toContact:(e?:React.MouseEvent)=>void;go:(topic:string)=>void;context:string;setContext:(v:string)=>void;waText:string;blog:IntlBlog};
 export const IntlCtx=createContext<Ctx>(null!);
 export const useIx=()=>useContext(IntlCtx);
 export const link=(p:string)=>p?pageHref('en',p):homeHref('en');
@@ -123,7 +123,8 @@ export function Quiz(){
  const {cur}=useIx();
  const [qa,setQa]=useState<number[]>([]);
  const qn=qa.length,done=qn>=4;
- const pick=(i:number)=>{if(!qn)track('quiz_start');const next=[...qa,i];setQa(next);if(next.length===4)track('quiz_complete',{industry:quizQ[0][1][next[0]],channel:quizQ[1][1][next[1]]})};
+ // The phone field of the last step starts downloading with the first answer.
+ const pick=(i:number)=>{if(!qn){track('quiz_start');loadPhone()}const next=[...qa,i];setQa(next);if(next.length===4)track('quiz_complete',{industry:quizQ[0][1][next[0]],channel:quizQ[1][1][next[1]]})};
  let res:{name:string;why:string;format:string;was:string;now:string;time:string}|null=null;
  if(done){
   const ch=qa[1],goal=qa[3];
@@ -677,8 +678,8 @@ export function ShortAnswer({entity}:{entity:Entity}){
 
 // Blog articles that cover this page's topic (lib/related-articles.ts): the ones linking here, newest first.
 export function RelatedGuides(){
- const {route}=useIx();
- const items=intlRelated(posts,routePath(route).slice(1));
+ // Picked on the server (components/intl/route.tsx), so the browser does not download the whole blog.
+ const items=useIx().blog.guides||[];
  if(!items.length)return null;
  return (
   <section data-screen-label="Related guides" className="wrap sec">
@@ -862,9 +863,9 @@ export function Contact(){
 }
 
 // ---------- Blog ----------
-// Newest article first (owner, 2 November); articles of the same day: the one added last comes first.
-const newestFirst=posts.map((p,i)=>({p,i})).sort((a,b)=>b.p.date.localeCompare(a.p.date)||b.i-a.i).map(x=>x.p);
+// Newest article first (owner, 2 November); the cards are sorted on the server (components/intl/route.tsx).
 export function BlogList(){
+ const newestFirst=useIx().blog.cards||[];
  return (
   <section data-screen-label="Blog list" className="wrap sec">
    <div className="ix-cards" data-stagger="">{newestFirst.map(p=><a key={p.slug} href={link('blog/'+p.slug)} className="card ix-card-lift ix-post">
@@ -878,14 +879,9 @@ export function BlogList(){
 }
 
 const anchor=(h:string)=>h.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-// Two more articles from the same blog (the next ones in the list) that the post does not already link to.
-function relatedPosts(post:Post):[string,string][]{
- const i=posts.findIndex(p=>p.slug===post.slug),seen=new Set(post.links.map(([h])=>h));
- return [...posts.slice(i+1),...posts.slice(0,i)].filter(p=>!seen.has('blog/'+p.slug)).slice(0,2).map(p=>['blog/'+p.slug,p.title]);
-}
-
 export function Article({post}:{post:Post}){
- const {waText}=useIx();
+ // more: two more articles from the same blog that the post does not already link to (components/intl/route.tsx).
+ const {waText,blog}=useIx();
  const wa=contacts.whatsapp+'?text='+encodeURIComponent(waText);
  return (
   <article data-screen-label="Article" className="ix-article">
@@ -913,7 +909,7 @@ export function Article({post}:{post:Post}){
       <ArticleBlock b={b}/>
      </section>)}
      <aside className="ix-article-cta"><b>Want the numbers for your business?</b><p>In 30 minutes we estimate the hours AI could save you and give you a fixed pilot price.</p><BookLink className="btn btn-primary">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></BookLink></aside>
-     <div className="ix-article-links"><b>Related pages</b>{[...post.links,...relatedPosts(post)].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
+     <div className="ix-article-links"><b>Related pages</b>{[...post.links,...(blog.more||[])].map(([h,l])=><a key={h} href={link(h)} className="ulink">{l}<Icon name="arrow-right" size={16}/></a>)}</div>
     </div>
     {/* Wide screens only: the empty right column holds the audit and WhatsApp; phones have the bottom bar. */}
     <aside aria-label="Free 30-minute audit" className="ix-article-side">

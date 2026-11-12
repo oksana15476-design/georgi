@@ -7,7 +7,8 @@ import {tracking} from '@/lib/tracking';
 import {CLICK_KEYS,TOUCH_KEYS,TTL_DAYS,utmOk,type Attribution,type Touch} from '@/lib/lead-attribution.mjs';
 import {waHref} from '@/lib/whatsapp';
 
-// Analytics (GA4; Yandex Metrica on praxenai.ge only) loads straight away unless the visitor declined, on both sites
+// Analytics (GA4; Yandex Metrica on praxenai.ge only, its script once the page has loaded) loads without waiting for the
+// cookie banner unless the visitor declined, on both sites
 // (owner's decision, 24 October 2026). Until the visitor accepts cookies, GA4 runs with Google signals and ad
 // personalisation off, and Meta Pixel and Google Ads do not load. Only the configured IDs load.
 // Lead source: the first and the last visit with a source (UTM tags, ad click ids gclid/fbclid/yclid/msclkid, referrer,
@@ -158,6 +159,16 @@ const subscribe=(cb:()=>void)=>{window.addEventListener(consentEvent,cb);window.
 const useConsent=()=>useSyncExternalStore(subscribe,readConsent,():Consent=>'server');
 
 function loadScript(src:string){const s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s)}
+// Runs once: after the page has loaded and the browser is idle (at most 3 s later), or at the first tap or key press if that
+// comes sooner. Used for Yandex Metrica (about 80 KB), so it does not compete with the page during the first seconds on a slow phone.
+function afterLoad(run:()=>void){
+ let done=false;
+ const events=['pointerdown','keydown'] as const;
+ const go=()=>{if(done)return;done=true;events.forEach(e=>window.removeEventListener(e,go,true));run()};
+ events.forEach(e=>window.addEventListener(e,go,{capture:true,passive:true}));
+ const idle=()=>{if('requestIdleCallback' in window)window.requestIdleCallback(go,{timeout:3000});else setTimeout(go,1500)};
+ if(document.readyState==='complete')idle();else window.addEventListener('load',idle,{once:true});
+}
 
 // ads=false: analytics only (GA4, Metrica); ads=true: also Google Ads and Meta Pixel.
 function loadTrackers(ads:boolean){
@@ -179,8 +190,11 @@ function loadTrackers(ads:boolean){
   // eslint-disable-next-line prefer-rest-params
   const ym=Object.assign(function(){(ym.a=ym.a||[]).push(arguments)},{l:Date.now()}) as NonNullable<Window['ym']>;
   window.ym=ym;
-  loadScript('https://mc.yandex.ru/metrika/tag.js');
   ym(Number(tracking.ym),'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+  // Goals reached before tag.js arrives wait in the queue above. A visit from a Yandex Direct ad (yclid in the address)
+  // loads tag.js at once, as before, so Metrica records the ad click on the landing page even if the visitor leaves quickly.
+  const metrica=()=>loadScript('https://mc.yandex.ru/metrika/tag.js');
+  if(new URLSearchParams(location.search).has('yclid'))metrica();else afterLoad(metrica);
  }
  if(ads&&tracking.metaPixel&&!window.fbq){
   // Standard Meta Pixel bootstrap: queue calls until fbevents.js loads.

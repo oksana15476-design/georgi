@@ -3,10 +3,7 @@
 // Copy lives in lib/chatbot-page.ts; the layout reuses the inner-page blocks (hero, formats, process) and their CSS.
 import {base,homeHref,pageHref} from '@/lib/base';
 import {t} from '@/lib/content';
-import {chatbotPage as p} from '@/lib/chatbot-page';
 import {money,prices} from '@/lib/pricing';
-import {geArticles} from '@/lib/ge-blog';
-import {geRelated} from '@/lib/related-articles';
 import {Icon} from '@/components/praxen/icon';
 import type {X} from '@/components/praxen/types';
 
@@ -22,6 +19,8 @@ export const chatbotLabel=(x:X)=>x.c('Чат-бот для бизнеса','Chat
 
 export function ChatbotPage({x}:{x:X}){
  const {c,s,lang}=x;const tr=(v:[string,string,string])=>t(v,lang);
+ // The page copy comes from the server (lib/chatbot-page.ts via lib/page-data.ts), so other pages do not download it.
+ const p=x.data.chatbot;if(!p)return null;
  const label=chatbotLabel(x);
  const from=c('от ','from ','');
  const perMonth=c(' в месяц',' a month',' თვეში');
@@ -99,7 +98,7 @@ export function ChatbotPage({x}:{x:X}){
    <ul className="cb-links">
     {p.links.map(l=><li key={l.href}><a href={pageHref(lang,l.href.replace(/^\//,''))} className="ulink">{tr(l.label)}<Icon name="arrow-right" size={16}/></a></li>)}
     {/* New articles that link to this page join the list on their own (lib/related-articles.ts). */}
-    {geRelated(geArticles,'chatbot',lang,p.links.map(l=>l.href.replace(/^\/blog\//,''))).map(a=><li key={a.slug}><a href={pageHref(lang,'blog/'+a.slug)} className="ulink">{a.title}<Icon name="arrow-right" size={16}/></a></li>)}
+    {(x.data.articles||[]).map(a=><li key={a.slug}><a href={pageHref(lang,'blog/'+a.slug)} className="ulink">{a.title}<Icon name="arrow-right" size={16}/></a></li>)}
    </ul>
   </section>
  </>);

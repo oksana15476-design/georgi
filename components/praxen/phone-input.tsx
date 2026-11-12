@@ -37,6 +37,22 @@ const find=(iso:string)=>countries.find(c=>c.iso===iso);
 const byCode=[...countries].sort((a,b)=>b.code.length-a.code.length);
 const guess=()=>{try{const z=zones[Intl.DateTimeFormat().resolvedOptions().timeZone];return z&&find(z)?z:fallback}catch{return fallback}};
 const noop=()=>()=>{};
+const opts=[...countries.map(x=>x.iso),''];
+// A typed or pasted number → the country it belongs to and its local digits ("+998 90…" switches to Uzbekistan).
+const parse=(raw:string,iso:string)=>{
+ const c=find(iso);
+ let d=raw.replace(/\D/g,''),next=iso;
+ if(raw.trim().startsWith('+')){
+  const hit=byCode.find(x=>d.startsWith(x.code));
+  if(hit){next=hit.code==='7'?(c?.code==='7'?iso:/^7[67]/.test(d)?'KZ':'RU'):hit.iso;d=d.slice(hit.code.length)}else next='';
+ }else if(c){
+  if(d.length>slots(c.mask)&&d.startsWith(c.code))d=d.slice(c.code.length);
+  else if(c.code==='7'&&d.length===11&&d.startsWith('8'))d=d.slice(1);
+  if(d.startsWith('0'))d=d.slice(1);
+ }
+ const cc=find(next);d=d.slice(0,cc?slots(cc.mask):15);
+ return {next,d};
+};
 
 const r=(x:number,y:number,w:number,h:number,f:string)=><rect x={x} y={y} width={w} height={h} fill={f}/>;
 function PhoneFlag({iso}:{iso:string}){
@@ -59,27 +75,20 @@ function PhoneFlag({iso}:{iso:string}){
  return <svg className="phone-flag" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{f[iso]}</svg>;
 }
 
-export function PhoneInput({lang,invalid,onChange,className,label,describedBy}:{lang:L;invalid?:boolean;onChange:(full:string,valid:boolean)=>void;className?:string;label?:string;describedBy?:string}){
+// start: what the visitor did in the light copy of this field before this file arrived (components/praxen/phone-field.tsx):
+// the number typed so far and where the focus was, applied once when the field appears.
+export function PhoneInput({lang,invalid,onChange,className,label,describedBy,start}:{lang:L;invalid?:boolean;onChange:(full:string,valid:boolean)=>void;className?:string;label?:string;describedBy?:string;start?:{value:string;focus:''|'input'|'list'}}){
  const auto=useSyncExternalStore(noop,guess,()=>fallback);
- const [picked,setPicked]=useState<string|null>(null),[local,setLocal]=useState(''),[open,setOpen]=useState(false),[active,setActive]=useState(0);
+ const [init]=useState(()=>start?.value?parse(start.value,auto):null);
+ const [picked,setPicked]=useState<string|null>(init&&init.next!==auto?init.next:null),[local,setLocal]=useState(init?.d??''),[open,setOpen]=useState(start?.focus==='list'),[active,setActive]=useState(()=>start?.focus==='list'?Math.max(0,opts.indexOf(init?.next??auto)):0);
  const iso=picked??auto,c=find(iso);
  const uid=useId().replace(/:/g,''),box=useRef<HTMLDivElement>(null),list=useRef<HTMLUListElement>(null),input=useRef<HTMLInputElement>(null),btn=useRef<HTMLButtonElement>(null);
- const opts=[...countries.map(x=>x.iso),''];
  const emit=(next:string,d:string)=>{
   const cc=find(next);
   onChange(cc?(d?'+'+cc.code+' '+fill(d,cc.mask):''):(d?'+'+d:''),cc?d.length>=(cc.min??slots(cc.mask))&&d.length<=slots(cc.mask):d.length>=7&&d.length<=15);
  };
  const type=(raw:string)=>{
-  let d=raw.replace(/\D/g,''),next=iso;
-  if(raw.trim().startsWith('+')){
-   const hit=byCode.find(x=>d.startsWith(x.code));
-   if(hit){next=hit.code==='7'?(c?.code==='7'?iso:/^7[67]/.test(d)?'KZ':'RU'):hit.iso;d=d.slice(hit.code.length)}else next='';
-  }else if(c){
-   if(d.length>slots(c.mask)&&d.startsWith(c.code))d=d.slice(c.code.length);
-   else if(c.code==='7'&&d.length===11&&d.startsWith('8'))d=d.slice(1);
-   if(d.startsWith('0'))d=d.slice(1);
-  }
-  const cc=find(next);d=d.slice(0,cc?slots(cc.mask):15);
+  const {next,d}=parse(raw,iso);
   if(next!==iso)setPicked(next);
   setLocal(d);emit(next,d);
  };
@@ -92,6 +101,13 @@ export function PhoneInput({lang,invalid,onChange,className,label,describedBy}:{
   document.addEventListener('pointerdown',out);return()=>document.removeEventListener('pointerdown',out);
  },[open]);
  useEffect(()=>{if(open)list.current?.querySelector('.is-active')?.scrollIntoView({block:'nearest'})},[open,active]);
+ // A number typed into the light copy is reported to the form and the focus goes back where it was (an open list focuses itself).
+ useEffect(()=>{
+  if(init)emit(init.next,init.d);
+  if(start?.focus==='input'){const el=input.current;if(el){el.focus();const n=el.value.length;el.setSelectionRange(n,n)}}
+ // Once, when the field appears: later changes of `start` belong to the light copy, which is gone by then.
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+ },[]);
  const keys=(e:React.KeyboardEvent)=>{
   if(e.key==='ArrowDown'){e.preventDefault();setActive(a=>Math.min(opts.length-1,a+1))}
   else if(e.key==='ArrowUp'){e.preventDefault();setActive(a=>Math.max(0,a-1))}

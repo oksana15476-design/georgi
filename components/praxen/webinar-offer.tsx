@@ -8,7 +8,7 @@ import {offerCopy,offerPath,type OfferCopy,type TariffKey} from '@/lib/webinar-o
 import {seller,termsPath} from '@/lib/webinar-terms';
 import {BONUS_END,DEPOSIT,OFFER_END,TARIFFS,bonusActive,offerActive,tariffPrice} from '@/lib/webinar-offer-order.mjs';
 import {Icon} from './icon';
-import {PhoneInput} from './phone-input';
+import {PhoneInput} from './phone-field';
 import {MotionRoot,Wordmark} from './ui';
 import {Questions,WbLangs,pad,participantCode,useCountdown,useSalesSwitch} from './webinar';
 

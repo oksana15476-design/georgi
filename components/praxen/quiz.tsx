@@ -5,7 +5,7 @@ import {contacts} from '@/lib/contacts';
 import {prices} from '@/lib/pricing';
 import {getAttribution,leadAttribution,track} from '@/components/analytics';
 import {Icon} from './icon';
-import {PhoneInput} from './phone-input';
+import {PhoneInput,loadPhone} from './phone-field';
 import type {X} from './types';
 
 const fmt=(n:number)=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0');
@@ -35,7 +35,8 @@ export function Quiz({x}:{x:X}){
  const total=questions.length,finished=step>=total;
 
  const pick=(i:number)=>{
-  if(step===0&&!answers.length)track('quiz_start');
+  // The phone field of the last step starts downloading with the first answer.
+  if(step===0&&!answers.length){track('quiz_start');loadPhone()}
   const next=[...answers.slice(0,step),i];setAnswers(next);
   if(step+1>=total)track('quiz_complete',{industry:questions[0][1][next[0]],task:questions[1][1][next[1]]});
   setStep(step+1);requestAnimationFrame(()=>head.current?.focus({preventScroll:true}));

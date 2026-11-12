@@ -52,6 +52,11 @@ export default defineConfig(async ({ command }) => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    // Font files (app/fonts, see app/globals.css) stay separate files: inlined into the CSS they would be downloaded
+    // on every page before the first paint, even when the page has no characters in their range.
+    build: {
+      assetsInlineLimit: (file: string) => (file.endsWith(".woff2") ? false : undefined),
+    },
     server: {
       ...(managedLinux
         ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] }

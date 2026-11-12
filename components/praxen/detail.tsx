@@ -8,7 +8,7 @@ import {sectionLabel} from '@/lib/site-copy';
 import {Icon} from './icon';
 import {BrandLogo,Mark,useReducedMotion} from './ui';
 import type {X} from './types';
-import {gePageModified} from '@/lib/freshness';
+import {gePageModified} from '@/lib/dates';
 
 const rd=(ms:number)=>({'--rd':ms+'ms'} as React.CSSProperties);
 

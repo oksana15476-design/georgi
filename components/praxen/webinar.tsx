@@ -4,11 +4,11 @@ import {getAttribution,leadAttribution,track} from '@/components/analytics';
 import {base,homeHref,langPath,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
 import type {Lang} from '@/lib/content';
-import {absolute,pageUrl} from '@/lib/seo';
+import {absolute,pageUrl} from '@/lib/page-jsonld';
 import {webinar as w,wbCities,webinarCopy,webinarEvents,wbOffsetCities,wbYourTime,wbZones,type WebinarCopy} from '@/lib/webinar';
 import {offerPath} from '@/lib/webinar-offer';
 import {Icon} from './icon';
-import {PhoneInput} from './phone-input';
+import {PhoneInput} from './phone-field';
 import {Flag,MotionRoot,Wordmark} from './ui';
 
 type L='ru'|'en'|'ka';
