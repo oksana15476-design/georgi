@@ -21,8 +21,6 @@ import {Worker,isMainThread,parentPort,workerData} from 'node:worker_threads';
 const here=dirname(fileURLToPath(import.meta.url));
 const root=resolve(here,'..');
 const W=1200,H=630;
-// Bump when the drawing changes: the hash in the file names changes and messengers fetch the new cards.
-const TEMPLATE='1';
 
 // Manrope and Noto Sans Georgian from app/fonts, as static 700 and 800 TTF instances (satori reads no WOFF2 or
 // variable fonts). Licence: build/og-fonts/OFL.txt. Each subset gets its own family name: satori keeps one font per
@@ -34,8 +32,6 @@ const fonts=()=>fontFiles.flatMap(([name,file])=>[700,800].map(weight=>({name,we
 const ui={
  blog:{ru:'Статья в блоге',en:'Blog article',ka:'ბლოგის სტატია'},
  min:{ru:'мин чтения',en:'min read',ka:'წთ კითხვა'},
- read:{ru:'Читать статью',en:'Read the article',ka:'წაიკითხეთ'},
- audit:{ru:'Бесплатный аудит',en:'Free AI audit',ka:'უფასო აუდიტი'},
 };
 
 const dataUri=svg=>'data:image/svg+xml;base64,'+Buffer.from(svg).toString('base64');
@@ -79,11 +75,18 @@ export function cardElement(card){
   h('div',{display:'flex',justifyContent:'space-between',alignItems:'center',borderTop:'2px solid #ffffff26',paddingTop:22},
    h('div',{display:'flex',fontSize:28,fontWeight:800,letterSpacing:-.3},card.domain),
    h('div',{display:'flex',alignItems:'center',gap:10,backgroundColor:'#ffd166',color:'#121a2b',borderRadius:999,fontSize:22,fontWeight:800,padding:'12px 24px'},
-    article?ui.read[l]:card.domain==='praxenai.com'?ui.audit.en:ui.audit[l],img(arrow('#121a2b'),{width:24,height:24}))));
+    card.cta,img(arrow('#121a2b'),{width:24,height:24}))));
 }
 
-// Content hash of a card: changes with its text or the template.
-export const cardHash=card=>createHash('sha1').update(JSON.stringify([TEMPLATE,card])).digest('hex').slice(0,10);
+// Hash of the drawing itself: this file, the fonts and the logo. Any change of the look changes every file name,
+// so messengers fetch the new cards instead of showing the cached ones.
+const template=(()=>{
+ const h=createHash('sha1').update(readFileSync(fileURLToPath(import.meta.url))).update(readFileSync(join(root,'brand/praxen-logo-white.svg')));
+ for(const [,file] of fontFiles)for(const w of [700,800])h.update(readFileSync(join(here,'og-fonts',`${file}-${w}.ttf`)));
+ return h.digest('hex');
+})();
+// Content hash of a card: changes with its texts (button included) or the drawing.
+export const cardHash=card=>createHash('sha1').update(JSON.stringify([template,card])).digest('hex').slice(0,10);
 
 let engine;
 async function load(){
@@ -104,7 +107,8 @@ async function drawSome(cards,outDir){
  const drawn={},errors=[];
  for(const card of cards){
   const hash=cardHash(card),file=join(outDir,`${card.key}-${hash}.png`);
-  try{mkdirSync(dirname(file),{recursive:true});writeFileSync(file,await renderCard(card));drawn[card.key]=hash}
+  // The folder is made only for a drawn card: a failed one leaves no empty folders behind.
+  try{const png=await renderCard(card);mkdirSync(dirname(file),{recursive:true});writeFileSync(file,png);drawn[card.key]=hash}
   catch(e){errors.push(`${card.key}: ${e?.message||e}`)}
  }
  return {drawn,errors};
