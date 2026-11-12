@@ -9,6 +9,23 @@
 // (batch "campaign":"organic_{month}" takes the month from the post date; a post's own "campaign", e.g. workshop_dec12, wins),
 // utm_content=<post id>. The link itself ("link") goes to the page of the post's topic, not to the home page.
 // Playwright is taken from the project or from the global install (npm root -g).
+// OUT=<dir> writes to <dir>/<post id>/ instead of content/social/out/<batch>/ (template samples, tests).
+//
+// Templates (plan 3.4, 12 November 2026): a post with "type" is drawn by a fixed template instead of the slide layouts.
+// The fields sit in its only slide, so publish.mjs finds <lang>-1.jpg as for any one-slide post. *word* = accent colour.
+//  "type":"article"  blog article preview. Slide fields: "rubric" (the article category), "title" (the article title),
+//                    "benefit" (one line: what the reader gets), optional "minutes" (reading time from the article),
+//                    "domain" (default: the batch "site"), "accent": ink (default) | grad.
+//                    Writes all three formats: <lang>-feed.jpg 1080×1350 (4:5 feed), <lang>-story.jpg 1080×1920
+//                    (9:16, an empty band above the bottom zone for the link sticker), <lang>-tg.jpg 1280×720 (16:9 Telegram);
+//                    <lang>-1.jpg repeats the one set by the post's "format" (feed | story | tg; default: story in a
+//                    "size":"story" batch, otherwise feed).
+//  "type":"reels"    Reels cover 1080×1920 (<lang>-1.jpg). Slide fields: "title" (up to 6 words, drawn as large as fits),
+//                    optional "kicker", "accent": grad (default) | ink | yellow. Logo, kicker and title stay in the middle
+//                    1080×1350 (the 4:5 grid crop) and clear of the Reels caption and buttons.
+//  e.g. {"id":"b01-tools","date":"2026-11-20","type":"article","link":"https://praxenai.ge/ru/blog/ai-tools-for-business",
+//        "text":{...},"slides":[{"rubric":"Обучение команды","title":"Нейросети для бизнеса: какой сервис под какую задачу",
+//        "benefit":"Таблица «задача → сервис → что проверить»","minutes":6}]}
 import {readFileSync,writeFileSync,mkdirSync,rmSync} from 'node:fs';
 import {join,dirname,basename,resolve} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
@@ -27,7 +44,7 @@ const theme=batch.theme||'',strip=batch.strip||'';
 // "size":"story" renders 1080×1920 (stories, Instagram highlights) instead of the 1080×1350 feed card.
 const [W,H]=batch.size==='story'?[1080,1920]:[1080,1350];
 const siteName=batch.site||'praxenai.ge',contactsLine=batch.contacts||'WhatsApp +995 557 125 497 · praxenai.ge';
-const outDir=join(root,'content/social/out',basename(batchPath,'.json'));
+const outDir=process.env.OUT?resolve(process.env.OUT):join(root,'content/social/out',basename(batchPath,'.json'));
 
 async function loadPlaywright(){
  try{return await import('playwright');}catch{}
@@ -625,7 +642,9 @@ const skinCss=`
 `;
 
 // Stories: Instagram covers the top ~250 px and the bottom ~340 px with its interface.
-const storyCss=`.slide{padding:250px 84px 330px}.strip{top:180px}
+// The workshop strip sat at y 180–240, under the Instagram header (plan 3.3, 12 November): it now runs at y 270–330
+// and the content starts below it.
+const storyCss=`.slide{padding:${strip?370:250}px 84px 330px}.strip{top:270px}
 .sty.slide{padding-top:400px!important;padding-bottom:360px!important}
 .ch-notes,.ch-post,.ch-report,.ch-news{top:200px}.sty-editorial header{top:190px!important}.ch-term,.ch-chat{top:150px}.ch-post-foot{bottom:270px}.sty header{margin-top:-140px}
 .sty.slide h1{font-size:108px}.sty.slide h2,.sty.slide .meme-top{font-size:88px}
