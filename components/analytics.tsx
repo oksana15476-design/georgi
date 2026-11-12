@@ -159,13 +159,14 @@ const subscribe=(cb:()=>void)=>{window.addEventListener(consentEvent,cb);window.
 const useConsent=()=>useSyncExternalStore(subscribe,readConsent,():Consent=>'server');
 
 function loadScript(src:string){const s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s)}
-// Runs once: after the page has loaded and the browser is idle (at most 3 s later), or at the first tap or key press if that
-// comes sooner. Used for Yandex Metrica (about 80 KB), so it does not compete with the page during the first seconds on a slow phone.
+// Runs once: after the page has loaded and the browser is idle (at most 3 s later), or right after the first click or tap if
+// that comes sooner (after it, so a click on «Decline» in the cookie banner is already stored when `run` checks it).
+// Used for Yandex Metrica (about 80 KB), so it does not compete with the page during the first seconds on a slow phone.
 function afterLoad(run:()=>void){
  let done=false;
- const events=['pointerdown','keydown'] as const;
- const go=()=>{if(done)return;done=true;events.forEach(e=>window.removeEventListener(e,go,true));run()};
- events.forEach(e=>window.addEventListener(e,go,{capture:true,passive:true}));
+ const go=()=>{if(done)return;done=true;window.removeEventListener('click',onClick,true);run()};
+ const onClick=()=>setTimeout(go,0);
+ window.addEventListener('click',onClick,{capture:true,passive:true});
  const idle=()=>{if('requestIdleCallback' in window)window.requestIdleCallback(go,{timeout:3000});else setTimeout(go,1500)};
  if(document.readyState==='complete')idle();else window.addEventListener('load',idle,{once:true});
 }
@@ -193,7 +194,8 @@ function loadTrackers(ads:boolean){
   ym(Number(tracking.ym),'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
   // Goals reached before tag.js arrives wait in the queue above. A visit from a Yandex Direct ad (yclid in the address)
   // loads tag.js at once, as before, so Metrica records the ad click on the landing page even if the visitor leaves quickly.
-  const metrica=()=>loadScript('https://mc.yandex.ru/metrika/tag.js');
+  // Checked again when it runs: the visitor may have declined in the meantime (a tap on «Decline» is the first tap).
+  const metrica=()=>{if(readConsent()!=='denied')loadScript('https://mc.yandex.ru/metrika/tag.js')};
   if(new URLSearchParams(location.search).has('yclid'))metrica();else afterLoad(metrica);
  }
  if(ads&&tracking.metaPixel&&!window.fbq){

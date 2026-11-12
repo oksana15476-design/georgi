@@ -79,8 +79,10 @@ function PhoneFlag({iso}:{iso:string}){
 // the number typed so far and where the focus was, applied once when the field appears.
 export function PhoneInput({lang,invalid,onChange,className,label,describedBy,start}:{lang:L;invalid?:boolean;onChange:(full:string,valid:boolean)=>void;className?:string;label?:string;describedBy?:string;start?:{value:string;focus:''|'input'|'list'}}){
  const auto=useSyncExternalStore(noop,guess,()=>fallback);
- const [init]=useState(()=>start?.value?parse(start.value,auto):null);
- const [picked,setPicked]=useState<string|null>(init&&init.next!==auto?init.next:null),[local,setLocal]=useState(init?.d??''),[open,setOpen]=useState(start?.focus==='list'),[active,setActive]=useState(()=>start?.focus==='list'?Math.max(0,opts.indexOf(init?.next??auto)):0);
+ // Digits typed into the light copy belong to the country it showed (the site's default), not to the one guessed
+ // from the time zone; that country stays picked.
+ const [init]=useState(()=>start?.value?parse(start.value,fallback):null);
+ const [picked,setPicked]=useState<string|null>(init?init.next:null),[local,setLocal]=useState(init?.d??''),[open,setOpen]=useState(start?.focus==='list'),[active,setActive]=useState(()=>start?.focus==='list'?Math.max(0,opts.indexOf(init?.next??auto)):0);
  const iso=picked??auto,c=find(iso);
  const uid=useId().replace(/:/g,''),box=useRef<HTMLDivElement>(null),list=useRef<HTMLUListElement>(null),input=useRef<HTMLInputElement>(null),btn=useRef<HTMLButtonElement>(null);
  const emit=(next:string,d:string)=>{
