@@ -812,6 +812,8 @@ main{outline:none}
 .privacy{max-width:900px}
 /* Long single words in the privacy H1 (ru «конфиденциальности», ka) must fit 360–390 px screens. */
 @media(max-width:600px){html[lang=ru] .privacy .inner-h1{font-size:min(var(--innerH1),9vw)}html[lang=ka] .privacy .inner-h1{font-size:min(var(--innerH1),7.8vw)}}
+/* Georgian words longer than a phone line (e.g. «ტუროპერატორებისთვის») wrap instead of running off screen; shorter H1s are unaffected. */
+html[lang=ka] .inner-h1{overflow-wrap:break-word}
 .privacy-body{margin-top:40px;display:flex;flex-direction:column;gap:32px}
 .privacy-body h2{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
 .privacy-body p{font-size:16px;line-height:1.7;color:var(--body);margin-top:8px}
