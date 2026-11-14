@@ -1,0 +1,566 @@
+{
+ "2026-10/01-intro/facebook": {
+  "id": "1431418180049547_122113644915499562",
+  "at": "2026-10-25T13:12:55.391Z"
+ },
+ "workshop-2026-11/w01-announce/facebook": {
+  "id": "1431418180049547_122113649067499562",
+  "at": "2026-10-25T13:22:16.142Z"
+ },
+ "2026-10/01-intro/instagram": {
+  "id": "18117680464807244",
+  "at": "2026-10-25T13:50:23.087Z"
+ },
+ "workshop-2026-11/w01-announce/instagram": {
+  "id": "18033240674890023",
+  "at": "2026-10-25T13:51:33.070Z"
+ },
+ "workshop-2026-11/w02-faq-routine/facebook": {
+  "id": "1431418180049547_122113940517499562",
+  "at": "2026-10-26T06:44:16.603Z"
+ },
+ "workshop-2026-11/w02-faq-routine/instagram": {
+  "id": "18114479825331960",
+  "at": "2026-10-26T06:44:43.087Z"
+ },
+ "2026-10/01-intro/threads": {
+  "id": "17940481041395862",
+  "at": "2026-10-26T06:59:20.291Z"
+ },
+ "workshop-2026-11/w01-announce/threads": {
+  "id": "17933585859409623",
+  "at": "2026-10-26T07:00:43.675Z"
+ },
+ "workshop-2026-11/w02-faq-routine/threads": {
+  "id": "18107527258965951",
+  "at": "2026-10-26T07:03:34.929Z"
+ },
+ "2026-10/01-intro/telegram": {
+  "id": "12",
+  "at": "2026-10-26T07:12:40.927Z"
+ },
+ "workshop-2026-11/w01-announce/telegram": {
+  "id": "13",
+  "at": "2026-10-26T07:16:39.426Z"
+ },
+ "workshop-2026-11/w02-faq-routine/telegram": {
+  "id": "14",
+  "at": "2026-10-26T07:17:03.836Z"
+ },
+ "stories-2026-11/s01-poll-languages/instagram_story": {
+  "id": "18113671148165862",
+  "at": "2026-10-26T08:16:52.597Z"
+ },
+ "stories-2026-11/s01-poll-languages/facebook_story": {
+  "id": "1087253843941898",
+  "at": "2026-10-26T08:17:01.550Z"
+ },
+ "workshop-2026-11/w01b-agenda/facebook": {
+  "id": "1431418180049547_122114482695499562",
+  "at": "2026-10-27T08:11:40.326Z"
+ },
+ "workshop-2026-11/w01b-agenda/instagram": {
+  "id": "18350392105264571",
+  "at": "2026-10-27T08:12:07.518Z"
+ },
+ "workshop-2026-11/w01b-agenda/threads": {
+  "id": "17904645387670413",
+  "at": "2026-10-27T08:12:51.987Z"
+ },
+ "workshop-2026-11/w01b-agenda/telegram": {
+  "id": "15",
+  "at": "2026-10-27T08:12:52.979Z"
+ },
+ "threads-2026-11/t01-what-stops/threads": {
+  "id": "18018829490744806",
+  "at": "2026-10-27T09:46:18.700Z"
+ },
+ "cases-2026-11/c01-air-canada/facebook": {
+  "id": "1431418180049547_122114907909499562",
+  "at": "2026-10-28T07:31:55.314Z"
+ },
+ "cases-2026-11/c01-air-canada/instagram": {
+  "id": "18651157447046273",
+  "at": "2026-10-28T07:32:23.784Z"
+ },
+ "cases-2026-11/c01-air-canada/telegram": {
+  "id": "16",
+  "at": "2026-10-28T07:33:04.489Z"
+ },
+ "cases-2026-11/c01-air-canada/threads": {
+  "id": "17984091159121041",
+  "at": "2026-10-28T08:05:39.117Z"
+ },
+ "stories-2026-11/s08-crm-chaos/instagram_story": {
+  "id": "18121872310968456",
+  "at": "2026-10-28T09:10:35.296Z"
+ },
+ "stories-2026-11/s08-crm-chaos/facebook_story": {
+  "id": "1440952871502072",
+  "at": "2026-10-28T09:10:40.990Z"
+ },
+ "threads-2026-11/t02-unpopular/threads": {
+  "id": "17999167968035891",
+  "at": "2026-10-28T15:15:29.349Z"
+ },
+ "feed-2026-11/f01-prompts/facebook": {
+  "id": "1431418180049547_122115270231499562",
+  "at": "2026-10-29T07:15:43.763Z"
+ },
+ "feed-2026-11/f01-prompts/instagram": {
+  "id": "18053068127815601",
+  "at": "2026-10-29T07:16:14.961Z"
+ },
+ "stories-2026-11/s02-pigeon/instagram_story": {
+  "id": "17937326739402021,18117029855084793",
+  "at": "2026-10-29T09:09:26.213Z"
+ },
+ "stories-2026-11/s02-pigeon/facebook_story": {
+  "id": "1148952950816270,3784085658405237",
+  "at": "2026-10-29T09:09:39.180Z"
+ },
+ "threads-2026-11/t03-prompt/threads": {
+  "id": "18132549109692072",
+  "at": "2026-10-29T10:10:09.823Z"
+ },
+ "telegram-2026-11/tg01-prompts/telegram": {
+  "id": "17",
+  "at": "2026-10-29T14:40:20.196Z"
+ },
+ "cases-2026-11/c02-thank-you/facebook": {
+  "id": "1431418180049547_122115636615499562",
+  "at": "2026-10-30T08:12:56.961Z"
+ },
+ "cases-2026-11/c02-thank-you/instagram": {
+  "id": "17991768612065301",
+  "at": "2026-10-30T08:13:16.801Z"
+ },
+ "cases-2026-11/c02-thank-you/threads": {
+  "id": "18098035583659435",
+  "at": "2026-10-30T08:13:34.402Z"
+ },
+ "stories-2026-11/s09-prompt/instagram_story": {
+  "id": "18059033792572899",
+  "at": "2026-10-30T09:09:36.293Z"
+ },
+ "stories-2026-11/s09-prompt/facebook_story": {
+  "id": "1419350627040950",
+  "at": "2026-10-30T09:09:42.076Z"
+ },
+ "threads-2026-11/t04-first-reply/threads": {
+  "id": "18128782645853803",
+  "at": "2026-10-30T15:49:56.728Z"
+ },
+ "feed-2026-11/f02-client-types/facebook": {
+  "id": "1431418180049547_122116025127499562",
+  "at": "2026-10-31T08:08:09.805Z"
+ },
+ "telegram-2026-11/tg02-poll-leads/telegram": {
+  "id": "18",
+  "at": "2026-10-31T08:08:41.478Z"
+ },
+ "_pause/instagram": {
+  "until": "2026-11-01T21:15:43.261Z",
+  "reason": "action blocked"
+ },
+ "stories-2026-11/s03-questions/facebook_story": {
+  "id": "1737825597317480",
+  "at": "2026-10-31T09:10:21.909Z"
+ },
+ "stories-2026-11/s03-questions/instagram_story": {
+  "id": "unknown",
+  "at": "2026-10-31T14:50:00Z",
+  "note": "may have gone out with the crashing runs; not resent"
+ },
+ "feed-2026-11/f02-client-types/instagram": {
+  "id": "DfJsVjrFyE6",
+  "at": "2026-10-31T08:08:38Z",
+  "note": "published although the API answered with an error; 7 duplicates 31.10–1.11 (crash bug)"
+ },
+ "feed-2026-11/r01-first-hour/facebook": {
+  "id": "1431418180049547_122116391517499562",
+  "at": "2026-11-01T08:04:57Z",
+  "note": "2 duplicates: 122116509681499562, 122116512411499562"
+ },
+ "telegram-2026-11/tg03-five-minutes/telegram": {
+  "id": "unknown",
+  "at": "2026-11-01T08:05:00Z",
+  "note": "sent by the crashing runs, probably several times"
+ },
+ "threads-2026-11/t05-hello/threads": {
+  "id": "DfKaYi6kZy6",
+  "at": "2026-10-31T14:50:58Z",
+  "note": "5 duplicates (crash bug)"
+ },
+ "threads-2026-11/t06-never-trust/threads": {
+  "id": "DfNATqJFEIn",
+  "at": "2026-11-01T15:00:45Z",
+  "note": "1 duplicate DfNBjB_kUrY"
+ },
+ "threads-2026-11b/a01-friday/threads": {
+  "id": "skipped",
+  "at": "2026-11-01T15:20:00Z",
+  "note": "Friday post, missed because of the crash bug"
+ },
+ "threads-2026-11b/a02-crm-field/threads": {
+  "id": "18137074291731191",
+  "at": "2026-11-01T15:16:08.101Z"
+ },
+ "threads-2026-11b/a03-daily-task/threads": {
+  "id": "18127027391476588",
+  "at": "2026-11-01T15:16:25.717Z"
+ },
+ "feed-2026-11/r01-first-hour/instagram": {
+  "id": "DfNCAUmFy7y",
+  "at": "2026-11-01T15:15:41Z",
+  "note": "published although the API answered action blocked"
+ },
+ "threads-2026-11b/a04-voice-notes/threads": {
+  "id": "17957304423269710",
+  "at": "2026-11-02T07:22:19.156Z"
+ },
+ "cases-2026-11/c03-notebooklm/facebook": {
+  "id": "1431418180049547_122116721667499562",
+  "at": "2026-11-02T08:19:31.301Z"
+ },
+ "cases-2026-11/c03-notebooklm/instagram": {
+  "id": "18179033632450501",
+  "at": "2026-11-02T08:20:09.560Z"
+ },
+ "cases-2026-11/c03-notebooklm/threads": {
+  "id": "18437875180197427",
+  "at": "2026-11-02T08:20:30.033Z"
+ },
+ "stories-2026-11/s10-monday/instagram_story": {
+  "id": "18106771058568816",
+  "at": "2026-11-02T09:09:04.071Z"
+ },
+ "stories-2026-11/s10-monday/facebook_story": {
+  "id": "1475406044653629",
+  "at": "2026-11-02T09:09:08.106Z"
+ },
+ "threads-2026-11b/a05-unnoticed/threads": {
+  "id": "18105655541010145",
+  "at": "2026-11-02T14:35:15.349Z"
+ },
+ "threads-2026-11/t07-monday/threads": {
+  "id": "18119215859021382",
+  "at": "2026-11-02T15:52:11.218Z"
+ },
+ "feed-2026-11/f03-how-it-works/facebook": {
+  "id": "1431418180049547_122117046951499562",
+  "at": "2026-11-03T07:11:05.256Z"
+ },
+ "feed-2026-11/f03-how-it-works/instagram": {
+  "id": "17999875808828107",
+  "at": "2026-11-03T07:12:00.704Z"
+ },
+ "threads-2026-11b/a06-first-reply-template/threads": {
+  "id": "18222444718343917",
+  "at": "2026-11-03T07:12:31.894Z"
+ },
+ "stories-2026-11/s04-9days/instagram_story": {
+  "id": "18114033473151920",
+  "at": "2026-11-03T09:08:57.878Z"
+ },
+ "stories-2026-11/s04-9days/facebook_story": {
+  "id": "1466610195394984",
+  "at": "2026-11-03T09:09:02.795Z"
+ },
+ "threads-2026-11/t08-price-in-head/threads": {
+  "id": "17953235571348058",
+  "at": "2026-11-03T10:09:01.991Z"
+ },
+ "telegram-2026-11/tg04-mistakes/telegram": {
+  "id": "22",
+  "at": "2026-11-03T14:10:30.516Z"
+ },
+ "threads-2026-11b/a07-think-about-it/threads": {
+  "id": "18042260675844478",
+  "at": "2026-11-03T14:10:50.948Z"
+ },
+ "cases-2026-11/c04-chevrolet/facebook": {
+  "id": "1431418180049547_122117391807499562",
+  "at": "2026-11-04T07:11:08.930Z"
+ },
+ "cases-2026-11/c04-chevrolet/instagram": {
+  "id": "17894196573447409",
+  "at": "2026-11-04T07:12:01.997Z"
+ },
+ "cases-2026-11/c04-chevrolet/threads": {
+  "id": "18060281081561755",
+  "at": "2026-11-04T07:12:34.058Z"
+ },
+ "cases-2026-11/c04-chevrolet/telegram": {
+  "id": "23",
+  "at": "2026-11-04T07:12:35.169Z"
+ },
+ "threads-2026-11b/a08-test-yourself/threads": {
+  "id": "18135764530677478",
+  "at": "2026-11-04T07:13:06.055Z"
+ },
+ "stories-2026-11/s11-how/instagram_story": {
+  "id": "17895327114438710",
+  "at": "2026-11-04T09:09:27.780Z"
+ },
+ "stories-2026-11/s11-how/facebook_story": {
+  "id": "1471680828201514",
+  "at": "2026-11-04T09:09:33.213Z"
+ },
+ "threads-2026-11b/a09-three-languages/threads": {
+  "id": "18110176859243375",
+  "at": "2026-11-04T14:14:03.938Z"
+ },
+ "threads-2026-11/t09-checklist/threads": {
+  "id": "17945904693087647",
+  "at": "2026-11-04T15:12:55.543Z"
+ },
+ "feed-2026-11/f04-find-mistakes/facebook": {
+  "id": "1431418180049547_122117740533499562",
+  "at": "2026-11-05T07:11:06.855Z"
+ },
+ "feed-2026-11/f04-find-mistakes/instagram": {
+  "id": "17970880892965306",
+  "at": "2026-11-05T07:11:51.929Z"
+ },
+ "threads-2026-11b/a10-too-small/threads": {
+  "id": "17980998276171062",
+  "at": "2026-11-05T07:12:14.107Z"
+ },
+ "telegram-2026-11/tg05-poll-crm/telegram": {
+  "id": "24",
+  "at": "2026-11-05T08:09:16.692Z"
+ },
+ "stories-2026-11/s05-poll-crm/instagram_story": {
+  "id": "18095567024689386",
+  "at": "2026-11-05T09:08:45.259Z"
+ },
+ "stories-2026-11/s05-poll-crm/facebook_story": {
+  "id": "29432771746326740",
+  "at": "2026-11-05T09:08:49.883Z"
+ },
+ "threads-2026-11/t10-voice/threads": {
+  "id": "18117221621029115",
+  "at": "2026-11-05T10:09:24.400Z"
+ },
+ "threads-2026-11b/a11-three-numbers/threads": {
+  "id": "18127963909867078",
+  "at": "2026-11-05T14:14:58.347Z"
+ },
+ "threads-2026-11b/a12-workshop/threads": {
+  "id": "18099614594412411",
+  "at": "2026-11-06T07:13:54.703Z"
+ },
+ "cases-2026-11/c05-gru/facebook": {
+  "id": "1431418180049547_122118052083499562",
+  "at": "2026-11-06T08:08:14.075Z"
+ },
+ "cases-2026-11/c05-gru/instagram": {
+  "id": "18563916739078251",
+  "at": "2026-11-06T08:08:51.570Z"
+ },
+ "cases-2026-11/c05-gru/threads": {
+  "id": "18180164731435229",
+  "at": "2026-11-06T08:09:12.083Z"
+ },
+ "stories-2026-11/s12-game/instagram_story": {
+  "id": "18470542228190848",
+  "at": "2026-11-06T09:08:52.114Z"
+ },
+ "stories-2026-11/s12-game/facebook_story": {
+  "id": "3230135297197520",
+  "at": "2026-11-06T09:08:57.273Z"
+ },
+ "threads-2026-11b/a13-main-channel/threads": {
+  "id": "18134524705775383",
+  "at": "2026-11-06T14:08:32.069Z"
+ },
+ "threads-2026-11/t11-pilot/threads": {
+  "id": "18077372669743989",
+  "at": "2026-11-06T15:13:49.580Z"
+ },
+ "threads-2026-11b/a14-price-pdf/threads": {
+  "id": "18097607024539879",
+  "at": "2026-11-07T07:08:46.211Z"
+ },
+ "feed-2026-11/f05-glossary/facebook": {
+  "id": "1431418180049547_122118359709499562",
+  "at": "2026-11-07T08:10:19.171Z"
+ },
+ "feed-2026-11/f05-glossary/instagram": {
+  "id": "18145867627680754",
+  "at": "2026-11-07T08:11:08.321Z"
+ },
+ "stories-2026-11/s06-drake/instagram_story": {
+  "id": "18021428945957145",
+  "at": "2026-11-07T09:08:10.705Z"
+ },
+ "stories-2026-11/s06-drake/facebook_story": {
+  "id": "1801151627836822",
+  "at": "2026-11-07T09:08:15.052Z"
+ },
+ "threads-2026-11/t12-saturday/threads": {
+  "id": "18130462853297294",
+  "at": "2026-11-07T10:09:24.823Z"
+ },
+ "threads-2026-11b/a15-before-hiring/threads": {
+  "id": "18126965678515790",
+  "at": "2026-11-07T13:28:44.412Z"
+ },
+ "telegram-2026-11/tg06-five-tasks/telegram": {
+  "id": "25",
+  "at": "2026-11-07T14:08:49.540Z"
+ },
+ "threads-2026-11b/b01-sunday-messages/threads": {
+  "id": "18102190874550440",
+  "at": "2026-11-08T07:08:41.769Z"
+ },
+ "feed-2026-11/r02-ai-numbers/facebook": {
+  "id": "1431418180049547_122118678849499562",
+  "at": "2026-11-08T08:08:39.854Z"
+ },
+ "feed-2026-11/r02-ai-numbers/instagram": {
+  "id": "18101451221392191",
+  "at": "2026-11-08T08:09:32.049Z"
+ },
+ "telegram-2026-11/tg07-poll-workshop/telegram": {
+  "id": "26",
+  "at": "2026-11-08T08:09:32.566Z"
+ },
+ "threads-2026-11/t13-tokens/threads": {
+  "id": "18107848583202795",
+  "at": "2026-11-08T10:09:03.787Z"
+ },
+ "threads-2026-11b/b02-what-annoys/threads": {
+  "id": "18127022842911243",
+  "at": "2026-11-08T14:15:58.706Z"
+ },
+ "threads-2026-11b/b03-before-after-crm/threads": {
+  "id": "18128775643845828",
+  "at": "2026-11-09T07:12:02.686Z"
+ },
+ "cases-2026-11/c06-whatsapp-voice/facebook": {
+  "id": "1431418180049547_122118976311499562",
+  "at": "2026-11-09T09:39:32.941Z"
+ },
+ "cases-2026-11/c06-whatsapp-voice/instagram": {
+  "id": "17882500518543392",
+  "at": "2026-11-09T09:40:20.647Z"
+ },
+ "cases-2026-11/c06-whatsapp-voice/threads": {
+  "id": "18339439978275529",
+  "at": "2026-11-09T09:40:41.418Z"
+ },
+ "stories-2026-11/s13-glossary/instagram_story": {
+  "id": "18481817698112297",
+  "at": "2026-11-09T09:40:47.259Z"
+ },
+ "stories-2026-11/s13-glossary/facebook_story": {
+  "id": "1596823655580261",
+  "at": "2026-11-09T09:40:52.358Z"
+ },
+ "threads-2026-11b/b04-best-manager/threads": {
+  "id": "18109165217192877",
+  "at": "2026-11-09T12:35:13.388Z"
+ },
+ "feed-2026-11/f05b-budget-question/facebook": {
+  "id": "1431418180049547_122119292625499562",
+  "at": "2026-11-10T10:29:57.849Z"
+ },
+ "feed-2026-11/f05b-budget-question/instagram": {
+  "id": "17919405915496726",
+  "at": "2026-11-10T10:30:44.565Z"
+ },
+ "stories-2026-11b/s13b-budget/instagram_story": {
+  "id": "18142244512623528",
+  "at": "2026-11-10T10:30:54.154Z"
+ },
+ "stories-2026-11b/s13b-budget/facebook_story": {
+  "id": "1437670548547467",
+  "at": "2026-11-10T10:30:59.946Z"
+ },
+ "threads-2026-11b/b05-stress-test/threads": {
+  "id": "18380990065243691",
+  "at": "2026-11-10T10:31:18.491Z"
+ },
+ "threads-2026-11b/b06-ill-get-back/threads": {
+  "id": "18011475968783220",
+  "at": "2026-11-10T11:10:36.966Z"
+ },
+ "telegram-2026-11/tg07b-kb-entry/telegram": {
+  "id": "27",
+  "at": "2026-11-10T18:10:44.644Z"
+ },
+ "threads-2026-11b/b07-how-many/threads": {
+  "id": "18117069557168400",
+  "at": "2026-11-10T18:11:01.901Z"
+ },
+ "stories-2026-11b/s13c-check-reply/facebook_story": {
+  "id": "2171822616739583",
+  "at": "2026-11-11T10:09:47.589Z"
+ },
+ "threads-2026-11/t14b-ai-intro/threads": {
+  "id": "18016680134988704",
+  "at": "2026-11-11T10:10:14.705Z"
+ },
+ "stories-2026-11b/s13c-check-reply/instagram_story": {
+  "id": "18119019910991250",
+  "at": "2026-11-11T10:11:50.292Z"
+ },
+ "threads-2026-11b/b08-too-expensive/threads": {
+  "id": "18185003302448398",
+  "at": "2026-11-11T15:11:52.052Z"
+ },
+ "feed-2026-11/f05c-about-praxen/facebook": {
+  "id": "1431418180049547_122119940313499562",
+  "at": "2026-11-12T07:48:30.560Z"
+ },
+ "feed-2026-11/f05c-about-praxen/instagram": {
+  "id": "18615450607064003",
+  "at": "2026-11-12T07:49:19.098Z"
+ },
+ "stories-2026-11b/s13d-about/instagram_story": {
+  "id": "17873478480647465",
+  "at": "2026-11-12T09:09:20.848Z"
+ },
+ "stories-2026-11b/s13d-about/facebook_story": {
+  "id": "2189799012404762",
+  "at": "2026-11-12T09:09:25.494Z"
+ },
+ "telegram-2026-11/tg07c-about-praxen/telegram": {
+  "id": "28",
+  "at": "2026-11-12T14:11:00.084Z"
+ },
+ "threads-2026-11/t14c-journal/threads": {
+  "id": "17957597196032855",
+  "at": "2026-11-12T14:11:17.599Z"
+ },
+ "stories-2026-11b/s13e-friday13/instagram_story": {
+  "id": "17994266010066008",
+  "at": "2026-11-13T10:05:30.994Z"
+ },
+ "stories-2026-11b/s13e-friday13/facebook_story": {
+  "id": "4780184558877260",
+  "at": "2026-11-13T10:05:35.587Z"
+ },
+ "threads-2026-11/t14d-friday13/threads": {
+  "id": "18056866907804492",
+  "at": "2026-11-13T10:05:53.717Z"
+ },
+ "feed-2026-11/f08-expect-reality/facebook": {
+  "id": "1431418180049547_122120733141499562",
+  "at": "2026-11-14T10:10:47.294Z"
+ },
+ "feed-2026-11/f08-expect-reality/instagram": {
+  "id": "18107205167377899",
+  "at": "2026-11-14T10:11:06.708Z"
+ },
+ "telegram-2026-11/tg10-poll-after/telegram": {
+  "id": "29",
+  "at": "2026-11-14T10:11:07.090Z"
+ },
+ "threads-2026-11/t18-myth/threads": {
+  "id": "18089281121702727",
+  "at": "2026-11-14T10:11:53.307Z"
+ }
+}
