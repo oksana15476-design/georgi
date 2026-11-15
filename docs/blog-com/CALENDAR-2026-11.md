@@ -136,3 +136,238 @@ SEO-редактор, 11.11.2026. Строка календаря «чт 12.11 N
 ⚖ CIS, НДС и CDM — правовые факты: только то, что сказано на этих страницах, без толкований и штрафов (решение и правило 4 — сверка с владельцем).
 
 **Примеры:** все сценарии (пристройка, запись в дневнике, сообщение субподрядчику, «5 дней до сметы») — с пометкой «Example». Названий клиентов и статистики нет. Грузия не упоминается, «for businesses», британский английский.
+
+## Бриф на 13.11 ai-email-assistant
+
+SEO-редактор, 15.11.2026. Строка календаря «пт 13.11 NEW `/blog/ai-email-assistant`», выход с опозданием (выпуск отстаёт на 3 дня). Источники открыты и проверены 15.11.2026. Тема проходит: каннибализации нет, выдача есть.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, DataForSEO, Google Ads UK, среднее за 12 месяцев, замер 02.11.2026):
+- главный: ai email assistant 320 (вариант «email assistant ai» 320 — та же группа, **не суммировать**);
+- дополнительные: best ai email assistant 70 · ai inbox management 30 · ai email assistant outlook 20 · ai email automation 20;
+- не наши: «email crm system» 170 и «crm with email automation» 50 — интент выбора CRM, это тема `ai-crm` (19.11);
+- на .ge темы нет (`lib/ge-blog.ts`, `docs/blog-ge/CALENDAR-2026-11.md`), повтора между сайтами нет.
+
+**Выдача** (WebSearch 15.11.2026; инструмент даёт выдачу США, поэтому отдельно проверен запрос «best ai email assistant for business UK Outlook Gmail». Точный топ Google UK — DataForSEO SERP, платно, только с согласия владельца):
+- Формат топа — подборки «best AI email assistants 2026» от вендоров и SaaS-блогов (Zapier, Shopify, Fyxer, Lindy, Missive, Serif, clean.email, Moosend), страницы надстроек в Microsoft Marketplace и Google Workspace Marketplace, справка Microsoft и Google. Интент коммерческий-исследовательский: «какой инструмент поставить в мою почту».
+- Как топ делит рынок: встроенные (Copilot в Outlook, Gemini в Gmail), надстройки поверх Outlook и Gmail, отдельные почтовые клиенты с ИИ, инструменты для общих ящиков. Цены в топе в долларах, британских условий (UK GDPR, фунты) почти нет.
+- Пробел, который берём: в топе нет разбора «что делать с общим ящиком (info@, sales@), который должен попадать в CRM», и почти нет точных ограничений встроенных инструментов по официальной справке. Рейтинги «лучших» не делаем: свои тесты не проводили.
+
+**Вопрос читателя:** «Какой ИИ-помощник для почты подойдёт нашей команде: тот, что уже есть в Outlook или Gmail, надстройка или что-то своё?» Интент MOFU, сравнение вариантов, британская компания на Microsoft 365 или Google Workspace.
+
+**Коммерческая страница:** `/services/ai-automation` (сценарий «Email enquiries into CRM»). Статья раскрывает, когда личного помощника в почте мало и общий ящик надо связать с CRM; текст страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 13.11, H1 «AI email assistant for business: Outlook and Gmail options compared». Issue: 66 знаков, `blog-check.ts` пропускает title не длиннее 53 (с « | Praxen AI» — 65). Fix: title/H1 «AI email assistant: Outlook, Gmail and add-in options» (53).
+- [HIGH] Location: `/departments/customer-support` (сценарий «Email triage») и пример 4 «Customer email triage» в `ai-workflow-automation-examples`. Issue: сортировка и черновики ответов клиентам в службе поддержки уже за страницей отдела и примером; запрос «ai customer service» — за страницей. Fix: о почте поддержки — одна фраза со ссылкой на страницу отдела по названию; статья — о личной почте сотрудника и общих ящиках офиса (info@, sales@, orders@), без хелпдеска.
+- [MEDIUM] Location: `copilot-training-for-staff` (таблица «Copilot Chat / Microsoft 365 Copilot licence», задача Outlook «40 писем о переезде офиса»). Issue: тезис «какая версия Copilot у сотрудника и чем отличается лицензия» и упражнение в Outlook — там. Fix: одна фраза «Copilot inside Outlook needs the paid licence; our Copilot training article explains the two versions» и ссылка через `links`; упражнение не пересказывать. Своё здесь — ограничения Copilot в Outlook по ящикам и шифрованию (источник 1).
+- [MEDIUM] Location: `gdpr-and-ai` (девять проверок, роль вендора, DPIA). Issue: проверки UK GDPR перед подключением ИИ-инструмента — тезис этой статьи. Fix: в разделе о надстройках только почтовая конкретика (какие права на ящик просит надстройка, кто в админке даёт согласие, что будет при увольнении сотрудника), про DPA и DPIA — одна фраза и ссылка.
+- [MEDIUM] Location: `custom-ai-vs-off-the-shelf` («Buy, connect or build», «Check what your HubSpot, Zendesk or Xero plan includes»). Issue: общий выбор «готовый инструмент, интеграция или своя разработка» — владелец там. Fix: раздел 5 применяет его только к почте (личный ящик / общий ящик с CRM), общую схему не пересказывать.
+- [MEDIUM] Location: `ai-for-sales-teams` (черновики follow-up, письма к сделке в CRM), `ai-agents-for-business` (шаги агента, пример письма поставщика), `invoice-automation-ai` (счета из accounts@). Issue: три тезиса-владельца рядом с темой. Fix: в примере общего ящика каждое — одной фразой: счета уходят по маршруту из статьи об автоматизации счетов, follow-up — статья для отделов продаж, как агент работает по шагам — статья об ИИ-агентах. Шаги не перечислять.
+- [MEDIUM] Location: CTA. Issue: интент не ценовой (правило 11.11). Fix: цены нет; последняя фраза последнего раздела — аудит одного общего ящика (например, info@ с заявками в CRM) и страница `/services/ai-automation`.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- две версии Copilot, лицензия и упражнения в Outlook → `copilot-training-for-staff`;
+- тарифы ChatGPT для компании → `chatgpt-for-business`;
+- проверки UK GDPR, DPA, DPIA, перенос данных → `gdpr-and-ai`;
+- сортировка почты поддержки и ответы из базы знаний → `/departments/customer-support`, `ai-knowledge-base-for-support`;
+- выбор «купить, подключить или разработать» → `custom-ai-vs-off-the-shelf`;
+- шаги агента и точки согласования → `ai-agents-for-business`, `ai-workflow-automation-examples`;
+- follow-up по сделкам → `ai-for-sales-teams`; путь счёта поставщика → `invoice-automation-ai`;
+- общие оговорки (токены, данные на аккаунтах клиента, бесплатный аудит) — не писать.
+
+### Мета
+
+- `slug`: `ai-email-assistant`; `cat`: `Email`; `date`: день выхода (ожидается `2026-11-15`); статья — первой в `posts`; slug — в начало `blogSlugs` (`lib/intl.ts`).
+- `title` (= H1, 53 знака): **AI email assistant: Outlook, Gmail and add-in options**
+- `description` (150 знаков): **AI email assistant options for business: Copilot in Outlook, Gemini in Gmail, inbox add-ins and a custom assistant for a shared mailbox, side by side.**
+- `excerpt` (пример): «What Copilot in Outlook and Gemini in Gmail can reach, what to check before an add-in reads your mail, and when a shared inbox needs more.»
+- «ai email assistant» — в первом предложении первого раздела; «AI email assistant in Outlook» — в H2 раздела 2; «best AI email assistant» — один раз, в разделе 1 («the best one depends on the mail system you already pay for»); «AI inbox management» — один раз, в разделе 5.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: AI email assistant читает почту и в том ящике, где вы уже работаете, делает три вещи: пишет черновики, сводит длинные переписки и сортирует входящие. Факт по теме: Copilot в Outlook работает в личном ящике, а также в общих и делегированных ящиках, к которым у сотрудника есть доступ, но не в групповых ящиках и не с письмами, зашифрованными S/MIME или Double Key Encryption (источник 1); Gemini в Gmail входит во все тарифы Google Workspace Business, включая Starter (источник 3, на 15.11.2026). Общему ящику, письма из которого должны попадать в CRM, нужен помощник, подключённый к вашим системам.
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **Four kinds of AI email assistant.** Определение в первом предложении. Таблица 4 колонки: Type | Where it works | Fits when | Watch for. Строки: встроенный (Copilot в Outlook, Gemini в Gmail); надстройка поверх Outlook или Gmail; отдельный почтовый клиент с ИИ (меняет приложение); свой помощник на общем ящике, связанный с CRM или учётом. Названия сторонних надстроек и клиентов — только если копирайтер открыл страницу вендора в день выпуска; без цен, без оценок «лучший».
+2. **AI email assistant in Outlook: what Copilot reaches.** По источнику 1: сводка переписки, черновик ответа, чат с Copilot в Outlook — только с рабочей или учебной учётной записью; работает в личном, общих и делегированных ящиках, к которым есть доступ; не работает в групповых ящиках и ящиках вне Exchange Online; не читает письма с S/MIME и Double Key Encryption. Что это значит для офиса — пример с пометкой «Example»: юрист шифрует переписку с клиентом S/MIME, и сводку по ней Copilot не сделает. Лицензия — одна фраза и ссылка на статью об обучении Copilot.
+3. **Gemini in Gmail: drafts and summaries in Google Workspace.** По источникам 2 и 3: «Help me write» пишет новый черновик и правит готовый текст (Formalize, Friendly, Shorten, своя инструкция); работает в подходящих тарифах Workspace на поддерживаемых языках, а для личного аккаунта Google — только в США; на странице тарифов Gemini в Gmail отмечен во всех Business-тарифах, включая Starter. Пример промпта с пометкой «Example», со ссылкой на конкретное письмо (как советует справка Google — назвать письмо или файл для точности фактов). ⚖ Состав тарифов — только как на странице на дату выпуска.
+4. **What to check before an add-in reads your mailbox.** Список с жирной вводной (столько пунктов, сколько есть): права, которые надстройка просит (читать всю почту, отправлять от имени); кто даёт согласие — администратор Microsoft 365 или Google Workspace, а не сотрудник; работает ли с общими ящиками; где обрабатываются письма и обучается ли модель на них — ответ в условиях вендора; что происходит с доступом, когда сотрудник уходит. UK GDPR — одна фраза и ссылка на `gdpr-and-ai`.
+5. **When a personal assistant is not enough: shared inboxes.** Личный помощник помогает одному человеку в его ящике; общий ящик требует маршрута, записи в CRM и журнала, кто что отправил. Пример с пометкой «Example»: в info@ фирмы из 8 человек за утро приходят запросы цены, вопросы о доставке, счета поставщиков и спам; подключённый помощник раскладывает письма по типам, готовит черновик ответа по прайсу, создаёт сделку в CRM, счета отправляет в очередь бухгалтерии. Человек согласует каждый ответ клиенту — один раз и своими словами. Своя метрика без £: сколько часов письмо ждёт ответа в info@. Счета, follow-up, шаги агента — по одной фразе со ссылкой по названию (см. «Тезисы»).
+6. **How to choose an email assistant for your team.** Нумерованные шаги: на какой почте вы работаете (Microsoft 365 или Google Workspace); чей ящик — личный или общий; посчитать одну обычную неделю: писем в день, ответов, минут на ответ; две недели встроенного помощника у 2–3 человек с журналом правок черновиков; проверки администратора для любой надстройки (раздел 4); если работа сидит в общем ящике и заканчивается в CRM — **последняя фраза, CTA:** аудит одного общего ящика (например, info@ с заявками) и страница об ИИ-автоматизации. Цены нет.
+7. **Sources** — последний блок, `{h:'Sources',list:[…]}`.
+
+**FAQ (3–4):** Can an AI email assistant send replies on its own? · Does Copilot work in a shared mailbox? · Can one assistant cover both Outlook and Gmail? · Can it learn our tone of voice? Ответы короткие, по источникам, без цен; вопрос «нужно ли говорить клиенту, что ответ написан с ИИ» не брать — он в FAQ `gdpr-and-ai`.
+
+### `links` (3 внутренние)
+
+1. `['services/ai-automation','AI automation: shared inbox enquiries into your CRM']` — коммерческая страница и CTA.
+2. `['blog/copilot-training-for-staff','Microsoft Copilot training: Outlook and the licence']`
+3. `['blog/gdpr-and-ai','GDPR and AI: vendor terms before an add-in reads mail']`
+
+В календарной строке были `ai-agents-for-business` и `ai-for-sales-teams`: их тезисы упоминаем по названию в тексте, в `links` важнее статьи-владельцы лицензии Copilot и проверок вендора (на них читатель уходит из разделов 2 и 4). Две статьи «Read also» добавятся автоматически.
+
+**Входящая ссылка в тот же день:** в `links` статьи `copilot-training-for-staff` добавить `['blog/ai-email-assistant','AI email assistant: Outlook, Gmail and add-in options']`.
+
+### Первоисточники (открыты 15.11.2026)
+
+1. `Microsoft FAQ on Copilot in Outlook: https://support.microsoft.com/en-gb/outlook/frequently-asked-questions-about-copilot-in-outlook (checked 15 November 2026)` — ящики: личный, общие и делегированные — да; групповые и вне Exchange Online — нет; S/MIME и Double Key Encryption — нет; чат в Outlook — только рабочая или учебная учётная запись (страница «Last updated: October 2026»).
+2. `Google Gmail Help on drafting emails with Gemini: https://support.google.com/mail/answer/13955415 (checked 15 November 2026)` — «Help me write»: новый черновик и правка текста; подходящий тариф Workspace — на поддерживаемых языках, личный аккаунт — только США; совет назвать письмо или файл ради точности.
+3. `Google Workspace plans and features: https://workspace.google.com/pricing?hl=en_uk (checked 15 November 2026)` — Gemini in Gmail отмечен в Business Starter, Standard, Plus и Enterprise; цены не берём (страница отдаёт их в долларах).
+
+Адрес источника 1 длинный — проверить блок на 390 px.
+
+**Примеры:** «Example» у всех сценариев (переписка с S/MIME, промпт, info@ на 8 человек). Названий клиентов, статистики и рейтингов нет. Грузия не упоминается, «for businesses», британский английский.
+
+## Бриф на 14.11 hubspot-ai
+
+SEO-редактор, 15.11.2026. Строка календаря «сб 14.11 NEW ⚠ `/blog/hubspot-ai`», выход с опозданием. Источники открыты и проверены 15.11.2026. Тема проходит: брендовый запрос с информационным интентом, с `ai-crm` (19.11) выдача не пересекается.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, замер 02.11.2026; то же число в `docs/seo-data/volumes-en-UK-2026-10-07.csv`, замер 07.10.2026):
+- главный: hubspot ai 320;
+- «hubspot workflows» 140 — **отдельный интент** (см. выдачу), главным не берём: одно упоминание в разделе 3;
+- «hubspot chatbot examples» 30 — за `ai-chatbot-examples` (16.11), здесь не берём;
+- запросов «hubspot breeze» и «hubspot agent hub» в данных нет — частотность не придумываем.
+
+**Выдача** (WebSearch 15.11.2026, выдача США; точный топ UK — DataForSEO, платно, с согласия владельца):
+- «hubspot ai»: страница продукта HubSpot, новости HubSpot, обзоры от партнёров и конкурентов (Zapier «HubSpot AI tools», eesel, hublead, newbreedrevenue «what HubSpot’s AI can and can’t do», streamcreative), отраслевые СМИ (TechCrunch, diginomica). Интент информационный и оценочный: что умеет, сколько стоит, где ограничения.
+- «ai crm»: Capterra, IBM, Salesforce, monday, Zapier, HubSpot blog «CRMs with AI». **Общих URL с «hubspot ai» в первой десятке — 0** (у Zapier разные страницы). Разные интенты: `ai-crm` (19.11) сравнивает CRM, эта статья — один продукт.
+- «hubspot workflows»: гайды по инструменту Workflows (insidea, newbreed, huble, bluleadz, Zapier «workflow examples»). Общих URL с «hubspot ai» — 0, поэтому статьёй под него не целимся.
+- **Факт, который меняет H1 календаря:** на 15.11.2026 HubSpot называет свой ИИ «Agent Hub» (страница продукта и справка «Understand Agent Hub», обновлена 26.10.2026); имя Breeze осталось у разговорного помощника Breeze Assistant. Сторонние гайды в топе ещё пишут «Breeze AI» — пробел: актуальные названия, тарифы и кредиты по официальной справке.
+
+**Вопрос читателя:** «Что ИИ в HubSpot реально делает для нашего отдела продаж, на каком тарифе и сколько кредитов съест?» Интент MOFU, брендовый: кто уже работает в HubSpot или выбирает его.
+
+**Коммерческая страница:** `/departments/sales` (HubSpot и Pipedrive, обновление CRM, ответы лидам). Статья раскрывает, что HubSpot даёт сам и где нужна доработка поверх него; текст страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 14.11, H1 «HubSpot AI: what Breeze does for a small sales team and where it stops». Issue: 70 знаков (лимит 53); имя Breeze для всего ИИ HubSpot устарело (источник 1); «small» нарушает правило «for businesses». Fix: title/H1 «HubSpot AI: agents, Breeze Assistant and credits» (48).
+- [HIGH] Location: ссылка `ai-crm` в строке 14.11. Issue: статья выходит 19.11, ссылка будет битой. Fix: заменить на `blog/custom-ai-vs-off-the-shelf` (владелец тезиса «сначала проверьте, что уже есть в вашем тарифе HubSpot»). В бриф `ai-crm` 19.11 — ссылку на `hubspot-ai` (в строке 19.11 она уже стоит).
+- [MEDIUM] Location: `ai-for-sales-teams`, раздел «CRM updates in HubSpot, Pipedrive or Salesforce» и FAQ «Does this replace HubSpot’s own AI features?». Issue: тезис «встроенный ИИ CRM работает на данных, которые уже в CRM; пробел — звонки, WhatsApp и письма, которые туда не попали; начинаем с того, что есть в тарифе» уже там. Fix: в разделе 5 одна фраза и ссылка по названию; своё здесь — конкретика HubSpot: какие агенты, на каких тарифах, кредиты, настройки данных.
+- [MEDIUM] Location: `ai-crm` (19.11) и `salesforce-einstein` (26.11) по календарю. Issue: сравнение CRM и тезис «встроенный ИИ или своя доработка» отданы `ai-crm`. Fix: никаких сравнений с Salesforce, Pipedrive, Zoho; другие CRM не называть.
+- [MEDIUM] Location: `/departments/customer-support` и `ai-knowledge-base-for-support`. Issue: Customer Agent HubSpot — бот поддержки; «ai customer service» — за страницей отдела. Fix: Customer Agent — одна строка таблицы раздела 1 (что делает и как считаются кредиты), без раздела о поддержке.
+- [MEDIUM] Location: `gdpr-and-ai`. Issue: проверки вендора и DPIA — там. Fix: одна фраза; своё здесь — настройка HubSpot: админ управляет доступом ИИ к данным, отказ от использования данных для улучшения моделей HubSpot (источник 3).
+- [MEDIUM] Location: CTA. Issue: интент не ценовой. Fix: цен Praxen нет; последняя фраза — аудит вашего HubSpot: что покрывает ваш тариф и чего не хватает (например, переписка из WhatsApp и звонки, которые не попадают в HubSpot), страница `/departments/sales`.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- ответы лидам, резюме звонков в CRM, follow-up, таблица «кто что делает» → `ai-for-sales-teams`;
+- «готовый инструмент, интеграция или своя разработка» → `custom-ai-vs-off-the-shelf`;
+- связать HubSpot с другими приложениями через Zapier, Make, n8n → `n8n-vs-zapier-vs-make`;
+- отличие чат-бота, автоматизации и агента в общем виде → `ai-agents-for-business` (здесь — только как это делит сама HubSpot, по источнику 1);
+- проверки UK GDPR → `gdpr-and-ai`; общие оговорки — не писать.
+
+### Мета
+
+- `slug`: `hubspot-ai`; `cat`: `CRM`; `date`: день выхода (ожидается `2026-11-15`); slug — в `blogSlugs`.
+- `title` (= H1, 48 знаков): **HubSpot AI: agents, Breeze Assistant and credits**
+- `description` (155 знаков): **HubSpot AI explained for sales teams: what Agent Hub, Breeze Assistant and the built-in agents do, how HubSpot Credits are counted and where the CRM stops.**
+- `excerpt` (пример): «The current names, which agents need Professional, how monthly credits run out and the jobs HubSpot leaves to your own setup.»
+- «HubSpot AI» — в первом предложении; «Breeze» — с пояснением, что раньше так назывался весь ИИ HubSpot, а сейчас это имя помощника Breeze Assistant (год переименования не писать: на официальных страницах его не нашли, а сторонние гайды не источник).
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: HubSpot AI — это ИИ внутри HubSpot: разговорный помощник Breeze Assistant и готовые агенты (Prospecting, Data, Customer, Campaign и др.), которыми управляют в Agent Hub; Agent Hub входит в тарифы Starter, Professional и Enterprise, а часть агентов и агентные workflows требуют Professional или Enterprise. Факт по теме: многие функции расходуют HubSpot Credits, кредиты обнуляются каждый месяц, неиспользованные не переносятся, а пользоваться ими могут только пользователи с платными местами (источник 2).
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **What HubSpot AI includes in November 2026.** Абзац о названиях (Breeze → Agent Hub; Breeze Assistant остался). Таблица 3–4 колонки: Tool | What it does | Plan or credits. Строки по источнику 1 и странице «Understand Agent Hub»: Breeze Assistant; Prospecting agent; Data agent; Deal progression; Customer agent (кредиты — только за решённый разговор, справка Customer Agent; если копирайтер даёт этот факт, адрес https://knowledge.hubspot.com/customer-agent/understand-the-customer-agent добавить в «Sources» четвёртой строкой); Campaign agent; custom agents в agent builder (расходуют кредиты). Beta-агенты (Knowledge base, Revenue) — с пометкой «beta». ⚖ Тарифы — только как в справке на дату выпуска, с советом проверить в своём аккаунте.
+2. **What it does for a sales team day to day.** Пример с пометкой «Example»: отдел из 6 продавцов B2B. Подготовка к звонку: Data agent отвечает на вопрос о компании по данным CRM, звонкам, письмам и документам (страница продукта); Prospecting agent исследует целевые компании и готовит персональные письма — кто проверяет до отправки, решает руководитель отдела; Deal progression предлагает следующий шаг после звонка. Не повторять таблицу задач из `ai-for-sales-teams`.
+3. **Workflow, Breeze Assistant or agent: which HubSpot tool for which job.** По источнику 1 (решающие вопросы HubSpot): задача по правилам → workflow; нужно разобрать неструктурированное, и человек запускает и проверяет каждый запрос → Breeze Assistant; задача совпадает с готовым агентом → он; нужно запускаться само, по расписанию или при изменении данных → агент внутри workflow (agentic workflows — Professional или Enterprise). Таблица 3 колонки: Sales job | HubSpot tool | Why — свои примеры: распределить лидов по региону; найти рискованные сделки по заметкам звонков; назначить владельца лида после разбора загруженного файла (гибрид, пример HubSpot переписать своими словами под продажи). «HubSpot workflows» — один раз здесь.
+4. **How HubSpot Credits are counted.** По источнику 2: кредиты обнуляются каждый месяц, остаток сгорает; только платные места; когда включённые кредиты кончились и пакетов нет, функции на кредитах встают на паузу до следующего месяца; лимиты на аккаунт, функцию и действие; расход по функциям — в каталоге Products & Services HubSpot. Пример бюджета с пометкой «Example» — формулой без выдуманных ставок: функции, которые включите × объём в месяц × ставка из каталога; поставить лимит на функцию. Цены кредитов в долларах не давать.
+5. **Where HubSpot AI stops.** Только конкретика HubSpot: агенты работают на данных HubSpot (страница продукта) — переписка в WhatsApp с личных телефонов, звонки из отдельной телефонии и неподключённая почта им не видны; правила компании (скидки, территории, кто согласует письмо) надо задать самим; настройка данных: администратор ограничивает доступ ИИ к данным, HubSpot может использовать данные для улучшения своих моделей, отказаться можно в настройках, сторонним провайдерам обучение на данных клиентов запрещено договором (источник 3). Общий тезис «начните с того, что есть в тарифе» — одна фраза и ссылка по названию на статью для отделов продаж; UK GDPR — одна фраза.
+6. **How to start with HubSpot AI in a sales team.** Нумерованные шаги: проверить тариф и у кого платные места; выбрать две задачи (подготовка к звонку, следующий шаг по сделке); две недели Breeze Assistant у 2–3 продавцов, журнал: что приняли без правок; лимит кредитов на каждую включённую функцию; решение об агентах после двух недель. **Последняя фраза — CTA:** аудит вашего HubSpot — что закрывает ваш тариф и что нужно добавить (WhatsApp-переписка и звонки в карточке сделки), страница отдела продаж. Цены нет.
+7. **Sources** — последний блок.
+
+**FAQ (3–4):** Is HubSpot AI included in our plan? · Is Breeze still the name of HubSpot AI? · Does HubSpot use our CRM data to train AI? · Do we need Professional to use agents? Ответы по источникам, без цен.
+
+### `links` (3 внутренние)
+
+1. `['departments/sales','AI for sales teams on HubSpot and Pipedrive']` — коммерческая страница и CTA.
+2. `['blog/ai-for-sales-teams','AI for sales teams: CRM updates and follow-ups']`
+3. `['blog/custom-ai-vs-off-the-shelf','Built-in AI or a custom build: how to decide']` — замена `ai-crm` (выйдет 19.11).
+
+**Входящая ссылка в тот же день:** в `links` статьи `ai-for-sales-teams` добавить `['blog/hubspot-ai','HubSpot AI: agents, Breeze Assistant and credits']`.
+
+### Первоисточники (открыты 15.11.2026)
+
+1. `HubSpot guide to choosing AI agents or workflows: https://knowledge.hubspot.com/ai/when-to-use-ai-agents-or-workflows (checked 15 November 2026)` — решающие вопросы (workflow, Breeze Assistant, готовый или свой агент, агентный workflow), список агентов HubSpot; обновлено 26.10.2026. Названия и тарифы Agent Hub сверены также по https://knowledge.hubspot.com/ai/understand-agent-hub и https://www.hubspot.com/products/artificial-intelligence.
+2. `HubSpot guide to credits and billing: https://knowledge.hubspot.com/account-management/understand-hubspot-credits-and-billing (checked 15 November 2026)` — обнуление каждый месяц, без переноса, только платные места, пауза при исчерпании, лимиты; обновлено 12.11.2026.
+3. `HubSpot AI trust and data use: https://www.hubspot.com/products/artificial-intelligence/ai-trust (checked 15 November 2026)` — отказ от использования данных для улучшения моделей HubSpot, запрет обучения для сторонних провайдеров, админ управляет доступом ИИ.
+
+⚖ Тарифы, названия и правила кредитов HubSpot меняются: в день выпуска копирайтер заново открывает страницы 1–2; если формулировка изменилась — пишем по новой и меняем дату в «Sources».
+
+**Примеры:** «Example» у сценариев (отдел из 6 продавцов, бюджет кредитов). Клиентов, статистики и цитат клиентов HubSpot со страницы продукта не берём. Грузия не упоминается, британский английский.
+
+## Бриф на 15.11 intelligent-document-processing
+
+SEO-редактор, 15.11.2026. Строка календаря «вс 15.11 NEW `/blog/intelligent-document-processing`». Источники открыты и проверены 15.11.2026. Тема проходит: с `invoice-automation-ai` выдача не пересекается.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, замер 02.11.2026):
+- главный: intelligent document processing 140;
+- в том же кластере: document intelligence 140 · ai document processing 30 · automated document processing 30 · automatic document processing 30 · intelligent document processing platform 30 · intelligent document processing software 20 · solutions 20 · digital mailroom automation 20 · ai data extraction 20;
+- **поправка к календарю:** «ai document 390» в строке 15.11 — это ключ «artificial intelligence document» 390. Его выдача смешанная (патенты, Scribd, определения Document AI, общие статьи об ИИ), интент неясен — главным не берём и в спрос статьи не суммируем;
+- не наши: «document automation» 90 и «document assembly software» 70 — сборка документов по шаблону (договоры), другой интент; «invoice ocr» 50, «invoice data extraction» 30 — за `invoice-automation-ai`; «ai document review» 40, «ai legal document review» 20 — за `ai-contract-review` (17.11);
+- на .ge: `ai-1c` (18.11) — распознавание первичных документов в 1С; .com-статья 1С не упоминает, темы разведены (строка .ge-календаря это фиксирует).
+
+**Выдача** (WebSearch 15.11.2026, выдача США; добавлен запрос «intelligent document processing UK business guide»):
+- «intelligent document processing»: определения и гайды вендоров (MuleSoft, Automation Anywhere, ABBYY, Tungsten, IBM, Nutrient, Affinda, Databricks, NVIDIA, ServiceNow UK). Формат — «What is IDP: how it works, benefits, use cases». Интент информационный, TOFU.
+- «…UK»: гайды британских подрядчиков и DocuWare, цифры экономии — заявления вендоров (их не берём).
+- «document intelligence»: те же определения плюс Azure AI Document Intelligence, Google Document AI, Amazon Textract — один кластер, отдельной статьёй не делаем.
+- «invoice automation AI»: AvidXchange, Tipalti, Nanonets, NetSuite, Ramp, Lindy. **Общих URL с «intelligent document processing» в первой десятке — 0** (у Automation Anywhere разные страницы). Запросы разные, каннибализации нет.
+- Пробел: в топе почти нет того, что видит небольшая компания на практике — смешанная пачка сканов, рукописные формы, что из готовых моделей сделано под американские формы, кто проверяет поле с низкой уверенностью.
+
+**Вопрос читателя:** «Что ИИ может прочитать из наших документов, кроме счетов, и как понять, где нужен человек?» TOFU, британская компания с бумажным или PDF-потоком.
+
+**Коммерческая страница:** `/services/ai-automation` (документы и PDF в CRM, учёт, таблицы). Статья раскрывает, как устроено чтение документов; сценарии страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: `invoice-automation-ai`, раздел «What invoice automation covers» («Document automation is the wider name…», «Template-based OCR reads fields from fixed positions… A language model reads the document much as a clerk would…»). Issue: тезис «шаблонное OCR или языковая модель» сформулирован там на примере счетов; бриф 12.11 назначил эту статью владельцем общего тезиса «как ИИ читает документы» с 15.11. Пересказ того абзаца будет дублем. Fix: здесь — разбор по типам документов (раздел 2: фиксированная форма, полуструктурированный документ, смешанная пачка, свободный текст, рукопись), без фраз «fixed positions», «new template for each supplier», «much as a clerk would». Путь счёта от почты до учёта — одна фраза и ссылка.
+- [MEDIUM] Location: `invoice-automation-ai`, раздел «How to run a first pilot» (месяц счетов и проведённые проводки как «answer key»). Issue: тезис «тест на прошлых документах с эталоном» уже там. Fix: в разделе 6 своё — набор с плохими сканами и всеми видами макетов, список полей и какие из них человек проверяет всегда, точность по каждому полю; фразу «answer key» не использовать.
+- [MEDIUM] Location: `ai-workflow-automation-examples` (примеры «Order entry» из PDF, «Contract checks»), `/departments/operations` (заказы из PDF), `/departments/procurement` (сравнение КП в разных форматах), `ai-for-law-firms` (сводки документов со ссылками на пункты). Issue: эти документы уже разобраны. Fix: свои примеры — утренняя почта, отсканированная одним PDF (digital mailroom), рукописные бумажные анкеты, накладные; заказы, КП и договоры — по одной фразе без деталей.
+- [MEDIUM] Location: `ai-for-construction` (накладные, бумаги площадки). Issue: строительная конкретика там. Fix: одна фраза («site paperwork such as delivery notes and diaries») и ссылка через `links` — по решению брифа 12.11.
+- [MEDIUM] Location: `gdpr-and-ai`. Issue: документы с удостоверениями личности и расчётными листками содержат персональные данные; проверки — там. Fix: одна фраза в разделе 5.
+- [MEDIUM] Location: CTA. Issue: TOFU, интент не ценовой. Fix: цены нет; последняя фраза — аудит одного потока документов (например, утренней почты или анкет) и страница `/services/ai-automation`.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- путь счёта поставщика, проверка смены реквизитов, пилот на счетах → `invoice-automation-ai`;
+- заказы из PDF, проверка договоров по чек-листу, таблица выбора первого процесса → `ai-workflow-automation-examples`;
+- сводки договоров и документов для юристов → `ai-for-law-firms` (с 17.11 — `ai-contract-review`);
+- бумаги площадки и накладные стройматериалов → `ai-for-construction`;
+- «готовый инструмент или своя разработка» в общем виде → `custom-ai-vs-off-the-shelf`;
+- UK GDPR → `gdpr-and-ai`; общие оговорки — не писать.
+
+### Мета
+
+- `slug`: `intelligent-document-processing`; `cat`: `Documents`; `date`: день выхода (ожидается `2026-11-15`); slug — в `blogSlugs`.
+- `title` (= H1, 51 знак): **Intelligent document processing (IDP): how it works**
+- `description` (143 знака): **Intelligent document processing explained: how AI sorts, splits and reads scans, forms and PDFs, and when a page goes to a person for checking.**
+- `excerpt` (пример): «Classify, split, extract, check: what AI reads well from scans and PDFs, what still needs a person and how to test it on your own documents.»
+- «intelligent document processing» — в первом предложении; «document intelligence» — один раз, в разделе 4 (так Microsoft называет свой сервис); «digital mailroom» — в разделе 3.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: intelligent document processing (IDP) — это когда ИИ распознаёт тип входящего документа, разделяет скан с несколькими документами, извлекает нужные поля и отправляет человеку всё, в чём не уверен, так что данные приходят в ваши системы полями, а не PDF-файлом. Факт по теме: облачные сервисы Microsoft, Google и Amazon делают эту работу через API; у Azure Document Intelligence, например, есть готовые модели для счетов, чеков, банковских выписок, договоров и удостоверений личности и свои модели, которые обучают на ваших размеченных образцах (источник 1).
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **What intelligent document processing does.** Определение и шаги одной строкой каждый (список, заголовок не начинать с «How»): capture → classify → split → extract → validate → review → export. OCR даёт текст; IDP даёт поля с типами (дата, сумма, адрес) — по источнику 1 («strongly typed data»). Google описывает те же функции: оцифровка с оценкой качества скана и выравниванием, извлечение, пары «ключ — значение», классификация, разделение PDF с несколькими документами (источник 2).
+2. **Which documents it reads well, and which need a person.** Таблица 4 колонки: Document | Example | What IDP returns | Where a person checks. Строки: одна и та же форма (бумажная анкета клиента) — шаблонная модель (Azure «custom template» для статичных макетов); полуструктурированные (накладные, банковские выписки, чеки) — готовые или нейросетевые модели («custom neural» для смешанных типов); смешанная пачка — классификатор до извлечения и разделитель; свободный текст (письма, договоры) — извлечение языковой моделью со ссылкой на страницу; рукопись — модель Read читает печатный и рукописный текст, поля с низкой уверенностью уходят человеку. Счета — одна фраза и ссылка.
+3. **Example: the morning post as one scanned PDF.** С пометкой «Example»: офис сканирует утреннюю почту одним PDF на 30 страниц — счета поставщиков, накладные, письмо с жалобой клиента, подписанный договор, письмо из банка. IDP делит файл, определяет тип каждого документа, извлекает поля и раскладывает по очередям: счета — в бухгалтерию (одна фраза о маршруте из статьи о счетах), жалоба — в поддержку, договор — владельцу договора со сводкой, письмо из банка — человеку без автоматических действий. Своя метрика без £: часы от прихода почты до нужного человека. Бумаги площадки — одна фраза со ссылкой на статью о строительстве.
+4. **Cloud document services or a general AI model.** Таблица 3 колонки: Option | Fits when | Watch for. Строки: Azure Document Intelligence (в справке Microsoft — «Azure Document Intelligence in Foundry Tools»), Google Document AI, Amazon Textract — облачные API, Textract берёт плату только за обработанные документы, без минимального платежа (источник 3); заметная часть готовых моделей Azure — американские формы (US tax W-2, 1098, 1099, 1040, ипотечные формы, US check), британские формы обычно требуют своей модели на ваших образцах; языковая модель общего назначения читает любой макет, но ей нужны правила проверки и ссылка на страницу для каждого поля. Названия IDP-платформ (ABBYY и др.) не давать без проверки их страниц. Общую схему «купить или разработать» не пересказывать.
+5. **Accuracy checks and the data in your documents.** Уверенность по каждому полю и порог, ниже которого поле идёт человеку; правила проверки (суммы сходятся, даты возможны, номер есть в вашей базе); выборочная проверка после запуска; где обрабатываются документы и сколько хранятся; версии API устаревают — у Azure Document Intelligence v2.1 конец поддержки 15 сентября 2027, v3.0 — 30 марта 2029 (источник 1), поэтому у сборки должен быть ответственный за обновление. Персональные данные (удостоверения, расчётные листки) — одна фраза и ссылка по названию на `gdpr-and-ai`.
+6. **How to start with one document type.** Нумерованные шаги: один тип с объёмом каждую неделю; 50–100 прошлых документов, включая плохие сканы и все макеты, которые реально приходят; список полей и отметка, какие человек проверяет всегда; прогон и точность по каждому полю отдельно; неделя параллельно с ручным вводом. **Последняя фраза — CTA:** аудит одного потока документов (утренняя почта, анкеты или накладные) и страница об ИИ-автоматизации. Цены нет.
+7. **Sources** — последний блок.
+
+**FAQ (3–4):** What is the difference between OCR and intelligent document processing? · Can it read handwriting? · Does IDP work with UK forms? · What happens to a page it cannot read? Ответы короткие, по источникам, без цен и без пересказа `invoice-automation-ai` (его FAQ о сканах и валютах не повторять).
+
+### `links` (3 внутренние)
+
+1. `['services/ai-automation','AI automation: documents and PDFs into your systems']` — коммерческая страница и CTA.
+2. `['blog/invoice-automation-ai','Invoice automation: the supplier invoice route']`
+3. `['blog/ai-for-construction','AI for construction: site paperwork and delivery notes']` — по брифу 12.11, вместо `ai-workflow-automation-examples` из строки календаря (её тезисы упоминаем по названию в тексте; она и так получает ссылки из пяти статей).
+
+**Входящая ссылка в тот же день:** в `links` статьи `invoice-automation-ai` добавить `['blog/intelligent-document-processing','Intelligent document processing: documents beyond invoices']`. Статья `ai-contract-review` (17.11) уже ставит ссылку сюда.
+
+### Первоисточники (открыты 15.11.2026)
+
+1. `Microsoft overview of Azure Document Intelligence: https://learn.microsoft.com/en-gb/azure/ai-services/document-intelligence/overview (checked 15 November 2026)` — сервис для решений IDP; модели Read (печатный и рукописный текст) и Layout; готовые модели (bank statement, contract, invoice, receipt, ID document, pay stub и американские формы); custom template и custom neural; классификатор до извлечения; типизированные поля; сроки окончания поддержки v2.1 и v3.0.
+2. `Google Cloud Document AI overview: https://docs.cloud.google.com/document-ai/docs/overview (checked 15 November 2026)` — оцифровка с оценкой качества и выравниванием, извлечение, пары «ключ — значение», классификация, разделение PDF с несколькими документами; страница обновлена 12.11.2026.
+3. `Amazon Textract developer guide: https://docs.aws.amazon.com/textract/latest/dg/what-is.html (checked 15 November 2026)` — извлечение текста, таблиц и форм; оплата только за проанализированные документы, без минимальных платежей.
+
+**Примеры:** «Example» у сценариев (утренняя почта на 30 страниц, анкеты). Цифр экономии и рынка IDP из топа не берём. Названий клиентов нет. Грузия и 1С не упоминаются, британский английский.
