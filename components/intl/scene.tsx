@@ -1,7 +1,10 @@
 'use client';
 // Animated product scenes (Claude Design "Praxen Scene"): a looping illustration of one workflow.
-// One step every 1.6 s, a two-step pause at the end, stopped off screen and on pause (WCAG 2.2.2);
-// with reduced motion the final frame is shown and there is no pause button.
+// The finished frame is rendered first (also in the server HTML), so the card is never blank.
+// The replay starts only on screen and with motion allowed: after a short hold the steps play again
+// over the filled card (steps still to come stay faded, never empty), one step every 1.6 s, with a
+// two-step pause at the end; stopped off screen and on pause (WCAG 2.2.2). With reduced motion the
+// finished frame stays and there is no pause button.
 import {useEffect,useRef,useState} from 'react';
 import {scenes,type SceneData,type SceneType} from '@/lib/intl';
 import {useReducedMotion} from '@/components/praxen/ui';
@@ -11,12 +14,15 @@ const steps:Record<SceneType,number>={call:7,doc:4,score:4,chat:4,agent:5,playbo
 const S=(v:unknown)=>String(v??'');
 const A=<T,>(v:unknown)=>(Array.isArray(v)?v:[]) as T[];
 const ini=(v:string)=>v.split(' ').map(w=>w[0]).join('').slice(0,2);
+// Opacity of a step that has not played yet: visible enough to keep the card full, clearly "to come".
+const G=.3;
 
 export function Scene({type,data}:{type:SceneType;data?:SceneData}){
  const D={...scenes[type],...(data||{})} as Record<string,unknown>;
  const n=steps[type];
  const reduced=useReducedMotion();
- const [step,setStep]=useState(0),[paused,setPaused]=useState(false),[visible,setVisible]=useState(true);
+ // Start on the finished frame (n); the replay begins only once the card is seen on screen.
+ const [step,setStep]=useState(n),[paused,setPaused]=useState(false),[visible,setVisible]=useState(false);
  const ref=useRef<HTMLDivElement>(null);
  useEffect(()=>{
   const el=ref.current;if(!el||!('IntersectionObserver' in window))return;
@@ -25,7 +31,7 @@ export function Scene({type,data}:{type:SceneType;data?:SceneData}){
  },[]);
  useEffect(()=>{
   if(reduced||paused||!visible)return;
-  const t=setInterval(()=>setStep(s=>s>=n+2?0:s+1),1600);
+  const t=setInterval(()=>setStep(s=>s>=n+2?1:s+1),1600);
   return()=>clearInterval(t);
  },[reduced,paused,visible,n]);
  const s=reduced?99:step,on=(k:number)=>s>=k;
@@ -92,8 +98,10 @@ export function Scene({type,data}:{type:SceneType;data?:SceneData}){
      <div className="sc-wa-head"><Icon name="chevron-left" size={16}/><span className="sc-wa-av">{ini(S(D.who||'RD'))}</span><span className="sc-who"><b>{S(D.who)}</b><small>Business account</small></span></div>
      <div className="sc-wa-canvas">
       <div className={v(1)+' sc-wa-in'}>{S(D.q)}</div>
-      {s===2&&<span className="sc-wa-typing"><i/><i/><i/></span>}
-      <div className={v(3)+' sc-wa-out'}>{S(D.a)}<span><Icon name="link" size={11}/>Source: {S(D.src)}</span></div>
+      <div className="sc-wa-slot">
+       {s===2&&<span className="sc-wa-typing"><i/><i/><i/></span>}
+       <div className={v(3)+' sc-wa-out'+(s===2?' is-typing':'')}>{S(D.a)}<span><Icon name="link" size={11}/>Source: {S(D.src)}</span></div>
+      </div>
      </div>
      <div className="sc-wa-foot"><small>{on(4)?'Reception notified · full chat attached':'Replies only from approved sources'}</small><span className={'sc-hand'+(on(4)?' is-on':'')}><Icon name="user-round" size={13}/>{S(D.hand)}</span></div>
     </div>}
@@ -113,7 +121,7 @@ export function Scene({type,data}:{type:SceneType;data?:SceneData}){
       <div className="sc-deal"><small>Deal</small><b>{S(D.deal)}</b>
        <div className="sc-stages">{A<string>(D.stages).map((g,i)=>{const lit=on(1)?i<=Number(D.stage??1):i===0;return <span key={g} className={lit?'is-on':''}><i/>{g}</span>})}</div>
       </div>
-      <div className="sc-crm-fields">{A<[string,string]>(D.fields).map(([k,val],i)=><div key={k}><small>{k}</small><span style={{opacity:on(i+1)?1:0}}>{val}</span></div>)}</div>
+      <div className="sc-crm-fields">{A<[string,string]>(D.fields).map(([k,val],i)=><div key={k}><small>{k}</small><span style={{opacity:on(i+1)?1:G}}>{val}</span></div>)}</div>
      </div>
      <div className={v(5)+' sc-note'}><Icon name="clipboard-list" size={15}/>{S(D.note)}</div>
     </>}
@@ -122,7 +130,7 @@ export function Scene({type,data}:{type:SceneType;data?:SceneData}){
      <div className={v(4)+' sc-urgent'}>
       <span className="sc-label sc-label-red"><Icon name="alert-triangle" size={13}/>Urgent · {S(D.open)}</span>
       <p>AI draft: “{S(D.draft)}”</p>
-      <div><span className={'sc-hand is-on'+(on(4)&&!on(5)&&!reduced?' is-pulse':'')}><Icon name="user-round" size={13}/>{S(D.hand)}</span><small style={{opacity:on(5)?1:0}}>{S(D.who)}</small></div>
+      <div><span className={'sc-hand is-on'+(on(4)&&!on(5)&&!reduced?' is-pulse':'')}><Icon name="user-round" size={13}/>{S(D.hand)}</span><small style={{opacity:on(5)?1:G}}>{S(D.who)}</small></div>
      </div>
     </>}
     {type==='slack'&&<div className="sc-slack">

@@ -69,7 +69,10 @@ const fresh=(t:Touch|undefined):Touch|undefined=>{
 const storeAllowed=(c:Consent=readConsent())=>c!=='denied'&&(!isIntl||c==='granted');
 function forgetAttribution(){
  try{localStorage.removeItem(storeKey);sessionStorage.removeItem(campaignKey);localStorage.removeItem('praxen_attribution');sessionStorage.removeItem('praxen_attribution')}catch{}
- // Earlier visits read from storage leave memory too; an enquiry sent right after «Decline» carries only this page load.
+ keepOnlyThisVisit();
+}
+// Earlier visits read from storage leave memory too; an enquiry sent right after «Decline» carries only this page load.
+function keepOnlyThisVisit(){
  memory=thisVisit?{first:thisVisit,last:thisVisit}:{};
  memoryCampaign=thisVisit?.utm_campaign?.slice(0,60)||'';
 }
@@ -155,7 +158,13 @@ export function setConsent(v:'granted'|'denied'|'unset'){
  if(storeAllowed(v))saveAttribution();else forgetAttribution();
  window.dispatchEvent(new Event(consentEvent));
 }
-const subscribe=(cb:()=>void)=>{window.addEventListener(consentEvent,cb);window.addEventListener('storage',cb);return()=>{window.removeEventListener(consentEvent,cb);window.removeEventListener('storage',cb)}};
+// «Decline» in another tab of this site reaches this tab as a storage event: its memory drops the earlier visits too,
+// so an enquiry sent from here without a reload does not carry them (the other tab has already cleared the storage).
+const subscribe=(cb:()=>void)=>{
+ const onStorage=()=>{if(!storeAllowed())keepOnlyThisVisit();cb()};
+ window.addEventListener(consentEvent,cb);window.addEventListener('storage',onStorage);
+ return()=>{window.removeEventListener(consentEvent,cb);window.removeEventListener('storage',onStorage)};
+};
 const useConsent=()=>useSyncExternalStore(subscribe,readConsent,():Consent=>'server');
 
 function loadScript(src:string){const s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s)}
