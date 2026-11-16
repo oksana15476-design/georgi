@@ -110,7 +110,7 @@ export function Scene({type,data}:{type:SceneType;data?:SceneData}){
       <span className="sc-agent-rail"><span className={'sc-agent-icon'+(wait?' is-wait':'')}><Icon name={x[0]} size={15}/></span>{!last&&<i/>}</span>
       <span className="sc-agent-text"><span><b>{x[1]}</b><em className={wait?'is-wait':''}>{wait?'Human check':'Done'}</em></span><small>{x[2]}</small></span>
      </li>})}</ol>
-     <div className="sc-log">{A<string>(D.log).map((t,i)=><div key={t} style={{opacity:on(i+1)?1:.15}}>› {t}</div>)}</div>
+     <div className="sc-log">{A<string>(D.log).map((t,i)=><div key={t} style={{opacity:on(i+1)?1:G}}>› {t}</div>)}</div>
     </>}
     {type==='playbook'&&<>
      <div className="sc-hours"><span>Hours saved per week</span><b>{Math.round(Number(D.hours||10)*Math.min(s,A(D.cards).length)/Math.max(A(D.cards).length,1))}</b></div>
