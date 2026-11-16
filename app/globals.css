@@ -1060,8 +1060,10 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 /* Hero */
 .ix-hero-h1{margin-top:20px}
 .ix-hero-sub{margin-top:22px;max-width:600px;font-size:18px;line-height:1.65;color:var(--body);text-wrap:pretty}
-.ix-scene-box{height:520px}
-@media(max-width:1100px){.ix-scene-box{height:auto}}
+/* The scene card is 520 px tall and grows instead of cutting off the finished frame when the column is narrow. */
+.ix-scene-box{min-height:520px;display:flex;flex-direction:column}
+.ix-scene-box>.sc{flex:1 0 auto;height:auto}
+@media(max-width:1100px){.ix-scene-box{min-height:0}}
 .ix .proof-mini{margin-top:32px}
 
 /* Marquee: colour logos, smaller names */
@@ -1343,18 +1345,18 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .sc-hand{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid var(--line2);background:#fff;color:var(--ink);transition:background .3s,color .3s}
 .sc-hand.is-on{border-color:var(--accent);background:var(--accent);color:#fff;animation:sc-pulse 1.6s ease-in-out infinite}
 /* call */
-.sc-caller{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:var(--ink);color:#fff}
+.sc-caller{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--ink);color:#fff}
 .sc-ring{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--accent)}
 .sc-ring.is-ringing{animation:sc-ring 1.2s ease-in-out infinite}
 .sc-timer{margin-left:auto;font-size:12px;font-weight:600;color:#a9b3c6;font-variant-numeric:tabular-nums}
-.sc-lines{display:flex;flex-direction:column;gap:8px}
+.sc-lines{display:flex;flex-direction:column;gap:6px}
 .sc-line{align-self:flex-start;max-width:86%;display:flex;flex-direction:column;gap:3px}
 .sc-line.is-ai{align-self:flex-end;align-items:flex-end}
 .sc-line small{font-size:10.5px;font-weight:600;color:var(--faint)}
-.sc-line span{padding:8px 11px;border-radius:10px;background:#f2f4f8;font-size:13px;line-height:1.45}
+.sc-line span{padding:6px 11px;border-radius:10px;background:#f2f4f8;font-size:13px;line-height:1.45}
 .sc-line.is-ai span{background:var(--tint)}
 .sc-cards{margin-top:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-.sc-card{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.sc-card{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .sc-card-blue{border-color:#d6e0f5;background:#f2f6ff}
 .sc-card b{display:block;margin-top:6px;font-size:13.5px;font-weight:600}
 .sc-card small{display:block;margin-top:6px;font-size:12px;color:var(--muted)}
@@ -1512,10 +1514,20 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
  .sc-card b,.sc-card small{margin-top:4px}
  .sc-card small,.sc-card>span:last-child:not(.sc-label){overflow-wrap:anywhere;font-size:11.5px}
  .sc-fields{padding:6px;gap:2px}
- .sc-fields>div{padding:4px 8px}
- .sc-row{padding:6px 12px}
- .sc-score{padding:7px 10px}
+ .sc-line{gap:2px}
+ .sc-line small{line-height:1.2}
+ .sc-doc{gap:8px}
+ .sc-box-head{padding:7px 10px}
+ .sc-from{padding:6px 10px 0}
+ .sc-fields>div{padding:3px 8px}
+ .sc-row{padding:5px 10px}
+ .sc-box>.sc-ok{margin:8px 10px 10px}
+ .sc-ok{padding:7px 10px}
+ .sc-stack{gap:6px}
+ .sc-score{padding:6px 10px}
  .sc-track{margin-top:5px}
+ .sc-short{padding:9px 10px}
+ .sc-short>div{margin-top:6px}
 }
 @media(prefers-reduced-motion:reduce){.sc-in{opacity:1;transform:none}}
 
@@ -1537,6 +1549,8 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .ix-article-body h2{font-size:28px;font-weight:600;letter-spacing:-.025em;line-height:1.2}
 .ix-article-body section p{margin-top:14px;font-size:18px;line-height:1.75;color:var(--body);text-wrap:pretty}
 .ix-article-body ul{margin-top:14px;padding-left:22px;display:flex;flex-direction:column;gap:10px;font-size:18px;line-height:1.65;color:var(--body)}
+/* Long addresses in article text (the «Sources» list: plain URLs without hyphens) wrap instead of running past the edge on phones. */
+.ix-article-body section p,.ix-article-body section li{overflow-wrap:anywhere}
 .ix-answer-box{padding:22px 24px;border-radius:14px;background:var(--soft);border:1px solid #d6e0f5}
 .ix-answer-box b{font-size:15px}
 .ix-answer-box p{margin-top:8px;font-size:18px;line-height:1.65;color:var(--ink)}
