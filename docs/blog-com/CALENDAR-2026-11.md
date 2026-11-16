@@ -371,3 +371,251 @@ SEO-редактор, 15.11.2026. Строка календаря «вс 15.11 N
 3. `Amazon Textract developer guide: https://docs.aws.amazon.com/textract/latest/dg/what-is.html (checked 15 November 2026)` — извлечение текста, таблиц и форм; оплата только за проанализированные документы, без минимальных платежей.
 
 **Примеры:** «Example» у сценариев (утренняя почта на 30 страниц, анкеты). Цифр экономии и рынка IDP из топа не берём. Названий клиентов нет. Грузия и 1С не упоминаются, британский английский.
+
+## Бриф на 16.11 ai-chatbot-examples
+
+SEO-редактор, 16.11.2026. Строка календаря «пн 16.11 NEW `/blog/ai-chatbot-examples`», выход 18.11.2026. Источники открыты и проверены 16.11.2026. Тема проходит: выдача отдельная, каннибализации нет при соблюдении правил ниже.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, DataForSEO, Google Ads UK, среднее за 12 месяцев, замер 02.11.2026):
+- **поправка к календарю:** «chatbot ai examples 720» — это ключ «chatbot artificial intelligence examples» 720; он главный по спросу, в тексте закрывается формулировкой «AI chatbot examples»;
+- «chatbot examples» 170 и «example of a chatbot» 170 — одна группа Google Ads, **не суммировать**; «ai chatbot examples» 90; «examples of ai chatbots» 30;
+- хвосты под формат «диалоги»: chatbot questions examples 30 · chatbot dialogue examples 20;
+- не берём: «hubspot chatbot examples» 30 (бренд, спрос мал; HubSpot в статье не называем), «sms chatbot examples» 20;
+- на .ge темы нет (`lib/ge-blog.ts`, `docs/blog-ge/CALENDAR-2026-11.md`: там чат-бот для сайта, бот для записи и бот в Telegram Business — другие запросы и другой рынок), повтора между сайтами нет.
+
+**Выдача** (WebSearch 16.11.2026: «ai chatbot examples», «chatbot examples by industry business», «AI chatbot examples UK business website WhatsApp»; инструмент даёт выдачу США, точный топ UK — DataForSEO SERP, платно, только с согласия владельца):
+- Формат топа — подборки вендоров «9 / 10 / 20 best chatbot examples 2026» (Voiceflow, Tidio, Jotform, Help Scout, Featurebase, Chaindesk, ProProfs, LiveChatAI, Yellow.ai, Boost.ai, streamcreative, assembled) и TechRepublic. Смешаны два интента: известные ассистенты (ChatGPT, Gemini, Siri) и боты брендов по отраслям (ритейл, банки, медицина, рестораны, недвижимость). Цифры в топе — заявления вендоров о брендах.
+- Общих URL с выдачей «ai chatbot cost» и «whatsapp chatbot» нет: у них цены и подключение, здесь — галерея примеров. Порог 7 из 10 не близок.
+- Пробел, который берём: в топе почти нет самих диалогов и того, что бот делает за кадром (откуда ответ, какую систему проверил, где отдаёт человеку). Британской конкретики нет. Бренды и их цифры не берём: проверить не можем.
+
+**Вопрос читателя:** «Как выглядит разговор ИИ-бота с клиентом в бизнесе вроде моего и что он реально умеет?» Интент информационный, TOFU; статья ведёт вниз на `ai-chatbot-cost`, `whatsapp-chatbot-for-business` и страницу услуги.
+
+**Коммерческая страница:** `/services/ai-chatbot` (сайт, WhatsApp, внутренний helpdesk). Статья показывает сценарии страницы в живых диалогах, текст страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: `/services/ai-chatbot` и `ai-chatbot-cost` (title «AI chatbot for business: how much does it cost?»). Issue: запросы «ai chatbot», «chatbot for business» и цена — за ними. Fix: в title, H1 и H2 нет «for business», «development», «cost»; цен Praxen и расчёта окупаемости в статье нет; FAQ о цене не брать.
+- [HIGH] Location: строка календаря 16.11, спрос «chatbot ai examples 720 · chatbot examples 170». Issue: ключ записан неточно, две формулировки по 170 — одна группа. Fix: в спросе статьи — 720 (главный) и 170 (одна группа), без суммы.
+- [MEDIUM] Location: `whatsapp-chatbot-for-business` (таблица «Menu bot or AI assistant», «Jobs a WhatsApp chatbot takes on», шесть шагов плана, «Mistakes»). Issue: эти тезисы — там. Fix: кнопки и свободный текст здесь только внутри диалогов; одна фраза о выборе «меню или ИИ» со ссылкой; план и ошибки не пересказывать.
+- [MEDIUM] Location: `ai-knowledge-base-for-support` (RAG, ссылки на источник, список триггеров передачи, тест перед запуском). Issue: механика ответов из документов и правила передачи — там. Fix: у каждого примера одна строка «Behind it» (какой документ или система); список триггеров не давать, «retrieval-augmented generation» не объяснять.
+- [MEDIUM] Location: `whatsapp-business-api` (доступ, окно 24 часа, тарифы Meta). Issue: тезис-владелец. Fix: одна фраза в примере с напоминанием, без ставок и правил окна.
+- [MEDIUM] Location: сцены страниц `lib/intl.ts` — отель (парковка и ранний заезд в WhatsApp), стоматология (запись на осмотр и гигиениста), сантехник (котёл), агент (просмотр на Mill Road), юристы (аренда кафе в Лидсе). Issue: те же диалоги в статье будут дублем. Fix: эти сюжеты не использовать.
+- [MEDIUM] Location: будущие статьи календаря — `ai-for-property-management` (20.11, обращения жильцов), `chatgpt-for-customer-service` (21.11), `automated-instagram-dms` (22.11), `hr-workflow-automation` (24.11, отпуск и вопросы по политике), `lead-generation-chatbot` (29.11, вопросы квалификации), `facebook-messenger-chatbot` (30.11). Issue: их темы легко забрать примерами. Fix: без жильцов и ремонтов, без отпуска и HR-политик, без списка квалифицирующих вопросов; Instagram и Messenger — максимум в одном примере как канал, без настройки. 22.11 и 29.11 ссылаются сюда (стоит в календаре).
+- [MEDIUM] Location: CTA. Issue: правило 11.11 — чат-боты ведут на пилот чат-бота; шаблон «Book an audit…: our page shows…» запрещён. Fix: последняя фраза последнего раздела — предметный шаг: «пришлите 20 настоящих сообщений самого частого типа — первый такой разговор собираем на сайте или в WhatsApp в пилоте чат-бота», ссылка `/services/ai-chatbot` в `links`. Цены нет.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- меню-бот или ИИ-ассистент, задачи для WhatsApp, план и ошибки → `whatsapp-chatbot-for-business`;
+- доступ к WhatsApp Business API, окно 24 часа, сообщения Meta → `whatsapp-business-api`;
+- ответы с источником, триггеры передачи, тест перед запуском → `ai-knowledge-base-for-support`;
+- из чего складывается цена, сравнение КП, красные флаги → `ai-chatbot-cost`;
+- отличие бота от автоматизации и агента → `ai-agents-for-business`;
+- общие оговорки (токены, данные на аккаунтах клиента, бесплатный аудит) и рефрен «люди решают» — не писать; UK GDPR — не трогать.
+
+### Мета
+
+- `slug`: `ai-chatbot-examples`; `cat`: `Chatbots`; `date`: день выхода (ожидается `2026-11-18`); статья — первой в `posts`; slug — в начало `blogSlugs` (`lib/intl.ts`).
+- `title` (= H1, 49 знаков): **AI chatbot examples: 10 conversations by industry**
+- `description` (147 знаков): **AI chatbot examples for business: ten example conversations on website chat, WhatsApp and Teams, what each bot checks and when a person takes over.**
+- `excerpt` (пример, 121): «Ten example conversations by industry: what the customer asked, what the bot looked up and the moment a person took over.»
+- «AI chatbot examples» — в первом предложении первого раздела; «chatbot examples» и «example of a chatbot» — по разу, естественно; «chatbot dialogue» — один раз.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: AI chatbot example — это разговор, в котором бот отвечает клиенту из одобренной информации компании, сам проверяет заказ или свободное время и передаёт разговор человеку, когда нужен человек. Факт по теме: в WhatsApp бот может дать под сообщением до трёх кнопок ответа (подпись до 20 знаков) или список до 10 вариантов, поэтому в хорошем диалоге короткий выбор — кнопками, а вопрос — свободным текстом (источники 1 и 4).
+
+### Структура (6 разделов + «Sources», 900–1 250 слов)
+
+**Пометка примеров (обязательно):** каждый из 10 диалогов помечен «example scenario». Формат пункта списка: вводная до двоеточия «<Отрасль>, <канал> (example scenario)» — до 60 знаков, без точек, не кончается цифрой (покажется жирным); дальше 2–4 реплики «Customer: … Bot: …» и одна фраза «Behind it: …». В первом разделе одна фраза: «Every conversation below is an example scenario written for this article; the businesses are not clients.» Названий компаний, брендов, статистики нет. Каркас «Examples 1–4 / 5–7 / 8–10» (как в `ai-workflow-automation-examples`) не повторять: разделы делим по тому, что бот делает.
+
+1. **What an AI chatbot example shows.** Определение в первом предложении. Общие ассистенты (ChatGPT и др.) — одна фраза: здесь боты компаний, которые отвечают от их имени. Что смотреть в каждом примере: откуда ответ, что бот проверил, где отдал человеку. Пометка про example scenario.
+2. **Answers from the company’s own information.** Три диалога списком: софт-компания, чат в приложении («как выгрузить счета» → ответ со ссылкой на статью справки; сообщение об ошибке → передача поддержке с описанием); спортклуб, сайт (заморозка абонемента по правилам клуба → ссылка на форму; отмена членства → человек); бухгалтерская фирма, чат на портале клиента (перечень документов для декларации из списка фирмы и ссылка для загрузки; вопрос «сколько я заплачу» → бухгалтер, налоговых советов бот не даёт). Даты дедлайнов не писать.
+3. **Answers that need live data: an online return, turn by turn.** Один подробный диалог таблицей 3 колонки: Who | Message | What happens behind it (5–6 строк): интернет-магазин, чат на сайте; клиент хочет вернуть куртку; бот находит заказ по номеру и почте, отвечает по политике магазина и по правилу GOV.UK: при покупке онлайн покупатель может отменить заказ в течение 14 дней после доставки без объяснения причин (источник 2; ⚖ формулировка строго как на странице, без исключений и сроков возврата денег); готовит этикетку возврата; фото «пришла порванной» → человек решает о замене. Под таблицей второй пример списком: оптовик, сайт для торговых клиентов — остаток и сроки по 40 единицам из складской системы, цена — только после входа клиента.
+4. **Bookings made inside the chat.** Два диалога: автосервис, WhatsApp — запись на MOT: три свободных слота кнопками (лимит 3 кнопки — источник 1), подтверждение и напоминание накануне тем, кто согласился (правила Meta — одна фраза со ссылкой по названию на статью о WhatsApp Business API); ресторан, WhatsApp — стол на 8 человек и вопрос об аллергии на орехи: бронь бот делает, про аллергены не обещает, вопрос уходит менеджеру смены с номером брони.
+5. **Conversations that go to a person quickly.** Два диалога: стоматология, чат на сайте вечером — «сильно болит и опухла щека»: бот не оценивает симптомы, даёт одобренный практикой текст (при угрозе жизни — 999 или A&E; когда практика закрыта — NHS 111 онлайн или по телефону, 111 помогает и с зубными проблемами, включая поиск экстренного стоматолога — источник 3), предлагает первый утренний экстренный слот и пишет администратору; ветеринарная клиника, WhatsApp — повторный рецепт для собаки: бот собирает данные, рецепт одобряет ветеринар (правило клиники, законы не цитировать). И внутренний пример: IT-поддержка в Microsoft Teams — сброс пароля по инструкции, заявка на ноутбук в helpdesk, «мне пришло странное письмо со ссылкой» → сразу человеку из IT.
+6. **Picking the example closest to your inbox.** Таблица 3 колонки: Most of your messages are… | Closest example | What it needs connected (5–6 строк: вопросы по правилам → раздел 2; заказы и возвраты → магазин; записи → автосервис; срочное → стоматология; вопросы сотрудников → IT). Одна фраза о выборе меню или ИИ со ссылкой по названию на статью о WhatsApp-боте; одна фраза «what a build like this costs» со ссылкой по названию на статью о цене чат-бота. **Последняя фраза — CTA** (см. выше), без «Book an audit… our page shows…». Заголовок не начинается с «How», это не нумерованные шаги.
+7. **Sources** — последний блок, `{h:'Sources',list:[…]}`.
+
+**FAQ (3–4):** What is a good example of an AI chatbot for a small team? (без «for small business» в title; ответ про один частый тип сообщений) · Can a chatbot handle photos and voice notes? (одна фраза, без пересказа WhatsApp-статьи) · What should a chatbot never answer? (медицина, аллергены, деньги, юридические вопросы — по примерам статьи) · Can we try the conversations before customers see them? (тест на ваших прошлых сообщениях — одной фразой, подробности в статье о базе знаний). Без цен.
+
+### `links` (3 внутренние)
+
+1. `['services/ai-chatbot','AI chatbot for websites and WhatsApp: a pilot']` — коммерческая страница и CTA.
+2. `['blog/whatsapp-chatbot-for-business','WhatsApp chatbot: menu bot or AI assistant']`
+3. `['blog/ai-chatbot-cost','How much an AI chatbot costs']` — следующий шаг воронки (MOFU).
+
+`ai-knowledge-base-for-support` упоминаем по названию в «Behind it»; «Read also» добавит две статьи автоматически.
+
+**Входящая ссылка в тот же день:** в `links` статьи `whatsapp-chatbot-for-business` добавить `['blog/ai-chatbot-examples','AI chatbot examples: 10 conversations by industry']`.
+
+### Первоисточники (открыты 16.11.2026)
+
+1. `Meta guide to WhatsApp reply buttons: https://developers.facebook.com/docs/whatsapp/cloud-api/messages/interactive-reply-buttons-messages (checked 16 November 2026)` — до 3 кнопок ответа, подпись кнопки до 20 знаков.
+2. `UK government guide to online and distance selling: https://www.gov.uk/online-and-distance-selling-for-businesses (checked 16 November 2026)` — покупатель может отменить заказ до 14 дней после доставки, причину называть не нужно. В вводной нет «GOV.UK»: точка до двоеточия ломает жирный шрифт.
+3. `NHS guide to using 111 online or by phone: https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-use-111/ (checked 16 November 2026)` — 111 онлайн или по телефону, когда GP закрыт; 999 или A&E в экстренном случае; 111 онлайн помогает с зубными проблемами, в том числе найти экстренного стоматолога.
+4. (по желанию, если в тексте есть список) `Meta guide to WhatsApp list messages: https://developers.facebook.com/docs/whatsapp/cloud-api/messages/interactive-list-messages (checked 16 November 2026)` — список до 10 строк на все секции, название строки до 24 знаков.
+
+⚖ Строки 2 и 3 — право и медицина: только то, что сказано на страницах, без толкований. Длинные адреса 1 и 3 проверить на 390 px.
+
+**Примеры:** все 10 — «example scenario», без названий компаний, цифр экономии и отзывов. Грузия не упоминается, «for businesses», британский английский.
+
+## Бриф на 17.11 ai-contract-review
+
+SEO-редактор, 16.11.2026. Строка календаря «вт 17.11 NEW `/blog/ai-contract-review`», выход 19.11.2026 (после `intelligent-document-processing` от 17.11 — ссылка на неё разрешена). Источники открыты и проверены 16.11.2026. Тема проходит: с `ai-for-law-firms` выдача не пересекается.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, замер 02.11.2026):
+- главный: ai contract review 110 («contract review ai» 110 — та же группа, **не суммировать**);
+- дополнительные: ai document review 40 (по брифу 15.11 отдан сюда) · artificial intelligence in contract management 40 (один раз в тексте) · ai contract review software 20 · ai legal document review 20;
+- **поправка к календарю:** «legal ai tools» 320 — **другой интент** (подборки инструментов для юристов: Clio, MyCase, Smokeball, Hyperstart, Ironclad, Bloomberg Law); общих URL с «ai contract review» в первой десятке — 0. Главным не берём и в спрос статьи не включаем; кандидат на будущий UPDATE `ai-for-law-firms`, решение — за координатором;
+- не наши: «automated contracts» 210, «automated contract management» 20 — сборка и учёт договоров (CLM); «ai for solicitors» 20, «ai tools for lawyers» 20 — за `ai-for-law-firms`;
+- на .ge темы нет (в `ai-tools-for-business` .ge «длинные договоры» — одна строка таблицы), повтора между сайтами нет.
+
+**Выдача** (WebSearch 16.11.2026: «ai contract review», «AI contract review UK solicitors SRA», «AI for law firms UK guide», «legal ai tools»; выдача США плюс британские запросы):
+- «ai contract review»: гайды вендоров (Oneflow UK, SpotDraft, Adobe, Hyperstart, Harvey, ContractSafe, Law Insider, Ironclad, LegalSifter, Spellbook, ClickUp, monday). Формат — «what it is, how it works, benefits, tools»; ключевое понятие — playbook (стандартные позиции компании). Цифры экономии времени — заявления вендоров, не берём.
+- «…UK solicitors SRA»: Law Society («How solicitors are using AI tools for contract review»), Legal Futures, разборы позиции SRA; общий тезис — ответственность остаётся на юристе.
+- «AI for law firms UK guide»: spotdev, Access Legal, Leap, Smokeball, Clio, Law Society — **0 общих URL** с «ai contract review». Разные интенты: `ai-for-law-firms` — обзор для всей фирмы, эта статья — один процесс в глубину.
+- Пробел: в топе нет разбора playbook на британском примере, честного списка «что ИИ не видит» и того, что SRA написала в предупреждении от 17.08.2026.
+
+**Вопрос читателя:** «Что ИИ реально проверит в договоре, что пропустит и кто отвечает за результат?» MOFU; юрфирма или юрист в компании, который проверяет типовые коммерческие договоры (NDA, договоры поставки, условия клиентов).
+
+**Коммерческая страница:** `/industries/law-firms` (сценарий «Document review»). Статья раскрывает проверку договоров по playbook; текст страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 17.11, H1 «AI contract review: what it checks and where a solicitor still signs off». Issue: 71 знак, лимит 53. Fix: title/H1 «AI contract review: what it checks and what it misses» (53); подпись юриста — в description и H2 раздела 5.
+- [HIGH] Location: `ai-for-law-firms`, раздел «Document work with references» (сводки со ссылками на пункты, сравнение с вашими стандартными условиями и прошлой версией, таблица ключевых условий) и «Confidentiality and UK GDPR». Issue: перечень выходов и конфиденциальность — там. Fix: перечень не повторять; своё — как устроен playbook (позиция, запасной вариант, красная линия, кто согласует отступление), разбор находок на одном договоре, что ИИ пропускает; конфиденциальность — только формулировка SRA (источник 1) одной-двумя фразами, остальное ссылкой.
+- [MEDIUM] Location: `ai-workflow-automation-examples`, пример 7 «Contract checks» (чек-лист: оплата, продление, ответственность, расторжение → сводка на страницу). Issue: общий тезис есть. Fix: одна фраза со ссылкой по названию; свои пункты и свой пример.
+- [MEDIUM] Location: `ai-for-law-firms`, «Research support» (выдуманные ссылки на дела). Issue: тезис о галлюцинациях в исследовании — там. Fix: о галлюцинациях — одна фраза в разделе 4 (правдоподобная, но неверная находка), дела Ayinde и др. не пересказывать.
+- [MEDIUM] Location: `intelligent-document-processing` (чтение сканов, уверенность по полю). Issue: как ИИ читает документы — там. Fix: плохие сканы приложений к договору — одна фраза и ссылка через `links`.
+- [MEDIUM] Location: `gdpr-and-ai`. Issue: проверки UK GDPR — там. Fix: одна фраза, без проверок.
+- [MEDIUM] Location: CTA. Issue: интент не ценовой; шаблон «Book an audit…: our page shows…» запрещён. Fix: цены нет; последняя фраза — предметный шаг: «пришлите один тип договора и ваш playbook — первую проверку настроим на договорах, которые вы уже подписали, для fee earner, который ставит подпись», ссылка `/industries/law-firms` в `links`.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- приём обращений, сводки и сравнения документов, исследование, конфиденциальность и UK GDPR в фирме → `ai-for-law-firms`;
+- проверка договора по чек-листу как пример автоматизации → `ai-workflow-automation-examples`;
+- чтение сканов и уверенность по полям → `intelligent-document-processing`;
+- шаги агента → `ai-agents-for-business`; UK GDPR → `gdpr-and-ai`;
+- общие оговорки и рефрен «люди решают» — не писать (подпись юриста в этой статье — тема, а не рефрен: говорим о ней конкретно, через SRA).
+
+### Мета
+
+- `slug`: `ai-contract-review`; `cat`: `Law firms`; `date`: день выхода (ожидается `2026-11-19`); первой в `posts`; slug — в начало `blogSlugs`.
+- `title` (= H1, 53 знака): **AI contract review: what it checks and what it misses**
+- `description` (144 знака): **AI contract review explained: how a playbook of your positions drives the checks, what AI flags in a contract, what it misses and who signs off.**
+- `excerpt` (пример, 135): «Playbook positions, clause flags and the points a solicitor still decides, with an example supplier agreement checked clause by clause.»
+- «AI contract review» — в первом предложении; «AI document review» — один раз в разделе 1; «contract review AI» не дублировать искусственно.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: AI contract review сравнивает договор пункт за пунктом с вашим playbook (стандартные позиции, допустимые отступления, красные линии), отмечает отклонения, отсутствующие пункты и сроки и готовит предлагаемые правки, которые юрист принимает или отклоняет. Факт по теме: в предупреждении SRA от 17.08.2026 сказано, что у ИИ нет отдельной правосубъектности и юристы, которые им пользуются, отвечают за работу и результат независимо от того, как он подготовлен; данные клиента можно вводить в ИИ только при договорных, технических и организационных мерах защиты (источник 1).
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **What AI contract review does.** Определение. Три слоя — таблица 3 колонки: Layer | What you get | Who uses it: извлечение полей; сверка с playbook; предлагаемые правки и список находок со ссылками на пункты. Факт для слоя 1: готовая модель Microsoft для договоров извлекает Parties, Jurisdictions, Contract ID и Title и поддерживает только английский язык (источник 2) — извлечение ещё не проверка, сверку с позициями делает языковая модель по вашим правилам. «AI document review» — здесь.
+2. **The playbook: your positions, written down.** Ядро статьи. Таблица 4 колонки с пометкой «Example scenario: a playbook for supplier agreements»: Clause | Standard position | Acceptable fallback | Who approves going further. 5 строк: limitation of liability; payment terms; term, renewal and notice; governing law and jurisdiction; data protection clause. Строка payment terms опирается на GOV.UK: согласованный срок оплаты между бизнесами обычно не больше 60 дней, дольше можно, если это справедливо для обеих сторон (источник 3; ⚖ ровно так, без процентов и штрафов). Абзац: кто владеет playbook и обновляет его, когда меняется позиция фирмы или клиента.
+3. **Example: a supplier agreement checked against the playbook.** «Example scenario»: договор поставки на 14 страниц. Таблица 4 колонки: Clause | What the contract says | Playbook | Flag (5–6 строк: ответственность ограничена платежами за 3 месяца при позиции 12; оплата 90 дней; автопродление с уведомлением за 90 дней до даты — дата в календарь; право иностранной юрисдикции; пункт о защите данных отсутствует; термин «Services» определён по-разному в двух пунктах). Без £. Метрика без £: часы fee earner на первую проверку одного договора. Чек-лист из статьи об автоматизации — одной фразой.
+4. **What it misses.** Список с жирной вводной, столько пунктов, сколько есть: коммерческий контекст (отношения, рычаги, что уже обещано на переговорах); то, чего нет в файле (условия, включённые ссылкой «на сайте поставщика», неприложенные приложения, side letters); взаимодействие пунктов (возмещение убытков и исключения из лимита); право вне документа; плохие сканы приложений (одна фраза со ссылкой на статью об IDP); правдоподобная, но неверная находка — одна фраза.
+5. **Who signs off, and what the SRA expects.** По источнику 1: ответственность юриста; руководитель отвечает за работу тех, кого контролирует (п. 3.5 Кодекса для юристов — только если копирайтер сверил номер на странице); конфиденциальность: и платные, и бесплатные инструменты могут не давать нужных договорных и технических гарантий; данные клиента — в защищённой среде, не для обучения моделей без явного разрешения, не храним дольше нужного; для юристов в компании — особая осторожность. Для бизнеса без юристов — одна фраза: подпись остаётся за тем, кто отвечает за договор. UK GDPR — одна фраза.
+6. **Contracts that suit AI review first.** Не нумерованные шаги и не «How to start» (см. «Каркасы»). Таблица 3 колонки: Contract type | Fits AI review? | Why: NDA (да, высокий объём, типовые пункты); условия поставщиков и клиентов (да, при наличии playbook); договоры аренды (частично: приложения и планы); сделки M&A и нестандартные договоры (только сводка, проверка за юристом). **Последняя фраза — CTA** (см. выше). Цены нет.
+7. **Sources** — последний блок.
+
+**FAQ (3–4):** Can AI review a contract without a lawyer? · Which contracts should we start with? (кратко, без повтора таблицы) · Does AI contract review work inside Microsoft Word? (без названий вендоров, которых не открывали; наши сборки возвращают размеченную копию или таблицу находок) · Is it safe to upload client contracts? (одна фраза по SRA + ссылка по названию на статью о GDPR). Без цен.
+
+### `links` (3 внутренние)
+
+1. `['industries/law-firms','AI for law firms: document review with clause references']` — коммерческая страница и CTA.
+2. `['blog/ai-for-law-firms','AI for law firms: intake, documents and research']` — владелец общих тезисов; входящих ссылок из блога у неё пока 0.
+3. `['blog/intelligent-document-processing','Intelligent document processing: scans and PDFs']` — вышла 17.11.
+
+**Входящая ссылка в тот же день:** в `links` статьи `ai-for-law-firms` добавить `['blog/ai-contract-review','AI contract review: playbook checks and sign-off']`.
+
+### Первоисточники (открыты 16.11.2026)
+
+1. `SRA warning notice on the misuse of AI: https://www.sra.org.uk/solicitors/guidance/misuse-ai/ (checked 16 November 2026)` — опубликовано 17.08.2026; у ИИ нет отдельной правосубъектности, юрист отвечает за работу и результат; руководители отвечают за контроль; данные клиента — только при договорных, технических и организационных мерах; не для обучения без явного разрешения; осторожность для юристов в компаниях.
+2. `Microsoft guide to the prebuilt contract model: https://learn.microsoft.com/en-gb/azure/ai-services/document-intelligence/prebuilt/contract (checked 16 November 2026)` — извлекает Parties, Jurisdictions, Contract ID, Title; только английский; страница обновлена 15.08.2026. Это другая страница, чем обзор Document Intelligence в статье об IDP, — повтора строки нет.
+3. `UK government guide to late commercial payments: https://www.gov.uk/late-commercial-payments-interest-debt-recovery (checked 16 November 2026)` — согласованный срок оплаты между бизнесами обычно до 60 дней, дольше — если справедливо для обеих сторон; без договорённости оплата просрочена через 30 дней.
+
+Страница Law Society о проверке договоров в выдаче есть, но автоматически не открывается (403) — в «Sources» не ставим, раз не открыли. ⚖ Позиции SRA и сроки оплаты — только как на страницах, без толкований (правило 4, сверка с владельцем при сомнении).
+
+**Примеры:** «Example scenario» у playbook и разбора договора. Названий фирм, клиентов и цифр экономии нет. Грузия не упоминается, британский английский.
+
+## Бриф на 18.11 rpa-vs-ai
+
+SEO-редактор, 16.11.2026. Строка календаря «ср 18.11 NEW `/blog/rpa-vs-ai`», выход 20.11.2026. Источники открыты и проверены 16.11.2026. Тема проходит.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, замер 02.11.2026):
+- **поправка к календарю:** «rpa and ai ≈ 500 (8 формулировок по 110)» — восемь вариантов (rpa ai, rpa and ai, ai and rpa, rpa artificial intelligence, rpa with ai, rpa and artificial intelligence, ai in rpa, artificial intelligence and rpa) с одинаковой цифрой — одна группа Google Ads. Спрос кластера — **110, не ≈500, не суммировать**;
+- «rpa vs ai» в данных отдельно не замерен — частотность не придумываем; выдача «rpa vs ai» и «rpa and ai» почти одна (freeday, botpress, Keyence, TechTarget, Automation Anywhere в обеих) — один URL;
+- не наши: «robotic process automation blue prism» 90 (бренд), «best rpa software» 20 (подборки), «rpa business analyst» 20 (вакансии);
+- на .ge: `ai-business-automation` (17.11) — правила CRM и 1С против ИИ, RPA там максимум одной фразой; .com-статья 1С и Грузию не упоминает, темы разные.
+
+**Выдача** (WebSearch 16.11.2026: «rpa vs ai», «rpa and ai automation difference», «workflow automation vs RPA vs AI agents which to use», «rpa ai uk»; выдача США):
+- Формат топа — объяснения вендоров (Automation Anywhere, Tungsten, Appian, Botpress, Keyence, freeday, TechTarget, superblocks): таблица отличий, «RPA делает, ИИ думает», «вместе = intelligent automation». Второй слой — «RPA vs AI agents / agentic AI» (Zapier, TechTarget, Automation Anywhere). Цены сборок в долларах и выгоды — оценки вендоров, не берём.
+- «…UK» — госсектор и крупные компании (UiPath о Cabinet Office, techUK). Для компании на Microsoft 365 без своего центра автоматизации почти ничего нет.
+- Пробел: как каждый вариант ломается и как оплачивается — по официальной документации (Power Automate: desktop flows и план Process; Copilot Studio computer use: оплата за шаг), и решение для компании, у которой старая система без API.
+
+**Вопрос читателя:** «Нам предлагают RPA-роботов, а все говорят про ИИ. Что подходит нашей задаче и можно ли совместить?» MOFU, сравнение.
+
+**Коммерческая страница:** `/services/ai-automation` («Stop retyping…», «We work with what you already use»). Статья раскрывает, когда перепечатку закрывает робот, когда ИИ, когда оба; сценарии страницы не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 18.11, спрос «≈ 500». Issue: суммированы восемь вариантов одной группы — нарушение правила «не выдумывать частотности». Fix: в спросе — 110 (uk-ideas 02.11).
+- [HIGH] Location: `ai-workflow-automation-examples`, раздел «What AI adds to business process automation» и FAQ «What is the difference between workflow automation and AI automation?». Issue: тезис «классическая автоматизация двигает структурированные данные и встаёт на письме или PDF, ИИ добавляет чтение» — там. Fix: не пересказывать; одна фраза со ссылкой по названию. Своё здесь — RPA как работа через экран (элементы интерфейса, картинки, координаты), attended/unattended, от чего ломается, как оплачивается.
+- [MEDIUM] Location: `ai-agents-for-business` (таблица «Chatbot, automation and agent», «When an agent is the wrong tool»). Issue: общее отличие автоматизации от агента — там. Fix: без общей таблицы чат-бот/автоматизация/агент; про агентов — только «ИИ, который сам работает с экраном» (computer use, источник 3); ссылка через `links`.
+- [MEDIUM] Location: `n8n-vs-zapier-vs-make` (инструменты через API, единицы оплаты, данные). Issue: тезис-владелец. Fix: строка «API workflow tool» в таблице решения и одна фраза со ссылкой; tasks/operations/executions не пересказывать.
+- [MEDIUM] Location: `intelligent-document-processing`. Issue: чтение документов — там. Fix: «RPA плюс чтение документов» — одна фраза со ссылкой по названию.
+- [MEDIUM] Location: `custom-ai-vs-off-the-shelf` (купить/подключить/разработать, расчёт за 12 месяцев). Issue: тезис-владелец. Fix: без расчёта за год и без £; модель оплаты — только как в документации. В `links` вместо неё `ai-agents-for-business` (читатель «RPA или агент» уходит туда).
+- [MEDIUM] Location: CTA. Issue: правило 11.11, шаблон «Book an audit…» запрещён. Fix: цены нет; последняя фраза — предметный шаг: «если у вас человек переносит данные из почты в старую систему без API, с этой задачи начинает наша ИИ-автоматизация: разбираем, какие шаги отдать правилам, какие — ИИ, а какие оставить команде», ссылка `/services/ai-automation`.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- ИИ добавляет шаг чтения; 10 примеров; выбор первого процесса → `ai-workflow-automation-examples`;
+- чат-бот, автоматизация, агент; шаги агента; когда агент лишний → `ai-agents-for-business`;
+- Zapier, Make, n8n и их оплата → `n8n-vs-zapier-vs-make`;
+- чтение сканов и PDF → `intelligent-document-processing`;
+- купить или разработать, расчёт за 12 месяцев → `custom-ai-vs-off-the-shelf`;
+- общие оговорки — не писать.
+
+### Мета
+
+- `slug`: `rpa-vs-ai`; `cat`: `Automation`; `date`: день выхода (ожидается `2026-11-20`); первой в `posts`; slug — в начало `blogSlugs`.
+- `title` (= H1, 46 знаков): **RPA vs AI automation: which one fits which job**
+- `description` (142 знака): **RPA vs AI automation compared: what software robots do on screen, what AI reads and decides, how each is billed and how the two work together.**
+- `excerpt` (пример, 117): «Screens or reading: which jobs suit software robots, which need AI, how each is billed and when to run them together.»
+- «RPA» с расшифровкой (robotic process automation) — в первом предложении; «RPA and AI» — в H2 раздела 5; «intelligent automation» — один раз там же.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: RPA (robotic process automation) повторяет клики и ввод в программах по записанным правилам и подходит для стабильных экранов и систем без API; ИИ-автоматизация читает письма и документы в свободной форме и выбирает следующий шаг в заданных рамках. Часто их соединяют: ИИ читает и предлагает, человек согласует, робот вводит в старую систему. Факт по теме: в документации Microsoft десктопные потоки Power Automate работают с приложениями через элементы интерфейса, изображения или координаты, а для запуска без человека нужен план Power Automate Process (источники 1 и 2).
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **What RPA does, and where AI comes in.** RPA работает с программой как человек, через экран: элементы интерфейса, картинки, координаты; подходит и для старых приложений вроде эмуляторов терминала (источник 1). Attended (робот на компьютере сотрудника, запускает человек) и unattended (робот на отдельной машине, где все пользователи вышли, сеанс заблокирован — источник 2). ИИ — одна фраза и ссылка по названию на статью с примерами ИИ-автоматизации.
+2. **RPA vs AI side by side.** Таблица 3 колонки: | RPA | AI automation. Строки: input it handles; how it reaches your systems (экран / API или экран); what breaks it (изменился экран; по Microsoft, другое разрешение экрана в режиме unattended может дать ошибку или клик не по тому элементу — источник 2 / неоднозначный ввод, неверное решение); how a mistake is caught (журнал шагов / порог уверенности и согласование человеком); how it is billed (лицензия на робота или машину, например план Process / оплата за использование, например в Copilot Studio каждый шаг computer use — 5 Copilot Credits на стандартной модели и 15 на премиальной — источник 3); who builds it. ⚖ Тарифы — только как в документации на дату выпуска, без £.
+3. **Jobs that suit RPA.** «Example scenario», список из 3: перенос одобренных заказов в складскую программу 2000-х без API; ежемесячная выгрузка выписок с банковского портала в папку бухгалтерии; одинаковый ввод в две системы на время переезда с одной на другую. У каждого — почему подходит (экран не меняется, правила без исключений). Не брать «order entry из PDF» (это пример 8 в статье с примерами автоматизации).
+4. **Jobs that need AI.** «Example scenario», список из 3: письма клиентов, в которых в одном сообщении вопрос, жалоба и изменение заказа; накладные поставщиков в десятке макетов (одна фраза со ссылкой по названию на статью об IDP); решение, в какую очередь отправить обращение. Без пересказа 10 примеров.
+5. **RPA and AI together.** Схема словами: ИИ читает → человек согласует → робот вводит. «Example scenario»: экспедитор получает заявки на перевозку свободным текстом; ИИ извлекает поля, оператор проверяет, робот вводит в портал перевозчика без API. «Intelligent automation» — так рынок называет это сочетание (один раз). Второй абзац — ИИ, который сам работает с экраном: computer use в Copilot Studio работает с сайтами и программами Windows через виртуальную мышь и клавиатуру, когда нет API; Microsoft пишет, что он подстраивается под изменения экрана; оплата за каждый шаг; есть настройка человеческого контроля; предупреждение: если агент запущен с учётными данными автора, любой пользователь действует с его доступом (источник 3). Вывод без прогнозов: на большом объёме стабильного экрана оплата за шаг дороже лицензии робота — проверяется на своих объёмах; про агентов в общем — ссылка по названию на статью об ИИ-агентах.
+6. **Which one fits which job.** Заголовок не с «How». Таблица решения 3 колонки: Question | If yes | Use. Строки: у системы есть API? → интеграция или инструмент вроде Zapier, Make, n8n (ссылка по названию на сравнение); ввод всегда одни и те же поля на тех же местах, экран не меняется? → RPA; нужно прочитать и решить? → ИИ с согласованием; и то и другое → ИИ плюс RPA. **Последняя фраза — CTA** (см. выше). Цены нет.
+7. **Sources** — последний блок.
+
+**FAQ (3–4):** Is RPA a type of AI? (нет: RPA повторяет записанные шаги; многие платформы RPA добавили функции ИИ) · Will AI agents replace RPA? (без прогнозов; разница в предсказуемости и оплате по разделам 2 и 5) · Do we need RPA if our software has an API? (обычно API надёжнее экрана; ссылка по названию на сравнение n8n, Zapier, Make) · Can Power Automate do RPA? (да, desktop flows; unattended — план Process; это не тот вопрос, что FAQ «Is n8n the same as Power Automate?» в статье о n8n — его не повторять). Без цен.
+
+### `links` (3 внутренние)
+
+1. `['services/ai-automation','AI automation for systems with and without an API']` — коммерческая страница и CTA.
+2. `['blog/n8n-vs-zapier-vs-make','n8n vs Zapier vs Make: API workflow tools compared']`
+3. `['blog/ai-agents-for-business','AI agents for business: when an agent fits']` — замена `custom-ai-vs-off-the-shelf` (причина выше).
+
+**Входящая ссылка в тот же день:** в `links` статьи `n8n-vs-zapier-vs-make` добавить `['blog/rpa-vs-ai','RPA vs AI automation: screens, rules and reading']`.
+
+### Первоисточники (открыты 16.11.2026)
+
+1. `Microsoft introduction to Power Automate desktop flows: https://learn.microsoft.com/en-gb/power-automate/desktop-flows/introduction (checked 16 November 2026)` — desktop flows — это возможности RPA в Power Automate; работа с элементами интерфейса, изображениями или координатами; старые приложения вроде эмуляторов терминала; обновлено 24.08.2026.
+2. `Microsoft guide to unattended desktop flows: https://learn.microsoft.com/en-gb/power-automate/desktop-flows/run-unattended-desktop-flows (checked 16 November 2026)` — нужен план Process; машина, где все пользователи вышли; заблокированный удалённый сеанс; другое разрешение экрана может дать ошибку или действие не с тем элементом; обновлено 31.08.2026.
+3. `Microsoft guide to computer use in Copilot Studio: https://learn.microsoft.com/en-gb/microsoft-copilot-studio/computer-use (checked 16 November 2026)` — сайты и программы Windows через виртуальную мышь и клавиатуру, когда нет API; подстраивается под изменения интерфейса (так пишет Microsoft); 5 Copilot Credits за шаг на стандартной модели, 15 на премиальной; человеческий контроль; предупреждение об учётных данных автора; обновлено 20.10.2026.
+
+⚖ Тарифы и названия Microsoft меняются: в день выпуска копирайтер заново открывает страницы 2–3; если формулировка изменилась — пишем по новой и меняем дату в «Sources».
+
+**Примеры:** «Example scenario» у всех сценариев (складская программа, выписки, экспедитор, письма клиентов). Цифр экономии, цен сборок и названий клиентов нет. Грузия и 1С не упоминаются, британский английский.
+
+### Каркасы, которых избегаем во всех трёх статьях (16.11)
+
+Последние четыре статьи (`ai-for-construction`, `ai-email-assistant`, `hubspot-ai`, `intelligent-document-processing`) кончаются одним каркасом: раздел «How to start…» нумерованными шагами «выбрать одно → N прошлых примеров → две пробные недели с журналом правок (fortnight / two weeks of pricing twice) → считаем → Book an audit…: our page shows…». В `invoice-automation-ai`, `ai-agents-for-business`, `how-to-implement-ai` — «a week in shadow mode», в `n8n-vs-zapier-vs-make` — «parallel for two weeks». Поэтому в трёх брифах:
+- последний раздел — таблица выбора (примеры → свой тип сообщений; типы договоров; вопрос → инструмент), заголовок не начинается с «How»;
+- нет «двух пробных недель с журналом», «one-week parallel run», «shadow mode», «50–100 / 20 past …»; тест на прошлых данных — максимум одной фразой со ссылкой на статью-владельца;
+- CTA — одна предметная фраза без «Book an audit…: our page shows…» и без «free 30-minute audit»;
+- цены в кратком ответе и в тексте нет (интент не ценовой);
+- первый раздел — определение и факт, без вступления-оглавления.
