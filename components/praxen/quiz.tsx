@@ -98,7 +98,7 @@ export function Quiz({x}:{x:X}){
       <div role="radiogroup" aria-label={s.howContact} className="methods">{([['whatsapp','WhatsApp'],['telegram','Telegram']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       <div className="quiz-row">
        {method==='whatsapp'?<PhoneInput lang={lang} invalid={status==='invalid'} onChange={changePhone} label="WhatsApp"/>
-       :<input name="contact" value={contact} onChange={e=>change(e.target.value)} aria-label="Telegram" placeholder="@username" autoComplete="off" aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>}
+       :<input name="contact" value={contact} onChange={e=>change(e.target.value)} aria-label="Telegram" placeholder="@username" autoComplete="off" aria-invalid={status==='invalid'} className={'ym-hide-content ym-disable-keys'+(status==='invalid'?' is-invalid':'')}/>}
        <button type="submit" disabled={sending} className="btn btn-primary">{sending?s.sending:c('Отправить','Send','გაგზავნა')}<Icon name="arrow-right" size={16}/></button>
       </div>
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
