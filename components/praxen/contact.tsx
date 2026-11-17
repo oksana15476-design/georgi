@@ -82,7 +82,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
       <span className="done-icon"><Icon name="check" size={22}/></span>
       <h3>{s.successTitle}</h3>
       <p>{s.successBody}</p>
-      <p className="done-summary">{(method==='phone'?s.phoneMethod:method==='whatsapp'?'WhatsApp':method==='email'?'Email':'Telegram')+': '+contact}</p>
+      <p className="done-summary ym-hide-content">{(method==='phone'?s.phoneMethod:method==='whatsapp'?'WhatsApp':method==='email'?'Email':'Telegram')+': '+contact}</p>
       <div className="done-links">
        {contacts.booking&&<a href={contacts.booking} target="_blank" rel="noopener" className="btn btn-primary">{x.c('Выбрать время аудита','Pick an audit time','აირჩიეთ აუდიტის დრო')}<Icon name="calendar" size={16}/></a>}
        <a href={contacts.whatsapp} target="_blank" rel="noopener" className="ulink">WhatsApp<Icon name="arrow-right" size={16}/></a>
@@ -95,7 +95,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
        <legend><span className="step-badge">1</span>{s.whatTakes}</legend>
        <div className="chips">{options.map((lb,i)=>{const on=chosen.includes(i);return <button key={lb} type="button" onClick={()=>{start();setChosen(v=>v.includes(i)?v.filter(n=>n!==i):[...v,i])}} aria-pressed={on} className={'chip'+(on?' is-on':'')}>{lb}</button>})}</div>
       </fieldset>
-      {chosen.includes(options.length-1)&&<label className="field fade-in">{s.tellTask}<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)}/></label>}
+      {chosen.includes(options.length-1)&&<label className="field fade-in">{s.tellTask}<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)} className="ym-hide-content ym-disable-keys"/></label>}
       {context&&<div className="context-chip"><span><span className="muted">{s.contextLabel}</span> <b>{context}</b></span><button type="button" onClick={()=>setContext('')} aria-label={s.removeContext}><Icon name="x" size={15}/></button></div>}
       <div className="field">
        <span className="step-label"><span className="step-badge">2</span>{s.howContact}</span>
@@ -103,7 +103,7 @@ export function Contact({x,options,context,setContext}:{x:X;options:string[];con
       </div>
       {method==='phone'||method==='whatsapp'
        ?<div className="field"><span>{method==='whatsapp'?'WhatsApp':s.phoneLabel}</span><PhoneInput key={method} lang={lang} invalid={invalid} onChange={changePhone} label={method==='whatsapp'?'WhatsApp':s.phoneLabel} describedBy={statusText?'form-status':undefined}/></div>
-       :<label className="field">{method==='telegram'?'Telegram':'Email'}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username':'name@company.com'} inputMode={method==='telegram'?'text':'email'} autoComplete={method==='telegram'?'off':'email'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={invalid?'is-invalid':''}/></label>}
+       :<label className="field">{method==='telegram'?'Telegram':'Email'}<input name="contact" required value={contact} onChange={e=>change(e.target.value)} placeholder={method==='telegram'?'@username':'name@company.com'} inputMode={method==='telegram'?'text':'email'} autoComplete={method==='telegram'?'off':'email'} aria-invalid={invalid} aria-describedby={statusText?'form-status':undefined} className={'ym-hide-content ym-disable-keys'+(invalid?' is-invalid':'')}/></label>}
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
       {statusText&&<p id="form-status" role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{statusText}</p>}
       <div className="submit-row">

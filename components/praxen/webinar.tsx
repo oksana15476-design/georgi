@@ -101,7 +101,7 @@ function Done({c,lang,contact}:{c:WebinarCopy;lang:L;contact:string}){
    </div>
    {sent?<p className="wb-q-done"><Icon name="check-circle-2" size={16}/>{f.qDone}</p>:
    <form onSubmit={ask} className="wb-q">
-    <label className="field">{f.qTitle}<textarea rows={2} maxLength={600} value={q} onChange={e=>setQ(e.target.value)} placeholder={f.qPh}/></label>
+    <label className="field">{f.qTitle}<textarea rows={2} maxLength={600} value={q} onChange={e=>setQ(e.target.value)} placeholder={f.qPh} className="ym-hide-content ym-disable-keys"/></label>
     <div><span className="wb-legend">{f.industryLabel}</span><div className="chips">{f.industries.map(lb=><button key={lb} type="button" onClick={()=>setInd(v=>v===lb?'':lb)} aria-pressed={ind===lb} className={'chip'+(ind===lb?' is-on':'')}>{lb}</button>)}</div></div>
     <button type="submit" disabled={busy||(!q.trim()&&!ind)} className="btn wb-ghost">{f.qSend}<Icon name="arrow-right" size={16}/></button>
    </form>}
@@ -135,11 +135,11 @@ function RegisterForm({c,lang,id}:{c:WebinarCopy;lang:L;id:string}){
  return (
   <form onSubmit={submit} noValidate data-lpignore="true" className="form wb-form" aria-labelledby={id+'-title'}>
    <div><h2 id={id+'-title'} className="wb-form-h">{f.title}</h2><p className="wb-form-sub">{f.sub.replace('{time}',slot.by)}</p></div>
-   <label className="field">{f.name}<input name="name" required maxLength={100} value={name} onChange={e=>{start();setName(e.target.value)}} autoComplete="given-name"/></label>
+   <label className="field">{f.name}<input name="name" required maxLength={100} value={name} onChange={e=>{start();setName(e.target.value)}} autoComplete="given-name" className="ym-hide-content ym-disable-keys"/></label>
    <div className="field">
     <span className="step-label">{f.where}</span>
     <div role="radiogroup" aria-label={f.where} className="methods">{f.methods.map((lb,k)=><button key={lb} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k as 0|1|2);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
-    {method===0?<input name="contact" required aria-label={f.methods[method]} value={contact} onChange={e=>change(e.target.value)} placeholder={f.tgPh} autoComplete="off" aria-invalid={invalid} aria-describedby={status?id+'-status':undefined} className={'wb-contact'+(invalid?' is-invalid':'')}/>
+    {method===0?<input name="contact" required aria-label={f.methods[method]} value={contact} onChange={e=>change(e.target.value)} placeholder={f.tgPh} autoComplete="off" aria-invalid={invalid} aria-describedby={status?id+'-status':undefined} className={'wb-contact ym-hide-content ym-disable-keys'+(invalid?' is-invalid':'')}/>
     :<PhoneInput key={method} lang={lang} invalid={invalid} onChange={changePhone} label={f.methods[method]} describedBy={status?id+'-status':undefined} className="wb-contact-phone"/>}
    </div>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>

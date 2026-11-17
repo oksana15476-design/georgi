@@ -183,7 +183,7 @@ function QuizCapture({summary,onRestart}:{summary:string;onRestart:()=>void}){
    <b>Get this plan with your numbers. Where should we send it?</b>
    <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
    <div className="quiz-row">
-    {method==='email'?<input name="contact" value={contact} onChange={e=>{setStatus('');setContact(formatContact(e.target.value,method))}} aria-label="Your email" placeholder="name@company.co.uk" inputMode="email" autoComplete="email" aria-invalid={status==='invalid'} className={status==='invalid'?'is-invalid':''}/>
+    {method==='email'?<input name="contact" value={contact} onChange={e=>{setStatus('');setContact(formatContact(e.target.value,method))}} aria-label="Your email" placeholder="name@company.co.uk" inputMode="email" autoComplete="email" aria-invalid={status==='invalid'} className={'ym-hide-content ym-disable-keys'+(status==='invalid'?' is-invalid':'')}/>
     :<PhoneInput lang="en" invalid={status==='invalid'} onChange={(full,ok)=>{setStatus('');setContact(full);setPhoneOk(ok)}} label="Your WhatsApp number"/>}
     <button type="submit" disabled={sending} className="btn btn-primary">{sending?'Sending…':'Send'}<Icon name="arrow-right" size={16}/></button>
    </div>
@@ -845,9 +845,9 @@ export function Contact(){
        <span className="ix-label">How should we reply?</span>
        <div role="radiogroup" aria-label="How should we reply?" className="methods">{([['whatsapp','WhatsApp'],['email','Email'],['phone','Phone']] as const).map(([k,lb])=><button key={k} type="button" role="radio" aria-checked={method===k} onClick={()=>{setMethod(k);setContact('');setPhoneOk(false);setStatus('')}} className={method===k?'is-on':''}>{lb}</button>)}</div>
       </div>
-      {method==='email'?<label className="field">{label}<input name="contact" value={contact} onChange={e=>change(e.target.value)} placeholder="name@company.co.uk" inputMode="email" autoComplete="email" aria-invalid={status==='invalid'} aria-describedby={status?'form-status':undefined} className={status==='invalid'?'is-invalid':''}/></label>
+      {method==='email'?<label className="field">{label}<input name="contact" value={contact} onChange={e=>change(e.target.value)} placeholder="name@company.co.uk" inputMode="email" autoComplete="email" aria-invalid={status==='invalid'} aria-describedby={status?'form-status':undefined} className={'ym-hide-content ym-disable-keys'+(status==='invalid'?' is-invalid':'')}/></label>
       :<div className="field"><span>{label}</span><PhoneInput key={method} lang="en" invalid={status==='invalid'} onChange={(full,ok)=>{start();setStatus('');setContact(full);setPhoneOk(ok)}} label={label} describedBy={status?'form-status':undefined}/></div>}
-      {showMsg?<label className="field fade-in">Message (optional)<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)}/></label>
+      {showMsg?<label className="field fade-in">Message (optional)<textarea name="message" rows={3} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)} className="ym-hide-content ym-disable-keys"/></label>
        :<button type="button" onClick={()=>setShowMsg(true)} className="ix-textbtn ix-accent-text"><Icon name="plus" size={14}/>Add a message (optional)</button>}
       <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>
       {status&&<p id="form-status" role="alert" className="form-status"><Icon name="alert-circle" size={16}/>{status==='invalid'?(method==='email'?'Please check the email address.':'Please enter the full phone number.'):'Something went wrong. Please write to '+contacts.email+' or message us on WhatsApp.'}</p>}
