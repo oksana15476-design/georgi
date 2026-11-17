@@ -1356,8 +1356,9 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .sc-line span{padding:6px 11px;border-radius:10px;background:#f2f4f8;font-size:13px;line-height:1.45}
 .sc-line.is-ai span{background:var(--tint)}
 .sc-cards{margin-top:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-.sc-card{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+.sc-card{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .sc-card-blue{border-color:#d6e0f5;background:#f2f6ff}
+.sc .sc-card{padding:10px 12px}
 .sc-card b{display:block;margin-top:6px;font-size:13.5px;font-weight:600}
 .sc-card small{display:block;margin-top:6px;font-size:12px;color:var(--muted)}
 .sc-card-blue small{margin-top:0}
@@ -1510,9 +1511,9 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
  .sc-line{max-width:94%}
  .sc-line span{padding:6px 10px;font-size:12.5px;line-height:1.4}
  .sc-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
- .sc-card{padding:9px 10px}
- .sc-card b{margin-top:4px}
- .sc-card small,.sc-card>span:last-child:not(.sc-label){overflow-wrap:anywhere;font-size:11.5px}
+ .sc .sc-card{padding:9px 10px}
+ .sc .sc-card b{margin-top:4px}
+ .sc .sc-card small,.sc .sc-card>span:last-child:not(.sc-label){overflow-wrap:anywhere;font-size:11.5px}
  .sc-fields{padding:6px;gap:2px}
  .sc-line{gap:2px}
  .sc-line small{line-height:1.2}
