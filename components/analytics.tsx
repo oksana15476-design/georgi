@@ -217,6 +217,17 @@ function loadTrackers(ads:boolean){
  }
 }
 
+// «Decline» stops Yandex Metrica on the open page too (Webvisor records the session while the counter runs).
+// disableYaCounter<id> is Metrica's documented switch (yandex.ru/support/metrica/ru/general/user-opt-out): tag.js reads it when
+// the counter starts, so it covers a tag.js that is still loading or loads later on this page. A counter that is already
+// running ignores it, so it is also stopped with ym(id,'destruct') (a method of tag.js itself, not in the help pages).
+// The next page load does not load tag.js at all (loadTrackers).
+function stopMetrica(){
+ if(!tracking.ym)return;
+ (window as unknown as Record<string,boolean>)['disableYaCounter'+tracking.ym]=true;
+ try{window.ym?.(Number(tracking.ym),'destruct')}catch{}
+}
+
 // A WhatsApp chat link: the host must be exactly wa.me (not a page that only mentions it in its address).
 const isWa=(href:string)=>{try{return !!href&&new URL(href,location.href).hostname==='wa.me'}catch{return false}};
 const label=(el:Element)=>(el.textContent||el.getAttribute('aria-label')||'').trim().replace(/\s+/g,' ').slice(0,80);
@@ -233,8 +244,9 @@ export function Analytics({lang}:{lang:Lang}){
  const consent=useConsent();
  useEffect(()=>{rememberAttribution()},[]);
  useEffect(()=>{
-  // Declined after analytics had started: GA4 stops at once (track() also stops sending events); the next page load starts nothing.
+  // Declined after analytics had started: GA4 and Metrica stop at once (track() also stops sending events); the next page load starts nothing.
   if(tracking.ga)(window as unknown as Record<string,boolean>)['ga-disable-'+tracking.ga]=consent==='denied';
+  if(consent==='denied')stopMetrica();
   if(consent==='granted')loadTrackers(true);
   else if(consent==='unset')loadTrackers(false);
  },[consent]);
