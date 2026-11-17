@@ -99,15 +99,15 @@ function Checkout({c,lang,order,now,onClose}:{c:OfferCopy;lang:'ru'|'en'|'ka';or
     {order.mode==='buy'&&t.from&&<small>{k.hours}</small>}
     {bonusActive(now)&&<em><Icon name="gift" size={15}/>{k.bonusPill}</em>}
    </div>
-   <label className="field">{k.name}<input name="name" required maxLength={100} value={name} onChange={e=>{setName(e.target.value);setStatus('')}} autoComplete="name"/></label>
-   <label className="field">{k.email}<input name="email" type="email" required maxLength={160} value={email} onChange={e=>{setEmail(e.target.value);setStatus('')}} placeholder={k.emailPh} autoComplete="email" aria-invalid={status==='invalid'}/></label>
+   <label className="field">{k.name}<input name="name" required maxLength={100} value={name} onChange={e=>{setName(e.target.value);setStatus('')}} autoComplete="name" className="ym-hide-content ym-disable-keys"/></label>
+   <label className="field">{k.email}<input name="email" type="email" required maxLength={160} value={email} onChange={e=>{setEmail(e.target.value);setStatus('')}} placeholder={k.emailPh} autoComplete="email" aria-invalid={status==='invalid'} className="ym-hide-content ym-disable-keys"/></label>
    <div role="group" aria-label={k.phone} className="field"><span>{k.phone}</span><PhoneInput lang={lang} invalid={status==='invalid'&&!phoneOk} onChange={(full,ok)=>{setPhone(full);setPhoneOk(ok);setStatus('')}}/></div>
    <fieldset className="wb-co-methods"><legend>{k.payLabel}</legend>
     {(['card','invoice'] as const).map(m=><label key={m} className={'wb-co-method'+(pay===m?' is-on':'')}><input type="radio" name="pay" value={m} checked={pay===m} onChange={()=>{setPay(m);setStatus('')}}/><Icon name={m==='card'?'lock':'file-text'} size={18}/><span><b>{k.methods[m][0]}</b>{k.methods[m][1]}</span></label>)}
    </fieldset>
    {pay==='invoice'&&<>
-    <label className="field">{k.payer}<input name="payer" required maxLength={160} value={payer} onChange={e=>{setPayer(e.target.value);setStatus('')}} placeholder={k.payerPh} autoComplete="organization" aria-invalid={status==='payer'}/></label>
-    <label className="field">{k.payerId}<input name="payerId" maxLength={40} value={payerId} onChange={e=>setPayerId(e.target.value)} placeholder={k.payerIdPh} inputMode="numeric"/></label>
+    <label className="field">{k.payer}<input name="payer" required maxLength={160} value={payer} onChange={e=>{setPayer(e.target.value);setStatus('')}} placeholder={k.payerPh} autoComplete="organization" aria-invalid={status==='payer'} className="ym-hide-content ym-disable-keys"/></label>
+    <label className="field">{k.payerId}<input name="payerId" maxLength={40} value={payerId} onChange={e=>setPayerId(e.target.value)} placeholder={k.payerIdPh} inputMode="numeric" className="ym-hide-content ym-disable-keys"/></label>
    </>}
    <label className={'wb-co-accept'+(status==='accept'?' is-invalid':'')}><input type="checkbox" checked={accepted} onChange={e=>{setAccepted(e.target.checked);setStatus('')}}/><span>{k.accept[0]}<a href={base+langPath(lang)+termsPath} target="_blank" rel="noopener">{k.accept[1]}</a>{k.accept[2]}</span></label>
    <input name="website" tabIndex={-1} aria-hidden="true" autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)} className="hp"/>

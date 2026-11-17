@@ -48,7 +48,7 @@ function Shell({lang,invalid,className,label,describedBy,onChange,onStart}:Props
    onPointerDown={()=>loadPhone()} onFocus={()=>loadPhone()} onClick={()=>{onStart({value:'',focus:'list'});loadPhone()}}>
    <svg className="phone-flag" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{homeFlag}</svg><span>{'+'+home.code}</span><svg className="phone-chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
   </button>
-  <input name="phone" type="tel" inputMode="tel" autoComplete="tel" required defaultValue="" placeholder={home.ph} aria-label={label} aria-invalid={invalid} aria-describedby={describedBy} className={invalid?'is-invalid':''}
+  <input name="phone" type="tel" inputMode="tel" autoComplete="tel" required defaultValue="" placeholder={home.ph} aria-label={label} aria-invalid={invalid} aria-describedby={describedBy} className={'ym-hide-content ym-disable-keys'+(invalid?' is-invalid':'')}
    onPointerDown={()=>loadPhone()} onFocus={e=>{onStart({value:e.currentTarget.value,focus:'input'});loadPhone()}} onBlur={e=>onStart({value:e.currentTarget.value,focus:''})}
    onInput={e=>{const el=e.currentTarget;onStart({value:el.value,focus:document.activeElement===el?'input':''});report(el.value,onChange);loadPhone()}}/>
  </div>;

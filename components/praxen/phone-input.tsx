@@ -132,6 +132,6 @@ export function PhoneInput({lang,invalid,onChange,className,label,describedBy,st
    </li>})}
   </ul>}
   <input ref={input} name="phone" type="tel" inputMode="tel" autoComplete="tel" required value={c?fill(local,c.mask):(local?'+'+local:'')} onChange={e=>type(e.target.value)}
-   placeholder={c?c.ph:'+…'} aria-label={label} aria-invalid={invalid} aria-describedby={describedBy} className={invalid?'is-invalid':''}/>
+   placeholder={c?c.ph:'+…'} aria-label={label} aria-invalid={invalid} aria-describedby={describedBy} className={'ym-hide-content ym-disable-keys'+(invalid?' is-invalid':'')}/>
  </div>;
 }
