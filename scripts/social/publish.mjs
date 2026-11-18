@@ -79,6 +79,18 @@ async function call(url,params,method='POST'){
  if(!r.ok||j.error||j.ok===false)throw new Error(`${new URL(url).host}${new URL(url).pathname} ${r.status}: ${JSON.stringify(j.error||j.description||j).slice(0,300)}`);
  return j;
 }
+// The same request as multipart/form-data with one file field (Telegram sendPhoto with the picture uploaded, not by URL).
+async function callFile(url,params,field,path){
+ const form=new FormData();
+ for(const [k,v] of Object.entries(params))form.append(k,String(v));
+ form.append(field,new Blob([readFileSync(path)],{type:'image/jpeg'}),path.split('/').pop());
+ const r=await fetch(url,{method:'POST',body:form});
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok||j.error||j.ok===false)throw new Error(`${new URL(url).host}${new URL(url).pathname} ${r.status}: ${JSON.stringify(j.error||j.description||j).slice(0,300)}`);
+ return j;
+}
+// A raw GitHub image URL → the same file in the checkout ('' when it is not there).
+const localImage=url=>{if(!url||!url.startsWith(SITE+'/'))return '';const p=join(root,'content/social/out',url.slice(SITE.length+1));return existsSync(p)?p:'';};
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 // Instagram and Threads build media in the background; publishing before it is ready fails.
 async function ready(base,id,token,field='status_code'){
@@ -189,7 +201,9 @@ const send={
   // A photo caption holds 1 024 characters; a longer text goes as a message with the picture as a large preview above it.
   const r=!img?await call(`${api}/sendMessage`,{chat_id:chat,text:html,parse_mode:'HTML'})
    :html.replace(/<[^>]+>/g,'').length<=1024
-   ?await call(`${api}/sendPhoto`,{chat_id:chat,photo:img,caption:html,parse_mode:'HTML'})
+   // The picture is uploaded from the checkout: Telegram's servers fail to fetch raw.githubusercontent.com (18 November, c09-klarna); by URL only when the file is missing.
+   ?(localImage(img)?await callFile(`${api}/sendPhoto`,{chat_id:chat,caption:html,parse_mode:'HTML'},'photo',localImage(img))
+    :await call(`${api}/sendPhoto`,{chat_id:chat,photo:img,caption:html,parse_mode:'HTML'}))
    :await call(`${api}/sendMessage`,{chat_id:chat,text:html,parse_mode:'HTML',link_preview_options:JSON.stringify({url:img,prefer_large_media:true,show_above_text:true})});
   return String(r.result.message_id);
  },
