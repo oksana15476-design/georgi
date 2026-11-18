@@ -1,0 +1,71 @@
+{
+ "campaign": "organic_{month}",
+ "about": "Real stories with sources for the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 4.3): Samsung (3.12), Octopus Energy (17.12), Zillow (25.12); Mata v. Avianca goes only to Telegram and Threads (16.12). Feed only (Instagram and Facebook): the Threads short version is in threads-2026-12.json (text, no pictures) and the detailed Telegram version in telegram-2026-12.json at 18:00. Workshop style without \"style\". Sources on a slide and in the caption.",
+ "langs": [
+  "ru"
+ ],
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "fbCta": {
+  "title": "Подписывайтесь на *Praxen AI*",
+  "sub": "Реальные истории ИИ в компаниях · praxenai.ge"
+ },
+ "channels": [
+  "facebook",
+  "instagram"
+ ],
+ "posts": [
+  {
+   "id": "c14-samsung",
+   "date": "2026-12-03",
+   "time": "11:00",
+   "pillar": "story",
+   "accent": "white",
+   "link": "https://praxenai.ge/ru/training",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Реальная история · 2023",
+     "title": "Samsung: исходный код в ChatGPT *и запрет на ИИ*",
+     "sub": "По данным The Economist Korea и Bloomberg"
+    },
+    {
+     "layout": "list",
+     "bg": "white",
+     "kicker": "Что было",
+     "title": "Весна 2023",
+     "items": [
+      "Полупроводниковое подразделение Samsung разрешает инженерам пользоваться ChatGPT",
+      "Вскоре сотрудники как минимум трижды отправляют в чат служебные данные",
+      "Исходный код на поиск ошибок, ещё код на оптимизацию и запись совещания на протокол"
+     ]
+    },
+    {
+     "layout": "list",
+     "bg": "white",
+     "kicker": "Чем кончилось",
+     "title": "Май 2023: запрет",
+     "items": [
+      "Генеративный ИИ закрыт на рабочих компьютерах, планшетах, телефонах и во внутренней сети",
+      "В служебной записке запрет назван временным, пока компания готовит безопасную среду",
+      "За загрузку служебных данных грозит взыскание вплоть до увольнения"
+     ]
+    },
+    {
+     "layout": "cover",
+     "bg": "white",
+     "kicker": "Что взять себе",
+     "title": "Правило для команды *пишут заранее*",
+     "sub": "Что можно отправлять в ChatGPT и что нельзя. Три правила для команды есть в нашем Telegram-канале, пост от 29 ноября"
+    },
+    {
+     "layout": "cta",
+     "title": "Подписывайтесь *на Praxen AI*",
+     "sub": "Реальные истории ИИ в компаниях, с источниками. Обучение команды: praxenai.ge/ru/training",
+     "button": "praxenai.ge/ru/training"
+    }
+   ],
+   "text": "Весной 2023 года полупроводниковое подразделение Samsung разрешило инженерам пользоваться ChatGPT. Вскоре, по данным The Economist Korea, сотрудники как минимум трижды отправили в чат служебные данные: один просил найти ошибки в исходном коде, другой оптимизировать код, третий сделать протокол по записи совещания.\n\nВ мае 2023 года Samsung ограничил генеративный ИИ на рабочих компьютерах, планшетах и телефонах и во внутренней сети. В служебной записке запрет назван временным, пока компания готовит безопасную среду для таких инструментов. Сотрудников попросили не загружать служебные данные и с личных устройств, за нарушение грозит взыскание вплоть до увольнения. Подлинность записки Samsung подтвердил Bloomberg.\n\nЧто взять себе: правило о том, что можно отправлять в ChatGPT, лучше написать до первой утечки. Три таких правила для команды мы публиковали в Telegram-канале 29 ноября.\n\nКак мы учим команды работать с ИИ на их задачах: {link}\n\nПодписывайтесь на Praxen AI: реальные истории ИИ в компаниях, с источниками.\n\nИсточники: Engadget, 7 апреля 2023 (со ссылкой на The Economist Korea); The Verge, 2 мая 2023 (со ссылкой на Bloomberg).\n\n#ИИвбизнесе #Samsung #ChatGPT #безопасностьданных"
+  }
+ ]
+}

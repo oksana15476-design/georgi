@@ -1,0 +1,31 @@
+{
+ "campaign": "organic_{month}",
+ "about": "Reels of the plan to 31 December (docs/SMM-PLAN-2026-12.md, section 3.2): cover (\"type\":\"reels\") and caption. The video is a screen recording by the owner (test stand, illustrative data); the owner posts the Reels by hand with trending music. Not in the publisher: it sends pictures only.",
+ "langs": [
+  "ru"
+ ],
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "channels": [
+  "instagram",
+  "facebook"
+ ],
+ "posts": [
+  {
+   "id": "reel01-assistant-test",
+   "date": "2026-12-05",
+   "time": "12:00",
+   "type": "reels",
+   "pillar": "process",
+   "link": "https://praxenai.ge/ru/about",
+   "slides": [
+    {
+     "kicker": "Закулисье Praxen AI",
+     "title": "Проверяем *ассистента* до запуска",
+     "accent": "yellow"
+    }
+   ],
+   "text": "Закулисье: как мы проверяем ассистента, прежде чем он ответит первому настоящему клиенту.\n\nНа видео тестовый стенд и условные данные. Ассистенту задаём вопросы, которые клиенты пишут на самом деле: про цену, сроки и наличие. Отдельно проверяем, что разговоры о скидке, возврате или жалобе он передаёт сотруднику.\n\nПорядок работы, от аудита до запуска: {link}\n\nПодписывайтесь на Praxen AI: в декабре показываем, как мы работаем.\n\n#PraxenAI #закулисье #ИИассистент #внедрениеИИ"
+  }
+ ]
+}

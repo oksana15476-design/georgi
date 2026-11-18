@@ -1,0 +1,33 @@
+{
+ "about": "Telegram channel posts of the plan to 31 December (docs/SMM-PLAN-2026-12.md, sections 3.2–3.6): text and polls. Text: content/social/out/telegram-2026-12/<id>/captions.md, section telegram. A post with \"poll\" is sent as a native Telegram poll. «Неделя в блоге» is written on the day from the articles that are actually out.",
+ "posts": [
+  {
+   "id": "tg20-pilot-terms",
+   "date": "2026-12-01",
+   "time": "18:00",
+   "slides": []
+  },
+  {
+   "id": "tg21-samsung",
+   "date": "2026-12-03",
+   "time": "18:00",
+   "slides": []
+  },
+  {
+   "id": "tg22-poll-department",
+   "date": "2026-12-04",
+   "time": "12:00",
+   "slides": [],
+   "poll": {
+    "question": "Какой отдел разобрать в канале подробнее?",
+    "options": [
+     "Продажи",
+     "Поддержка",
+     "Бухгалтерия",
+     "Закупки",
+     "HR"
+    ]
+   }
+  }
+ ]
+}
