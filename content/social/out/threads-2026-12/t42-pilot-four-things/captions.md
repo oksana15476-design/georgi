@@ -9,3 +9,5 @@
 Без одной из четырёх через месяц легко начать спор, получилось или нет. Когда всё записано, итог видно по цифре.
 
 Весь порядок работы, от аудита до запуска: https://praxenai.ge/ru/about?utm_source=threads&utm_medium=social&utm_campaign=organic_2026-12&utm_content=t42-pilot-four-things
+
+А вы что записываете с подрядчиком до старта работ?
