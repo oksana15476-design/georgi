@@ -1,8 +1,8 @@
 // Article sections for both blogs (praxenai.com and praxenai.ge). The article data stays plain
-// (heading, paragraphs, list, table); the structure is shown with UI, in the spirit of the Saldo blog:
+// (heading, paragraphs, list, table, paragraphs after the list or table); the structure is shown with UI, in the spirit of the Saldo blog:
 // price tables become price cards, "when / what" tables a timeline, step lists numbered steps,
 // other lists accent bullets with a bold lead, and wide tables stack into cards on phones.
-export type ArticleBlockData={h:string;p?:string[];list?:string[];table?:[string[],...string[][]]};
+export type ArticleBlockData={h:string;p?:string[];list?:string[];table?:[string[],...string[][]];after?:string[]};
 
 const money=/[£$€₾]|\d\s?p\b|\d¢/;
 const stepHeading=/^(how|step)|launch|start|the \d+ |как |с чего|шаг|план|запуск|როგორ|ეტაპ|გეგმა|დავიწყოთ|გაშვება/i;
@@ -55,5 +55,6 @@ export function ArticleBlock({b}:{b:ArticleBlockData}){
      <thead><tr>{head.map((h,k)=><th key={k}>{h}</th>)}</tr></thead>
      <tbody>{rows.map(r=><tr key={r[0]}>{r.map((v,k)=>k?<td key={k} data-label={head[k]}>{v}</td>:<th key={k} scope="row">{v}</th>)}</tr>)}</tbody>
     </table></div>)}
+  {b.after?.map(t=><p key={t}>{t}</p>)}
  </>);
 }
