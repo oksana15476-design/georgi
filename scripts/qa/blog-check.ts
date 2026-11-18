@@ -29,6 +29,11 @@ for(const a of geArticles)for(const l of ['ru','en','ka'] as const){
  for(const [h] of p.links)if(!geOk.has(h)||h==='blog/'+a.slug)bad(`ge/${a.slug}/${l}: link ${h} does not exist`);
 }
 
+// after: paragraphs below a list or table; in a block without either they belong in p.
+const afterAlone=(id:string,p:P)=>{for(const b of p.blocks)if(b.after?.length&&!b.list&&!b.table)warn(`${id}: block "${b.h}" has after without a list or table, move it to p`)};
+for(const p of posts)afterAlone('com/'+p.slug,p as P);
+for(const a of geArticles)for(const l of ['ru','en','ka'] as const)if(a.langs[l])afterAlone('ge/'+a.slug+'/'+l,a.langs[l] as P);
+
 // Style: sentences over 40 characters must not repeat between articles; antitheses at most 1 per article.
 const texts:{id:string;lang:string;s:string[]}[]=[];
 const sents=(p:P)=>[p.answer,...p.blocks.flatMap(b=>[...(b.p||[]),...(b.list||[]),...(b.after||[])]),...p.faq.map(f=>f[1])].flatMap(t=>t.split(/(?<=[.!?])\s+/)).map(x=>x.trim()).filter(x=>x.length>40);
