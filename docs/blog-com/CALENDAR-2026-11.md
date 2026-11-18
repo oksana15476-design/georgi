@@ -619,3 +619,175 @@ SEO-редактор, 16.11.2026. Строка календаря «ср 18.11 N
 - CTA — одна предметная фраза без «Book an audit…: our page shows…» и без «free 30-minute audit»;
 - цены в кратком ответе и в тексте нет (интент не ценовой);
 - первый раздел — определение и факт, без вступления-оглавления.
+
+## Бриф на 19.11 ai-crm
+
+SEO-редактор, 18.11.2026. Строка календаря «чт 19.11 NEW `/blog/ai-crm`», выход 21.11.2026 (выпуск отстаёт на 2 дня; к этой дате вышли все статьи до `rpa-vs-ai` от 20.11 включительно). Источники открыты и проверены 18.11.2026. Тема проходит: выдача своя, каннибализации нет при соблюдении правил ниже.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, DataForSEO, Google Ads UK, среднее за 12 месяцев, замер 02.11.2026):
+- главный: ai crm 260; «crm and ai», «artificial intelligence crm», «ai and crm», «artificial intelligence and crm» — по 260, одна группа Google Ads, **не суммировать**;
+- дополнительные: ai powered crm 30 · ai crm software 20 · ai crm system 20 · best ai crm 20;
+- не наши: «crm automation» 90 (и «crm and automation», «automation in crm» — та же группа) — автоматизация по правилам (Pipedrive, Zapier, Salesforce Flow, monday), общих URL с «ai crm» в первой десятке 0; кандидат в резерв после проверки против `n8n-vs-zapier-vs-make` и `ai-workflow-automation-examples`. «email crm system» 170 — **поправка к брифу 13.11**: это не интент `ai-crm`, а CRM с почтовой интеграцией и рассылками (Insightly, OnePageCRM, Nutshell, startups.co.uk), общих URL с «ai crm» 0, не берём. «octopus crm» 260 — бренд;
+- на .ge есть `crm-ai-amocrm-bitrix24` («CRM с ИИ: что настроить в amoCRM и Битрикс24», пять задач ИИ в CRM) и UPDATE 24.11 «ИИ из коробки в Битрикс24 и amoCRM». Рынок и CRM другие; чтобы темы не сошлись, .com-статья amoCRM и Битрикс24 не называет, списка «пять задач ИИ в CRM» не делает и строится на тарифах и доступе британских CRM (см. каннибализацию).
+
+**Выдача** (WebSearch 18.11.2026: «ai crm», «best ai crm», «best AI CRM for business UK 2026», «crm automation», «email crm system»; инструмент даёт выдачу США, точный топ UK — DataForSEO SERP, платно, только с согласия владельца):
+- «ai crm»: определения и гайды вендоров (Salesforce, IBM, monday, Capterra ×2, Slack, vtiger, Creatio, Zapier, HubSpot blog «11 CRMs that now offer AI», Shopify, fitsmallbusiness). Формат — «что такое AI CRM, функции, польза, список CRM». Интент информационный с выходом на выбор.
+- «best ai crm»: рейтинги «9 / 11 / 15 best AI CRM 2026» (HubSpot blog, tech.co, ClickUp, fitsmallbusiness, emailvendorselection, geekflare, croclub). Общих URL с «ai crm» — 1 (Zapier, разные языковые версии). Рейтинг не делаем: своих тестов нет; «best AI CRM» — одно упоминание.
+- «…UK 2026»: агрегаторы (SourceForge, Slashdot, krowdbase), вендорские подборки (Capsule, Maximizer, Creatio, Breakcold), startups.co.uk. Цены в долларах, оценки — вендорские.
+- Пробел, который берём: почти нигде нет того, **на каком тарифе** включается каждая ИИ-функция, **что ИИ видит** (права пользователя, бета, регионы) и расчёта «поднять тариф всем или добавить одну задачу». Это и есть ответ на вопрос из H1 календаря «встроенный ИИ или своя доработка».
+
+**Вопрос читателя:** «В нашей CRM уже есть ИИ? На каком тарифе, что он реально видит и когда выгоднее доработка поверх CRM, чем переход на дорогой тариф?» MOFU, отдел продаж британской компании на HubSpot, Pipedrive, Zoho, Dynamics 365 или выбирающий CRM.
+
+**Коммерческая страница:** `/departments/sales` (ответы лидам, резюме звонков и писем в CRM; в FAQ: HubSpot, Pipedrive, Salesforce, Microsoft Dynamics через API). Статья раскрывает, где встроенного ИИ хватает и где нужна доработка поверх CRM; текст страницы не копирует. **Zoho на странице нет — в CTA его не обещаем.**
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 19.11, H1 «AI CRM: which CRMs have AI built in and when to add your own». Issue: 59 знаков, `blog-check.ts` пропускает title не длиннее 53. Fix: title/H1 «AI CRM: built-in AI by plan and when to add your own» (52).
+- [HIGH] Location: `ai-for-sales-teams`, раздел «CRM updates in HubSpot, Pipedrive or Salesforce» («…each have AI features of their own… They work best on information that is already in the CRM. The usual gap is getting it there…») и FAQ «Does this replace HubSpot’s own AI features?». Issue: тезис «встроенный ИИ работает на данных в CRM, пробел — звонки, WhatsApp и письма, которые туда не попали» — там. Fix: одна фраза и ссылка через `links`; своё здесь — тарифы, права и бета по официальным страницам и расчёт «тариф или одна задача» (раздел 4). FAQ «заменит ли встроенный ИИ» не брать.
+- [HIGH] Location: `hubspot-ai` (агенты, Agent Hub, тарифы Starter/Professional/Enterprise, HubSpot Credits, настройки данных). Issue: всё о HubSpot — там. Fix: HubSpot — одна строка таблицы раздела 2 («Breeze Assistant и агенты в Agent Hub, часть агентов — с Professional, многие функции тратят кредиты») и ссылка через `links`; кредиты и настройки данных не пересказывать; строки HubSpot в «Sources» не повторять (повтор строки ловит `blog-check.ts`).
+- [MEDIUM] Location: `custom-ai-vs-off-the-shelf` («Buy, connect or build», «Check what your HubSpot, Zendesk or Xero plan includes», расчёт за 12 месяцев). Issue: общий выбор «купить, подключить, разработать» — там. Fix: раздел 5 применяет его только к CRM (сигналы из тарифов, прав и беты), общую схему и годовой расчёт не пересказывать; ссылка по названию.
+- [MEDIUM] Location: `salesforce-einstein` (26.11 по календарю). Issue: редакции Salesforce, Einstein и Agentforce — тема той статьи; ссылаться на неё 21.11 нельзя (не вышла). Fix: Salesforce — одна фраза без тарифов и редакций (официальную страницу о тарифах не открывали). **26.11** в `links` или в текст `ai-crm` добавить ссылку на `salesforce-einstein` (стоит в строке 26.11).
+- [MEDIUM] Location: `ai-email-assistant` (Copilot в Outlook, Gemini в Gmail, надстройки). Issue: почтовые помощники — там. Fix: ИИ-письма Pipedrive и Email assist в Dynamics — только как функции CRM в таблице; Outlook и Gmail не разбирать.
+- [MEDIUM] Location: `ai-agents-for-business` и `n8n-vs-zapier-vs-make`. Issue: что такое агент и как связать CRM с другими приложениями — там. Fix: «агенты» в CRM — только как их называет вендор; Zapier, Make, n8n — одна фраза максимум.
+- [MEDIUM] Location: `gdpr-and-ai`. Issue: проверки вендора и DPIA — там. Fix: одна фраза (например, при обогащении данных из интернета у Zia).
+- [MEDIUM] Location: CTA. Issue: интент не ценовой; шаблон «Book an audit…: our page shows…» и чужой порядок работы запрещены; CTA `hubspot-ai` уже говорит о звонках в HubSpot и «free 30-minute audit». Fix: цены нет; последняя фраза — предметный шаг другими словами: «если встроенный ИИ вашей CRM не видит звонков и переписки или нужная функция есть только на старшем тарифе, наша настройка для отдела продаж добавляет одну задачу — ответы лидам или резюме звонков в карточке сделки — поверх HubSpot, Pipedrive, Salesforce или Dynamics через их API», ссылка `/departments/sales`. Без «audit» и без порядка работы.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- данные вне CRM (звонки, WhatsApp, почта), ответы лидам, follow-up, таблица «кто что делает» → `ai-for-sales-teams`;
+- агенты HubSpot, тарифы Agent Hub, кредиты, настройки данных HubSpot → `hubspot-ai`;
+- купить, подключить или разработать, расчёт за 12 месяцев → `custom-ai-vs-off-the-shelf`;
+- почтовые ИИ-помощники → `ai-email-assistant`; агенты в общем виде → `ai-agents-for-business`; связки через Zapier, Make, n8n → `n8n-vs-zapier-vs-make`;
+- UK GDPR → `gdpr-and-ai`; общие оговорки (токены, данные на аккаунтах клиента, бесплатный аудит) и рефрен «люди решают» — не писать.
+
+### Мета
+
+- `slug`: `ai-crm`; `cat`: `CRM`; `date`: день выхода (ожидается `2026-11-21`); первой в `posts`; slug — в начало `blogSlugs` (`lib/intl.ts`).
+- `title` (= H1, 52 знака): **AI CRM: built-in AI by plan and when to add your own**
+- `description` (150 знаков): **AI CRM features in HubSpot, Pipedrive, Zoho and Dynamics 365: which plan unlocks each, what the AI can see and when your own AI layer is worth adding.** (без «explained»: так начинаются описания `hubspot-ai` и `ai-contract-review`).
+- `excerpt` (пример, 139): «Which plan unlocks each AI feature in Pipedrive, Zoho and Dynamics 365, what the AI can see and the sum to run before upgrading every seat.»
+- «AI CRM» — в первом предложении; «CRM and AI» — один раз в разделе 1; «AI-powered CRM» — один раз; «best AI CRM» — один раз в разделе 2 (рейтинга нет, ответ зависит от CRM и тарифа). Антитезу «not X but Y» не строить вокруг этих фраз.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: AI CRM — это CRM со встроенным ИИ: сводки записей и переписки, черновики писем, прогнозы (вероятность сделки, риск ухода клиента) и помощники или агенты, которые отвечают на вопросы по вашим записям. Что из этого у вас есть, решает тариф: в Pipedrive помощник импорта и отчёты по запросу есть на всех тарифах, а ИИ-письма и сводки переписки — только на Premium и Ultimate (источник 1). Второй факт по желанию: Copilot в Dynamics 365 Sales берёт сведения только из записей и файлов, к которым у вошедшего пользователя есть доступ (источник 3).
+
+### Структура (5 разделов + «Sources», 900–1 150 слов)
+
+1. **AI in a CRM: summaries, predictions, assistants and agents.** Заголовок не «What an AI CRM does» (каркас «What X does» уже у `rpa-vs-ai`, `ai-contract-review`, `intelligent-document-processing`). Определение в первом предложении, «CRM and AI» здесь. Четыре вида функций абзацем или коротким списком с жирной вводной: сводки и черновики писем; прогнозы и оценки (Zoho: вероятность конверсии лида, закрытия сделки, ухода клиента — источник 2); помощник, который отвечает на вопросы по записям (Pipedrive Sales Assistant, Copilot в Dynamics); агенты, которые выполняют задачи (у Zoho AI agents на Professional — источник 2). Без списка «пять задач ИИ в CRM».
+2. **Built-in AI in four CRMs, plan by plan.** Абзац: таблица собрана по официальным страницам на 18.11.2026, тарифы меняются — сверить в своём аккаунте; «best AI CRM» — здесь. Таблица 4 колонки: CRM | AI the vendor builds in | Plan or licence | Worth knowing. Строки:
+   - Pipedrive: на всех тарифах (Lite, Growth, Premium, Ultimate) — AI import assistant, отчёт по запросу в Insights, Sales Assistant (beta); на Premium и Ultimate — AI email creation, AI-powered notifications, сводки переписки (beta), предлагаемые ответы (beta). Worth knowing: включает только пользователь с доступом к настройкам аккаунта; бета-функции — для выбранных пользователей (источник 1, обновлено 03.09.2026);
+   - Zoho CRM: бесплатная редакция до 3 пользователей; в Professional перечислены AI agents и predictive intelligence; в Enterprise — extended AI capabilities Zia (insights, predictions, recommendations) (источник 2). Worth knowing: Zia может дополнять записи данными из интернета и подписей писем (источник 4, если копирайтер его ставит) — одна фраза о UK GDPR со ссылкой по названию;
+   - Microsoft Dynamics 365 Sales: Copilot — сводка записи, недавние изменения, подготовка к встрече, помощь с письмами, ответы по документам SharePoint, новости о клиентах; лицензии — в руководстве Microsoft по лицензированию (тарифы не пишем). Worth knowing: Microsoft называет Sales agent в Microsoft 365 Copilot развитием Copilot для продаж (источник 3, обновлено 13.10.2026);
+   - HubSpot: Breeze Assistant и агенты в Agent Hub; часть агентов — с Professional; многие функции тратят HubSpot Credits. Worth knowing: подробности — статья о HubSpot AI (ссылка через `links`).
+   Под таблицей одна фраза о Salesforce (Einstein, Agentforce) без тарифов и редакций. ⚖ Названия функций и тарифов — только как на страницах в день выпуска; цен вендоров нет (страница цен Pipedrive не открылась, у Zoho цены в долларах).
+3. **What the built-in AI can see.** Своё ядро о доступе. По источнику 3: Copilot читает только записи и файлы, доступные вошедшему пользователю. Пример с пометкой «Example scenario»: менеджер готовится к встрече, а записи сервисной команды о незакрытой жалобе клиента ей не открыты — в сводке Copilot этой жалобы не будет; решение — права доступа, а не промпт (без антитезы при переписывании). По источнику 1: включает ИИ-функции администратор настроек аккаунта, бета — только у выбранных пользователей, поэтому процесс отдела на бете не строим. Доступность Copilot по регионам и языкам — отчёт Microsoft (источник 3), одна фраза. Данные вне CRM — одна фраза и ссылка через `links` на статью для отделов продаж. Настройки данных HubSpot — одна фраза со ссылкой по названию.
+4. **Upgrade every seat or add one job: an example sum.** Свой расчёт, формулой, без цен. «Example scenario»: команда из 9 продавцов на Pipedrive Growth хочет сводки переписки и предлагаемые ответы — по источнику 1 это Premium и Ultimate, и обе функции в бете. Вариант A: (цена Premium − цена Growth за пользователя в месяц со страницы цен Pipedrive) × 9 × 12 = доплата за год; в пользу A считаем другие функции Premium, только если команда будет ими пользоваться. Вариант B: остаться на Growth и добавить одну задачу через API — сводка переписки записывается в сделку; его стоимость — разработка и использование модели. Сравнить A и B на одном горизонте; учесть, что бета может измениться. Цифр, фунтов и цен Praxen нет; расчёт за 12 месяцев из `custom-ai-vs-off-the-shelf` не повторять.
+5. **Signs your CRM needs an AI layer of its own.** Заголовок не с «How»; список с жирной вводной, столько пунктов, сколько есть (4–5): нужная функция есть только на старшем тарифе для всей команды (расчёт из раздела 4); сведения лежат вне CRM — одна фраза и ссылка на статью для отделов продаж; правило задействует CRM и другую систему (склад, учёт, КП) — одна фраза и ссылка по названию на статью «custom AI or off-the-shelf»; функция в бете или недоступна в вашем регионе или на вашем языке; две CRM или переезд с одной на другую. **Последняя фраза — CTA** (см. выше). Цены нет. Это не таблица выбора: три предыдущие статьи (`ai-chatbot-examples`, `ai-contract-review`, `rpa-vs-ai`) кончаются таблицей, здесь — список.
+6. **Sources** — последний блок, `{h:'Sources',list:[…]}`.
+
+**FAQ (3–4):** Which CRM has the best AI? (рейтинга нет; зависит от CRM, которая уже есть, и тарифа; своих тестов не проводили) · Is AI included in free CRM plans? (Zoho: бесплатная редакция до 3 пользователей, AI agents и прогнозы — в платных редакциях по странице Zoho; Pipedrive: бесплатного тарифа на странице нет — не писать о нём, сказать о функциях Lite) · Do we have to switch CRM to get AI? (обычно нет: сначала проверить тариф, затем одну задачу через API; одна фраза) · Can the CRM’s AI see data a user cannot? (по Microsoft — нет для Copilot в Dynamics; у остальных — проверять в документации вендора). Вопрос «Does this replace HubSpot’s own AI features?» не брать — он в `ai-for-sales-teams`. Без цен.
+
+### `links` (3 внутренние)
+
+1. `['departments/sales','AI for sales teams on HubSpot, Pipedrive and Dynamics']` — коммерческая страница и CTA.
+2. `['blog/hubspot-ai','HubSpot AI: agents, Breeze Assistant and credits']` — вышла 16.11.
+3. `['blog/ai-for-sales-teams','AI for sales teams: calls and chats into the CRM']` — владелец тезиса «данные вне CRM».
+
+`custom-ai-vs-off-the-shelf` упоминаем по названию в разделе 5; «Read also» добавит две статьи автоматически. 26.11 — ссылка на `salesforce-einstein` (см. выше).
+
+**Входящая ссылка в тот же день:** в `links` статьи `hubspot-ai` добавить `['blog/ai-crm','AI CRM: built-in AI in Pipedrive, Zoho and Dynamics']` (бриф 14.11 откладывал эту ссылку до выхода `ai-crm`).
+
+### Первоисточники (открыты 18.11.2026)
+
+1. `Pipedrive guide to its AI features by plan: https://support.pipedrive.com/en/article/pipedrive-ai (checked 18 November 2026)` — таблица функций по тарифам Lite, Growth, Premium, Ultimate; ИИ-письма, уведомления, сводки и предлагаемые ответы — Premium и выше; бета — для выбранных пользователей; включает пользователь с доступом к настройкам аккаунта; «Last updated: September 3, 2026».
+2. `Zoho CRM editions and features: https://www.zoho.com/crm/zohocrm-pricing.html (checked 18 November 2026)` — бесплатно до 3 пользователей; Professional: AI agents, predictive intelligence (лид, сделка, отток); Enterprise: extended AI capabilities Zia. Адрес открывается как `/en-us/` — цены в долларах не берём.
+3. `Microsoft overview of Copilot in Dynamics 365 Sales: https://learn.microsoft.com/en-gb/dynamics365/sales/copilot-overview (checked 18 November 2026)` — только записи и файлы, доступные вошедшему пользователю; функции (сводка, недавние изменения, SharePoint, подготовка к встрече, Email assist, новости); Sales agent как развитие; отчёт о доступности по регионам и языкам; обновлено 13.10.2026.
+4. (по желанию, если в тексте есть обогащение данных) `Zoho guide to Zia in Zoho CRM: https://www.zoho.com/crm/zia/ (checked 18 November 2026)` — Zia scores, прогноз оттока, обогащение данных из интернета и подписей писем, расшифровка и сводки звонков.
+
+⚖ Тарифы и названия меняются: в день выпуска копирайтер заново открывает страницы 1–3; если формулировка изменилась — пишем по новой и меняем дату в «Sources». Страница цен Pipedrive отдаёт 403 автоматическому клиенту — цен Pipedrive в статье нет.
+
+**Примеры:** «Example scenario» у менеджера без доступа к жалобе и у команды из 9 продавцов. Рейтингов, цен вендоров, статистики из подборок и названий клиентов нет. amoCRM и Битрикс24 не упоминаются, Грузия не упоминается, «for businesses», британский английский.
+
+## Бриф на 20.11 ai-for-property-management
+
+SEO-редактор, 18.11.2026. Строка календаря «пт 20.11 NEW `/blog/ai-for-property-management`», выход 22.11.2026 (к этой дате вышла и `ai-crm`). Источники открыты и проверены 18.11.2026. Тема проходит: с `/industries/estate-agents` и статьями блога выдача не пересекается.
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, замер 02.11.2026):
+- главный: ai property management 210 (конкуренция LOW);
+- дополнительные: ai for property management 30 · ai in property management 30 · property management ai 20 — малые близкие варианты, **не суммировать** с главным;
+- запросов о лендлордах, ремонтах и инспекциях с ИИ в данных нет — частотность не придумываем;
+- на .ge — `real-estate-leads-batumi` (заявки покупателей недвижимости, продажи); управления арендой на .ge нет, повтора между сайтами нет.
+
+**Выдача** (WebSearch 18.11.2026: «ai property management», «AI for property management UK letting agents block management», «ai for estate agents uk»; выдача США плюс британские запросы):
+- «ai property management»: гайды американских вендоров ПО для управления арендой (Yardi, Buildium ×2, DoorLoop ×2, MRI, AppFolio-подобные TenantCloud, TurboTenant, ButterflyMX, Structurely, happy.co, quo) и NAR. Формат — «что это, сценарии (аренда, обслуживание, коммуникация с жильцами, скрининг), лучшее ПО». Цифры (доля внедривших, «10 часов в неделю») — вендорские, не берём.
+- «…UK letting agents block management»: Street.co.uk, Goodlord, News on the Block, flat-living, helpthemove, Apex27 — продажа своих решений и мнения; британской конкретики об обязанностях лендлорда почти нет.
+- «ai for estate agents uk» (запрос страницы `/industries/estate-agents`): Apex27, Street (продажи), The Negotiator, Alto, Property Industry Eye — листинги, лиды, просмотры. Общих URL с «ai property management» — 1 (Apex27, из британского запроса). Порог 7 из 10 далеко: продажа и сдача объектов — у страницы, управление после заселения — у статьи.
+- Пробел, который берём: разбор заявок о ремонте по срочности на британских правилах (уведомление за 24 часа, за какие ремонты отвечает лендлорд, общие зоны дома), один ремонт от сообщения до закрытия, инспекции и сроки газовой проверки.
+
+**Вопрос читателя:** «Что ИИ может взять в управлении арендой: сообщения жильцов, заявки о ремонте, инспекции — и где решение остаётся за управляющим?» TOFU отраслевой; агентство по аренде с управлением, управляющая компания дома (block management), лендлорд с портфелем.
+
+**Коммерческая страница:** `/industries/estate-agents` (сценарий «Maintenance reports», FAQ «What about tenant repair calls?»: заявка с фото, срочность по вашим правилам, аварийное — дежурному). Статья раскрывает эту строку страницы в глубину; текст сценария и FAQ не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря 20.11, H1 «AI for property management: tenant messages, repairs and inspections». Issue: 68 знаков, лимит 53. Fix: title/H1 «AI for property management: repairs and inspections» (51); сообщения жильцов — в description и H2 раздела 2; точная фраза «AI property management» — в первом предложении.
+- [HIGH] Location: `/industries/estate-agents` (title «AI for estate agents: viewings booked 24/7», сцена просмотра на Mill Road, FAQ о заявках на ремонт). Issue: просмотры, квалификация арендаторов и покупателей, интеграции с Reapit, Alto, Jupix — за страницей; FAQ о ремонтах сформулирован там. Fix: без просмотров, заявок арендаторов до заселения и порталов Rightmove/Zoopla; ПО агентства — одна фраза без списка систем; FAQ страницы своими словами не повторять, своё — правила срочности, дедупликация, лимит расходов, таймлайн ремонта, инспекции, сроки сертификатов.
+- [MEDIUM] Location: `ai-phone-answering-service`, «After-hours and 24/7 answering» и «Setting up out-of-hours cover» («A burst pipe in a rented flat needs someone tonight», «Name the person on call», текст о 999). Issue: ночные звонки и дежурный — там. Fix: звонки ночью — одна фраза и ссылка через `links`; дежурный график не описывать; «burst pipe» не брать (наш пример — протечка с потолка, см. раздел 4).
+- [MEDIUM] Location: `whatsapp-chatbot-for-business` и `whatsapp-business-api`. Issue: меню или ИИ, план бота, окно 24 часа и шаблоны Meta — там. Fix: канал WhatsApp — одна фраза со ссылкой через `links`; напоминание о визите инженера вне окна — одна фраза по названию на статью об API.
+- [MEDIUM] Location: `ai-knowledge-base-for-support` (ответы с источником, триггеры передачи). Issue: механика ответов из документов — там. Fix: ответы жильцам из договора и правил дома — одна фраза «как устроено» со ссылкой по названию; список триггеров не давать.
+- [MEDIUM] Location: `intelligent-document-processing` и `invoice-automation-ai`. Issue: чтение сертификатов и счетов подрядчиков — там. Fix: по одной фразе со ссылкой по названию.
+- [MEDIUM] Location: `ai-chatbot-examples` (бриф 16.11 отдал жильцов и ремонты этой статье) и `ai-for-construction` (подрядчики, CIS). Issue: соседние сюжеты. Fix: здесь своих диалогов и подрядчиков достаточно; CIS, RAMS и стройку не упоминать; сюжеты из галереи (котёл по гарантии, стоматология, MOT) не брать.
+- [MEDIUM] Location: `gdpr-and-ai`. Issue: фото внутри жилья и данные жильцов — персональные данные; проверки — там. Fix: одна фраза в FAQ.
+- [MEDIUM] Location: CTA. Issue: интент не ценовой; шаблон «Book an audit…: our page shows…» и порядок работы, которого нет на сайте, запрещены. Fix: цены нет; последняя фраза — предметный шаг по странице: «если заявки о ремонте приходят по телефону, почте и в WhatsApp, наш ИИ для агентств записывает каждую с фото, ставит срочность по вашим правилам и сразу передаёт аварийные дежурному» (это сценарий и FAQ страницы, своими словами), ссылка `/industries/estate-agents`.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум):
+- просмотры, квалификация, порталы, интеграции агентского ПО → `/industries/estate-agents`;
+- звонки вне рабочего времени, дежурный, текст для экстренных случаев → `ai-phone-answering-service`;
+- WhatsApp-бот и правила Meta → `whatsapp-chatbot-for-business`, `whatsapp-business-api`;
+- ответы из документов с источником, триггеры передачи → `ai-knowledge-base-for-support`;
+- чтение сертификатов и счетов → `intelligent-document-processing`, `invoice-automation-ai`;
+- UK GDPR → `gdpr-and-ai`; общие оговорки и рефрен «люди решают» — один раз и своими словами.
+
+### Мета
+
+- `slug`: `ai-for-property-management`; `cat`: `Property`; `date`: день выхода (ожидается `2026-11-22`); первой в `posts`; slug — в начало `blogSlugs`.
+- `title` (= H1, 51 знак): **AI for property management: repairs and inspections**
+- `description` (152 знака): **AI property management for lettings and block managers: tenant messages, repairs sorted by urgency, inspections booked with notice and gas safety dates.**
+- `excerpt` (пример, 151): «Repair reports sorted by your urgency rules, a leak followed from first message to closed job, inspections booked with notice and certificates tracked.»
+- «AI property management» — в первом предложении; «AI in property management» — один раз в разделе 1; «property management AI» не вставлять искусственно.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: AI property management — это ИИ, который отвечает жильцам по договору и правилам дома, раскладывает заявки о ремонте по срочности по правилам управляющего, назначает подрядчиков и инспекции, готовит черновики отчётов и следит за сроками сертификатов; расходы, вычеты и всё юридическое решают люди. Факт по теме: по руководству GOV.UK лендлорд должен предупредить жильца минимум за 24 часа, прежде чем войти для осмотра или ремонта, а в экстренном случае доступ может быть немедленным (источник 1) — поэтому ИИ предлагает слоты не раньше чем через сутки, а аварийное сразу передаёт человеку. В Шотландии и Северной Ирландии свои правила — одной фразой в тексте, не в кратком ответе.
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **The jobs AI property management covers.** Заголовок не «What X does» и не «Where … week goes». Определение в первом предложении; «AI in property management» здесь. Четыре потока работы абзацем: сообщения жильцов, заявки о ремонте, инспекции, сроки сертификатов. Факт для рамки: по GOV.UK лендлорд обычно отвечает за ремонт конструкции, сантехники, отопления и горячей воды, в доме с квартирами — обычно и за общие зоны вроде лестниц (источник 1) — это рамка для правил срочности. Одна фраза: правила различаются в Шотландии и Северной Ирландии; статья опирается на руководства GOV.UK для Англии. Без таблицы (таблица — в разделе 3).
+2. **Tenant messages answered from the tenancy and house rules.** Ответы из договора и правил дома: дни вывоза мусора, парковочные разрешения, как платить аренду, к кому по интернету. Просьбы о разрешении (питомец, покраска стен, субаренда) — ИИ собирает детали и передаёт управляющему или лендлорду, сам не разрешает. Сообщения о деньгах и задолженности — человеку. Пример с пометкой «Example scenario», 2–3 реплики. Как устроены ответы с источником — одна фраза со ссылкой по названию на статью о базе знаний; канал WhatsApp — одна фраза.
+3. **Repair reports sorted by your urgency rules.** Таблица 3 колонки: Report | Urgency under your rules | What the AI does. Строки: запах газа (аварийно: одобренный агентством текст о безопасности и сразу дежурному; номер телефона не писать, если копирайтер не открыл официальную страницу и не добавил её в «Sources»); нет отопления или горячей воды (срочно; это ремонты, за которые отвечает лендлорд — источник 1); вода с потолка; плесень на стене спальни (GOV.UK советует жильцам сразу сообщать о неисправностях, опасных для здоровья, и пишет, что лендлорд должен сказать, когда ждать ремонта — источник 3; ИИ подтверждает приём, просит фото, ожидаемую дату ставит управляющий, советов по здоровью нет); капающий кран (плановый, в ближайший визит подрядчика); домофон в подъезде (общая зона — заявки из нескольких квартир сводятся в одну, сообщение всем, кто писал). Под таблицей: категории и лимит расходов задаёт управляющий; ИИ не обещает сроков, которых нет в правилах.
+4. **One leak, from first message to closed job.** Таймлайн: таблица 2 колонки, первый заголовок **«When»** (сайт покажет вертикальную шкалу), с пометкой «Example scenario» в абзаце над таблицей. 6–7 строк: вторник 19:40 — жилец пишет с фото воды с потолка кухни; 19:41 — ИИ задаёт вопросы из правил (вода рядом со светом или розетками? известен источник? есть кто-то в квартире сверху?); 19:44 — «срочно», сводка с фото дежурному управляющему; 19:55 — управляющий одобряет вызов сантехника в пределах лимита, согласованного с лендлордом; 21:10 — сантехник перекрывает воду в квартире сверху; среда 9:00 — ИИ готовит лендлорду письмо с фото и сметой, предлагает жильцу слоты ремонта потолка не раньше чем через 24 часа (источник 1); после ремонта — жилец подтверждает, заявка закрыта, счёт подрядчика уходит по маршруту из статьи о счетах (одна фраза). Своя метрика без £: часы от сообщения жильца до решения управляющего.
+5. **Inspections and check-outs.** Запись на плановую инспекцию со слотами не раньше чем через 24 часа и перенос по просьбе жильца (источник 1, без повтора формулировки из раздела 4); черновик отчёта по комнатам из фото и голосовых заметок; на выезде — сравнение с фото описи при заселении, список отличий с фото (пример «Example scenario»: квартира с двумя спальнями — пятно на ковре, сломанный шнур жалюзи, потёртость на стене). Что считать естественным износом, что повреждением и какие вычеты из депозита — решает управляющий; правила депозитных схем не пересказываем (страница GOV.UK о депозитах ещё ссылается на смену правил 01.05.2026 — не берём).
+6. **Gas safety records and other dates to track.** Список с жирной вводной (не таблица выбора, не нумерованные шаги, заголовок не с «How»): ежегодная проверка газа инженером Gas Safe по каждому прибору и дымоходу, копия записи жильцу до заезда или в течение 28 дней после проверки (источник 2) — ИИ читает сертификат (одна фраза по названию на статью об IDP), ставит дату следующей проверки, готовит запрос доступа, отправляет копию жильцу и записывает дату отправки; дымовой извещатель на каждом этаже и датчик угарного газа в комнате с прибором на твёрдом топливе (источник 2) — пункт описи при заселении; электрика: лендлорд отвечает за безопасность проводки и приборов (источник 2; сроков проверок не писать — их на открытых страницах нет). **Последняя фраза — CTA** (см. выше). Цены нет.
+7. **Sources** — последний блок, `{h:'Sources',list:[…]}`.
+
+**FAQ (3–4):** Can AI decide whether a repair is an emergency? (применяет ваши правила; неясное — человеку) · Can tenants report repairs on WhatsApp? (да, через WhatsApp Business API; одна фраза со ссылкой по названию) · Can AI write our inspection reports? (черновик из фото и заметок, подписывает управляющий) · What happens to photos taken inside tenants’ homes? (персональные данные; одна фраза со ссылкой по названию на статью о GDPR). Вопрос о подключении к ПО агентства не брать — он в FAQ страницы. Без цен.
+
+### `links` (3 внутренние)
+
+1. `['industries/estate-agents','AI for letting agents: repair reports and viewings']` — коммерческая страница и CTA.
+2. `['blog/ai-phone-answering-service','AI phone answering: after-hours repair calls']`
+3. `['blog/whatsapp-chatbot-for-business','WhatsApp chatbot: what tenants can send by message']`
+
+`ai-knowledge-base-for-support`, `intelligent-document-processing`, `invoice-automation-ai`, `gdpr-and-ai` — по названию в тексте; «Read also» добавит две статьи автоматически.
+
+**Входящая ссылка в тот же день:** в `links` статьи `ai-phone-answering-service` добавить `['blog/ai-for-property-management','AI for property management: repair reports out of hours']` (статья уже ссылается на `/industries/estate-agents` и в разделе о ночных звонках говорит о протечке в съёмной квартире).
+
+### Первоисточники (открыты 18.11.2026)
+
+1. `UK government guide to making repairs as a landlord: https://www.gov.uk/renting-out-a-property/making-repairs (checked 18 November 2026)` — право войти для осмотра или ремонта с уведомлением минимум за 24 часа, немедленный доступ возможен в экстренном случае; лендлорд обычно отвечает за конструкцию, сантехнику, отопление и горячую воду; в доме с квартирами — обычно за общие зоны; свои правила в Шотландии и Северной Ирландии.
+2. `UK government guide to landlord safety duties: https://www.gov.uk/private-renting/your-landlords-safety-responsibilities (checked 18 November 2026)` — ежегодная проверка газа инженером Gas Safe по каждому прибору и дымоходу; копия записи до заезда или в течение 28 дней после проверки; дымовой извещатель на каждом этаже; датчик угарного газа в комнате с прибором на твёрдом топливе; безопасность проводки и приборов.
+3. `UK government guide to repairs for private tenants: https://www.gov.uk/private-renting/repairs (checked 18 November 2026)` — сообщать о ремонте или плесени лендлорду, о неисправностях, опасных для здоровья, — сразу; лендлорд должен сказать, когда ждать ремонта; общие зоны — обычно лендлорд.
+
+⚖ Обязанности лендлорда — правовые факты: только то, что сказано на этих страницах, без штрафов, сроков, которых там нет, и толкований Renters’ Rights Act (правило 4, сверка с владельцем при сомнении). Адрес источника 2 длинный — проверить блок на 390 px.
+
+**Примеры:** «Example scenario» у диалога с жильцом, протечки и выезда из квартиры с двумя спальнями. Цифр экономии и статистики из выдачи (доли внедривших, «часы в неделю») нет, названий агентств и клиентов нет. Грузия не упоминается, «for businesses», британский английский.
+
+### Каркасы, которых избегаем в обеих статьях (18.11)
+
+К правилам блока 16.11 добавлено: заголовок первого раздела не по формуле «What X does» (она уже в трёх статьях подряд); последний раздел не таблица выбора (ей кончаются `ai-chatbot-examples`, `ai-contract-review`, `rpa-vs-ai`) — в `ai-crm` список признаков, в `ai-for-property-management` список сроков; нет отдельного раздела «What stays with…» (каркас `ai-for-construction`): кто решает — внутри каждого раздела, одной фразой; description не начинается с «X explained».
