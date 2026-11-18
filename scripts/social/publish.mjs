@@ -42,6 +42,12 @@ export const BATCHES=[
  {file:'about-2026-11.json',channels:['facebook','instagram']},
  {file:'about-stories-2026-11.json',channels:['instagram_story','facebook_story']},
  {file:'about-threads-2026-11.json',channels:['threads']},
+ // December (docs/SMM-PLAN-2026-12.md). The c14 case goes to Threads and Telegram as their own posts (t39, tg21), so cases-2026-12 is feed only.
+ // Reels (reels-2026-12.json) and interactive stories (stories-interactive-2026-12.json) are posted by hand and are not here.
+ {file:'feed-2026-12.json',channels:['facebook','instagram']},
+ {file:'cases-2026-12.json',channels:['facebook','instagram']},
+ {file:'telegram-2026-12.json',channels:['telegram']},
+ {file:'threads-2026-12.json',channels:['threads']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
 const CHECK=flag('--check'),DRY=flag('--dry')||CHECK,ONLY=opt('--only'),ONLY_CH=opt('--channel'),REPLACE=flag('--replace');

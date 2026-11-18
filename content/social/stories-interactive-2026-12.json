@@ -1,0 +1,76 @@
+{
+ "campaign": "organic_{month}",
+ "about": "Backgrounds for stories with stickers of the plan to 31 December (docs/SMM-PLAN-2026-12.md, sections 3.2–3.6, marked [В]): polls, quizzes, link stickers, «Новый пост» with a sticker. Stickers are added by hand in the Instagram app (not available in the API). Not in the publisher.",
+ "langs": [
+  "ru"
+ ],
+ "size": "story",
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "posts": [
+  {
+   "id": "i20-12-01",
+   "date": "2026-12-01",
+   "time": "13:00",
+   "accent": "white",
+   "sticker": "Репост карусели f17-how-we-work или эта картинка. Стикер-ссылка «Записаться на аудит»: https://praxenai.ge/ru?utm_source=instagram&utm_medium=social&utm_campaign=organic_2026-12&utm_content=i20-12-01#contact",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Новый пост",
+     "title": "Как мы работаем:\n*от аудита до\u00a0запуска*",
+     "sub": "Четыре шага в карусели в ленте профиля. Бесплатный аудит по ссылке ↓"
+    }
+   ]
+  },
+  {
+   "id": "i21-12-02",
+   "date": "2026-12-02",
+   "time": "15:00",
+   "accent": "white",
+   "sticker": "Опрос: «Научить команду» / «Настроить готовое» / «Разработать своё»",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Опрос",
+     "title": "Что бы вы *сделали первым?*",
+     "sub": "Научить команду работать с ИИ, настроить готовые инструменты или разработать своё ↓"
+    }
+   ]
+  },
+  {
+   "id": "i22-12-03",
+   "date": "2026-12-03",
+   "time": "13:00",
+   "accent": "white",
+   "sticker": "Опрос: «Да» / «Нет». Можно поверх репоста карусели c14-samsung",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Новый пост · Samsung, 2023",
+     "title": "Есть *письменное правило*, что нельзя вставлять в ChatGPT?",
+     "sub": "История Samsung в ленте профиля. Ответьте\u00a0↓"
+    }
+   ]
+  },
+  {
+   "id": "i23-12-06",
+   "date": "2026-12-06",
+   "time": "15:00",
+   "accent": "white",
+   "sticker": "Викторина: «1 неделя» / «2–4 недели» ✅ / «3 месяца». Плюс стикер-ссылка «Как мы работаем»: https://praxenai.ge/ru/about?utm_source=instagram&utm_medium=social&utm_campaign=organic_2026-12&utm_content=i23-12-06",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Викторина",
+     "title": "Сколько длится *пилот* у Praxen AI?",
+     "sub": "↓ ответьте ниже"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "about": "Threads posts of the plan to 31 December (docs/SMM-PLAN-2026-12.md, sections 3.2–3.6): 11:00 and 17:00 Tbilisi (weekends 12:00 and 17:00). Text-only, rules of docs/THREADS-PLAYBOOK.md: own opinion first, the question at the end; links in 2 posts of the month (4.12, 19.12). Cases go here as a short text version. Captions: content/social/out/threads-2026-12/<id>/captions.md, section threads, parts split by ---.",
+ "posts": [
+  {
+   "id": "t35-december-rush",
+   "date": "2026-12-01",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t36-proposal-after-audit",
+   "date": "2026-12-01",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t37-crm-input",
+   "date": "2026-12-02",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t38-tabs",
+   "date": "2026-12-02",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t39-samsung",
+   "date": "2026-12-03",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t40-thumbs-up",
+   "date": "2026-12-03",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t41-no-client-chats",
+   "date": "2026-12-04",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t42-pilot-four-things",
+   "date": "2026-12-04",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t43-prepayment",
+   "date": "2026-12-05",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t44-contractor-priority",
+   "date": "2026-12-06",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t45-second-message",
+   "date": "2026-12-06",
+   "time": "17:00",
+   "slides": []
+  }
+ ]
+}
