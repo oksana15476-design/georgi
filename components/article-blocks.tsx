@@ -1,8 +1,9 @@
 // Article sections for both blogs (praxenai.com and praxenai.ge). The article data stays plain
-// (heading, paragraphs, list, table); the structure is shown with UI, in the spirit of the Saldo blog:
+// (heading, paragraphs, list, table, paragraphs after the list or table); the structure is shown
+// with UI, in the spirit of the Saldo blog:
 // price tables become price cards, "when / what" tables a timeline, step lists numbered steps,
 // other lists accent bullets with a bold lead, and wide tables stack into cards on phones.
-export type ArticleBlockData={h:string;p?:string[];list?:string[];table?:[string[],...string[][]]};
+export type ArticleBlockData={h:string;p?:string[];list?:string[];table?:[string[],...string[][]];after?:string[]};
 
 const money=/[£$€₾]|\d\s?p\b|\d¢/;
 const stepHeading=/^(how|step)|launch|start|the \d+ |как |с чего|шаг|план|запуск|როგორ|ეტაპ|გეგმა|დავიწყოთ|გაშვება/i;
@@ -39,7 +40,7 @@ export function ArticleBlock({b}:{b:ArticleBlockData}){
  const timeline=!!b.table&&head.length===2&&timeHeading.test(head[0]);
  return (<>
   <h2>{b.h}</h2>
-  {b.p?.map(t=><p key={t}>{t}</p>)}
+  {b.p?.map((t,i)=><p key={i}>{t}</p>)}
   {b.list&&(steps
    ?<ol className="art-steps">{b.list.map((t,i)=><li key={t}><span aria-hidden="true">{i+1}</span><div><Lead text={t}/></div></li>)}</ol>
    :<ul className="art-list">{b.list.map(t=><li key={t}><Lead text={t}/></li>)}</ul>)}
@@ -55,5 +56,6 @@ export function ArticleBlock({b}:{b:ArticleBlockData}){
      <thead><tr>{head.map((h,k)=><th key={k}>{h}</th>)}</tr></thead>
      <tbody>{rows.map(r=><tr key={r[0]}>{r.map((v,k)=>k?<td key={k} data-label={head[k]}>{v}</td>:<th key={k} scope="row">{v}</th>)}</tr>)}</tbody>
     </table></div>)}
+  {b.after?.map((t,i)=><p key={i}>{t}</p>)}
  </>);
 }

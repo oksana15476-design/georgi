@@ -2,7 +2,7 @@
 // Numbers come from our own prices (lib/intl.ts) and the reader's own figures; no third-party statistics.
 import {fmt,price,promo,curInfo} from '@/lib/intl';
 
-export type Block={h:string;p?:string[];list?:string[];table?:[string[],...string[][]]};
+export type Block={h:string;p?:string[];list?:string[];table?:[string[],...string[][]];after?:string[]};
 export type Post={slug:string;cat:string;title:string;description:string;excerpt:string;date:string;updated?:string;dateLabel:string;minutes:number;answer:string;blocks:Block[];faq:[string,string][];links:[string,string][]};
 
 const rcSetup=fmt(price('rcSetup')),rcMonth=fmt(price('rcMonth')),rcSetupP=fmt(promo(price('rcSetup'))),rcMonthP=fmt(promo(price('rcMonth')));

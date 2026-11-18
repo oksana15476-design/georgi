@@ -7,6 +7,7 @@ import {geArticle,geArticles,type GePost} from './ge-blog';
 import {geRelated,type RelatedArticle} from './related-articles';
 import {modifiedOf,newestOf} from './dates';
 import {chatbotPage} from './chatbot-page';
+import {ogPageImage} from './og-image';
 
 // One card of the blog list: an article in this language, or in Russian and English when it has no version here.
 export type GeBlogCard={slug:string;l:Lang;cat:string;title:string;excerpt:string;dateLabel:string;minutes:number};
@@ -29,6 +30,9 @@ export type PageData={
  postUpdated?:string;
  postLangs?:Lang[];
  postMore?:[string,string][];
+ // The article's share picture (the same file as its og:image) for the BlogPosting JSON-LD: computed here on the server,
+ // so the list of drawn cards (lib/og-image.ts) stays out of the browser bundle.
+ postImage?:string;
  // The blog list: cards, newest first, and the newest date for JSON-LD.
  cards?:GeBlogCard[];
  newest?:string;
@@ -44,6 +48,7 @@ export function pageData(lang:Lang,section:string,slug?:string):PageData{
    const a=geArticle(slug),post=a?.langs[lang];
    if(a&&post){
     d.post=post;d.postDate=a.date;d.postModified=modifiedOf(a);
+    d.postImage=ogPageImage(lang,'/blog/'+a.slug)||'/og/og-'+lang+'.png';
     if(a.updated&&a.updated>a.date)d.postUpdated=a.updated;
     d.postLangs=(Object.keys(a.langs) as Lang[]).filter(l=>a.langs[l]);
     // Two more articles in this language (the next ones in the list) that the post does not already link to.

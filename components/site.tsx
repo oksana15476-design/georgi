@@ -76,7 +76,7 @@ export default function Site({lang='en',section='home',slug,data={}}:Props){
  const sectionName=isChatbot?chatbotLabel(x):isBlog?blogLabel(x):section==='about'?aboutLabel(x):section==='security'?securityLabel(x):isPartners?c('Партнёрам','Partners','პარტნიორებს'):isPrivacy?c('Политика конфиденциальности','Privacy policy','კონფიდენციალურობის პოლიტიკა'):sectionLabel(c,section);
  const jsonLd=pageJsonLd({lang,faq:isPrivacy?[]:faqItems,
   crumbs:[[s.home,''],...(isHome?[]:[[sectionName,'/'+section] as [string,string]]),...(isDetail?[[t(ent!.name,lang),rest] as [string,string]]:[]),...(post?[[post.title,rest] as [string,string]]:[])],
-  article:post?{title:post.title,description:post.description,date:data.postDate!,path:rest}:undefined,
+  article:post?{title:post.title,description:post.description,date:data.postDate!,path:rest,image:data.postImage}:undefined,
   modified:post?data.postModified:isBlog?data.newest:undefined,
   service:isChatbot&&data.chatbot?{name:chatbotLabel(x),description:t(data.chatbot.description,lang),path:rest}:isDetail?{name:ov?.h1.split(':')[0].trim()||t(ent!.name,lang),description:data.answer?t(data.answer.a,lang):ov?.sub||'',path:rest}:undefined,path:rest});
  const defaultOptions=[c('Продажи','Sales','გაყიდვები'),c('Поддержка','Support','მხარდაჭერა'),c('Документы и бэк-офис','Documents & back office','დოკუმენტები და ბექ‑ოფისი'),c('Маркетинг','Marketing','მარკეტინგი'),'HR',c('Обучение команды','Team training','გუნდის სწავლება')];

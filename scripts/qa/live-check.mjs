@@ -3,12 +3,13 @@
 // The sitemap lists each address once with reciprocal hreflang; every sitemap URL must answer 200 with a canonical pointing to itself, no noindex, one <title> and an <h1>;
 // titles must be unique; robots.txt must not block the site and must list the sitemap; llms.txt must
 // answer 200 and an unknown address 404. Each site has its own llms.txt (app/llms.txt/route.ts): the praxenai.com
-// file never mentions praxenai.ge, Georgia, GEL or Batumi, and praxenai.ge has no /llms-intl.txt.
+// file never mentions praxenai.ge, Georgia, GEL, Batumi, Tbilisi, Adjara, ₾ or lari, the praxenai.ge file never mentions
+// praxenai.com, both are served as text/plain, and praxenai.ge has no /llms-intl.txt.
 // Exit code 1 when anything fails.
 const sites=process.argv.slice(2).length?process.argv.slice(2):['https://praxenai.ge','https://praxenai.com'];
 let fail=0;
 const bad=(m)=>{fail++;console.log('FAIL '+m)};
-const get=async(u)=>{for(let i=0;i<3;i++){try{const r=await fetch(u,{redirect:'manual',headers:{'user-agent':'praxen-live-check'}});return {status:r.status,text:await r.text()}}catch(e){if(i===2)return {status:0,text:String(e)}}}};
+const get=async(u)=>{for(let i=0;i<3;i++){try{const r=await fetch(u,{redirect:'manual',headers:{'user-agent':'praxen-live-check'}});return {status:r.status,type:r.headers.get('content-type')||'',text:await r.text()}}catch(e){if(i===2)return {status:0,type:'',text:String(e)}}}};
 const norm=(u)=>u.replace(/\/$/,'');
 
 for(const site of sites){
@@ -20,12 +21,17 @@ for(const site of sites){
  }
  const llms=await get(site+'/llms.txt');
  if(llms.status!==200)bad(`${site}/llms.txt answers ${llms.status}`);
- else if(!/^# Praxen AI/.test(llms.text))bad(`${site}/llms.txt does not start with "# Praxen AI"`);
+ else{
+  if(!/^# Praxen AI/.test(llms.text))bad(`${site}/llms.txt does not start with "# Praxen AI"`);
+  if(!/^text\/plain\b/i.test(llms.type))bad(`${site}/llms.txt is served as "${llms.type}", expected text/plain`);
+ }
  if(/praxenai\.com/.test(new URL(site).hostname)){
-  // Owner rule: praxenai.com and praxenai.ge are separate companies; .com does not mention Georgia.
-  for(const [word,re] of [['praxenai.ge',/praxenai\.ge/i],['Georgia',/Georgia/i],['GEL',/\bGEL\b/],['Batumi',/Batumi/i]])if(re.test(llms.text))bad(`${site}/llms.txt mentions ${word}`);
+  // Owner rule: praxenai.com and praxenai.ge are separate companies; .com does not mention Georgia, its cities or the lari.
+  for(const [word,re] of [['praxenai.ge',/praxenai\.ge/i],['Georgia',/Georgia/i],['GEL',/\bGEL\b/],['Batumi',/Batumi/i],['Tbilisi',/Tbilisi/i],['Adjara',/Adjara/i],['₾',/₾/],['lari',/\blari\b/i]])if(re.test(llms.text))bad(`${site}/llms.txt mentions ${word}`);
  }
  if(/praxenai\.ge/.test(new URL(site).hostname)){
+  // ...and praxenai.ge does not point to praxenai.com.
+  if(/praxenai\.com/i.test(llms.text))bad(`${site}/llms.txt mentions praxenai.com`);
   const old=await get(site+'/llms-intl.txt');
   if(old.status!==404)bad(`${site}/llms-intl.txt answers ${old.status}, expected 404`);
  }
