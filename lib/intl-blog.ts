@@ -17,7 +17,6 @@ const callMonth=(fee:number,calls:number)=>fmt(fee+calls*avgCall*uLo/100)+'–'+
 const callRow=(calls:number)=>[calls+' calls a month',(calls*avgCall).toLocaleString('en-GB')+' minutes of calls',callMonth(rcMonthN,calls),callMonth(rcMonthPN,calls)];
 
 export const posts:Post[]=[
-<<<<<<< HEAD
  {slug:'ai-for-property-management',cat:'Property',date:'2026-11-22',dateLabel:'22 November 2026',minutes:7,
   title:'AI for property management: repairs and inspections',
   description:'AI property management for lettings and block managers: tenant messages, repairs sorted by urgency, inspections booked with notice and gas safety dates.',
@@ -65,8 +64,6 @@ export const posts:Post[]=[
   ],
   faq:[['Is RPA a type of AI?','No. An RPA robot repeats the steps it was given and does not interpret what it copies. One vendor can offer both: Microsoft has desktop flows in Power Automate and computer use, driven by AI, in Copilot Studio.'],['Will AI agents replace RPA?','We do not make that forecast. Today the two differ in predictability and billing: a recorded flow takes the same steps on every run and is licensed per robot or machine, while an agent using the screen chooses its own steps and, in Copilot Studio, is billed for each one.'],['Do we need RPA if our software has an API?','Usually not. An API connection keeps working when a button moves or the screen resolution changes, so it is the safer route where one exists. Our comparison of n8n, Zapier and Make covers tools that connect systems through APIs.'],['Can Power Automate do RPA?','Yes, through desktop flows. They run attended, on the computer a person is working at, or unattended, on a machine with nobody signed in. Microsoft’s guide says unattended runs need the Power Automate Process plan.']],
   links:[['services/ai-automation','AI automation for systems with and without an API'],['blog/n8n-vs-zapier-vs-make','n8n vs Zapier vs Make: API workflow tools compared'],['blog/ai-agents-for-business','AI agents for business: when an agent fits']]},
-=======
->>>>>>> origin/main
  {slug:'ai-contract-review',cat:'Law firms',date:'2026-11-19',dateLabel:'19 November 2026',minutes:7,
   title:'AI contract review: what it checks and what it misses',
   description:'AI contract review explained: how a playbook of your positions drives the checks, what AI flags in a contract, what it misses and who signs off.',
