@@ -17,7 +17,7 @@ const callMonth=(fee:number,calls:number)=>fmt(fee+calls*avgCall*uLo/100)+'–'+
 const callRow=(calls:number)=>[calls+' calls a month',(calls*avgCall).toLocaleString('en-GB')+' minutes of calls',callMonth(rcMonthN,calls),callMonth(rcMonthPN,calls)];
 
 export const posts:Post[]=[
- {slug:'ai-for-property-management',cat:'Property',date:'2026-11-22',dateLabel:'22 November 2026',minutes:7,
+ {slug:'ai-for-property-management',cat:'Property',date:'2026-11-23',dateLabel:'23 November 2026',minutes:7,
   title:'AI for property management: repairs and inspections',
   description:'AI property management for lettings and block managers: tenant messages, repairs sorted by urgency, inspections booked with notice and gas safety dates.',
   excerpt:'Repair reports sorted by your urgency rules, a leak followed from first message to closed job, inspections booked with notice and certificates tracked.',
@@ -33,7 +33,7 @@ export const posts:Post[]=[
   ],
   faq:[['Can AI decide whether a repair is an emergency?','It applies the categories you wrote, such as a smell of gas or water through a ceiling, to each report. A report that fits none of them, or where the tenant’s answers contradict each other, goes to the person on call to decide.'],['Can tenants report repairs on WhatsApp?','Yes, on a business number connected to the WhatsApp Business API, where a tenant sends the photo and the description in one chat. Access and Meta’s rules are covered in our guide to the WhatsApp Business API.'],['Can AI write our inspection reports?','It drafts them room by room from the inspector’s photos and voice notes, in your template. The inspector checks the draft against what they saw and signs it.'],['What happens to photos taken inside tenants’ homes?','They are filed against a named tenancy, so they can be linked to the tenant. Our guide to GDPR and AI explains when UK GDPR applies to information like this and what to check before a tool stores or processes it.']],
   links:[['industries/estate-agents','AI for estate agents: tenant repair calls and viewings'],['blog/ai-phone-answering-service','AI phone answering: after-hours repair calls'],['blog/whatsapp-chatbot-for-business','WhatsApp chatbot: photos, voice notes and handover']]},
- {slug:'ai-crm',cat:'CRM',date:'2026-11-21',dateLabel:'21 November 2026',minutes:7,
+ {slug:'ai-crm',cat:'CRM',date:'2026-11-22',dateLabel:'22 November 2026',minutes:7,
   title:'AI CRM: built-in AI by plan and when to add your own',
   description:'AI CRM features in HubSpot, Pipedrive, Zoho and Dynamics 365: which plan unlocks each, what the AI can see and when your own AI layer is worth adding.',
   excerpt:'Which plan unlocks each AI feature in Pipedrive and Zoho, what Copilot in Dynamics 365 can see and the sum to run before upgrading every seat.',
