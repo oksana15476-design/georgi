@@ -12,8 +12,8 @@ const gel=(k:keyof typeof prices)=>money(prices[k],'gel'),usd=(k:keyof typeof pr
 const tr=gel('training'),im=gel('implementation'),dev=gel('development'),sup=gel('support');
 
 export const geArticles:GeArticle[]=[
- {slug:'website-chatbot',date:'2026-11-22',langs:{
-  ru:{cat:'Чат-боты',dateLabel:'22 ноября 2026',minutes:6,
+ {slug:'website-chatbot',date:'2026-11-23',langs:{
+  ru:{cat:'Чат-боты',dateLabel:'23 ноября 2026',minutes:6,
    title:'Чат-бот для сайта с ИИ: как он ведёт посетителя до заявки',
    description:'Чат-бот для сайта с ИИ: когда просить контакт, как продолжить разговор в Telegram или WhatsApp, куда уходит заявка и как считать обращения из чата.',
    excerpt:'Чем окно чата на сайте отличается от мессенджера, когда бот просит контакт, как передать разговор в Telegram и как считать заявки из чата.',
@@ -28,7 +28,7 @@ export const geArticles:GeArticle[]=[
    ],
    faq:[['Сайт сделан на Tilda или WordPress. Можно поставить чат-бота?','Да. В Tilda код виджета вставляют в настройках сайта, в поле «HTML-код для вставки внутрь HEAD», или на одну страницу блоком T123; доступны ли эти настройки на вашем тарифе, проверьте в аккаунте Tilda. В стандартных настройках WordPress отдельного раздела для такого кода нет: его ставят на страницу блоком «Произвольный HTML» или вставляют в шаблон через плагин. После установки проверьте, что окно открывается на нужных страницах и на телефоне.'],['Может ли менеджер подключиться к разговору в окне чата?','Да. Если клиент просит человека или вопроса нет в базе ответов, бот передаёт разговор сотруднику вместе со всей перепиской, и посетитель не повторяет вопрос. В Битрикс24 у каждого диалога онлайн-чата есть номер, по которому его можно найти позже.'],['Нужно ли окно чата, если на сайте уже есть кнопки WhatsApp и Telegram?','Кнопки подходят тем, кто готов сразу перейти в мессенджер. Окно чата нужно тем, кто хочет спросить, не уходя со страницы. Можно оставить и то и другое: бот в окне может предложить продолжить в мессенджере, если посетителю так удобнее.']],
    links:[['chatbot','Чат-бот для бизнеса: пилот в одном канале'],['blog/messenger-crm-integration','Как чат с сайта и мессенджеры попадают в CRM'],['blog/whatsapp-telegram-ai-chatbot','Чат-бот в WhatsApp и Telegram: каналы и плата Meta']]},
-  en:{cat:'Chatbots',dateLabel:'22 November 2026',minutes:6,
+  en:{cat:'Chatbots',dateLabel:'23 November 2026',minutes:6,
    title:'AI chatbot for a website: from first question to a lead',
    description:'AI chatbot for a website: when to ask for contact details, how to move the chat to Telegram or WhatsApp, where the lead goes and how to count chat leads.',
    excerpt:'How a website chat window differs from a messenger, when the bot asks for contact details, how to pass the chat to Telegram and how to count leads from chat.',
@@ -43,7 +43,7 @@ export const geArticles:GeArticle[]=[
    ],
    faq:[['Our site is built on Tilda or WordPress. Can we add a chatbot?','Yes. In Tilda the widget code goes into the site settings, in the field for HTML code inserted into HEAD, or onto a single page with block T123; check in your Tilda account that these settings are available on your plan. WordPress has no standard settings section for such code: it goes onto a page in a Custom HTML block or into the template through a plugin. After installing it, check that the window opens on the pages you need and on a phone.'],['Can a manager join the conversation in the chat window?','Yes. If the customer asks for a person or the question is not in the knowledge base, the bot passes the conversation to a member of staff with its full history, so the visitor does not repeat the question. In Bitrix24 each online chat dialogue has a number, so it can be found later.'],['Do we need a chat window if the site already has WhatsApp and Telegram buttons?','The buttons suit people who are ready to move to a messenger right away. The chat window is for those who want to ask without leaving the page. You can keep both: the bot in the window can offer to continue in a messenger if the visitor prefers.']],
    links:[['chatbot','Chatbot for business: a pilot on one channel'],['blog/messenger-crm-integration','How website chat and messengers get into a CRM'],['blog/whatsapp-telegram-ai-chatbot','WhatsApp and Telegram chatbots: channels and Meta charges']]},
-  ka:{cat:'ჩატბოტები',dateLabel:'22 ნოემბერი 2026',minutes:6,
+  ka:{cat:'ჩატბოტები',dateLabel:'23 ნოემბერი 2026',minutes:6,
    title:'AI ჩატბოტი საიტისთვის: როგორ მიჰყავს ვიზიტორი მოთხოვნამდე',
    description:'AI ჩატბოტი საიტისთვის: როდის ვთხოვოთ კონტაქტი, როგორ გავაგრძელოთ საუბარი Telegram‑ში ან WhatsApp‑ში, სად მიდის მოთხოვნა და როგორ დავთვალოთ ჩატის მიმართვები.',
    excerpt:'რით განსხვავდება საიტის ჩატის ფანჯარა მესენჯერისგან, როდის სთხოვს ბოტი კონტაქტს, როგორ გადავიტანოთ საუბარი Telegram‑ში და როგორ დავთვალოთ მოთხოვნები ჩატიდან.',
@@ -59,8 +59,8 @@ export const geArticles:GeArticle[]=[
    faq:[['საიტი Tilda‑ზე ან WordPress‑ზეა აწყობილი. შეიძლება ჩატბოტის დაყენება?','დიახ. Tilda‑ში ვიჯეტის კოდს საიტის პარამეტრებში სვამენ, HEAD‑ში ჩასასმელი HTML კოდის ველში, ან ერთ გვერდზე T123 ბლოკით; ხელმისაწვდომია თუ არა ეს პარამეტრები თქვენს ტარიფზე, Tilda‑ს ანგარიშში შეამოწმეთ. WordPress‑ის სტანდარტულ პარამეტრებში ასეთი კოდისთვის ცალკე განყოფილება არ არის: მას გვერდზე Custom HTML ბლოკით სვამენ ან შაბლონში პლაგინით ამატებენ. დაყენების შემდეგ შეამოწმეთ, რომ ფანჯარა საჭირო გვერდებზე და ტელეფონზეც იხსნება.'],['შეუძლია მენეჯერს ჩატის ფანჯარაში საუბარში ჩაერთოს?','დიახ. თუ კლიენტი ადამიანს ითხოვს ან კითხვა პასუხების ბაზაში არ არის, ბოტი საუბარს თანამშრომელს მთელ მიმოწერასთან ერთად გადასცემს და ვიზიტორს კითხვის გამეორება არ უწევს. Bitrix24‑ში ონლაინ ჩატის ყველა დიალოგს ნომერი აქვს, რომლითაც მისი მოგვიანებით პოვნა შეიძლება.'],['გვჭირდება ჩატის ფანჯარა, თუ საიტზე უკვე არის WhatsApp‑ისა და Telegram‑ის ღილაკები?','ღილაკები მათ ერგება, ვინც მზადაა მესენჯერში მაშინვე გადავიდეს. ჩატის ფანჯარა მათ სჭირდებათ, ვისაც გვერდის დაუტოვებლად სურს კითხვის დასმა. შეგიძლიათ ორივე დატოვოთ: ფანჯარაში ბოტს შეუძლია შესთავაზოს მესენჯერში გაგრძელება, თუ ვიზიტორისთვის ასე უფრო მოსახერხებელია.']],
    links:[['chatbot','ჩატბოტი ბიზნესისთვის: პილოტი ერთ არხში'],['blog/messenger-crm-integration','როგორ ხვდება საიტის ჩატი და მესენჯერები CRM‑ში'],['blog/whatsapp-telegram-ai-chatbot','ჩატბოტი WhatsApp‑სა და Telegram‑ში: არხები და Meta‑ს საფასური']]},
  }},
- {slug:'ai-1c',date:'2026-11-21',langs:{
-  ru:{cat:'Автоматизация',dateLabel:'21 ноября 2026',minutes:6,
+ {slug:'ai-1c',date:'2026-11-22',langs:{
+  ru:{cat:'Автоматизация',dateLabel:'22 ноября 2026',minutes:6,
    title:'ИИ в 1С: что умеет сама 1С и что подключают снаружи',
    description:'ИИ в 1С: как работает 1С:Распознавание первичных документов, как брать накладные с rs.ge и как подключить внешнюю модель через OData или HTTP-сервис.',
    excerpt:'Что умеет 1С:Распознавание первичных документов, почему накладные с rs.ge не нужно распознавать и как модель подключают к базе 1С.',
@@ -75,7 +75,7 @@ export const geArticles:GeArticle[]=[
    ],
    faq:[['Работает ли 1С:Распознавание первичных документов с грузинскими документами?','Формы, которые названы в списке сервиса, российские: ТОРГ-12, УПД, счета-фактуры, УКД. Грузинских форм там нет. Если ваша программа на официальной поддержке, загрузите на тестовом тарифе несколько своих документов, например акт на грузинском или счёт на английском, и посмотрите, какие поля сервис заполнит.'],['Зачем ИИ, если поставщики выписывают накладные на rs.ge?','Для этих накладных ИИ не нужен: их данные забирают через веб-сервис Службы доходов. Модель берёт то, чего на rs.ge нет: счета иностранных поставщиков, акты за услуги, прайс-листы.'],['Можно ли просто выгрузить базу 1С в ChatGPT?','Мы так не советуем: в выгрузке вся база сразу, с закупочными ценами, контрагентами и персональными данными. При интеграции модель получает данные через API, а специалист по 1С открывает пользователю интеграции только то, что нужно для задачи. В примере с магазином это справочники контрагентов и номенклатуры.']],
    links:[['departments/finance','ИИ для бухгалтерии: документы поставщиков в 1С'],['blog/wholesale-orders-1c','Заказы покупателей из WhatsApp и PDF в 1С'],['blog/ai-business-automation','Где нужен ИИ, а где хватит правил 1С']]},
-  en:{cat:'Automation',dateLabel:'21 November 2026',minutes:6,
+  en:{cat:'Automation',dateLabel:'22 November 2026',minutes:6,
    title:'AI in 1C: built-in services and connecting an outside model',
    description:'AI in 1C: what 1C’s primary document recognition service does, why rs.ge waybills need no recognition and how to connect an outside model via OData.',
    excerpt:'What 1C’s primary document recognition service does, why waybills from rs.ge need no recognition and how a model is connected to a 1C database.',
@@ -90,7 +90,7 @@ export const geArticles:GeArticle[]=[
    ],
    faq:[['Does 1С:Распознавание первичных документов work with Georgian documents?','The forms named on the service’s list are Russian: TORG-12, UPD, VAT invoices, UKD. Georgian forms are not there. If your program is under official support, upload a few of your own documents on the test plan, such as a certificate in Georgian or an invoice in English, and see which fields the service fills in.'],['Why use AI if suppliers issue waybills on rs.ge?','Those waybills do not need AI: their data is taken through the Revenue Service web service. The model handles what is not on rs.ge: invoices from foreign suppliers, certificates for services, price lists.'],['Can we just upload our 1C database to ChatGPT?','We advise against it: an export holds the whole database at once, with purchase prices, counterparties and personal data. In an integration, the model gets data through an API, and the 1C specialist opens to the integration user only what the task needs. In the shop example, that is the counterparty and item catalogues.']],
    links:[['departments/finance','AI for accounting: supplier documents in 1C'],['blog/wholesale-orders-1c','Customer orders from WhatsApp and PDF in 1C'],['blog/ai-business-automation','Where AI is needed and where 1C rules are enough']]},
-  ka:{cat:'ავტომატიზაცია',dateLabel:'21 ნოემბერი 2026',minutes:6,
+  ka:{cat:'ავტომატიზაცია',dateLabel:'22 ნოემბერი 2026',minutes:6,
    title:'AI 1C‑ში: რა შეუძლია თავად 1C‑ს და რას აკავშირებენ გარედან',
    description:'AI 1C‑ში: როგორ მუშაობს 1C‑ის პირველადი დოკუმენტების ამოცნობის სერვისი, როგორ ავიღოთ ზედნადებები rs.ge‑დან და როგორ დავაკავშიროთ გარე მოდელი OData‑ით.',
    excerpt:'რა შეუძლია 1C‑ის პირველადი დოკუმენტების ამოცნობის სერვისს, რატომ არ საჭიროებს rs.ge‑ის ზედნადებები ამოცნობას და როგორ უკავშირდება მოდელი 1C‑ის ბაზას.',
