@@ -62,10 +62,13 @@ const logoMark='<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18"
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 // Text fields are {ka,ru,en} or a plain string shared by all languages. *word* marks the accent colour.
 const tr=(v,l)=>v==null?'':typeof v==='string'?v:(v[l]??v.en??'');
-// Numbers stay whole (1 900 ₾) and hyphenated words (23:40-ზე, WhatsApp-ში) never split at the hyphen.
+// Numbers stay whole (1 900 ₾) and hyphenated words (23:40-ზე, WhatsApp-ში) and units with a slash (249 ₾/мес.) never split
+// at the hyphen or the slash.
 // A one-letter Russian word (в, к, с, у, о, и, а, я) stays with the next word: no hanging "В" at the end of a headline line.
+// A number keeps its unit and its "от"/"до" (от 4 недель, до 3 часов, 2–4 недели).
 const rich=(v,l)=>esc(tr(v,l)).replace(/(\d) (?=\d{3}|₾)/g,'$1\u00a0').replace(/(?<=^|[\s(«*])([А-Яа-яЁё]) (?=\S)/g,'$1\u00a0')
- .replace(/([^\s*]+-[^\s*]+)/g,'<span class="nw">$1</span>')
+ .replace(/(?<=^|[\s(«*])(от|до|От|До) (?=\d)/g,'$1\u00a0').replace(/(\d) (?=[а-яё])/g,'$1\u00a0')
+ .replace(/([^\s*]+[-\/][^\s*]+)/g,'<span class="nw">$1</span>')
  .replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');
 
 const ui={
@@ -173,6 +176,8 @@ header{display:flex;justify-content:space-between;align-items:center;height:56px
 main{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
 footer{display:flex;justify-content:space-between;font-size:26px;font-weight:600;opacity:.6}
 .nw{white-space:nowrap}
+/* no lone word on the last line (23 November): short headings and list items get balanced lines, longer text a full last line */
+h1,h2,.list li>span,.label{text-wrap:balance}.sub,.note,.pr-note{text-wrap:pretty}
 em{font-style:normal;color:#315bf5}.dark em{color:#7b95ff}
 .kicker{font-size:28px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#315bf5;margin-bottom:32px}
 .dark .kicker{color:#7b95ff}
@@ -204,7 +209,7 @@ h2{font-size:70px;line-height:1.08;font-weight:700;letter-spacing:-.03em;margin-
 // Workshop landing style (components/praxen/webinar.tsx, docs/direct-kz/creatives): one look for all slides.
 const workshopCss=`
 .slide{background:#fff;color:#121a2b;padding-top:120px}
-.strip{position:absolute;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 84px;background:#ffd166;border-bottom:3px solid #121a2b;font-size:22px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.strip{position:absolute;top:0;left:0;right:0;height:60px;display:flex;align-items:center;padding:0 84px;background:#ffd166;color:#121a2b;border-bottom:3px solid #121a2b;font-size:22px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
 h1{font-size:88px;line-height:1;font-weight:800;text-transform:uppercase;letter-spacing:-.035em}
 h2{font-size:60px;line-height:1.04;font-weight:800;text-transform:uppercase;letter-spacing:-.03em}
 em,.dark em{background:linear-gradient(115deg,#2755ec 0%,#5268f5 48%,#7960e8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -661,6 +666,14 @@ const page=(slides,l)=>`<!doctype html><html lang="${l}"><head><meta charset="ut
 
 // Shrinks text marked .fit until the slide content fits; Georgian runs longer than Russian or English.
 const fitScript=()=>{
+ // Flow steps are 200 px wide: a long one-word label («Сопровождение») spilled past its step and the right margin
+ // (23 November). Then the steps take the width of their labels, and the labels shrink only if the row still overflows.
+ for(const f of document.querySelectorAll('.v-flow')){
+  const steps=[...f.querySelectorAll('.step')];
+  if(!steps.some(s=>s.scrollWidth>s.clientWidth+1)) continue;
+  for(const s of steps){s.style.width='auto';s.style.flex='0 1 auto';}
+  let g=20;while((f.scrollWidth>f.clientWidth+1||steps.some(s=>s.scrollWidth>s.clientWidth+1))&&g--)for(const s of steps)s.style.fontSize=(parseFloat(getComputedStyle(s).fontSize)*0.96)+'px';
+ }
  for(const el of document.querySelectorAll('.fitbox')){let g=30;while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)&&g--){el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*0.92)+'px'}}
  for(const el of document.querySelectorAll('.fit')){
   const main=el.closest('main');let guard=40;
