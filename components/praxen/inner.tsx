@@ -1,6 +1,6 @@
 'use client';
 import {useState} from 'react';
-import {Currency,money,prices} from '@/lib/pricing';
+import {Currency,firstMonth,money,prices} from '@/lib/pricing';
 import {track} from '@/components/analytics';
 import {departments,industries,t} from '@/lib/content';
 import {homeHref} from '@/lib/base';
@@ -109,7 +109,7 @@ export function DepartmentsGrid({x}:{x:X}){
 
 export function Formats({x,training}:{x:X;training:boolean}){
  const {c,s}=x;
- const titles=training?[c('Для руководителей','For leaders','ხელმძღვანელებისთვის'),c('Для отделов','For departments','განყოფილებებისთვის'),c('При внедрении','During implementation','დანერგვისას')]:[c('Обучение команды','Team training','გუნდის სწავლება'),c('Внедрение инструментов','Tool implementation','ინსტრუმენტების დანერგვა'),c('Разработка решения','Custom development','ინდივიდუალური შემუშავება')];
+ const titles=training?[c('Для руководителей','For leaders','ხელმძღვანელებისთვის'),c('Для отделов','For departments','განყოფილებებისთვის'),c('При внедрении','During implementation','დანერგვისას')]:[c('Обучение команды','Team training','გუნდის სწავლება'),c('Автоматизация процесса','Process automation','პროცესის ავტომატიზაცია'),c('Разработка решения','Custom development','ინდივიდუალური შემუშავება')];
  const bodies=training?[c('Выбор задач для ИИ, оценка пользы и организация внедрения.','Choose AI opportunities, evaluate value and organise adoption.','AI ამოცანების შერჩევა, სარგებელი და დანერგვა.'),c('Практика на документах, обращениях, контенте и данных вашей команды.','Practice with your team’s documents, enquiries, content and data.','პრაქტიკა თქვენი გუნდის დოკუმენტებზე და მონაცემებზე.'),c('Освоение нового инструмента, рабочие инструкции и разбор сложных ситуаций.','Learn new tools, establish working instructions and review difficult cases.','ახალი ინსტრუმენტები, ინსტრუქციები და რთული შემთხვევები.')]:[c('Практика на задачах сотрудников, рабочие шаблоны и правила проверки результата.','Hands-on employee tasks, working templates and result review practices.','პრაქტიკა თანამშრომლების ამოცანებზე, შაბლონები და შემოწმება.'),c('Настройка сервисов и интеграций с CRM, документами и привычными рабочими системами.','Configure services and integrate CRM, documents and existing systems.','სერვისების და CRM‑ის, დოკუმენტებისა და სისტემების ინტეგრაცია.'),c('Помощники, внутренние интерфейсы и логика под требования вашего бизнеса.','Assistants, internal interfaces and workflows tailored to your business.','ასისტენტები და ინტერფეისები თქვენი ბიზნესისთვის.')];
  const ctas=[c('Получить программу обучения','Get a training programme','მიიღეთ სასწავლო პროგრამა'),c('Подобрать инструменты','Find the right tools','შეარჩიეთ ინსტრუმენტები'),c('Запросить оценку проекта','Request a project estimate','მოითხოვეთ პროექტის შეფასება')];
  const ctx=[c('Обучение','Training','სწავლება'),c('Внедрение','Implementation','დანერგვა'),c('Разработка','Development','შემუშავება')];
@@ -120,10 +120,14 @@ export function Formats({x,training}:{x:X;training:boolean}){
  const tiers=[prices.training,prices.implementation,prices.development];
  const from=c('от','from','');
  const perMonth=c('/мес','/mo','/თვე');
+ // Project cards on the pricing block (owner, 23 November 2026); prices follow the currency switch.
+ const projectBodies=[<>{c('2 часа на одну задачу команды — ','2 hours on one team task: ','2 საათი გუნდის ერთ ამოცანაზე — ')}<b>{money(prices.training,cur)}</b>{c('. Адаптированный воркшоп на ваших материалах, с рабочими шаблонами — ','. A tailored workshop on your materials, with working templates: ','. მორგებული ვორქშოპი თქვენს მასალებზე, სამუშაო შაბლონებით — ')}<b>{money(prices.trainingFull,cur)}</b>.</>,
+  c('Один процесс, например PDF → проверка менеджером → CRM. Тест на реальных данных и согласованный критерий приёмки.','One workflow, for example PDF → manager check → CRM. Tested on real data against an agreed acceptance criterion.','ერთი პროცესი, მაგალითად PDF → მენეჯერის შემოწმება → CRM. ტესტი რეალურ მონაცემებზე და შეთანხმებული მიღების კრიტერიუმი.'),
+  c('Сложная логика, несколько систем, 1С или отраслевое ПО.','Complex logic, several systems, 1C or industry software.','რთული ლოგიკა, რამდენიმე სისტემა, 1C ან დარგობრივი პროგრამები.')];
  return (
   <section id="solutions" className="band-white">
    <div className="wrap sec">
-    <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Сколько стоит внедрение ИИ.','What AI implementation costs.','რა ღირს AI‑ს დანერგვა.')}</h2><p className="lead">{training?s.formatsP:c('Платите один раз за запуск, цену фиксируем до старта. Решение работает на ваших аккаунтах, дополнительное ведение — помесячно.','Pay once for the launch, at a price fixed before we start. The solution runs on your accounts; ongoing maintenance is billed monthly.','ერთხელ იხდით გაშვებაში, ფასს დაწყებამდე ვაფიქსირებთ. გადაწყვეტა თქვენს ანგარიშებზე მუშაობს, დამატებითი მომსახურება — ყოველთვიურად.')}</p></div>
+    <div className="sec-head formats-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{training?c('Учимся на вашей работе.','Learn through your own work.','ვსწავლობთ თქვენს ამოცანებზე.'):c('Сколько стоит внедрение ИИ.','What AI implementation costs.','რა ღირს AI‑ს დანერგვა.')}</h2><p className="lead">{training?s.formatsP:c('Чат-бот — готовый пакет: запуск и оплата за месяц. Проект оплачиваете один раз за запуск, цену фиксируем до старта; решение работает на ваших аккаунтах, дополнительное ведение — помесячно.','A chatbot is a ready package: a launch fee plus a monthly fee. A project is paid once for the launch, at a price fixed before we start; it runs on your accounts, and ongoing maintenance is billed monthly.','ჩატბოტი მზა პაკეტია: გაშვება და ყოველთვიური გადასახადი. პროექტში ერთხელ იხდით გაშვებისთვის, ფასს დაწყებამდე ვაფიქსირებთ; გადაწყვეტა თქვენს ანგარიშებზე მუშაობს, დამატებითი მომსახურება — ყოველთვიურად.')}</p></div>
      {!training&&<div role="group" aria-label={c('Валюта','Currency','ვალუტა')} className="seg seg-sm"><i aria-hidden="true" style={{transform:cur==='usd'?'translateX(100%)':'translateX(0)'}}/>{([['gel','₾ GEL'],['usd','$ USD']] as [Currency,string][]).map(([k,lb])=><button key={k} type="button" onClick={()=>{setCur(k);track('currency_switch',{currency:k})}} aria-pressed={cur===k} className={cur===k?'is-on':''}>{lb}</button>)}</div>}
     </div>
     {training?<>
@@ -135,14 +139,33 @@ export function Formats({x,training}:{x:X;training:boolean}){
       <button type="button" onClick={()=>x.go(c('Обучение','Training','სწავლება')+': '+title)} className="ulink mt-auto">{trainingCtas[i]}<Icon name="arrow-right" size={16}/></button>
      </article></div>)}
     </div>
-    <p className="formats-note">{c('Обучение команды — от ','Team training from ','გუნდის სწავლება — ')+money(prices.training,'gel')+' ($'+prices.training.usd+')'+c('. Программу и точную цену согласуем после бесплатного аудита.','. We agree the programme and exact price after a free audit.','-დან. პროგრამასა და ზუსტ ფასს უფასო აუდიტის შემდეგ ვათანხმებთ.')}</p>
+    <p className="formats-note">{c('Обучение команды: 2 часа на одну задачу команды — ','Team training: 2 hours on one team task, ','გუნდის სწავლება: 2 საათი გუნდის ერთ ამოცანაზე — ')+money(prices.training,'gel')+' ('+money(prices.training,'usd')+')'+c('; адаптированный воркшоп с подготовкой на ваших материалах и рабочими шаблонами — ','; a tailored workshop prepared on your materials, with working templates, ','; მორგებული ვორქშოპი თქვენს მასალებზე მომზადებით და სამუშაო შაბლონებით — ')+money(prices.trainingFull,'gel')+' ('+money(prices.trainingFull,'usd')+')'+c('. Программу согласуем после бесплатного аудита.','. We agree the programme after a free audit.','. პროგრამას უფასო აუდიტის შემდეგ ვათანხმებთ.')}</p>
     </>:<>
+    {/* Chatbot packages (owner, 23 November 2026): a launch fee plus a monthly fee, shown in full with the first month. */}
+    <div className="tariff-pack" data-reveal="">
+     <div className="tariff-pack-head">
+      <span className="popular">{c('Готовый пакет','Ready package','მზა პაკეტი')}</span>
+      <h3>{chatbotLabel(x)}</h3>
+      <p>{c('Один канал и стандартный шаблон. Цена целиком: запуск и оплата за месяц.','One channel on a standard template. The full price: the launch plus a monthly fee.','ერთი არხი და სტანდარტული შაბლონი. სრული ფასი: გაშვება და ყოველთვიური გადასახადი.')}</p>
+      <a href={x.link('chatbot')} className="ulink">{c('Подробнее о чат-боте','More about the chatbot','მეტი ჩატბოტის შესახებ')}<Icon name="arrow-right" size={16}/></a>
+     </div>
+     {[{title:c('Чат-бот Start','Chatbot Start','ჩატბოტი Start'),launch:prices.chatStart,month:prices.chatStartMonth,body:c('Ответы на частые вопросы, сбор заявки и передача сотруднику.','Answers common questions, collects the enquiry and hands over to your staff.','პასუხობს ხშირ კითხვებს, აგროვებს მოთხოვნას და გადასცემს თანამშრომელს.')},
+       {title:c('Чат-бот с CRM','Chatbot with CRM','ჩატბოტი CRM‑ით'),launch:prices.chatCrm,month:prices.chatCrmMonth,body:c('Квалификация клиента, сделка в одной CRM и отчёт по обращениям.','Qualifies the customer, creates a deal in one CRM and reports on enquiries.','აკვალიფიცირებს კლიენტს, ქმნის გარიგებას ერთ CRM‑ში და ამზადებს ანგარიშს მიმართვებზე.')}]
+      .map(pk=><article key={pk.title} className="tariff-pack-item">
+       <h4>{pk.title}</h4>
+       <p className="tariff-price">{money(pk.launch,cur)}<small>+ {money(pk.month,cur)}{perMonth}</small></p>
+       <p className="tariff-pack-first">{c('Первый месяц — ','First month: ','პირველი თვე — ')}<b>{money(firstMonth(pk.launch,pk.month),cur)}</b></p>
+       <p className="tariff-pack-body">{pk.body}</p>
+       <button type="button" onClick={()=>x.go(chatbotLabel(x)+': '+pk.title)} className="ulink tariff-cta">{c('Обсудить чат-бот','Discuss a chatbot','ჩატბოტის განხილვა')}<Icon name="arrow-right" size={16}/></button>
+      </article>)}
+     <p className="tariff-pack-note">{c('Использование ИИ — в пределах стандартного лимита, сверх него — по тарифам провайдера на вашем аккаунте.','AI usage is covered up to the standard limit; above it, you pay the provider’s rates on your own account.','AI‑ის გამოყენება სტანდარტული ლიმიტის ფარგლებშია; მის ზემოთ — პროვაიდერის ტარიფებით თქვენს ანგარიშზე.')}</p>
+    </div>
     <div className="tariffs">
-     <div className="tariff-group tariff-group-once" data-reveal=""><span className="tariff-step">1</span><div><h3>{c('Запуск — разово','Launch — one-off','გაშვება — ერთჯერადად')}</h3><p>{c('Обучаем команду, внедряем готовые инструменты или разрабатываем решение. Цену фиксируем до старта.','We train your team, implement ready-made tools or build a custom solution. The price is fixed before we start.','ვასწავლით გუნდს, ვნერგავთ მზა ინსტრუმენტებს ან ვქმნით გადაწყვეტას. ფასს დაწყებამდე ვაფიქსირებთ.')}</p></div></div>
+     <div className="tariff-group tariff-group-once" data-reveal=""><span className="tariff-step">1</span><div><h3>{c('Запуск — разово','Launch — one-off','გაშვება — ერთჯერადად')}</h3><p>{c('Обучаем команду, автоматизируем процесс или разрабатываем решение. Цену фиксируем до старта.','We train your team, automate a workflow or build a custom solution. The price is fixed before we start.','ვასწავლით გუნდს, ვაავტომატიზებთ პროცესს ან ვქმნით გადაწყვეტას. ფასს დაწყებამდე ვაფიქსირებთ.')}</p></div></div>
      <div className="tariff-group tariff-group-monthly" data-reveal="" style={rd(240)}><span className="tariff-step">2</span><div><h3>{c('После запуска — помесячно','After launch — monthly','გაშვების შემდეგ — ყოველთვიურად')}</h3><p>{c('Если хотите, чтобы мы следили за решением и улучшали его после запуска.','If you want us to look after the solution and keep improving it.','თუ გსურთ, რომ გაშვების შემდეგ გადაწყვეტას ჩვენ ვუყუროთ და განვავითაროთ.')}</p></div></div>
      <span className="tariff-plus" aria-hidden="true"><Icon name="plus" size={18}/></span>
-     {[...titles.map((title,i)=>({title,price:tiers[i],body:bodies[i],meta:<>{s.timelineT}: <b>{stairs[i].time}</b></>,cta:ctas[i],ctx:ctx[i],monthly:false})),
-       {title:c('Дополнительное ведение','Ongoing maintenance','დამატებითი მომსახურება'),price:prices.support,body:c('Обновляем базу знаний, проверяем ответы, исправляем ошибки и дорабатываем сценарии.','We update the knowledge base, review answers, fix errors and improve workflows.','ვაახლებთ ცოდნის ბაზას, ვამოწმებთ პასუხებს, ვასწორებთ შეცდომებს და ვხვეწთ სცენარებს.'),meta:c('Токены ИИ и серверы — на вашем аккаунте, оплачиваете напрямую','AI tokens and servers stay on your account, paid directly','AI ტოკენები და სერვერები თქვენს ანგარიშზეა, პირდაპირ იხდით'),cta:c('Обсудить ведение','Discuss maintenance','მომსახურების განხილვა'),ctx:c('Ведение','Maintenance','მომსახურება'),monthly:true}]
+     {[...titles.map((title,i)=>({title,price:tiers[i],body:projectBodies[i],meta:<>{s.timelineT}: <b>{stairs[i].time}</b></>,cta:ctas[i],ctx:ctx[i],monthly:false})),
+       {title:c('Дополнительное ведение','Ongoing maintenance','დამატებითი მომსახურება'),price:prices.support,body:<>{c('Базовое — ','Basic, ','საბაზო — ')}<b>{money(prices.support,cur)}{perMonth}</b>{c(': мониторинг и исправление сбоев в согласованном объёме. Активное — ',': monitoring and fixing failures within an agreed scope. Active, ',': მონიტორინგი და გაუმართაობების გამოსწორება შეთანხმებულ მოცულობაში. აქტიური — ')}<b>{money(prices.supportActive,cur)}{perMonth}</b>{c(': ещё разбор качества, обновление базы и до 3 часов улучшений.',': adds quality reviews, knowledge base updates and up to 3 hours of improvements.',': ამას ემატება ხარისხის ანალიზი, ბაზის განახლება და გაუმჯობესების 3 საათამდე.')}</>,meta:c('Токены ИИ и серверы — на вашем аккаунте, оплачиваете напрямую','AI tokens and servers stay on your account, paid directly','AI ტოკენები და სერვერები თქვენს ანგარიშზეა, პირდაპირ იხდით'),cta:c('Обсудить ведение','Discuss maintenance','მომსახურების განხილვა'),ctx:c('Ведение','Maintenance','მომსახურება'),monthly:true}]
       .map((tf,i)=><article key={tf.title} data-reveal="" style={rd(i*80)} className={'tariff'+(tf.monthly?' tariff-monthly':'')+(i===1?' is-popular':'')+(openTariff===i?' is-open':'')}>
        {i===1&&<span className="popular tariff-badge">{c('Пилот 2–4 недели','2–4 week pilot','პილოტი 2–4 კვირა')}</span>}
        <h4>{tf.title}</h4>
@@ -155,8 +178,6 @@ export function Formats({x,training}:{x:X;training:boolean}){
       </article>)}
     </div>
     <p className="tariff-example"><Icon name="calculator" size={16}/><span>{c('Например: внедрение ','For example: implementation ','მაგალითად: დანერგვა ')}<b>{money(prices.implementation,cur)}</b>{c(' один раз. Дополнительное ведение — ',' once. Ongoing maintenance: ',' ერთხელ. დამატებითი მომსახურება — ')}<b>{money(prices.support,cur)}{perMonth}</b>{c('. Токены ИИ и серверы вы оплачиваете провайдерам напрямую. Аудит бесплатный.','. You pay AI tokens and servers directly to the providers. The audit is free.','. AI ტოკენებსა და სერვერებს პირდაპირ პროვაიდერებს უხდით. აუდიტი უფასოა.')}</span></p>
-    {/* A chatbot is the most asked-for format: its own page with prices (work plan 2.2). */}
-    <a href={x.link('chatbot')} className="ulink mt24">{chatbotLabel(x)}<Icon name="arrow-right" size={16}/></a>
     </>}
    </div>
   </section>

@@ -983,6 +983,23 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .tariff-example{display:flex;gap:10px;align-items:flex-start;margin-top:24px;padding:14px 16px;border-radius:12px;background:var(--bg);font-size:14px;line-height:1.55;color:var(--body)}
 .tariff-example svg{flex-shrink:0;margin-top:2px;color:var(--accent)}
 .tariff-example b{font-weight:600;color:var(--ink);white-space:nowrap}
+/* .ge chatbot packages above the project tariffs: launch + monthly fee and the first month */
+.tariff-pack{display:grid;grid-template-columns:minmax(0,1.1fr) repeat(2,minmax(0,1fr));gap:16px;margin-bottom:36px;padding:16px;border:1px solid var(--line);border-radius:20px;background:var(--bg)}
+.tariff-pack-head{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:10px 12px 10px 8px}
+.tariff-pack-head h3{font-size:24px;font-weight:600;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+.tariff-pack-head p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.tariff-pack-head .ulink{margin-top:auto;font-size:14px}
+.tariff-pack-item{display:flex;flex-direction:column;align-items:flex-start;padding:22px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.tariff-pack-item h4{font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.tariff-pack-item .tariff-price small{margin-left:8px}
+.tariff-pack-first{margin-top:8px;font-size:14px;color:var(--muted)}
+.tariff-pack-first b{font-weight:600;color:var(--ink);white-space:nowrap}
+.tariff-pack-body{margin-top:14px;padding-top:14px;border-top:1px solid var(--line3);font-size:14px;line-height:1.55;color:var(--body)}
+.tariff-pack-item .tariff-cta{margin-top:auto;padding-top:18px}
+.tariff-pack-note{grid-column:1/-1;padding:0 8px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.tariff-body b{font-weight:600;color:var(--ink);white-space:nowrap}
+@media(max-width:1100px){.tariff-pack{grid-template-columns:repeat(2,minmax(0,1fr))}.tariff-pack-head{grid-column:1/-1}.tariff-pack-head .ulink{margin-top:4px}}
+@media(max-width:760px){.tariff-pack{grid-template-columns:1fr;padding:12px;margin-bottom:28px}.tariff-pack-item{padding:20px}}
 @media(max-width:1100px){
  .tariffs{grid-template-columns:repeat(3,minmax(0,1fr))}
  .tariffs .tariff{display:flex;flex-direction:column;align-items:stretch;grid-row:2}
