@@ -75,7 +75,7 @@ export function geLlms(){
 Key facts:
 - Services and prices: AI chatbot packages for one channel: Start, ${p('chatStart')} to launch plus ${p('chatStartMonth')} per month (answers to common questions, enquiry collection, handover to staff), and with CRM, ${p('chatCrm')} plus ${p('chatCrmMonth')} per month (qualification, a deal in one CRM, an enquiry report); a process automation pilot from ${p('implementation')}, 2–4 weeks; custom AI development from ${p('development')}; team AI training, ${p('training')} for a 2-hour session on one task or ${p('trainingFull')} for a tailored workshop; maintenance, ${p('support')} per month basic or ${p('supportActive')} per month active.
 - Chatbot packages run on a standard template with a usage limit. Project solutions run on the client's own accounts and servers; AI tokens and infrastructure are paid directly to the providers.
-- Every project starts with a free process audit; the pilot price is fixed before work begins. A typical pilot covers one workflow on real requests in about 2 weeks.
+- Every project starts with a free process audit; the pilot price is fixed before work begins. A pilot covers one workflow on real requests.
 - Integrations via API where available, for example amoCRM, Bitrix24, HubSpot, 1C, Google Workspace, hotel PMS (Opera, Cloudbeds, Bnovo, TravelLine), WhatsApp and Telegram.
 - Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; on-premise deployment is available.
 - AI does not make final decisions: review points and escalation to staff are agreed for every workflow.

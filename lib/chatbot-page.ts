@@ -31,7 +31,7 @@ export const chatbotPage:{
   'ჩატბოტი ბიზნესისთვის: შექმნა WhatsApp‑ისა და Telegram‑ისთვის',
  ],
  description:[
-  'Чат-бот для бизнеса с ИИ: отвечает в WhatsApp, Telegram, Instagram и на сайте по вашему прайсу, пишет заявки в CRM. От '+st+' + '+stMonth+' в месяц.',
+  'Чат-бот для бизнеса с ИИ: отвечает в WhatsApp, Telegram, Instagram и на сайте по вашему прайсу, пишет заявки в CRM. От '+st+' за запуск и '+stMonth+' в месяц.',
   'AI chatbot for business: replies on WhatsApp, Telegram, Instagram and your website from your price list, logs enquiries in your CRM. From '+st+' + '+stMonth+' a month.',
   'AI ჩატბოტი ბიზნესისთვის: პასუხობს WhatsApp‑ში, Telegram‑ში, Instagram‑სა და საიტზე თქვენი ფასებით, მოთხოვნებს CRM‑ში წერს. '+st+'‑დან + '+stMonth+' თვეში.',
  ],
@@ -129,8 +129,8 @@ export const chatbotPage:{
  pricing:{
   h:['Цена и сроки разработки','Prices and timelines','ფასები და ვადები'],
   note:[
-   'Пакеты чат-бота работают на стандартном шаблоне с лимитом использования. В разработке токены ИИ, серверы и платные сообщения WhatsApp компания оплачивает провайдерам напрямую.',
-   'Chatbot packages run on a standard template with a usage limit. On a custom build, your company pays the providers directly for AI tokens, servers and paid WhatsApp messages.',
+   'Пакеты чат-бота работают на стандартном шаблоне с лимитом использования. При индивидуальной разработке токены ИИ, серверы и платные сообщения WhatsApp вы оплачиваете провайдерам напрямую.',
+   'Chatbot packages run on a standard template with a usage limit. On a custom build, you pay the providers directly for AI tokens, servers and paid WhatsApp messages.',
    'ჩატბოტის პაკეტები სტანდარტულ შაბლონზე მუშაობს, გამოყენების ლიმიტით. ინდივიდუალური შემუშავებისას AI ტოკენებს, სერვერებსა და ფასიან WhatsApp შეტყობინებებს კომპანია პირდაპირ პროვაიდერებს უხდის.',
   ],
   rows:[
@@ -144,7 +144,7 @@ export const chatbotPage:{
     what:['Своя логика: расчёт стоимости по вашим правилам, связь с 1С, системой бронирования или программой записи, свой интерфейс','Your own logic: pricing by your rules, links to 1C, a booking system or appointment software, a custom interface','საკუთარი ლოგიკა: ფასის გამოთვლა თქვენი წესებით, კავშირი 1C‑სთან, დაჯავშნის ან ჩაწერის სისტემასთან, საკუთარი ინტერფეისი'],
     time:['от 4 недель','from 4 weeks','4 კვირიდან'],price:'development',from:true},
    {name:['Сопровождение','Ongoing maintenance','მომსახურება'],
-    what:['Базовое — мониторинг и исправление сбоев в согласованном объёме. Активное, '+both('supportActive')+' в месяц, — ещё разбор качества ответов, обновление базы и до 3 часов улучшений','Basic: monitoring and fixing failures within an agreed scope. Active, '+both('supportActive')+' a month, adds reviews of answer quality, knowledge base updates and up to 3 hours of improvements','საბაზო — მონიტორინგი და გაუმართაობების გამოსწორება შეთანხმებულ მოცულობაში. აქტიური — '+both('supportActive')+' თვეში: ამას ემატება პასუხების ხარისხის ანალიზი, ბაზის განახლება და გაუმჯობესების 3 საათამდე'],
+    what:['Базовое — мониторинг и исправление сбоев в согласованном объёме. Активное — '+both('supportActive')+' в месяц: к этому добавляются разбор качества ответов, обновление базы и до 3 часов улучшений','Basic: monitoring and fixing failures within an agreed scope. Active, '+both('supportActive')+' a month, adds reviews of answer quality, knowledge base updates and up to 3 hours of improvements','საბაზო — მონიტორინგი და გაუმართაობების გამოსწორება შეთანხმებულ მოცულობაში. აქტიური — '+both('supportActive')+' თვეში: ამას ემატება პასუხების ხარისხის ანალიზი, ბაზის განახლება და გაუმჯობესების 3 საათამდე'],
     time:['после запуска','after launch','გაშვების შემდეგ'],price:'support',from:true,monthly:true},
   ],
  },
