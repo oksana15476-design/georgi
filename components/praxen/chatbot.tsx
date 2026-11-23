@@ -82,7 +82,7 @@ export function ChatbotPage({x}:{x:X}){
      {p.pricing.rows.map((r,i)=>{const pm=r.month&&prices[r.month],first=pm&&firstMonth(prices[r.price],pm);return <div key={r.price} data-reveal="" style={rd(i*100)}><article className="format">
       <h3>{tr(r.name)}</h3>
       <p className="cb-price">{lang==='ka'
-       ?money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.from?'-დან':'')+(r.monthly?perMonth:'')
+       ?money(prices[r.price],'gel')+(r.from?'‑დან':'')+' ('+money(prices[r.price],'usd')+')'+(r.monthly?perMonth:'')
        :(r.from?from:'')+money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.monthly?perMonth:'')}
        {pm&&<small>{'+ '+money(pm,'gel')+' ('+money(pm,'usd')+')'+perMonth}</small>}</p>
       {first&&<p className="cb-first">{c('Первый месяц — ','First month: ','პირველი თვე — ')}<b>{money(first,'gel')+' ('+money(first,'usd')+')'}</b></p>}

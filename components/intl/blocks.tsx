@@ -62,7 +62,7 @@ async function sendLead(body:Record<string,unknown>){
 export function Hero({small}:{small?:boolean}){
  const {cur}=useIx();
  const h=small
-  ?{eyebrow:'AI for small businesses',h1:'You run the business.',h1b:'AI takes the calls and the admin.',sub:'An AI receptionist, WhatsApp replies and paperwork on autopilot for teams of '+smallLimit+'. Starter terms: setup in three payments, no long contract and the first month of care free.',proof:[['3 payments','for the setup fee'],['No lock-in','cancel with 30 days’ notice'],['Free','first month of care']]}
+  ?{eyebrow:'AI for small businesses',h1:'You run the business.',h1b:'AI takes the calls and the admin.',sub:'An AI receptionist, WhatsApp replies and paperwork on autopilot for teams of '+smallLimit+'. Starter terms: setup in three payments, no long contract and a free first month of care after a pilot.',proof:[['3 payments','for the setup fee'],['No lock-in','cancel with 30 days’ notice'],['Free','first month of care after a pilot']]}
   :{eyebrow:'Practical AI for business',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM, for a single office or a team across several sites.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(price('rcMonth',cur),cur)+'/mo','AI receptionist, Start plan']]};
  return (
   <section data-screen-label="Hero" className="wrap hero">
@@ -239,7 +239,7 @@ export function Pricing(){
     <div data-reveal=""><h2 className="h2">{route.page==='solutions'?'Packages, projects and monthly care.':'What does AI implementation cost?'}</h2><p className="lead">Ready-made packages have a launch fee and a monthly fee. Projects have a fixed price agreed before we start. All prices exclude VAT.</p></div>
     <CurSwitch/>
    </div>
-   <div className="ix-pk-head mt28"><h3>Ready-made packages</h3><p>A one-off launch fee, then a monthly fee. The first month is the two together.</p></div>
+   <div className="ix-pk-head mt28"><h3>Ready-made packages</h3><p>A one-off launch fee, then a monthly fee. In the first month you pay both.</p></div>
    <div className="ix-pk-grid">{packages.map(p=><PkgCard key={p.key} p={p} cur={cur} onPick={()=>go(p.groupName+' '+p.name)}/>)}</div>
    <div className="tariffs ix-mt40">
     <div className="tariff-group tariff-group-once"><span className="tariff-step">1</span><div><h3>Projects: one-off</h3><p>We train your team, automate a workflow or build a custom solution. The price is fixed before we start.</p></div></div>
@@ -486,7 +486,7 @@ export function SmallStrip(){
   <section data-screen-label="Small business" className="wrap sec pb0">
    <a href={link('ai-for-small-business')} data-reveal="" className="card ix-card-lift ix-strip">
     <span className="tile-icon tile-44 r12"><Icon name="users" size={22}/></span>
-    <span><b>A team of {smallLimit}?</b> Starter terms: setup in three payments, no long contract and the first month of care free.</span>
+    <span><b>A team of {smallLimit}?</b> Starter terms: setup in three payments, no long contract and a free first month of care after a pilot.</span>
     <span className="ulink">See small business terms<Icon name="arrow-right" size={16}/></span>
    </a>
   </section>
