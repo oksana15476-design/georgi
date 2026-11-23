@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import {languages,Lang,t,Copy,departments,industries} from '@/lib/content';
 import {contacts} from '@/lib/contacts';
 import {pageCopy} from '@/lib/page-copy';
-import {prices} from '@/lib/pricing';
+import {prices,type PriceKey} from '@/lib/pricing';
 import {detailMeta} from '@/lib/detail-meta';
 import {indexable,isIntl} from '@/lib/market';
 import {absolute,pageUrl} from '@/lib/page-jsonld';
@@ -36,12 +36,22 @@ export function pageMeta(lang:Lang,path:string,title:string,desc:string,avail:La
 // Every public page, for the sitemap.
 export const allPaths=isIntl?intlPaths:['',...['industries','departments','training','solutions','cases','partners','privacy','about','security','blog','chatbot'].map(s=>'/'+s),...departments.map(d=>'/departments/'+d.slug),...industries.map(i=>'/industries/'+i.slug)];
 
-const offers:[Copy,keyof typeof prices,string?][]=[
+// Services with prices (owner, 23 November 2026). Chatbot packages: launch fee + monthly fee; maintenance: basic to active per month; the rest are starting prices.
+type OfferRow=[Copy,PriceKey,string,('month'|PriceKey)?];
+const offers:OfferRow[]=[
+ [['Чат-бот Start','Chatbot Start','ჩატბოტი Start'],'chatStart','/chatbot','chatStartMonth'],
+ [['Чат-бот с CRM','Chatbot with CRM','ჩატბოტი CRM‑ით'],'chatCrm','/chatbot','chatCrmMonth'],
  [['Обучение команды работе с ИИ','AI training for teams','გუნდის AI სწავლება'],'training','/training'],
- [['Внедрение ИИ-инструментов','AI tool implementation','AI ინსტრუმენტების დანერგვა'],'implementation','/solutions'],
+ [['Пилот автоматизации процесса','Process automation pilot','პროცესის ავტომატიზაციის პილოტი'],'implementation','/solutions'],
  [['Разработка ИИ-решений','Custom AI development','AI გადაწყვეტილებების შემუშავება'],'development','/solutions'],
- [['Дополнительное ведение ИИ-решений','Ongoing AI maintenance','AI გადაწყვეტილებების დამატებითი მომსახურება'],'support','/solutions'],
+ [['Сопровождение ИИ-решений','Ongoing AI maintenance','AI გადაწყვეტილებების მომსახურება'],'support','/solutions','month'],
 ];
+const monthly=(amount:Record<string,number>)=>({'@type':'UnitPriceSpecification',...amount,priceCurrency:'GEL',unitText:'MONTH'});
+function offerPrice([,key,,month]:OfferRow){
+ if(month==='month')return monthly({minPrice:prices.support.gel,maxPrice:prices.supportActive.gel});
+ if(month)return [{'@type':'UnitPriceSpecification',price:prices[key].gel,priceCurrency:'GEL'},monthly({price:prices[month].gel})];
+ return {'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL'};
+}
 
 // Site-wide graph: the business with its services and starting prices, the founder and the website.
 // praxenai.com uses intlOrganizationJsonLd (lib/intl-seo.ts) instead.
@@ -52,9 +62,9 @@ export function organizationJsonLd(lang:Lang){
    address:{'@type':'PostalAddress',addressLocality:'Batumi',addressRegion:'Adjara',addressCountry:'GE'},areaServed:{'@type':'Country',name:'Georgia'},availableLanguage:['ka','en','ru'],knowsLanguage:['ka','en','ru'],sameAs:sameAsFor('ge',[contacts.telegram]),legalName:legalEntity.name,foundingDate,
    founder:{'@id':absolute('/#founder')},
    contactPoint:{'@type':'ContactPoint',telephone:contacts.phone,contactType:'sales',availableLanguage:['Georgian','English','Russian']},
-   hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(([name,key,path])=>({'@type':'Offer',url:pageUrl(lang,path||''),
-    priceSpecification:{'@type':'PriceSpecification',minPrice:prices[key].gel,priceCurrency:'GEL',...(key==='support'?{unitText:'MONTH'}:{})},
-    itemOffered:{'@type':'Service',name:t(name,lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),]}},
+   hasOfferCatalog:{'@type':'OfferCatalog',name:t(['Услуги Praxen AI','Praxen AI services','Praxen AI-ის მომსახურება'],lang),itemListElement:[...offers.map(row=>({'@type':'Offer',url:pageUrl(lang,row[2]),
+    priceSpecification:offerPrice(row),
+    itemOffered:{'@type':'Service',name:t(row[0],lang),provider:{'@id':org},areaServed:{'@type':'Country',name:'Georgia'}}})),]}},
   {'@type':'Person','@id':absolute('/#founder'),name:t(['Евгений Будников','Evgeny Budnikov','ევგენი ბუდნიკოვი'],lang),jobTitle:t(['Основатель','Founder','დამფუძნებელი'],lang),worksFor:{'@id':org},image:absolute('/team/evgeny.jpg'),url:pageUrl(lang,'/about'),knowsAbout:['AI implementation','AI chatbots','AI agents','Business process automation'],...(founderProfiles.ge.length?{sameAs:founderProfiles.ge}:{})},
   {'@type':'WebSite','@id':absolute('/#website'),url:pageUrl(lang,''),name:'Praxen AI',inLanguage:lang,publisher:{'@id':org}},
  ]};

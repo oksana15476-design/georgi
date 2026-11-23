@@ -4,11 +4,13 @@
 // «внедрение ИИ в бизнес» stays with the home page. Facts and prices only from the .ge site (lib/pricing.ts, docs/TARIFFS.md).
 // Georgian text goes to the owner's team for proofreading.
 import type {Copy} from '@/lib/content';
-import {money,prices} from '@/lib/pricing';
+import {money,prices,type PriceKey} from '@/lib/pricing';
 
-export type ChatbotPrice={name:Copy;what:Copy;time:Copy;price:'implementation'|'development'|'support';from:boolean;monthly?:boolean};
+// Chatbot packages (owner, 23 November 2026) show the launch fee, the monthly fee (`month`) and the first month; `time` is left out where no timeline is agreed.
+export type ChatbotPrice={name:Copy;what:Copy;time?:Copy;price:PriceKey;month?:PriceKey;from:boolean;monthly?:boolean};
 
-const im=money(prices.implementation,'gel');
+const st=money(prices.chatStart,'gel'),stMonth=money(prices.chatStartMonth,'gel');
+const both=(k:PriceKey)=>money(prices[k],'gel')+' ('+money(prices[k],'usd')+')';
 
 export const chatbotPage:{
  title:Copy;
@@ -29,9 +31,9 @@ export const chatbotPage:{
   'ჩატბოტი ბიზნესისთვის: შექმნა WhatsApp‑ისა და Telegram‑ისთვის',
  ],
  description:[
-  'Чат-бот для бизнеса с ИИ: отвечает в WhatsApp, Telegram, Instagram и на сайте по вашему прайсу, пишет заявки в CRM. Пилот 2–4 недели, от '+im+'.',
-  'AI chatbot for business: replies on WhatsApp, Telegram, Instagram and your website from your price list, logs enquiries in your CRM. Pilot from '+im+'.',
-  'AI ჩატბოტი ბიზნესისთვის: პასუხობს WhatsApp‑ში, Telegram‑ში, Instagram‑სა და საიტზე თქვენი ფასებით, მოთხოვნებს CRM‑ში წერს. პილოტი 2–4 კვირა, '+im+'‑დან.',
+  'Чат-бот для бизнеса с ИИ: отвечает в WhatsApp, Telegram, Instagram и на сайте по вашему прайсу, пишет заявки в CRM. От '+st+' + '+stMonth+' в месяц.',
+  'AI chatbot for business: replies on WhatsApp, Telegram, Instagram and your website from your price list, logs enquiries in your CRM. From '+st+' + '+stMonth+' a month.',
+  'AI ჩატბოტი ბიზნესისთვის: პასუხობს WhatsApp‑ში, Telegram‑ში, Instagram‑სა და საიტზე თქვენი ფასებით, მოთხოვნებს CRM‑ში წერს. '+st+'‑დან + '+stMonth+' თვეში.',
  ],
  h1:[
   'Чат-бот для бизнеса: отвечает по вашему прайсу и записывает заявки в CRM',
@@ -127,19 +129,22 @@ export const chatbotPage:{
  pricing:{
   h:['Цена и сроки разработки','Prices and timelines','ფასები და ვადები'],
   note:[
-   'Токены ИИ, серверы и платные сообщения WhatsApp в эти цены не входят: компания оплачивает их провайдерам напрямую.',
-   'AI tokens, servers and paid WhatsApp messages are not included: your company pays the providers for them directly.',
-   'AI ტოკენები, სერვერები და ფასიანი WhatsApp შეტყობინებები ამ ფასებში არ შედის: კომპანია მათ პირდაპირ პროვაიდერებს უხდის.',
+   'Пакеты чат-бота работают на стандартном шаблоне с лимитом использования. В разработке токены ИИ, серверы и платные сообщения WhatsApp компания оплачивает провайдерам напрямую.',
+   'Chatbot packages run on a standard template with a usage limit. On a custom build, your company pays the providers directly for AI tokens, servers and paid WhatsApp messages.',
+   'ჩატბოტის პაკეტები სტანდარტულ შაბლონზე მუშაობს, გამოყენების ლიმიტით. ინდივიდუალური შემუშავებისას AI ტოკენებს, სერვერებსა და ფასიან WhatsApp შეტყობინებებს კომპანია პირდაპირ პროვაიდერებს უხდის.',
   ],
   rows:[
-   {name:['Внедрение инструментов','Tool implementation','ინსტრუმენტების დანერგვა'],
-    what:['Бот с вашими ответами и прайсом в одном канале, заявки в amoCRM или Битрикс24','A bot with your answers and price list on one channel, enquiries logged in amoCRM or Bitrix24','ბოტი თქვენი პასუხებითა და ფასებით ერთ არხზე, მოთხოვნები amoCRM‑ში ან Bitrix24‑ში'],
-    time:['пилот 2–4 недели','2–4 week pilot','პილოტი 2–4 კვირა'],price:'implementation',from:true},
+   {name:['Чат-бот Start','Chatbot Start','ჩატბოტი Start'],
+    what:['Один канал: ответы на частые вопросы, сбор заявки и передача сотруднику','One channel: answers to common questions, enquiry collection and handover to your staff','ერთი არხი: პასუხები ხშირ კითხვებზე, მოთხოვნის შეგროვება და თანამშრომლისთვის გადაცემა'],
+    price:'chatStart',month:'chatStartMonth',from:false},
+   {name:['Чат-бот с CRM','Chatbot with CRM','ჩატბოტი CRM‑ით'],
+    what:['Один канал: квалификация клиента, сделка в одной CRM, например amoCRM или Битрикс24, и отчёт по обращениям','One channel: customer qualification, a deal in one CRM such as amoCRM or Bitrix24, and a report on enquiries','ერთი არხი: კლიენტის კვალიფიკაცია, გარიგება ერთ CRM‑ში, მაგალითად amoCRM‑ში ან Bitrix24‑ში, და ანგარიში მიმართვებზე'],
+    price:'chatCrm',month:'chatCrmMonth',from:false},
    {name:['Разработка решения','Custom development','ინდივიდუალური შემუშავება'],
     what:['Своя логика: расчёт стоимости по вашим правилам, связь с 1С, системой бронирования или программой записи, свой интерфейс','Your own logic: pricing by your rules, links to 1C, a booking system or appointment software, a custom interface','საკუთარი ლოგიკა: ფასის გამოთვლა თქვენი წესებით, კავშირი 1C‑სთან, დაჯავშნის ან ჩაწერის სისტემასთან, საკუთარი ინტერფეისი'],
     time:['от 4 недель','from 4 weeks','4 კვირიდან'],price:'development',from:true},
-   {name:['Дополнительное ведение','Ongoing maintenance','დამატებითი მომსახურება'],
-    what:['По желанию: обновление прайса и ответов, разбор переписок с ошибками, новые сценарии','Optional: price and answer updates, reviews of chats with mistakes, new scenarios','სურვილისამებრ: ფასებისა და პასუხების განახლება, შეცდომიანი მიმოწერების გარჩევა, ახალი სცენარები'],
+   {name:['Сопровождение','Ongoing maintenance','მომსახურება'],
+    what:['Базовое — мониторинг и исправление сбоев в согласованном объёме. Активное, '+both('supportActive')+' в месяц, — ещё разбор качества ответов, обновление базы и до 3 часов улучшений','Basic: monitoring and fixing failures within an agreed scope. Active, '+both('supportActive')+' a month, adds reviews of answer quality, knowledge base updates and up to 3 hours of improvements','საბაზო — მონიტორინგი და გაუმართაობების გამოსწორება შეთანხმებულ მოცულობაში. აქტიური, '+both('supportActive')+' თვეში, — ამას ემატება პასუხების ხარისხის ანალიზი, ბაზის განახლება და გაუმჯობესების 3 საათამდე'],
     time:['после запуска','after launch','გაშვების შემდეგ'],price:'support',from:true,monthly:true},
   ],
  },
@@ -153,9 +158,9 @@ export const chatbotPage:{
     'At the audit we check which platform it runs on and whether AI and your CRM can be connected to it. If they cannot, we move the menus and existing answers into a new bot, where they become part of the knowledge base.',
     'აუდიტზე ვნახავთ, რა პლატფორმაზე მუშაობს ბოტი და შეიძლება თუ არა მასთან AI‑ისა და CRM‑ის დაკავშირება. თუ არა, მენიუსა და მზა პასუხებს ახალ ბოტში გადავიტანთ და ისინი ცოდნის ბაზის ნაწილი გახდება.']],
   [['Сможем ли мы сами менять цены и ответы?','Can we change prices and answers ourselves?','შეგვიძლია ფასები და პასუხები თავად შევცვალოთ?'],
-   ['Да. Прайс и ответы лежат в базе знаний, к которой у вашей команды есть доступ. При запуске показываем вашему сотруднику, как её обновлять. Если удобнее, обновления берём на себя в рамках ведения.',
-    'Yes. Prices and answers sit in a knowledge base your team can access. At launch we show a member of your staff how to update it. If you prefer, we handle updates as part of maintenance.',
-    'დიახ. ფასები და პასუხები ცოდნის ბაზაშია, რომელზეც თქვენს გუნდს წვდომა აქვს. გაშვებისას თქვენს თანამშრომელს ვაჩვენებთ, როგორ განაახლოს ის. თუ ასე უფრო მოსახერხებელია, განახლებას მომსახურების ფარგლებში ჩვენ ვიღებთ თავზე.']],
+   ['Да. Прайс и ответы лежат в базе знаний, к которой у вашей команды есть доступ. При запуске показываем вашему сотруднику, как её обновлять. Если удобнее, обновления берём на себя в рамках активного сопровождения.',
+    'Yes. Prices and answers sit in a knowledge base your team can access. At launch we show a member of your staff how to update it. If you prefer, we handle updates as part of active maintenance.',
+    'დიახ. ფასები და პასუხები ცოდნის ბაზაშია, რომელზეც თქვენს გუნდს წვდომა აქვს. გაშვებისას თქვენს თანამშრომელს ვაჩვენებთ, როგორ განაახლოს ის. თუ ასე უფრო მოსახერხებელია, განახლებას აქტიური მომსახურების ფარგლებში ჩვენ ვიღებთ თავზე.']],
   [['Кому принадлежит бот после запуска?','Who owns the bot after launch?','ვის ეკუთვნის ბოტი გაშვების შემდეგ?'],
    ['Вашей компании. Бот, база ответов, номер WhatsApp и история переписок оформлены на ваши аккаунты. Когда проект передан, наш доступ закрывается.',
     'Your company. The bot, the knowledge base, the WhatsApp number and the chat history are on your accounts. Once the project is handed over, our access ends.',

@@ -17,11 +17,11 @@ export const sectionMeta:Record<string,{title:Copy;description:Copy}>={
  },
  training:{
   title:['Обучение ИИ и нейросетям для сотрудников в Грузии — Praxen AI','AI training and workshops for teams in Georgia — Praxen AI','AI ტრენინგი და ვორქშოპები გუნდებისთვის საქართველოში — Praxen AI'],
-  description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 1 900 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Batumi and Tbilisi, from 1,900 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 1 900 ₾-დან.'],
+  description:['Практические воркшопы по ИИ на задачах вашей команды: шаблоны, промпты и правила проверки результата. Онлайн или в офисе, от 1 недели, от 990 ₾.','Hands-on AI workshops and a practical AI course built on your team’s real tasks: templates, prompts and review rules. Online or on-site in Batumi and Tbilisi, from 990 ₾.','ხელოვნური ინტელექტის პრაქტიკული ტრენინგი და AI ვორქშოპები თქვენი გუნდის ამოცანებზე: შაბლონები, პრომპტები და შემოწმების წესები. ონლაინ ან ოფისში, 990 ₾-დან.'],
  },
  solutions:{
   title:['Стоимость внедрения ИИ в Грузии: форматы и цены — Praxen AI','AI implementation cost in Georgia: formats and prices — Praxen AI','AI-ს დანერგვის ფასი საქართველოში: ფორმატები და ფასები — Praxen AI'],
-  description:['Обучение от 1 900 ₾, внедрение под процесс от 3 200 ₾, разработка от 6 700 ₾, дополнительное ведение от 550 ₾ в месяц. Калькулятор экономии и бесплатный аудит.','Training from 1,900 ₾, implementation from 3,200 ₾, custom development from 6,700 ₾, ongoing maintenance from 550 ₾ a month. A savings calculator and a free audit.','სწავლება 1 900 ₾-დან, დანერგვა 3 200 ₾-დან, შემუშავება 6 700 ₾-დან, დამატებითი მომსახურება 550 ₾-დან თვეში. დანაზოგის კალკულატორი და უფასო აუდიტი.'],
+  description:['Чат-бот от 990 ₾ + 249 ₾ в месяц, автоматизация процесса от 3 200 ₾, разработка от 6 700 ₾, обучение от 990 ₾, сопровождение от 290 ₾ в месяц. Бесплатный аудит.','Chatbot from 990 ₾ + 249 ₾ a month, process automation from 3,200 ₾, custom builds from 6,700 ₾, training from 990 ₾, maintenance from 290 ₾ a month. Free audit.','ჩატბოტი 990 ₾-დან + 249 ₾ თვეში, პროცესის ავტომატიზაცია 3 200 ₾-დან, შემუშავება 6 700 ₾-დან, სწავლება 990 ₾-დან, მომსახურება 290 ₾-დან თვეში. უფასო აუდიტი.'],
  },
  cases:{
   title:['Примеры внедрения ИИ в бизнес в Грузии — Praxen AI','AI implementation examples for businesses in Georgia — Praxen AI','AI-ს დანერგვის მაგალითები ბიზნესში — Praxen AI'],
