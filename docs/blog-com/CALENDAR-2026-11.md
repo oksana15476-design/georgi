@@ -795,3 +795,107 @@ SEO-редактор, 18.11.2026. Строка календаря «пт 20.11 N
 ## Сдвиг 22.11
 
 Сессия не работала два дня; статья в день сохраняется, дата — реальный день выхода: `ai-crm` — 22.11, `ai-for-property-management` — 23.11. Все следующие неопубликованные строки сдвинуты на день, порядок прежний. Последняя строка (UPDATE `ai-voice-agents`, была вт 01.12) теперь ср 02.12 — перенос на декабрь.
+
+## Бриф на 24.11 chatgpt-for-customer-service
+
+SEO-редактор, 23.11.2026. Строка календаря «вс 22.11 NEW `/blog/chatgpt-for-customer-service`» (в таблице дата до сдвига; после сдвигов 22.11 выход — **вт 24.11.2026**; координатору поправить дату в таблице). Выдача проверена, источники открыты 23.11.2026. **Вердикт: go** — выдача своя, с `/departments/customer-support` и статьями блога не пересекается при соблюдении правил ниже; H1 из строки меняется (длина).
+
+**Главный запрос и спрос** (`docs/seo-data/uk-ideas-2026-11-02.csv`, DataForSEO, Google Ads UK, среднее за 12 месяцев, замер 02.11.2026):
+- главный: chatgpt customer service 320 (LOW, CPC нет — информационный);
+- дополнительные: chatgpt customer support 50 · chat gpt customer service 40 · chat gpt customer support 20 — та же выдача (см. ниже), **не суммировать** с главным как отдельный спрос;
+- не наши: openai customer service 40 и openai customer support 30 — навигационные (как связаться с поддержкой OpenAI); chatgpt on whatsapp 40 — другой интент; ai customer service 480 (и «ai and customer service», «artificial intelligence customer service» — одна группа) — за `/departments/customer-support` («Не берём статьёй» в шапке календаря); customer service chatbot 110, ai chatbot for customer service 50 — за `/services/ai-chatbot`, в title и H2 не ставим.
+
+**Выдача** (WebSearch 23.11.2026: «chatgpt customer service», «chatgpt customer support», «chatgpt for customer service UK business», «ai customer service», «ai knowledge base for customer support», «chatgpt for business»; инструмент даёт в основном выдачу США, точный топ UK — DataForSEO SERP, платно, только с согласия владельца):
+- «chatgpt customer service»: гайды «How to use ChatGPT for customer service» + промпты + польза и ограничения: Coursera, TechTarget, HubSpot blog, ClickUp ×2, Upwork, Zendesk blog (осторожно: «не рекомендуем ставить ChatGPT к клиентам»), Help Scout (тест на реальных вопросах, «hallucinatory agent»), AIMultiple, Document360, Hiver, Social Intents, Textmagic (промпты), BoldDesk, Chatbase. Формат — практический гайд с промптами для агентов и разделом «чатбот для клиентов». Интент информационный, MOFU.
+- «chatgpt customer support»: тот же набор (Coursera, ClickUp, TechTarget, Zendesk, Upwork, Help Scout, AIMultiple, Document360, Hiver, Social Intents…) — 9+ общих адресов из 10, это один кластер и одна статья.
+- «ai customer service» (запрос `/departments/customer-support`): IBM ×2, SAP, Salesforce, Microsoft, HubSpot (`ai-in-customer-service`, другой адрес), Shopify, Atlassian, Webex, Vonage, DigitalOcean, NetSuite. Общих адресов с «chatgpt customer service» — **0 из 10**. Порог 7 из 10 далеко: интенты разные.
+- «ai knowledge base for customer support» (тема `ai-knowledge-base-for-support`): HubSpot blog (несколько версий одного адреса), Vonage — общих адресов 0.
+- «chatgpt for business» (тема `chatgpt-for-business`): Indeed, Square, Dell, DataCamp, BDC, BBVA, Chatbase (другой адрес), TechTarget (другой адрес) — общих 0.
+- **Пробел, который берём:** почти все гайды смешивают два разных продукта: ChatGPT как рабочее место агента и бот, который отвечает клиентам. Мало кто говорит, что приложение ChatGPT клиентам не отвечает (у клиента нет места в вашем рабочем пространстве) и что бот строится на API OpenAI со своей оплатой и своими правилами хранения данных. Отсюда угол: два режима, промпты агента с тем, что он проверяет до отправки, что можно и нельзя вставлять, и одна заявка в трёх вариантах настройки.
+
+**Вопрос читателя:** «Как наша поддержка может пользоваться ChatGPT уже сейчас, может ли ChatGPT отвечать клиентам сам и что из клиентских данных туда можно вставлять?» MOFU; руководитель поддержки или владелец компании с 3–30 агентами.
+
+**Коммерческая страница:** `/departments/customer-support` (title «AI customer service: routine questions answered 24/7»; сценарии: чат и WhatsApp из справочного центра, разбор почты, звонки, статус заказа, возвраты, недельная сводка; гайд `lib/intl-guides.ts`: таблица «A support week, before and after», хелпдески Zendesk, Freshdesk, Gorgias, Help Scout, «What stays with your agents»). Статья объясняет, где кончается ChatGPT в руках агента и начинается ответ клиенту из вашего справочного центра; текст страницы и гайда не копирует.
+
+### Каннибализация и ссылки
+
+- [HIGH] Location: строка календаря, H1 «ChatGPT for customer service: what works and what to keep with people». Issue: 69 знаков, лимит title .com — 53 (`blog-check.ts`). Fix: title/H1 **«ChatGPT for customer service: prompts, bots and data»** (52): промпты — формат выдачи, боты и данные — наш угол.
+- [HIGH] Location: `/departments/customer-support` (запрос «ai customer service» 480, сценарии, гайд со «стенкой» до/после и списком «What stays with your agents»). Issue: статья о поддержке легко перескажет страницу и заберёт её запрос. Fix: фразы «AI customer service» нет в title, H1, H2 и description (в тексте максимум раз, анкором на страницу); сценарии страницы (статус заказа, возвраты, недельная сводка) и таблицу «до/после» не повторять; отдельного раздела «что остаётся у агентов» нет — кто решает, одной фразой внутри разделов 2, 4 и 5. Страница — первая ссылка в `links` и CTA.
+- [HIGH] Location: `ai-knowledge-base-for-support` (RAG, разбивка документов и ссылки на источник, обновление базы, триггеры передачи, тестовый набор, цена пилота). Issue: бот для клиентов неизбежно приводит к базе знаний. Fix: в разделе 4 одна фраза «бот отвечает только из ваших документов и передаёт остальное агенту — как собрать такие документы, в статье об AI knowledge base» + ссылка через `links`. Слов RAG, «retrieval», списка триггеров передачи и тестового набора нет.
+- [HIGH] Location: `chatgpt-for-business` (тарифы Go/Plus/Business/Enterprise, места Standard/Premium, SSO, MFA, админы, UK GDPR-решения для OpenAI, «First uses», план на 30 дней, цена обучения). Issue: всё о том, как завести ChatGPT в компании, — там. Fix: тариф — одна фраза («агентам нужен рабочий ChatGPT Business или Enterprise, а не личные аккаунты; выбор тарифа и настройки — в статье о ChatGPT for business») + ссылка через `links`. Таблицы тарифов, мест, SSO и плана нет; примеры из «First uses» (тендер, грант, формулы Excel, подготовка к встрече, инцидент IT, перевод правил смены, шаблоны отчётов) не брать.
+- [MEDIUM] Location: `ai-email-assistant` (Copilot в Outlook, Gemini в Gmail, общий ящик info@, промпт о письме Марка про **опоздавшую паллету**). Issue: черновики писем и общий ящик — там. Fix: Outlook/Gmail и их помощники не разбирать; пример «задержка доставки» не брать (у нас — недостающая деталь, см. раздел 2); общий ящик поддержки — одна фраза по названию на статью о почтовом помощнике.
+- [MEDIUM] Location: `ai-chatbot-examples` (галерея диалогов: возврат куртки, MOT, экспорт счетов, зуб и NHS 111; FAQ «What should a chatbot never answer?»). Issue: диалоги бота с клиентом — там. Fix: галереи диалогов нет; в разделе 5 один свой сценарий (продление подписки); сюжеты галереи не брать.
+- [MEDIUM] Location: `ai-chatbot-cost`, `/solutions`. Issue: цена бота — там. Fix: интент не ценовой — цены Praxen нет нигде; цены OpenAI цифрами нет (модели и ставки меняются; см. ⚖ ниже), только устройство оплаты: места в ChatGPT — за пользователя в месяц, API — за токены отдельно на входе и выходе.
+- [MEDIUM] Location: `gdpr-and-ai` (DPIA, законное основание, уведомление о конфиденциальности). Issue: разбор UK GDPR — там. Fix: в разделе 3 одна фраза со ссылкой по названию; своё — только что агенту нельзя вставлять в промпт и срок хранения диалогов бота.
+- [MEDIUM] Location: будущие строки календаря — `automated-instagram-dms`, `lead-generation-chatbot`, `facebook-messenger-chatbot`. Issue: каналы и квалификация лидов — их темы. Fix: Instagram, Messenger и WhatsApp не разбирать (максимум слово в перечне каналов), вопросов квалификации нет.
+- [MEDIUM] Location: .ge `ai-tools-for-business` (ChatGPT, Claude, Gemini для задач компании), `website-chatbot`. Issue: правило 8 — темы между сайтами не повторяются. Fix: темы разные (сервисы для компании / окно чата на сайте против поддержки на ChatGPT); на .ge не ссылаемся, Грузию не упоминаем.
+- [MEDIUM] Location: CTA. Issue: интент не ценовой; шаблоны «Book an audit…: our page shows…» и «free 30-minute audit» запрещены (блоки «Каркасы» 16.11 и 18.11). Fix: последняя фраза — предметный шаг по странице отдела: «если одни и те же вопросы о заказах, возвратах и настройке приходят десятки раз в день, наша настройка для поддержки отвечает на них в вашем хелпдеске из справочного центра и передаёт жалобы агенту вместе с перепиской», ссылка `/departments/customer-support`. Цены нет.
+
+**Тезисы, которые не пересказываем** (одна фраза максимум, ссылкой):
+- тарифы, места, настройки рабочего пространства, UK GDPR-решения для OpenAI → `chatgpt-for-business`;
+- документы для бота, ссылки на источник, триггеры передачи, тест до запуска → `ai-knowledge-base-for-support`;
+- примеры диалогов бота по отраслям → `ai-chatbot-examples`; цена бота → `ai-chatbot-cost`;
+- почтовые помощники и общий ящик → `ai-email-assistant`; DPIA и законное основание → `gdpr-and-ai`;
+- что такое агент в общем виде → `ai-agents-for-business`;
+- общие оговорки (токены у провайдера, данные на аккаунтах клиента, бесплатный аудит) и рефрен «люди решают, ИИ готовит» — не писать; кто решает — по одной фразе в разделах.
+
+### Мета
+
+- `slug`: `chatgpt-for-customer-service`; `cat`: `Customer service` (как у `ai-knowledge-base-for-support`); `date`: день выхода (`2026-11-24`); первой в `posts`; slug — в начало `blogSlugs` (`lib/intl.ts`).
+- `title` (= H1, 52 знака): **ChatGPT for customer service: prompts, bots and data**
+- `description` (150 знаков): **ChatGPT for customer service: prompts agents can use on real tickets, why a customer-facing bot runs on OpenAI’s API and what customer data may go in.** (не «explained», не «X explained for…»).
+- `excerpt` (пример): «Prompts for agents with what to check before sending, why ChatGPT itself cannot answer your customers, and one refund request handled three ways.»
+- «ChatGPT for customer service» — в первом предложении; «ChatGPT customer support» — один раз в разделе 1; «chat GPT» раздельно не писать.
+
+**Short answer (`answer`)** — 2–3 предложения, без цены: ChatGPT for customer service — это два разных режима: агенты работают в рабочем ChatGPT компании (черновик ответа, сводка длинной переписки, перевод) и сами отправляют ответ, а бот, который отвечает клиентам, строится на API OpenAI или на ИИ вашего хелпдеска и берёт ответы из вашего справочного центра, потому что у клиента нет входа в ваше рабочее пространство. Факт: OpenAI пишет, что по умолчанию не обучает модели на данных ChatGPT Business, Enterprise и API Platform (источник 1).
+
+### Структура (6 разделов + «Sources», 900–1 200 слов)
+
+1. **ChatGPT in a support team: two set-ups.** Не «What ChatGPT does…» (каркас «What X does» запрещён 18.11). Определение в первом предложении. Два режима абзацами или таблицей 3 колонки (Set-up | Who types into it | Who sees the answer first): (а) агент в рабочем ChatGPT Business или Enterprise — ответ видит сначала агент; (б) бот на API OpenAI в окне чата сайта или в хелпдеске — ответ видит сразу клиент. Факт из источника 3: ChatGPT Business — для команд от 2 до 200 человек, подключается к Google Workspace, Slack, Microsoft 365 (тариф — одна фраза и ссылка на статью о ChatGPT for business). «ChatGPT customer support» здесь.
+2. **Prompts for agents, and what each one checks.** Ядро под выдачу. Таблица 3 колонки: Job | Example prompt | What the agent checks before sending. 5–6 строк, все с пометкой «Example» в абзаце над таблицей, примеры свои:
+   - недостающая деталь: кофемашина пришла без бака для воды — ответ по тексту политики гарантии, который агент вставил в промпт (проверяет: обещан ли срок отправки детали, который есть в политике);
+   - сводка переписки из 18 сообщений перед передачей на вторую линию (проверяет номер заказа и что уже обещали клиенту);
+   - сердитое письмо → спокойный ответ с теми же фактами, без новых обещаний и компенсаций (компенсацию решает агент или руководитель);
+   - письмо на испанском или польском: ответ на языке клиента и обратный перевод для агента (проверяет обратный перевод);
+   - черновик статьи справочного центра из пяти решённых тикетов на одну тему (владелец статьи правит и публикует);
+   - разметка 40 выгруженных тикетов по причине обращения, имена и адреса убраны до вставки.
+   Под таблицей (`after`): ChatGPT не знает вашу политику, цены и статус заказа, пока агент их не вставил или не подключил документ (источник 1: приложения в Business берут данные из подключённых источников и учитывают права пользователя) — поэтому факты в черновике сверяются с источником. Не «late delivery», не «Mark».
+3. **What goes into a prompt, and what stays out.** Список с жирной вводной, столько пунктов, сколько есть (4–5): номера карт, пароли и коды доступа — никогда; сведения о здоровье и другие особые категории — нет; имя и номер заказа — только в рабочем пространстве компании и по вашей политике; личные аккаунты ChatGPT для тикетов — нет (одна фраза: почему — в статье о ChatGPT for business); вложения клиентов (паспорт, фото документа) — нет. Факт: с OpenAI можно подписать DPA для ChatGPT Business, Enterprise и API (источник 1) — одна фраза; DPIA и законное основание — одна фраза со ссылкой по названию на статью о GDPR.
+4. **Why ChatGPT itself cannot answer your customers.** Своё ядро. У клиента нет места в вашем рабочем пространстве, поэтому клиентский бот — это отдельная сборка на API OpenAI или ИИ, встроенный в ваш хелпдеск. Факты: API оплачивается за токены, отдельно вход и выход, независимо от мест в ChatGPT (источник 5, цифр нет); у OpenAI есть ChatKit — встраиваемое окно чата, которое OpenAI предлагает в том числе для support agent (источник 6); данные API OpenAI не использует для обучения с 1 марта 2023 года, журналы мониторинга злоупотреблений хранятся по умолчанию до 30 дней, а диалоги ChatKit хранятся, пока вы их не удалите — значит, срок удаления задаёт компания (источник 2). Бот отвечает только из ваших документов — одна фраза и ссылка через `links` на статью о базе знаний. Хелпдеск: прежде чем строить своё, проверьте, есть ли ИИ-ответы в тарифе вашего хелпдеска (одна фраза, без названий функций вендоров — их страниц не открывали). ⚖ Agent Builder OpenAI закрывается 30.11.2026 (источник 6) — одной фразой и только если копирайтер в день выпуска видит это на странице; не советовать начинать на нём.
+5. **One refund request, three set-ups.** Абзац с пометкой «Example scenario»: клиент пишет в 23:10, что годовая подписка на программу продлилась вчера, а он хотел отменить, и просит вернуть деньги. Таблица 4 колонки: Set-up | What the model does | Who sends the reply | What it needs connected. Строки: агент с рабочим ChatGPT (утром вставляет письмо без карты и пишет по политике отмены; отправляет агент; нужен текст политики); бот на API в окне чата (в 23:10 отвечает по политике, проверяет дату продления через подключение к биллингу, возврат не обещает, заявку с перепиской кладёт агенту; нужны политика, доступ к биллингу на чтение, правило передачи); ИИ хелпдеска (черновик в тикете, агент утверждает; нужен тариф хелпдеска с такой функцией). Под таблицей одна фраза: вернуть ли деньги, решает агент в любом из трёх вариантов. Это не таблица выбора в конце статьи.
+6. **When copy-and-paste stops being enough.** Заголовок не с «How», без списка и без таблицы выбора (каркасы 16.11 и 18.11): 2 коротких абзаца прозой — признаки: одни и те же вопросы десятки раз в день, сообщения ночью и в выходные, ответы, которым нужны данные заказа; тогда агенту с ChatGPT мало и нужен ответ клиенту в хелпдеске. **Последняя фраза — CTA** (см. выше). Цены нет.
+7. **Sources** — последний блок, `{h:'Sources',list:[…]}`.
+
+**FAQ (3):** Can ChatGPT answer customers on our website? (приложение ChatGPT — нет; бот на API OpenAI или ChatKit, ответы из ваших документов; одна фраза со ссылкой по названию на статью о базе знаний) · Can we build a custom GPT with our policies for the team? (OpenAI выводит custom GPTs из работы и переводит их в plugins; стандартная дата вывода — 11.12.2026, новые GPT уже нельзя создавать в личных тарифах — источник 4; копирайтер сверяет дату в день выпуска; советуем держать политики в подключённых документах рабочего пространства) · Is it safe to paste customer emails into ChatGPT? (в Business по умолчанию без обучения — источник 1; что убрать до вставки — раздел 3, одной фразой; DPIA — ссылкой по названию). Вопрос «Will customers know they are talking to AI?» не брать — он в `ai-for-sales-teams`. Без цен.
+
+### `links` (3 внутренние)
+
+1. `['departments/customer-support','AI for customer support: answers from your help centre']` — коммерческая страница и CTA, первой.
+2. `['blog/ai-knowledge-base-for-support','AI knowledge base: what a support bot answers from']`
+3. `['blog/chatgpt-for-business','ChatGPT for business: plans and workspace settings']`
+
+`gdpr-and-ai`, `ai-email-assistant`, `ai-chatbot-examples` — по названию в тексте; «Read also» добавит две статьи автоматически.
+
+**Входящие ссылки:**
+- в день выхода: в `links` статьи `chatgpt-for-business` добавить `['blog/chatgpt-for-customer-service','ChatGPT for customer service: prompts and bots']` (самая сильная по спросу статья кластера: chatgpt business 2 400);
+- по желанию: в `links` `ai-knowledge-base-for-support` — `['blog/chatgpt-for-customer-service','ChatGPT in a support team: agent prompts and bots']`;
+- страница `/departments/customer-support` подхватит статью в «Related guides» сама (статья ссылается на неё).
+
+### Первоисточники (открыты 23.11.2026)
+
+1. `OpenAI enterprise privacy commitments: https://openai.com/enterprise-privacy/ (checked 23 November 2026)` — обновлено 08.01.2026; по умолчанию без обучения на данных ChatGPT Business, Enterprise и API Platform; приложения в рабочем пространстве учитывают права пользователя, админ решает, какие включены; DPA для Business, Enterprise и API.
+2. `OpenAI API guide to your data: https://developers.openai.com/api/docs/guides/your-data (checked 23 November 2026)` — с 01.03.2023 данные API не используются для обучения без явного согласия; журналы мониторинга злоупотреблений — по умолчанию до 30 дней; `/v1/chatkit/threads` хранятся до удаления.
+3. `OpenAI Business plans and seats: https://openai.com/business/pricing/ (checked 23 November 2026)` — Business «for teams of 2–200 employees», подключение к Google Workspace, Slack, Microsoft 365, без обучения по умолчанию; места Standard и Premium (цены не берём).
+4. (для FAQ) `OpenAI Help Center on creating GPTs: https://help.openai.com/en/articles/8554397-creating-a-gpt (checked 23 November 2026)` — custom GPTs выводят из работы, переход на plugins; стандартная дата — 11.12.2026; новые GPT не создаются на Free, Go, Plus и Pro.
+5. (по желанию, если в тексте устройство оплаты API) `OpenAI API pricing: https://developers.openai.com/api/docs/pricing (checked 23 November 2026)` — цены за 1 млн токенов, вход и выход отдельно. Цифр в статье нет.
+6. (по желанию) `OpenAI ChatKit documentation: https://developers.openai.com/api/docs/guides/chatkit (checked 23 November 2026)` — встраиваемое окно чата, в перечне сценариев — support agent; Agent Builder закрывается 30.11.2026, ChatKit остаётся.
+
+В «Sources» — 2–3 строки (обязательны 1 и 2, третья — 3 или 4 по тексту). Строки 1–6 не совпадают ни с одной строкой «Sources» других статей .com (OpenAI в «Sources» блога ещё нет).
+
+⚖ Продукты OpenAI меняются быстро (за ноябрь: вывод custom GPTs, закрытие Agent Builder, новые модели). Названий моделей и цен OpenAI в статье нет. В день выпуска копирайтер заново открывает источники 1–4 (и 6, если ставит фразу об Agent Builder); формулировка изменилась — пишем по новой и меняем дату в «Sources». Статистику из выдачи («24 % UK customer service professionals», «54 % UK SMEs…», «50+ languages») не берём.
+
+**Примеры:** «Example» у промптов раздела 2 и «Example scenario» у заявки на возврат в разделе 5. Названий клиентов, рейтингов хелпдесков и цифр экономии нет. Грузия не упоминается, «for businesses», британский английский.
+
+### Каркасы, которых избегаем (24.11)
+
+Действуют блоки 16.11 и 18.11: первый раздел не «What X does»; последний раздел не таблица выбора и не «How to start…» с шагами «две пробные недели с журналом / shadow mode / parallel run / 50–100 past …» (тест на прошлых тикетах — максимум одной фразой со ссылкой на статью о базе знаний); нет отдельного раздела «What stays with…»; description не начинается с «X explained»; CTA без «Book an audit…: our page shows…» и «free 30-minute audit»; цены в кратком ответе и в тексте нет. Добавлено 24.11: последний раздел — проза без списка (предыдущие закончились списком признаков `ai-crm` и списком сроков `ai-for-property-management`); заголовок последнего раздела не «Signs…» (он у `ai-crm`).
