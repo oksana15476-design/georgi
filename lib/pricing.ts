@@ -16,8 +16,6 @@ export const prices={
  chatCrmMonth:{gel:449,usd:170},
 };
 export type PriceKey=keyof typeof prices;
-// Monthly fee that goes with each chatbot package.
-export const packageMonth={chatStart:'chatStartMonth',chatCrm:'chatCrmMonth'} as const;
 // First month of a package: the launch fee plus one monthly fee.
 export const firstMonth=(launch:Price,month:Price):Price=>({gel:launch.gel+month.gel,usd:launch.usd+month.usd});
 const group=(n:number)=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');

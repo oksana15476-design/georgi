@@ -129,9 +129,9 @@ export const chatbotPage:{
  pricing:{
   h:['Цена и сроки разработки','Prices and timelines','ფასები და ვადები'],
   note:[
-   'Пакеты чат-бота работают на стандартном шаблоне с лимитом использования. При индивидуальной разработке токены ИИ, серверы и платные сообщения WhatsApp вы оплачиваете провайдерам напрямую.',
-   'Chatbot packages run on a standard template with a usage limit. On a custom build, you pay the providers directly for AI tokens, servers and paid WhatsApp messages.',
-   'ჩატბოტის პაკეტები სტანდარტულ შაბლონზე მუშაობს, გამოყენების ლიმიტით. ინდივიდუალური შემუშავებისას AI ტოკენებს, სერვერებსა და ფასიან WhatsApp შეტყობინებებს კომპანია პირდაპირ პროვაიდერებს უხდის.',
+   'В пакете Start — стандартный шаблон и лимит использования. При индивидуальной разработке токены ИИ, серверы и платные сообщения WhatsApp вы оплачиваете провайдерам напрямую.',
+   'Start uses a standard template with a usage limit. On a custom build, you pay the providers directly for AI tokens, servers and paid WhatsApp messages.',
+   'პაკეტი Start სტანდარტულ შაბლონზე მუშაობს, გამოყენების ლიმიტით. ინდივიდუალური შემუშავებისას AI ტოკენებს, სერვერებსა და ფასიან WhatsApp შეტყობინებებს კომპანია პირდაპირ პროვაიდერებს უხდის.',
   ],
   rows:[
    {name:['Чат-бот Start','Chatbot Start','ჩატბოტი Start'],

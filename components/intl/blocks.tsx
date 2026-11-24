@@ -452,11 +452,10 @@ export function SmallScenarios(){
 
 export function SmallPricing(){
  const {cur,go}=useIx();
- const third=(k:'rcSetup'|'pilot')=>fmt(Math.ceil(price(k,cur)/3),cur);
  const rc=packages[0];
  const cards:{name:string;once:string;unit:string;split:string;monthly?:string;first?:string;body:string;meta:string}[]=[
-  {name:'AI receptionist Start',once:fmt(price('rcSetup',cur),cur),unit:' setup',split:'or 3 × '+third('rcSetup'),monthly:fmt(price('rcMonth',cur),cur),first:fmt(firstMonth(rc,cur),cur),body:'Answers every call 24/7, books into your calendar and texts you a summary. Up to '+rc.minutes+' call minutes a month are included. '+usageNote(cur),meta:'Live in about 2 weeks · month to month'},
-  {name:'One-workflow pilot',once:fmt(price('pilot',cur),cur),unit:' once',split:'or 3 × '+third('pilot'),body:'Quotes, invoices, enquiries or bookings: one workflow automated and tested on your real data. A complex process starts at '+fmt(price('pilotComplex',cur),cur)+'.',meta:'2–4 weeks · fixed price agreed upfront'},
+  {name:'AI receptionist Start',once:fmt(price('rcSetup',cur),cur),unit:' setup',split:'or 3 monthly payments',monthly:fmt(price('rcMonth',cur),cur),first:fmt(firstMonth(rc,cur),cur),body:'Answers every call 24/7, books into your calendar and texts you a summary. Up to '+rc.minutes+' call minutes a month are included. '+usageNote(cur),meta:'Live in about 2 weeks · month to month'},
+  {name:'One-workflow pilot',once:fmt(price('pilot',cur),cur),unit:' once',split:'or 3 monthly payments',body:'Quotes, invoices, enquiries or bookings: one workflow automated and tested on your real data. A complex process starts at '+fmt(price('pilotComplex',cur),cur)+'.',meta:'2–4 weeks · fixed price agreed upfront'},
  ];
  return (
   <section id="pricing" data-screen-label="Pricing" className="wrap sec">
