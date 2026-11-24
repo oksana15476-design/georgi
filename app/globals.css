@@ -983,6 +983,23 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .tariff-example{display:flex;gap:10px;align-items:flex-start;margin-top:24px;padding:14px 16px;border-radius:12px;background:var(--bg);font-size:14px;line-height:1.55;color:var(--body)}
 .tariff-example svg{flex-shrink:0;margin-top:2px;color:var(--accent)}
 .tariff-example b{font-weight:600;color:var(--ink);white-space:nowrap}
+/* .ge chatbot packages above the project tariffs: launch + monthly fee and the first month */
+.tariff-pack{display:grid;grid-template-columns:minmax(0,1.1fr) repeat(2,minmax(0,1fr));gap:16px;margin-bottom:36px;padding:16px;border:1px solid var(--line);border-radius:20px;background:var(--bg)}
+.tariff-pack-head{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:10px 12px 10px 8px}
+.tariff-pack-head h3{font-size:24px;font-weight:600;line-height:1.2;letter-spacing:-.02em;color:var(--ink)}
+.tariff-pack-head p{font-size:14.5px;line-height:1.55;color:var(--body)}
+.tariff-pack-head .ulink{margin-top:auto;font-size:14px}
+.tariff-pack-item{display:flex;flex-direction:column;align-items:flex-start;padding:22px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.tariff-pack-item h4{font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.tariff-pack-item .tariff-price small{margin-left:8px;font-size:17px;color:var(--body)}
+.tariff-pack-first{margin-top:8px;font-size:14px;color:var(--muted)}
+.tariff-pack-first b{font-weight:600;color:var(--ink);white-space:nowrap}
+.tariff-pack-body{margin-top:14px;padding-top:14px;border-top:1px solid var(--line3);font-size:14px;line-height:1.55;color:var(--body)}
+.tariff-pack-item .tariff-cta{margin-top:auto;padding-top:18px}
+.tariff-pack-note{grid-column:1/-1;padding:0 8px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.tariff-num{font-weight:600;color:var(--ink);white-space:nowrap}
+@media(max-width:1100px){.tariff-pack{grid-template-columns:repeat(2,minmax(0,1fr))}.tariff-pack-head{grid-column:1/-1}.tariff-pack-head .ulink{margin-top:4px}}
+@media(max-width:760px){.tariff-pack{grid-template-columns:1fr;padding:12px;margin-bottom:28px}.tariff-pack-item{padding:20px}}
 @media(max-width:1100px){
  .tariffs{grid-template-columns:repeat(3,minmax(0,1fr))}
  .tariffs .tariff{display:flex;flex-direction:column;align-items:stretch;grid-row:2}
@@ -1129,6 +1146,34 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 @media(min-width:1101px){.ix .tariffs .tariff{grid-row:2/span 6}.ix .tariff-plus{grid-row:2/span 6}}
 @media(min-width:761px){.ix .tariff .tariff-more{display:none}}
 @media(max-width:600px){.ix-cur button{padding:0 10px;font-size:13px}}
+/* Standard packages (prices of 23 November 2026): launch fee + monthly fee, first month, included volume, usage beyond it. */
+.ix .ix-pk-head h3{font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+.ix .ix-pk-head p{margin-top:4px;font-size:14px;line-height:1.5;color:var(--muted)}
+.ix .ix-pk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}
+.ix .ix-pk-grid.is-two{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:24px}
+.ix .ix-pk{display:flex;flex-direction:column;min-width:0;padding:22px;border:1px solid var(--line);border-radius:16px;background:#fff;transition:border-color .2s,box-shadow .3s}
+.ix .ix-pk:hover{border-color:var(--line2);box-shadow:0 18px 40px -30px #121a2b40}
+.ix .ix-pk-kick{font-size:13px;font-weight:600;color:var(--muted)}
+.ix .ix-pk h4{margin-top:2px;font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.ix .ix-pk-price{display:flex;align-items:flex-end;gap:10px;margin-top:14px}
+.ix .ix-pk-price small{display:block;font-size:12.5px;font-weight:600;color:var(--muted)}
+.ix .ix-pk-price b{display:block;font-size:24px;font-weight:600;line-height:1.15;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ix .ix-pk-price b small{display:inline;margin-left:2px;font-size:14px;font-weight:500;letter-spacing:0}
+.ix .ix-pk-price>span{padding-bottom:3px;font-size:18px;color:var(--muted)}
+.ix .ix-pk-facts{display:flex;flex-direction:column;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line3)}
+.ix .ix-pk-facts div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px;line-height:1.4}
+.ix .ix-pk-facts dt{flex-shrink:0;color:var(--muted)}
+.ix .ix-pk-facts dd{text-align:right;font-weight:600;color:var(--ink)}
+.ix .ix-pk-inc{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:16px;font-size:14px;line-height:1.45;color:var(--body)}
+.ix .ix-pk-inc li{display:flex;gap:8px}
+.ix .ix-pk-inc svg{flex-shrink:0;margin-top:3px;color:var(--accent)}
+.ix .ix-pk-cta{align-self:flex-start;margin-top:auto;padding-top:20px;font-size:14px}
+.ix .ix-pk .tariff-more{display:none}
+.ix .ix-pk.is-open .tariff-more svg{transform:rotate(180deg)}
+.ix .ix-was b{font-weight:600;color:var(--ink)}
+.ix .ix-offer-mb{margin:0 0 20px}
+@media(max-width:1100px){.ix .ix-pk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.ix .ix-pk-grid,.ix .ix-pk-grid.is-two{grid-template-columns:1fr}.ix .ix-pk .tariff-more{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:0;border:0;background:none;font-size:14px;font-weight:600;color:var(--accent)}.ix .ix-pk .tariff-more svg{transition:transform .25s}.ix .ix-pk-inc{display:none}.ix .ix-pk.is-open .ix-pk-inc{display:flex}}
 
 /* Calculator: inputs on the left, dark result card */
 .ix-calc{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--gapS);align-items:start}
@@ -2098,6 +2143,12 @@ html[lang=ru] .hero .h1 .accent-line,html[lang=ka] .hero .h1 .accent-line{letter
 .cb-note h3{font-size:22px;font-weight:500;letter-spacing:-.02em;margin-bottom:8px}
 .cb-note p{font-size:16px;line-height:1.6;color:var(--body)}
 .cb-price{font-size:22px!important;font-weight:600;color:var(--ink)!important;margin-bottom:8px}
+.cb-price small{display:block;margin-top:4px;font-size:16px;font-weight:500;color:var(--body)}
+.format .cb-first{margin:-2px 0 10px;font-size:14px;color:var(--muted)}
+.cb-first b{font-weight:600;color:var(--ink)}
+.cb-gap{display:block;height:20px}
+.formats-grid.cb-prices{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:44px}
+@media(max-width:900px){.formats-grid.cb-prices{grid-template-columns:1fr;row-gap:var(--gap)}}
 .cb-links{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:14px 32px}
 @media (max-width:760px){.cb-list{grid-template-columns:1fr}.cb-note{padding:20px}}
 .cb-ch{display:flex;align-items:center;gap:12px}
