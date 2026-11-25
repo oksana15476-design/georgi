@@ -124,8 +124,9 @@ function slideHtml(s,l,i,n,accent,fb,sty,post){
  const body={
   cover:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}
    <h1 class="fit">${rich(s.title,l)}</h1>${s.sub?`<p class="sub">${rich(s.sub,l)}</p>`:''}${infoHtml(s,l)}${visualHtml(s.visual,l)}`,
+  // "start": the first number when a list continues on the next slide (f20: «Примеры 4–5» numbered 04, 05).
   list:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h2>${rich(s.title,l)}</h2>
-   <ol class="list fit">${(s.items||[]).map((it,k)=>`<li><b>${String(k+1).padStart(2,'0')}</b><span>${rich(it,l)}</span></li>`).join('')}</ol>`,
+   <ol class="list fit">${(s.items||[]).map((it,k)=>`<li><b>${String(k+(s.start||1)).padStart(2,'0')}</b><span>${rich(it,l)}</span></li>`).join('')}</ol>`,
   number:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<div class="big">${rich(s.value,l)}</div>
    <p class="label fit">${rich(s.label,l)}</p>${s.note?`<p class="note">${rich(s.note,l)}</p>`:''}`,
   dialog:()=>`${s.kicker?`<div class="kicker">${rich(s.kicker,l)}</div>`:''}<h2>${rich(s.title,l)}</h2>
@@ -258,6 +259,8 @@ footer{color:#121a2b}
 .v-versus .side p{margin-top:10px;font-size:34px;line-height:1.3;font-weight:600}
 .v-versus .dot{width:96px;height:96px;font-size:46px;box-shadow:none}
 .vs{align-self:center;font-size:40px;font-weight:800;color:#ffd166;text-transform:uppercase}
+/* yellow "vs" on a white or light slide was barely visible (24 November): ink there */
+.light:not(.bg-ink):not(.bg-grad):not(.sty-poster):not(.sty-terminal):not(.sty-memeblack):not(.sty-editorial) .vs{color:#121a2b}
 .v-bubbles{height:520px}
 .bub{position:absolute;background:#fff;border:3px solid #121a2b;border-radius:30px;padding:26px 34px;font-size:39px;font-weight:700;box-shadow:10px 10px 0 #121a2b;white-space:nowrap}
 .bub.b0{left:0;top:0;transform:rotate(-3deg)}.bub.b1{right:0;top:120px;transform:rotate(3deg);background:#ffd166}
@@ -684,7 +687,22 @@ const fitScript=()=>{
    for(const t of [el,...el.querySelectorAll('li,.msg,p')]){
     const fs=parseFloat(getComputedStyle(t).fontSize);t.style.fontSize=(fs*0.95)+'px';
    }
+   // A long list (12 items in a story, 24 November): the number badges have a fixed size and line height and the
+   // gaps are fixed, so only the text shrank, down to unreadable. In lists of 7+ items badges and gaps shrink with the text
+   // (shorter lists keep the look they were published with).
+   if(el.matches('ol')&&el.children.length>6){
+    el.style.gap=(parseFloat(getComputedStyle(el).rowGap)*0.95)+'px';
+    for(const b of el.querySelectorAll('li>b')){const cs=getComputedStyle(b);
+     for(const p of ['fontSize','lineHeight','minWidth','width','height']){const v=parseFloat(cs[p]);if(v&&cs[p].endsWith('px'))b.style[p]=(v*0.95)+'px';}}
+   }
   }
+ }
+ // A long address on the button («praxenai.ge/ru/departments/procurement», 24 November) ran past the right edge:
+ // the button keeps to the content width and its text shrinks until it fits.
+ for(const b of document.querySelectorAll('.button')){
+  b.style.maxWidth='100%';let g=30;const r=document.createRange();r.selectNodeContents(b);
+  const over=()=>{const cs=getComputedStyle(b);return r.getBoundingClientRect().width>b.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)+1;};
+  while(over()&&g--)b.style.fontSize=(parseFloat(getComputedStyle(b).fontSize)*0.96)+'px';
  }
 };
 
