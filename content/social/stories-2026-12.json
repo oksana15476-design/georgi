@@ -1,0 +1,106 @@
+{
+ "campaign": "organic_{month}",
+ "about": "Story pictures of the plan to 31 December (docs/SMM-PLAN-2026-12.md, sections 3.2–3.6, story cells without [В]): «Новый пост» covers for feed posts and stories with an address. Go out automatically to Instagram and Facebook page stories. Stickers and links are not available in the API, so the address is on the picture. Workshop style without \"style\". Week 7–13 December: 7, 9, 10, 12, 13.12; on 10 and 13.12 the countdown story (s07-2days, s17-thanks) goes out at 13:00, ours at 14:00.",
+ "langs": [
+  "ru"
+ ],
+ "size": "story",
+ "theme": "workshop",
+ "strip": "Praxen AI ● ИИ для продаж и обслуживания ● Батуми ● praxenai.ge ●",
+ "posts": [
+  {
+   "id": "s27-procurement",
+   "date": "2026-12-07",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "usecase",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Новый пост · отдел недели",
+     "title": "Три КП, *одна таблица*",
+     "sub": "Как ИИ помогает закупкам сравнивать поставщиков. Карусель в ленте профиля, сценарий на сайте: praxenai.ge/ru/departments/procurement"
+    }
+   ]
+  },
+  {
+   "id": "s28-what-stays",
+   "date": "2026-12-09",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "about",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Новый пост",
+     "title": "Что остаётся *у вас* после запуска",
+     "sub": "Аккаунты, база знаний, журнал. Карусель в ленте профиля. Как мы работаем с данными: praxenai.ge/ru/security"
+    }
+   ]
+  },
+  {
+   "id": "s29-industries",
+   "date": "2026-12-10",
+   "time": "14:00",
+   "accent": "white",
+   "pillar": "about",
+   "text": "",
+   "slides": [
+    {
+     "layout": "list",
+     "bg": "white",
+     "kicker": "Отрасли · praxenai.ge/ru/industries",
+     "title": "12 отраслей, *для которых есть сценарии*",
+     "items": [
+      "Розница и интернет-магазины",
+      "Оптовая торговля",
+      "Отели и апартаменты",
+      "Туроператоры и агентства",
+      "Агентства недвижимости",
+      "Застройщики",
+      "Рестораны и кафе",
+      "Клиники и стоматологии",
+      "Логистика и доставка",
+      "Производство",
+      "Профессиональные услуги",
+      "Образование и курсы"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s30-threads",
+   "date": "2026-12-12",
+   "time": "13:00",
+   "accent": "white",
+   "pillar": "about",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Мы в Threads",
+     "title": "Короткие мысли *о продажах и ИИ*",
+     "sub": "Каждый день по паре коротких постов. Ищите в Threads: @praxenai"
+    }
+   ]
+  },
+  {
+   "id": "s31-human-in-the-loop",
+   "date": "2026-12-13",
+   "time": "14:00",
+   "accent": "white",
+   "pillar": "about",
+   "text": "",
+   "slides": [
+    {
+     "layout": "cover",
+     "kicker": "Новый пост",
+     "title": "Где в наших решениях *стоит человек*",
+     "sub": "Пять примеров по отделам. Карусель в ленте профиля"
+    }
+   ]
+  }
+ ]
+}

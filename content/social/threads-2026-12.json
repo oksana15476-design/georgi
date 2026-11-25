@@ -1,5 +1,5 @@
 {
- "about": "Threads posts of the plan to 31 December (docs/SMM-PLAN-2026-12.md, sections 3.2–3.6): 11:00 and 17:00 Tbilisi (weekends 12:00 and 17:00). Text-only, rules of docs/THREADS-PLAYBOOK.md: own opinion first, the question at the end; links in 2 posts of the month (4.12, 19.12). Cases go here as a short text version. Captions: content/social/out/threads-2026-12/<id>/captions.md, section threads, parts split by ---.",
+ "about": "Threads posts of the plan to 31 December (docs/SMM-PLAN-2026-12.md, sections 3.2–3.6): 11:00 and 17:00 Tbilisi (weekends 12:00 and 17:00). Text-only, rules of docs/THREADS-PLAYBOOK.md: own opinion first, the question at the end; links in 2 posts of the month (4.12, 19.12). Cases go here as a short text version. Captions: content/social/out/threads-2026-12/<id>/captions.md, section threads, parts split by ---. 11–13.12: the workshop countdown is kept, so by the plan (section 3.3) our posts of 11 and 12.12 and one of 13.12 are \"off\" (written, ready to switch on if the countdown is dropped). 7.12 11:00 «Пара слов о себе» [Ф] is not written: no owner facts.",
  "posts": [
   {
    "id": "t35-december-rush",
@@ -65,6 +65,89 @@
    "id": "t45-second-message",
    "date": "2026-12-06",
    "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t46-prompt-quotes-table",
+   "date": "2026-12-07",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t47-chats-vs-crm",
+   "date": "2026-12-08",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t48-report-one-message",
+   "date": "2026-12-08",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t49-what-stays",
+   "date": "2026-12-09",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t50-reply-templates",
+   "date": "2026-12-09",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t51-new-year-discount",
+   "date": "2026-12-10",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t52-personal-number",
+   "date": "2026-12-10",
+   "time": "17:00",
+   "slides": []
+  },
+  {
+   "id": "t53-first-department",
+   "date": "2026-12-11",
+   "time": "11:00",
+   "off": "Отсчёт к воркшопу оставлен: в Threads 11.12 уже два готовых поста (c07-dpd, t15-tomorrow), наши снимаем (план, раздел 3.3). Убрать off, если отсчёт снимут",
+   "slides": []
+  },
+  {
+   "id": "t54-routine-department",
+   "date": "2026-12-11",
+   "time": "17:00",
+   "off": "Отсчёт к воркшопу оставлен: в Threads 11.12 уже два готовых поста (c07-dpd, t15-tomorrow), наши снимаем (план, раздел 3.3). Убрать off, если отсчёт снимут",
+   "slides": []
+  },
+  {
+   "id": "t55-documents",
+   "date": "2026-12-12",
+   "time": "12:00",
+   "off": "Отсчёт к воркшопу оставлен: в Threads 12.12 уже два готовых поста (b09-changed-my-mind, t16-today), наши снимаем (план, раздел 3.3). Убрать off, если отсчёт снимут",
+   "slides": []
+  },
+  {
+   "id": "t56-accountants-manual-entry",
+   "date": "2026-12-12",
+   "time": "17:00",
+   "off": "Отсчёт к воркшопу оставлен: в Threads 12.12 уже два готовых поста (b09-changed-my-mind, t16-today), наши снимаем (план, раздел 3.3). Убрать off, если отсчёт снимут",
+   "slides": []
+  },
+  {
+   "id": "t57-who-apologises",
+   "date": "2026-12-13",
+   "time": "11:00",
+   "slides": []
+  },
+  {
+   "id": "t58-always-check",
+   "date": "2026-12-13",
+   "time": "17:00",
+   "off": "Отсчёт к воркшопу оставлен: 13.12 в Threads выходит t17-thanks, один наш пост снимаем (план, раздел 3.3). Убрать off, если отсчёт снимут",
    "slides": []
   }
  ]
