@@ -47,6 +47,7 @@ export const BATCHES=[
  {file:'feed-2026-12.json',channels:['facebook','instagram']},
  {file:'cases-2026-12.json',channels:['facebook','instagram']},
  {file:'telegram-2026-12.json',channels:['telegram']},
+ {file:'stories-2026-12.json',channels:['instagram_story','facebook_story']},
  {file:'threads-2026-12.json',channels:['threads']},
 ];
 const args=process.argv.slice(2),flag=k=>args.includes(k),opt=k=>{const i=args.indexOf(k);return i>=0?args[i+1]:''};
