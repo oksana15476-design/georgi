@@ -17,9 +17,12 @@ const textPassPaths=[
  ...departments.map(s=>'/departments/'+s.slug),
  '/training','/solutions','','/ai-for-small-business',
 ];
+// New prices and packages (owner, 23 November 2026): every page above quotes prices in its short answer, FAQ or pricing block.
+const pricePass='2026-11-23';
 const intlPages:Record<string,string>={
  '/privacy':'2026-10-24', // analytics section
  ...Object.fromEntries(textPassPaths.map(p=>[p,textPass])),
+ ...Object.fromEntries(textPassPaths.map(p=>[p,pricePass])),
 };
 // path: '' for home, '/services/ai-receptionist' and so on; blog pages are dated in lib/intl-seo.ts.
 export const intlPageModified=(path:string)=>intlPages[path]??intlUpdated;

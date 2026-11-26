@@ -65,9 +65,9 @@ const llms=`# Praxen AI
 > Praxen AI is an AI implementation company based in Batumi, Georgia, working with businesses in Tbilisi and across the country. It builds AI chatbots for WhatsApp, Telegram and websites, deploys AI agents that update CRM and process documents, and trains teams to use AI. Solutions work in Georgian, English and Russian.
 
 Key facts:
-- Services and starting prices: team AI training from 1,900 GEL (about $700); implementation of AI tools for a specific process from 3,200 GEL ($1,200), a 2–4 week pilot; custom AI development from 6,700 GEL ($2,500); additional ongoing maintenance from 550 GEL ($200) per month.
-- Solutions run on the client's own accounts and servers; AI tokens and infrastructure are paid directly to the providers.
-- Every project starts with a free process audit; the pilot price is fixed before work begins. A typical pilot covers one workflow on real requests in about 2 weeks.
+- Services and prices: AI chatbot packages for one channel: Start, 990 GEL ($370) to launch plus 249 GEL ($90) per month (answers to common questions, enquiry collection, handover to staff), and with CRM, 2,490 GEL ($920) plus 449 GEL ($170) per month (qualification, a deal in one CRM, an enquiry report); a process automation pilot from 3,200 GEL ($1,200), 2–4 weeks; custom AI development from 6,700 GEL ($2,500); team AI training, 990 GEL ($370) for a 2-hour session on one task or 1,900 GEL ($700) for a tailored workshop; maintenance, 290 GEL ($110) per month basic or 550 GEL ($200) per month active.
+- The Chatbot Start package uses a standard template with a usage limit. Project solutions run on the client's own accounts and servers; AI tokens and infrastructure are paid directly to the providers.
+- Every project starts with a free process audit; the pilot price is fixed before work begins. A pilot covers one workflow on real requests.
 - Integrations via API where available, for example amoCRM, Bitrix24, HubSpot, 1C, Google Workspace, hotel PMS (Opera, Cloudbeds, Bnovo, TravelLine), WhatsApp and Telegram.
 - Uses enterprise APIs (OpenAI, Anthropic) that do not train on customer data; on-premise deployment is available.
 - AI does not make final decisions: review points and escalation to staff are agreed for every workflow.

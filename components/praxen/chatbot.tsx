@@ -3,7 +3,7 @@
 // Copy lives in lib/chatbot-page.ts; the layout reuses the inner-page blocks (hero, formats, process) and their CSS.
 import {base,homeHref,pageHref} from '@/lib/base';
 import {t} from '@/lib/content';
-import {money,prices} from '@/lib/pricing';
+import {firstMonth,money,prices} from '@/lib/pricing';
 import {Icon} from '@/components/praxen/icon';
 import type {X} from '@/components/praxen/types';
 
@@ -78,16 +78,18 @@ export function ChatbotPage({x}:{x:X}){
   <section id="pricing" className="band-white">
    <div className="wrap sec">
     <div className="sec-head"><div data-reveal="" style={rd(80)}><h2 className="h2 mw820">{tr(p.pricing.h)}</h2></div></div>
-    <div className="formats-grid">
-     {p.pricing.rows.map((r,i)=><div key={r.price} data-reveal="" style={rd(i*100)}><article className="format">
+    <div className="formats-grid cb-prices">
+     {p.pricing.rows.map((r,i)=>{const pm=r.month&&prices[r.month],first=pm&&firstMonth(prices[r.price],pm);return <div key={r.price} data-reveal="" style={rd(i*100)}><article className="format">
       <h3>{tr(r.name)}</h3>
       <p className="cb-price">{lang==='ka'
-       ?money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.from?'-დან':'')+(r.monthly?perMonth:'')
-       :(r.from?from:'')+money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.monthly?perMonth:'')}</p>
+       ?money(prices[r.price],'gel')+(r.from?'‑დან':'')+' ('+money(prices[r.price],'usd')+')'+(r.monthly?perMonth:'')
+       :(r.from?from:'')+money(prices[r.price],'gel')+' ('+money(prices[r.price],'usd')+')'+(r.monthly?perMonth:'')}
+       {pm&&<small>{'+ '+money(pm,'gel')+' ('+money(pm,'usd')+')'+perMonth}</small>}</p>
+      {first&&<p className="cb-first">{c('Первый месяц — ','First month: ','პირველი თვე — ')}<b>{money(first,'gel')+' ('+money(first,'usd')+')'}</b></p>}
       <p>{tr(r.what)}</p>
-      <p className="format-time"><span>{s.timelineT}: <b>{tr(r.time)}</b></span></p>
+      {r.time?<p className="format-time"><span>{s.timelineT}: <b>{tr(r.time)}</b></span></p>:<span className="cb-gap" aria-hidden="true"/>}
       <button type="button" onClick={()=>x.go(label+': '+tr(r.name))} className="ulink mt-auto">{s.action}<Icon name="arrow-right" size={16}/></button>
-     </article></div>)}
+     </article></div>})}
     </div>
     <p className="formats-note">{tr(p.pricing.note)}</p>
    </div>

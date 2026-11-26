@@ -4,7 +4,7 @@ import {createContext,useContext,useRef,useState} from 'react';
 import {getAttribution,leadAttribution,setConsent,track} from '@/components/analytics';
 import {base,homeHref,pageHref} from '@/lib/base';
 import {contacts} from '@/lib/contacts';
-import {routePath,resultsCheck,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,promo,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
+import {routePath,resultsCheck,partnerSteps,partnerWho,legalEntity,smallLimit,smallPerks,smallScenarios,smallScene,lc,curInfo,curs,departments,examples,fmt,industries,innerPages,logoSets,defaultLogoSet,logos,micro,pains,price,packages,firstMonth,launchDiscountNote,sectionName,services,servicePath,tariffs,usageNote,vatNote,offers,type Cur,type Pkg,type Entity,type IntlRoute,type ListPage} from '@/lib/intl';
 import type {Post} from '@/lib/intl-blog';
 import type {IntlBlog} from './site';
 import {dateLabelOf,intlPageModified} from '@/lib/freshness';
@@ -31,8 +31,8 @@ function Cta({label,className='btn btn-primary'}:{label?:string;className?:strin
  const {cta,toContact}=useIx();
  return <a href="#contact" onClick={toContact} className={className}>{label||cta}<Icon name="arrow-right" size={16}/></a>;
 }
-// The launch offer is a plain line of text under the call to action, not a badge.
-function Offer(){return <p className="ix-offer">Launch offer: 30% off all prices.</p>}
+// The launch discount for first clients: one plain line next to the prices on a page, not a badge and not on every card.
+function Discount({className=''}:{className?:string}){return <p className={'ix-offer'+(className?' '+className:'')}>{launchDiscountNote}</p>}
 function Logo({name,size=22}:{name:string;size?:number}){
  const f=logos.find(l=>l[0]===name)?.[1];
  const [bad,setBad]=useState(!f);
@@ -62,8 +62,8 @@ async function sendLead(body:Record<string,unknown>){
 export function Hero({small}:{small?:boolean}){
  const {cur}=useIx();
  const h=small
-  ?{eyebrow:'AI for small businesses',h1:'You run the business.',h1b:'AI takes the calls and the admin.',sub:'An AI receptionist, WhatsApp replies and paperwork on autopilot for teams of '+smallLimit+'. Starter terms: setup in three payments, no long contract and the first month of care free.',proof:[['3 payments','for the setup fee'],['No lock-in','cancel with 30 days’ notice'],['Free','first month of care']]}
-  :{eyebrow:'Practical AI for business',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM, for a single office or a team across several sites.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, AI receptionist']]};
+  ?{eyebrow:'AI for small businesses',h1:'You run the business.',h1b:'AI takes the calls and the admin.',sub:'An AI receptionist, WhatsApp replies and paperwork on autopilot for teams of '+smallLimit+'. Starter terms: setup in three payments, no long contract and a free first month of care after a pilot.',proof:[['3 payments','for the setup fee'],['No lock-in','cancel with 30 days’ notice'],['Free','first month of care after a pilot']]}
+  :{eyebrow:'Practical AI for business',h1:'Every call answered. Every enquiry logged.',h1b:'Without hiring more staff.',sub:'AI receptionists, chatbots and automations that answer, book and fill in your CRM, for a single office or a team across several sites.',proof:[['24/7','calls and messages answered'],['2 weeks','to a live AI receptionist'],[fmt(price('rcMonth',cur),cur)+'/mo','AI receptionist, Start plan']]};
  return (
   <section data-screen-label="Hero" className="wrap hero">
    <div aria-hidden="true" className="hero-glow"/>
@@ -74,7 +74,6 @@ export function Hero({small}:{small?:boolean}){
      <div data-reveal="" style={rd(180)}>
       <p className="ix-hero-sub">{h.sub}</p>
       <div className="btn-row mt28"><Cta/><a href={small?'#pricing':link('solutions')} className="btn btn-ghost">See pricing</a></div>
-      <Offer/>
      </div>
      <div data-reveal="" style={rd(260)} className="proof-mini">{h.proof.map(([n,l])=><span key={l}><b>{n}</b>{l}</span>)}</div>
     </div>
@@ -125,16 +124,17 @@ export function Quiz(){
  const qn=qa.length,done=qn>=4;
  // The phone field of the last step starts downloading with the first answer.
  const pick=(i:number)=>{if(!qn){track('quiz_start');loadPhone()}const next=[...qa,i];setQa(next);if(next.length===4)track('quiz_complete',{industry:quizQ[0][1][next[0]],channel:quizQ[1][1][next[1]]})};
- let res:{name:string;why:string;format:string;was:string;now:string;time:string}|null=null;
+ let res:{name:string;why:string;format:string;now:string;time:string}|null=null;
  if(done){
   const ch=qa[1],goal=qa[3];
-  const [name,key,format,time,why]:[string,'training'|'rcMonth'|'pilot',string,string,string]=goal===2?['AI training','training','Team training','from 1 week','Your team gets a playbook of prompts and rules built on its own tasks.']
-   :ch===0?['AI receptionist','rcMonth','AI receptionist','2 weeks','Most of your enquiries arrive by phone. An AI receptionist answers every call and books straight into your calendar.']
-   :ch===1?['AI chatbot','pilot','Implementation pilot','2–4 weeks','Replies on your website and WhatsApp in seconds, from your own price list and FAQs.']
+  const [name,key,format,time,why]:[string,'training'|'rcMonth'|'chatMonth'|'pilot',string,string,string]=goal===2?['AI training','training','Team training','from 1 week','Your team gets a playbook of prompts and rules built on its own tasks.']
+   :ch===0?['AI receptionist','rcMonth','AI receptionist Start','2 weeks','Most of your enquiries arrive by phone. An AI receptionist answers every call and books straight into your calendar.']
+   :ch===1?['AI chatbot','chatMonth','AI chatbot Start','2–4 weeks','Replies on your website and WhatsApp in seconds, from your own price list and FAQs.']
    :ch===2?['AI automation','pilot','Implementation pilot','2–4 weeks','Emails and PDFs are read and entered into your systems, ready for a person to approve.']
    :['AI consultancy','pilot','Implementation pilot','2–4 weeks','We start with a short audit and rank your processes by payback before building anything.'];
-  const per=key==='rcMonth'?'/mo':'';
-  res={name:name+' for your '+quizQ[0][1][qa[0]].toLowerCase().replace(' or other services',' business'),why,format,was:fmt(price(key,cur),cur)+per,now:fmt(promo(price(key,cur)),cur)+per,time};
+  // Packages show the launch fee and the monthly fee; the pilot is the price for a standard process.
+  const now=key==='rcMonth'?fmt(price('rcSetup',cur),cur)+' + '+fmt(price('rcMonth',cur),cur)+'/mo':key==='chatMonth'?fmt(price('chatSetup',cur),cur)+' + '+fmt(price('chatMonth',cur),cur)+'/mo':(key==='pilot'?'from ':'')+fmt(price(key,cur),cur);
+  res={name:name+' for your '+quizQ[0][1][qa[0]].toLowerCase().replace(' or other services',' business'),why,format,now,time};
  }
  const q=quizQ[Math.min(qn,3)];
  return (
@@ -153,7 +153,7 @@ export function Quiz(){
      <p className="ix-p">{res!.why}</p>
      <div className="ix-res-row">
       <span>Format<b>{res!.format}</b></span>
-      <span>Launch price<b><s>{res!.was}</s>{res!.now}</b></span>
+      <span>Price<b>{res!.now}</b></span>
       <span>Timeline<b>{res!.time}</b></span>
      </div>
      <QuizCapture summary={res!.name+'. '+quizQ.map(([q,o],i)=>q+' '+o[qa[i]]).join(' ')} onRestart={()=>setQa([])}/>
@@ -195,6 +195,24 @@ function QuizCapture({summary,onRestart}:{summary:string;onRestart:()=>void}){
 }
 
 // ---------- Pricing ----------
+// A standard package: launch fee + monthly fee, the first month, the included volume and how usage beyond it is billed.
+// On phones the list of what is included opens with a button, like the tariff cards.
+function PkgCard({p,cur,onPick}:{p:Pkg;cur:Cur;onPick:()=>void}){
+ const [open,setOpen]=useState(false);
+ return <article className={'ix-pk'+(open?' is-open':'')}>
+  <p className="ix-pk-kick">{p.groupName}</p>
+  <h4>{p.name}</h4>
+  <div className="ix-pk-price"><div><small>Launch</small><b>{fmt(price(p.setup,cur),cur)}</b></div><span aria-hidden="true">+</span><div><small>Monthly</small><b>{fmt(price(p.month,cur),cur)}<small>/mo</small></b></div></div>
+  <dl className="ix-pk-facts">
+   <div><dt>First month</dt><dd>{fmt(firstMonth(p,cur),cur)}</dd></div>
+   {p.minutes?<><div><dt>Included</dt><dd>Up to {p.minutes} min a month</dd></div><div><dt>Extra minutes</dt><dd>{curInfo[cur].usage} a minute at cost</dd></div></>
+    :<div><dt>AI usage</dt><dd>At cost, on your accounts</dd></div>}
+  </dl>
+  <button type="button" onClick={()=>setOpen(!open)} aria-expanded={open} className="tariff-more">What is included<Icon name="chevron-down" size={16}/></button>
+  <ul className="ix-pk-inc">{p.includes.map(t=><li key={t}><Icon name="check" size={15}/>{t}</li>)}</ul>
+  <a href="#contact" onClick={e=>{e.preventDefault();onPick()}} className="ulink ix-pk-cta">Free 30-minute audit<Icon name="arrow-right" size={16}/></a>
+ </article>;
+}
 export function CurSwitch(){
  const {cur,setCur}=useIx();
  return <div role="group" aria-label="Currency" className="ix-cur">{curs.map(k=><button key={k} type="button" onClick={()=>setCur(k)} aria-pressed={cur===k} className={cur===k?'is-on':''}>{curInfo[k].sym} {curInfo[k].label}</button>)}</div>;
@@ -206,8 +224,8 @@ export function Pricing(){
   const on=open.includes(t.key),per=t.monthly?'/mo':'';
   return <article key={t.key} className={'tariff'+(t.popular?' is-popular':'')+(t.monthly?' tariff-monthly':'')+(on?' is-open':'')}>
    <h4>{t.name}</h4>
-   <p className="tariff-price"><small className="from">from</small>{fmt(promo(price(t.key,cur)),cur)}{per&&<small>{per}</small>}</p>
-   <p className="ix-was"><s>{fmt(price(t.key,cur),cur)}{per}</s> · launch price</p>
+   <p className="tariff-price">{t.from&&<small className="from">from</small>}{fmt(price(t.key,cur),cur)}{per&&<small>{per}</small>}</p>
+   <p className="ix-was">{t.label}<br/>{t.altLabel}: {t.altFrom?'from ':''}<b>{fmt(price(t.alt,cur),cur)}{per}</b></p>
    <button type="button" onClick={()=>setOpen(o=>on?o.filter(k=>k!==t.key):[...o,t.key])} aria-expanded={on} className="tariff-more">What is included<Icon name="chevron-down" size={16}/></button>
    <p className="tariff-body"><b className="ix-inc">What is included</b>{t.body}</p>
    <p className="tariff-meta">{t.monthly?t.time:<>Timeline: <b>{t.time}</b></>}</p>
@@ -218,18 +236,20 @@ export function Pricing(){
   <section id="pricing" data-screen-label="Formats" className="wrap sec">
    <div className="ix-head">
     {/* /solutions already asks the cost question in its H1, so the H2 there names the two price steps instead. */}
-    <div data-reveal=""><h2 className="h2">{route.page==='solutions'?'Launch prices and monthly care.':'What does AI implementation cost?'}</h2><p className="lead">Pay once for the launch and, if you want, monthly for care. Tools and AI usage stay on your own accounts. All prices exclude VAT.</p></div>
+    <div data-reveal=""><h2 className="h2">{route.page==='solutions'?'Packages, projects and monthly care.':'What does AI implementation cost?'}</h2><p className="lead">Ready-made packages have a launch fee and a monthly fee. Projects have a fixed price agreed before we start. All prices exclude VAT.</p></div>
     <CurSwitch/>
    </div>
-   <div className="tariffs mt28">
-    <div className="tariff-group tariff-group-once"><span className="tariff-step">1</span><div><h3>Launch: one-off</h3><p>We train your team, implement ready-made tools or build a custom solution. The price is fixed before we start.</p></div></div>
+   <div className="ix-pk-head mt28"><h3>Ready-made packages</h3><p>A one-off launch fee, then a monthly fee. In the first month you pay both.</p></div>
+   <div className="ix-pk-grid">{packages.map(p=><PkgCard key={p.key} p={p} cur={cur} onPick={()=>go(p.groupName+' '+p.name)}/>)}</div>
+   <div className="tariffs ix-mt40">
+    <div className="tariff-group tariff-group-once"><span className="tariff-step">1</span><div><h3>Projects: one-off</h3><p>We train your team, automate a workflow or build a custom solution. The price is fixed before we start.</p></div></div>
     <div className="tariff-group tariff-group-monthly"><span className="tariff-step">2</span><div><h3>After launch: monthly</h3><p>If you want us to look after the solution and keep improving it.</p></div></div>
     <span aria-hidden="true" className="tariff-plus"><Icon name="plus" size={18}/></span>
     {tariffs.map(card)}
    </div>
-   <p className="tariff-example ix-rc-line"><Icon name="phone-call" size={16}/><span>AI receptionist: <b>{fmt(promo(price('rcSetup',cur)),cur)}</b> setup + <b>{fmt(promo(price('rcMonth',cur)),cur)}/mo</b> with the launch offer. Call minutes at cost, typically {curInfo[cur].usage} per minute. <a href={link('services/ai-receptionist')} className="ix-inline">See the AI receptionist</a></span></p>
-   <p className="tariff-example"><Icon name="calculator" size={16}/><span>For example: implementation pilot <b>{fmt(promo(price('pilot',cur)),cur)}</b> once. Ongoing care: <b>{fmt(promo(price('care',cur)),cur)}/mo</b>. You pay AI usage directly to the providers. The audit is free.</span></p>
+   <p className="tariff-example"><Icon name="calculator" size={16}/><span>For example: automation pilot <b>{fmt(price('pilot',cur),cur)}</b> once, then care from <b>{fmt(price('care',cur),cur)}/mo</b>. You pay AI usage directly to the providers. The audit is free.</span></p>
    <p className="tariff-example tariff-check"><Icon name="badge-check" size={16}/><span><b>{resultsCheck[0]}.</b> {resultsCheck[1]}</span></p>
+   <Discount/>
    <p className="ix-vat">{vatNote}</p>
   </section>
  );
@@ -242,8 +262,8 @@ export function Calculator({pilot=true}:{pilot?:boolean}){
  const used=useRef(false);
  const sym=curInfo[cur].sym;
  const hours=Math.round(c.items*c.min/60*c.share/100),money=hours*c.cost,leads=Math.round(c.lost*c.deal*.2);
- const net=money+leads-promo(price('care',cur));
- const payback=net>0?Math.max(.1,promo(price('pilot',cur))/net):null;
+ const net=money+leads-price('care',cur);
+ const payback=net>0?Math.max(.1,price('pilot',cur)/net):null;
  const inputs:[keyof typeof c,string,number,number,number,string][]=[['items','Calls, enquiries or documents per month',50,3000,50,c.items.toLocaleString('en-GB')],['min','Staff minutes per item',1,30,1,c.min+' min'],['cost','Cost of one staff hour',10,80,1,sym+c.cost],['share','Share handled by AI',20,80,5,c.share+'%'],['lost','Leads lost per month',0,50,1,String(c.lost)],['deal','Average deal value',50,5000,50,fmt(c.deal,cur)]];
  return (
   <section data-screen-label="Calculator" className="band-white bordered">
@@ -258,7 +278,7 @@ export function Calculator({pilot=true}:{pilot?:boolean}){
        <div><small>Savings per month</small><b>{fmt(money,cur)}</b></div>
        <div className="ix-span"><small>Revenue from lost leads</small><b className="ix-mid">+{fmt(leads,cur)}</b><small>if one in five becomes a customer</small></div>
       </div>
-      {pilot&&<p className="ix-payback">A pilot from <b>{fmt(promo(price('pilot',cur)),cur)}</b> pays back, even with care at {fmt(promo(price('care',cur)),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>}
+      {pilot&&<p className="ix-payback">A pilot from <b>{fmt(price('pilot',cur),cur)}</b> pays back, even with care at {fmt(price('care',cur),cur)}/mo, in <b>{payback?'≈ '+payback.toFixed(1)+' months':'more volume needed first'}</b>.</p>}
       <a href="#contact" onClick={e=>{e.preventDefault();go('Savings estimate: '+hours+' h and '+fmt(money,cur)+' a month')}} className="btn btn-primary ix-btn-48">Discuss my estimate<Icon name="arrow-right" size={16}/></a>
       <p className="ix-calc-note">An estimate based on your inputs. We measure the real effect in a pilot.</p>
      </div>
@@ -324,7 +344,7 @@ export function AuditReport({variant='home'}:{variant?:'home'|'consultancy'}){
     <div className="report-head"><span>Process audit</span><small>{cons?'Sample · accounting firm, 8 staff':'Sample · dental practice, 3 chairs'}</small></div>
     <table><thead><tr><th>Process</th><th>Now, h/mo</th><th>With AI</th><th>Saved/mo</th><th>Priority</th></tr></thead>
      <tbody>{rows.map(([n,now,ai,p])=><tr key={n}><th>{n}</th><td data-label="Now, h/mo">{now}</td><td data-label="With AI">{ai}</td><td data-label="Saved/mo" className="num">{fmt((now-ai)*18,cur)}</td><td data-label="Priority"><span className={'prio '+(p==='High'?'prio-hi':p==='Medium'?'prio-mid':'prio-lo')}>{p}</span></td></tr>)}</tbody></table>
-    <p className="report-foot"><Icon name="flag" size={15}/><span><b>Recommended pilot:</b> {cons?<>invoice coding and document chasing · 3 weeks · {fmt(promo(price('pilot',cur)),cur)}</>:<>AI receptionist · 2 weeks · {fmt(promo(price('rcSetup',cur)),cur)} + {fmt(promo(price('rcMonth',cur)),cur)}/mo</>}</span></p>
+    <p className="report-foot"><Icon name="flag" size={15}/><span><b>Recommended pilot:</b> {cons?<>invoice coding and document chasing · 3 weeks · from {fmt(price('pilot',cur),cur)}</>:<>AI receptionist · 2 weeks · {fmt(price('rcSetup',cur),cur)} + {fmt(price('rcMonth',cur),cur)}/mo</>}</span></p>
     <p className="report-note">Illustrative figures.</p>
    </div>
   </section>
@@ -365,7 +385,7 @@ export function InnerHero({entity}:{entity?:Entity}){
  const sec=route.page;
  const crumbs:Pair[]=entity&&route.page!=='training'?[[sectionName[sec],sec],[entity.name,route.page+'/'+entity.slug]]:[[sectionName[sec],sec]];
  const I=entity?null:innerPages[sec];
- const stats=entity?entity.stats.map(([n,l],i)=>entity.slug==='ai-receptionist'&&i===2?[fmt(promo(price('rcMonth',cur)),cur)+'/mo','launch price, minutes at cost']:[n,l]):[];
+ const stats=entity?entity.stats.map(([n,l],i)=>entity.slug==='ai-receptionist'&&i===2?[fmt(price('rcMonth',cur),cur)+'/mo','Start plan, 150 minutes included']:[n,l]):[];
  return (
   <section data-screen-label="Inner hero" className="ix-inner">
    <div aria-hidden="true" className="ix-inner-glow"/>
@@ -378,7 +398,6 @@ export function InnerHero({entity}:{entity?:Entity}){
       <div data-reveal="" style={rd(160)}>
        <p className="ix-hero-sub ix-inner-sub">{entity?entity.sub:I?.sub}</p>
        {!(sec==='privacy'||sec==='terms')&&<div className="ix-cta-row"><Cta/>{I?.showCur&&<span className="ix-small">All prices exclude VAT · shown in {curInfo[cur].label}</span>}</div>}
-       {(entity?.pricing||I?.badge)&&<Offer/>}
       </div>
       {entity&&<div data-reveal="" style={rd(240)} className="ix-stats">{stats.map(([n,l])=><span key={l}><b>{n}</b>{l}</span>)}</div>}
      </div>
@@ -392,10 +411,11 @@ export function InnerHero({entity}:{entity?:Entity}){
 
 export function Cards({page}:{page:ListPage}){
  const {cur}=useIx();
- const meta=(slug:string)=>({'ai-receptionist':fmt(promo(price('rcMonth',cur)),cur)+'/mo + setup','ai-training':fmt(promo(price('training',cur)),cur),'ai-agents':'from '+fmt(promo(price('custom',cur)),cur)} as Record<string,string>)[slug]||'pilot '+fmt(promo(price('pilot',cur)),cur);
+ const pk=(a:'rcSetup'|'chatSetup',m:'rcMonth'|'chatMonth')=>'From '+fmt(price(a,cur),cur)+' + '+fmt(price(m,cur),cur)+'/mo';
+ const meta=(slug:string)=>({'ai-receptionist':pk('rcSetup','rcMonth'),'ai-chatbot':pk('chatSetup','chatMonth'),'ai-training':'From '+fmt(price('training',cur),cur),'ai-agents':'From '+fmt(price('custom',cur),cur)} as Record<string,string>)[slug]||'Pilot from '+fmt(price('pilot',cur),cur);
  const cards=page==='cases'
   ?examples.map(x=>({href:x.href,icon:'flag',name:'Example · '+x.title,b:x.over+'. ',r:x.body,meta:x.nums.map(n=>n[0]+' '+n[1]).join(' · ')}))
-  :(page==='services'?services:page==='industries'?industries:departments).map(x=>{const [b,r]=splitB(x.sub);return {href:page==='services'?servicePath(x.slug):page+'/'+x.slug,icon:x.icon,name:x.name,b,r,meta:page==='services'?'Launch price: '+meta(x.slug):''}});
+  :(page==='services'?services:page==='industries'?industries:departments).map(x=>{const [b,r]=splitB(x.sub);return {href:page==='services'?servicePath(x.slug):page+'/'+x.slug,icon:x.icon,name:x.name,b,r,meta:page==='services'?meta(x.slug):''}});
  return (
   <section data-screen-label="Cards" className="wrap sec">
    <div className="ix-cards" data-stagger="">{cards.map(c=><a key={c.href+c.name} href={link(c.href)} className="card ix-card-lift ix-lcard">
@@ -411,7 +431,7 @@ export function SmallPerks(){
  return (
   <section data-screen-label="Starter terms" className="band-soft">
    <div className="wrap sec">
-    <div data-reveal=""><p className="kicker">Small business starter</p><h2 className="h2 mw820">Starter terms for teams of {smallLimit}.</h2><p className="lead mw560">On top of the launch offer, for the first workflow or AI receptionist you launch with us.</p></div>
+    <div data-reveal=""><p className="kicker">Small business starter</p><h2 className="h2 mw820">Starter terms for teams of {smallLimit}.</h2><p className="lead mw560">For the first workflow or AI receptionist you launch with us.</p></div>
     <div className="grid-c3w mt28" data-stagger="">{smallPerks.map(([ic,t,d])=><article key={t} className="card ix-scard"><span className="tile-icon tile-44 r12"><Icon name={ic} size={22}/></span><h3>{t}</h3><p>{d}</p></article>)}</div>
    </div>
   </section>
@@ -432,15 +452,15 @@ export function SmallScenarios(){
 
 export function SmallPricing(){
  const {cur,go}=useIx();
- const third=(k:'rcSetup'|'pilot')=>fmt(Math.ceil(promo(price(k,cur))/3),cur);
- const cards:{name:string;once:string;unit:string;split:string;monthly?:string;body:string;meta:string}[]=[
-  {name:'AI receptionist',once:fmt(promo(price('rcSetup',cur)),cur),unit:' setup',split:'or 3 × '+third('rcSetup'),monthly:fmt(promo(price('rcMonth',cur)),cur),body:'Answers every call 24/7, books into your calendar and texts you a summary. '+usageNote(cur),meta:'Live in about 2 weeks · month to month'},
-  {name:'One-workflow pilot',once:fmt(promo(price('pilot',cur)),cur),unit:' once',split:'or 3 × '+third('pilot'),body:'Quotes, invoices, enquiries or bookings: one workflow automated and tested on your real data.',meta:'2–4 weeks · fixed price agreed upfront'},
+ const rc=packages[0];
+ const cards:{name:string;once:string;unit:string;split:string;monthly?:string;first?:string;body:string;meta:string}[]=[
+  {name:'AI receptionist Start',once:fmt(price('rcSetup',cur),cur),unit:' setup',split:'or 3 monthly payments',monthly:fmt(price('rcMonth',cur),cur),first:fmt(firstMonth(rc,cur),cur),body:'Answers every call 24/7, books into your calendar and texts you a summary. Up to '+rc.minutes+' call minutes a month are included. '+usageNote(cur),meta:'Live in about 2 weeks · month to month'},
+  {name:'One-workflow pilot',once:fmt(price('pilot',cur),cur),unit:' once',split:'or 3 monthly payments',body:'Quotes, invoices, enquiries or bookings: one workflow automated and tested on your real data. A complex process starts at '+fmt(price('pilotComplex',cur),cur)+'.',meta:'2–4 weeks · fixed price agreed upfront'},
  ];
  return (
   <section id="pricing" data-screen-label="Pricing" className="wrap sec">
    <div className="ix-head">
-    <div data-reveal=""><h2 className="h2">What it costs a small business.</h2><p className="lead">Launch prices with 30% off. Starter terms let you spread the setup over three months. All prices exclude VAT.</p></div>
+    <div data-reveal=""><h2 className="h2">What it costs a small business.</h2><p className="lead">Starter terms let you spread the setup over three months. All prices exclude VAT.</p></div>
     <CurSwitch/>
    </div>
    <div className="ix-small-grid mt28" data-stagger="">{cards.map(c=><article key={c.name} className="card ix-small-card">
@@ -448,10 +468,12 @@ export function SmallPricing(){
     <p className="tariff-price">{c.once}<small>{c.unit}</small></p>
     <p className="ix-was">{c.split} · no extra cost</p>
     {c.monthly&&<p className="ix-small-month">then <b>{c.monthly}/mo</b>, cancel with 30 days’ notice</p>}
+    {c.first&&<p className="ix-was">First month in total: <b>{c.first}</b></p>}
     <p>{c.body}</p>
     <p className="tariff-meta">{c.meta}</p>
     <a href="#contact" onClick={e=>{e.preventDefault();go('Small business: '+c.name)}} className="btn btn-primary mt-auto">Book a free 30-minute audit<Icon name="arrow-right" size={16}/></a>
    </article>)}</div>
+   <Discount/>
    <p className="ix-vat">{vatNote}</p>
   </section>
  );
@@ -463,7 +485,7 @@ export function SmallStrip(){
   <section data-screen-label="Small business" className="wrap sec pb0">
    <a href={link('ai-for-small-business')} data-reveal="" className="card ix-card-lift ix-strip">
     <span className="tile-icon tile-44 r12"><Icon name="users" size={22}/></span>
-    <span><b>A team of {smallLimit}?</b> Starter terms: setup in three payments, no long contract and the first month of care free.</span>
+    <span><b>A team of {smallLimit}?</b> Starter terms: setup in three payments, no long contract and a free first month of care after a pilot.</span>
     <span className="ulink">See small business terms<Icon name="arrow-right" size={16}/></span>
    </a>
   </section>
@@ -494,9 +516,9 @@ export function TrainingPrice(){
    <div data-reveal="" className="ix-rc ix-split">
     <div>
      <h2 className="ix-h3">Team training price</h2>
-     <p className="ix-offer ix-offer-top">Launch offer: 30% off.</p>
-     <div className="ix-rc-prices"><div><small>Half-day session, up to 12 people</small><div><s>{fmt(price('training',cur),cur)}</s><b>{fmt(promo(price('training',cur)),cur)}</b></div></div></div>
+     <div className="ix-rc-prices"><div><small>Half-day session, up to 12 people</small><div><b>{fmt(price('training',cur),cur)}</b></div></div><div><small>Extended programme</small><div><span>from</span><b>{fmt(price('trainingExt',cur),cur)}</b></div></div></div>
      <p className="ix-rc-note">Larger teams run as several sessions. Travel for on-site sessions is charged at cost. All prices exclude VAT.</p>
+     <Discount className="ix-offer-mb"/>
      <div className="btn-row"><a href="#contact" onClick={e=>{e.preventDefault();go('Team training')}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a><CurSwitch/></div>
     </div>
     <ul className="ix-checks">{tr.includes.map(t=><li key={t}><Icon name="check" size={17}/>{t}</li>)}<li className="is-muted"><Icon name="clock" size={17}/>From 1 week to the session date</li></ul>
@@ -524,23 +546,20 @@ export function CaseDetails(){
  );
 }
 
-export function ReceptionistPrice(){
- const {cur,cta,go}=useIx();
- const rc=offers.find(o=>o.key==='receptionist')!;
+// Service pages with standard packages (AI receptionist, AI chatbot): both plans of the service side by side.
+export function PackagePrice({entity}:{entity:Entity}){
+ const {cur,go}=useIx();
+ const chat=entity.slug==='ai-chatbot';
+ const list=packages.filter(p=>p.group===(chat?'chatbot':'receptionist'));
  return (
   <section data-screen-label="Price" className="wrap sec pb0">
-   <div data-reveal="" className="ix-rc ix-split">
-    <div>
-     <h2 className="ix-h3">AI receptionist pricing</h2>
-     <p className="ix-offer ix-offer-top">Launch offer: 30% off setup and the monthly fee.</p>
-     <div className="ix-rc-prices">
-      <div><small>Monthly</small><div><s>{fmt(price('rcMonth',cur),cur)}</s><b>{fmt(promo(price('rcMonth',cur)),cur)}</b><span>/mo</span></div></div>
-      <div><small>One-off setup</small><div><s>{fmt(price('rcSetup',cur),cur)}</s><b>{fmt(promo(price('rcSetup',cur)),cur)}</b></div></div>
-     </div>
-     <p className="ix-rc-note">{usageNote(cur)} All prices exclude VAT.</p>
-     <div className="btn-row"><a href="#contact" onClick={e=>{e.preventDefault();go('AI receptionist')}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a><CurSwitch/></div>
+   <div data-reveal="" className="ix-rc">
+    <div className="ix-head">
+     <div><h2 className="ix-h3">{list[0].groupName} pricing</h2><p className="ix-rc-note">{chat?'Two plans, each with a one-off launch fee and a monthly fee. AI usage and WhatsApp message fees are billed to your own accounts at cost.':'Two plans, each with a one-off launch fee and a monthly fee that includes call minutes. '+usageNote(cur)} All prices exclude VAT.</p></div>
+     <CurSwitch/>
     </div>
-    <ul className="ix-checks">{rc.includes.map(t=><li key={t}><Icon name="check" size={17}/>{t}</li>)}<li className="is-muted"><Icon name="clock" size={17}/>Live in 2 weeks · billed monthly</li></ul>
+    <div className="ix-pk-grid is-two">{list.map(p=><PkgCard key={p.key} p={p} cur={cur} onPick={()=>go(p.groupName+' '+p.name)}/>)}</div>
+    <Discount/>
    </div>
   </section>
  );
@@ -633,7 +652,8 @@ export function PilotPlan({entity,group}:{entity:Entity;group:string}){
   ['line-chart','Measured',entity.measure||'One metric agreed upfront and compared with how the work runs today.'],
  ];
  const time=training?'From 1 week to the session':rc?'Live in about 2 weeks':agents?'From 4 weeks':'2–4 weeks';
- const cost=training?fmt(promo(price('training',cur)),cur)+' per session':rc?fmt(promo(price('rcSetup',cur)),cur)+' setup + '+fmt(promo(price('rcMonth',cur)),cur)+'/mo':agents?'from '+fmt(promo(price('custom',cur)),cur):fmt(promo(price('pilot',cur)),cur)+' fixed price';
+ const chat=entity.slug==='ai-chatbot';
+ const cost=training?fmt(price('training',cur),cur)+' per session':rc?'From '+fmt(price('rcSetup',cur),cur)+' setup + '+fmt(price('rcMonth',cur),cur)+'/mo':chat?'From '+fmt(price('chatSetup',cur),cur)+' launch + '+fmt(price('chatMonth',cur),cur)+'/mo':agents?'From '+fmt(price('custom',cur),cur):'From '+fmt(price('pilot',cur),cur)+', fixed price';
  const title=training?'How the training runs.':rc?'How we launch your AI receptionist.':group==='services'?'Your '+entity.name+' pilot, step by step.':'How a pilot for '+(group==='departments'?'your '+lc(entity.name)+' team':lc(entity.name))+' runs.';
  return (
   <section data-screen-label="Pilot plan" className="band-white bordered">
@@ -650,12 +670,14 @@ export function ShortAnswer({entity}:{entity:Entity}){
  const tools=(logoSets[entity.slug]||defaultLogoSet).slice(0,4);
  const q=entity.question||'What does AI do for '+lc(entity.name)+' and what does it cost?';
  const lead=entity.answer||entity.name+' teams use AI to answer routine questions, move data between systems and prepare drafts for review.';
- const P=(k:'rcSetup'|'rcMonth'|'pilot'|'training'|'care',per='')=>[fmt(promo(price(k,cur)),cur)+per,fmt(price(k,cur),cur)+per] as const;
+ const F=(k:Parameters<typeof price>[0])=>fmt(price(k,cur),cur);
  const cells:[string,string,string][]=entity.slug==='ai-receptionist'
-  ?[['Time to launch','2 weeks','from the first call'],['Hours covered','24/7','evenings and weekends too'],['Call minutes',curInfo[cur].usage,'per minute, at cost']]
+  ?[['Time to launch','2 weeks','from the first call'],['Minutes included','150 / 500','a month, Start / Pro'],['Extra minutes',curInfo[cur].usage,'per minute, at cost']]
+  :entity.slug==='ai-chatbot'
+  ?[['Chatbot Start',F('chatSetup')+' + '+F('chatMonth')+'/mo','first month '+fmt(firstMonth(packages[2],cur),cur)],['Chatbot with CRM',F('chatCrmSetup')+' + '+F('chatCrmMonth')+'/mo','first month '+fmt(firstMonth(packages[3],cur),cur)],['Time to launch','2–4 weeks','tested on your real questions']]
   :entity.slug==='ai-training'
   ?[['Format','Half a day','on site or online'],['Group size','Up to 12','per session'],['Lead time','1 week','to the session date']]
-  :[['Pilot, one workflow',...P('pilot')],['Team training',...P('training')],['Care, optional',...P('care','/mo')]];
+  :[['Automation pilot',F('pilot'),'complex process from '+F('pilotComplex')],['Team training',F('training'),'half-day session'],['Care, optional',F('care')+'/mo','active care '+F('careActive')+'/mo']];
  return (
   <section data-screen-label="Short answer" className="wrap sec">
    <div data-reveal="" className="ix-ans">
@@ -666,8 +688,8 @@ export function ShortAnswer({entity}:{entity:Entity}){
      <p className="ix-ans-tools">Works with {tools.join(', ')} and the other tools you already use. Every project starts with a free 30-minute audit.</p>
     </div>
     <div className="ix-ans-side">
-     <dl className="ix-ans-prices">{cells.map(([l,v,n])=><div key={l}><dt>{l}</dt><dd><b>{v}</b><span>{n.startsWith(curInfo[cur].sym)?<><s>{n}</s> standard</>:n}</span></dd></div>)}</dl>
-     <p className="ix-ans-note">{entity.pricing||entity.slug==='ai-training'?'Prices are in the block at the top of this page. All prices exclude VAT.':'Launch prices with 30% off. All prices exclude VAT.'}</p>
+     <dl className="ix-ans-prices">{cells.map(([l,v,n])=><div key={l}><dt>{l}</dt><dd><b>{v}</b><span>{n}</span></dd></div>)}</dl>
+     <p className="ix-ans-note">{entity.pricing||entity.slug==='ai-training'?'Prices are in the block at the top of this page. All prices exclude VAT.':'All prices exclude VAT.'}</p>
      {entity.scene==='call'&&!entity.pricing&&<a href={link('services/ai-receptionist')} className="ulink">AI receptionist pricing and details<Icon name="arrow-right" size={16}/></a>}
      <a href="#contact" onClick={e=>{e.preventDefault();go(entity.name)}} className="btn btn-primary">{cta}<Icon name="arrow-right" size={16}/></a>
     </div>
